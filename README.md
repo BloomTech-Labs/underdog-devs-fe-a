@@ -31,7 +31,7 @@ You can find the deployed project at [Underdogdevs](https://a.underdogdevs.dev/l
 
 ## Developer Instructions
 
-1. Clone the repo [front-end](https://github.com/Lambda-School-Labs/underdog-devs-fe-a) repositorie to your machine. DO NOT FORK.
+1. Clone the repo [front-end](https://github.com/Lambda-School-Labs/underdog-devs-fe-a) repositoriy to your machine. DO NOT FORK.
 2. Create an environment file (.env) based on the [sample .env front-end](https://lambdaschool.notion.site/FE-Setup-Guide-3e3b5bafa80a4e018cc7d8f23dba546e) and populate the environment variables [.env variables](https://docs.google.com/document/d/1qaRW2QHxHOR9tYQXks6tL4xGKBBn_mNLLKYL8wafokU/edit)
 3. Run: `npm install` to download all dependencies.
 4. Run: `npm start` to start your local development server.
