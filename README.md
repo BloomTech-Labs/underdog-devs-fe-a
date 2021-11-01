@@ -4,9 +4,9 @@ For steps on how to work with this repository [please see here](https://docs.lab
 
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your first Pull-Request is merged. This is intended to be a guideline. Feel free to add your own flare to it.
 
-# Title of project goes here
+# UNDERDOGS DEVS
 
-You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the deployed project at [Underdogdevs](https://a.underdogdevs.dev/login).
 
 ## Contributors
 
@@ -29,10 +29,12 @@ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste
 
 🚫 more info on using badges [here](https://github.com/badges/shields)
 
-- Fork and clone the repo to install it as your own remote.
-  - **note** please [be sure to set your remote](https://help.github.jp/enterprise/2.11/user/articles/changing-a-remote-s-url/) for this repo to point to your Labs Team Front End Repository.
-- run: `npm install` to download all dependencies.
-- run: `npm start` to start your local development server.
+## Developer Instructions
+
+1. Clone the repo [front-end](https://github.com/Lambda-School-Labs/underdog-devs-fe-a) repositorie to your machine. DO NOT FORK.
+2. Create an environment file (.env) based on the [sample .env front-end](https://lambdaschool.notion.site/FE-Setup-Guide-3e3b5bafa80a4e018cc7d8f23dba546e) and populate the environment variables [.env variables](https://docs.google.com/document/d/1qaRW2QHxHOR9tYQXks6tL4xGKBBn_mNLLKYL8wafokU/edit)
+3. Run: `npm install` to download all dependencies.
+4. Run: `npm start` to start your local development server.
 
 > When using Okta for authentication, the app will need to run locally on port 3000.
 
