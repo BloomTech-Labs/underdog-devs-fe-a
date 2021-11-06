@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Form,
-  Input,
-  InputNumber,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete,
-} from 'antd';
+import { Form, Input, Select, Button } from 'antd';
 import axios from 'axios';
 
-function SuperAdminForm(props) {
+const SuperAdminForm = props => {
+  //Antd design settings
   const { Option } = Select;
   const formItemLayout = {
     labelCol: {
@@ -41,46 +31,17 @@ function SuperAdminForm(props) {
     console.log('Received values of form: ', values);
   };
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = value => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        ['.com', '.org', '.net'].map(domain => `${value}${domain}`)
-      );
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map(website => ({
-    label: website,
-    value: website,
-  }));
+  //   const prefixSelector = (
+  //     <Form.Item name="prefix" noStyle>
+  //       <Select
+  //         style={{
+  //           width: 70,
+  //         }}
+  //       >
+  //         <Option value="1">+1</Option>
+  //       </Select>
+  //     </Form.Item>
+  //   );
 
   return (
     <>
@@ -212,7 +173,8 @@ function SuperAdminForm(props) {
           ]}
         >
           <Input
-            addonBefore={prefixSelector}
+            //TO Use if prefixes are needed with the phone number
+            //addonBefore={prefixSelector}
             style={{
               width: '100%',
             }}
@@ -227,6 +189,6 @@ function SuperAdminForm(props) {
       </Form>
     </>
   );
-}
+};
 
 export default SuperAdminForm;
