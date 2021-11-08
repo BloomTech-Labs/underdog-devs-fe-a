@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button } from 'antd';
 import axios from 'axios';
 
 // TODO enter the endpoint to create new superadmin
@@ -212,7 +212,7 @@ const SuperAdminForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout} shouldUpdate>
+        <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit" disabled={disableButton}>
             Create new Superadmin
           </Button>
