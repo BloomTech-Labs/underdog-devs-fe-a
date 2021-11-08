@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, Button } from 'antd';
 import axios from 'axios';
 
+// TODO enter the endpoint to create new superadmin
+const CREATE_DB_ENDPOINT = 'db_endpoint';
+const CREATE_OKTA_ENDPOINT = 'okta_endpoint';
+
 const SuperAdminForm = props => {
   //Antd design settings
-  const { Option } = Select;
+  //   const { Option } = Select;
   const formItemLayout = {
     labelCol: {
       sm: {
@@ -27,21 +31,48 @@ const SuperAdminForm = props => {
   };
   const [form] = Form.useForm();
 
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
+  //form management
+  const [disableButton, setDisableButton] = useState(true);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const formChange = async () => {
+    let validate;
+    try {
+      validate = await form.validateFields();
+    } catch (error) {
+      validate = error;
+    }
+    if (!validate.hasOwnProperty('errorFields')) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
   };
 
-  //   const prefixSelector = (
-  //     <Form.Item name="prefix" noStyle>
-  //       <Select
-  //         style={{
-  //           width: 70,
-  //         }}
-  //       >
-  //         <Option value="1">+1</Option>
-  //       </Select>
-  //     </Form.Item>
-  //   );
+  const onFinish = values => {
+    console.log('values', values);
+    //add role to the form
+    values = {
+      ...values,
+      role: 5,
+    };
+
+    //create user in Okta
+    //create user in db
+    axios
+      .post(CREATE_DB_ENDPOINT, values)
+      .then(res => {
+        console.log(res.data);
+        setSuccessMessage(
+          `SuperAdmin account ${res.data.userName} is created!`
+        );
+      }) //add reset form and success message
+      .catch(err => {
+        console.log(err.message);
+        setSuccessMessage(`The following error occurred: ${err.message}`);
+      });
+    console.log('Received values of form: ', values);
+  };
 
   return (
     <>
@@ -51,6 +82,7 @@ const SuperAdminForm = props => {
         form={form}
         name="register"
         onFinish={onFinish}
+        onChange={formChange}
         initialValues={{
           prefix: '1',
         }}
@@ -61,12 +93,12 @@ const SuperAdminForm = props => {
           label="E-mail"
           rules={[
             {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
               required: true,
               message: 'Please input your E-mail!',
+            },
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
             },
           ]}
         >
@@ -102,7 +134,6 @@ const SuperAdminForm = props => {
                 if (!value || getFieldValue('password') === value) {
                   return Promise.resolve();
                 }
-
                 return Promise.reject(
                   new Error('The two passwords that you entered do not match!')
                 );
@@ -181,11 +212,12 @@ const SuperAdminForm = props => {
           />
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+        <Form.Item {...tailFormItemLayout} shouldUpdate>
+          <Button type="primary" htmlType="submit" disabled={disableButton}>
             Create new Superadmin
           </Button>
         </Form.Item>
+        <p> {successMessage}</p>
       </Form>
     </>
   );
