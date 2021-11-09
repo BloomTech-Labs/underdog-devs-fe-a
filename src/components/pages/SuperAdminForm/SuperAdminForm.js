@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
+import './SuperAdminFormStyle.css';
 
-// TODO enter the endpoint to create new superadmin
+// TODO: enter the endpoint to create new superadmin
 const CREATE_DB_ENDPOINT = 'db_endpoint';
 const CREATE_OKTA_ENDPOINT = 'okta_endpoint';
 
 const SuperAdminForm = props => {
   //Antd design settings
-  //   const { Option } = Select;
   const formItemLayout = {
     labelCol: {
       sm: {
@@ -49,33 +49,34 @@ const SuperAdminForm = props => {
     }
   };
 
-  const onFinish = values => {
-    console.log('values', values);
+  async function onFinish(values) {
     //add role to the form
     values = {
       ...values,
+      // in db role for superadmin is 5
       role: 5,
     };
 
     //create user in Okta
     //create user in db
-    axios
-      .post(CREATE_DB_ENDPOINT, values)
-      .then(res => {
-        console.log(res.data);
-        setSuccessMessage(
-          `SuperAdmin account ${res.data.userName} is created!`
-        );
-      }) //add reset form and success message
-      .catch(err => {
-        console.log(err.message);
-        setSuccessMessage(`The following error occurred: ${err.message}`);
-      });
-    console.log('Received values of form: ', values);
-  };
+    try {
+      const resOkta = await axios.post(CREATE_OKTA_ENDPOINT, values);
+      console.log(resOkta.data);
+      setSuccessMessage(
+        `SuperAdmin account ${resOkta.data.userName} is created!`
+      );
+      const resDb = await axios.post(CREATE_DB_ENDPOINT, values);
+      //do something with the returned data
+      form.resetFields();
+    } catch (error) {
+      console.log(error.message);
+      setSuccessMessage(`The following error occurred: ${error.message}`);
+      return;
+    }
+  }
 
   return (
-    <>
+    <div className="flexContainer">
       <h1> Super admin form</h1>
       <Form
         {...formItemLayout}
@@ -101,8 +102,9 @@ const SuperAdminForm = props => {
               message: 'The input is not valid E-mail!',
             },
           ]}
+          className="item"
         >
-          <Input />
+          <Input className="field" />
         </Form.Item>
 
         <Form.Item
@@ -213,13 +215,18 @@ const SuperAdminForm = props => {
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" disabled={disableButton}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={disableButton}
+            className="base"
+          >
             Create new Superadmin
           </Button>
         </Form.Item>
-        <p> {successMessage}</p>
+        <p className="successMessage"> {successMessage}</p>
       </Form>
-    </>
+    </div>
   );
 };
 
