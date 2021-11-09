@@ -22,16 +22,7 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 
-import Component1 from './components/features/component1';
-import Component2 from './components/features/component2';
-import Component3 from './components/features/component3';
-import Component4 from './components/features/component4';
-import Component5 from './components/features/component5';
-import Component6 from './components/features/component6';
-import Component7 from './components/features/component7';
-import Component8 from './components/features/component8';
-import Component9 from './components/features/component9';
-import Component10 from './components/features/component10';
+import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 
 ReactDOM.render(
   <Router>
@@ -57,17 +48,7 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
       <Switch>
-        <Route path="/component1" component={Component1} />
-        <Route path="/component2" component={Component2} />
-        <Route path="/component3" component={Component3} />
-        <Route path="/component4" component={Component4} />
-        <Route path="/component5" component={Component5} />
-        <Route path="/component6" component={Component6} />
-        <Route path="/component7" component={Component7} />
-        <Route path="/component8" component={Component8} />
-        <Route path="/component9" component={Component9} />
-        <Route path="/component10" component={Component10} />
-
+        <Route path="/examplefeature" component={ExampleFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
