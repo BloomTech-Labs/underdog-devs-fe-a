@@ -1,0 +1,44 @@
+.footer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #183b56 ;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 15vh;
+    z-index: 999;
+  }
+
+.leftFooter{
+    border-right: solid;
+    border-width: 1px;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: white;   
+}
+
+
+.middleFooter{
+    border-right: solid;
+    border-width: 1px;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: white; 
+}
+
+
+.rightFooter{
+    border-width: 1px;
+    border-color: white;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: white;
+}
