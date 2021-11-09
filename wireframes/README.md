@@ -26,9 +26,10 @@
 * These wireframes are meant to assist dev teams by providing a foundation from which to start coding.
 
 
-### Built With
+### Built with Whimsical
 
-* [Whimsical](https://whimsical.com/)
+* [User Flow](https://whimsical.com/user-flow-K9Xjtm1miG3Brdmc3kmvsw)
+* [Wireframes](https://whimsical.com/all-wireframes-GmExudG46YFMvo2rfdp2fD)
 
 
 <!-- ROADMAP -->
@@ -42,8 +43,11 @@
 <!-- CONTRIBUTING -->
 ### Contributing Devs
 * Tom Bielawski - UX/UI
-* Vaibhavi. Balar - UX/UI
-* Jesse Johns     - TPM
+* Vaibhavi Balar - UX/UI
+* Kenny Miesner - UX/UI
+* Johanna Rodriguez - UX/UI
+* Raphael Hebert - Frontend
+* Jesse Johns - TPM
 
 
 Project Link: [https://github.com/Lambda-School-Labs/underdog-devs-fe-a](https://github.com/Lambda-School-Labs/underdog-devs-fe-a)
