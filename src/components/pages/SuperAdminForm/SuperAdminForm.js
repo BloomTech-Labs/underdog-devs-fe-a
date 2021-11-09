@@ -57,11 +57,9 @@ const SuperAdminForm = props => {
       role: 5,
     };
 
-    //create user in Okta
-    //create user in db
+    //create user in Okta then in the db
     try {
       const resOkta = await axios.post(CREATE_OKTA_ENDPOINT, values);
-      console.log(resOkta.data);
       setSuccessMessage(
         `SuperAdmin account ${resOkta.data.userName} is created!`
       );
@@ -69,7 +67,6 @@ const SuperAdminForm = props => {
       //do something with the returned data
       form.resetFields();
     } catch (error) {
-      console.log(error.message);
       setSuccessMessage(`The following error occurred: ${error.message}`);
       return;
     }
