@@ -1,9 +1,9 @@
 import React from 'react';
 import './Footer.css';
-import github from '../Footer/github5.svg';
-import youtube from '../Footer/youtube2.svg';
-import twitter from '../Footer/twitter10.svg';
-import gmail from '../Footer/gmail2.svg';
+import github from '../Footer/github.svg';
+import youtube from '../Footer/youtube.svg';
+import twitter from '../Footer/twitter.svg';
+import gmail from '../Footer/gmail.svg';
 
 const Footer = () => (
   <div className="footer">
