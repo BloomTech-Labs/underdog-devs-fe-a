@@ -1,10 +1,10 @@
 import React from 'react';
-import UpdateProfile from './RenderUpdateProfileContainer';
+import RenderUpdateProfile from './RenderUpdateProfileContainer';
 
 function UpdateProfileContainer({ LoadingComponent }) {
   return (
     <>
-      <UpdateProfile />
+      <RenderUpdateProfile />
     </>
   );
 }

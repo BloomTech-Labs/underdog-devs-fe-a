@@ -17,6 +17,8 @@ import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { LandingPage } from './components/pages/Landing';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { UpdateProfile } from './components/pages/UpdateProfile';
+import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
@@ -54,6 +56,8 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
+        <SecureRoute path="/update-profile" component={UpdateProfile} />
         <SecureRoute path="/example-list" component={ExampleListPage} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
         <SecureRoute path="/datavis" component={ExampleDataViz} />
