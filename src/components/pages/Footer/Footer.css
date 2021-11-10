@@ -9,8 +9,7 @@
     left: 0;
     width: 100vw;
     height: 18vh;
-    
-  }
+}
 
 .leftFooter{
     display: flex;
@@ -26,7 +25,6 @@
     color: white;   
 }
 
-
 .middleFooter{
     border-width: 1px;
     border-color: white;
@@ -37,9 +35,7 @@
     color: white; 
     height: 1rem;
     font-size: 1rem;
-
 }
-
 
 .rightFooter{
     display: flex;

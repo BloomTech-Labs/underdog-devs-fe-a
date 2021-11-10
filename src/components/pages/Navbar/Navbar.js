@@ -1,4 +1,3 @@
-//import { Link } from 'react-router-dom';
 import { Avatar, Button, Input } from 'antd';
 import React from 'react';
 import './Navbar.css';
@@ -24,7 +23,6 @@ const Navbar = () => {
       </div>
       <div className="navBoxRight">
         <nav>
-          {/*  */}
           <Button type="link" className="navBarFont" href="/examplefeature">
             Feature1
           </Button>

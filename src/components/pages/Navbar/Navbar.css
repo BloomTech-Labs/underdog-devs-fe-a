@@ -26,7 +26,6 @@
 .navBoxRight{
     display: flex;
     align-items: center;
-
 }
 
 .navBarFont{
@@ -46,7 +45,6 @@
     padding: 0;
     border: 0;
 }
-
 
 .searchBox{
     margin: 2rem;
