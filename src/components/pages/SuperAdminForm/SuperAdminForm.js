@@ -17,7 +17,7 @@ const SuperAdminForm = props => {
     },
     wrapperCol: {
       sm: {
-        span: 6,
+        span: 14,
       },
     },
   };
@@ -29,6 +29,7 @@ const SuperAdminForm = props => {
       },
     },
   };
+
   const [form] = Form.useForm();
 
   //form management
@@ -96,7 +97,7 @@ const SuperAdminForm = props => {
             },
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'The input is not a valid E-mail!',
             },
           ]}
           className="item"
@@ -174,7 +175,7 @@ const SuperAdminForm = props => {
         <Form.Item
           name="userName"
           label="username"
-          tooltip="Enter the username"
+          tooltip="Enter the username of the account as it will appear on the application"
           rules={[
             {
               required: true,

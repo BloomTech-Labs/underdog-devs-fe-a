@@ -14,7 +14,9 @@
     flex-flow: column nowrap;
     justify-content: stretch;
     align-items: stretch;
+    margin-bottom: 20px;    
 }
+
 
 h1 {
     margin: auto;
@@ -38,9 +40,21 @@ label {
     justify-content: flex-start;
 }
 
-.successMessage{
+.successMessage {
     color: red;
     margin: auto;
     width: 100%;
     text-align: center;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+.feedbackMessage{
+    color: red;
+    margin-bottom: 15px;
 }
