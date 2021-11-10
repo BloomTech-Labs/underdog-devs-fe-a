@@ -22,6 +22,9 @@ import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
+import Navbar from './components/pages/Navbar/Navbar';
+
+import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 
 ReactDOM.render(
   <Router>
@@ -45,7 +48,9 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
+      <Navbar />
       <Switch>
+        <Route path="/examplefeature" component={ExampleFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
