@@ -6,8 +6,8 @@ import logo from '../Navbar/ud_logo2.png';
 const Navbar = () => {
   return (
     <div className="navBar">
-      <div className="navLogo" alt="underdog devs logo">
-        <img src={logo} />
+      <div className="navLogo">
+        <img src={logo} alt="underdog devs logo" />
         <p className="navLogoText">Underdog Devs</p>
       </div>
       <div className="searchBox">

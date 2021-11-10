@@ -9,10 +9,10 @@ const Footer = () => (
   <div className="footer">
     <div className="leftFooter">
       <div className="svg">
-        <img src={github} />
-        <img src={twitter} />
-        <img src={youtube} />
-        <img src={gmail} />
+        <img src={github} alt="Github icon and link" />
+        <img src={twitter} alt="Twitter icon and link" />
+        <img src={youtube} alt="YouTube icon and link" />
+        <img src={gmail} alt="Email icon and link" />
       </div>
     </div>
     <div className="middleFooter">
