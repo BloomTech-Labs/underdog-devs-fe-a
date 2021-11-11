@@ -23,6 +23,7 @@ import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
+import calendarFeature from './components/common/Calendar';
 
 ReactDOM.render(
   <Router>
@@ -49,6 +50,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/examplefeature" component={ExampleFeature} />
+        <Route path="/calendarfeature" component={calendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />

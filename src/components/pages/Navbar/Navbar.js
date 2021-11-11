@@ -6,7 +6,7 @@ const Navbar = () => {
     <div className="navbar">
       <h1>Underdog Devs!</h1>
       <nav>
-        <Button type="link" href="/examplefeature">
+        <Button type="link" href="/calendarfeature">
           Feature1
         </Button>
         <Button type="link" href="/examplefeature">
