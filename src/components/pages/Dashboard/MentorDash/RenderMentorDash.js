@@ -22,7 +22,7 @@ function onPanelChange(value, mode) {
   console.log(value.format('YYYY-MM-DD'), mode);
 }
 
-function RenderMenteeDash(props) {
+function RenderMentorDash(props) {
   return (
     <Layout>
       <Layout>
@@ -36,13 +36,22 @@ function RenderMenteeDash(props) {
               <Link to="/profile">Profile</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<FormOutlined />}>
-              <Link to="/pendingapproval">Calendar</Link>
+              <Link to="/pendingapproval">Edit Profile</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalendarOutlined />}>
-              Access Resources
+              Schedule Meeting
             </Menu.Item>
-            <Menu.Item key="4" icon={<TeamOutlined />}>
-              Contact Support
+            <Menu.Item key="8" icon={<TeamOutlined />}>
+              Meeting Report
+            </Menu.Item>
+            <Menu.Item key="5" icon={<TeamOutlined />}>
+              Track Internal Resources
+            </Menu.Item>
+            <Menu.Item key="6" icon={<TeamOutlined />}>
+              Assigned Mentees
+            </Menu.Item>
+            <Menu.Item key="7" icon={<TeamOutlined />}>
+              Mentees Progress
             </Menu.Item>
           </Menu>
         </Sider>
@@ -56,11 +65,11 @@ function RenderMenteeDash(props) {
               minHeight: 1000,
             }}
           >
-            Welcome to Mentee Dashboard
+            Welcome to Mentor Dashboard
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 }
-export default RenderMenteeDash;
+export default RenderMentorDash;

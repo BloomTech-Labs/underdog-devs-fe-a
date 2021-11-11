@@ -22,6 +22,7 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
+import { MentorDash } from './components/pages/Dashboard/MentorDash';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 
@@ -51,6 +52,7 @@ function App() {
       <Switch>
         <Route path="/examplefeature" component={ExampleFeature} />
         <Route path="/menteedash" component={MenteeDash} />
+        <Route path="/mentordash" component={MentorDash} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
@@ -61,6 +63,7 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/mentordash" component={MentorDash} />
         <SecureRoute path="/menteedash" component={MenteeDash} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
         <SecureRoute path="/datavis" component={ExampleDataViz} />
