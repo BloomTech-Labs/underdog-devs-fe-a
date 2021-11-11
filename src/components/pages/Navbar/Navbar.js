@@ -6,8 +6,8 @@ const Navbar = () => {
     <div className="navbar">
       <h1>Underdog Devs!</h1>
       <nav>
-        <Button type="link" href="/mentordash">
-          Mentor-Dashboard
+        <Button type="link" href="/examplefeature">
+          Feature1
         </Button>
         <Button type="link" href="/examplefeature">
           Feature2
