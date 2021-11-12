@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import '../pages/Dashboard/Admin/index.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Calendar } from 'antd';
 
 import {
-  AppstoreOutlined,
   LaptopOutlined,
   LineChartOutlined,
   TeamOutlined,
@@ -15,21 +13,12 @@ import {
   FormOutlined,
 } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const RenderDashboardContainer = props => {
   const { content } = props;
   return (
     <Layout>
-      {/* <Header className="header">
-          <div className="logo" />
-          <Menu className="theme" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header> */}
       <Layout>
         <Sider width={400} minHeight={1000} className="site-layout-background">
           <Menu
@@ -58,11 +47,7 @@ const RenderDashboardContainer = props => {
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item> */}
-          </Breadcrumb>
+          <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
           <Content
             className="site-layout-background"
             style={{
