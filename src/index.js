@@ -23,6 +23,7 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
+import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 
@@ -68,6 +69,7 @@ function App() {
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
+      <Footer />
     </Security>
   );
 }
