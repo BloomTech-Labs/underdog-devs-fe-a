@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-// import './index.css';
+import './index.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { Calendar } from 'antd';
 
