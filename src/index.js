@@ -15,6 +15,7 @@ import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
+import { AdminDashboard } from './components/pages/Dashboard/Admin';
 import { LandingPage } from './components/pages/Landing';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
@@ -23,6 +24,8 @@ import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
+import { Profile } from './components/pages/Profile';
+import { PendingApproval } from './components/pages/PendingApproval';
 
 ReactDOM.render(
   <Router>
@@ -51,6 +54,9 @@ function App() {
         <Route path="/examplefeature" component={ExampleFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/admindashboard" component={AdminDashboard} />
+        <Route path="/pendingapproval" component={PendingApproval} />
+        <Route path="/profile" component={Profile} />
         <Route path="/implicit/callback" component={LoginCallback} />
         <Route path="/landing" component={LandingPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
