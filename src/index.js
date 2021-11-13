@@ -19,7 +19,7 @@ import { LandingPage } from './components/pages/Landing';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
-import Signup from './components/pages/Signup/Signup';
+import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
