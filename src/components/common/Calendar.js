@@ -61,7 +61,7 @@ function monthCellRender(value) {
   ) : null;
 }
 
-const calendarFeature = () => {
+const CalendarFeature = () => {
   return (
     <div className="calendar">
       <Button type="link" href="/">
@@ -74,7 +74,7 @@ const calendarFeature = () => {
     </div>
   );
 };
-export default calendarFeature;
+export default CalendarFeature;
 
 // CSS portion, will add colors and sizing later
 //   .events {
