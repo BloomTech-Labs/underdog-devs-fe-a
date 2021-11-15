@@ -118,7 +118,7 @@ const Mentor = () => {
           <h3>
             Can you commit to 1:1 mentoring of one or more mentees at a cadence
             you both decide upon or a minimum of 1 hour per week pair program
-            (problem solving) with a mentee in our stepend program?*
+            (problem solving) with a mentee in our stipend program?*
           </h3>
           <Radio.Group value={formValues.can_commit}>
             <Space direction="vertical">
