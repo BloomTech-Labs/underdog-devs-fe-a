@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 
 function RenderUpdateProfile(props) {
+  //base URL
   const APIBaseURI = process.env.REACT_APP_API_URI;
 
   //Antd design settings
@@ -20,14 +21,17 @@ function RenderUpdateProfile(props) {
     },
   };
 
-  //form management
+  //formProfile management
   const defaultUser = {
-    username: '',
-    lastName: '',
-    firstName: '',
+    user_id: '',
     email: '',
-    role: '',
-    id: '',
+    first_name: '',
+    last_name: '',
+    role_id: '',
+    role_name: '',
+    created_at: '',
+    updated_at: '',
+    approved: false,
   };
 
   //searchForm
@@ -39,11 +43,15 @@ function RenderUpdateProfile(props) {
   const [formProfile] = Form.useForm();
   const [user, setUser] = useState(defaultUser);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+
+  //disable fields
   const [formDisabled, setFormDisabled] = useState(true);
+
+  //disable buttons
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
-    user.id === 4 || user.id === ''
+    user.id === 4 || user.user_id === ''
       ? setFormDisabled(true)
       : setFormDisabled(false);
   }, [user]);
@@ -54,6 +62,7 @@ function RenderUpdateProfile(props) {
       return [res[0]];
     } catch (error) {
       return [
+        //dummy data for development
         {
           user_id: '00ulzfj6nX72gu3Nh4d6',
           email: 'email@email.mail',
@@ -117,11 +126,27 @@ function RenderUpdateProfile(props) {
 
   const selectUser = user => {
     setUser(user);
+    console.log(formProfile.getFieldsValue());
+    formProfile.setFieldsValue(user);
   };
 
-  const modifyUser = ({ target }) => {
+  //form validation
+  async function validateForm(formToValidate) {
+    try {
+      await formToValidate.validateFields();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  //handle changes on formProfile
+  const modifyUser = async ({ target }) => {
+    const validating = await validateForm(formProfile);
+    setIsDisabled(!validating);
     const { name, value } = target;
-    const val = name === 'role' ? value : value.trim();
+    const val =
+      name === 'role_id' || name === 'approved' ? value : value.trim();
     // userForm(name, val);
     setUser({
       ...user,
@@ -129,11 +154,17 @@ function RenderUpdateProfile(props) {
     });
   };
 
+  //handle clicks on cancel button
   const cancelChanges = () => {
-    const user = userList.filter(use => use.id === user.id)[0];
-    setUser(user);
+    console.log('cancelChanges!');
+    const found = profiles.filter(
+      profile => profile.user_id === user.user_id
+    )[0];
+    setUser(found);
+    formProfile.setFieldsValue(found);
   };
 
+  //handle changes on searchForm
   const searchFormChange = () => {
     const values = form.getFieldsValue();
     const usersFound = profiles.filter(profile => {
@@ -219,11 +250,11 @@ function RenderUpdateProfile(props) {
         )}
         {userList.length > 0 && (
           <ul>
-            {userList.map(user => {
+            {userList.map(profile => {
               return (
-                <li key={user.user_id}>
-                  <Button type="link" onClick={() => selectUser(user)}>
-                    {`${user.first_name} ${user.last_name}`}
+                <li key={profile.user_id}>
+                  <Button type="link" onClick={() => selectUser(profile)}>
+                    {`${profile.first_name} ${profile.last_name}`}
                   </Button>
                 </li>
               );
@@ -234,6 +265,7 @@ function RenderUpdateProfile(props) {
       <div className="flexContainer">
         <Form
           {...formItemLayout}
+          onChange={modifyUser}
           style={{ marginTop: '15px' }}
           form={formProfile}
           name="search"
@@ -242,10 +274,12 @@ function RenderUpdateProfile(props) {
           }}
           scrollToFirstError
         >
-          <Form.Item
+          {/* TODO: define which field should be kept or discarded */}
+          {/* <Form.Item
             name="username"
             label="Username"
             placeholder="username"
+            value={user.username}
             rules={[
               {
                 required: true,
@@ -260,9 +294,9 @@ function RenderUpdateProfile(props) {
             ]}
           >
             <Input disabled={formDisabled} allowClear />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
-            name="firstName"
+            name="first_name"
             label="First Name"
             placeholder="First Name"
             rules={
@@ -271,10 +305,10 @@ function RenderUpdateProfile(props) {
               ]
             }
           >
-            <Input disabled={formDisabled} allowClear />
+            <Input name="first_name" disabled={formDisabled} allowClear />
           </Form.Item>
           <Form.Item
-            name="lastName"
+            name="last_name"
             label="Last Name"
             placeholder="Last Name"
             rules={
@@ -283,7 +317,7 @@ function RenderUpdateProfile(props) {
               ]
             }
           >
-            <Input disabled={formDisabled} allowClear />
+            <Input name="last_name" disabled={formDisabled} allowClear />
           </Form.Item>
           <Form.Item
             name="email"
@@ -299,10 +333,10 @@ function RenderUpdateProfile(props) {
               },
             ]}
           >
-            <Input className="field" disabled={formDisabled} />
+            <Input name="email" className="field" disabled={formDisabled} />
           </Form.Item>
           <Form.Item
-            name="role"
+            name="role_id"
             label="Role"
             rules={[
               {
@@ -312,10 +346,8 @@ function RenderUpdateProfile(props) {
             ]}
           >
             <Radio.Group
-              name="role"
-              onChange={modifyUser}
-              value={user.role}
-              disable={formDisabled}
+              name="role_id"
+              disabled={formDisabled}
               style={{ display: 'flex', margin: 'auto' }}
             >
               <Radio value={1}>Mentor</Radio>
@@ -324,6 +356,25 @@ function RenderUpdateProfile(props) {
               <Radio value={4} disabled={true}>
                 superAdmin
               </Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            name="approved"
+            label="Role approved"
+            rules={[
+              {
+                required: true,
+                message: 'Please select a role',
+              },
+            ]}
+          >
+            <Radio.Group
+              name="approved"
+              disabled={formDisabled}
+              style={{ display: 'flex', margin: 'auto' }}
+            >
+              <Radio value={true}>approved</Radio>
+              <Radio value={false}>pending</Radio>
             </Radio.Group>
           </Form.Item>
           <div className="buttonGroup">
@@ -335,7 +386,7 @@ function RenderUpdateProfile(props) {
             >
               Update user info
             </Button>
-            <Button id="cancelChanges" onClick={cancelChanges}>
+            <Button id="cancelChanges" onClick={() => cancelChanges()}>
               Cancel
             </Button>
             <Button
