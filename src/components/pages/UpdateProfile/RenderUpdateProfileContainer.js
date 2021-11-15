@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio } from 'antd';
-import * as yup from 'yup';
-import schema from './formValidation';
 import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 
 function RenderUpdateProfile(props) {
-  const { Search } = Input;
-
-  const APIGETURI = '';
-  const APIDELETEURI = '';
-  const APIUPDATEURI = '';
+  const APIBaseURI = process.env.REACT_APP_API_URI;
 
   //Antd design settings
   const formItemLayout = {
@@ -25,24 +19,8 @@ function RenderUpdateProfile(props) {
       },
     },
   };
-  const tailFormItemLayout = {
-    wrapperCol: {
-      sm: {
-        span: 16,
-        offset: 8,
-      },
-    },
-  };
 
   //form management
-  const formErrors = {
-    username: '',
-    lastName: '',
-    firstName: '',
-    email: '',
-    role: '',
-  };
-
   const defaultUser = {
     username: '',
     lastName: '',
@@ -57,7 +35,6 @@ function RenderUpdateProfile(props) {
   //form control
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [formDisabled, setFormDisabled] = useState(true);
-  const [errorUser, setErrorUser] = useState(formErrors);
   const [user, setUser] = useState(defaultUser);
   const [isDisabled, setIsDisabled] = useState(true);
   const [profiles, setProfiles] = useState([]);
@@ -74,7 +51,7 @@ function RenderUpdateProfile(props) {
 
   useEffect(() => {
     axios
-      .get(`${APIGETURI}/profiles`)
+      .get(`${APIBaseURI}/profiles`)
       .then(res => setProfiles(res.data))
       .catch(err =>
         setProfiles([
@@ -92,34 +69,14 @@ function RenderUpdateProfile(props) {
         ])
       ); //`could not get users profiles, an error occurred: ${err.message}`
   }, []);
-  //form validation
-  // useEffect(() => {
-  //   schema.isValid(user).then(valid => setIsDisabled(!valid));
-  // }, [user]);
-
-  // const userForm = (name, value) => {
-  //   yup
-  //     .reach(schema, name)
-  //     .validate(value)
-  //     .then(() => {
-  //       setErrorUser({ ...errorUser, [name]: '' });
-  //     })
-  //     .catch(err => {
-  //       setErrorUser({ ...errorUser, [name]: err.message });
-  //     });
-  //   setUser({
-  //     ...user,
-  //     [name]: value,
-  //   });
-  // };
 
   // CRUD OPERATIONS AND API CALLS
-  const searchUser = values => {
-    axios
-      .get(APIGETURI, values)
-      .then(res => setUserList(res.data))
-      .catch(err => console.log(err.message));
-  };
+  // const searchUser = values => {
+  //   axios
+  //     .get(APIBaseURI, values)
+  //     .then(res => setUserList(res.data))
+  //     .catch(err => console.log(err.message));
+  // };
 
   const updateUser = user => {
     // axios.get( APIUPDATEURI, user)
@@ -167,24 +124,12 @@ function RenderUpdateProfile(props) {
     setUser(user);
   };
 
-  //handle search from formSearch
-  async function onFinishSearch(values) {
-    console.log('onFinishSearch', values);
-    const userToFind = {};
-    const res = await searchUser(userToFind);
-  }
-
   const searchFormChange = () => {
-    console.log('profiles type', typeof profiles);
-    console.log('profiles', profiles);
-
     const values = form.getFieldsValue();
     const usersFound = profiles.filter(profile => {
       if (values.searchUsername === 5 || !values.searchUsername) {
-        console.log('ok');
         return profile.username === values.first_name;
       } else {
-        console.log('Noooooo');
         return (
           profile.first_name === values.searchUsername &&
           profile.role_id === values.roleSearch
@@ -202,7 +147,7 @@ function RenderUpdateProfile(props) {
           {...formItemLayout}
           form={form}
           name="search"
-          onFinish={onFinishSearch}
+          //onFinish={onFinishSearch}
           onChange={searchFormChange}
           initialValues={{
             prefix: '1',
@@ -211,7 +156,7 @@ function RenderUpdateProfile(props) {
         >
           <Form.Item
             name="usernameSearch"
-            label="username"
+            label="Username"
             placeholder="username"
             rules={
               [
@@ -220,11 +165,11 @@ function RenderUpdateProfile(props) {
             }
             className="item"
           >
-            <Search
-              onSearch={() => searchUser(searchValue)}
+            <Input
+              //onSearch={() => searchUser(searchValue)}
               value={searchValue.username}
               // onChange={handleSearchChange}
-              enterButton
+              //enterButton
               allowClear
             />
           </Form.Item>
@@ -296,7 +241,7 @@ function RenderUpdateProfile(props) {
               },
             ]}
           >
-            <Input disabled={formDisabled} enterButton allowClear />
+            <Input disabled={formDisabled} allowClear />
           </Form.Item>
           <Form.Item
             name="firstName"
@@ -308,7 +253,7 @@ function RenderUpdateProfile(props) {
               ]
             }
           >
-            <Input disabled={formDisabled} enterButton allowClear />
+            <Input disabled={formDisabled} allowClear />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -320,7 +265,7 @@ function RenderUpdateProfile(props) {
               ]
             }
           >
-            <Input disabled={formDisabled} enterButton allowClear />
+            <Input disabled={formDisabled} allowClear />
           </Form.Item>
           <Form.Item
             name="email"
