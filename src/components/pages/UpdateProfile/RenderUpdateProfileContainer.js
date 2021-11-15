@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio } from 'antd';
+import { Form, Input, Button, Radio, Spin } from 'antd';
 import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 
@@ -30,18 +30,17 @@ function RenderUpdateProfile(props) {
     id: '',
   };
 
+  //searchForm
   const [form] = Form.useForm();
-  const [formProfile] = Form.useForm();
-  //form control
-  const [feedbackMessage, setFeedbackMessage] = useState('');
-  const [formDisabled, setFormDisabled] = useState(true);
-  const [user, setUser] = useState(defaultUser);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [userList, setUserList] = useState([]);
   const [profiles, setProfiles] = useState([]);
 
-  //search bar and result
-  const [userList, setUserList] = useState([]);
-  const [searchValue, setSearchValue] = useState({ username: '', role: '' });
+  //modifyUserForm
+  const [formProfile] = Form.useForm();
+  const [user, setUser] = useState(defaultUser);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [formDisabled, setFormDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     user.id === 4 || user.id === ''
@@ -49,26 +48,38 @@ function RenderUpdateProfile(props) {
       : setFormDisabled(false);
   }, [user]);
 
+  async function getProfiles() {
+    try {
+      const res = await axios.get(`${APIBaseURI}profiles`);
+      return [res[0]];
+    } catch (error) {
+      return [
+        {
+          user_id: '00ulzfj6nX72gu3Nh4d6',
+          email: 'email@email.mail',
+          first_name: 'John',
+          last_name: 'Doe',
+          role_id: 3,
+          role_name: 'user',
+          created_at: '2021-04-21T18:47:18.712Z',
+          updated_at: '2021-04-21T18:47:18.712Z',
+          approved: true,
+        },
+      ];
+    }
+  }
+
   useEffect(() => {
-    axios
-      .get(`${APIBaseURI}/profiles`)
-      .then(res => setProfiles(res.data))
-      .catch(err =>
-        setProfiles([
-          {
-            user_id: '00ulzfj6nX72gu3Nh4d6',
-            email: 'email@email.mail',
-            first_name: 'John',
-            last_name: 'Doe',
-            role_id: 3,
-            role_name: 'user',
-            created_at: '2021-04-21T18:47:18.712Z',
-            updated_at: '2021-04-21T18:47:18.712Z',
-            approved: true,
-          },
-        ])
-      ); //`could not get users profiles, an error occurred: ${err.message}`
+    async function updateProfiles() {
+      const newProfiles = await getProfiles();
+      setProfiles(newProfiles);
+    }
+    updateProfiles();
   }, []);
+
+  useEffect(() => {
+    console.log('userList', userList);
+  }, [userList]);
 
   // CRUD OPERATIONS AND API CALLS
   // const searchUser = values => {
@@ -106,7 +117,6 @@ function RenderUpdateProfile(props) {
 
   const selectUser = user => {
     setUser(user);
-    return false;
   };
 
   const modifyUser = ({ target }) => {
@@ -127,89 +137,99 @@ function RenderUpdateProfile(props) {
   const searchFormChange = () => {
     const values = form.getFieldsValue();
     const usersFound = profiles.filter(profile => {
-      if (values.searchUsername === 5 || !values.searchUsername) {
-        return profile.username === values.first_name;
+      if (
+        values.roleSearch === 5 ||
+        !values.roleSearch ||
+        values.roleSearch === undefined
+      ) {
+        if (profile.first_name.startsWith(values.usernameSearch)) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        return (
-          profile.first_name === values.searchUsername &&
+        if (
+          profile.first_name.startsWith(values.usernameSearch) &&
           profile.role_id === values.roleSearch
-        );
+        ) {
+          return true;
+        } else {
+          return false;
+        }
       }
     });
-    setProfiles(usersFound);
+    usersFound.length > 0 ? setUserList(usersFound) : setUserList([]);
   };
 
   return (
     <>
       <div className="flexContainer">
         <h1> Update profile Page!</h1>
-        <Form
-          {...formItemLayout}
-          form={form}
-          name="search"
-          //onFinish={onFinishSearch}
-          onChange={searchFormChange}
-          initialValues={{
-            prefix: '1',
-          }}
-          scrollToFirstError
-        >
-          <Form.Item
-            name="usernameSearch"
-            label="Username"
-            placeholder="username"
-            rules={
-              [
-                //TODO add form verification for input format if needed
-              ]
-            }
-            className="item"
+        {profiles.length > 0 ? (
+          <Form
+            {...formItemLayout}
+            form={form}
+            name="search"
+            onChange={searchFormChange}
+            scrollToFirstError
           >
-            <Input
-              //onSearch={() => searchUser(searchValue)}
-              value={searchValue.username}
-              // onChange={handleSearchChange}
-              //enterButton
-              allowClear
-            />
-          </Form.Item>
-          <Form.Item
-            name="roleSearch"
-            label="Role"
-            rules={[
-              {
-                required: true,
-                message: 'Please select a role',
-              },
-            ]}
-          >
-            <Radio.Group
-              name="roleSearch"
-              // onChange={handleSearchChange}
-              value={searchValue.role}
-              style={{ display: 'flex', margin: 'auto' }}
+            <Form.Item
+              name="usernameSearch"
+              label="Username"
+              placeholder="username"
+              rules={
+                [
+                  //TODO add form verification for input format if needed
+                ]
+              }
+              className="item"
             >
-              <Radio value={1}>Mentor</Radio>
-              <Radio value={2}>Mentee</Radio>
-              <Radio value={3}>Admin</Radio>
-              <Radio value={4}>superAdmin</Radio>
-              <Radio value={5} defaultChecked>
-                All
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
-        </Form>
-        <ul>
-          {userList.map(user => {
-            return (
-              <li>
-                <Button type="link" onClick={() => selectUser(user)}>
-                  {user.username}
-                </Button>
-              </li>
-            );
-          })}
-        </ul>
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              name="roleSearch"
+              label="Role"
+              rules={
+                [
+                  //TODO: implement this part if some rule are needed for form verification
+                ]
+              }
+            >
+              <Radio.Group
+                name="roleSearch"
+                style={{ display: 'flex', margin: 'auto' }}
+              >
+                <Radio value={1}>Mentor</Radio>
+                <Radio value={2}>Mentee</Radio>
+                <Radio value={3}>Admin</Radio>
+                <Radio value={4}>superAdmin</Radio>
+                <Radio value={5} defaultChecked>
+                  All
+                </Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Form>
+        ) : (
+          <>
+            {' '}
+            <Spin /> <p style={{ textAlign: 'center' }}>
+              Loading profiles...
+            </p>{' '}
+          </>
+        )}
+        {userList.length > 0 && (
+          <ul>
+            {userList.map(user => {
+              return (
+                <li key={user.user_id}>
+                  <Button type="link" onClick={() => selectUser(user)}>
+                    {`${user.first_name} ${user.last_name}`}
+                  </Button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
       <div className="flexContainer">
         <Form
@@ -217,8 +237,6 @@ function RenderUpdateProfile(props) {
           style={{ marginTop: '15px' }}
           form={formProfile}
           name="search"
-          // onFinish={onFinish}
-          // onChange={formChange}
           initialValues={{
             prefix: '1',
           }}
