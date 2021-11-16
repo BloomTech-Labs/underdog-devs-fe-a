@@ -82,10 +82,6 @@ function RenderUpdateProfile(props) {
     updateProfiles();
   }, []);
 
-  useEffect(() => {
-    console.log('userList', userList);
-  }, [userList]);
-
   // CRUD OPERATIONS AND API CALLS
   // const searchUser = values => {
   //   axios
@@ -111,18 +107,8 @@ function RenderUpdateProfile(props) {
     //   .catch(err => console.log(err.message));
   };
 
-  // const handleSearchChange = e => {
-  //   const value =
-  //     e.target.name !== 'role' ? e.target.value.trim() : e.target.value;
-  //   setSearchValue({
-  //     ...searchValue,
-  //     [e.target.name]: value,
-  //   });
-  // };
-
   const selectUser = user => {
     setUser(user);
-    console.log(formProfile.getFieldsValue());
     formProfile.setFieldsValue(user);
   };
 
