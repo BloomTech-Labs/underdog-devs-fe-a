@@ -30,7 +30,12 @@ import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 import { Profile } from './components/pages/Profile';
-import { PendingApproval } from './components/pages/PendingApproval';
+import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
+import { Availability } from './components/pages/Availability/Availability';
+
+import { Schedule } from './components/pages/Schedule/Schedule';
+import { ManageResources } from './components/pages/ManageResources/ManagaResources';
+import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import CalendarFeature from './components/common/Calendar';
 
 ReactDOM.render(
@@ -66,6 +71,12 @@ function App() {
         <Route path="/admindashboard" component={AdminDashboard} />
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/profile" component={Profile} />
+        <Route path="/availability" component={Availability} />
+
+        <Route path="/schedule" component={Schedule} />
+        <Route path="/manageresources" component={ManageResources} />
+        <Route path="/menteesprogress" component={MenteesProgress} />
+
         <Route path="/implicit/callback" component={LoginCallback} />
         <Route path="/landing" component={LandingPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}

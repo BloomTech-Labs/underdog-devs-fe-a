@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import '../Dashboard/Admin/index.css';
+import '../pages/Dashboard/Admin/index.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Calendar } from 'antd';
 
 import {
-  AppstoreOutlined,
   LaptopOutlined,
   LineChartOutlined,
   TeamOutlined,
@@ -15,20 +13,12 @@ import {
   FormOutlined,
 } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
-const RenderPendingApproval = props => {
+const RenderDashboardContainer = props => {
+  const { content } = props;
   return (
     <Layout>
-      {/* <Header className="header">
-          <div className="logo" />
-          <Menu className="theme" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header> */}
       <Layout>
         <Sider width={400} minHeight={1000} className="site-layout-background">
           <Menu
@@ -43,25 +33,21 @@ const RenderPendingApproval = props => {
               <Link to="/pendingapproval">Pending Approval Requests</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalendarOutlined />}>
-              Mentor Mentee Availability
+              <Link to="/availability">Mentor Mentee Availability</Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<TeamOutlined />}>
-              Schedule interviews
+              <Link to="/schedule">Schedule interviews</Link>
             </Menu.Item>
             <Menu.Item key="5" icon={<LaptopOutlined />}>
-              Manage Resources
+              <Link to="/manageresources">Manage Resources</Link>
             </Menu.Item>
             <Menu.Item key="6" icon={<LineChartOutlined />}>
-              Mentee's Progress
+              <Link to="/menteesprogress">Mentee's Progress</Link>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item> */}
-          </Breadcrumb>
+          <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
           <Content
             className="site-layout-background"
             style={{
@@ -70,7 +56,7 @@ const RenderPendingApproval = props => {
               minHeight: 1000,
             }}
           >
-            xyz's pending approval
+            {content}
             <div />
             <Link to="/">Home</Link>
             <div />
@@ -82,4 +68,4 @@ const RenderPendingApproval = props => {
   );
 };
 
-export default RenderPendingApproval;
+export default RenderDashboardContainer;
