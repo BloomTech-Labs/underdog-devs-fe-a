@@ -1,5 +1,7 @@
+import { Avatar, Button, Input } from 'antd';
 import React from 'react';
-import { Button } from 'antd';
+import './Navbar.css';
+import logo from '../Navbar/ud_logo2.png';
 
 const Navbar = () => {
   return (

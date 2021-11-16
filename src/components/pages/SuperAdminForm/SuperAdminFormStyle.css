@@ -1,0 +1,60 @@
+.base {
+    border-color: #002f5d;
+    background: #002f5d;
+    color: #F7F2FA;
+    font-family: Raleway, 'Open Sans', 'Helvetica Neue', sans-serif;
+} 
+
+.flexContainer {
+    border: 2px solid grey;
+    border-radius: 5px;
+    width: 35%;
+    margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    align-items: stretch;
+    margin-bottom: 20px;    
+}
+
+
+h1 {
+    margin: auto;
+    background: #003D71;
+    color: #F7FCFC;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.field {
+    width: 100%;
+}
+
+label {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.ant-row {
+    justify-content: flex-start;
+}
+
+.successMessage {
+    color: red;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+.feedbackMessage{
+    color: red;
+    margin-bottom: 15px;
+}
