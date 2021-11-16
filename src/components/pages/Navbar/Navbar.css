@@ -1,0 +1,57 @@
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    background: #183b56 ;
+    z-index: 999;
+    width: 100vw;
+    height: 10vh;
+}
+
+.navLogo{
+  display: flex;
+  justify-self: left;
+  color: #f57914;
+  z-index: 9999;
+  font-size: 1.5rem;
+}
+
+.navLogoText{
+    display: block;
+    margin-block-start: .9em;
+    margin-block-end: 1.5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.navBoxRight{
+    display: flex;
+    align-items: center;
+}
+
+.navBarFont{
+    color: #fff;
+    margin: 2rem;
+    padding: 1rem;
+    border: 0;
+    margin-block-start: 1em;
+    margin-block-end: .1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.avatar{
+    color: #fff;
+    margin: 2rem;
+    padding: 0;
+    border: 0;
+}
+
+.searchBox{
+    margin: 2rem;
+    padding: 1rem;
+    border: 0;
+    margin-block-start: 1em;
+    margin-block-end: .1em;
+    margin-inline-start: 0px;
+    margin-inline-end: -16%;
+}
