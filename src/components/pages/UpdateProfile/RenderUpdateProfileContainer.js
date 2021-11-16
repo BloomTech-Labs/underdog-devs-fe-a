@@ -23,15 +23,13 @@ function RenderUpdateProfile(props) {
 
   //formProfile management
   const defaultUser = {
-    user_id: '',
+    profile_id: '',
     email: '',
     first_name: '',
     last_name: '',
     role_id: '',
-    role_name: '',
     created_at: '',
-    updated_at: '',
-    approved: false,
+    pending: false,
   };
 
   //searchForm
@@ -51,7 +49,7 @@ function RenderUpdateProfile(props) {
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
-    user.id === 4 || user.user_id === ''
+    user.id === 4 || user.profile_id === ''
       ? setFormDisabled(true)
       : setFormDisabled(false);
   }, [user]);
@@ -64,15 +62,13 @@ function RenderUpdateProfile(props) {
       return [
         //dummy data for development
         {
-          user_id: '00ulzfj6nX72gu3Nh4d6',
+          profile_id: '00ulzfj6nX72gu3Nh4d6',
           email: 'email@email.mail',
           first_name: 'John',
           last_name: 'Doe',
           role_id: 3,
-          role_name: 'user',
           created_at: '2021-04-21T18:47:18.712Z',
-          updated_at: '2021-04-21T18:47:18.712Z',
-          approved: true,
+          pending: true,
         },
       ];
     }
@@ -145,8 +141,7 @@ function RenderUpdateProfile(props) {
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
     const { name, value } = target;
-    const val =
-      name === 'role_id' || name === 'approved' ? value : value.trim();
+    const val = name === 'role_id' || name === 'pending' ? value : value.trim();
     // userForm(name, val);
     setUser({
       ...user,
@@ -158,7 +153,7 @@ function RenderUpdateProfile(props) {
   const cancelChanges = () => {
     console.log('cancelChanges!');
     const found = profiles.filter(
-      profile => profile.user_id === user.user_id
+      profile => profile.profile_id === user.profile_id
     )[0];
     setUser(found);
     formProfile.setFieldsValue(found);
@@ -252,7 +247,7 @@ function RenderUpdateProfile(props) {
           <ul>
             {userList.map(profile => {
               return (
-                <li key={profile.user_id}>
+                <li key={profile.profile_id}>
                   <Button type="link" onClick={() => selectUser(profile)}>
                     {`${profile.first_name} ${profile.last_name}`}
                   </Button>
@@ -359,7 +354,7 @@ function RenderUpdateProfile(props) {
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            name="approved"
+            name="pending"
             label="Role approved"
             rules={[
               {
@@ -369,7 +364,7 @@ function RenderUpdateProfile(props) {
             ]}
           >
             <Radio.Group
-              name="approved"
+              name="pending"
               disabled={formDisabled}
               style={{ display: 'flex', margin: 'auto' }}
             >
