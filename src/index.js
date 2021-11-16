@@ -18,10 +18,15 @@ import { HomePage } from './components/pages/Home';
 import { AdminDashboard } from './components/pages/Dashboard/Admin';
 import { LandingPage } from './components/pages/Landing';
 import { ExampleDataViz } from './components/pages/ExampleDataViz';
+import { UpdateProfile } from './components/pages/UpdateProfile';
+import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
+import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
+import { MentorDash } from './components/pages/Dashboard/MentorDash';
+import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 import { Profile } from './components/pages/Profile';
@@ -31,6 +36,7 @@ import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManagaResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
+import CalendarFeature from './components/common/Calendar';
 
 ReactDOM.render(
   <Router>
@@ -57,6 +63,9 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/examplefeature" component={ExampleFeature} />
+        <Route path="/menteedash" component={MenteeDash} />
+        <Route path="/mentordash" component={MentorDash} />
+        <Route path="/calendarfeature" component={CalendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/admindashboard" component={AdminDashboard} />
@@ -76,11 +85,16 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/mentordash" component={MentorDash} />
+        <SecureRoute path="/menteedash" component={MenteeDash} />
+        <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
+        <SecureRoute path="/update-profile" component={UpdateProfile} />
         <SecureRoute path="/example-list" component={ExampleListPage} />
         <SecureRoute path="/profile-list" component={ProfileListPage} />
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
+      <Footer />
     </Security>
   );
 }
