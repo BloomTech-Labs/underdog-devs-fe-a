@@ -23,6 +23,8 @@ import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/Signup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
+import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
+import { MentorDash } from './components/pages/Dashboard/MentorDash';
 import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
@@ -53,6 +55,8 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/examplefeature" component={ExampleFeature} />
+        <Route path="/menteedash" component={MenteeDash} />
+        <Route path="/mentordash" component={MentorDash} />
         <Route path="/calendarfeature" component={CalendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
@@ -64,6 +68,8 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/mentordash" component={MentorDash} />
+        <SecureRoute path="/menteedash" component={MenteeDash} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
         <SecureRoute path="/update-profile" component={UpdateProfile} />
         <SecureRoute path="/example-list" component={ExampleListPage} />
