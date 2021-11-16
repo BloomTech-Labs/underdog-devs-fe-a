@@ -26,6 +26,7 @@ import Navbar from './components/pages/Navbar/Navbar';
 import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
+import CalendarFeature from './components/common/Calendar';
 
 ReactDOM.render(
   <Router>
@@ -52,6 +53,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/examplefeature" component={ExampleFeature} />
+        <Route path="/calendarfeature" component={CalendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/implicit/callback" component={LoginCallback} />
