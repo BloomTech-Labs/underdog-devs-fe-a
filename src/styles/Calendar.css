@@ -1,0 +1,27 @@
+.calendar{
+    padding-right: 2.5%;
+    padding-left: 2.5%;
+    width: fit-content;
+    border: solid 4px;
+    border-color: grey;
+}
+.events {
+    margin: 0;
+    padding-right: 0;
+    list-style: none;
+}
+.events .ant-badge-status {
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.notes-month {
+    font-size: 28px;
+    text-align: left;
+}
+.notes-month section {
+    font-size: 28px;
+}
+  

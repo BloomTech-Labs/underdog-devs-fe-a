@@ -12,7 +12,7 @@ const Navbar = () => {
       </div>
       <div className="navBoxRight">
         <nav>
-          <Button type="link" className="navBarFont" href="/examplefeature">
+          <Button type="link" className="navBarFont" href="/Calendarfeature">
             Feature1
           </Button>
           <Button type="link" className="navBarFont" href="/examplefeature">
