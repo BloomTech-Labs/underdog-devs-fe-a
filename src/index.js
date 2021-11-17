@@ -22,7 +22,7 @@ import { UpdateProfile } from './components/pages/UpdateProfile';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
-import Signup from './components/pages/Signup/Signup';
+import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
 import { MentorDash } from './components/pages/Dashboard/MentorDash';
