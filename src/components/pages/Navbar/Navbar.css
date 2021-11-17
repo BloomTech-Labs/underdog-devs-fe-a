@@ -46,12 +46,3 @@
     border: 0;
 }
 
-.searchBox{
-    margin: 2rem;
-    padding: 1rem;
-    border: 0;
-    margin-block-start: 1em;
-    margin-block-end: .1em;
-    margin-inline-start: 0px;
-    margin-inline-end: -16%;
-}
