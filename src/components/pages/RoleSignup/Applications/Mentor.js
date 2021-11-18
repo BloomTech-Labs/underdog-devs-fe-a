@@ -19,9 +19,9 @@ const Mentor = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'MENTOR ENDPOINT NEEDED!!!!!',
+        'https://underdog-devs-a-api.herokuapp.com/application/new-mentor',
         newAccount
-      ); /*ENDPOINT NEEDED!!!!*/
+      );
       console.log(response);
     } catch (err) {
       console.log(err);
