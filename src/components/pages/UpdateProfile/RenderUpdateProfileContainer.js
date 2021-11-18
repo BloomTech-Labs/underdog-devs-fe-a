@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Spin } from 'antd';
+import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
 import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 
@@ -41,6 +41,7 @@ function RenderUpdateProfile(props) {
   const [formProfile] = Form.useForm();
   const [user, setUser] = useState(defaultUser);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   //disable fields
   const [formDisabled, setFormDisabled] = useState(true);
@@ -82,6 +83,19 @@ function RenderUpdateProfile(props) {
     updateProfiles();
   }, []);
 
+  //handle Modal
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   // CRUD OPERATIONS AND API CALLS
   // const searchUser = values => {
   //   axios
@@ -107,9 +121,11 @@ function RenderUpdateProfile(props) {
     //   .catch(err => console.log(err.message));
   };
 
-  const selectUser = user => {
+  const selectUser = async user => {
     setUser(user);
     formProfile.setFieldsValue(user);
+    const validating = await validateForm(formProfile);
+    setIsDisabled(!validating);
   };
 
   //form validation
@@ -136,13 +152,14 @@ function RenderUpdateProfile(props) {
   };
 
   //handle clicks on cancel button
-  const cancelChanges = () => {
-    console.log('cancelChanges!');
+  const cancelChanges = async () => {
     const found = profiles.filter(
       profile => profile.profile_id === user.profile_id
     )[0];
     setUser(found);
     formProfile.setFieldsValue(found);
+    const validating = await validateForm(formProfile);
+    setIsDisabled(!validating);
   };
 
   //handle changes on searchForm
@@ -368,17 +385,25 @@ function RenderUpdateProfile(props) {
             >
               Update user info
             </Button>
-            <Button id="cancelChanges" onClick={() => cancelChanges()}>
+            <Button id="cancelChanges" onClick={cancelChanges}>
               Revert changes
             </Button>
             <Button
               danger
               id="delete"
               disabled={isDisabled}
-              onClick={() => deleteUser(user)}
+              onClick={showModal}
             >
-              Delete User
+              Disable User
             </Button>
+            <Modal
+              title="Basic Modal"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>You are about to disable a user</p>
+            </Modal>
           </div>
         </Form>
       </div>
