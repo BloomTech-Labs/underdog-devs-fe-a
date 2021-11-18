@@ -8,25 +8,19 @@ import gmail from '../Footer/gmail.svg';
 const Footer = () => (
   <div className="footer">
     <div className="leftFooter">
-      <div className="svg">
-        <img src={github} alt="Github icon and link" />
-        <img src={twitter} alt="Twitter icon and link" />
-        <img src={youtube} alt="YouTube icon and link" />
-        <img src={gmail} alt="Email icon and link" />
-      </div>
+      <p className="leftText">About</p>
+      <p className="leftText">Our Mission</p>
+      <p className="leftText">Contact</p>
+      <p className="leftText">Donate</p>
     </div>
     <div className="middleFooter">
-      <div>
-        <p className="middleText">Copyright 2021</p>
-      </div>
+      <p className="middleText">Copyright 2021</p>
     </div>
     <div className="rightFooter">
-      <div>
-        <p className="rightText">About</p>
-        <p className="rightText">Our Mission</p>
-        <p className="rightText">Contact</p>
-        <p className="rightText">Donate</p>
-      </div>
+      <img src={github} alt="Github icon and link" />
+      <img src={twitter} alt="Twitter icon and link" />
+      <img src={youtube} alt="YouTube icon and link" />
+      <img src={gmail} alt="Email icon and link" />
     </div>
   </div>
 );

@@ -1,66 +1,54 @@
 .footer{
     display: flex;
     flex-direction: row;
-    margin-top: 1rem;
-    padding: 1rem;
     background-color: #183b56 ;
-    position: fixed;
+    position: static;
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 18vh;
+    height: 10vh;
 }
 
 .leftFooter{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
     border-right: solid;
     border-width: 1px;
     border-color: white;
-    display: flex;
-    flex-direction: row;
-    width: 10%;
-    color: white;   
+    justify-content: space-evenly;
+    margin-top: 2.25rem;
+    width: 33%;
+    height: 4vh;
+    color: white;
 }
 
 .middleFooter{
-    border-width: 1px;
-    border-color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    width: 100%;
+    margin-top: 2.25rem;
     color: white; 
     height: 1rem;
     font-size: 1rem;
+    width: 33%;
 }
 
 .rightFooter{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
     border-left: solid;
     border-width: 1px;
     border-color: white;
-    width: 10%;
-    color: white;
+    justify-content: space-evenly;
+    margin-top: 1.75rem;
+    width: 33%;
+    height: 4vh;
+    color: white;      
 }
 
-.svg{
+.leftText{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 1.5vw;
-    height: 1.5vh;
-}
-
-.rightText{
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 1rem;
     font-size: 1rem;
 }
@@ -69,7 +57,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 5rem;
     height: 1rem;
     font-size: 1rem;
 }
