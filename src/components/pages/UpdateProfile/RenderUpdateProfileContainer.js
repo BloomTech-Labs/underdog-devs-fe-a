@@ -210,6 +210,7 @@ function RenderUpdateProfile(props) {
               <Radio.Group
                 name="roleSearch"
                 style={{ display: 'flex', margin: 'auto' }}
+                defaultValue={5}
               >
                 <Radio value={1}>Mentor</Radio>
                 <Radio value={2}>Mentee</Radio>
@@ -368,7 +369,7 @@ function RenderUpdateProfile(props) {
               Update user info
             </Button>
             <Button id="cancelChanges" onClick={() => cancelChanges()}>
-              Cancel
+              Revert changes
             </Button>
             <Button
               danger
