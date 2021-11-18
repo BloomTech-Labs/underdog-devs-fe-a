@@ -27,6 +27,13 @@ const Navbar = () => {
           <Button type="link" className="navBarFont" href="/examplefeature">
             Feature5
           </Button>
+          <Button
+            type="link"
+            className="navBarFont"
+            href="/admindashboard/main"
+          >
+            Admin-Dashboard
+          </Button>
         </nav>
         <Avatar.Group>
           <Avatar

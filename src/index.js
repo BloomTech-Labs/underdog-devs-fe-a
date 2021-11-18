@@ -34,7 +34,7 @@ import { PendingApproval } from './components/pages/PendingApproval/PendingAppro
 import { Availability } from './components/pages/Availability/Availability';
 
 import { Schedule } from './components/pages/Schedule/Schedule';
-import { ManageResources } from './components/pages/ManageResources/ManagaResources';
+import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import CalendarFeature from './components/common/Calendar';
 

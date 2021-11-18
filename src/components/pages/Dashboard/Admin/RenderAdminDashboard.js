@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Switch, Link, Route } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
@@ -12,6 +12,13 @@ import {
   CalendarOutlined,
   FormOutlined,
 } from '@ant-design/icons';
+import Item from 'antd/lib/list/Item';
+import { Availability } from '../../Availability/Availability';
+import { Profile } from '../../Profile/Profile';
+import { Schedule } from '../../Schedule/Schedule';
+import { MenteesProgress } from '../../MenteesProgress/MenteesProgress';
+import { ManageResources } from '../../ManageResources/ManageResources';
+import { PendingApproval } from '../../PendingApproval/PendingApproval';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -24,28 +31,35 @@ function RenderAdminDashboard(props) {
           <Menu
             className="siderTheme"
             mode="inline"
-            defaultSelectedKeys={['4']}
+            defaultSelectedKeys={['0']}
           >
             <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link to="/profile">Profile</Link>
+              <Link to="/admindashboard/profile">Profile</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<FormOutlined />}>
-              <Link to="/pendingapproval">Pending Approval Requests</Link>
+              <Link to="/admindashboard/pendingapproval">
+                Pending Approval Requests
+              </Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<CalendarOutlined />}>
-              Mentor Mentee Availability
+              <Link to="/admindashboard/availability">
+                Mentor Mentee Availability
+              </Link>
             </Menu.Item>
             <Menu.Item key="4" icon={<TeamOutlined />}>
-              Schedule interviews
+              <Link to="/admindashboard/schedule">Schedule interviews</Link>
             </Menu.Item>
             <Menu.Item key="5" icon={<LaptopOutlined />}>
-              Manage Resources
+              <Link to="/admindashboard/resources">Manage Resources</Link>
             </Menu.Item>
             <Menu.Item key="6" icon={<LineChartOutlined />}>
-              Mentee's Progress
+              <Link to="/admindashboard/menteesprogress">
+                Mentee's Progress
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
+
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
           <Content
@@ -56,7 +70,29 @@ function RenderAdminDashboard(props) {
               minHeight: 1000,
             }}
           >
-            Welcome to Admin Dashboard
+            <Switch>
+              <Route path="/admindashboard/main">
+                <Content>Welcome to Admin Dashboard</Content>
+              </Route>
+              <Route path="/admindashboard/profile">
+                <Profile />
+              </Route>
+              <Route path="/admindashboard/pendingapproval">
+                <PendingApproval />
+              </Route>
+              <Route path="/admindashboard/availability">
+                <Availability />
+              </Route>
+              <Route path="/admindashboard/schedule">
+                <Schedule />
+              </Route>
+              <Route path="/admindashboard/resources">
+                <ManageResources />
+              </Route>
+              <Route path="/admindashboard/menteesprogress">
+                <MenteesProgress />
+              </Route>
+            </Switch>
           </Content>
         </Layout>
       </Layout>
