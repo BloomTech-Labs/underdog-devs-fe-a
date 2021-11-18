@@ -10,17 +10,6 @@ const Navbar = () => {
         <img src={logo} alt="underdog devs logo" />
         <p className="navLogoText">Underdog Devs</p>
       </div>
-      <div className="searchBox">
-        <Input.Group>
-          <input
-            onPressEnter="true"
-            defaultValue="Search..."
-            autoSize="true"
-            allowClear="true"
-            size="small"
-          />
-        </Input.Group>
-      </div>
       <div className="navBoxRight">
         <nav>
           <Button type="link" className="navBarFont" href="/examplefeature">
