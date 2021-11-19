@@ -166,26 +166,13 @@ function RenderUpdateProfile(props) {
   const searchFormChange = () => {
     const values = form.getFieldsValue();
     const usersFound = profiles.filter(profile => {
-      if (
-        values.roleSearch === 5 ||
-        !values.roleSearch ||
-        values.roleSearch === undefined
-      ) {
-        if (profile.first_name.startsWith(values.usernameSearch)) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        if (
-          profile.first_name.startsWith(values.usernameSearch) &&
-          profile.role_id === values.roleSearch
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      const filters =
+        profile.first_name.startsWith(values.firstNameSearch) &&
+        profile.last_name.startsWith(values.lastNameSearch) &&
+        profile.email.startsWith(values.emailSearch);
+      return values.roleSearch === 5
+        ? filters
+        : filters && profile.role_id === values.roleSearch;
     });
     usersFound.length > 0 ? setUserList(usersFound) : setUserList([]);
   };
@@ -199,13 +186,45 @@ function RenderUpdateProfile(props) {
             {...formItemLayout}
             form={form}
             name="search"
+            initialValues={{
+              firstNameSearch: '',
+              lastNameSearch: '',
+              emailSearch: '',
+              roleSearch: 5,
+            }}
             onChange={searchFormChange}
             scrollToFirstError
           >
             <Form.Item
-              name="usernameSearch"
-              label="Username"
-              placeholder="username"
+              name="firstNameSearch"
+              label="First Name"
+              placeholder="First Name"
+              rules={
+                [
+                  //TODO add form verification for input format if needed
+                ]
+              }
+              className="item"
+            >
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              name="lastNameSearch"
+              label="Last Name"
+              placeholder="Last Name"
+              rules={
+                [
+                  //TODO add form verification for input format if needed
+                ]
+              }
+              className="item"
+            >
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              name="emailSearch"
+              label="email"
+              placeholder="email"
               rules={
                 [
                   //TODO add form verification for input format if needed
