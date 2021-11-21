@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
 import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
+import { apiAuthGet } from '../../../api';
+import { useOktaAuth } from '@okta/okta-react';
 
 function RenderUpdateProfile(props) {
   //base URL
   const APIBaseURI = process.env.REACT_APP_API_URI;
+  const { authState } = useOktaAuth();
 
   //Antd design settings
   const formItemLayout = {
@@ -56,8 +59,11 @@ function RenderUpdateProfile(props) {
   }, [user]);
 
   async function getProfiles() {
+    // TODO: implement the axios call to get profiles
+
     try {
-      const res = await axios.get(`${APIBaseURI}profiles`);
+      const res = await apiAuthGet(authState);
+      // const res = await axios.get(`${APIBaseURI}profiles`);
       return [res[0]];
     } catch (error) {
       return [
