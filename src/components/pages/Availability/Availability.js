@@ -1,10 +1,9 @@
 import React from 'react';
-import RenderDashboardContainer from '../../utils/renderDashboardComponent';
 
 export function Availability({ LoadingComponent }) {
   return (
     <>
-      <RenderDashboardContainer content="xyz Availability" />
+      <h1>This is a test render from Availavility</h1>
     </>
   );
 }

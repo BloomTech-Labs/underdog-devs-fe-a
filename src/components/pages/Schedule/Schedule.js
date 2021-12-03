@@ -1,10 +1,9 @@
 import React from 'react';
-import RenderDashboardContainer from '../../utils/renderDashboardComponent';
 
 export function Schedule({ LoadingComponent }) {
   return (
     <>
-      <RenderDashboardContainer content="xyz Schedule" />
+      <h1>This is a test render from Schedule</h1>
     </>
   );
 }

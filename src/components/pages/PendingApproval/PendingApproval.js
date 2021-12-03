@@ -1,10 +1,9 @@
 import React from 'react';
-import RenderDashboardContainer from '../../utils/renderDashboardComponent';
 
 export function PendingApproval({ LoadingComponent }) {
   return (
     <>
-      <RenderDashboardContainer content="xyz PendingApproval" />
+      <h1>This is a test render from Mentee's Progress</h1>
     </>
   );
 }
