@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Spin } from 'antd';
+import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
 import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 
@@ -41,6 +41,7 @@ function RenderUpdateProfile(props) {
   const [formProfile] = Form.useForm();
   const [user, setUser] = useState(defaultUser);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   //disable fields
   const [formDisabled, setFormDisabled] = useState(true);
@@ -55,6 +56,8 @@ function RenderUpdateProfile(props) {
   }, [user]);
 
   async function getProfiles() {
+    // TODO: implement the axios call to get profiles
+
     try {
       const res = await axios.get(`${APIBaseURI}profiles`);
       return [res[0]];
@@ -82,6 +85,19 @@ function RenderUpdateProfile(props) {
     updateProfiles();
   }, []);
 
+  //handle Modal
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   // CRUD OPERATIONS AND API CALLS
   // const searchUser = values => {
   //   axios
@@ -107,9 +123,11 @@ function RenderUpdateProfile(props) {
     //   .catch(err => console.log(err.message));
   };
 
-  const selectUser = user => {
+  const selectUser = async user => {
     setUser(user);
     formProfile.setFieldsValue(user);
+    const validating = await validateForm(formProfile);
+    setIsDisabled(!validating);
   };
 
   //form validation
@@ -136,39 +154,27 @@ function RenderUpdateProfile(props) {
   };
 
   //handle clicks on cancel button
-  const cancelChanges = () => {
-    console.log('cancelChanges!');
+  const cancelChanges = async () => {
     const found = profiles.filter(
       profile => profile.profile_id === user.profile_id
     )[0];
     setUser(found);
     formProfile.setFieldsValue(found);
+    const validating = await validateForm(formProfile);
+    setIsDisabled(!validating);
   };
 
   //handle changes on searchForm
   const searchFormChange = () => {
     const values = form.getFieldsValue();
     const usersFound = profiles.filter(profile => {
-      if (
-        values.roleSearch === 5 ||
-        !values.roleSearch ||
-        values.roleSearch === undefined
-      ) {
-        if (profile.first_name.startsWith(values.usernameSearch)) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        if (
-          profile.first_name.startsWith(values.usernameSearch) &&
-          profile.role_id === values.roleSearch
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+      const filters =
+        profile.first_name.startsWith(values.firstNameSearch) &&
+        profile.last_name.startsWith(values.lastNameSearch) &&
+        profile.email.startsWith(values.emailSearch);
+      return values.roleSearch === 5
+        ? filters
+        : filters && profile.role_id === values.roleSearch;
     });
     usersFound.length > 0 ? setUserList(usersFound) : setUserList([]);
   };
@@ -182,13 +188,45 @@ function RenderUpdateProfile(props) {
             {...formItemLayout}
             form={form}
             name="search"
+            initialValues={{
+              firstNameSearch: '',
+              lastNameSearch: '',
+              emailSearch: '',
+              roleSearch: 5,
+            }}
             onChange={searchFormChange}
             scrollToFirstError
           >
             <Form.Item
-              name="usernameSearch"
-              label="Username"
-              placeholder="username"
+              name="firstNameSearch"
+              label="First Name"
+              placeholder="First Name"
+              rules={
+                [
+                  //TODO add form verification for input format if needed
+                ]
+              }
+              className="item"
+            >
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              name="lastNameSearch"
+              label="Last Name"
+              placeholder="Last Name"
+              rules={
+                [
+                  //TODO add form verification for input format if needed
+                ]
+              }
+              className="item"
+            >
+              <Input allowClear />
+            </Form.Item>
+            <Form.Item
+              name="emailSearch"
+              label="email"
+              placeholder="email"
               rules={
                 [
                   //TODO add form verification for input format if needed
@@ -210,6 +248,7 @@ function RenderUpdateProfile(props) {
               <Radio.Group
                 name="roleSearch"
                 style={{ display: 'flex', margin: 'auto' }}
+                defaultValue={5}
               >
                 <Radio value={1}>Mentor</Radio>
                 <Radio value={2}>Mentee</Radio>
@@ -367,17 +406,25 @@ function RenderUpdateProfile(props) {
             >
               Update user info
             </Button>
-            <Button id="cancelChanges" onClick={() => cancelChanges()}>
-              Cancel
+            <Button id="cancelChanges" onClick={cancelChanges}>
+              Revert changes
             </Button>
             <Button
               danger
               id="delete"
               disabled={isDisabled}
-              onClick={() => deleteUser(user)}
+              onClick={showModal}
             >
-              Delete User
+              Disable User
             </Button>
+            <Modal
+              title="Basic Modal"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>You are about to disable a user</p>
+            </Modal>
           </div>
         </Form>
       </div>
