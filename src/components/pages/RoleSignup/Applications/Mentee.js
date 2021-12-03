@@ -21,9 +21,9 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'MENTEE ENDPOINT NEEDED!!!!!',
+        'https://underdog-devs-a-api.herokuapp.com/application/new-mentee',
         newAccount
-      ); /*ENDPOINT NEEDED!!!!*/
+      );
       console.log(response);
     } catch (err) {
       console.log(err);
