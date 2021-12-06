@@ -26,7 +26,6 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
 import { MentorDash } from './components/pages/Dashboard/MentorDash';
-import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 import { Profile } from './components/pages/Profile';
@@ -94,7 +93,6 @@ function App() {
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
-      <Footer />
     </Security>
   );
 }
