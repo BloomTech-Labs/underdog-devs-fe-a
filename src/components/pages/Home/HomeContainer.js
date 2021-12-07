@@ -2,8 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import RenderHomePage from './RenderHomePage';
-import {getRole} from '../../../api/index';
-// import RenderAdminDashboard from '../Dashboard/Admin/RenderAdminDashboard';
+import { getRole } from '../../../api/index';
+import RenderAdminDashboard from '../Dashboard/Admin/RenderAdminDashboard';
+import RenderMentorDash from '../Dashboard/MentorDash/RenderMentorDash';
+import RenderMenteeDash from '../Dashboard/MenteeDash/RenderMenteeDash';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -16,12 +18,12 @@ function HomeContainer({ LoadingComponent }) {
 
     memoAuthService
       .getUser()
-      .then(info => {
+      .then(async info => {
         // if user is authenticated we can use the authService to snag some user info.
         // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
-        // getRole(info.sub);
+        const role_id = await getRole(info.sub);
         if (isSubscribed) {
-          setUserInfo({...info, role: getRole(info.sub)});
+          setUserInfo({ ...info, role: role_id });
         }
       })
       .catch(err => {
@@ -38,15 +40,17 @@ function HomeContainer({ LoadingComponent }) {
       {authState.isAuthenticated && !userInfo && (
         <LoadingComponent message="Fetching user dashboard..." />
       )}
-      {authState.isAuthenticated && userInfo && (
-
-        // role === 3 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
-        // role === 2 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
-        // role === 1 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
-
-        <RenderHomePage userInfo={userInfo} authService={authService} />
-
-      )}
+      {authState.isAuthenticated &&
+        userInfo &&
+        (userInfo.role === 2 ? (
+          <RenderAdminDashboard userInfo={userInfo} authService={authService} />
+        ) : userInfo.role === 3 ? (
+          <RenderMentorDash userInfo={userInfo} authService={authService} />
+        ) : userInfo.role === 4 ? (
+          <RenderMenteeDash userInfo={userInfo} authService={authService} />
+        ) : (
+          <RenderHomePage userInfo={userInfo} authService={authService} />
+        ))}
     </>
   );
 }
