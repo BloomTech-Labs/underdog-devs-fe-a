@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import RenderHomePage from './RenderHomePage';
+import {getRole} from '../../../api/index';
+// import RenderAdminDashboard from '../Dashboard/Admin/RenderAdminDashboard';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -17,8 +19,9 @@ function HomeContainer({ LoadingComponent }) {
       .then(info => {
         // if user is authenticated we can use the authService to snag some user info.
         // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
+        // getRole(info.sub);
         if (isSubscribed) {
-          setUserInfo(info);
+          setUserInfo({...info, role: getRole(info.sub)});
         }
       })
       .catch(err => {
@@ -28,13 +31,21 @@ function HomeContainer({ LoadingComponent }) {
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
+  console.log(userInfo);
+
   return (
     <>
       {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent message="Fetching user profile..." />
+        <LoadingComponent message="Fetching user dashboard..." />
       )}
       {authState.isAuthenticated && userInfo && (
+
+        // role === 3 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
+        // role === 2 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
+        // role === 1 ? <RenderAdminDashboard userInfo={userInfo} authService={authService}/> : 
+
         <RenderHomePage userInfo={userInfo} authService={authService} />
+
       )}
     </>
   );
