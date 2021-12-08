@@ -12,7 +12,7 @@ import {
 } from '@ant-design/icons';
 
 import CalendarFeature from '../common/Calendar';
-
+import RenderUpdateProfile from '../pages/UpdateProfile/RenderUpdateProfile';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -36,7 +36,12 @@ const Sidebar = (props) => {
     1: <CalendarFeature/>,
     2: <div>Option 2</div>,
     3: <div>Option 3</div>,
-    4: <div>Option 4</div>
+    4: <div>Option 4</div>,
+    5: <div>Option 5</div>,
+    6: <RenderUpdateProfile/>,
+    7: <div>Option 7</div>,
+    8: <div>Option 8</div>,
+    9: <div>Option 9</div>,
   };
 
   const handleMenuClick = menu => {
@@ -56,11 +61,11 @@ const Sidebar = (props) => {
             </SubMenu>
             <SubMenu key="sub2" icon={<ContainerOutlined />} title="Tickets">
               <Menu.Item key="4" onClick={handleMenuClick}>Open Ticket</Menu.Item>
-              <Menu.Item key="5">Ticket Status</Menu.Item>
+              <Menu.Item key="5" onClick={handleMenuClick}>Ticket Status</Menu.Item>
             </SubMenu>
             <SubMenu key="sub3" icon={<UserOutlined />} title="Account">
-              <Menu.Item key="6">Profile Settings</Menu.Item>
-              <Menu.Item key="7">Account Settings</Menu.Item>
+              <Menu.Item key="6" onClick={handleMenuClick}>Profile Settings</Menu.Item>
+              <Menu.Item key="7" onClick={handleMenuClick}>Account Settings</Menu.Item>
               <Menu.Item key="8" onClick={handleLogout}>Log Out</Menu.Item>
             </SubMenu>
             <Menu.Item key="9" icon={<DollarOutlined />}>
@@ -80,7 +85,6 @@ const Sidebar = (props) => {
         </Sider>
         <Layout className="site-layout">
           <Content style={{ margin: '2vh 1vw' }}>
-            <div>{userInfo.role}</div>
             <Content>{components[render]}</Content>
           </Content>
         </Layout>
