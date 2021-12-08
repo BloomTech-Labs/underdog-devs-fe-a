@@ -15,6 +15,7 @@ import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
+import Logout from './components/pages/Logout/Logout';
 import { HomePage } from './components/pages/Home';
 import { AdminDashboard } from './components/pages/Dashboard/Admin';
 import { LandingPage } from './components/pages/Landing';
@@ -68,6 +69,7 @@ function App() {
         <Route path="/calendarfeature" component={CalendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/logout" component={Logout} />
         <Route path="/admindashboard" component={AdminDashboard} />
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/profile" component={Profile} />
