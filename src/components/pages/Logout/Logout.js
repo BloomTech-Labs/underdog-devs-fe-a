@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
-const Logout = props => {
+import { useOktaAuth } from '@okta/okta-react';
+const Logout = () => {
   const { push } = useHistory();
+  const { authService } = useOktaAuth();
   useEffect(() => {
-    localStorage.removeItem('okta-pkce-storage');
-    localStorage.removeItem('okta-cache-storage');
-    localStorage.removeItem('okta-token-storage');
+    authService.logout();
     localStorage.removeItem('role_id');
     push('/login');
   }, [push]);

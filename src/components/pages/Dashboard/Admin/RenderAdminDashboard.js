@@ -58,6 +58,7 @@ function RenderAdminDashboard(props) {
               </Link>
             </Menu.Item>
           </Menu>
+          <Link to="/logout">Logout</Link>
         </Sider>
 
         <Layout style={{ padding: '0 24px 24px' }}>

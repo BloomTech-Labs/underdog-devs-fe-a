@@ -45,6 +45,7 @@ function RenderMenteeDash(props) {
               Contact Support
             </Menu.Item>
           </Menu>
+          <Link to="/logout">Logout</Link>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
