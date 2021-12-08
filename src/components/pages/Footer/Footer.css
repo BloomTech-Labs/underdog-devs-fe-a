@@ -1,62 +1,62 @@
-.footer{
-    display: flex;
-    flex-direction: row;
-    background-color: #183b56 ;
-    position: static;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 10vh;
+.footer {
+  display: flex;
+  flex-direction: row;
+  background-color: #183b56;
+  position: static;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
 }
 
-.leftFooter{
-    display: flex;
-    flex-direction: row;
-    border-right: solid;
-    border-width: 1px;
-    border-color: white;
-    justify-content: space-evenly;
-    margin-top: 2.25rem;
-    width: 33%;
-    height: 4vh;
-    color: white;
+.leftFooter {
+  display: flex;
+  flex-direction: row;
+  border-right: solid;
+  border-width: 1px;
+  border-color: white;
+  justify-content: space-evenly;
+  margin-top: 2.25rem;
+  width: 33%;
+  height: 4vh;
+  color: white;
 }
 
-.middleFooter{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 2.25rem;
-    color: white; 
-    height: 1rem;
-    font-size: 1rem;
-    width: 33%;
+.middleFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 2.25rem;
+  color: white;
+  height: 1rem;
+  font-size: 1rem;
+  width: 33%;
 }
 
-.rightFooter{
-    display: flex;
-    flex-direction: row;
-    border-left: solid;
-    border-width: 1px;
-    border-color: white;
-    justify-content: space-evenly;
-    margin-top: 1.75rem;
-    width: 33%;
-    height: 4vh;
-    color: white;      
+.rightFooter {
+  display: flex;
+  flex-direction: row;
+  border-left: solid;
+  border-width: 1px;
+  border-color: white;
+  justify-content: space-evenly;
+  margin-top: 1.75rem;
+  width: 33%;
+  height: 4vh;
+  color: white;
 }
 
-.leftText{
-    display: flex;
-    flex-direction: row;
-    height: 1rem;
-    font-size: 1rem;
+.leftText {
+  display: flex;
+  flex-direction: row;
+  height: 1rem;
+  font-size: 1rem;
 }
 
-.middleText{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 1rem;
-    font-size: 1rem;
+.middleText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 1rem;
+  font-size: 1rem;
 }

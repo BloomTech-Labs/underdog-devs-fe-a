@@ -10,6 +10,7 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
+import Footer from './components/pages/Footer/Footer';
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
@@ -26,7 +27,6 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
 import { MentorDash } from './components/pages/Dashboard/MentorDash';
-import Footer from './components/pages/Footer/Footer';
 
 import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
 import { Profile } from './components/pages/Profile';
@@ -94,7 +94,7 @@ function App() {
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
-      <Footer />
+      <SecureRoute path="/" component={Footer} />
     </Security>
   );
 }
