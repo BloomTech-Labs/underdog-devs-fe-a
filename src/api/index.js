@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // we will define a bunch of API calls here.
-const apiUrl = `${process.env.REACT_APP_API_URI}/profiles`;
+const apiUrl = process.env.REACT_APP_API_URI;
 
 const sleep = time =>
   new Promise(resolve => {
@@ -35,7 +35,7 @@ const getDSData = (url, authState) => {
 };
 
 const apiAuthGet = authHeader => {
-  return axios.get(apiUrl, { headers: authHeader });
+  return axios.get(`${apiUrl}/profiles`, { headers: authHeader });
 };
 
 const getProfileData = authState => {
@@ -49,4 +49,16 @@ const getProfileData = authState => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData };
+const getRole = async profile_id => {
+  try {
+    const res = await axios.get(`${apiUrl}/roles/${profile_id}`);
+    if (res.data.role_id) {
+      localStorage.setItem('role_id', res.data.role_id);
+      return res.data.role_id;
+    }
+  } catch (err) {
+    alert('An error has occured. This is a bad error message.');
+  }
+};
+
+export { sleep, getExampleData, getProfileData, getDSData, getRole };
