@@ -1,5 +1,6 @@
-import { Calendar, Badge, Button } from 'antd';
+import { Calendar, Badge } from 'antd';
 import React from 'react';
+import '../common/styles/Calendar.css';
 
 function getListData(value) {
   let listData;
@@ -64,9 +65,6 @@ function monthCellRender(value) {
 const CalendarFeature = () => {
   return (
     <div className="calendar">
-      <Button type="link" href="/">
-        Home
-      </Button>
       <Calendar
         dateCellRender={dateCellRender}
         monthCellRender={monthCellRender}
