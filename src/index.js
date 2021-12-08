@@ -94,7 +94,7 @@ function App() {
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
-      <SecureRoute path="/" component={Footer} />
+      {/* <SecureRoute path="/" component={Footer} /> */}
     </Security>
   );
 }
