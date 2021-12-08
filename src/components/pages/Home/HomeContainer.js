@@ -6,6 +6,7 @@ import { getRole } from '../../../api/index';
 import RenderAdminDashboard from '../Dashboard/Admin/RenderAdminDashboard';
 import RenderMentorDash from '../Dashboard/MentorDash/RenderMentorDash';
 import RenderMenteeDash from '../Dashboard/MenteeDash/RenderMenteeDash';
+import Sidebar from '../../common/Sidebar';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -41,7 +42,9 @@ function HomeContainer({ LoadingComponent }) {
       {authState.isAuthenticated &&
         userInfo &&
         (userInfo.role === 2 ? (
-          <RenderAdminDashboard userInfo={userInfo} authService={authService} />
+          <Sidebar userInfo={userInfo} authService={authService}>
+            {/* <RenderAdminDashboard userInfo={userInfo} authService={authService} /> */}
+          </Sidebar>
         ) : userInfo.role === 3 ? (
           <RenderMentorDash userInfo={userInfo} authService={authService} />
         ) : userInfo.role === 4 ? (
