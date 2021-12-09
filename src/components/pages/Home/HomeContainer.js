@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
-import RenderHomePage from './RenderHomePage';
 import { getRole } from '../../../api/index';
-import RenderAdminDashboard from '../Dashboard/Admin/RenderAdminDashboard';
-import RenderMentorDash from '../Dashboard/MentorDash/RenderMentorDash';
-import RenderMenteeDash from '../Dashboard/MenteeDash/RenderMenteeDash';
 import Sidebar from '../../common/Sidebar';
 
 function HomeContainer({ LoadingComponent }) {
@@ -40,23 +36,19 @@ function HomeContainer({ LoadingComponent }) {
         <LoadingComponent message="Fetching user dashboard..." />
       )}
       {authState.isAuthenticated &&
-        userInfo && 
+        userInfo &&
         (userInfo.role === 2 ? (
-            // <RenderAdminDashboard userInfo={userInfo} authService={authService} />
-            <Sidebar userInfo={userInfo} authService={authService} />
-
+          // <RenderAdminDashboard userInfo={userInfo} authService={authService} />
+          <Sidebar userInfo={userInfo} authService={authService} />
         ) : userInfo.role === 3 ? (
           // <RenderMentorDash userInfo={userInfo} authService={authService} />
           <Sidebar userInfo={userInfo} authService={authService} />
-
         ) : userInfo.role === 4 ? (
           // <RenderMenteeDash userInfo={userInfo} authService={authService} />
           <Sidebar userInfo={userInfo} authService={authService} />
-
         ) : (
           // <RenderHomePage userInfo={userInfo} authService={authService} />
           <Sidebar userInfo={userInfo} authService={authService} />
-
         ))}
     </>
   );

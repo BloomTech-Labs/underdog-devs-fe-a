@@ -10,7 +10,6 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
-import Footer from './components/pages/Footer/Footer';
 import { NotFoundPage } from './components/pages/NotFound';
 import { ExampleListPage } from './components/pages/ExampleList';
 import { ProfileListPage } from './components/pages/ProfileList';
@@ -94,7 +93,6 @@ function App() {
         <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
-      {/* <SecureRoute path="/" component={Footer} /> */}
     </Security>
   );
 }

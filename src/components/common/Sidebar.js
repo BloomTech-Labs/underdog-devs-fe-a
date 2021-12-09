@@ -18,7 +18,7 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Sidebar = props => {
-  const { userInfo, authService } = props;
+  const { authService } = props;
 
   const [collapsed, setCollapsed] = useState(false);
   const [render, updateRender] = useState(1);
