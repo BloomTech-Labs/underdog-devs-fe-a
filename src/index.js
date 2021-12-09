@@ -21,6 +21,7 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
 import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
 import { MentorDash } from './components/pages/Dashboard/MentorDash';
+import { AdminDashboard } from './components/pages/Dashboard/Admin';
 import { Profile } from './components/pages/Profile';
 import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
@@ -69,6 +70,7 @@ function App() {
         />
         <SecureRoute path="/mentordash" component={MentorDash} />
         <SecureRoute path="/menteedash" component={MenteeDash} />
+        <SecureRoute path="/admindash" component={AdminDashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
         <SecureRoute path="/update-profile" component={UpdateProfile} />
         <Route component={NotFoundPage} />
