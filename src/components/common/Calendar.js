@@ -1,5 +1,6 @@
-import { Calendar, Badge, Button } from 'antd';
+import { Calendar, Badge } from 'antd';
 import React from 'react';
+import '../common/styles/Calendar.css';
 
 function getListData(value) {
   let listData;
@@ -64,9 +65,6 @@ function monthCellRender(value) {
 const CalendarFeature = () => {
   return (
     <div className="calendar">
-      <Button type="link" href="/">
-        Home
-      </Button>
       <Calendar
         dateCellRender={dateCellRender}
         monthCellRender={monthCellRender}
@@ -75,24 +73,3 @@ const CalendarFeature = () => {
   );
 };
 export default CalendarFeature;
-
-// CSS portion, will add colors and sizing later
-//   .events {
-//     margin: 0;
-//     padding: 0;
-//     list-style: none;
-//   }
-//   .events .ant-badge-status {
-//     width: 100%;
-//     overflow: hidden;
-//     font-size: 12px;
-//     white-space: nowrap;
-//     text-overflow: ellipsis;
-//   }
-//   .notes-month {
-//     font-size: 28px;
-//     text-align: center;
-//   }
-//   .notes-month section {
-//     font-size: 28px;
-//   }
