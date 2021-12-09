@@ -18,7 +18,7 @@ const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Sidebar = props => {
-  const { userInfo, authService } = props;
+  const { authService } = props;
 
   const [collapsed, setCollapsed] = useState(false);
   const [render, updateRender] = useState(1);
@@ -34,14 +34,16 @@ const Sidebar = props => {
 
   const components = {
     1: <CalendarFeature />,
-    2: <div>Option 2</div>,
-    3: <div>Option 3</div>,
-    4: <div>Option 4</div>,
-    5: <div>Option 5</div>,
-    6: <RenderUpdateProfile />,
-    7: <div>Option 7</div>,
-    8: <div>Option 8</div>,
-    9: <div>Option 9</div>,
+    2: <div>"Check Availabilities" Component goes here</div>,
+    3: <div>"Schedule Meeting"</div>,
+    4: <div>"View Assignments" Component goes here</div>,
+    5: <div>"Create Assignments" Component goes here</div>,
+    6: <div>"New Request" Component goes here</div>,
+    7: <div>"Request Status" Component goes here</div>,
+    8: <RenderUpdateProfile />,
+    9: <div>"Account Settings" Component goes here</div>,
+    11: <div>"Donate" Component goes here</div>,
+    12: <div>"Support" Component goes here</div>,
   };
 
   const handleMenuClick = menu => {
@@ -73,33 +75,52 @@ const Sidebar = props => {
               </Menu.Item>
             )}
           </SubMenu>
-          <SubMenu key="sub2" icon={<ContainerOutlined />} title="Requests">
+          {/* Assignments bar should be only visible to Mentees and Mentors */}
+          <SubMenu key="sub2" icon={<ContainerOutlined />} title="Assignments">
+            {/* "View Assignments" should only be visible to Mentees */}
             <Menu.Item key="4" onClick={handleMenuClick}>
-              Open Ticket
+              View Assignments
             </Menu.Item>
+            {/* "Create Assignments" Should only be visible to Mentors */}
             <Menu.Item key="5" onClick={handleMenuClick}>
-              Ticket Status
+              Create Assignments
             </Menu.Item>
           </SubMenu>
-          <SubMenu key="sub3" icon={<UserOutlined />} title="Account">
+          <SubMenu key="sub3" icon={<ContainerOutlined />} title="Requests">
             <Menu.Item key="6" onClick={handleMenuClick}>
-              Profile Settings
+              New Request
             </Menu.Item>
             <Menu.Item key="7" onClick={handleMenuClick}>
+              Request Status
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
+            <Menu.Item key="8" onClick={handleMenuClick}>
+              Profile Settings
+            </Menu.Item>
+            <Menu.Item key="9" onClick={handleMenuClick}>
               Account Settings
             </Menu.Item>
-            <Menu.Item key="8" onClick={handleLogout}>
+            <Menu.Item key="10" onClick={handleLogout}>
               Log Out
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="9" icon={<DollarOutlined />}>
+          <Menu.Item
+            key="11"
+            icon={<DollarOutlined />}
+            onClick={handleMenuClick}
+          >
             Donate
           </Menu.Item>
-          <Menu.Item key="10" icon={<QuestionCircleOutlined />}>
+          <Menu.Item
+            key="12"
+            icon={<QuestionCircleOutlined />}
+            onClick={handleMenuClick}
+          >
             Support
           </Menu.Item>
           <Menu.Divider />
-          <Menu.Item key="11" icon={<BulbOutlined />}>
+          <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
               <Toggle size="small" />
@@ -117,3 +138,11 @@ const Sidebar = props => {
 };
 
 export default Sidebar;
+
+//Template for further role specific Menu.Items
+//
+// {isUserMentee() === true && (
+//   <Menu.Item key="" onClick={handleMenuClick}>
+//     Title
+//   </Menu.Item>
+// )}

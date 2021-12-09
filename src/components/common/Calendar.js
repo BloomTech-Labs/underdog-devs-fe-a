@@ -73,24 +73,3 @@ const CalendarFeature = () => {
   );
 };
 export default CalendarFeature;
-
-// CSS portion, will add colors and sizing later
-//   .events {
-//     margin: 0;
-//     padding: 0;
-//     list-style: none;
-//   }
-//   .events .ant-badge-status {
-//     width: 100%;
-//     overflow: hidden;
-//     font-size: 12px;
-//     white-space: nowrap;
-//     text-overflow: ellipsis;
-//   }
-//   .notes-month {
-//     font-size: 28px;
-//     text-align: center;
-//   }
-//   .notes-month section {
-//     font-size: 28px;
-//   }
