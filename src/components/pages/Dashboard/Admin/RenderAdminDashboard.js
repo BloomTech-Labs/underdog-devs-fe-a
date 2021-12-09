@@ -12,7 +12,7 @@ import {
   CalendarOutlined,
   FormOutlined,
 } from '@ant-design/icons';
-import Item from 'antd/lib/list/Item';
+// import Item from 'antd/lib/list/Item';
 import { Availability } from '../../Availability/Availability';
 import { Profile } from '../../Profile/Profile';
 import { Schedule } from '../../Schedule/Schedule';
@@ -20,10 +20,9 @@ import { MenteesProgress } from '../../MenteesProgress/MenteesProgress';
 import { ManageResources } from '../../ManageResources/ManageResources';
 import { PendingApproval } from '../../PendingApproval/PendingApproval';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
-function RenderAdminDashboard(props) {
+function RenderAdminDashboard() {
   return (
     <Layout>
       <Layout>

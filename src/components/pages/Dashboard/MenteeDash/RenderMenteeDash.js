@@ -3,26 +3,25 @@ import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Calendar } from 'antd';
+// import { Calendar } from 'antd';
 
 import {
-  AppstoreOutlined,
-  LaptopOutlined,
-  LineChartOutlined,
+  // AppstoreOutlined,
+  // LaptopOutlined,
+  // LineChartOutlined,
   TeamOutlined,
   UserOutlined,
   CalendarOutlined,
   FormOutlined,
 } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 function onPanelChange(value, mode) {
   console.log(value.format('YYYY-MM-DD'), mode);
 }
 
-function RenderMenteeDash(props) {
+function RenderMenteeDash() {
   return (
     <Layout>
       <Layout>

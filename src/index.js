@@ -13,16 +13,11 @@ import 'antd/dist/antd.less';
 import { NotFoundPage } from './components/pages/NotFound';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-import { UpdateProfile } from './components/pages/UpdateProfile';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
-import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
-import { MentorDash } from './components/pages/Dashboard/MentorDash';
-import { AdminDashboard } from './components/pages/Dashboard/Admin';
-import { Profile } from './components/pages/Profile';
 import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
@@ -56,7 +51,6 @@ function App() {
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
         <Route path="/pendingapproval" component={PendingApproval} />
-        <Route path="/profile" component={Profile} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/manageresources" component={ManageResources} />
@@ -68,11 +62,7 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/mentordash" component={MentorDash} />
-        <SecureRoute path="/menteedash" component={MenteeDash} />
-        <SecureRoute path="/admindash" component={AdminDashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
-        <SecureRoute path="/update-profile" component={UpdateProfile} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
