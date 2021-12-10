@@ -83,9 +83,14 @@ const Sidebar = props => {
           </SubMenu>
           {/* Assignments bar should be only visible to Mentees and Mentors */}
           {isUserMentee() && (
-            <Menu.Item key="3" onClick={handleMenuClick}>
-              My Assignments
-            </Menu.Item>
+            <>
+              <Menu.Item key="3" onClick={handleMenuClick}>
+                My Assignments
+              </Menu.Item>
+              <Menu.Item key="4" onClick={handleMenuClick}>
+                Access Resources
+              </Menu.Item>
+            </>
           )}
           {isUserMentor() && (
             <Menu.Item key="3" onClick={handleMenuClick}>
@@ -93,12 +98,7 @@ const Sidebar = props => {
             </Menu.Item>
           )}
 
-          {isUserMentee() && (
-            <Menu.Item key="4" onClick={handleMenuClick}>
-              Access Resources
-            </Menu.Item>
-          )}
-          {isUserMentor() && (
+          {isUserMentor() ? (
             <SubMenu key="sub3" icon={<ContainerOutlined />} title="Resources">
               <Menu.Item key="6" onClick={handleMenuClick}>
                 Request Resources
@@ -107,6 +107,44 @@ const Sidebar = props => {
                 Track Resources
               </Menu.Item>
             </SubMenu>
+          ) : isUserAdmin() ? (
+            <SubMenu key="sub2" icon={<ContainerOutlined />} title="Resources">
+              <Menu.Item key="2" onClick={handleMenuClick}>
+                Assign Resources
+              </Menu.Item>
+              <Menu.Item key="3" onClick={handleMenuClick}>
+                Track Resources
+              </Menu.Item>
+            </SubMenu>
+          ) : (
+            <></>
+          )}
+          {isUserAdmin() && (
+            <SubMenu
+              key="sub3"
+              icon={<ContainerOutlined />}
+              title="Applications"
+            >
+              <Menu.Item key="4" onClick={handleMenuClick}>
+                Pending Applications
+              </Menu.Item>
+              <Menu.Item key="5" onClick={handleMenuClick}>
+                Schedule Interview
+              </Menu.Item>
+            </SubMenu>
+          )}
+          {isUserAdmin() && (
+            <>
+              <Menu.Item key="6" onClick={handleMenuClick}>
+                Manage Mentor/Mentees
+              </Menu.Item>
+              <Menu.Item key="7" onClick={handleMenuClick}>
+                View Support Requests
+              </Menu.Item>
+              <Menu.Item key="8" onClick={handleMenuClick}>
+                View All Meetings
+              </Menu.Item>
+            </>
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
             <Menu.Item key="8" onClick={handleMenuClick}>
@@ -119,20 +157,25 @@ const Sidebar = props => {
               Log Out
             </Menu.Item>
           </SubMenu>
-          <Menu.Item
-            key="11"
-            icon={<DollarOutlined />}
-            onClick={handleMenuClick}
-          >
-            Donate
-          </Menu.Item>
-          <Menu.Item
-            key="12"
-            icon={<QuestionCircleOutlined />}
-            onClick={handleMenuClick}
-          >
-            Support
-          </Menu.Item>
+          {isUserAdmin() === false && (
+            <>
+              <Menu.Item
+                key="11"
+                icon={<DollarOutlined />}
+                onClick={handleMenuClick}
+              >
+                Donate
+              </Menu.Item>
+              <Menu.Item
+                key="12"
+                icon={<QuestionCircleOutlined />}
+                onClick={handleMenuClick}
+              >
+                Support
+              </Menu.Item>
+            </>
+          )}
+
           <Menu.Divider />
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">

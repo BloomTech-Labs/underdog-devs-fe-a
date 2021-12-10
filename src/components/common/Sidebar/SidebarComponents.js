@@ -32,11 +32,11 @@ const MentorComponents = {
 
 const AdminComponents = {
   1: <CalendarFeature />,
-  2: <div>"Check Availabilities" Component goes here</div>,
-  3: <div>"Schedule Meeting"</div>,
-  4: <div>"View Assignments" Component goes here</div>,
-  5: <div>"Create Assignments" Component goes here</div>,
-  6: <div>"New Request" Component goes here</div>,
+  2: <div>"Assign Resources" Component goes here</div>,
+  3: <div>"Track Resources" Component goes here</div>,
+  4: <div>"Pending Applications" Component goes here</div>,
+  5: <div>"Schedule Interview" Component goes here</div>,
+  6: <div>"Manage Mentor/Mentees" Component goes here</div>,
   7: <div>"Request Status" Component goes here</div>,
   8: <RenderUpdateProfile />,
   9: <div>"Account Settings" Component goes here</div>,
