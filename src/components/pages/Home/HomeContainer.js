@@ -35,21 +35,9 @@ function HomeContainer({ LoadingComponent }) {
       {authState.isAuthenticated && !userInfo && (
         <LoadingComponent message="Fetching user dashboard..." />
       )}
-      {authState.isAuthenticated &&
-        userInfo &&
-        (userInfo.role === 2 ? (
-          // <RenderAdminDashboard userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : userInfo.role === 3 ? (
-          // <RenderMentorDash userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : userInfo.role === 4 ? (
-          // <RenderMenteeDash userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : (
-          // <RenderHomePage userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ))}
+      {authState.isAuthenticated && userInfo && (
+        <Sidebar userInfo={userInfo} authService={authService} />
+      )}
     </>
   );
 }
