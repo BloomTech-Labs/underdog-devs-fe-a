@@ -11,31 +11,18 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-import { ExampleListPage } from './components/pages/ExampleList';
-import { ProfileListPage } from './components/pages/ProfileList';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
-import { AdminDashboard } from './components/pages/Dashboard/Admin';
-import { LandingPage } from './components/pages/Landing';
-import { ExampleDataViz } from './components/pages/ExampleDataViz';
-import { UpdateProfile } from './components/pages/UpdateProfile';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Navbar from './components/pages/Navbar/Navbar';
-import { MenteeDash } from './components/pages/Dashboard/MenteeDash';
-import { MentorDash } from './components/pages/Dashboard/MentorDash';
-
-import ExampleFeature from './components/pages/Navbar/NavbarFeatures/ExampleFeature';
-import { Profile } from './components/pages/Profile';
 import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
-
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
-import CalendarFeature from './components/common/Calendar';
 
 ReactDOM.render(
   <Router>
@@ -61,36 +48,21 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
       <Switch>
-        <Route path="/examplefeature" component={ExampleFeature} />
-        <Route path="/menteedash" component={MenteeDash} />
-        <Route path="/mentordash" component={MentorDash} />
-        <Route path="/calendarfeature" component={CalendarFeature} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/admindashboard" component={AdminDashboard} />
         <Route path="/pendingapproval" component={PendingApproval} />
-        <Route path="/profile" component={Profile} />
         <Route path="/availability" component={Availability} />
-
         <Route path="/schedule" component={Schedule} />
         <Route path="/manageresources" component={ManageResources} />
         <Route path="/menteesprogress" component={MenteesProgress} />
-
         <Route path="/implicit/callback" component={LoginCallback} />
-        <Route path="/landing" component={LandingPage} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/mentordash" component={MentorDash} />
-        <SecureRoute path="/menteedash" component={MenteeDash} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
-        <SecureRoute path="/update-profile" component={UpdateProfile} />
-        <SecureRoute path="/example-list" component={ExampleListPage} />
-        <SecureRoute path="/profile-list" component={ProfileListPage} />
-        <SecureRoute path="/datavis" component={ExampleDataViz} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
