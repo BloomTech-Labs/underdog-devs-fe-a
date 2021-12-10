@@ -38,22 +38,20 @@ const Sidebar = props => {
     updateRender(menu.key);
   };
 
+  // This is determining which role is currently in session, implemented further in ternary statements in the return clause
   const role = localStorage.role_id;
-
   const isUserMentee = () => {
     if (role === '4') {
       return true;
     }
     return false;
   };
-
   const isUserMentor = () => {
     if (role === '3') {
       return true;
     }
     return false;
   };
-
   const isUserAdmin = () => {
     if (role === '2') {
       return true;
@@ -184,6 +182,8 @@ const Sidebar = props => {
       <Layout className="site-layout">
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>
+            {/* This is where the component rendering magic happens. Depending on the value of "key" in Menu.Item, the render variable will change,
+             therefore grabbing the correct component from SidebarComponents.js The function is determining what model to grab the key's respective component from.*/}
             {isUserMentee() && MenteeComponents[render]}
             {isUserMentor() && MentorComponents[render]}
             {isUserAdmin() && AdminComponents[render]}

@@ -2,6 +2,7 @@ import React from 'react';
 import CalendarFeature from '../Calendar';
 import RenderUpdateProfile from '../../pages/UpdateProfile/RenderUpdateProfile';
 
+// These components are being exported to Sidebar.js, from there they are being dynamically rendered based on what role the user is
 const MenteeComponents = {
   1: <CalendarFeature />,
   2: <div>"Upcoming Meetings" Component goes here</div>,
