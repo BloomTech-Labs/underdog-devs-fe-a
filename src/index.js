@@ -24,10 +24,18 @@ import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './state/reducers';
+
+const store = createStore(rootReducer);
+
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')
