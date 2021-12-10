@@ -80,8 +80,12 @@ const Sidebar = props => {
                 </Menu.Item>
               </>
             )}
+            {isUserAdmin() && (
+              <Menu.Item key="2" onClick={handleMenuClick}>
+                Schedule Interview
+              </Menu.Item>
+            )}
           </SubMenu>
-          {/* Assignments bar should be only visible to Mentees and Mentors */}
           {isUserMentee() && (
             <>
               <Menu.Item key="3" onClick={handleMenuClick}>
@@ -97,7 +101,6 @@ const Sidebar = props => {
               My Mentees
             </Menu.Item>
           )}
-
           {isUserMentor() ? (
             <SubMenu key="sub3" icon={<ContainerOutlined />} title="Resources">
               <Menu.Item key="6" onClick={handleMenuClick}>
@@ -109,10 +112,10 @@ const Sidebar = props => {
             </SubMenu>
           ) : isUserAdmin() ? (
             <SubMenu key="sub2" icon={<ContainerOutlined />} title="Resources">
-              <Menu.Item key="2" onClick={handleMenuClick}>
+              <Menu.Item key="3" onClick={handleMenuClick}>
                 Assign Resources
               </Menu.Item>
-              <Menu.Item key="3" onClick={handleMenuClick}>
+              <Menu.Item key="4" onClick={handleMenuClick}>
                 Track Resources
               </Menu.Item>
             </SubMenu>
@@ -120,18 +123,11 @@ const Sidebar = props => {
             <></>
           )}
           {isUserAdmin() && (
-            <SubMenu
-              key="sub3"
-              icon={<ContainerOutlined />}
-              title="Applications"
-            >
-              <Menu.Item key="4" onClick={handleMenuClick}>
+            <>
+              <Menu.Item key="5" onClick={handleMenuClick}>
                 Pending Applications
               </Menu.Item>
-              <Menu.Item key="5" onClick={handleMenuClick}>
-                Schedule Interview
-              </Menu.Item>
-            </SubMenu>
+            </>
           )}
           {isUserAdmin() && (
             <>
@@ -147,10 +143,10 @@ const Sidebar = props => {
             </>
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
-            <Menu.Item key="8" onClick={handleMenuClick}>
+            <Menu.Item key="9" onClick={handleMenuClick}>
               Profile Settings
             </Menu.Item>
-            <Menu.Item key="9" onClick={handleMenuClick}>
+            <Menu.Item key="11" onClick={handleMenuClick}>
               Account Settings
             </Menu.Item>
             <Menu.Item key="10" onClick={handleLogout}>
@@ -175,7 +171,6 @@ const Sidebar = props => {
               </Menu.Item>
             </>
           )}
-
           <Menu.Divider />
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
