@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import { getRole } from '../../../api/index';
-import Sidebar from '../../common/Sidebar';
+import Sidebar from '../../common/Sidebar/Sidebar';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();

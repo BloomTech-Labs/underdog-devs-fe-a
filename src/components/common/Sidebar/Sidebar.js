@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import './styles/Sidebar.css';
+// import './styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
 import {
   QuestionCircleOutlined,
@@ -11,9 +11,13 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-import CalendarFeature from '../common/Calendar';
-import RenderUpdateProfile from '../pages/UpdateProfile/RenderUpdateProfile';
-
+import CalendarFeature from '../Calendar';
+import RenderUpdateProfile from '../../pages/UpdateProfile/RenderUpdateProfile';
+import {
+  MenteeComponents,
+  MentorComponents,
+  AdminComponents,
+} from './SidebarComponents';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -32,20 +36,6 @@ const Sidebar = props => {
     localStorage.removeItem('role_id');
   };
 
-  const components = {
-    1: <CalendarFeature />,
-    2: <div>"Check Availabilities" Component goes here</div>,
-    3: <div>"Schedule Meeting"</div>,
-    4: <div>"View Assignments" Component goes here</div>,
-    5: <div>"Create Assignments" Component goes here</div>,
-    6: <div>"New Request" Component goes here</div>,
-    7: <div>"Request Status" Component goes here</div>,
-    8: <RenderUpdateProfile />,
-    9: <div>"Account Settings" Component goes here</div>,
-    11: <div>"Donate" Component goes here</div>,
-    12: <div>"Support" Component goes here</div>,
-  };
-
   const handleMenuClick = menu => {
     updateRender(menu.key);
   };
@@ -58,6 +48,18 @@ const Sidebar = props => {
     }
   };
 
+  const isUserMentor = () => {
+    if (role === '3') {
+      return true;
+    }
+  };
+
+  const isUserAdmin = () => {
+    if (role === '2') {
+      return true;
+    }
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
@@ -66,34 +68,46 @@ const Sidebar = props => {
             <Menu.Item key="1" onClick={handleMenuClick}>
               Calendar
             </Menu.Item>
-            <Menu.Item key="2" onClick={handleMenuClick}>
-              Check Availabilities
-            </Menu.Item>
-            {isUserMentee() === true && (
-              <Menu.Item key="3" onClick={handleMenuClick}>
-                Schedule Meeting
+            {isUserMentee() && (
+              <Menu.Item key="2" onClick={handleMenuClick}>
+                Upcoming Meetings
               </Menu.Item>
+            )}
+            {isUserMentor() && (
+              <>
+                <Menu.Item key="2" onClick={handleMenuClick}>
+                  Schedule Meeting
+                </Menu.Item>
+              </>
             )}
           </SubMenu>
           {/* Assignments bar should be only visible to Mentees and Mentors */}
-          <SubMenu key="sub2" icon={<ContainerOutlined />} title="Assignments">
-            {/* "View Assignments" should only be visible to Mentees */}
+          {isUserMentee() && (
+            <Menu.Item key="3" onClick={handleMenuClick}>
+              My Assignments
+            </Menu.Item>
+          )}
+          {isUserMentor() && (
+            <Menu.Item key="3" onClick={handleMenuClick}>
+              My Mentees
+            </Menu.Item>
+          )}
+
+          {isUserMentee() && (
             <Menu.Item key="4" onClick={handleMenuClick}>
-              View Assignments
+              Access Resources
             </Menu.Item>
-            {/* "Create Assignments" Should only be visible to Mentors */}
-            <Menu.Item key="5" onClick={handleMenuClick}>
-              Create Assignments
-            </Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub3" icon={<ContainerOutlined />} title="Requests">
-            <Menu.Item key="6" onClick={handleMenuClick}>
-              New Request
-            </Menu.Item>
-            <Menu.Item key="7" onClick={handleMenuClick}>
-              Request Status
-            </Menu.Item>
-          </SubMenu>
+          )}
+          {isUserMentor() && (
+            <SubMenu key="sub3" icon={<ContainerOutlined />} title="Resources">
+              <Menu.Item key="6" onClick={handleMenuClick}>
+                Request Resources
+              </Menu.Item>
+              <Menu.Item key="7" onClick={handleMenuClick}>
+                Track Resources
+              </Menu.Item>
+            </SubMenu>
+          )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
             <Menu.Item key="8" onClick={handleMenuClick}>
               Profile Settings
@@ -130,7 +144,11 @@ const Sidebar = props => {
       </Sider>
       <Layout className="site-layout">
         <Content style={{ margin: '2vh 1vw' }}>
-          <Content>{components[render]}</Content>
+          <Content>
+            {isUserMentee() && MenteeComponents[render]}
+            {isUserMentor() && MentorComponents[render]}
+            {isUserAdmin() && AdminComponents[render]}
+          </Content>
         </Content>
       </Layout>
     </Layout>
