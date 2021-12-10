@@ -33,7 +33,7 @@ function HomeContainer({ LoadingComponent }) {
   return (
     <>
       {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent message="Fetching user dashboard..." />
+        <LoadingComponent/>
       )}
       {authState.isAuthenticated && userInfo && (
         <Sidebar userInfo={userInfo} authService={authService} />
