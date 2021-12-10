@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-// import './styles/Sidebar.css';
+import '../styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
 import {
   QuestionCircleOutlined,
@@ -11,8 +11,6 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-import CalendarFeature from '../Calendar';
-import RenderUpdateProfile from '../../pages/UpdateProfile/RenderUpdateProfile';
 import {
   MenteeComponents,
   MentorComponents,
@@ -46,18 +44,21 @@ const Sidebar = props => {
     if (role === '4') {
       return true;
     }
+    return false;
   };
 
   const isUserMentor = () => {
     if (role === '3') {
       return true;
     }
+    return false;
   };
 
   const isUserAdmin = () => {
     if (role === '2') {
       return true;
     }
+    return false;
   };
 
   return (
@@ -132,21 +133,21 @@ const Sidebar = props => {
           {isUserAdmin() && (
             <>
               <Menu.Item key="6" onClick={handleMenuClick}>
-                Manage Mentor/Mentees
+                Manage Users
               </Menu.Item>
               <Menu.Item key="7" onClick={handleMenuClick}>
                 View Support Requests
               </Menu.Item>
-              <Menu.Item key="8" onClick={handleMenuClick}>
+              <Menu.Item key="11" onClick={handleMenuClick}>
                 View All Meetings
               </Menu.Item>
             </>
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
-            <Menu.Item key="9" onClick={handleMenuClick}>
+            <Menu.Item key="8" onClick={handleMenuClick}>
               Profile Settings
             </Menu.Item>
-            <Menu.Item key="11" onClick={handleMenuClick}>
+            <Menu.Item key="9" onClick={handleMenuClick}>
               Account Settings
             </Menu.Item>
             <Menu.Item key="10" onClick={handleLogout}>
