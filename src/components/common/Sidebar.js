@@ -13,6 +13,7 @@ import {
 
 import CalendarFeature from '../common/Calendar';
 import RenderUpdateProfile from '../pages/UpdateProfile/RenderUpdateProfile';
+import {DarkModeToggle} from './DarkModeToggle';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -123,7 +124,7 @@ const Sidebar = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle size="small" />
+              <Toggle size="small" onClick={DarkModeToggle} />
             </div>
           </Menu.Item>
         </Menu>
