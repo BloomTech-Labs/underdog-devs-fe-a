@@ -24,11 +24,12 @@ import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
+import promiseMiddleware from 'redux-promise';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(promiseMiddleware));
 
 ReactDOM.render(
   <Router>
