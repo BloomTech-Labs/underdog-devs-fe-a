@@ -1,6 +1,4 @@
 
-
-
 const stylesheets = {
     light: "https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.min.css",
     dark: "https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.dark.min.css"
@@ -24,12 +22,12 @@ const systemTheme = () => {
         : "light";
 };
 
-const getTheme = () => { return localStorage.getItem("theme") || systemTheme(); };
-    const setTheme = (theme) => {
-    localStorage.setItem("theme", theme);
-    getStylesheetLink().href = stylesheets[theme];
+export const getTheme = () => { return localStorage.getItem("theme") || systemTheme(); };
+    export const setTheme = (theme) => {
+        localStorage.setItem("theme", theme);
+        getStylesheetLink().href = stylesheets[theme];
 };
 
-export const DarkModeToggle = () => { return setTheme(getTheme() === "dark" ? "light" : "dark"); };
-
-
+export const DarkModeToggle = () => { 
+    return setTheme(getTheme() === "dark" ? "light" : "dark"); 
+};

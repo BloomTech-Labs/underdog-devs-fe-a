@@ -13,7 +13,8 @@ import {
 
 import CalendarFeature from '../common/Calendar';
 import RenderUpdateProfile from '../pages/UpdateProfile/RenderUpdateProfile';
-import {DarkModeToggle} from './DarkModeToggle';
+import { DarkModeToggle, setTheme, getTheme } from './DarkModeToggle';
+import { useEffect } from 'react';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -23,6 +24,9 @@ const Sidebar = props => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [render, updateRender] = useState(1);
+
+  //Set the default theme when the component is mounted
+  useEffect(() => setTheme(getTheme()), []);
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
