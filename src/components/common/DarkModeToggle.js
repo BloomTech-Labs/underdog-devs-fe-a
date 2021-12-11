@@ -22,7 +22,14 @@ const systemTheme = () => {
         : "light";
 };
 
-export const getTheme = () => { return localStorage.getItem("theme") || systemTheme(); };
+export const getTheme = () => { 
+    if (localStorage.theme === 'dark'){
+        document.getElementById("darkModeToggle").className = "ant-switch ant-switch-small ant-switch-checked";
+    } else if (localStorage.theme === 'light') {
+        document.getElementById("darkModeToggle").className = "ant-switch ant-switch-small";
+    }
+    return localStorage.getItem("theme") || systemTheme(); 
+    };
     export const setTheme = (theme) => {
         localStorage.setItem("theme", theme);
         getStylesheetLink().href = stylesheets[theme];

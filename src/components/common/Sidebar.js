@@ -24,15 +24,20 @@ const Sidebar = props => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [render, updateRender] = useState(1);
+  const [currentValue, setCurrentValue] = useState(false);
+
 
   //Set the default theme when the component is mounted
-  useEffect(() => setTheme(getTheme()), []);
+  useEffect(() => 
+    setTheme(getTheme()), 
+  []);
+
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
   };
 
-  const handleLogout = checked => {
+  const handleLogout = () => {
     authService.logout();
     localStorage.removeItem('role_id');
   };
@@ -128,7 +133,7 @@ const Sidebar = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle size="small" onClick={DarkModeToggle} />
+              <Toggle size="small" id="darkModeToggle" onClick={DarkModeToggle} />
             </div>
           </Menu.Item>
         </Menu>
