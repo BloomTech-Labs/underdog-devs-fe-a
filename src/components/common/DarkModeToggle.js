@@ -1,10 +1,11 @@
 
+// hosted style sheets from cdnjs
 const stylesheets = {
     light: "https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.min.css",
     dark: "https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.dark.min.css"
 };
 
-//creates <link rel="stylesheet" id="ant-dstylesheet" href="">
+//creates and returns <link rel="stylesheet" id="ant-dstylesheet" href="<theme from stylesheets obj goes here>">
 const createStylesheetLink = () => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -13,7 +14,7 @@ const createStylesheetLink = () => {
     return link;
 };
 
-//gets the <link> that was created by getting by its id || calls createStylesheetLink if its not there
+//returns the <link> that was created by getting by its id || calls createStylesheetLink if its not there
 const getStylesheetLink = () => {
     return document.head.querySelector("#antd-stylesheet") || createStylesheetLink();
 };
@@ -26,10 +27,11 @@ const systemTheme = () => {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
-
+// returns the theme, if no theme, call systemTheme func
 export const getTheme = () => { return localStorage.getItem("theme") || systemTheme(); };
     export const setTheme = (theme) => {
         localStorage.setItem("theme", theme);
+        // asssigns the href in getStylesheetLink function to the corrisponding theme in the stylesheets object 
         getStylesheetLink().href = stylesheets[theme];
 };
 
