@@ -26,9 +26,9 @@ const Sidebar = props => {
   const [render, updateRender] = useState(1);
 
   //Set the default theme when the component is mounted
-  useEffect(() => 
-    setTheme(getTheme()), 
-  []);
+  useEffect(() => {
+    setTheme(getTheme());
+  }, []);
 
 
   const onCollapse = collapsed => {
