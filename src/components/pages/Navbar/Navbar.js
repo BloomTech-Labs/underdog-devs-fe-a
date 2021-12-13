@@ -1,4 +1,4 @@
-import { Avatar, Image } from 'antd';
+import { Avatar } from 'antd';
 import React, { useState } from 'react';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -9,20 +9,15 @@ const { Header } = Layout;
 
 const Navbar = () => {
   //when profile pictures are implemented into the backend, flesh out functions that will retrieve picture and set it to state
+
   const [profilePic, setProfilePic] = useState(
     'https://joeschmoe.io/api/v1/random'
   );
+
   return (
     <Layout className="layout">
       <Header>
-        <div
-          className="logoDiv"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            height: '100%',
-          }}
-        >
+        <div className="logoDiv">
           <div>
             <img
               src={logo}
@@ -31,53 +26,14 @@ const Navbar = () => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
-          <div
-            className="userInfo-and-profilePic"
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              height: '100%',
-            }}
-          >
-            <div
-              className="userInfo"
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                padding: '.5vw',
-                color: 'white',
-              }}
-            >
+          <div className="userInfo-and-profilePic">
+            <div className="userInfo">
               {/* Username State Goes Here */}
-              <div
-                className="username"
-                style={{
-                  display: 'flex',
-                  height: '3vh',
-                  alignItems: 'center',
-                }}
-              >
-                {' '}
-                Username{' '}
-              </div>
+              <div className="username"> Username </div>
               {/* Role State Goes Here */}
-              <div
-                className="userRole"
-                style={{
-                  display: 'flex',
-                  height: '1vh',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontStyle: 'italic',
-                  fontSize: '.7rem',
-                }}
-              >
-                {' '}
-                Role{' '}
-              </div>
+              <div className="userRole">Role</div>
             </div>
-            <div className="profilePic" style={{ padding: '0vh 1vw' }}>
+            <div className="profilePic">
               <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
             </div>
           </div>
