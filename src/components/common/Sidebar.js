@@ -26,7 +26,7 @@ const Sidebar = props => {
   const [render, updateRender] = useState(1);
   const [toggle, setToggle] = useState(false);
 
-  //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed
+  //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
   useEffect(() => {
     if (localStorage.theme === 'dark') {
       document.getElementById("darkModeToggle").className = "ant-switch ant-switch-small ant-switch-checked";
