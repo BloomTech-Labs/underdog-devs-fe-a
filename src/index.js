@@ -21,7 +21,6 @@ import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
 import Navbar from './components/pages/Navbar/Navbar';
-import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -64,7 +63,6 @@ function App() {
         <Route path="/menteeapplication" component={Mentee} />
         <Route path="/mentorapplication" component={Mentor} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/manageresources" component={ManageResources} />
