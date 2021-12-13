@@ -32,9 +32,7 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent/>
-      )}
+      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
       {authState.isAuthenticated && userInfo && (
         <Sidebar userInfo={userInfo} authService={authService} />
       )}
