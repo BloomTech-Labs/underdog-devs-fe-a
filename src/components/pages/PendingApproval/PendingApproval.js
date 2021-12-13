@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function PendingApproval({ LoadingComponent }) {
+export const PendingApproval = () => {
   return (
-    <>
-      <h1>This is a test render from Mentee's Progress</h1>
-    </>
+    <div>
+      <p>Status for Mentee or Mentor</p>
+    </div>
   );
-}
+};
