@@ -17,6 +17,9 @@ import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
 import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
+import Mentee from './components/pages/RoleSignup/Applications/Mentee';
+import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+
 import Navbar from './components/pages/Navbar/Navbar';
 import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
@@ -58,6 +61,8 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/signup" component={Signup} />
+        <Route path="/menteeapplication" component={Mentee} />
+        <Route path="/mentorapplication" component={Mentor} />
         <Route path="/login" component={LoginPage} />
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/availability" component={Availability} />
