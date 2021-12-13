@@ -24,10 +24,19 @@ import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './state/reducers';
+import promiseMiddleware from 'redux-promise';
+
+const store = createStore(rootReducer, applyMiddleware(promiseMiddleware));
+
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')
