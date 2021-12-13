@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 import { getRole } from '../../../api/index';
-import Sidebar from '../../common/Sidebar';
+import Sidebar from '../../common/Sidebar/Sidebar';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -35,21 +35,9 @@ function HomeContainer({ LoadingComponent }) {
       {authState.isAuthenticated && !userInfo && (
         <LoadingComponent/>
       )}
-      {authState.isAuthenticated &&
-        userInfo &&
-        (userInfo.role === 2 ? (
-          // <RenderAdminDashboard userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : userInfo.role === 3 ? (
-          // <RenderMentorDash userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : userInfo.role === 4 ? (
-          // <RenderMenteeDash userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ) : (
-          // <RenderHomePage userInfo={userInfo} authService={authService} />
-          <Sidebar userInfo={userInfo} authService={authService} />
-        ))}
+      {authState.isAuthenticated && userInfo && (
+        <Sidebar userInfo={userInfo} authService={authService} />
+      )}
     </>
   );
 }
