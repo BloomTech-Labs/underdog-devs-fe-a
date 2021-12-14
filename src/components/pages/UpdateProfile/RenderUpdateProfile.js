@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
-import axios from 'axios';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
+import axiosWithAuth from '../../../utils/axiosWithAuth.js';
 
 function RenderUpdateProfile(props) {
-  //base URL
-  const APIBaseURI = process.env.REACT_APP_API_URI;
-
   //Antd design settings
   const formItemLayout = {
     labelCol: {
@@ -36,7 +33,6 @@ function RenderUpdateProfile(props) {
   const [form] = Form.useForm();
   const [userList, setUserList] = useState([]);
   const [profiles, setProfiles] = useState([]);
-
   //modifyUserForm
   const [formProfile] = Form.useForm();
   const [user, setUser] = useState(defaultUser);
@@ -56,33 +52,17 @@ function RenderUpdateProfile(props) {
   }, [user]);
 
   async function getProfiles() {
-    // TODO: implement the axios call to get profiles
-
     try {
-      const res = await axios.get(`${APIBaseURI}profiles`);
-      return [res[0]];
-    } catch (error) {
-      return [
-        //dummy data for development
-        {
-          profile_id: '00ulzfj6nX72gu3Nh4d6',
-          email: 'email@email.mail',
-          first_name: 'John',
-          last_name: 'Doe',
-          role_id: 3,
-          created_at: '2021-04-21T18:47:18.712Z',
-          pending: true,
-        },
-      ];
+      const res = await axiosWithAuth().get('/profiles');
+      console.log(res);
+      setProfiles(res.data);
+    } catch (err) {
+      console.log(err);
     }
   }
 
   useEffect(() => {
-    async function updateProfiles() {
-      const newProfiles = await getProfiles();
-      setProfiles(newProfiles);
-    }
-    updateProfiles();
+    getProfiles();
   }, []);
 
   //handle Modal
@@ -106,13 +86,13 @@ function RenderUpdateProfile(props) {
   //     .catch(err => console.log(err.message));
   // };
 
-  const updateUser = user => {
-    // axios.get( APIUPDATEURI, user)
-    //   .then(res => {
-    //     setUser(defaultUser)
-    //     searchUser(res)
-    //})
-    //   .catch(err => console.log(err.message));
+  const updateUser = async user => {
+    try {
+      const res = await axiosWithAuth().put('/profiles', user);
+      setUser(res.data);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const deleteUser = user => {
@@ -125,6 +105,7 @@ function RenderUpdateProfile(props) {
 
   const selectUser = async user => {
     setUser(user);
+    console.log(user);
     formProfile.setFieldsValue(user);
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
