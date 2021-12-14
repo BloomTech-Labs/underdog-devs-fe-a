@@ -7,14 +7,30 @@
 // USER ACTIONS
 export const getUserName = () => {
   return dispatch => {
-    const token = localStorage.getItemBy('okta-token-storage');
-    dispatch(fetchUserName(JSON.parse(token).idToken.claims.name));
+    // const token = localStorage.getItemBy('okta-token-storage');
+    // dispatch(fetchUserName(JSON.parse(token).idToken.claims.name));
   };
+};
+
+export const getUserProfile = profile => {
+  return dispatch => {
+    dispatch(fetchUserProfile(profile));
+  };
+};
+
+export const INITIALIZE_USER = 'GET_USER_NAME';
+export const initializeUser = () => {
+  return { type: INITIALIZE_USER };
 };
 
 export const USER_NAME = 'USER_NAME';
 export const fetchUserName = user => {
   return { type: USER_NAME, payload: user };
+};
+
+export const USER_PROFILE = 'USER_PROFILE';
+export const fetchUserProfile = profile => {
+  return { type: USER_PROFILE, payload: profile };
 };
 
 // CALENDAR ACTIONS

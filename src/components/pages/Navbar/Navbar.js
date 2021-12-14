@@ -1,9 +1,10 @@
 import { Avatar, Button, Input } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 
-const Navbar = () => {
+const Navbar = props => {
   return (
     <div className="navBar">
       <div className="navLogo">
@@ -23,7 +24,7 @@ const Navbar = () => {
             size="large"
             style={{ backgroundColor: 'gray' }}
           >
-            Avatar
+            {props.user}
           </Avatar>
         </Avatar.Group>
       </div>
@@ -31,4 +32,14 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+// DO NOT GIT ADD THIS FILE TO COMMIT OR PUSH
+
+const mapStateToProps = state => {
+  console.log('STATE', state);
+  return {
+    user: state.user.username,
+    //user: is state from our store, user from index.js in reducers folder, username from the return
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);
