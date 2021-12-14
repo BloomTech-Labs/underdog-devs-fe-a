@@ -1,0 +1,24 @@
+.row {
+    display: flex;
+    flex-direction: column;
+}
+
+.col1, .col2 {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.card1, .card2 {
+    display: flex;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.divider {
+    margin: 4em;
+}
