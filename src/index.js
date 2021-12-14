@@ -31,8 +31,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
+import thunk from 'redux-thunk';
 
-const store = createStore(rootReducer, applyMiddleware(promiseMiddleware));
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk, promiseMiddleware)
+);
 
 ReactDOM.render(
   <Router>

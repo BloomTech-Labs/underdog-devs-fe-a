@@ -37,7 +37,7 @@ const Navbar = props => {
 const mapStateToProps = state => {
   console.log('STATE', state);
   return {
-    user: state.user.username,
+    user: state.profile,
     //user: is state from our store, user from index.js in reducers folder, username from the return
   };
 };

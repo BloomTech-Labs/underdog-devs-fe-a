@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 
 import { getRole } from '../../../api/index';
 import Sidebar from '../../common/Sidebar/Sidebar';
 
-function HomeContainer({ LoadingComponent }) {
+import { getUserProfile } from '../../../state/actions';
+
+function HomeContainer({ getUserProfile, LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
   // eslint-disable-next-line
@@ -30,6 +33,8 @@ function HomeContainer({ LoadingComponent }) {
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
+  getUserProfile(userInfo);
+
   return (
     <>
       {authState.isAuthenticated && !userInfo && <LoadingComponent />}
@@ -40,4 +45,8 @@ function HomeContainer({ LoadingComponent }) {
   );
 }
 
-export default HomeContainer;
+const mapActionsToProps = {
+  getUserProfile: getUserProfile,
+};
+
+export default connect(null, mapActionsToProps)(HomeContainer);
