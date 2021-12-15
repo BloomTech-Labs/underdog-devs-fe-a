@@ -1,4 +1,4 @@
-import { Avatar, Button, Input } from 'antd';
+import { Avatar, Button } from 'antd';
 import React from 'react';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
