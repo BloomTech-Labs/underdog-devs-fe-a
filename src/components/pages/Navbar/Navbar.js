@@ -25,6 +25,11 @@ const Navbar = props => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
+          {
+            !props.user.profile.name ? <div></div> 
+            
+            :
+
           <div className="userInfo-and-profilePic">
             <div className="userInfo">
               {/* Username State Goes Here */}
@@ -36,6 +41,7 @@ const Navbar = props => {
               <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
             </div>
           </div>
+          }
         </div>
       </Header>
     </Layout>
