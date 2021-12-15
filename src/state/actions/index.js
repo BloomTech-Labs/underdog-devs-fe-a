@@ -18,11 +18,12 @@ export const fetchUserProfile = profile => {
 };
 
 // CALENDAR ACTIONS
-
-export const getEventTemplateStub = () => {
-  return dispatch => {};
+export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';
+export const getEventTemplateStub = event => {
+  return { type: MENTOR_EVENT_STUB, payload: event };
 };
-export const getEventTemplateStub2 = () => {
-  return dispatch => {};
+export const MENTEE_EVENT_STUB = 'MENTEE_EVENT_STUB';
+export const getEventTemplateStub2 = event => {
+  return { type: MENTEE_EVENT_STUB, payload: event };
 };
 // ADMIN TICKETS
