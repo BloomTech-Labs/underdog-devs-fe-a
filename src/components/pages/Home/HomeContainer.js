@@ -33,7 +33,9 @@ function HomeContainer({ getUserProfile, LoadingComponent }) {
     return () => (isSubscribed = false);
   }, [memoAuthService]);
 
-  getUserProfile(userInfo);
+  useEffect(() => {
+    getUserProfile(userInfo);
+  });
 
   return (
     <>

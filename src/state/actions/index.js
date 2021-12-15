@@ -5,16 +5,10 @@
 // Declare action TYPES at the top of the file
 
 // USER ACTIONS
-export const getUserName = () => {
+export const getUserProfile = () => {
   return dispatch => {
-    // const token = localStorage.getItemBy('okta-token-storage');
-    // dispatch(fetchUserName(JSON.parse(token).idToken.claims.name));
-  };
-};
-
-export const getUserProfile = profile => {
-  return dispatch => {
-    dispatch(fetchUserProfile(profile));
+    const token = localStorage.getItem('okta-token-storage');
+    dispatch(fetchUserProfile(JSON.parse(token).idToken.claims));
   };
 };
 
@@ -23,10 +17,10 @@ export const initializeUser = () => {
   return { type: INITIALIZE_USER };
 };
 
-export const USER_NAME = 'USER_NAME';
-export const fetchUserName = user => {
-  return { type: USER_NAME, payload: user };
-};
+// export const USER_NAME = 'USER_NAME';
+// export const fetchUserName = user => {
+//   return { type: USER_NAME, payload: user };
+// };
 
 export const USER_PROFILE = 'USER_PROFILE';
 export const fetchUserProfile = profile => {

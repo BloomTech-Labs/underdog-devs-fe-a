@@ -1,5 +1,5 @@
 import { Avatar, Button, Input } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -24,7 +24,7 @@ const Navbar = props => {
             size="large"
             style={{ backgroundColor: 'gray' }}
           >
-            {props.user}
+            {props.user.profile.name}
           </Avatar>
         </Avatar.Group>
       </div>
@@ -35,10 +35,8 @@ const Navbar = props => {
 // DO NOT GIT ADD THIS FILE TO COMMIT OR PUSH
 
 const mapStateToProps = state => {
-  console.log('STATE', state);
   return {
-    user: state.profile,
-    //user: is state from our store, user from index.js in reducers folder, username from the return
+    user: state.user,
   };
 };
 
