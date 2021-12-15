@@ -21,7 +21,7 @@ import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
 import Navbar from './components/pages/Navbar/Navbar';
-import { PendingApproval } from './components/pages/PendingApproval/PendingApproval';
+import PendingApproval from './components/pages/PendingApproval/PendingApproval';
 import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
