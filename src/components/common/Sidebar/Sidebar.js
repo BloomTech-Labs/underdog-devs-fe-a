@@ -16,6 +16,10 @@ import {
   MentorComponents,
   AdminComponents,
 } from './SidebarComponents';
+
+import { DarkModeToggle, setTheme, getTheme } from '../DarkModeToggle';
+import { useEffect } from 'react';
+
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -24,6 +28,20 @@ const Sidebar = props => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [render, updateRender] = useState(1);
+
+  const [toggle, setToggle] = useState(false);
+
+  //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
+  useEffect(() => {
+    if (localStorage.theme === 'dark') {
+      document.getElementById('darkModeToggle').className =
+        'ant-switch ant-switch-small ant-switch-checked';
+    } else if (localStorage.theme === 'light') {
+      document.getElementById('darkModeToggle').className =
+        'ant-switch ant-switch-small';
+    }
+    setTheme(getTheme());
+  }, [toggle]);
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
@@ -174,7 +192,12 @@ const Sidebar = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle size="small" />
+              <Toggle
+                size="small"
+                id="darkModeToggle"
+                onChange={() => setToggle(!toggle)}
+                onClick={DarkModeToggle}
+              />
             </div>
           </Menu.Item>
         </Menu>

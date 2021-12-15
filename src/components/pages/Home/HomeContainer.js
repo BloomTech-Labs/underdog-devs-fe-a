@@ -3,6 +3,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 import { getRole } from '../../../api/index';
 import Sidebar from '../../common/Sidebar/Sidebar';
+import PendingApproval from '../PendingApproval/PendingApproval';
 
 function HomeContainer({ LoadingComponent }) {
   const { authState, authService } = useOktaAuth();
@@ -32,10 +33,10 @@ function HomeContainer({ LoadingComponent }) {
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && (
-        <LoadingComponent/>
-      )}
-      {authState.isAuthenticated && userInfo && (
+      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
+      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
+        <PendingApproval userInfo={userInfo} authService={authService} />
+      ) : (
         <Sidebar userInfo={userInfo} authService={authService} />
       )}
     </>

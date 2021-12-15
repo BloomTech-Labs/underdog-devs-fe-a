@@ -1,48 +1,38 @@
-.navBar{
-    display: flex;
-    justify-content: space-between;
-    background: #183b56 ;
-    z-index: 999;
-    width: 100%;
-    height: 10vh;
-}
-
-.navLogo{
+.logoDiv {
   display: flex;
-  justify-self: left;
-  color: #f57914;
-  z-index: 9999;
-  font-size: 1.5rem;
+  justify-content: space-between;
+  height: 100%;
 }
 
-.navLogoText{
-    display: block;
-    margin-block-start: .9em;
-    margin-block-end: 1.5em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+.userInfo-and-profilePic {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
 }
 
-.navBoxRight{
-    display: flex;
-    align-items: center;
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5vw;
+  color: white;
 }
 
-.navBarFont{
-    color: #fff;
-    margin: 2rem;
-    padding: 1rem;
-    border: 0;
-    margin-block-start: 1em;
-    margin-block-end: .1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+.username {
+  display: flex;
+  height: 3vh;
+  align-items: center;
 }
 
-.avatar{
-    color: #fff;
-    margin: 2rem;
-    padding: 0;
-    border: 0;
+.userRole {
+  display: flex;
+  height: 1vh;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  font-size: 0.7rem;
 }
 
+.profilePic {
+  padding: 0vh 1vw;
+}
