@@ -4,6 +4,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 import { getRole } from '../../../api/index';
 import Sidebar from '../../common/Sidebar/Sidebar';
+import PendingApproval from '../PendingApproval/PendingApproval';
 
 import { getUserProfile } from '../../../state/actions';
 
@@ -40,7 +41,9 @@ function HomeContainer({ getUserProfile, LoadingComponent }) {
   return (
     <>
       {authState.isAuthenticated && !userInfo && <LoadingComponent />}
-      {authState.isAuthenticated && userInfo && (
+      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
+        <PendingApproval userInfo={userInfo} authService={authService} />
+      ) : (
         <Sidebar userInfo={userInfo} authService={authService} />
       )}
     </>
