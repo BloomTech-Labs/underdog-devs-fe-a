@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
@@ -18,7 +18,6 @@ import {
 } from './SidebarComponents';
 
 import { DarkModeToggle, setTheme, getTheme } from '../DarkModeToggle';
-import { useEffect } from 'react';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -30,9 +29,15 @@ const Sidebar = props => {
   const [render, updateRender] = useState(1);
 
   const [toggle, setToggle] = useState(false);
+  console.log(toggle);
+  console.log(localStorage.theme);
 
   //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
-  useEffect(() => {
+  useLayoutEffect(() => {
+    setTheme(getTheme());
+  }, [toggle]);
+  
+  useLayoutEffect(()=> {
     if (localStorage.theme === 'dark') {
       document.getElementById('darkModeToggle').className =
         'ant-switch ant-switch-small ant-switch-checked';
@@ -40,8 +45,7 @@ const Sidebar = props => {
       document.getElementById('darkModeToggle').className =
         'ant-switch ant-switch-small';
     }
-    setTheme(getTheme());
-  }, [toggle]);
+  });
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
@@ -76,6 +80,7 @@ const Sidebar = props => {
     }
     return false;
   };
+
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
