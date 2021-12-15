@@ -12,16 +12,6 @@ export const getUserProfile = () => {
   };
 };
 
-export const INITIALIZE_USER = 'GET_USER_NAME';
-export const initializeUser = () => {
-  return { type: INITIALIZE_USER };
-};
-
-// export const USER_NAME = 'USER_NAME';
-// export const fetchUserName = user => {
-//   return { type: USER_NAME, payload: user };
-// };
-
 export const USER_PROFILE = 'USER_PROFILE';
 export const fetchUserProfile = profile => {
   return { type: USER_PROFILE, payload: profile };
