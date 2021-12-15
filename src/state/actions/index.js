@@ -18,4 +18,11 @@ export const fetchUserProfile = profile => {
 };
 
 // CALENDAR ACTIONS
+
+export const getEventTemplateStub = () => {
+  return dispatch => {};
+};
+export const getEventTemplateStub2 = () => {
+  return dispatch => {};
+};
 // ADMIN TICKETS
