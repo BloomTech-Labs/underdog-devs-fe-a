@@ -60,13 +60,18 @@ h3 {
 
 .ant-radio-group {
   display: flex;
-  justify-content: start;
-  width: fit-content;
+  justify-content: space-around;
+}
+
+.ant-space {
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
 }
 
 .ant-radio-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .lives_in_us {
@@ -79,4 +84,10 @@ h3 {
   display: flex;
   justify-content: space-between;
   padding: 1vh;
+}
+.can_commit {
+  padding-bottom: 3vh;
+}
+.can_commit h3 {
+  padding-bottom: 1vh;
 }

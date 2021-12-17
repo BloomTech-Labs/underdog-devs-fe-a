@@ -162,7 +162,6 @@ const Mentor = () => {
               </Radio.Group>
             </div>
             <br />
-            <br />
             <div className="how_commit">
               <h3>
                 If you can not commit to 1:1 mentoring or pair programming what
