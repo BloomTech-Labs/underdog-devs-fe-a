@@ -175,7 +175,7 @@ const Mentor = () => {
                   inputChange('how_commit', evt.target.value);
                 }}
               >
-                <Input placeholder="Your answer" />
+                <Input.TextArea placeholder="Your answer" />
               </Form.Item>
             </div>
             <br />
@@ -189,7 +189,7 @@ const Mentor = () => {
                   inputChange('other_info', evt.target.value);
                 }}
               >
-                <Input placeholder="Your answer" />
+                <Input.TextArea placeholder="Your answer" />
               </Form.Item>
             </div>
             <hr />
