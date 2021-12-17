@@ -104,7 +104,6 @@ const Sidebar = props => {
               </Menu.Item>
             )}
           </SubMenu>
-
           {isUserMentee() && (
             <>
               <Menu.Item key="3" onClick={handleMenuClick}>
@@ -115,7 +114,6 @@ const Sidebar = props => {
               </Menu.Item>
             </>
           )}
-
           {isUserMentor() ? (
             <>
               <Menu.Item key="3" onClick={handleMenuClick}>
@@ -155,7 +153,6 @@ const Sidebar = props => {
           ) : (
             <></>
           )}
-
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
             <Menu.Item key="8" onClick={handleMenuClick}>
               Profile Settings
@@ -167,7 +164,6 @@ const Sidebar = props => {
               Log Out
             </Menu.Item>
           </SubMenu>
-
           {isUserAdmin() === false && (
             <>
               <Menu.Item
