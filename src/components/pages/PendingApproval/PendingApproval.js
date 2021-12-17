@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import 'antd/dist/antd.css';
 import '../../common/styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
@@ -19,7 +19,7 @@ const PendingApproval = props => {
 
   const [toggle, setToggle] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (localStorage.theme === 'dark') {
       document.getElementById('darkModeToggle').className =
         'ant-switch ant-switch-small ant-switch-checked';
