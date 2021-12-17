@@ -47,71 +47,81 @@ const Mentor = () => {
         <div className="signUpForm">
           <h1> Mentor Application </h1>
           <div className="questions">
-            <div className="name">
-              <h3>Full Name*</h3>
-              <Form.Item
-                type="text"
-                name="name"
-                value={formValues.name}
-                onChange={evt => {
-                  inputChange('name', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your Name" />
-              </Form.Item>
-            </div>
-            <div className="email">
-              <h3>Email*</h3>
-              <Form.Item
-                type="email"
-                name="email"
-                value={formValues.email}
-                onChange={evt => {
-                  inputChange('email', evt.target.value);
-                }}
-              >
-                <Input placeholder="Enter valid email" />
-              </Form.Item>
-            </div>
-            <div className="location">
-              <h3>Location*</h3>
-              <Form.Item
-                type="text"
-                name="location"
-                value={formValues.location}
-                onChange={evt => {
-                  inputChange('location', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your Location" />
-              </Form.Item>
-            </div>
-            <hr />
-            <div className="current_comp">
-              <h3>Current company/position?</h3>
-              <Form.Item
-                type="text"
-                name="current_comp"
-                value={formValues.current_comp}
-                onChange={evt => {
-                  inputChange('current_comp', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your answer" />
-              </Form.Item>
-            </div>
-            <div className="tech_stack">
-              <h3>What is your tech stack?*</h3>
-              <Form.Item
-                type="text"
-                name="tech_stack"
-                value={formValues.tech_stack}
-                onChange={evt => {
-                  inputChange('tech_stack', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your answer" />
-              </Form.Item>
+            <div className="infoDiv">
+              <h3>Please fill out your user information</h3>
+              <br />
+              <div className="name">
+                <div className="titleContainer">
+                  <h3>Full Name*</h3>
+                </div>
+                <Form.Item
+                  type="text"
+                  name="name"
+                  value={formValues.name}
+                  onChange={evt => {
+                    inputChange('name', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Your Name" />
+                </Form.Item>
+              </div>
+              <div className="email">
+                <div className="titleContainer">
+                  <h3>Email*</h3>
+                </div>
+                <Form.Item
+                  type="email"
+                  name="email"
+                  value={formValues.email}
+                  onChange={evt => {
+                    inputChange('email', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Enter valid email" />
+                </Form.Item>
+              </div>
+              <div className="location">
+                <div className="titleContainer">
+                  <h3>Location*</h3>
+                </div>
+                <Form.Item
+                  type="text"
+                  name="location"
+                  value={formValues.location}
+                  onChange={evt => {
+                    inputChange('location', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Your Location" />
+                </Form.Item>
+              </div>
+              <hr />
+              <div className="current_comp">
+                <h3>Current company/position?</h3>
+                <Form.Item
+                  type="text"
+                  name="current_comp"
+                  value={formValues.current_comp}
+                  onChange={evt => {
+                    inputChange('current_comp', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Your answer" />
+                </Form.Item>
+              </div>
+              <div className="tech_stack">
+                <h3>What is your tech stack?*</h3>
+                <Form.Item
+                  type="text"
+                  name="tech_stack"
+                  value={formValues.tech_stack}
+                  onChange={evt => {
+                    inputChange('tech_stack', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Your answer" />
+                </Form.Item>
+              </div>
             </div>
             <hr />
             <br />

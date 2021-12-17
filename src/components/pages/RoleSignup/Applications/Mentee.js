@@ -50,8 +50,12 @@ const Mentee = () => {
           <h1> Mentee Application </h1>
           <div className="questions">
             <div className="infoDiv">
+              <h3>Please fill out your user information</h3>
+              <br />
               <div className="name">
-                <h3>Full Name*</h3>
+                <div className="titleContainer">
+                  <h3>Full Name*</h3>
+                </div>
                 <Form.Item
                   type="text"
                   name="name"
@@ -64,7 +68,9 @@ const Mentee = () => {
                 </Form.Item>
               </div>
               <div className="email">
-                <h3>Email*</h3>
+                <div className="titleContainer">
+                  <h3>Email*</h3>
+                </div>
                 <Form.Item
                   type="email"
                   name="email"
@@ -78,7 +84,9 @@ const Mentee = () => {
               </div>
 
               <div className="location">
-                <h3>Location*</h3>
+                <div className="titleContainer">
+                  <h3>Location*</h3>
+                </div>
                 <Form.Item
                   type="text"
                   name="location"
@@ -113,7 +121,7 @@ const Mentee = () => {
                 </Radio>
               </Radio.Group>
             </div>
-
+            <br />
             <div className="formerly_incarcerated">
               <h3>Are you formerly incarcerated/have a felony?*</h3>
               <Radio.Group value={formValues.formerly_incarcerated}>
