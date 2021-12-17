@@ -1,35 +1,40 @@
 import React from 'react';
-import { render, cleanup, getByText, screen } from '@testing-library/react';
-import { HomePage } from '../components/pages/Home/index';
-import HomeContainer from '../components/pages/Home/HomeContainer';
+import { render, cleanup, screen } from '@testing-library/react';
+import './Mocks/matchMedia.mock';
 import { LoadingComponent } from '../components/common';
+import PendingApproval from '../components/pages/PendingApproval/PendingApproval';
+import { act } from 'react-dom/test-utils';
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from '../state/reducers/index';
-import promiseMiddleware from 'redux-promise';
-import thunk from 'redux-thunk';
-import { Router } from 'react-router-dom';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, promiseMiddleware)
-);
+const userInfo = {
+  "sub": "00ultx74kMUmEW8054x6",
+  "name": "Test005 User",
+  "locale": "en-US",
+  "email": "llama003@maildrop.cc",
+  "preferred_username": "llama003@maildrop.cc",
+  "given_name": "Test003",
+  "family_name": "User",
+  "zoneinfo": "America/Los_Angeles",
+  "updated_at": 1599168716,
+  "email_verified": true,
+  "role": 5
+};
 
 afterEach(cleanup);
 
-jest.mock('@okta/okta-react', () => ({
-  useOktaAuth: () => {
-    return {
-      authState: {
-        isAuthenticated: true,
-      },
-      authService: {
-        getUser: () => Promise.resolve({ name: 'sara' }),
-      },
-    };
-  },
-}));
+// jest.mock('@okta/okta-react', () => ({
+//   useOktaAuth: () => {
+//     return {
+//       authState: {
+//         isAuthenticated: true,
+//       },
+//       authService: {
+//         getUser: () => Promise.resolve({ name: 'sara' }),
+//       },
+//     };
+//   },
+// }));
+
 
 describe('<HomeContainer /> testing suite', () => {
   test('mounts loading component', async () => {
@@ -37,11 +42,23 @@ describe('<HomeContainer /> testing suite', () => {
     const loadingComponent = screen.getByTestId('skeleton-loading');
     expect(loadingComponent).toBeInTheDocument();
   });
-  test('does not mount loading component when isAuthenticated is false', async () => {
-    render(<LoadingComponent isAuthenticated={false} />);
-    const loadingComponent = screen.getByTestId('skeleton-loading');
-    expect(loadingComponent).toBeInTheDocument();
+
+  act(()=> {
+    
   });
+  test('mounts PendingApproval component', async () => {
+    act(() => {
+      localStorage.setItem('theme', 'dark');
+      render(<PendingApproval isAuthenticated={true} userInfo={userInfo} />);
+    });
+    const testUser003 = screen.getByText(/Test005 User/i);
+    expect(testUser003).toBeInTheDocument();
+
+    const pendingUserMessage = screen.getByText(/Hey Test005 User, currently your application is still pending. Please check back again soon!/i);
+    expect(pendingUserMessage).toBeInTheDocument();
+    
+  });
+
 });
 
 // test('mounts a page', async () => {
