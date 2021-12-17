@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, cleanup, getByText } from '@testing-library/react';
+import { render, cleanup, getByText, screen } from '@testing-library/react';
 import { HomePage } from '../components/pages/Home/index';
 import HomeContainer from '../components/pages/Home/HomeContainer';
+import { LoadingComponent } from '../components/common';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -14,7 +15,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
 );
-
 
 afterEach(cleanup);
 
@@ -31,20 +31,24 @@ jest.mock('@okta/okta-react', () => ({
   },
 }));
 
-
 describe('<HomeContainer /> testing suite', () => {
-  test('mounts a page', async () => {
-    const {getByTestId} = render(
-
-          <HomePage/>
-
-      );
-      
+  test('mounts loading component', async () => {
+    render(<LoadingComponent isAuthenticated={true} />);
+    const loadingComponent = screen.getByTestId('skeleton-loading');
+    expect(loadingComponent).toBeInTheDocument();
+  });
+  test('does not mount loading component when isAuthenticated is false', async () => {
+    render(<LoadingComponent isAuthenticated={false} />);
+    const loadingComponent = screen.getByTestId('skeleton-loading');
+    expect(loadingComponent).toBeInTheDocument();
   });
 });
 
-
-
+// test('mounts a page', async () => {
+//   const {getByTestId} = render(
+//         <HomePage/>
+//     );
+// });
 
 // describe('<HomeContainer /> testing suite', () => {
 //   test('mounts a page', async () => {
