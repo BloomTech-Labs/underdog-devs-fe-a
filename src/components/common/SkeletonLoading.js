@@ -18,7 +18,7 @@ const SkeletonLoadingComponent = () => {
 
   return (
     <>
-      <Layout style={{minHeight: '100vh'}} >
+      <Layout style={{minHeight: '100vh'}} data-testid="skeleton-loading">
         <Sider style={{backgroundColor: siderBackgroundColor }}>
             <Skeleton.Button style={{width: 200, height: 44, marginTop: 4}} active={true} size={'Large'} shape={'default'} block={true}/>
           <br/>
