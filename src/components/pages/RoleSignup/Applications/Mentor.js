@@ -133,7 +133,7 @@ const Mentor = () => {
                 program?*
               </h3>
               <Radio.Group value={formValues.can_commit}>
-                <Space direction="horizontal">
+                <div className="radio-space">
                   <Radio
                     onChange={evt => {
                       inputChange('can_commit', evt.target.value);
@@ -158,7 +158,7 @@ const Mentor = () => {
                   >
                     Neither
                   </Radio>
-                </Space>
+                </div>
               </Radio.Group>
             </div>
             <br />
