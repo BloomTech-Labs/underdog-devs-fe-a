@@ -17,5 +17,13 @@ export const fetchUserProfile = profile => {
   return { type: USER_PROFILE, payload: profile };
 };
 
-// CALENDAR ACTIONS
-// ADMIN TICKETS
+// CALENDAR ACTIONS----------------------
+export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';
+export const getEventTemplateStub = event => {
+  return { type: MENTOR_EVENT_STUB, payload: event };
+};
+export const MENTEE_EVENT_STUB = 'MENTEE_EVENT_STUB';
+export const getEventTemplateStub2 = event => {
+  return { type: MENTEE_EVENT_STUB, payload: event };
+};
+// ADMIN TICKETS--------------------------
