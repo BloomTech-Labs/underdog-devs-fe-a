@@ -1,24 +1,29 @@
 .row {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3vh;
 }
 
-.col1, .col2 {
-    min-width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 2%;
+.col1,
+.col2 {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  padding: 3vh;
 }
 
-.card1, .card2 {
-    display: flex;
+.card1,
+.card2 {
+  display: flex;
+  width: 80vw;
 }
 
 .title {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .divider {
-    margin: 4em;
+  margin: 4em;
 }
