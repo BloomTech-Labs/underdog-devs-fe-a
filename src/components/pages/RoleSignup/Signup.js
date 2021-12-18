@@ -29,8 +29,9 @@ const Signup = () => {
             cover={
               <img
                 alt="example"
+                className="card-img"
                 src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                style={{ height: '100%', width: 300 }}
+                style={{ height: '100%' }}
               />
             }
           >
@@ -41,7 +42,10 @@ const Signup = () => {
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTEE program" />
-                <Meta description="Interested in acquiring the skills to become a Software Engineer? Apply to our Mentee program today to start learning." />
+                <Meta
+                  className="description"
+                  description="Interested in acquiring the skills to become a Software Engineer? Apply to our Mentee program today to start learning."
+                />
               </Space>
 
               <Divider
@@ -66,8 +70,9 @@ const Signup = () => {
             cover={
               <img
                 alt="example"
+                className="card-img"
                 src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                style={{ height: '100%', width: 300 }}
+                style={{ height: '100%' }}
               />
             }
           >
@@ -78,7 +83,10 @@ const Signup = () => {
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTOR program" />
-                <Meta description="Do you have a passion for teaching and Software Engineering? Apply to become a Mentor and help support our Mentees." />
+                <Meta
+                  className="description"
+                  description="Do you have a passion for teaching and Software Engineering? Apply to become a Mentor and help support our Mentees."
+                />
               </Space>
 
               <Divider
