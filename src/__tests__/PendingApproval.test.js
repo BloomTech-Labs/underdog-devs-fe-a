@@ -1,37 +1,37 @@
 import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
-import './Mocks/matchMedia.mock';
-import PendingApproval from '../components/pages/PendingApproval/PendingApproval';
 import { act } from 'react-dom/test-utils';
+import Sidebar from '../components/common/Sidebar/Sidebar';
 
 const userInfo = {
-  sub: '00ultx74kMUmEW8054x6',
-  name: 'Test005 User',
-  locale: 'en-US',
-  email: 'llama005@maildrop.cc',
-  preferred_username: 'llama005@maildrop.cc',
-  given_name: 'Test005',
-  family_name: 'User',
-  zoneinfo: 'America/Los_Angeles',
+  sub: "00ultwqjtqt4VCcS24x6",
+  name: "Test004 User",
+  locale: "en-US",
+  email: "llama004@maildrop.cc",
+  preferred_username: "llama004@maildrop.cc",
+  given_name: "Test004",
+  family_name: "User",
+  zoneinfo: "America/Los_Angeles",
   updated_at: 1599168716,
   email_verified: true,
-  role: 5,
+  role: 3
 };
 
 afterEach(cleanup);
 
-describe('<PendingApproval /> testing suite', () => {
-  test('mounts PendingApproval component', async () => {
+describe("Mentor's appropriate dashboard testing suite", () => {
+  test('mounts correct sidebar for mentor', async () => {
     act(() => {
       localStorage.setItem('theme', 'dark');
-      render(<PendingApproval isAuthenticated={true} userInfo={userInfo} />);
+      localStorage.setItem('role_id', 3);
+      render(<Sidebar isAuthenticated={true} userInfo={userInfo} />);
     });
-    const testUser005 = await screen.findByText(/Test005 User/i);
-    expect(testUser005).toBeInTheDocument();
 
-    const pendingUserMessage = await screen.findByText(
-      /Hey Test005 User, currently your application is still pending. Please check back again soon!/i
-    );
-    expect(pendingUserMessage).toBeInTheDocument();
+    const myMentees = await screen.findByText(/My Mentees/i);
+    expect(myMentees).toBeInTheDocument();
+
+    const calendar = document.getElementsByClassName('calendar');
+    expect(calendar).toBeTruthy();
+    
   });
 });

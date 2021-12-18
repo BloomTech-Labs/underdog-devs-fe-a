@@ -36,7 +36,6 @@ function HomeContainer({ getUserProfile, LoadingComponent }) {
 
   useEffect(() => {
     getUserProfile(userInfo);
-    console.log(userInfo);
   });
 
   return (
