@@ -24,7 +24,7 @@ describe('<PendingApproval /> testing suite', () => {
   test('mounts PendingApproval component', async () => {
     act(() => {
       localStorage.setItem('theme', 'dark');
-      render(<PendingApproval isAuthenticated={true} userInfo={userInfo} />);
+      render(<PendingApproval userInfo={userInfo} />);
     });
     const testUser005 = await screen.findByText(/Test005 User/i);
     expect(testUser005).toBeInTheDocument();
