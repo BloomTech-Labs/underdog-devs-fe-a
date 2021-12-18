@@ -5,6 +5,7 @@ import HomeContainer from '../components/pages/Home/HomeContainer';
 import createTestStore from './Mocks/CreateTestStore';
 import { Provider } from 'react-redux';
 import { getUserProfile as mockGetUserProfile } from '../state/actions/index';
+import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
 
 // const userInfo = {
 //   sub: '00ultx74kMUmEW8054x6',
@@ -81,13 +82,13 @@ describe('<HomeContainer /> test suite', () => {
     act(() => {
       render(
         <Provider store={store}>
-          <HomeContainer />
+          <HomeContainer LoadingComponent={() => <SkeletonLoadingComponent />}/>
         </Provider>
       );
     });
     const pendingText = await screen.findByText(
       /Hey Test005 User, currently your application is still pending. Please check back again soon!/i
     );
-    expect(pendingText).toBeInTheDocument();
+    expect(pendingText).toBeTruthy();
   });
 });
