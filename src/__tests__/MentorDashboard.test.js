@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
-import './Mocks/matchMedia.mock';
 import PendingApproval from '../components/pages/PendingApproval/PendingApproval';
 import { act } from 'react-dom/test-utils';
 

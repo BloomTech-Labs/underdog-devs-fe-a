@@ -2,7 +2,7 @@ import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import HomeContainer from '../components/pages/Home/HomeContainer';
-import createTestStore from './Mocks/CreateTestStore';
+import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
 import { getUserProfile as mockGetUserProfile } from '../state/actions/index';
 import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
@@ -74,21 +74,37 @@ jest.mock('../state/actions/index', () => ({
 
 describe('<HomeContainer /> test suite', () => {
   beforeEach(() => {
+    localStorage.clear();
     store = createTestStore();
     localStorage.setItem('theme', 'dark');
   });
   test('it renders PendingApproval if role_id is 5', async () => {
-    localStorage.setItem('role_id', '5');
     act(() => {
       render(
         <Provider store={store}>
-          <HomeContainer LoadingComponent={() => <SkeletonLoadingComponent />}/>
+          <HomeContainer
+            LoadingComponent={() => <SkeletonLoadingComponent />}
+          />
         </Provider>
       );
     });
     const pendingText = await screen.findByText(
       /Hey Test005 User, currently your application is still pending. Please check back again soon!/i
     );
+    const calendar = screen.queryByText(/Calendar/i);
+    expect(calendar).toBeNull();
     expect(pendingText).toBeTruthy();
   });
+
+  //   test('it renders Sidebar', async () => {
+  //     act(() => {
+  //       render(
+  //         <Provider store={store}>
+  //           <HomeContainer
+  //             LoadingComponent={() => <SkeletonLoadingComponent />}
+  //           />
+  //         </Provider>
+  //       );
+  //     });
+  //   });
 });
