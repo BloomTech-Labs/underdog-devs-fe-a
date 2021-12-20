@@ -93,8 +93,10 @@ describe('<HomeContainer /> test suite for mentee role', () => {
         </Provider>
       );
     });
-    const calendar = document.getElementsByClassName('calendar');
-    expect(calendar).toBeTruthy();
+    await waitFor(() => {
+      const calendar = document.getElementsByClassName('calendar');
+      expect(calendar).toBeTruthy();
+    });
   });
   test('Sidebar dropdown menu displays proper menus on click', async () => {
     act(() => {
@@ -128,13 +130,12 @@ describe('<HomeContainer /> test suite for mentee role', () => {
         <Provider store={store}>
           <HomeContainer
             LoadingComponent={() => <SkeletonLoadingComponent />}
-            Sidebar={() => (
-              <Sidebar RenderUpdateProfile={() => <RenderUpdateProfile />} />
-            )}
+            Sidebar={() => <Sidebar />}
           />
         </Provider>
       );
     });
+
     const schedule = await screen.findByText(/Schedule/i);
     userEvent.click(schedule);
     const account = await screen.findByText(/Account/i);
@@ -143,38 +144,45 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     // testing for upcoming meetings comp to render
     const upcomingMeetings = await screen.findByText(/Upcoming Meetings/i);
     userEvent.click(upcomingMeetings);
-
-    const upcomingMeetingsComponent = await screen.findByText(
-      /"Upcoming Meetings" Component goes here/i
-    );
-    expect(upcomingMeetingsComponent).toBeTruthy();
+    
+    await waitFor(() => {
+      const upcomingMeetingsComponent = screen.findByText(
+        /"Upcoming Meetings" Component goes here/i
+      );
+      expect(upcomingMeetingsComponent).toBeTruthy();
+    });
 
     // testing for my assignemnts comp to render
     const myAssignments = await screen.findByText(/My Assignments/i);
     userEvent.click(myAssignments);
 
-    const myAssignmentsComponent = await screen.findByText(
-      /"My Assignments" Component goes here/i
-    );
-    expect(myAssignmentsComponent).toBeTruthy();
+    await waitFor(() => {
+      const myAssignmentsComponent = screen.findByText(
+        /"My Assignments" Component goes here/i
+      );
+      expect(myAssignmentsComponent).toBeTruthy();
+    });
 
     // testing for Access Resources comp to render
     const accessResources = await screen.findByText(/Access Resources/i);
     userEvent.click(accessResources);
 
-    const accessResourcesComponent = await screen.findByText(
-      /"Access Resources" Component goes here/i
-    );
-    expect(accessResourcesComponent).toBeTruthy();
+    await waitFor(() => {
+      const accessResourcesComponent = screen.findByText(
+        /"Access Resources" Component goes here/i
+      );
+      expect(accessResourcesComponent).toBeTruthy();
+    });
 
     //tests for profile settings comp to render
     const profileSettings = await screen.findByText(/Profile Settings/i);
-    userEvent.click(profileSettings);
-
-    const profileSettingsComponent = document.getElementsByClassName(
-      'flexContainer'
-    );
-    expect(profileSettingsComponent).toBeTruthy();
+    await waitFor(() => {
+      userEvent.click(profileSettings);
+      const profileSettingsComponent = document.getElementsByClassName(
+        'flexContainer'
+      );
+      expect(profileSettingsComponent).toBeTruthy();
+    });
 
     //tests for account settings comp to render
     const accountSettings = await screen.findByText(/Account Settings/i);
