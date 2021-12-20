@@ -142,6 +142,7 @@ const Mentee = () => {
               <div className="lives_in_us">
                 <h3>Do you live in the U.S?*</h3>
                 <Form.Item
+                  name="lives_in_us"
                   rules={[
                     {
                       required: true,
@@ -149,7 +150,7 @@ const Mentee = () => {
                     },
                   ]}
                 >
-                  <Radio.Group value={formValues.lives_in_us}>
+                  <Radio.Group>
                     <Radio
                       onChange={evt => {
                         inputChange('lives_in_us', evt.target.value);
@@ -172,6 +173,7 @@ const Mentee = () => {
               <br />
               <div className="formerly_incarcerated">
                 <Form.Item
+                  name="formerly_incarcerated"
                   rules={[
                     {
                       required: true,
@@ -180,7 +182,7 @@ const Mentee = () => {
                   ]}
                 >
                   <h3>Are you formerly incarcerated/have a felony?*</h3>
-                  <Radio.Group value={formValues.formerly_incarcerated}>
+                  <Radio.Group>
                     <Radio
                       onChange={evt => {
                         inputChange('formerly_incarcerated', evt.target.value);
