@@ -175,6 +175,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     });
 
     //tests for profile settings comp to render
+    //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX
     const profileSettings = await screen.findByText(/Profile Settings/i);
     await waitFor(() => {
       userEvent.click(profileSettings);
