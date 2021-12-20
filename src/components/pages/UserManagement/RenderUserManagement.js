@@ -88,7 +88,6 @@ function RenderUserManagement(props) {
   const selectUser = async user => {
     setFormDisabled(false);
     setUser(user);
-    console.log(user);
     formProfile.setFieldsValue(user);
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
