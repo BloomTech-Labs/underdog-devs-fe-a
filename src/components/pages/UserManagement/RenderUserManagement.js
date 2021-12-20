@@ -63,25 +63,13 @@ function RenderUserManagement(props) {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  const handleOk = () => {};
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  // CRUD OPERATIONS AND API CALLS
-  // const searchUser = values => {
-  //   axios
-  //     .get(APIBaseURI, values)
-  //     .then(res => setUserList(res.data))
-  //     .catch(err => console.log(err.message));
-  // };
-
   const updateUser = async user => {
     try {
       const res = await axiosWithAuth().put('/profiles', user);
-      console.log(res);
       setUser(res.data);
     } catch (err) {
       console.log(err.message);
@@ -89,12 +77,8 @@ function RenderUserManagement(props) {
   };
 
   const deactivateUser = async user => {
-    console.log(user.profile_id);
     try {
-      const res = await axiosWithAuth().put(
-        `/profiles/is_active/${user.profile_id}`
-      );
-      console.log(res);
+      axiosWithAuth().put(`/profiles/is_active/${user.profile_id}`);
       setIsModalVisible(false);
     } catch (err) {
       console.log(err.message);
@@ -108,7 +92,6 @@ function RenderUserManagement(props) {
     formProfile.setFieldsValue(user);
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
-    window.location.href = '#modify';
   };
 
   //form validation
@@ -159,7 +142,7 @@ function RenderUserManagement(props) {
     });
     usersFound.length > 0 ? setUserList(usersFound) : setUserList([]);
   };
-
+  // TODO: Further Security checks need to be thought out and implemented. For example: An admin shouldnt be able to access and update a super-admin's profile
   return (
     <>
       <div className="flexContainer">
@@ -269,7 +252,7 @@ function RenderUserManagement(props) {
         )}
       </div>
       {!formDisabled && (
-        <div id="modify" className="flexContainer">
+        <div className="flexContainer">
           <Form
             {...formItemLayout}
             onChange={modifyUser}
@@ -377,6 +360,7 @@ function RenderUserManagement(props) {
           </Form>
         </div>
       )}
+      {/* TODO: Set up dynamic feedback messages based on actions of the user */}
       <p className="feedbackMessage">{feedbackMessage}</p>
     </>
   );
