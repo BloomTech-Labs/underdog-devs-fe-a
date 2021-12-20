@@ -217,29 +217,34 @@ const Mentor = () => {
                 </Form.Item>
               </div>
               <br />
-              <div className="how_commit">
-                <h3>
-                  If you can not commit to 1:1 mentoring or pair programming
-                  what type of commitment did you have in mind to help our
-                  mentees? *
-                </h3>
-                <Form.Item
-                  type="text"
-                  name="how_commit"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please indicate type of commitment.',
-                    },
-                  ]}
-                  value={formValues.how_commit}
-                  onChange={evt => {
-                    inputChange('how_commit', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </div>
+
+              {formValues.can_commit === 'Neither' ? (
+                <div className="how_commit">
+                  <h3>
+                    If you can not commit to 1:1 mentoring or pair programming
+                    what type of commitment did you have in mind to help our
+                    mentees? *
+                  </h3>
+                  <Form.Item
+                    type="text"
+                    name="how_commit"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please indicate type of commitment.',
+                      },
+                    ]}
+                    value={formValues.how_commit}
+                    onChange={evt => {
+                      inputChange('how_commit', evt.target.value);
+                    }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </div>
+              ) : (
+                ''
+              )}
               <br />
               <div className="other_info">
                 <h3>Anything else you want us to know?</h3>
