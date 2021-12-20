@@ -172,6 +172,7 @@ const Mentee = () => {
               </div>
               <br />
               <div className="formerly_incarcerated">
+                <h3>Are you formerly incarcerated/have a felony?*</h3>
                 <Form.Item
                   name="formerly_incarcerated"
                   rules={[
@@ -181,7 +182,6 @@ const Mentee = () => {
                     },
                   ]}
                 >
-                  <h3>Are you formerly incarcerated/have a felony?*</h3>
                   <Radio.Group>
                     <Radio
                       onChange={evt => {
