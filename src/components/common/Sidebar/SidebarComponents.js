@@ -19,8 +19,7 @@ const MentorComponents = {
   1: <CalendarFeature />,
   2: <div>"Schedule Meeting"</div>,
   3: <div>"My Mentees" Component goes here</div>,
-  4: <div>"Request Resources" Component goes here</div>,
-  5: <div>"Track Resources" Component goes here</div>,
+  4: <div>"Manage Resources" Component goes here</div>,
 
   8: <div>"Profile Settings" Component goes here</div>,
   9: <div>Do we need Account settings?</div>,

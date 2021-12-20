@@ -119,18 +119,9 @@ const Sidebar = props => {
               <Menu.Item key="3" onClick={handleMenuClick}>
                 My Mentees
               </Menu.Item>
-              <SubMenu
-                key="sub3"
-                icon={<ContainerOutlined />}
-                title="Resources"
-              >
-                <Menu.Item key="4" onClick={handleMenuClick}>
-                  Request Resources
-                </Menu.Item>
-                <Menu.Item key="5" onClick={handleMenuClick}>
-                  Track Resources
-                </Menu.Item>
-              </SubMenu>
+              <Menu.Item key="4" onClick={handleMenuClick}>
+                Manage Resources
+              </Menu.Item>
             </>
           ) : isUserAdmin() ? (
             <>
