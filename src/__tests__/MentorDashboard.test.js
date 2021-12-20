@@ -5,10 +5,8 @@ import { act } from 'react-dom/test-utils';
 import HomeContainer from '../components/pages/Home/HomeContainer';
 import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
-import { getUserProfile as mockGetUserProfile } from '../state/actions/index';
 import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
 import Sidebar from '../components/common/Sidebar/Sidebar.js';
-import RenderUpdateProfile from '../components/pages/UpdateProfile/RenderUpdateProfile.js';
 
 afterEach(cleanup);
 let store;
