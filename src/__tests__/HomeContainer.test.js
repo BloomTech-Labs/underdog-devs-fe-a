@@ -7,21 +7,6 @@ import { Provider } from 'react-redux';
 import { getUserProfile as mockGetUserProfile } from '../state/actions/index';
 import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
 
-// const userInfo = {
-//   sub: '00ultx74kMUmEW8054x6',
-//   name: 'Test005 User',
-//   locale: 'en-US',
-//   email: 'llama005@maildrop.cc',
-//   preferred_username: 'llama005@maildrop.cc',
-//   given_name: 'Test005',
-//   family_name: 'User',
-//   zoneinfo: 'America/Los_Angeles',
-//   updated_at: 1599168716,
-//   email_verified: true,
-//   role: 5,
-//   isSubscribed: true,
-// };
-
 afterEach(cleanup);
 let store;
 jest.mock('@okta/okta-react', () => ({
@@ -72,13 +57,13 @@ jest.mock('../state/actions/index', () => ({
   }),
 }));
 
-describe('<HomeContainer /> test suite', () => {
+describe('<HomeContainer /> test suite for pending role', () => {
   beforeEach(() => {
     localStorage.clear();
     store = createTestStore();
     localStorage.setItem('theme', 'dark');
   });
-  test('it renders PendingApproval if role_id is 5', async () => {
+  test('it renders PendingApproval and limited Sidebar if role_id is 5', async () => {
     act(() => {
       render(
         <Provider store={store}>
@@ -95,16 +80,4 @@ describe('<HomeContainer /> test suite', () => {
     expect(calendar).toBeNull();
     expect(pendingText).toBeTruthy();
   });
-
-  //   test('it renders Sidebar', async () => {
-  //     act(() => {
-  //       render(
-  //         <Provider store={store}>
-  //           <HomeContainer
-  //             LoadingComponent={() => <SkeletonLoadingComponent />}
-  //           />
-  //         </Provider>
-  //       );
-  //     });
-  //   });
 });
