@@ -3,7 +3,7 @@ import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 import axiosWithAuth from '../../../utils/axiosWithAuth.js';
 
-function RenderUpdateProfile(props) {
+function RenderUserManagement(props) {
   //Antd design settings
   const formItemLayout = {
     labelCol: {
@@ -45,12 +45,6 @@ function RenderUpdateProfile(props) {
   //disable buttons
   const [isDisabled, setIsDisabled] = useState(true);
 
-  useEffect(() => {
-    user.id === 4 || user.profile_id === ''
-      ? setFormDisabled(true)
-      : setFormDisabled(false);
-  }, [user]);
-
   async function getProfiles() {
     try {
       const res = await axiosWithAuth().get('/profiles');
@@ -89,26 +83,34 @@ function RenderUpdateProfile(props) {
   const updateUser = async user => {
     try {
       const res = await axiosWithAuth().put('/profiles', user);
+      console.log(res);
       setUser(res.data);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const deleteUser = user => {
-    // axios.get( APIDELETEURI, user)
-    //   .then(res => {
-    //     setUser(defaultUser)
-    //     searchUser(searchValue)
-    //   .catch(err => console.log(err.message));
+  const deactivateUser = async user => {
+    console.log(user.profile);
+    try {
+      const res = await axiosWithAuth().put(
+        `/profiles/is_active/${user.profile_id}`
+      );
+      console.log(res);
+      // setUser(res.data);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const selectUser = async user => {
+    setFormDisabled(false);
     setUser(user);
     console.log(user);
     formProfile.setFieldsValue(user);
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
+    window.location.href = '#modify';
   };
 
   //form validation
@@ -163,7 +165,7 @@ function RenderUpdateProfile(props) {
   return (
     <>
       <div className="flexContainer">
-        <h1> Update profile Page!</h1>
+        <h1> User Management </h1>
         {profiles.length > 0 ? (
           <Form
             {...formItemLayout}
@@ -254,7 +256,12 @@ function RenderUpdateProfile(props) {
             {userList.map(profile => {
               return (
                 <li key={profile.profile_id}>
-                  <Button type="link" onClick={() => selectUser(profile)}>
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      selectUser(profile);
+                    }}
+                  >
                     {`${profile.first_name} ${profile.last_name}`}
                   </Button>
                 </li>
@@ -263,154 +270,135 @@ function RenderUpdateProfile(props) {
           </ul>
         )}
       </div>
-      <div className="flexContainer">
-        <Form
-          {...formItemLayout}
-          onChange={modifyUser}
-          style={{ marginTop: '15px' }}
-          form={formProfile}
-          name="search"
-          initialValues={{
-            prefix: '1',
-          }}
-          scrollToFirstError
-        >
-          {/* TODO: define which field should be kept or discarded */}
-          {/* <Form.Item
-            name="username"
-            label="Username"
-            placeholder="username"
-            value={user.username}
-            rules={[
-              {
-                required: true,
-                message: 'Please input a username',
-                whitespace: true,
-              },
-              {
-                message: 'The username must be at least 2 characters long',
-                pattern: new RegExp(/[a-z]{2}/gi),
-                whitespace: true,
-              },
-            ]}
+      {!formDisabled && (
+        <div id="modify" className="flexContainer">
+          <Form
+            {...formItemLayout}
+            onChange={modifyUser}
+            style={{ marginTop: '15px' }}
+            form={formProfile}
+            name="search"
+            initialValues={{
+              prefix: '1',
+            }}
+            scrollToFirstError
           >
-            <Input disabled={formDisabled} allowClear />
-          </Form.Item> */}
-          <Form.Item
-            name="first_name"
-            label="First Name"
-            placeholder="First Name"
-            rules={
-              [
-                //TODO: implement this part if some rule are needed for form verification
-              ]
-            }
-          >
-            <Input name="first_name" disabled={formDisabled} allowClear />
-          </Form.Item>
-          <Form.Item
-            name="last_name"
-            label="Last Name"
-            placeholder="Last Name"
-            rules={
-              [
-                //TODO: implement this part if some rule are needed for form verification
-              ]
-            }
-          >
-            <Input name="last_name" disabled={formDisabled} allowClear />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-              {
-                required: true,
-                message: 'Please input an E-mail!',
-              },
-              {
-                type: 'email',
-                message: 'The input is not a valid E-mail!',
-              },
-            ]}
-          >
-            <Input name="email" className="field" disabled={formDisabled} />
-          </Form.Item>
-          <Form.Item
-            name="role_id"
-            label="Role"
-            rules={[
-              {
-                required: true,
-                message: 'Please select a role',
-              },
-            ]}
-          >
-            <Radio.Group
+            <Form.Item
+              name="first_name"
+              label="First Name"
+              placeholder="First Name"
+              rules={
+                [
+                  //TODO: implement this part if some rule are needed for form verification
+                ]
+              }
+            >
+              <Input name="first_name" disabled={formDisabled} allowClear />
+            </Form.Item>
+            <Form.Item
+              name="last_name"
+              label="Last Name"
+              placeholder="Last Name"
+              rules={
+                [
+                  //TODO: implement this part if some rule are needed for form verification
+                ]
+              }
+            >
+              <Input name="last_name" disabled={formDisabled} allowClear />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="E-mail"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input an E-mail!',
+                },
+                {
+                  type: 'email',
+                  message: 'The input is not a valid E-mail!',
+                },
+              ]}
+            >
+              <Input name="email" className="field" disabled={formDisabled} />
+            </Form.Item>
+            <Form.Item
               name="role_id"
-              disabled={formDisabled}
-              style={{ display: 'flex', margin: 'auto' }}
+              label="Role"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please select a role',
+                },
+              ]}
             >
-              <Radio value={1}>Mentor</Radio>
-              <Radio value={2}>Mentee</Radio>
-              <Radio value={3}>Admin</Radio>
-              <Radio value={4} disabled={true}>
-                superAdmin
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
-          <Form.Item
-            name="pending"
-            label="Role approved"
-            rules={[
-              {
-                required: true,
-                message: 'Please select a role',
-              },
-            ]}
-          >
-            <Radio.Group
+              <Radio.Group
+                name="role_id"
+                disabled={formDisabled}
+                style={{ display: 'flex', margin: 'auto' }}
+              >
+                <Radio value={1}>Mentor</Radio>
+                <Radio value={2}>Mentee</Radio>
+                <Radio value={3}>Admin</Radio>
+                <Radio value={4} disabled={true}>
+                  superAdmin
+                </Radio>
+              </Radio.Group>
+            </Form.Item>
+            <Form.Item
               name="pending"
-              disabled={formDisabled}
-              style={{ display: 'flex', margin: 'auto' }}
+              label="Role approved"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please select a role',
+                },
+              ]}
             >
-              <Radio value={true}>approved</Radio>
-              <Radio value={false}>pending</Radio>
-            </Radio.Group>
-          </Form.Item>
-          <div className="buttonGroup">
-            <Button
-              type="primary"
-              id="submitChanges"
-              disabled={isDisabled}
-              onClick={() => updateUser(user)}
-            >
-              Update user info
-            </Button>
-            <Button id="cancelChanges" onClick={cancelChanges}>
-              Revert changes
-            </Button>
-            <Button
-              danger
-              id="delete"
-              disabled={isDisabled}
-              onClick={showModal}
-            >
-              Disable User
-            </Button>
-            <Modal
-              title="Basic Modal"
-              visible={isModalVisible}
-              onOk={handleOk}
-              onCancel={handleCancel}
-            >
-              <p>You are about to disable a user</p>
-            </Modal>
-          </div>
-        </Form>
-      </div>
+              <Radio.Group
+                name="pending"
+                disabled={formDisabled}
+                style={{ display: 'flex', margin: 'auto' }}
+              >
+                <Radio value={true}>approved</Radio>
+                <Radio value={false}>pending</Radio>
+              </Radio.Group>
+            </Form.Item>
+            <div className="buttonGroup">
+              <Button
+                type="primary"
+                id="submitChanges"
+                disabled={isDisabled}
+                onClick={() => updateUser(user)}
+              >
+                Update user info
+              </Button>
+              <Button id="cancelChanges" onClick={cancelChanges}>
+                Revert changes
+              </Button>
+              <Button
+                danger
+                id="delete"
+                disabled={isDisabled}
+                onClick={showModal}
+              >
+                Disable User
+              </Button>
+              <Modal
+                title="Basic Modal"
+                visible={isModalVisible}
+                onOk={() => deactivateUser(user)}
+                onCancel={handleCancel}
+              >
+                <p>You are about to disable a user</p>
+              </Modal>
+            </div>
+          </Form>
+        </div>
+      )}
       <p className="feedbackMessage">{feedbackMessage}</p>
     </>
   );
 }
-export default RenderUpdateProfile;
+export default RenderUserManagement;

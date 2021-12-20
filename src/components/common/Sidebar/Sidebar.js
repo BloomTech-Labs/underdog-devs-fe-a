@@ -55,6 +55,7 @@ const Sidebar = props => {
   const handleLogout = checked => {
     authService.logout();
     localStorage.removeItem('role_id');
+    localStorage.removeItem('token');
   };
 
   const handleMenuClick = menu => {
