@@ -83,7 +83,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Name is required',
+                        message: 'Name is required!',
                       },
                     ]}
                     value={formValues.name}
@@ -104,7 +104,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Email is required',
+                        message: 'Email is required!',
                       },
                     ]}
                     value={formValues.email}
@@ -126,7 +126,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Location is required',
+                        message: 'Location is required!',
                       },
                     ]}
                     value={formValues.location}
@@ -146,7 +146,7 @@ const Mentee = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please choose one.',
+                      message: 'Please choose one!',
                     },
                   ]}
                 >
@@ -177,7 +177,7 @@ const Mentee = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please choose one.',
+                      message: 'Please choose one!',
                     },
                   ]}
                 >
@@ -226,7 +226,7 @@ const Mentee = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'This field is required.',
+                      message: 'This field is required!',
                     },
                   ]}
                   value={formValues.tech_stack}
@@ -246,7 +246,7 @@ const Mentee = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Experience is required',
+                      message: 'Experience is required!',
                     },
                   ]}
                   value={formValues.experience_level}
@@ -266,7 +266,7 @@ const Mentee = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'This field is required.',
+                      message: 'This field is required!',
                     },
                   ]}
                   value={formValues.your_hopes}
