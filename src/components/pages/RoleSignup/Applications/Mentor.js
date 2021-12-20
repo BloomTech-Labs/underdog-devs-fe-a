@@ -12,22 +12,20 @@ const initialFormValues = {
   email: '',
   location: '',
   name: '',
-  lives_in_us: '',
-  formerly_incarcerated: '',
-  list_convictions: '',
+  current_comp: '',
   tech_stack: '',
-  experience_level: '',
-  your_hopes: '',
+  can_commit: '',
+  how_commit: '',
   other_info: '',
 };
 
-const Mentee = () => {
+const Mentor = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'https://underdog-devs-a-api.herokuapp.com/application/new-mentee',
+        'https://underdog-devs-a-api.herokuapp.com/application/new-mentor',
         newAccount
       );
       console.log(response);
@@ -61,14 +59,14 @@ const Mentee = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
-            <span>Mentee Application</span>
+            <span>Mentor Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
       <div className="application">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
-            <h1> Mentee Application </h1>
+            <h1> Mentor Application </h1>
             <div className="questions">
               <div className="infoDiv">
                 <h3>Please fill out your user information</h3>
@@ -115,7 +113,6 @@ const Mentee = () => {
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
                 </div>
-
                 <div className="location">
                   <div className="titleContainer">
                     <h3>Location*</h3>
@@ -137,12 +134,51 @@ const Mentee = () => {
                     <Input placeholder="Your Location" />
                   </Form.Item>
                 </div>
+                <hr />
+                <div className="current_comp">
+                  <h3>Current company/position?</h3>
+                  <Form.Item
+                    type="text"
+                    name="current_comp"
+                    value={formValues.current_comp}
+                    onChange={evt => {
+                      inputChange('current_comp', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Your answer" />
+                  </Form.Item>
+                </div>
+                <div className="tech_stack">
+                  <h3>What is your tech stack?*</h3>
+                  <Form.Item
+                    type="text"
+                    name="tech_stack"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'This field is required!',
+                      },
+                    ]}
+                    value={formValues.tech_stack}
+                    onChange={evt => {
+                      inputChange('tech_stack', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Your answer" />
+                  </Form.Item>
+                </div>
               </div>
               <hr />
-              <div className="lives_in_us">
-                <h3>Do you live in the U.S?*</h3>
+              <br />
+              <div className="can_commit">
+                <h3>
+                  Can you commit to 1:1 mentoring of one or more mentees at a
+                  cadence you both decide upon or a minimum of 1 hour per week
+                  pair program (problem solving) with a mentee in our stipend
+                  program?*
+                </h3>
                 <Form.Item
-                  name="lives_in_us"
+                  name="can_commit"
                   rules={[
                     {
                       required: true,
@@ -151,133 +187,60 @@ const Mentee = () => {
                   ]}
                 >
                   <Radio.Group>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('lives_in_us', evt.target.value);
-                      }}
-                      value="Yes"
-                    >
-                      Yes
-                    </Radio>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('lives_in_us', evt.target.value);
-                      }}
-                      value="No"
-                    >
-                      No
-                    </Radio>
+                    <div className="radio-space">
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="1:1 Mentoring"
+                      >
+                        1:1 Mentoring
+                      </Radio>
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="Pair Program"
+                      >
+                        Pair Program
+                      </Radio>
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="Neither"
+                      >
+                        Neither
+                      </Radio>
+                    </div>
                   </Radio.Group>
                 </Form.Item>
               </div>
               <br />
-              <div className="formerly_incarcerated">
+              <div className="how_commit">
+                <h3>
+                  If you can not commit to 1:1 mentoring or pair programming
+                  what type of commitment did you have in mind to help our
+                  mentees? *
+                </h3>
                 <Form.Item
-                  name="formerly_incarcerated"
+                  type="text"
+                  name="how_commit"
                   rules={[
                     {
                       required: true,
-                      message: 'Please choose one!',
+                      message: 'Please indicate type of commitment.',
                     },
                   ]}
+                  value={formValues.how_commit}
+                  onChange={evt => {
+                    inputChange('how_commit', evt.target.value);
+                  }}
                 >
-                  <h3>Are you formerly incarcerated/have a felony?*</h3>
-                  <Radio.Group>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('formerly_incarcerated', evt.target.value);
-                      }}
-                      value="Yes"
-                    >
-                      Yes
-                    </Radio>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('formerly_incarcerated', evt.target.value);
-                      }}
-                      value="No"
-                    >
-                      No
-                    </Radio>
-                  </Radio.Group>
+                  <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-              <hr />
               <br />
-              <div className="list_convictions">
-                <h3>Please list your convictions if comfortable</h3>
-                <Form.Item
-                  type="text"
-                  name="list_convictions"
-                  value={formValues.list_convictions}
-                  onChange={evt => {
-                    inputChange('list_convictions', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </div>
-
-              <div className="tech_stack">
-                <h3>What is your tech stack?*</h3>
-                <Form.Item
-                  type="text"
-                  name="tech_stack"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'This field is required!',
-                    },
-                  ]}
-                  value={formValues.tech_stack}
-                  onChange={evt => {
-                    inputChange('tech_stack', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </div>
-
-              <div className="experience_level">
-                <h3>What is your level of experience?*</h3>
-                <Form.Item
-                  type="text"
-                  name="experience_level"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Experience is required!',
-                    },
-                  ]}
-                  value={formValues.experience_level}
-                  onChange={evt => {
-                    inputChange('experience_level', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </div>
-
-              <div className="your_hopes">
-                <h3>What are you hoping to gain from the community?*</h3>
-                <Form.Item
-                  type="text"
-                  name="your_hopes"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'This field is required!',
-                    },
-                  ]}
-                  value={formValues.your_hopes}
-                  onChange={evt => {
-                    inputChange('your_hopes', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your goals" />
-                </Form.Item>
-              </div>
-
               <div className="other_info">
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
@@ -292,9 +255,12 @@ const Mentee = () => {
                 </Form.Item>
               </div>
               <hr />
+              <br />
             </div>
+
             <Button htmlType="submit" id="button">
-              Submit
+              {' '}
+              Submit{' '}
             </Button>
           </div>
         </Form>
@@ -303,4 +269,4 @@ const Mentee = () => {
   );
 };
 
-export default Mentee;
+export default Mentor;
