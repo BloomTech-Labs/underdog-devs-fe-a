@@ -26,7 +26,7 @@ function RenderUserManagement(props) {
     last_name: '',
     role_id: '',
     created_at: '',
-    pending: false,
+    is_active: null,
   };
 
   //searchForm
@@ -64,9 +64,7 @@ function RenderUserManagement(props) {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  const handleOk = () => {};
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -91,13 +89,13 @@ function RenderUserManagement(props) {
   };
 
   const deactivateUser = async user => {
-    console.log(user.profile);
+    console.log(user.profile_id);
     try {
       const res = await axiosWithAuth().put(
         `/profiles/is_active/${user.profile_id}`
       );
       console.log(res);
-      // setUser(res.data);
+      setIsModalVisible(false);
     } catch (err) {
       console.log(err.message);
     }
@@ -346,25 +344,6 @@ function RenderUserManagement(props) {
                 </Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item
-              name="pending"
-              label="Role approved"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please select a role',
-                },
-              ]}
-            >
-              <Radio.Group
-                name="pending"
-                disabled={formDisabled}
-                style={{ display: 'flex', margin: 'auto' }}
-              >
-                <Radio value={true}>approved</Radio>
-                <Radio value={false}>pending</Radio>
-              </Radio.Group>
-            </Form.Item>
             <div className="buttonGroup">
               <Button
                 type="primary"
@@ -377,6 +356,7 @@ function RenderUserManagement(props) {
               <Button id="cancelChanges" onClick={cancelChanges}>
                 Revert changes
               </Button>
+              {/* TODO: Dynamically change the button and modal from "Disable User" to "Reactivate User" depending on is_active status */}
               <Button
                 danger
                 id="delete"
