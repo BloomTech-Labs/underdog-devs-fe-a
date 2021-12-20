@@ -48,7 +48,6 @@ function RenderUserManagement(props) {
   async function getProfiles() {
     try {
       const res = await axiosWithAuth().get('/profiles');
-      console.log(res);
       setProfiles(res.data);
     } catch (err) {
       console.log(err);
