@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
+import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
@@ -18,6 +19,8 @@ import {
 } from './SidebarComponents';
 
 import { DarkModeToggle, setTheme, getTheme } from '../DarkModeToggle';
+import { useEffect } from 'react';
+import { getAuthHeader } from '../../../api/index';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -26,16 +29,21 @@ const Sidebar = props => {
   const { authService } = props;
 
   const [collapsed, setCollapsed] = useState(false);
+  //  render will update on click of Menu.item (56-58), therefore rendering the correct component (203-205)
   const [render, updateRender] = useState(1);
-
+  const { authState } = useOktaAuth();
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    getAuthHeader(authState);
+  });
 
   //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
   useLayoutEffect(() => {
     setTheme(getTheme());
   }, [toggle]);
-  
-  useLayoutEffect(()=> {
+
+  useLayoutEffect(() => {
     if (localStorage.theme === 'dark') {
       document.getElementById('darkModeToggle').className =
         'ant-switch ant-switch-small ant-switch-checked';
@@ -52,6 +60,7 @@ const Sidebar = props => {
   const handleLogout = checked => {
     authService.logout();
     localStorage.removeItem('role_id');
+    localStorage.removeItem('token');
   };
 
   const handleMenuClick = menu => {
@@ -73,12 +82,11 @@ const Sidebar = props => {
     return false;
   };
   const isUserAdmin = () => {
-    if (role === '2') {
+    if (role <= '2' && role >= '1') {
       return true;
     }
     return false;
   };
-
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -116,51 +124,35 @@ const Sidebar = props => {
               </Menu.Item>
             </>
           )}
-          {isUserMentor() && (
-            <Menu.Item key="3" onClick={handleMenuClick}>
-              My Mentees
-            </Menu.Item>
-          )}
           {isUserMentor() ? (
-            <SubMenu key="sub3" icon={<ContainerOutlined />} title="Resources">
-              <Menu.Item key="6" onClick={handleMenuClick}>
-                Request Resources
-              </Menu.Item>
-              <Menu.Item key="7" onClick={handleMenuClick}>
-                Track Resources
-              </Menu.Item>
-            </SubMenu>
-          ) : isUserAdmin() ? (
-            <SubMenu key="sub2" icon={<ContainerOutlined />} title="Resources">
+            <>
               <Menu.Item key="3" onClick={handleMenuClick}>
-                Assign Resources
+                My Mentees
               </Menu.Item>
               <Menu.Item key="4" onClick={handleMenuClick}>
-                Track Resources
-              </Menu.Item>
-            </SubMenu>
-          ) : (
-            <></>
-          )}
-          {isUserAdmin() && (
-            <>
-              <Menu.Item key="5" onClick={handleMenuClick}>
-                Pending Applications
+                Manage Resources
               </Menu.Item>
             </>
-          )}
-          {isUserAdmin() && (
+          ) : isUserAdmin() ? (
             <>
-              <Menu.Item key="6" onClick={handleMenuClick}>
+              <Menu.Item key="3" onClick={handleMenuClick}>
+                Manage Resources
+              </Menu.Item>
+              <Menu.Item key="4" onClick={handleMenuClick}>
+                Pending Applications
+              </Menu.Item>
+              <Menu.Item key="5" onClick={handleMenuClick}>
                 Manage Users
               </Menu.Item>
-              <Menu.Item key="7" onClick={handleMenuClick}>
+              <Menu.Item key="6" onClick={handleMenuClick}>
                 View Support Requests
               </Menu.Item>
-              <Menu.Item key="11" onClick={handleMenuClick}>
+              <Menu.Item key="7" onClick={handleMenuClick}>
                 View All Meetings
               </Menu.Item>
             </>
+          ) : (
+            <></>
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
             <Menu.Item key="8" onClick={handleMenuClick}>
@@ -224,7 +216,7 @@ export default Sidebar;
 
 //Template for further role specific Menu.Items
 //
-// {isUserMentee() === true && (
+// {isUserMentee() && (
 //   <Menu.Item key="" onClick={handleMenuClick}>
 //     Title
 //   </Menu.Item>

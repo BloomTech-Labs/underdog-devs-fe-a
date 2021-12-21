@@ -18,6 +18,7 @@ const getAuthHeader = authState => {
   if (!authState.isAuthenticated) {
     throw new Error('Not authenticated');
   }
+  localStorage.setItem('token', authState.idToken);
   return { Authorization: `Bearer ${authState.idToken}` };
 };
 
@@ -35,7 +36,7 @@ const getDSData = (url, authState) => {
 };
 
 const apiAuthGet = authHeader => {
-  return axios.get(`${apiUrl}/profiles`, { headers: authHeader });
+  return axios.get(`${apiUrl}profiles`, { headers: authHeader });
 };
 
 const getProfileData = authState => {
@@ -61,4 +62,11 @@ const getRole = async profile_id => {
   }
 };
 
-export { sleep, getExampleData, getProfileData, getDSData, getRole };
+export {
+  sleep,
+  getExampleData,
+  getProfileData,
+  getDSData,
+  getRole,
+  getAuthHeader,
+};
