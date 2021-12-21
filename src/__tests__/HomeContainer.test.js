@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import HomeContainer from '../components/pages/Home/HomeContainer';
 import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
-import { getUserProfile as mockGetUserProfile } from '../state/actions/index';
 import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
+import userEvent from '@testing-library/user-event';
+
 
 afterEach(cleanup);
 let store;
@@ -79,5 +80,29 @@ describe('<HomeContainer /> test suite for pending role', () => {
     const calendar = screen.queryByText(/Calendar/i);
     expect(calendar).toBeNull();
     expect(pendingText).toBeTruthy();
+  });
+  test('Tests darkmode functionallity for user role', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <HomeContainer
+            LoadingComponent={() => <SkeletonLoadingComponent />}
+          />
+        </Provider>
+      );
+    });
+      const darkModeToggleBtn = await screen.findByRole("switch");
+      const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch-checked");
+      expect(darkModeToggleBtn).toBeInTheDocument();
+      expect(darkModeToggleBtnClass).toBeTruthy();
+      expect(localStorage.theme).toBe('dark');
+
+      userEvent.click(darkModeToggleBtn);
+
+      await waitFor(()=> {
+        const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch");
+        expect(darkModeToggleBtnClass).toBeTruthy();
+        expect(localStorage.theme).toBe('light');
+      });
   });
 });
