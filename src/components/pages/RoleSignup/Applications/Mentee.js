@@ -80,6 +80,12 @@ const Mentee = () => {
                   <Form.Item
                     type="text"
                     name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Name is required!',
+                      },
+                    ]}
                     value={formValues.name}
                     onChange={evt => {
                       inputChange('name', evt.target.value);
@@ -95,6 +101,12 @@ const Mentee = () => {
                   <Form.Item
                     type="email"
                     name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Email is required!',
+                      },
+                    ]}
                     value={formValues.email}
                     onChange={evt => {
                       inputChange('email', evt.target.value);
@@ -111,6 +123,12 @@ const Mentee = () => {
                   <Form.Item
                     type="text"
                     name="location"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Location is required!',
+                      },
+                    ]}
                     value={formValues.location}
                     onChange={evt => {
                       inputChange('location', evt.target.value);
@@ -123,46 +141,66 @@ const Mentee = () => {
               <hr />
               <div className="lives_in_us">
                 <h3>Do you live in the U.S?*</h3>
-                <Radio.Group value={formValues.lives_in_us}>
-                  <Radio
-                    onChange={evt => {
-                      inputChange('lives_in_us', evt.target.value);
-                    }}
-                    value="Yes"
-                  >
-                    Yes
-                  </Radio>
-                  <Radio
-                    onChange={evt => {
-                      inputChange('lives_in_us', evt.target.value);
-                    }}
-                    value="No"
-                  >
-                    No
-                  </Radio>
-                </Radio.Group>
+                <Form.Item
+                  name="lives_in_us"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please choose one!',
+                    },
+                  ]}
+                >
+                  <Radio.Group>
+                    <Radio
+                      onChange={evt => {
+                        inputChange('lives_in_us', evt.target.value);
+                      }}
+                      value="Yes"
+                    >
+                      Yes
+                    </Radio>
+                    <Radio
+                      onChange={evt => {
+                        inputChange('lives_in_us', evt.target.value);
+                      }}
+                      value="No"
+                    >
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </Form.Item>
               </div>
               <br />
               <div className="formerly_incarcerated">
                 <h3>Are you formerly incarcerated/have a felony?*</h3>
-                <Radio.Group value={formValues.formerly_incarcerated}>
-                  <Radio
-                    onChange={evt => {
-                      inputChange('formerly_incarcerated', evt.target.value);
-                    }}
-                    value="Yes"
-                  >
-                    Yes
-                  </Radio>
-                  <Radio
-                    onChange={evt => {
-                      inputChange('formerly_incarcerated', evt.target.value);
-                    }}
-                    value="No"
-                  >
-                    No
-                  </Radio>
-                </Radio.Group>
+                <Form.Item
+                  name="formerly_incarcerated"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please choose one!',
+                    },
+                  ]}
+                >
+                  <Radio.Group>
+                    <Radio
+                      onChange={evt => {
+                        inputChange('formerly_incarcerated', evt.target.value);
+                      }}
+                      value="Yes"
+                    >
+                      Yes
+                    </Radio>
+                    <Radio
+                      onChange={evt => {
+                        inputChange('formerly_incarcerated', evt.target.value);
+                      }}
+                      value="No"
+                    >
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </Form.Item>
               </div>
               <hr />
               <br />
@@ -185,6 +223,12 @@ const Mentee = () => {
                 <Form.Item
                   type="text"
                   name="tech_stack"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'This field is required!',
+                    },
+                  ]}
                   value={formValues.tech_stack}
                   onChange={evt => {
                     inputChange('tech_stack', evt.target.value);
@@ -199,6 +243,12 @@ const Mentee = () => {
                 <Form.Item
                   type="text"
                   name="experience_level"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Experience is required!',
+                    },
+                  ]}
                   value={formValues.experience_level}
                   onChange={evt => {
                     inputChange('experience_level', evt.target.value);
@@ -213,6 +263,12 @@ const Mentee = () => {
                 <Form.Item
                   type="text"
                   name="your_hopes"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'This field is required!',
+                    },
+                  ]}
                   value={formValues.your_hopes}
                   onChange={evt => {
                     inputChange('your_hopes', evt.target.value);

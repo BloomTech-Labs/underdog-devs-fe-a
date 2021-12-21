@@ -78,6 +78,12 @@ const Mentor = () => {
                   <Form.Item
                     type="text"
                     name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Name is required!',
+                      },
+                    ]}
                     value={formValues.name}
                     onChange={evt => {
                       inputChange('name', evt.target.value);
@@ -93,6 +99,12 @@ const Mentor = () => {
                   <Form.Item
                     type="email"
                     name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Email is required!',
+                      },
+                    ]}
                     value={formValues.email}
                     onChange={evt => {
                       inputChange('email', evt.target.value);
@@ -108,6 +120,12 @@ const Mentor = () => {
                   <Form.Item
                     type="text"
                     name="location"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Location is required!',
+                      },
+                    ]}
                     value={formValues.location}
                     onChange={evt => {
                       inputChange('location', evt.target.value);
@@ -135,6 +153,12 @@ const Mentor = () => {
                   <Form.Item
                     type="text"
                     name="tech_stack"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'This field is required!',
+                      },
+                    ]}
                     value={formValues.tech_stack}
                     onChange={evt => {
                       inputChange('tech_stack', evt.target.value);
@@ -153,53 +177,74 @@ const Mentor = () => {
                   pair program (problem solving) with a mentee in our stipend
                   program?*
                 </h3>
-                <Radio.Group value={formValues.can_commit}>
-                  <div className="radio-space">
-                    <Radio
-                      onChange={evt => {
-                        inputChange('can_commit', evt.target.value);
-                      }}
-                      value="1:1 Mentoring"
-                    >
-                      1:1 Mentoring
-                    </Radio>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('can_commit', evt.target.value);
-                      }}
-                      value="Pair Program"
-                    >
-                      Pair Program
-                    </Radio>
-                    <Radio
-                      onChange={evt => {
-                        inputChange('can_commit', evt.target.value);
-                      }}
-                      value="Neither"
-                    >
-                      Neither
-                    </Radio>
-                  </div>
-                </Radio.Group>
-              </div>
-              <br />
-              <div className="how_commit">
-                <h3>
-                  If you can not commit to 1:1 mentoring or pair programming
-                  what type of commitment did you have in mind to help our
-                  mentees? *
-                </h3>
                 <Form.Item
-                  type="text"
-                  name="how_commit"
-                  value={formValues.how_commit}
-                  onChange={evt => {
-                    inputChange('how_commit', evt.target.value);
-                  }}
+                  name="can_commit"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please choose one!',
+                    },
+                  ]}
                 >
-                  <Input.TextArea placeholder="Your answer" />
+                  <Radio.Group>
+                    <div className="radio-space">
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="1:1 Mentoring"
+                      >
+                        1:1 Mentoring
+                      </Radio>
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="Pair Program"
+                      >
+                        Pair Program
+                      </Radio>
+                      <Radio
+                        onChange={evt => {
+                          inputChange('can_commit', evt.target.value);
+                        }}
+                        value="Neither"
+                      >
+                        Neither
+                      </Radio>
+                    </div>
+                  </Radio.Group>
                 </Form.Item>
               </div>
+              <br />
+
+              {formValues.can_commit === 'Neither' ? (
+                <div className="how_commit">
+                  <h3>
+                    If you can not commit to 1:1 mentoring or pair programming
+                    what type of commitment did you have in mind to help our
+                    mentees? *
+                  </h3>
+                  <Form.Item
+                    type="text"
+                    name="how_commit"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please indicate type of commitment.',
+                      },
+                    ]}
+                    value={formValues.how_commit}
+                    onChange={evt => {
+                      inputChange('how_commit', evt.target.value);
+                    }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </div>
+              ) : (
+                ''
+              )}
               <br />
               <div className="other_info">
                 <h3>Anything else you want us to know?</h3>
