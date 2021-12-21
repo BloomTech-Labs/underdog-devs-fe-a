@@ -19,11 +19,11 @@ jest.mock('@okta/okta-react', () => ({
       authService: {
         getUser: jest.fn(() => {
           return Promise.resolve({
-            sub: '00ultwqjtqt4VCcS24x6',
-            name: 'Test004 User',
-            email: 'llama004@maildrop.cc',
-            preferred_username: 'llama004@maildrop.cc',
-            role: 3,
+            sub: '00ultx74kMUmEW8054x6',
+            name: 'Test003 User',
+            email: 'llama003@maildrop.cc',
+            preferred_username: 'llama003@maildrop.cc',
+            role: 2,
           });
         }),
       },
@@ -35,11 +35,11 @@ jest.mock('../state/actions/index', () => ({
     return {
       type: 'USER_PROFILE',
       payload: {
-        sub: '00ultwqjtqt4VCcS24x6',
-        name: 'Test004 User',
-        email: 'llama004@maildrop.cc',
-        preferred_username: 'llama004@maildrop.cc',
-        role: 3,
+        sub: '00ultx74kMUmEW8054x6',
+        name: 'Test003 User',
+        email: 'llama003@maildrop.cc',
+        preferred_username: 'llama003@maildrop.cc',
+        role: 2,
       },
     };
   }),
@@ -66,7 +66,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     store = createTestStore();
     localStorage.setItem('theme', 'dark');
   });
-  test('it renders Mentor Dashboard and Sidebar if role_id is 3', async () => {
+  test('it renders Mentor Dashboard and Sidebar if role_id is 2', async () => {
     act(() => {
       render(
         <Provider store={store}>
@@ -116,10 +116,16 @@ describe('<HomeContainer /> test suite for mentee role', () => {
 
 
     const calendar = await screen.findByText(/Calendar/i);
-    const scheduleMeeting = await screen.findByText(/Schedule Meeting/i);
+    const scheduleInterview = await screen.findByText(/Schedule Interview/i);
 
-    const requestResources = await screen.findByText(/Request Resources/i);
+    const assignResources = await screen.findByText(/Assign Resources/i);
     const trackResources = await screen.findByText(/Track Resources/i);
+
+    const PendingApplications = await screen.findByText(/Pending Applications/i);
+    const manageUsers = await screen.findByText(/Manage Users/i);
+    const viewSupportRequests = await screen.findByText(/View Support Requests/i);
+    const viewAllMeetings = await screen.findByText(/View All Meetings/i);
+
 
 
     const profileSettings = await screen.findByText(/Profile Settings/i);
@@ -128,9 +134,13 @@ describe('<HomeContainer /> test suite for mentee role', () => {
 
 
     expect(calendar).toBeTruthy();
-    expect(scheduleMeeting).toBeTruthy();
-    expect(requestResources).toBeTruthy();
+    expect(scheduleInterview).toBeTruthy();
+    expect(assignResources).toBeTruthy();
     expect(trackResources).toBeTruthy();
+    expect(PendingApplications).toBeTruthy();
+    expect(manageUsers).toBeTruthy();
+    expect(viewSupportRequests).toBeTruthy();
+    expect(viewAllMeetings).toBeTruthy();
     expect(profileSettings).toBeTruthy();
     expect(accountSettings).toBeTruthy();
     expect(logout).toBeTruthy();
@@ -149,44 +159,34 @@ describe('<HomeContainer /> test suite for mentee role', () => {
 
     const schedule = await screen.findByText(/Schedule/i);
     userEvent.click(schedule);
-    const account = await screen.findByText(/Account/i);
-    userEvent.click(account);
     const resources = await screen.findByText(/Resources/i);
     userEvent.click(resources);
+    const account = await screen.findByText(/Account/i);
+    userEvent.click(account);
 
-    // testing for Schedule Meeting comp to render
-    const scheduleMeeting = await screen.findByText(/Schedule Meeting/i);
-    userEvent.click(scheduleMeeting);
+    // testing for Schedule Interview comp to render
+    const scheduleInterview = await screen.findByText(/Schedule Interview/i);
+    userEvent.click(scheduleInterview);
     
     await waitFor(() => {
-      const scheduleMeetingComponent = screen.findByText(
-        /"Schedule Meeting"/i
+      const scheduleInterviewComponent = screen.findByText(
+        /"Schedule Interview" Component goes here/i
       );
-      expect(scheduleMeetingComponent).toBeTruthy();
+      expect(scheduleInterviewComponent).toBeTruthy();
     });
 
-    // testing for my mentees comp to render
-    const myMentees = await screen.findByText(/My Mentees/i);
-    userEvent.click(myMentees);
+    // testing for Access Resources comp to render
+    const assignResources = await screen.findByText(/Assign Resources/i);
+    userEvent.click(assignResources);
 
     await waitFor(() => {
-      const myMenteesComponent = screen.findByText(
-        /"My Mentees" Component goes here/i
+      const assignResourcesComponent = screen.findByText(
+        /"Assign Resources" Component goes here/i
       );
-      expect(myMenteesComponent).toBeTruthy();
+      expect(assignResourcesComponent).toBeTruthy();
     });
 
-    // testing for request resources comp to render
-    const requestResources = await screen.findByText(/Request Resources/i);
-    userEvent.click(requestResources);
-
-    await waitFor(() => {
-      const requestResourcesComponent = screen.findByText(
-        /"Request Resources" Component goes here/i
-      );
-      expect(requestResourcesComponent).toBeTruthy();
-    });
-
+    // testing for tracking res comp to render
     const trackResources = await screen.findByText(/Track Resources/i);
     userEvent.click(trackResources);
 
@@ -196,6 +196,55 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       );
       expect(trackResourcesComponent).toBeTruthy();
     });
+
+
+
+
+    // testing for pending applications comp to render
+
+    const pendingApplications = await screen.findByText(/Pending Applications/i);
+    userEvent.click(pendingApplications);
+
+    await waitFor(() => {
+      const pendingApplicationsComponent = screen.findByText(
+        /"Pending Applications" Component goes here/i
+      );
+      expect(pendingApplicationsComponent).toBeTruthy();
+    });
+
+    // testing for manage users comp to render
+    const manageUsers = await screen.findByText(/Manage Users/i);
+    userEvent.click(manageUsers);
+
+    await waitFor(() => {
+      const manageUsersComponent = screen.findByText(
+        /"Manage Users" Component goes here/i
+      );
+      expect(manageUsersComponent).toBeTruthy();
+    });
+
+    // testing for view support request comp to render
+    const supportRequests = await screen.findByText(/View Support Requests/i);
+    userEvent.click(supportRequests);
+
+    await waitFor(() => {
+      const supportRequestsComponent = screen.findByText(
+        /"Support Requests" Component goes here/i
+      );
+      expect(supportRequestsComponent).toBeTruthy();
+    });
+
+    // testing for view all meetings comp to render
+    const viewAllMeetings = await screen.findByText(/View All Meetings/i);
+    userEvent.click(viewAllMeetings);
+
+    await waitFor(() => {
+      const viewAllMeetingsComponent = screen.findByText(
+        /"View Meetings" Component goes here/i
+      );
+      expect(viewAllMeetingsComponent).toBeTruthy();
+    });
+
 
     //tests for profile settings comp to render
     //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX
