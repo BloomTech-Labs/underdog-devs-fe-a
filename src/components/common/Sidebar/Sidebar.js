@@ -132,9 +132,6 @@ const Sidebar = props => {
               <Menu.Item key="4" onClick={handleMenuClick}>
                 Manage Resources
               </Menu.Item>
-              <Menu.Item key="5" onClick={handleMenuClick}>
-                Create Assignments
-              </Menu.Item>
             </>
           ) : isUserAdmin() ? (
             <>
