@@ -1,24 +1,70 @@
 .row {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .col1, .col2 {
-    min-width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 2%;
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  padding: 3vh;
 }
 
 .card1, .card2 {
-    display: flex;
+  display: flex;
+  width: 80vw;
+}
+
+.card-img {
+  width: 300px;
 }
 
 .title {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .divider {
-    margin: 4em;
+  margin: 4em;
+}
+
+.breadcrumbs {
+    padding: 3vh;
+}
+
+@media only screen and (max-width: 880px) {
+  .col1, .col2 {
+    min-width: 100%;
+    display: flex;
+  }
+  
+  .card1, .card2 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .card-img {
+    width: 100%;
+  }
+  
+  .divider {
+    margin: 2.5em;
+  }
+}
+
+@media only screen and (max-width: 554px) {
+  .title {
+    font-size: 13px;
+    font-weight: bolder;
+  } 
+
+   .description {
+    font-size: 10px;
+  }
+
+  .divider {
+    margin: 1em;
+  }
 }

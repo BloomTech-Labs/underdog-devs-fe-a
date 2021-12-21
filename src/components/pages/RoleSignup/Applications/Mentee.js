@@ -6,7 +6,7 @@ import {
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
-// import './Styles/application.css';
+import './Styles/application.css';
 
 const initialFormValues = {
   email: '',
