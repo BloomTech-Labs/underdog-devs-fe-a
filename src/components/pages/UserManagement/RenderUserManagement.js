@@ -262,7 +262,7 @@ function RenderUserManagement(props) {
       {!formDisabled && (
         <Modal
           centered
-          title="Basic Modal"
+          title="Update Selected User"
           visible={isModalVisible}
           okText="Update User"
           onOk={handleOk}
