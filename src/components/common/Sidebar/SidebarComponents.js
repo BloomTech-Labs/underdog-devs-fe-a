@@ -21,7 +21,7 @@ const MentorComponents = {
   1: <CalendarFeature />,
   2: <div>"Schedule Meeting"</div>,
   3: <div>"My Mentees" Component goes here</div>,
-  4: <div></div>,
+  4: <div>"Manage Resources" Component goes here</div>,
   5: <div>"Create Assignments" Component goes here</div>,
   6: <div>"Request Resources" Component goes here</div>,
   7: <div>"Track Resources" Component goes here</div>,
@@ -41,7 +41,6 @@ const AdminComponents = {
   7: <div>"Support Requests" Component goes here</div>,
   8: <UserManagement />,
   9: <div>Do we need Account settings?</div>,
-  11: <div>"View Meetings" Component goes here</div>,
 };
 
 export { AdminComponents, MentorComponents, MenteeComponents };
