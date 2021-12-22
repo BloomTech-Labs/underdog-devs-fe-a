@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Spin, Modal } from 'antd';
+import { Form, Input, Button, Radio, Spin, Modal, Card } from 'antd';
 import '../SuperAdminForm/SuperAdminFormStyle.css';
 import axiosWithAuth from '../../../utils/axiosWithAuth.js';
 
@@ -38,7 +38,7 @@ function RenderUserManagement(props) {
   const [user, setUser] = useState(defaultUser);
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [isDeactivateModalVisible, setDeactivateModalVisible] = useState(false);
   //disable fields
   const [formDisabled, setFormDisabled] = useState(true);
 
@@ -62,8 +62,17 @@ function RenderUserManagement(props) {
   const showModal = () => {
     setIsModalVisible(true);
   };
-  const handleCancel = () => {
+  const showDeactivateModal = () => {
+    setDeactivateModalVisible(true);
+  };
+
+  const handleDeactivateCancel = () => {
+    setDeactivateModalVisible(false);
+  };
+
+  const handleOk = () => {
     setIsModalVisible(false);
+    updateUser(user);
   };
 
   const updateUser = async user => {
@@ -78,13 +87,14 @@ function RenderUserManagement(props) {
   const deactivateUser = async user => {
     try {
       axiosWithAuth().put(`/profiles/is_active/${user.profile_id}`);
-      setIsModalVisible(false);
+      setDeactivateModalVisible(false);
     } catch (err) {
       console.log(err.message);
     }
   };
 
   const selectUser = async user => {
+    showModal();
     setFormDisabled(false);
     setUser(user);
     formProfile.setFieldsValue(user);
@@ -124,6 +134,7 @@ function RenderUserManagement(props) {
     formProfile.setFieldsValue(found);
     const validating = await validateForm(formProfile);
     setIsDisabled(!validating);
+    setIsModalVisible(false);
   };
 
   //handle changes on searchForm
@@ -143,8 +154,7 @@ function RenderUserManagement(props) {
   // TODO: Further Security checks need to be thought out and implemented. For example: An admin shouldnt be able to access and update a super-admin's profile
   return (
     <>
-      <div className="flexContainer">
-        <h1> User Management </h1>
+      <Card title="User Management" style={{ width: '48vw', margin: 'auto' }}>
         {profiles.length > 0 ? (
           <Form
             {...formItemLayout}
@@ -159,6 +169,10 @@ function RenderUserManagement(props) {
             onChange={searchFormChange}
             scrollToFirstError
           >
+            <p style={{ fontStyle: 'italic' }}>
+              Please search for a user to update
+            </p>
+            <br />
             <Form.Item
               name="firstNameSearch"
               label="First Name"
@@ -187,7 +201,7 @@ function RenderUserManagement(props) {
             </Form.Item>
             <Form.Item
               name="emailSearch"
-              label="email"
+              label="E-Mail"
               placeholder="email"
               rules={
                 [
@@ -207,6 +221,7 @@ function RenderUserManagement(props) {
                 ]
               }
             >
+              {/* TODO: Fix the default check to render all users automatically, possibly change this to a drop down. */}
               <Radio.Group
                 name="roleSearch"
                 style={{ display: 'flex', margin: 'auto' }}
@@ -230,6 +245,10 @@ function RenderUserManagement(props) {
             </p>{' '}
           </>
         )}
+        <br />
+        <p style={{ fontStyle: 'italic' }}>
+          Please select a user to update from the list below
+        </p>
         {userList.length > 0 && (
           <ul>
             {userList.map(profile => {
@@ -248,9 +267,17 @@ function RenderUserManagement(props) {
             })}
           </ul>
         )}
-      </div>
+      </Card>
       {!formDisabled && (
-        <div className="flexContainer">
+        <Modal
+          centered
+          title="Update Selected User"
+          visible={isModalVisible}
+          okText="Update User"
+          onOk={handleOk}
+          cancelText="Cancel Changes"
+          onCancel={cancelChanges}
+        >
           <Form
             {...formItemLayout}
             onChange={modifyUser}
@@ -326,37 +353,32 @@ function RenderUserManagement(props) {
               </Radio.Group>
             </Form.Item>
             <div className="buttonGroup">
-              <Button
-                type="primary"
-                id="submitChanges"
-                disabled={isDisabled}
-                onClick={() => updateUser(user)}
-              >
-                Update user info
-              </Button>
-              <Button id="cancelChanges" onClick={cancelChanges}>
-                Revert changes
-              </Button>
               {/* TODO: Dynamically change the button and modal from "Disable User" to "Reactivate User" depending on is_active status */}
               <Button
                 danger
-                id="delete"
+                id="disable"
                 disabled={isDisabled}
-                onClick={showModal}
+                onClick={showDeactivateModal}
               >
                 Disable User
               </Button>
               <Modal
-                title="Basic Modal"
-                visible={isModalVisible}
+                centered
+                closable={false}
+                title="Warning"
+                visible={isDeactivateModalVisible}
+                okText="Disable User"
                 onOk={() => deactivateUser(user)}
-                onCancel={handleCancel}
+                onCancel={handleDeactivateCancel}
               >
-                <p>You are about to disable a user</p>
+                <p>
+                  You are about to disable this user, please confirm this action
+                  if you wish to proceed.
+                </p>
               </Modal>
             </div>
           </Form>
-        </div>
+        </Modal>
       )}
       {/* TODO: Set up dynamic feedback messages based on actions of the user */}
       <p className="feedbackMessage">{feedbackMessage}</p>
