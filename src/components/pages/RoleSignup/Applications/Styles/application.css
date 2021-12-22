@@ -4,6 +4,8 @@
 h1 {
   border-bottom: solid 1px rgba(128, 128, 128, 0.342);
   background-color: #001529;
+  text-align: left;
+  padding-left: 3vw;
 }
 h3 {
   font-style: italic;
@@ -21,30 +23,15 @@ h3 {
 .titleContainer {
   width: 6vw;
 }
-.name {
+
+#name, #email, #location, 
+#list_convictions, #tech_stack, 
+#experience_level, #your_hopes, 
+#other_info, #current_comp, 
+#how_commit {
+  width: 35vw;
   display: flex;
-  justify-content: space-evenly;
-}
-#name {
-  width: 28vw;
-}
-
-.email {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#email {
-  width: 28vw;
-}
-
-.location {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#location {
-  width: 28vw;
+  justify-content: right;
 }
 
 .questions {
@@ -61,12 +48,13 @@ h3 {
 .ant-radio-group {
   display: flex;
   justify-content: space-around;
+  width: 50%;
 }
 
 .radio-space {
   display: flex;
   justify-content: space-around;
-  width: 100vw;
+  align-items: baseline;
 }
 
 .ant-radio-wrapper {
@@ -74,20 +62,89 @@ h3 {
   justify-content: center;
 }
 
-.lives_in_us {
+.lives_in_us, .formerly_incarcerated {
   display: flex;
-  justify-content: space-between;
   padding: 1vh;
 }
 
-.formerly_incarcerated {
-  display: flex;
-  justify-content: space-between;
-  padding: 1vh;
-}
 .can_commit {
   padding-bottom: 3vh;
 }
 .can_commit h3 {
   padding-bottom: 1vh;
+  margin-right: 7em;
+}
+
+.list_convictions, .tech_stack, 
+.experience_level, .your_hopes, 
+.other_info, .current_comp, .name, 
+.can_commit, .how_commit,
+.location, .email, 
+.lives_in_us, .formerly_incarcerated {
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh;
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+  #mentorapplication {
+    padding: 10vh 8vw;
+  }
+
+  .titleContainer {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+    .list_convictions, .tech_stack, 
+    .experience_level, .your_hopes, 
+    .other_info, .current_comp, .name, 
+    .can_commit, .how_commit,
+    .location, .email, 
+    .lives_in_us, .formerly_incarcerated {
+    display: flex;
+    flex-direction: column;
+  }
+    #name, #email, #location, 
+    #list_convictions, #tech_stack, 
+    #experience_level, #your_hopes, 
+    #other_info, #current_comp, 
+    #how_commit {
+      width: 100%;
+      display: flex;
+  }
+
+  .titleContainer {
+    width: 100%;
+  }
+
+  .can_commit h3 {
+    padding-bottom: 1vh;
+    width: 100%;
+  }
+
+   .mentor-radio-group {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .radio-space {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+  } 
+}
+
+@media only screen and (max-width: 600px) {
+  .application {
+    padding: 0;
+  }
+
+  #mentorapplication {
+    padding: 0;
+  }
 }

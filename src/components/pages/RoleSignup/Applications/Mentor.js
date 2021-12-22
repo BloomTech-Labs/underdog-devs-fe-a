@@ -63,7 +63,7 @@ const Mentor = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
-      <div className="application">
+      <div className="application" id="mentorapplication">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
             <h1> Mentor Application </h1>
@@ -186,7 +186,7 @@ const Mentor = () => {
                     },
                   ]}
                 >
-                  <Radio.Group>
+                  <Radio.Group className="mentor-radio-group">
                     <div className="radio-space">
                       <Radio
                         onChange={evt => {
