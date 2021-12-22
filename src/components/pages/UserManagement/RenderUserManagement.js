@@ -169,6 +169,10 @@ function RenderUserManagement(props) {
             onChange={searchFormChange}
             scrollToFirstError
           >
+            <p style={{ fontStyle: 'italic' }}>
+              Please search for a user to update
+            </p>
+            <br />
             <Form.Item
               name="firstNameSearch"
               label="First Name"
@@ -197,7 +201,7 @@ function RenderUserManagement(props) {
             </Form.Item>
             <Form.Item
               name="emailSearch"
-              label="email"
+              label="E-Mail"
               placeholder="email"
               rules={
                 [
@@ -217,6 +221,7 @@ function RenderUserManagement(props) {
                 ]
               }
             >
+              {/* TODO: Fix the default check to render all users automatically, possibly change this to a drop down. */}
               <Radio.Group
                 name="roleSearch"
                 style={{ display: 'flex', margin: 'auto' }}
@@ -240,6 +245,10 @@ function RenderUserManagement(props) {
             </p>{' '}
           </>
         )}
+        <br />
+        <p style={{ fontStyle: 'italic' }}>
+          Please select a user to update from the list below
+        </p>
         {userList.length > 0 && (
           <ul>
             {userList.map(profile => {
