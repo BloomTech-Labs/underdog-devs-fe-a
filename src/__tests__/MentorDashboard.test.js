@@ -9,7 +9,9 @@ import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
 import Sidebar from '../components/common/Sidebar/Sidebar.js';
 
 afterEach(cleanup);
+// creating store variable
 let store;
+// creating a mock useOktaAuth, needed this so we can log in 
 jest.mock('@okta/okta-react', () => ({
   useOktaAuth: () => {
     return {
@@ -30,6 +32,7 @@ jest.mock('@okta/okta-react', () => ({
     };
   },
 }));
+// creating a mock action
 jest.mock('../state/actions/index', () => ({
   getUserProfile: jest.fn(() => {
     return {
@@ -47,6 +50,7 @@ jest.mock('../state/actions/index', () => ({
 
 describe('<HomeContainer /> test suite for mentee role', () => {
   beforeAll(() => {
+    // have to use this because we were having problems with matchMedia, this fixed it. 
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -63,7 +67,10 @@ describe('<HomeContainer /> test suite for mentee role', () => {
   });
   beforeEach(() => {
     localStorage.clear();
+    // creating a mock redux store
     store = createTestStore();
+    // setting the theme default theme to dark here, if you change it to light here, it will break the darkmode test
+    // just have to fix the first expect to say the opposite of what you put
     localStorage.setItem('theme', 'dark');
   });
   test('it renders Mentor Dashboard and Sidebar if role_id is 3', async () => {
@@ -112,18 +119,15 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
 
-
     const calendar = await screen.findByText(/Calendar/i);
     const scheduleMeeting = await screen.findByText(/Schedule Meeting/i);
 
     const myMentees = await screen.findByText(/My Mentees/i);
     const manageResources = await screen.findByText(/Manage Resources/i);
 
-
     const profileSettings = await screen.findByText(/Profile Settings/i);
     const accountSettings = await screen.findByText(/Account Settings/i);
     const logout = await screen.findByText(/Log Out/i);
-
 
     //tests for profile settings comp to render
     //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX IT
