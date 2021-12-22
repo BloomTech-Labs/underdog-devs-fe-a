@@ -111,15 +111,13 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     userEvent.click(schedule);
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
-    const resources = await screen.findByText(/Resources/i);
-    userEvent.click(resources);
 
 
     const calendar = await screen.findByText(/Calendar/i);
     const scheduleMeeting = await screen.findByText(/Schedule Meeting/i);
 
-    const requestResources = await screen.findByText(/Request Resources/i);
-    const trackResources = await screen.findByText(/Track Resources/i);
+    const myMentees = await screen.findByText(/My Mentees/i);
+    const manageResources = await screen.findByText(/Manage Resources/i);
 
 
     const profileSettings = await screen.findByText(/Profile Settings/i);
@@ -127,10 +125,30 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const logout = await screen.findByText(/Log Out/i);
 
 
+    //tests for profile settings comp to render
+    //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX IT
+    userEvent.click(profileSettings);
+    
+    await waitFor(() => {
+      const profileSettingsComponent = screen.findByText('Profile Settings');
+      expect(profileSettingsComponent).toBeTruthy();
+    });
+
+    //tests for account settings comp to render
+    userEvent.click(accountSettings);
+
+    await waitFor(() => {
+      const accountSettingsComponent = screen.findByText(
+        /Do we need Account settings?/i
+      );
+      expect(accountSettingsComponent).toBeTruthy();
+    });
+
+
     expect(calendar).toBeTruthy();
     expect(scheduleMeeting).toBeTruthy();
-    expect(requestResources).toBeTruthy();
-    expect(trackResources).toBeTruthy();
+    expect(myMentees).toBeTruthy();
+    expect(manageResources).toBeTruthy();
     expect(profileSettings).toBeTruthy();
     expect(accountSettings).toBeTruthy();
     expect(logout).toBeTruthy();
@@ -151,8 +169,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     userEvent.click(schedule);
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
-    const resources = await screen.findByText(/Resources/i);
-    userEvent.click(resources);
 
     // testing for Schedule Meeting comp to render
     const scheduleMeeting = await screen.findByText(/Schedule Meeting/i);
@@ -177,45 +193,15 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     });
 
     // testing for request resources comp to render
-    const requestResources = await screen.findByText(/Request Resources/i);
-    userEvent.click(requestResources);
+    const manageResources = await screen.findByText(/Manage Resources/i);
+    userEvent.click(manageResources);
 
     await waitFor(() => {
       const requestResourcesComponent = screen.findByText(
-        /"Request Resources" Component goes here/i
+        /"Manage Resources" Component goes here/i
       );
       expect(requestResourcesComponent).toBeTruthy();
     });
-
-    const trackResources = await screen.findByText(/Track Resources/i);
-    userEvent.click(trackResources);
-
-    await waitFor(() => {
-      const trackResourcesComponent = screen.findByText(
-        /"Track Resources" Component goes here/i
-      );
-      expect(trackResourcesComponent).toBeTruthy();
-    });
-
-    //tests for profile settings comp to render
-    //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX
-    const profileSettings = await screen.findByText(/Profile Settings/i);
-    await waitFor(() => {
-      userEvent.click(profileSettings);
-      const profileSettingsComponent = document.getElementsByClassName(
-        'flexContainer'
-      );
-      expect(profileSettingsComponent).toBeTruthy();
-    });
-
-    //tests for account settings comp to render
-    const accountSettings = await screen.findByText(/Account Settings/i);
-    userEvent.click(accountSettings);
-
-    const accountSettingsComponent = await screen.findByText(
-      /Do we need Account settings?/i
-    );
-    expect(accountSettingsComponent).toBeTruthy();
   });
 
   test('Tests darkmode functionallity for user role', async () => {

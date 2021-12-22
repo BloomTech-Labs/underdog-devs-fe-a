@@ -117,6 +117,26 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const accountSettings = await screen.findByText(/Account Settings/i);
     const logout = await screen.findByText(/Log Out/i);
 
+    
+    //tests for profile settings comp to render
+    //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX IT
+    userEvent.click(profileSettings);
+    
+    await waitFor(() => {
+      const profileSettingsComponent = screen.findByText('Profile Settings');
+      expect(profileSettingsComponent).toBeTruthy();
+    });
+
+    //tests for account settings comp to render
+    userEvent.click(accountSettings);
+
+    await waitFor(() => {
+      const accountSettingsComponent = screen.findByText(
+        /Do we need Account settings?/i
+      );
+      expect(accountSettingsComponent).toBeTruthy();
+    });
+
     expect(calendar).toBeTruthy();
     expect(profileSettings).toBeTruthy();
     expect(accountSettings).toBeTruthy();
@@ -172,25 +192,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       expect(accessResourcesComponent).toBeTruthy();
     });
 
-    //tests for profile settings comp to render
-    //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX
-    const profileSettings = await screen.findByText(/Profile Settings/i);
-    await waitFor(() => {
-      userEvent.click(profileSettings);
-      const profileSettingsComponent = document.getElementsByClassName(
-        'flexContainer'
-      );
-      expect(profileSettingsComponent).toBeTruthy();
-    });
-
-    //tests for account settings comp to render
-    const accountSettings = await screen.findByText(/Account Settings/i);
-    userEvent.click(accountSettings);
-
-    const accountSettingsComponent = await screen.findByText(
-      /Do we need Account settings?/i
-    );
-    expect(accountSettingsComponent).toBeTruthy();
   });
   test('Tests darkmode functionallity for user role', async () => {
     act(() => {
