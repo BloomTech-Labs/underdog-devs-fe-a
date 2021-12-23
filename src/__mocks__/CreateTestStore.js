@@ -10,12 +10,3 @@ export default function createTestStore() {
   );
   return store;
 }
-
-// export default function createTestStore() {
-//   const store = createStore(
-//     combineReducers({
-//       user: userReducer,
-//     })
-//   );
-//   return store;
-// }
