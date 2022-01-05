@@ -45,5 +45,6 @@
 - Raphael Hebert - Frontend
 - Jesse Johns - TPM
 - Teresa Franxman - UI/UX
+- Rafael Mendoza - UI/UX
 
 Project Link: [https://github.com/Lambda-School-Labs/underdog-devs-fe-a](https://github.com/Lambda-School-Labs/underdog-devs-fe-a)
