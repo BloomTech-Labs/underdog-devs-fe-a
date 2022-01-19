@@ -10,6 +10,7 @@ const columns = [
   {
     title: 'Category',
     dataIndex: 'category',
+    //Categories are hardcoded as it sits, since they can be finite.
     filters: [
       {
         text: 'Books',
@@ -130,6 +131,7 @@ const columns = [
   },
 ];
 
+// DUMMY DATA; needs to be replaced once connected to BE
 const data = [
   {
     key: 1,
@@ -228,7 +230,7 @@ export const RenderResourceManagement = () => {
             onTabChange(key);
           }}
           style={{
-            width: '40%',
+            width: '40rem',
             margin: 'auto',
           }}
           headStyle={{
