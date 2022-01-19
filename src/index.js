@@ -26,6 +26,7 @@ import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
+import { Profile } from './components/pages/Profile';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -72,6 +73,7 @@ function App() {
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/manageresources" component={ManageResources} />
+        <Route path="/Profile" component={Profile} />
         <Route path="/menteesprogress" component={MenteesProgress} />
         <Route path="/implicit/callback" component={LoginCallback} />
         {/* any of the routes you need secured should be registered as SecureRoutes */}
