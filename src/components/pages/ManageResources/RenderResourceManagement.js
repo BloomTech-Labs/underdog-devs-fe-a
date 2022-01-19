@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, Table } from 'antd';
+import { Form, Input, Button, Card, Table, Grid } from 'antd';
 import '../../common/styles/Resources.css';
 import { SearchOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
+const { useBreakpoint } = Grid;
 
 const columns = [
   {
@@ -211,28 +212,51 @@ const contentList = {
 
 export const RenderResourceManagement = () => {
   const [activeTabKey, setActiveTabKey] = useState('request');
+  const { lg } = useBreakpoint();
 
   const onTabChange = key => {
     setActiveTabKey(key);
   };
 
   return (
-    <Card
-      tabList={tabList}
-      activeTabKey={activeTabKey}
-      onTabChange={key => {
-        onTabChange(key);
-      }}
-      style={{
-        width: '30vw',
-        margin: 'auto',
-      }}
-      headStyle={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      {contentList[activeTabKey]}
-    </Card>
+    <div>
+      {lg ? (
+        <Card
+          tabList={tabList}
+          activeTabKey={activeTabKey}
+          onTabChange={key => {
+            onTabChange(key);
+          }}
+          style={{
+            width: '40%',
+            margin: 'auto',
+          }}
+          headStyle={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {contentList[activeTabKey]}
+        </Card>
+      ) : (
+        <Card
+          tabList={tabList}
+          activeTabKey={activeTabKey}
+          onTabChange={key => {
+            onTabChange(key);
+          }}
+          style={{
+            width: 'auto',
+            height: 'auto',
+          }}
+          headStyle={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {contentList[activeTabKey]}
+        </Card>
+      )}
+    </div>
   );
 };
