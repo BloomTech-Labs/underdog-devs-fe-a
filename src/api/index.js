@@ -51,7 +51,6 @@ const getProfileData = authState => {
 };
 
 const getRole = async profile_id => {
-  console.log(`${apiUrl}roles/${profile_id}`);
   try {
     const res = await axios.get(`${apiUrl}roles/${profile_id}`);
     if (res.data.role_id) {
