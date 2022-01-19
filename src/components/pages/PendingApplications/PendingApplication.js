@@ -10,7 +10,6 @@ const PendingApplications = () => {
         .get('http://localhost:8080/application')
         .then(res => {
           setApplications(res.data);
-          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
