@@ -24,6 +24,7 @@ const columns = [
         value: 'mentee',
       },
     ],
+    onFilter: (value, record) => record.role.includes(value),
   },
   {
     title: 'Date',
@@ -41,7 +42,13 @@ const PendingApplications = () => {
       axiosWithAuth()
         .get('http://localhost:8080/application')
         .then(res => {
-          setApplications(res.data);
+          setApplications(
+            res.data.map(row => ({
+              name: row.first_name + ' ' + row.last_name,
+              role: row.role_name,
+              date: Date(row.created_at),
+            }))
+          );
         })
         .catch(err => {
           console.log(err);
@@ -54,28 +61,7 @@ const PendingApplications = () => {
     <>
       <h2>Pending Applications</h2>
 
-      <Table columns={columns} dataSource={applications}>
-        {/* <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Date</th>
-          </tr> */}
-
-        {applications.map((user, index) => {
-          let date = new Date(user.created_at);
-          return (
-            <tr key={index}>
-              <td>
-                {user.first_name} {user.last_name}
-              </td>
-              <td>{user.role_name}</td>
-              <td>{date.toString()}</td>
-            </tr>
-          );
-        })}
-        {/* </tbody> */}
-      </Table>
+      <Table columns={columns} dataSource={applications} />
     </>
   );
 };
