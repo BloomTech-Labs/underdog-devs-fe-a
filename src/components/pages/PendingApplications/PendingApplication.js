@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
+import './PendingApplication.css';
+
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
 
