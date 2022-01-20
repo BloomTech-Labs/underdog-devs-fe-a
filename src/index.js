@@ -65,11 +65,11 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
       <Switch>
+        <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/menteeapplication" component={Mentee} />
         <Route path="/mentorapplication" component={Mentor} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/landing" component={Landing} />
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
