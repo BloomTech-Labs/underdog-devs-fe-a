@@ -190,6 +190,7 @@ export const RenderResourceManagement = () => {
       .catch(err => console.log(err));
   }, []);
 
+  //Need to add axios post to resource tickets once the BE end point accepts the correct ticket shape
   const handleResourceSubmit = e => {
     e.preventDefault();
   };
