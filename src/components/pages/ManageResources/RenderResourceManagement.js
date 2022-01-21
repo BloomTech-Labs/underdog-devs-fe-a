@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Card, Table, Grid } from 'antd';
 import '../../common/styles/Resources.css';
 import { SearchOutlined } from '@ant-design/icons';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const { TextArea } = Input;
 const { useBreakpoint } = Grid;
@@ -23,6 +24,18 @@ const columns = [
       {
         text: 'Subscriptions',
         value: 'Subscriptions',
+      },
+      {
+        text: 'Computers',
+        value: 'Computers',
+      },
+      {
+        text: 'Office Supplies',
+        value: 'Office Supplies',
+      },
+      {
+        text: 'Electronics',
+        value: 'Electronics',
       },
     ],
     onFilter: (value, record) => record.category.includes(value),
@@ -80,7 +93,7 @@ const columns = [
   },
   {
     title: 'Assigned To',
-    dataIndex: 'assigned_to',
+    dataIndex: 'current_assignee',
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -131,22 +144,6 @@ const columns = [
   },
 ];
 
-// DUMMY DATA; needs to be replaced once connected to BE
-const data = [
-  {
-    key: 1,
-    category: 'Books',
-    resource_name: 'JS Book',
-    assigned_to: 'Bob',
-  },
-  {
-    key: 2,
-    category: 'Computer',
-    resource_name: 'MacBook',
-    assigned_to: 'John',
-  },
-];
-
 const formItemLayout = {
   labelCol: {
     sm: {
@@ -171,50 +168,91 @@ const tabList = [
   },
 ];
 
-const contentList = {
-  request: (
-    <Form
-      {...formItemLayout}
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
-      <p style={{ fontWeight: 'bold', paddingLeft: '1.3rem' }}>
-        Please fill this information to request a resource
-      </p>
-      <Form.Item
-        name="resource_name"
-        label="Resource Name"
-        rules={[{ required: true, message: 'Please input a resource name' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="category"
-        label="Category"
-        rules={[{ required: true, message: 'Please input a category name' }]}
-      >
-        <Input></Input>
-      </Form.Item>
-      <Form.Item
-        name="pertains_to"
-        label="Pertains to"
-        rules={[{ required: true, message: 'Please input a mentee name' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item name="" label="Message">
-        <TextArea />
-      </Form.Item>
-      <Form.Item style={{ alignSelf: 'center' }}>
-        <Button>Submit request</Button>
-      </Form.Item>
-    </Form>
-  ),
-  assigned: <Table style={{}} columns={columns} dataSource={data} />,
+const initialResourceFormValues = {
+  resource_name: '',
+  category: '',
+  pertaians_to: '',
+  message: '',
 };
 
 export const RenderResourceManagement = () => {
   const [activeTabKey, setActiveTabKey] = useState('request');
+  const [resources, setResources] = useState([]);
+  const [formValues, setFormValues] = useState(initialResourceFormValues);
   const { lg } = useBreakpoint();
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get('/resources')
+      .then(res => {
+        setResources(res.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const handleResourceSubmit = e => {
+    e.preventDefault();
+  };
+
+  const onChange = event => {
+    const { name, value } = event.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const contentList = {
+    request: (
+      <Form
+        {...formItemLayout}
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <p style={{ fontWeight: 'bold', paddingLeft: '1.3rem' }}>
+          Please fill this information to request a resource
+        </p>
+        <Form.Item
+          name="resource_name"
+          label="Resource Name"
+          value={formValues.resource_name}
+          onChange={onChange}
+          rules={[{ required: true, message: 'Please input a resource name' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="category"
+          label="Category"
+          value={formValues.category}
+          onChange={onChange}
+          rules={[{ required: true, message: 'Please input a category name' }]}
+        >
+          <Input></Input>
+        </Form.Item>
+        <Form.Item
+          name="pertains_to"
+          label="Pertains to"
+          value={formValues.pertaians_to}
+          onChange={onChange}
+          rules={[{ required: true, message: 'Please input a mentee name' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name=""
+          label="Message"
+          value={formValues.message}
+          onChange={onChange}
+        >
+          <TextArea />
+        </Form.Item>
+        <Form.Item style={{ alignSelf: 'center' }}>
+          <Button onClick={handleResourceSubmit}>Submit request</Button>
+        </Form.Item>
+      </Form>
+    ),
+    assigned: <Table style={{}} columns={columns} dataSource={resources} />,
+  };
 
   const onTabChange = key => {
     setActiveTabKey(key);
