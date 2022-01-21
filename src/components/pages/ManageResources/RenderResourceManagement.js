@@ -144,6 +144,22 @@ const columns = [
   },
 ];
 
+// DUMMY DATA; needs to be replaced once connected to BE
+const data = [
+  {
+    key: 1,
+    category: 'Books',
+    resource_name: 'JS Book',
+    assigned_to: 'Bob',
+  },
+  {
+    key: 2,
+    category: 'Computer',
+    resource_name: 'MacBook',
+    assigned_to: 'John',
+  },
+];
+
 const formItemLayout = {
   labelCol: {
     sm: {
