@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
 import {
-  HomeOutlined,
+  LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
@@ -53,7 +53,7 @@ const Mentee = () => {
       <div className="breadcrumbs">
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
-            <HomeOutlined />
+            <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/signup">
             <IdcardOutlined />
