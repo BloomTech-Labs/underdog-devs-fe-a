@@ -19,6 +19,7 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+import EditProfile from './components/pages/Profile/EditProfile';
 
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApproval from './components/pages/PendingApproval/PendingApproval';
