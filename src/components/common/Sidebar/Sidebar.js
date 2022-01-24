@@ -135,6 +135,9 @@ const Sidebar = props => {
             </>
           ) : isUserAdmin() ? (
             <>
+              <Menu.Item key="0" onClick={handleMenuClick}>
+                Dashboard
+              </Menu.Item>
               <Menu.Item key="3" onClick={handleMenuClick}>
                 Manage Resources
               </Menu.Item>
