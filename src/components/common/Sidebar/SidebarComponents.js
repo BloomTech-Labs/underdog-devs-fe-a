@@ -28,6 +28,7 @@ const MentorComponents = {
 };
 
 const AdminComponents = {
+  0: <div>"Dashboard" Component goes here</div>,
   1: <CalendarFeature />,
   2: <div>"Schedule Interview" Component goes here</div>,
   3: <ManageResources />,
