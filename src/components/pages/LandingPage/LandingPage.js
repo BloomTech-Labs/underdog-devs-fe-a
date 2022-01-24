@@ -2,6 +2,9 @@ import React from 'react';
 import './LandingPage.css';
 import { Header } from 'antd/lib/layout/layout';
 import { Layout } from 'antd';
+import pointAtScreen from './resources/pointatscreen.jpg';
+import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
+import guyAtComputer from './resources/guyatcomputer.jpg';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.
 
@@ -54,8 +57,101 @@ function LandingPage() {
         <div className="right1">
           <img
             className="img1"
-            src="https://unsplash.com/photos/IgUR1iX0mqM"
+            src={mentorHelpingMentee}
             alt="Mentor helping Mentee"
+          ></img>
+        </div>
+      </div>
+      <h2 className="head2">Why Choose Underdog Devs?</h2>
+      <div className="landInfo2">
+        <div className="left2">
+          <h3 className="subHead2">Recidivism</h3>
+          <p className="text1">
+            According to data from the U.S. Bureau of Justice Statistics (BJS),
+            67.8% of released state prisoners were arrested for a new crime
+            within three years, and 76.7% were arrested within five years
+            (Durose, Cooper, & Snyder, 2014). Reducing recidivism not only
+            protects society at large, but also imporves the life quality of
+            individual ex-prisoners.
+          </p>
+          <p className="text1">
+            Incarceration rates in the U.S. began increasing dramatically in the
+            1990s. The U.S. has the highest prison population of any country,
+            comprising 25% of the world's prisoners.
+          </p>
+          <p className="text1">
+            Out of a sample of 401,268 prisoners state prisoners released in
+            2005:
+            <br />
+            68% of released prisoners were arrested within 3 years.
+            <br />
+            79% of released prisoners were arrested within 6 years.
+            <br />
+            83% of released prisoners were arrested within 9 years.
+            <br />
+            Using this study as a basepoint, one could state that the national
+            recidivism rate is 83%
+          </p>
+          <p className="text1">
+            recidivism and reentry on prisonpolicy.org/recidivism the ultimate
+            guide on prisoninsight.com
+          </p>
+          <button className="learn">Learn more</button>
+        </div>
+        <div className="right2">
+          <h3 className="subHead2">Unemployment and Poverty</h3>
+          <p className="text1">
+            Employment has long been recognized as having a negative
+            correclation with crime (Uggen, 1999; Uggen et al., 2005)
+            <br />
+            employment recidivism on ebpsociety.org
+            <br />
+            Researchers also have found that unemployment is associated with
+            reduced recidivism(Skardhamar & Telle, 2012). The strongest
+            predictor for recidivism: poverty + unemployment.
+            <br />
+            poverty state capital and recidivism among women offenders on
+            ojp.gov
+          </p>
+          <button className="learn2">Learn More</button>
+        </div>
+      </div>
+      <div className="landInfo3">
+        <div className="left3">
+          <img
+            className="img3"
+            src={pointAtScreen}
+            alt="Someone pointing at a computer screen"
+          ></img>
+        </div>
+        <div className="right3">
+          <h3 className="subHead3">What is a Mentor?</h3>
+          <p className="text1">
+            Our mentors are industry experts. They are experienceed software
+            engineers from all over the industry who are committed to guiding
+            the Underdog Devs. They have bi-weekly meeting with their mentees
+            where they offer support in the form of encouragement, interview
+            prep, resume analysis, and coding practice. They mentors develop
+            relationships with the potential for referrals as their mentee
+            develops and becomes job ready.
+          </p>
+        </div>
+      </div>{' '}
+      <div className="landInfo4">
+        <div className="left4">
+          <h3 className="subHead4">What is a Mentee?</h3>
+          <p className="text1">
+            Our mentees are aspiring software engineers from either
+            disadvantaged backgrounds or are formerly incarcerated. They are
+            ambitious and determined people learning the ins-and-outs of the
+            software industry in order to land full time offers.
+          </p>
+        </div>
+        <div className="right4">
+          <img
+            className="img4"
+            src={guyAtComputer}
+            alt="Man working on a computer"
           ></img>
         </div>
       </div>

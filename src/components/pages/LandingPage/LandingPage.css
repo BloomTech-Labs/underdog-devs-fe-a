@@ -1,73 +1,7 @@
-* {
+/* * {
   border: solid 1px red;
-}
-.header {
-  display: flex;
-}
-.headerLinks {
-  padding-left: 15%;
-}
-.loginLinks {
-  padding-left: 50%;
-}
-.links {
-  padding: 10px;
-}
-.signup {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 16px;
-  color: white;
-
-  position: absolute;
-  width: 87px;
-  height: 40px;
-  left: 1361px;
-  top: 10px;
-
-  /* Primary/6 */
-
-  background: #1890ff;
-  /* Primary/6 */
-
-  border: 1px solid #1890ff;
-  box-sizing: border-box;
-  /* drop-shadow / button-primary */
-
-  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
-  border-radius: 2px;
-}
-.login {
-  position: static;
-  width: 44px;
-  height: 24px;
-  left: 21.5px;
-  top: 8px;
-
-  /* H5/regular */
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  text-align: center;
-
-  /* Character/Title .85 */
-
-  color: rgba(0, 0, 0, 0.85);
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 0px;
-}
+} */
+/*Section 1*/
 .landInfo1 {
   display: flex;
   height: 600px;
@@ -80,9 +14,7 @@
 }
 .left1 {
   width: 50%;
-  padding-left: 5%;
-  padding-top: 139px;
-  padding-right: 10%;
+  padding: 130px 5% 0 5%;
 }
 .right1 {
   width: 50%;
@@ -90,4 +22,102 @@
 .text1 {
   font-size: 1.125rem;
   font-weight: 400;
+}
+.img1 {
+  width: 750px;
+  height: 440px;
+  margin-top: 80px;
+}
+
+/*Section 2*/
+.landInfo2 {
+  display: flex;
+  height: 600px;
+  padding-top: 5%;
+}
+.head2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  padding: 10% 0 0 5%;
+}
+.subHead2 {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+.left2 {
+  width: 50%;
+  padding: 0 10% 0 5%;
+}
+.right2 {
+  width: 50%;
+  padding: 0 10% 0 10%;
+}
+.learn {
+  height: 40px;
+  width: 130px;
+  background-color: white;
+  border: 1px solid #003d71;
+  color: #003d71;
+  border-radius: 5px;
+}
+.learn2 {
+  height: 40px;
+  width: 130px;
+  background-color: white;
+  border: 1px solid #003d71;
+  color: #003d71;
+  border-radius: 5px;
+  margin-top: 274px;
+}
+
+/*Section 3*/
+.landInfo3 {
+  display: flex;
+  height: 600px;
+  padding-top: 17%;
+}
+.subHead3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.img3 {
+  width: 750px;
+  height: 440px;
+}
+.left3 {
+  width: 50%;
+  padding: 0 10% 0 5%;
+}
+.right3 {
+  width: 50%;
+  padding: 130px 5% 0 5%;
+}
+.img3 {
+  width: 750px;
+  height: 440px;
+}
+
+/*Section 4*/
+.landInfo4 {
+  display: flex;
+  height: 600px;
+  padding: 27% 0 50% 0;
+}
+.subHead4 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.left4 {
+  width: 50%;
+  padding-left: 5%;
+  padding-right: 10%;
+  padding: 150px 5% 0 5%;
+}
+.right4 {
+  padding: 0 10% 0 5%;
+  width: 50%;
+}
+.img4 {
+  width: 750px;
+  height: 440px;
 }
