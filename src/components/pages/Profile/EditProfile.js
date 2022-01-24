@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Radio, Modal } from 'antd';
+import { Form, Input, Button, Radio, Modal, Dropdown } from 'antd';
 
 function EditProfile() {
   const initialValues = {
-    name: '',
-    email: '',
-    location: '',
-    company: '',
-    tech_stack: '',
     commitment: '',
-    etc_1: '',
-    etc_2: '',
   };
+
   const [ModalOpen, setModalOpen] = useState(false);
-  const [values, setValues] = useState(initialValues);
+  const [radio, setRadio] = useState(initialValues);
 
   const commits = ['1:1 Mentoring', 'Pair Program', 'Neither'];
+
+  //// Event Handlers
 
   const showModal = () => {
     setModalOpen(true);
@@ -29,12 +25,19 @@ function EditProfile() {
     setModalOpen(false);
   };
 
+  const handleRadio = event => {
+    setRadio(event.target.value);
+  };
+  ////
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
         Edit
       </Button>
       <Modal visible={ModalOpen} onCancel={handleCancel} onOk={handleOk}>
+        <h1>Edit Profile:</h1>
+        <br />
         <Form
           name="basic"
           labelCol={{
@@ -115,11 +118,27 @@ function EditProfile() {
             rules={[
               {
                 required: true,
-                message: 'Commitment Required!',
+                message: 'Selection Required!',
               },
             ]}
+            labelCol={{
+              span: 13,
+            }}
+            wrapperCol={{
+              span: 9,
+            }}
           >
-            <Radio.Group options={commits} />
+            <Radio.Group name="commitment">
+              <Radio value="1:1 Mentoring" onClick={handleRadio}>
+                1:1 Mentoring
+              </Radio>
+              <Radio value="Pair Programming" onClick={handleRadio}>
+                Pair Programming
+              </Radio>
+              <Radio value="Neither" onClick={handleRadio}>
+                Neither
+              </Radio>
+            </Radio.Group>
           </Form.Item>
         </Form>
       </Modal>

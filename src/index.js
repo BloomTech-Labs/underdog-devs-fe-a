@@ -19,7 +19,6 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-import EditProfile from './components/pages/Profile/EditProfile';
 
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApproval from './components/pages/PendingApproval/PendingApproval';
@@ -33,6 +32,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import EditProfile from './components/pages/Profile/EditProfile';
 
 const store = createStore(
   rootReducer,
@@ -72,6 +72,7 @@ function App() {
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
+        <Route path="/profile" component={EditProfile} />
         <Route path="/manageresources" component={ManageResources} />
         <Route path="/menteesprogress" component={MenteesProgress} />
         <Route path="/implicit/callback" component={LoginCallback} />
