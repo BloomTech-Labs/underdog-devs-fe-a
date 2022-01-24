@@ -32,7 +32,6 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
-import EditProfile from './components/pages/Profile/EditProfile';
 
 const store = createStore(
   rootReducer,
@@ -72,7 +71,6 @@ function App() {
         <Route path="/pendingapproval" component={PendingApproval} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
-        <Route path="/profile" component={EditProfile} />
         <Route path="/manageresources" component={ManageResources} />
         <Route path="/menteesprogress" component={MenteesProgress} />
         <Route path="/implicit/callback" component={LoginCallback} />
