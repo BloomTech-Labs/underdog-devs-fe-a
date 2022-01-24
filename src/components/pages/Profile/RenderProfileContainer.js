@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 // import '../Dashboard/Admin/index.css';
@@ -21,6 +21,7 @@ import {
   CalendarOutlined,
   FormOutlined,
 } from '@ant-design/icons';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -28,66 +29,23 @@ const { Title } = Typography;
 const { Meta } = Card;
 
 const RenderProfileContainer = props => {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('okta-token-storage');
+    console.log(token);
+    axiosWithAuth()
+      .get(`/application/profileId/${token.idToken.claims.sub}`)
+      .then(resp => {
+        setUserData(resp.data);
+        console.log(userData);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    // <Layout>
-    //   <Header className="header">
-    //       <div className="logo" />
-    //       <Menu className="theme" mode="horizontal" defaultSelectedKeys={['2']}>
-    //         <Menu.Item key="1">nav 1</Menu.Item>
-    //         <Menu.Item key="2">nav 2</Menu.Item>
-    //         <Menu.Item key="3">nav 3</Menu.Item>
-    //       </Menu>
-    //     </Header>
-    //   <Layout>
-    //     <Sider width={400} minHeight={1000} className="site-layout-background">
-    //       <Menu
-    //         className="siderTheme"
-    //         mode="inline"
-    //         defaultSelectedKeys={['4']}
-    //       >
-    //         <Menu.Item key="1" icon={<UserOutlined />}>
-    //           <Link to="/profile">Profile</Link>
-    //         </Menu.Item>
-    //         <Menu.Item key="2" icon={<FormOutlined />}>
-    //           <Link to="/pendingapproval">Pending Approval Requests</Link>
-    //         </Menu.Item>
-    //         <Menu.Item key="3" icon={<CalendarOutlined />}>
-    //           Mentor Mentee Availability
-    //         </Menu.Item>
-    //         <Menu.Item key="4" icon={<TeamOutlined />}>
-    //           Schedule interviews
-    //         </Menu.Item>
-    //         <Menu.Item key="5" icon={<LaptopOutlined />}>
-    //           Manage Resources
-    //         </Menu.Item>
-    //         <Menu.Item key="6" icon={<LineChartOutlined />}>
-    //           Mentee's Progress
-    //         </Menu.Item>
-    //       </Menu>
-    //     </Sider>
-    //     <Layout style={{ padding: '0 24px 24px' }}>
-    //       <Breadcrumb style={{ margin: '16px 0' }}>
-    //         <Breadcrumb.Item>Home</Breadcrumb.Item>
-    //           <Breadcrumb.Item>List</Breadcrumb.Item>
-    //           <Breadcrumb.Item>App</Breadcrumb.Item>
-    //       </Breadcrumb>
-    //       <Content
-    //         className="site-layout-background"
-    //         style={{
-    //           padding: 24,
-    //           margin: 0,
-    //           minHeight: 1000,
-    //         }}
-    //       >
-    //         xyz's profile
-    //         <div />
-    //         <Link to="/">Home</Link>
-    //         <div />
-    //         <Link to="/admindashboard">Back to dashboard</Link>
-    //       </Content>
-    //     </Layout>
-    //   </Layout>
-    // </Layout>
     <div>
       <Row style={{ height: '100vh', border: '1px solid red' }}>
         <Col span={6} style={{ border: '1px solid blue', padding: '3%' }}>
@@ -101,9 +59,7 @@ const RenderProfileContainer = props => {
             }
           >
             <Meta
-              title="address and contac info will go here soon i promise
-            testing
-            123"
+              title="address and contact info will go here"
               description={<EditOutlined />}
             />
           </Card>
