@@ -40,7 +40,7 @@ const PendingApplications = () => {
   useEffect(() => {
     const getPendingApps = () => {
       axiosWithAuth()
-        .get('http://localhost:8080/application')
+        .get('/application')
         .then(res => {
           setApplications(
             res.data.map(row => ({
