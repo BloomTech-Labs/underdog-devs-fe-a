@@ -1,15 +1,11 @@
 .ant-checkbox-wrapper {
-    width: 20%;
-  }
-  .ant-table-column-title {
-    padding-left: 10%;
-    padding-top: 3%;
-  }
-  .anticon-filter {
-    padding-right: 50%;
-    padding-top: 20%;
-  }
-  /* .ant-table-filter-dropdown {
-    display: flex;
-    flex-direction: column;
-  }  */
+  width: 20%;
+}
+.ant-table-column-title {
+  padding-left: 10%;
+  padding-top: 3%;
+}
+.anticon-filter {
+  padding-right: 50%;
+  padding-top: 20%;
+}
