@@ -11,7 +11,8 @@ import './Styles/application.css';
 const initialFormValues = {
   email: '',
   location: '',
-  name: '',
+  first_name: '',
+  last_name: '',
   lives_in_us: '',
   formerly_incarcerated: '',
   list_convictions: '',
@@ -73,25 +74,46 @@ const Mentee = () => {
               <div className="infoDiv">
                 <h3>Please fill out your user information</h3>
                 <br />
-                <div className="name">
+                <div className="firstName">
                   <div className="titleContainer">
-                    <h3>Full Name*</h3>
+                    <h3>First Name*</h3>
                   </div>
                   <Form.Item
                     type="text"
-                    name="name"
+                    name="first_name"
                     rules={[
                       {
                         required: true,
-                        message: 'Name is required!',
+                        message: 'First name is required!',
                       },
                     ]}
-                    value={formValues.name}
+                    value={formValues.first_name}
                     onChange={evt => {
-                      inputChange('name', evt.target.value);
+                      inputChange('first_name', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Your Name" />
+                    <Input placeholder="Your First Name" />
+                  </Form.Item>
+                </div>
+                <div className="lastName">
+                  <div className="titleContainer">
+                    <h3>Last Name*</h3>
+                  </div>
+                  <Form.Item
+                    type="text"
+                    name="last_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Last name is required!',
+                      },
+                    ]}
+                    value={formValues.last_name}
+                    onChange={evt => {
+                      inputChange('last_name', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </div>
                 <div className="email">
