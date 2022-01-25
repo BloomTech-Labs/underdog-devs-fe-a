@@ -21,7 +21,7 @@ h3 {
 }
 
 .titleContainer {
-  width: auto;
+  width: 7vw;
 }
 
 .firstName {
@@ -29,12 +29,16 @@ h3 {
   justify-content: space-evenly;
 }
 
+#first_name {
+  width: 28vw;
+}
+
 .lastName {
   display: flex;
   justify-content: space-evenly;
 }
 
-#name {
+#last_name {
   width: 28vw;
 }
 
