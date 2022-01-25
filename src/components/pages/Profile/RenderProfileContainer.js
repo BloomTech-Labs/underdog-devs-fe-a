@@ -9,8 +9,6 @@ import {
   LinkedinOutlined,
   FacebookOutlined,
 } from '@ant-design/icons';
-import { Calendar } from 'antd';
-import { Skeleton } from 'antd';
 
 import {
   AppstoreOutlined,
@@ -24,21 +22,8 @@ import {
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 const { Meta } = Card;
-
-const profileInitialValues = {
-  profile_id: '',
-  email: '',
-  location: '',
-  name: '',
-  current_comp: '',
-  tech_stack: '',
-  can_commit: null,
-  how_commit: '',
-  other_info: null,
-};
 
 const RenderProfileContainer = props => {
   const [userData, setUserData] = useState({});
@@ -54,24 +39,24 @@ const RenderProfileContainer = props => {
       });
   }, []);
 
-  console.log(userData);
   return (
     <div>
-      <Row style={{ height: '100vh', border: '1px solid red' }}>
-        <Col span={6} style={{ border: '1px solid blue', padding: '3%' }}>
+      <Row style={{ height: '100vh' }}>
+        <Col span={6} style={{ padding: '3%' }}>
           <Card
             style={{ padding: '2%' }}
             cover={
               <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                alt="profile owner"
+                src={
+                  userData.image ||
+                  'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+                }
               />
             }
           >
-            <Meta
-              title="address and contact info will go here"
-              description={<EditOutlined />}
-            />
+            <Typography>{userData.location}</Typography>
+            <Typography>{userData.email}</Typography>
           </Card>
           <Card
             style={{ width: 300, marginTop: 16 }}
@@ -84,19 +69,11 @@ const RenderProfileContainer = props => {
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={18} style={{ border: '1px solid white' }}>
-          <Title level={1}>Joe Schmoe</Title>
+        <Col span={18}>
+          <Title level={1}>{userData.name}</Title>
           <Card title="My Profile">
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              vitae odio eu ante scelerisque pulvinar in vel arcu. Aenean a
-              varius massa. Nulla ac vehicula magna. Nam facilisis tellus ac
-              ipsum viverra maximus nec id quam. Donec mauris ligula, ultricies
-              ac sapien eu, placerat varius magna. Donec sit amet turpis quis
-              nisi blandit malesuada. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Sed volutpat leo sed mi consequat, vel pharetra
-              ligula ultricies. Nam eu metus sodales, consectetur metus at,
-              aliquet sem.
+              {userData.bio || 'Profile bio will go here.'}
             </Card>
             <Card
               style={{ marginTop: 16 }}
@@ -104,15 +81,14 @@ const RenderProfileContainer = props => {
               title="My Tech Stack"
               extra={<EditOutlined />}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              vitae odio eu ante scelerisque pulvinar in vel arcu. Aenean a
-              varius massa. Nulla ac vehicula magna. Nam facilisis tellus ac
-              ipsum viverra maximus nec id quam. Donec mauris ligula, ultricies
-              ac sapien eu, placerat varius magna. Donec sit amet turpis quis
-              nisi blandit malesuada. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Sed volutpat leo sed mi consequat, vel pharetra
-              ligula ultricies. Nam eu metus sodales, consectetur metus at,
-              aliquet sem.
+              {/* 
+              How it will look after survey adds each tech to an array on BE
+              <ul>
+                {userData.tech_stack.map(tech => {
+                  return <li>{tech}</li>;
+                })}
+              </ul> */}
+              {userData.tech_stack}
             </Card>
             <Card
               style={{ marginTop: 16 }}
@@ -120,18 +96,9 @@ const RenderProfileContainer = props => {
               title="My Mentoring Topics"
               extra={<EditOutlined />}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              vitae odio eu ante scelerisque pulvinar in vel arcu. Aenean a
-              varius massa. Nulla ac vehicula magna. Nam facilisis tellus ac
-              ipsum viverra maximus nec id quam. Donec mauris ligula, ultricies
-              ac sapien eu, placerat varius magna. Donec sit amet turpis quis
-              nisi blandit malesuada. Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Sed volutpat leo sed mi consequat, vel pharetra
-              ligula ultricies. Nam eu metus sodales, consectetur metus at,
-              aliquet sem.
+              {userData.topics || 'Topics will go here.'}
             </Card>
           </Card>
-          ,
         </Col>
       </Row>
     </div>
