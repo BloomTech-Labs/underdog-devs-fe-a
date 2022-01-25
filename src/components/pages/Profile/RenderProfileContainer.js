@@ -28,23 +28,33 @@ const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 const { Meta } = Card;
 
+const profileInitialValues = {
+  profile_id: '',
+  email: '',
+  location: '',
+  name: '',
+  current_comp: '',
+  tech_stack: '',
+  can_commit: null,
+  how_commit: '',
+  other_info: null,
+};
+
 const RenderProfileContainer = props => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem('okta-token-storage');
-    console.log(token);
     axiosWithAuth()
-      .get(`/application/profileId/${token.idToken.claims.sub}`)
+      .get(`/profiles/current_user_profile`)
       .then(resp => {
         setUserData(resp.data);
-        console.log(userData);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
       });
   }, []);
 
+  console.log(userData);
   return (
     <div>
       <Row style={{ height: '100vh', border: '1px solid red' }}>
