@@ -11,32 +11,6 @@ import guyAtComputer from './resources/guyatcomputer.jpg';
 function LandingPage() {
   return (
     <>
-      <Header>
-        {/* <div className="header">
-          <div className="headerLinks">
-            <a className="links" href="/">
-              Mentee
-            </a>
-            <a className="links" href="/">
-              Mentor
-            </a>
-            <a className="links" href="/">
-              About
-            </a>
-            <a className="links" href="/">
-              Contact Us
-            </a>
-          </div>
-          <div className="loginLinks">
-            <a className="signup" href="/signup">
-              Sign Up
-            </a>
-            <a className="login" href="/login">
-              Log in
-            </a>
-          </div>
-        </div> */}
-      </Header>
       <div className="landInfo1">
         <div className="left1">
           <h2 className="head1">UNDERDOG DEVS</h2>
