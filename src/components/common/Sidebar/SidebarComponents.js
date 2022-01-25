@@ -2,7 +2,7 @@ import React from 'react';
 import CalendarFeature from '../Calendar';
 import PendingApplications from '../../pages/PendingApplications/PendingApplication';
 import UserManagement from '../../pages/UserManagement/UserManagement';
-
+import { ManageResources } from '../../pages/ManageResources/ManageResources';
 // These components are being exported to Sidebar.js, from there they are being dynamically rendered based on what role the user is
 const MenteeComponents = {
   1: <CalendarFeature />,
@@ -20,7 +20,7 @@ const MentorComponents = {
   1: <CalendarFeature />,
   2: <div>"Schedule Meeting"</div>,
   3: <div>"My Mentees" Component goes here</div>,
-  4: <div>"Manage Resources" Component goes here</div>,
+  4: <ManageResources />,
 
   8: <div>"Profile Settings" goes here</div>,
   9: <div>Do we need Account settings?</div>,
@@ -31,7 +31,7 @@ const MentorComponents = {
 const AdminComponents = {
   1: <CalendarFeature />,
   2: <div>"Schedule Interview" Component goes here</div>,
-  3: <div>"Manage Resources" Component goes here</div>,
+  3: <ManageResources />,
   4: <PendingApplications />,
   5: <UserManagement />,
   6: <div>"View Support Requests" Component goes here</div>,

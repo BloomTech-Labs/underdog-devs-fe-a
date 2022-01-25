@@ -2,7 +2,7 @@ import React from 'react';
 import './Styles/signup.css';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col, Divider, Space, Breadcrumb } from 'antd';
-import { HomeOutlined, IdcardOutlined } from '@ant-design/icons';
+import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
 
 const Signup = () => {
   const { Meta } = Card;
@@ -12,7 +12,7 @@ const Signup = () => {
       <div className="breadcrumbs">
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
-            <HomeOutlined />
+            <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <IdcardOutlined />

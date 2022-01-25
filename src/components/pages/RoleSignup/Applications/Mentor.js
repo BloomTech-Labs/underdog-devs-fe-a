@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
 import {
-  HomeOutlined,
+  LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
@@ -51,7 +51,7 @@ const Mentor = () => {
       <div className="breadcrumbs">
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
-            <HomeOutlined />
+            <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/signup">
             <IdcardOutlined />
@@ -63,7 +63,7 @@ const Mentor = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
-      <div className="application">
+      <div className="application" id="mentorapplication">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
             <h1> Mentor Application </h1>
@@ -186,7 +186,7 @@ const Mentor = () => {
                     },
                   ]}
                 >
-                  <Radio.Group>
+                  <Radio.Group className="mentor-radio-group">
                     <div className="radio-space">
                       <Radio
                         onChange={evt => {
