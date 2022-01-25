@@ -11,6 +11,8 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
+import FooterLanding from './components/pages/FooterLanding/FooterLanding';
 import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
@@ -64,6 +66,7 @@ function App() {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
+      <NavBarLanding />
       <Switch>
         <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />
@@ -85,6 +88,7 @@ function App() {
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
         <Route component={NotFoundPage} />
       </Switch>
+      <FooterLanding />
     </Security>
   );
 }

@@ -7,6 +7,8 @@ import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
 import guyAtComputer from './resources/guyatcomputer.jpg';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.
+//Main content is separated into 4 containers named landInfo1,2... All have a left and right side corresponding with their container number.
+//Images acquired from unsplash.com
 
 function LandingPage() {
   return (
