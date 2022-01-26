@@ -48,12 +48,23 @@ function EditProfile() {
           }}
         >
           <Form.Item
-            label="Full Name"
-            name="fullName"
+            label="First Name"
+            name="firstlName"
             rules={[
               {
-                required: true,
-                message: 'Full Name Required!',
+                message: 'First Name Required!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Last Name"
+            name="lastName"
+            rules={[
+              {
+                message: 'Last Name Required!',
               },
             ]}
           >
@@ -65,7 +76,6 @@ function EditProfile() {
             name="email"
             rules={[
               {
-                required: true,
                 message: 'Email Required!',
               },
             ]}
@@ -78,7 +88,6 @@ function EditProfile() {
             name="location"
             rules={[
               {
-                required: true,
                 message: 'Location Required!',
               },
             ]}
@@ -91,7 +100,6 @@ function EditProfile() {
             name="company"
             rules={[
               {
-                required: true,
                 message: 'Company / Position Required!',
               },
             ]}
@@ -104,7 +112,6 @@ function EditProfile() {
             name="tech_stack"
             rules={[
               {
-                required: true,
                 message: 'Tech Stack Required!',
               },
             ]}
@@ -117,7 +124,6 @@ function EditProfile() {
             name="commitment"
             rules={[
               {
-                required: true,
                 message: 'Selection Required!',
               },
             ]}
