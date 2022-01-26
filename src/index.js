@@ -11,6 +11,7 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
@@ -64,6 +65,7 @@ function App() {
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
       <Switch>
+        <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/menteeapplication" component={Mentee} />
         <Route path="/mentorapplication" component={Mentor} />
