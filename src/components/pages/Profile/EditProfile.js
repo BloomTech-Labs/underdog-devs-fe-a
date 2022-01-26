@@ -47,86 +47,33 @@ function EditProfile() {
             span: 14,
           }}
         >
-          <Form.Item
-            label="First Name"
-            name="firstlName"
-            rules={[
-              {
-                message: 'First Name Required!',
-              },
-            ]}
-          >
+          <Form.Item label="First Name" name="firstName">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Last Name"
-            name="lastName"
-            rules={[
-              {
-                message: 'Last Name Required!',
-              },
-            ]}
-          >
+          <Form.Item label="Last Name" name="lastName">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                message: 'Email Required!',
-              },
-            ]}
-          >
+          <Form.Item label="Email" name="email">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Location"
-            name="location"
-            rules={[
-              {
-                message: 'Location Required!',
-              },
-            ]}
-          >
+          <Form.Item label="Location" name="location">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Company/Position"
-            name="company"
-            rules={[
-              {
-                message: 'Company / Position Required!',
-              },
-            ]}
-          >
+          <Form.Item label="Company/Position" name="company">
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Tech Stack"
-            name="tech_stack"
-            rules={[
-              {
-                message: 'Tech Stack Required!',
-              },
-            ]}
-          >
+          <Form.Item label="Tech Stack" name="tech_stack">
             <Input />
           </Form.Item>
 
           <Form.Item
             label="Commitment"
             name="commitment"
-            rules={[
-              {
-                message: 'Selection Required!',
-              },
-            ]}
             labelCol={{
               span: 13,
             }}
