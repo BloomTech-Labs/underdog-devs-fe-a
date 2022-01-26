@@ -1,7 +1,5 @@
 import React from 'react';
 import './LandingPage.css';
-import { Header } from 'antd/lib/layout/layout';
-import { Layout } from 'antd';
 import pointAtScreen from './resources/pointatscreen.jpg';
 import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
 import guyAtComputer from './resources/guyatcomputer.jpg';

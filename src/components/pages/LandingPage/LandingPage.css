@@ -1,6 +1,3 @@
-/* * {
-  background-color: #f7fcfc;
-} */
 /*Section 1*/
 .landInfo1 {
   display: flex;
@@ -24,8 +21,9 @@
   font-weight: 400;
 }
 .img1 {
-  width: 750px;
-  height: 440px;
+  width: 90%;
+  height: auto;
+  padding: 0 5% 0 5%;
   margin-top: 80px;
 }
 
@@ -81,21 +79,17 @@
   font-size: 2.2rem;
   font-weight: 700;
 }
-.img3 {
-  width: 750px;
-  height: 440px;
-}
 .left3 {
   width: 50%;
-  padding: 0 10% 0 5%;
 }
 .right3 {
   width: 50%;
   padding: 130px 5% 0 5%;
 }
 .img3 {
-  width: 750px;
-  height: 440px;
+  width: 90%;
+  height: auto;
+  padding: 0 5% 0 5%;
 }
 
 /*Section 4*/
@@ -115,12 +109,12 @@
   padding: 150px 5% 0 5%;
 }
 .right4 {
-  padding: 0 10% 0 5%;
   width: 50%;
 }
 .img4 {
-  width: 750px;
-  height: 440px;
+  width: 90%;
+  height: auto;
+  padding: 0 5% 0 5%;
 }
 @media screen and (max-width: 320px) {
   .landInfo1,
@@ -133,9 +127,9 @@
   .img1,
   .img3,
   .img4 {
-    width: 259px;
-    height: 152px;
+    width: 80%;
     margin: 20px 10% 0 10%;
+    height: auto;
   }
   .left1,
   .right1 {
@@ -231,6 +225,128 @@
     display: flex;
     height: 600px;
     padding-top: 700px;
+    padding: 700 0 0 0;
+  }
+  .subHead4 {
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+  .left4 {
+    padding: 100px 10% 0 10%;
+  }
+  .right4 {
+    padding: 0 0 100px 0;
+  }
+}
+@media screen and (max-width: 414px) {
+  .landInfo1,
+  .landInfo2,
+  .landInfo3,
+  .landInfo4 {
+    display: flex;
+    flex-direction: column;
+  }
+  .img1,
+  .img3,
+  .img4 {
+    width: 80%;
+    margin: 20px 10% 0 10%;
+    height: auto;
+  }
+  .left1,
+  .right1 {
+    width: 100%;
+  }
+  .left2,
+  .right2 {
+    width: 100%;
+  }
+  .left3,
+  .right3 {
+    width: 100%;
+  }
+  .left4,
+  .right4 {
+    width: 100%;
+  }
+  .landInfo1 {
+    display: flex;
+    height: 800px;
+  }
+  .head1 {
+    padding: 50px 0 10px 0;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #003d71;
+    text-align: center;
+  }
+  .left1 {
+    padding: 0 10% 0 10%;
+  }
+  .text1 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  .landInfo2 {
+    display: flex;
+    height: 600px;
+    padding-top: 0;
+  }
+  .head2 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    padding: 0 0 0 10%;
+  }
+  .subHead2 {
+    font-size: 2.6rem;
+    font-weight: 700;
+  }
+  .left2 {
+    padding: 60px 10% 100px 10%;
+  }
+  .subHead2 {
+    font-size: 2.1rem;
+  }
+  .right2 {
+    padding: 0 10% 0 10%;
+  }
+  .learn {
+    height: 40px;
+    width: 130px;
+    background-color: white;
+    border: 1px solid #003d71;
+    color: #003d71;
+    border-radius: 5px;
+    margin-top: 0px;
+  }
+  .learn2 {
+    height: 40px;
+    width: 130px;
+    background-color: white;
+    border: 1px solid #003d71;
+    color: #003d71;
+    border-radius: 5px;
+    margin-top: 0px;
+  }
+  .landInfo3 {
+    display: flex;
+    height: 600px;
+    padding-top: 800px;
+  }
+  .subHead3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+  .left3 {
+    padding: 100px 0 0 0;
+  }
+  .right3 {
+    padding: 0 10% 0 10%;
+  }
+  .landInfo4 {
+    display: flex;
+    height: 600px;
+    padding-top: 600px;
     padding: 700 0 0 0;
   }
   .subHead4 {
