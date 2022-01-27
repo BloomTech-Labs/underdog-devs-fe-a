@@ -3,6 +3,8 @@ import './LandingPage.css';
 import pointAtScreen from './resources/pointatscreen.jpg';
 import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
 import guyAtComputer from './resources/guyatcomputer.jpg';
+import NavBarLanding from '../NavBarLanding/NavBarLanding';
+import FooterLanding from '../FooterLanding/FooterLanding';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.
 //Main content is separated into 4 containers named landInfo1,2... All have a left and right side corresponding with their container number.
@@ -11,6 +13,7 @@ import guyAtComputer from './resources/guyatcomputer.jpg';
 function LandingPage() {
   return (
     <>
+      <NavBarLanding />
       <div className="landInfo1">
         <div className="left1">
           <h2 className="head1">UNDERDOG DEVS</h2>
@@ -129,6 +132,7 @@ function LandingPage() {
           ></img>
         </div>
       </div>
+      <FooterLanding />
     </>
   );
 }
