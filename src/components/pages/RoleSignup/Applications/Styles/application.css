@@ -26,25 +26,7 @@ h3 {
   width: 7vw;
 }
 
-.firstName {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#first_name {
-  width: 28vw;
-}
-
-.lastName {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-#last_name {
-  width: 28vw;
-}
-
-#name, #email, #location, 
+#first_name, #last_name, #email, #location, 
 #list_convictions, #tech_stack, 
 #experience_level, #your_hopes, 
 #other_info, #current_comp, 
@@ -97,7 +79,7 @@ h3 {
 
 .list_convictions, .tech_stack, 
 .experience_level, .your_hopes, 
-.other_info, .current_comp, .name, 
+.other_info, .current_comp, .firstName, .lastName,
 .can_commit, .how_commit,
 .location, .email, 
 .lives_in_us, .formerly_incarcerated {
