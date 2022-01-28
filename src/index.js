@@ -33,6 +33,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
 const store = createStore(
   rootReducer,
@@ -63,7 +64,9 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavBarLanding />
+
       <Switch>
         <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />

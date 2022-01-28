@@ -4,18 +4,28 @@ import styled from 'styled-components';
 export const Nav = styled.nav`
   background: #FFFFF;
   height: 80px;
+  position: sticky;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem calc((100vw - 1000px) / 2);
-  z-index: 10;
+`;
+
+export const NavItems = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
 `;
 
 export const NavLink = styled(Link)`
   color: #000;
   display: flex;
   align-items: center;
+  text-align: center;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0 2rem;
   height: 100%;
   cursor: pointer;
   &.active {
@@ -40,17 +50,16 @@ export const Bars = styled.div`
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
+  text-align: center;
 
   @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
-export const NavBtn = styled.nav`
+export const NavBtn = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 24px;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -58,6 +67,8 @@ export const NavBtn = styled.nav`
 `;
 
 export const NavBtnLink = styled(Link)`
+  align-items: center;
+  text-align: center;
   border-radius: 4px;
   background: #256ce1;
   padding: 10px 22px;
@@ -67,6 +78,7 @@ export const NavBtnLink = styled(Link)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+
   /* Second Nav */
   margin-left: 24px;
   &:hover {

@@ -13,7 +13,7 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 function LandingPage() {
   return (
     <>
-      <NavBarLanding />
+      {/* <NavBarLanding /> */}
       <div className="landInfo1">
         <div className="left1">
           <h2 className="head1">UNDERDOG DEVS</h2>
