@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Radio, Modal, Dropdown } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Radio, Modal, Typography, message } from 'antd';
 
 function EditProfile() {
+  // Grab initial values from profile component
   const initialValues = {
-    commitment: '',
+    first_name: 'Hal',
+    last_name: 'Jordan',
+    email: 'greenguy123@gmail.com',
+    location: 'Earth',
+    company: 'Bloom Tech, SWE',
+    tech_stack: 'React, JS, Python',
+    commitment: 'Pair Programming',
   };
 
   const [ModalOpen, setModalOpen] = useState(false);
   const [radio, setRadio] = useState(initialValues);
-
-  const commits = ['1:1 Mentoring', 'Pair Program', 'Neither'];
 
   //// Event Handlers
 
@@ -28,6 +33,7 @@ function EditProfile() {
   const handleRadio = event => {
     setRadio(event.target.value);
   };
+
   ////
 
   return (
@@ -36,8 +42,6 @@ function EditProfile() {
         Edit
       </Button>
       <Modal visible={ModalOpen} onCancel={handleCancel} onOk={handleOk}>
-        <h1>Edit Profile:</h1>
-        <br />
         <Form
           name="basic"
           labelCol={{
@@ -47,27 +51,87 @@ function EditProfile() {
             span: 14,
           }}
         >
-          <Form.Item label="First Name" name="firstName">
+          <Form.Item
+            label="First Name"
+            name="firstName"
+            initialValue={initialValues.first_name}
+            rules={[
+              {
+                required: true,
+                message: 'First Name Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Last Name" name="lastName">
+          <Form.Item
+            label="Last Name"
+            name="lastName"
+            initialValue={initialValues.last_name}
+            rules={[
+              {
+                required: true,
+                message: 'Last Name Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Email" name="email">
+          <Form.Item
+            label="Email"
+            name="email"
+            initialValue={initialValues.email}
+            rules={[
+              {
+                required: true,
+                message: 'Email Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Location" name="location">
+          <Form.Item
+            label="Location"
+            name="location"
+            initialValue={initialValues.location}
+            rules={[
+              {
+                required: true,
+                message: 'Location Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Company/Position" name="company">
+          <Form.Item
+            label="Company/Position"
+            name="company"
+            initialValue={initialValues.company}
+            rules={[
+              {
+                required: true,
+                message: 'Company Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Tech Stack" name="tech_stack">
+          <Form.Item
+            label="Tech Stack"
+            name="tech_stack"
+            initialValue={initialValues.tech_stack}
+            rules={[
+              {
+                required: true,
+                message: 'Tech Stack Required!',
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
@@ -81,7 +145,10 @@ function EditProfile() {
               span: 9,
             }}
           >
-            <Radio.Group name="commitment">
+            <Radio.Group
+              name="commitment"
+              defaultValue={initialValues.commitment}
+            >
               <Radio value="1:1 Mentoring" onClick={handleRadio}>
                 1:1 Mentoring
               </Radio>
