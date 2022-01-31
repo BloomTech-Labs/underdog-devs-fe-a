@@ -1,6 +1,8 @@
 import React from 'react';
 import CalendarFeature from '../Calendar';
 import UserManagement from '../../pages/UserManagement/UserManagement';
+import { Profile } from '../../pages/Profile';
+
 import { ManageResources } from '../../pages/ManageResources/ManageResources';
 import { Profile } from '../../pages/Profile';
 
