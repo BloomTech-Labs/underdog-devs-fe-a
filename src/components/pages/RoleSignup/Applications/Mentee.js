@@ -28,7 +28,7 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'https://underdog-devs-a-api.herokuapp.com/application/new-mentee',
+        'http://localhost:8080/application/new-mentee',
         newAccount
       );
       console.log(response);
