@@ -11,6 +11,7 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
@@ -32,6 +33,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
 const store = createStore(
   rootReducer,
@@ -62,8 +64,11 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavBarLanding />
+
       <Switch>
+        <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/menteeapplication" component={Mentee} />
         <Route path="/mentorapplication" component={Mentor} />
