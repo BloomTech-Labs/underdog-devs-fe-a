@@ -4,7 +4,6 @@ import UserManagement from '../../pages/UserManagement/UserManagement';
 import { Profile } from '../../pages/Profile';
 
 import { ManageResources } from '../../pages/ManageResources/ManageResources';
-import { Profile } from '../../pages/Profile';
 
 // These components are being exported to Sidebar.js, from there they are being dynamically rendered based on what role the user is
 const MenteeComponents = {
