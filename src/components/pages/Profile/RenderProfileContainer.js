@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import '../Dashboard/Admin/index.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { Calendar } from 'antd';
+// import '../Dashboard/Admin/index.css';
+import { Layout, Menu, Breadcrumb, Row, Col, Typography, Card } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import {
+  TwitterOutlined,
+  LinkedinOutlined,
+  FacebookOutlined,
+} from '@ant-design/icons';
 
 import {
   AppstoreOutlined,
@@ -14,71 +19,89 @@ import {
   CalendarOutlined,
   FormOutlined,
 } from '@ant-design/icons';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Title } = Typography;
+const { Meta } = Card;
 
 const RenderProfileContainer = props => {
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/profiles/current_user_profile`)
+      .then(resp => {
+        setUserData(resp.data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }, []);
+
   return (
-    <Layout>
-      {/* <Header className="header">
-          <div className="logo" />
-          <Menu className="theme" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header> */}
-      <Layout>
-        <Sider width={400} minHeight={1000} className="site-layout-background">
-          <Menu
-            className="siderTheme"
-            mode="inline"
-            defaultSelectedKeys={['4']}
+    <div>
+      <Row style={{ height: '100vh' }}>
+        <Col span={6} style={{ padding: '3%' }}>
+          <Card
+            style={{ padding: '2%' }}
+            cover={
+              <img
+                alt="profile owner"
+                src={
+                  userData.image ||
+                  'https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+                }
+              />
+            }
           >
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              <Link to="/profile">Profile</Link>
-            </Menu.Item>
-            <Menu.Item key="2" icon={<FormOutlined />}>
-              <Link to="/pendingapproval">Pending Approval Requests</Link>
-            </Menu.Item>
-            <Menu.Item key="3" icon={<CalendarOutlined />}>
-              Mentor Mentee Availability
-            </Menu.Item>
-            <Menu.Item key="4" icon={<TeamOutlined />}>
-              Schedule interviews
-            </Menu.Item>
-            <Menu.Item key="5" icon={<LaptopOutlined />}>
-              Manage Resources
-            </Menu.Item>
-            <Menu.Item key="6" icon={<LineChartOutlined />}>
-              Mentee's Progress
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {/* <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item> */}
-          </Breadcrumb>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 1000,
-            }}
+            <Typography>{userData.location}</Typography>
+            <Typography>{userData.email}</Typography>
+          </Card>
+          <Card
+            style={{ width: 300, marginTop: 16 }}
+            actions={[
+              <TwitterOutlined />,
+              <LinkedinOutlined />,
+              <FacebookOutlined />,
+            ]}
           >
-            xyz's profile
-            <div />
-            <Link to="/">Home</Link>
-            <div />
-            <Link to="/admindashboard">Back to dashboard</Link>
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+            <Meta title="Socials" description={<EditOutlined />} />
+          </Card>
+        </Col>
+        <Col span={18}>
+          <Title level={1}>{userData.name}</Title>
+          <Card title="My Profile">
+            <Card type="inner" title="Bio" extra={<EditOutlined />}>
+              {userData.bio || 'Profile bio will go here.'}
+            </Card>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="My Tech Stack"
+              extra={<EditOutlined />}
+            >
+              {/* 
+              How it will look after survey adds each tech to an array on BE
+              <ul>
+                {userData.tech_stack.map(tech => {
+                  return <li>{tech}</li>;
+                })}
+              </ul> */}
+              {userData.tech_stack}
+            </Card>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="My Mentoring Topics"
+              extra={<EditOutlined />}
+            >
+              {userData.topics || 'Topics will go here.'}
+            </Card>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
