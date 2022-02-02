@@ -11,7 +11,7 @@ import Sidebar from '../components/common/Sidebar/Sidebar.js';
 afterEach(cleanup);
 // creating store variable
 let store;
-// creating a mock useOktaAuth, needed this so we can log in 
+// creating a mock useOktaAuth, needed this so we can log in
 jest.mock('@okta/okta-react', () => ({
   useOktaAuth: () => {
     return {
@@ -50,7 +50,7 @@ jest.mock('../state/actions/index', () => ({
 
 describe('<HomeContainer /> test suite for mentee role', () => {
   beforeAll(() => {
-    // have to use this because we were having problems with matchMedia, this fixed it. 
+    // have to use this because we were having problems with matchMedia, this fixed it.
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -123,11 +123,11 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const profileSettings = await screen.findByText(/Profile Settings/i);
     const accountSettings = await screen.findByText(/Account Settings/i);
     const logout = await screen.findByText(/Log Out/i);
-    
+
     //tests for profile settings comp to render
     //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX IT
     userEvent.click(profileSettings);
-    
+
     await waitFor(() => {
       const profileSettingsComponent = screen.findByText('Profile Settings');
       expect(profileSettingsComponent).toBeTruthy();
@@ -168,7 +168,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     // testing for upcoming meetings comp to render
     const upcomingMeetings = await screen.findByText(/Upcoming Meetings/i);
     userEvent.click(upcomingMeetings);
-    
+
     await waitFor(() => {
       const upcomingMeetingsComponent = screen.findByText(
         /"Upcoming Meetings" Component goes here/i
@@ -197,7 +197,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       );
       expect(accessResourcesComponent).toBeTruthy();
     });
-
   });
   test('Tests darkmode functionallity for user role', async () => {
     act(() => {
@@ -209,18 +208,22 @@ describe('<HomeContainer /> test suite for mentee role', () => {
         </Provider>
       );
     });
-      const darkModeToggleBtn = await screen.findByRole("switch");
-      const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch-checked");
-      expect(darkModeToggleBtn).toBeInTheDocument();
+    const darkModeToggleBtn = await screen.findByRole('switch');
+    const darkModeToggleBtnClass = document.getElementsByClassName(
+      'ant-switch ant-switch-small ant-switch-checked'
+    );
+    expect(darkModeToggleBtn).toBeInTheDocument();
+    expect(darkModeToggleBtnClass).toBeTruthy();
+    expect(localStorage.theme).toBe('dark');
+
+    userEvent.click(darkModeToggleBtn);
+
+    await waitFor(() => {
+      const darkModeToggleBtnClass = document.getElementsByClassName(
+        'ant-switch ant-switch-small ant-switch'
+      );
       expect(darkModeToggleBtnClass).toBeTruthy();
-      expect(localStorage.theme).toBe('dark');
-
-      userEvent.click(darkModeToggleBtn);
-
-      await waitFor(()=> {
-        const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch");
-        expect(darkModeToggleBtnClass).toBeTruthy();
-        expect(localStorage.theme).toBe('light');
-      });
+      expect(localStorage.theme).toBe('light');
+    });
   });
 });
