@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
 import userEvent from '@testing-library/user-event';
 
-
 afterEach(cleanup);
 let store;
 jest.mock('@okta/okta-react', () => ({
@@ -91,18 +90,22 @@ describe('<HomeContainer /> test suite for pending role', () => {
         </Provider>
       );
     });
-      const darkModeToggleBtn = await screen.findByRole("switch");
-      const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch-checked");
-      expect(darkModeToggleBtn).toBeInTheDocument();
+    const darkModeToggleBtn = await screen.findByRole('switch');
+    const darkModeToggleBtnClass = document.getElementsByClassName(
+      'ant-switch ant-switch-small ant-switch-checked'
+    );
+    expect(darkModeToggleBtn).toBeInTheDocument();
+    expect(darkModeToggleBtnClass).toBeTruthy();
+    expect(localStorage.theme).toBe('dark');
+
+    userEvent.click(darkModeToggleBtn);
+
+    await waitFor(() => {
+      const darkModeToggleBtnClass = document.getElementsByClassName(
+        'ant-switch ant-switch-small ant-switch'
+      );
       expect(darkModeToggleBtnClass).toBeTruthy();
-      expect(localStorage.theme).toBe('dark');
-
-      userEvent.click(darkModeToggleBtn);
-
-      await waitFor(()=> {
-        const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch");
-        expect(darkModeToggleBtnClass).toBeTruthy();
-        expect(localStorage.theme).toBe('light');
-      });
+      expect(localStorage.theme).toBe('light');
+    });
   });
 });

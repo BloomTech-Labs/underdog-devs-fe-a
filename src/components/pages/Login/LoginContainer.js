@@ -25,6 +25,7 @@ const LoginContainer = () => {
       i18n: {
         en: {
           'primaryauth.title': 'Welcome to Underdog Devs Please sign in',
+          'errors.E0000004': 'Invalid Credentials',
           // change title for your app
         },
       },

@@ -11,6 +11,7 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
@@ -22,17 +23,19 @@ import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApproval from './components/pages/PendingApproval/PendingApproval';
+import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { Availability } from './components/pages/Availability/Availability';
 import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
+import { Profile } from './components/pages/Profile';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
-import EditProfile from './components/pages/Profile/EditProfile';
+import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
 const store = createStore(
   rootReducer,
@@ -63,16 +66,21 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Navbar />
+      {/* <Navbar /> */}
+      <NavBarLanding />
+
       <Switch>
+        <Route path="/landing" component={Landing} />
         <Route path="/signup" component={Signup} />
         <Route path="/menteeapplication" component={Mentee} />
         <Route path="/mentorapplication" component={Mentor} />
         <Route path="/login" component={LoginPage} />
         <Route path="/pendingapproval" component={PendingApproval} />
+        <Route path="/pendingapplications" component={PendingApplications} />
         <Route path="/availability" component={Availability} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/manageresources" component={ManageResources} />
+        <Route path="/Profile" component={Profile} />
         <Route path="/menteesprogress" component={MenteesProgress} />
         <Route path="/implicit/callback" component={LoginCallback} />
 

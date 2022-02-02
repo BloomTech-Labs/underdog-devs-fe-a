@@ -25,23 +25,21 @@ const Navbar = props => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
-          {
-            !props.user.profile.name ? <div></div> 
-            
-            :
-
-          <div className="userInfo-and-profilePic">
-            <div className="userInfo">
-              {/* Username State Goes Here */}
-              <div className="username"> {props.user.profile.name} </div>
-              {/* Role State Goes Here */}
-              <div className="userRole">Role</div>
+          {!props.user.profile.name ? (
+            <div></div>
+          ) : (
+            <div className="userInfo-and-profilePic">
+              <div className="userInfo">
+                {/* Username State Goes Here */}
+                <div className="username"> {props.user.profile.name} </div>
+                {/* Role State Goes Here */}
+                <div className="userRole">Role</div>
+              </div>
+              <div className="profilePic">
+                <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
+              </div>
             </div>
-            <div className="profilePic">
-              <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
-            </div>
-          </div>
-          }
+          )}
         </div>
       </Header>
     </Layout>

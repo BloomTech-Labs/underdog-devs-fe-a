@@ -27,6 +27,7 @@
     "redux": "^4.1.2",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.3",
     "yup": "^0.32.11"
   },
   "scripts": {

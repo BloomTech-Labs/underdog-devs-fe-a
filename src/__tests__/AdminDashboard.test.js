@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, cleanup, screen, waitFor, fireEvent } from '@testing-library/react';
+import {
+  render,
+  cleanup,
+  screen,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import HomeContainer from '../components/pages/Home/HomeContainer';
@@ -13,7 +19,7 @@ import Sidebar from '../components/common/Sidebar/Sidebar.js';
 afterEach(cleanup);
 // creating store variable
 let store;
-// creating a mock useOktaAuth, needed this so we can log in 
+// creating a mock useOktaAuth, needed this so we can log in
 jest.mock('@okta/okta-react', () => ({
   useOktaAuth: () => {
     return {
@@ -52,7 +58,7 @@ jest.mock('../state/actions/index', () => ({
 
 describe('<HomeContainer /> test suite for mentee role', () => {
   beforeAll(() => {
-    // have to use this because we were having problems with matchMedia, this fixed it. 
+    // have to use this because we were having problems with matchMedia, this fixed it.
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -90,7 +96,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     expect(schedule).toBeTruthy();
   });
   test('it renders Calendar component', async () => {
-
     await waitFor(() => {
       const calendar = document.getElementsByClassName('calendar');
       expect(calendar).toBeTruthy();
@@ -112,14 +117,17 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
 
-
     const calendar = await screen.findByText(/Calendar/i);
     const scheduleInterview = await screen.findByText(/Schedule Interview/i);
 
     const manageResources = await screen.findByText(/Manage Resources/i);
-    const PendingApplications = await screen.findByText(/Pending Applications/i);
+    const PendingApplications = await screen.findByText(
+      /Pending Applications/i
+    );
     const manageUsers = await screen.findByText(/Manage Users/i);
-    const viewSupportRequests = await screen.findByText(/View Support Requests/i);
+    const viewSupportRequests = await screen.findByText(
+      /View Support Requests/i
+    );
     const viewAllMeetings = await screen.findByText(/View All Meetings/i);
 
     const profileSettings = await screen.findByText(/Profile Settings/i);
@@ -129,7 +137,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     //tests for profile settings comp to render
     //TODO: FOR SOME REASON THERE IS A MEMORY LEAK HERE, NOT SURE HOW TO FIX IT
     userEvent.click(profileSettings);
-    
+
     await waitFor(() => {
       const profileSettingsComponent = screen.findByText('Profile Settings');
       expect(profileSettingsComponent).toBeTruthy();
@@ -178,11 +186,10 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     // added this line of code here because i was getting a window.alert() error, saying it wasn't implemented
     window.alert = () => {};
 
-
     // testing for Schedule Interview comp to render
     const scheduleInterview = await screen.findByText(/Schedule Interview/i);
     userEvent.click(scheduleInterview);
-    
+
     await waitFor(() => {
       const scheduleInterviewComponent = screen.findByText(
         /"Schedule Interview" Component goes here/i
@@ -201,9 +208,10 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       expect(manageResourcesComponent).toBeTruthy();
     });
 
-
     // testing for pending applications comp to render
-    const pendingApplications = await screen.findByText(/Pending Applications/i);
+    const pendingApplications = await screen.findByText(
+      /Pending Applications/i
+    );
     userEvent.click(pendingApplications);
 
     await waitFor(() => {
@@ -218,10 +226,10 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     userEvent.click(manageUsers);
 
     await waitFor(() => {
-      const manageUsersComponent = screen.findByText(
-        /User Management/i
+      const manageUsersComponent = screen.findByText(/User Management/i);
+      const searchForUser = screen.findByText(
+        /Please search for a user to update/i
       );
-      const searchForUser = screen.findByText(/Please search for a user to update/i);
       expect(manageUsersComponent).toBeTruthy();
       expect(searchForUser).toBeTruthy();
     });
@@ -249,7 +257,9 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     });
 
     // testing to see if the account dropdown items are there
-    const findAccountDropdown = document.getElementById('rc-menu-uuid-51147-1-sub4-popup');
+    const findAccountDropdown = document.getElementById(
+      'rc-menu-uuid-51147-1-sub4-popup'
+    );
     expect(findAccountDropdown);
   });
 
@@ -263,18 +273,22 @@ describe('<HomeContainer /> test suite for mentee role', () => {
         </Provider>
       );
     });
-      const darkModeToggleBtn = await screen.findByRole("switch");
-      const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch-checked");
-      expect(darkModeToggleBtn).toBeInTheDocument();
+    const darkModeToggleBtn = await screen.findByRole('switch');
+    const darkModeToggleBtnClass = document.getElementsByClassName(
+      'ant-switch ant-switch-small ant-switch-checked'
+    );
+    expect(darkModeToggleBtn).toBeInTheDocument();
+    expect(darkModeToggleBtnClass).toBeTruthy();
+    expect(localStorage.theme).toBe('dark');
+
+    userEvent.click(darkModeToggleBtn);
+
+    await waitFor(() => {
+      const darkModeToggleBtnClass = document.getElementsByClassName(
+        'ant-switch ant-switch-small ant-switch'
+      );
       expect(darkModeToggleBtnClass).toBeTruthy();
-      expect(localStorage.theme).toBe('dark');
-
-      userEvent.click(darkModeToggleBtn);
-
-      await waitFor(()=> {
-        const darkModeToggleBtnClass = document.getElementsByClassName("ant-switch ant-switch-small ant-switch");
-        expect(darkModeToggleBtnClass).toBeTruthy();
-        expect(localStorage.theme).toBe('light');
-      });
+      expect(localStorage.theme).toBe('light');
+    });
   });
 });
