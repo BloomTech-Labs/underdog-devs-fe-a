@@ -46,7 +46,7 @@ h3 {
 
 #name, #email, #location, 
 #list_convictions, #tech_stack, 
-#experience_level, #your_hopes, 
+#experience_level, #your_hope, 
 #other_info, #current_comp, 
 #how_commit {
   width: 35vw;
@@ -96,7 +96,7 @@ h3 {
 }
 
 .list_convictions, .tech_stack, 
-.experience_level, .your_hopes, 
+.experience_level, .your_hope, 
 .other_info, .current_comp, .name, 
 .can_commit, .how_commit,
 .location, .email, 
@@ -120,7 +120,7 @@ h3 {
 
 @media only screen and (max-width: 1000px) {
     .list_convictions, .tech_stack, 
-    .experience_level, .your_hopes, 
+    .experience_level, .your_hope, 
     .other_info, .current_comp, .name, 
     .can_commit, .how_commit,
     .location, .email, 
@@ -130,7 +130,7 @@ h3 {
   }
     #name, #email, #location, 
     #list_convictions, #tech_stack, 
-    #experience_level, #your_hopes, 
+    #experience_level, #your_hope, 
     #other_info, #current_comp, 
     #how_commit {
       width: 100%;
