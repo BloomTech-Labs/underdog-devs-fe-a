@@ -36,11 +36,11 @@ function EditProfile() {
 
   ////
 
+  //// Styling
+
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Edit
-      </Button>
+      <Button onClick={showModal}>Edit</Button>
       <Modal visible={ModalOpen} onCancel={handleCancel} onOk={handleOk}>
         <Form
           name="basic"
@@ -111,12 +111,6 @@ function EditProfile() {
             label="Company/Position"
             name="company"
             initialValue={initialValues.company}
-            rules={[
-              {
-                required: true,
-                message: 'Company Required!',
-              },
-            ]}
           >
             <Input />
           </Form.Item>
