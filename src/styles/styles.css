@@ -1,0 +1,12 @@
+.modalStyle .ant-btn-primary {
+    background-color: rgb(0, 61, 113);
+}
+
+.modalStyle .ant-modal-header {
+    background-color:rgb(0, 61, 113);
+
+}
+
+.modalStyle .ant-modal-title {
+    color: white;
+}
