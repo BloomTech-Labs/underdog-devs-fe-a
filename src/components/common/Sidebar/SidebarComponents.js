@@ -1,6 +1,7 @@
 import React from 'react';
 import CalendarFeature from '../Calendar';
 import UserManagement from '../../pages/UserManagement/UserManagement';
+import Dashboard from '../../pages/Dashboard/Dashboard';
 import { Profile } from '../../pages/Profile';
 
 import { ManageResources } from '../../pages/ManageResources/ManageResources';
@@ -31,7 +32,7 @@ const MentorComponents = {
 };
 
 const AdminComponents = {
-  0: <div>"Dashboard" Component goes here</div>,
+  0: <Dashboard />,
   1: <CalendarFeature />,
   2: <div>"Schedule Interview" Component goes here</div>,
   3: <ManageResources />,
