@@ -1,12 +1,11 @@
 import React from 'react';
 import { Statistic, Row, Col, Table } from 'antd';
-// TODO: add Table to the antd import and create a table per the wireframes in wireframes/NewDesignProposition/AdminWireframes/Dashboard and also refer to the Human Rights First cases dashboard for example of ant design table implementation that client likes
-// HRF Ant Table code https://github.com/BloomTech-Labs/human-rights-first-asylum-fe-a/blob/main/src/components/pages/Cases/CaseTable.js
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
+// TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
+
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'Ticket ID',
+    dataIndex: 'ticketID',
     filters: [
       {
         text: 'Joe',
@@ -33,19 +32,13 @@ const columns = [
     ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
-    onFilter: (value, record) => record.name.indexOf(value) === 0,
-    sorter: (a, b) => a.name.length - b.name.length,
+    onFilter: (value, record) => record.ticketID.indexOf(value) === 0,
+    sorter: (a, b) => a.ticketID - b.ticketID,
     sortDirections: ['descend'],
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.age - b.age,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'Ticket Type',
+    dataIndex: 'ticketType',
     filters: [
       {
         text: 'London',
@@ -56,34 +49,41 @@ const columns = [
         value: 'New York',
       },
     ],
-    onFilter: (value, record) => record.address.indexOf(value) === 0,
+
+    onFilter: (value, record) => record.ticketType.indexOf(value) === 0,
+  },
+  {
+    title: 'Date Submitted',
+    dataIndex: 'dateSubmitted',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.dateSubmitted - b.dateSubmitted,
   },
 ];
 
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
+    ticketID: '1234',
+    ticketType: 'Application',
+    dateSubmitted: '1/21/2022',
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
+    ticketID: '1233',
+    ticketType: 'Resource Request',
+    dateSubmitted: '1/20/2022',
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
+    ticketID: '1223',
+    ticketType: 'Escalation',
+    dateSubmitted: '1/19/2022',
   },
   {
     key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
+    ticketID: '1200',
+    ticketType: 'Application',
+    dateSubmitted: '1/10/2022',
   },
 ];
 
@@ -99,13 +99,13 @@ const Dashboard = props => {
       <div classname="dashboard-statistics">
         <Row gutter={16}>
           <Col span={5}>
-            <Statistic title="Escalation Tickets" value={112893} />
+            <Statistic title="Escalation Tickets" value={3} />
           </Col>
           <Col span={5}>
-            <Statistic title="Application Tickets" value={112893} />
+            <Statistic title="Application Tickets" value={25} />
           </Col>
           <Col span={5}>
-            <Statistic title="Resource Tickets" value={112893} />
+            <Statistic title="Resource Tickets" value={7} />
           </Col>
         </Row>
       </div>
