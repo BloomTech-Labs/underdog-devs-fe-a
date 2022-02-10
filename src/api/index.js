@@ -55,6 +55,7 @@ const getRole = async profile_id => {
     const res = await axios.get(`${apiUrl}roles/${profile_id}`);
     if (res.data.role_id) {
       localStorage.setItem('role_id', res.data.role_id);
+
       return res.data.role_id;
     }
   } catch (err) {
