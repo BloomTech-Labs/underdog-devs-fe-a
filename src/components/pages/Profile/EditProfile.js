@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import '../../../styles/styles.css';
 
-function EditProfile() {
+function EditProfile(props) {
   // Grab initial values from profile component
   const initialValues = {
     first_name: 'Hal',
