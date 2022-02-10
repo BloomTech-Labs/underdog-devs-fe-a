@@ -26,7 +26,7 @@ const Mentor = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'https://underdog-devs-a-api.herokuapp.com/application/new-mentor',
+        `${process.env.REACT_APP_API_URI}application/new/mentor`,
         newAccount
       );
       console.log(response);
