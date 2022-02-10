@@ -83,6 +83,7 @@ function App() {
         <Route path="/Profile" component={Profile} />
         <Route path="/menteesprogress" component={MenteesProgress} />
         <Route path="/implicit/callback" component={LoginCallback} />
+
         {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
