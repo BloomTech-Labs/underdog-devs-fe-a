@@ -28,3 +28,8 @@ a.sc-dkPtRN:hover /*Login/Sign up buttons color*/ {
 a.sc-gKclnd.cxVpss /*Login/Sign up Button background color*/{
     background-color: #003d71
 }
+
+
+div.ant-card-head  {
+    color: #003D71;
+}
