@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
+import { Form, Input, Button, Radio, Breadcrumb, TreeSelect } from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
@@ -18,6 +18,36 @@ const initialFormValues = {
   how_commit: '',
   other_info: '',
 };
+
+//// Dropdown Data
+const { SHOW_PARENT } = TreeSelect;
+
+const treeData = [
+  {
+    title: 'React',
+    value: 'React',
+    key: 'React',
+  },
+  {
+    title: 'Python',
+    value: 'Python',
+    key: 'Python',
+  },
+
+  {
+    title: 'Javascript',
+    value: 'Javascript',
+    key: 'Javascript',
+  },
+];
+
+const treeProps = {
+  treeData,
+  placeholder: 'Please Select',
+  treeCheckable: true,
+};
+
+/////
 
 const Mentor = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -73,7 +103,7 @@ const Mentor = () => {
                 <br />
                 <div className="name">
                   <div className="titleContainer">
-                    <h3>Full Name*</h3>
+                    <h3>Full Name*:</h3>
                   </div>
                   <Form.Item
                     type="text"
@@ -94,7 +124,7 @@ const Mentor = () => {
                 </div>
                 <div className="email">
                   <div className="titleContainer">
-                    <h3>Email*</h3>
+                    <h3>Email*:</h3>
                   </div>
                   <Form.Item
                     type="email"
@@ -115,7 +145,7 @@ const Mentor = () => {
                 </div>
                 <div className="location">
                   <div className="titleContainer">
-                    <h3>Location*</h3>
+                    <h3>Location*:</h3>
                   </div>
                   <Form.Item
                     type="text"
@@ -136,7 +166,7 @@ const Mentor = () => {
                 </div>
                 <hr />
                 <div className="current_comp">
-                  <h3>Current company/position?</h3>
+                  <h3>Current company/position?:</h3>
                   <Form.Item
                     type="text"
                     name="current_comp"
@@ -148,25 +178,25 @@ const Mentor = () => {
                     <Input placeholder="Your answer" />
                   </Form.Item>
                 </div>
-                <div className="tech_stack">
-                  <h3>What is your tech stack?*</h3>
-                  <Form.Item
-                    type="text"
-                    name="tech_stack"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'This field is required!',
-                      },
-                    ]}
-                    value={formValues.tech_stack}
-                    onChange={evt => {
-                      inputChange('tech_stack', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your answer" />
-                  </Form.Item>
-                </div>
+
+                <Form.Item
+                  label="Tech Stack?"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Field required',
+                    },
+                  ]}
+                  labelCol={{
+                    span: 8,
+                  }}
+                  wrapperCol={{
+                    span: 16,
+                    offset: -1,
+                  }}
+                >
+                  <TreeSelect {...treeProps} />
+                </Form.Item>
               </div>
               <hr />
               <br />
