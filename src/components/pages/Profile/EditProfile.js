@@ -19,7 +19,7 @@ function EditProfile(props) {
     email: 'greenguy123@gmail.com',
     location: 'Earth',
     company: 'Bloom Tech, SWE',
-    tech_stack: 'React, JS, Python',
+    tech_stack: 'React',
     commitment: 'Pair Programming',
   };
 
@@ -173,6 +173,7 @@ function EditProfile(props) {
           <Form.Item
             label="Tech Stack"
             name="tech_stack"
+            initialValue={initialValues.tech_stack}
             rules={[
               {
                 required: true,
