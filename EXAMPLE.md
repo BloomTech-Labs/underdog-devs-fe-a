@@ -2,4 +2,4 @@
 
 ## Another example for continuity.
 
-### This line wraps up devlopment of this feature.
+### This line wraps up development of this feature.
