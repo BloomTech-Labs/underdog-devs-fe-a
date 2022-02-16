@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Breadcrumb,
+  Dropdown,
+  Checkbox,
+} from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
@@ -9,11 +17,11 @@ import {
 import './Styles/application.css';
 
 const initialFormValues = {
-  email: '',
-  location: '',
   first_name: '',
   last_name: '',
-  lives_in_us: '',
+  email: '',
+  location: '', //TODO: separate to city, state, country & change to dropdown
+
   formerly_incarcerated: '',
   list_convictions: '',
   tech_stack: '',
@@ -31,7 +39,7 @@ const Mentee = () => {
         `${process.env.REACT_APP_API_URI}application/new/mentee`,
         newAccount
       );
-      console.log(response);
+      console.log('post response', response); // DELETE CONSOLE.LOG
     } catch (err) {
       console.log(err);
     }
@@ -39,10 +47,12 @@ const Mentee = () => {
 
   const formSubmit = () => {
     const newAccount = formValues;
+    console.log('newAccount', newAccount); // DELETE CONSOLE.LOG
     postNewAccount(newAccount);
   };
 
   const inputChange = (name, value) => {
+    console.log([name]); // DELETE CONSOLE.LOG
     setFormValues({
       ...formValues,
       [name]: value,
