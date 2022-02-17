@@ -9,10 +9,10 @@ import {
 import './Styles/application.css';
 
 const initialFormValues = {
-  email: '',
-  location: '',
   first_name: '',
   last_name: '',
+  email: '',
+  location: '',
   current_comp: '',
   tech_stack: '',
   can_commit: '',
