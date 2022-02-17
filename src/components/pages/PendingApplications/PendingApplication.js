@@ -49,7 +49,7 @@ const PendingApplications = () => {
             res.data.map(row => ({
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
-              role: row.role_id,
+              role: row.role_name,
               date: Date(row.created_at),
               notes: 'this is a note',
             }))
