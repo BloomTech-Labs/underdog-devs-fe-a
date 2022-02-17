@@ -54,7 +54,6 @@ const PendingApplications = () => {
               notes: 'this is a note',
             }))
           );
-          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
