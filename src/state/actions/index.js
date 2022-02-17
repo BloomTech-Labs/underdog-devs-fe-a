@@ -4,7 +4,10 @@
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
 
+import { useOktaAuth } from '@okta/okta-react';
+
 // USER ACTIONS
+
 export const getUserProfile = () => {
   return dispatch => {
     const token = localStorage.getItem('okta-token-storage');
@@ -27,3 +30,9 @@ export const getEventTemplateStub2 = event => {
   return { type: MENTEE_EVENT_STUB, payload: event };
 };
 // ADMIN TICKETS--------------------------
+
+// ASYNC MANAGEMENT --------------------------
+export const FETCH_START = 'FETCH_START';
+export const fetchStart = () => {
+  return { type: FETCH_START };
+};

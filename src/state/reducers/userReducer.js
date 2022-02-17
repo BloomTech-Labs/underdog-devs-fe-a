@@ -1,14 +1,20 @@
 // export const USER_EVENT_START = 'USER_EVENT_START';
-import { USER_PROFILE } from '../actions/index';
+import * as a from '../actions/index';
 
 const initialState = {
+  authState: {},
+  authService: {},
+  userInfo: null,
+  isFetching: false,
   photo: '',
   profile: '',
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case USER_PROFILE:
+    case a.FETCH_START:
+      return { ...state, isFetching: true };
+    case a.USER_PROFILE:
       return {
         ...state,
         profile: action.payload,
