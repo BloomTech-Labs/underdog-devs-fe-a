@@ -14,6 +14,12 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case a.FETCH_START:
       return { ...state, isFetching: true };
+    case a.SET_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
+        isFetching: false,
+      };
     case a.USER_PROFILE:
       return {
         ...state,

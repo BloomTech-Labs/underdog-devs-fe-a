@@ -3,10 +3,32 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-
-import { useOktaAuth } from '@okta/okta-react';
+import { useMemo } from 'react';
+import { getRole } from '../../api/index';
 
 // USER ACTIONS
+export const authenticateUser = authService => {
+  return dispatch => {
+    dispatch(fetchStart());
+    const [memoAuthService] = useMemo(() => [authService], []);
+    memoAuthService
+      .getUser()
+      .then(async info => {
+        const role_id = await getRole(info.sub);
+        dispatch(setUserInfo({ ...info, role: role_id }));
+      })
+      .then(() => {
+        dispatch(getUserProfile());
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const setUserInfo = info => {
+  return { type: SET_USER_INFO, payload: info };
+};
 
 export const getUserProfile = () => {
   return dispatch => {
