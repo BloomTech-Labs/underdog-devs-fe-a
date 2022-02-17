@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb } from 'antd';
+import { Form, Input, Button, Radio, Breadcrumb, Select } from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
 import './Styles/application.css';
+const { Option } = Select;
 
 const initialFormValues = {
   first_name: '',
   last_name: '',
   email: '',
-  location: '',
+  city: '',
+  state: '',
+  country: '',
   current_comp: '',
   tech_stack: '',
   can_commit: '',
@@ -46,6 +49,11 @@ const Mentor = () => {
       [name]: value,
     });
   };
+
+  function handleChangeStates(value) {
+    // REVIEW THIS LATER, MAY COMBINE WITH INPUTCHANGE??
+    console.log(`selected ${value}`);
+  }
 
   return (
     <div>
@@ -141,19 +149,93 @@ const Mentor = () => {
                   </div>
                   <Form.Item
                     type="text"
-                    name="location"
+                    name="city"
                     rules={[
                       {
                         required: true,
-                        message: 'Location is required!',
+                        message: 'City is required!',
                       },
                     ]}
-                    value={formValues.location}
+                    value={formValues.city}
                     onChange={evt => {
-                      inputChange('location', evt.target.value);
+                      inputChange('city', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Your Location" />
+                    <Input placeholder="City" />
+                  </Form.Item>
+                  <Select
+                    defaultValue="State"
+                    style={{ width: 200 }}
+                    onChange={handleChangeStates}
+                  >
+                    <Option value="none">--None--</Option>
+                    <Option value="Alabama">Alabama</Option>
+                    <Option value="Alaska">Alaska</Option>
+                    <Option value="Arizona">Arizona</Option>
+                    <Option value="Arkansas">Arkansas</Option>
+                    <Option value="California">California</Option>
+                    <Option value="Colorado">Colorado</Option>
+                    <Option value="Connecticut">Connecticut</Option>
+                    <Option value="Delaware">Delaware</Option>
+                    <Option value="DC">District of Columbia</Option>
+                    <Option value="Florida">Florida</Option>
+                    <Option value="Georgia">Georgia</Option>
+                    <Option value="Hawaii">Hawaii</Option>
+                    <Option value="Idaho">Idaho</Option>
+                    <Option value="Illinois">Illinois</Option>
+                    <Option value="Indiana">Indiana</Option>
+                    <Option value="Iowa">Iowa</Option>
+                    <Option value="Kansas">Kansas</Option>
+                    <Option value="Kentucky">Kentucky</Option>
+                    <Option value="Louisiana">Louisiana</Option>
+                    <Option value="Maine">Maine</Option>
+                    <Option value="Maryland">Maryland</Option>
+                    <Option value="Massachusetts">Massachusetts</Option>
+                    <Option value="Michigan">Michigan</Option>
+                    <Option value="Minnesota">Minnesota</Option>
+                    <Option value="Mississippi">Mississippi</Option>
+                    <Option value="Missouri">Missouri</Option>
+                    <Option value="Montana">Montana</Option>
+                    <Option value="Nebraska">Nebraska</Option>
+                    <Option value="Nevada">Nevada</Option>
+                    <Option value="New Hampshire">New Hampshire</Option>
+                    <Option value="New Jersey">New Jersey</Option>
+                    <Option value="New Mexico">New Mexico</Option>
+                    <Option value="New York">New York</Option>
+                    <Option value="North Carolina">North Carolina</Option>
+                    <Option value="North Dakota">North Dakota</Option>
+                    <Option value="Ohio">Ohio</Option>
+                    <Option value="Oklahoma">Oklahoma</Option>
+                    <Option value="Oregon">Oregon</Option>
+                    <Option value="Pennsylvania">Pennsylvania</Option>
+                    <Option value="Rhode Island">Rhode Island</Option>
+                    <Option value="South Carolina">South Carolina</Option>
+                    <Option value="South Dakota">South Dakota</Option>
+                    <Option value="Tennessee">Tennessee</Option>
+                    <Option value="Texas">Texas</Option>
+                    <Option value="Utah">Utah</Option>
+                    <Option value="Vermont">Vermont</Option>
+                    <Option value="Virginia">Virginia</Option>
+                    <Option value="Washington">Washington</Option>
+                    <Option value="West Virginia">West Virginia</Option>
+                    <Option value="Wisconsin">Wisconsin</Option>
+                    <Option value="Wyoming">Wyoming</Option>
+                  </Select>
+                  <Form.Item
+                    type="text"
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Country is required!',
+                      },
+                    ]}
+                    value={formValues.country}
+                    onChange={evt => {
+                      inputChange('country', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Country" />
                   </Form.Item>
                 </div>
                 <hr />
