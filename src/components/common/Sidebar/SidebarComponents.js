@@ -1,6 +1,7 @@
 import React from 'react';
 import CalendarFeature from '../Calendar';
 import PendingApplications from '../../pages/PendingApplications/PendingApplication';
+import MentorMenteeMatching from '../../pages/MentorMenteeMatching/MentorMenteeMatching';
 import UserManagement from '../../pages/UserManagement/UserManagement';
 import { Profile } from '../../pages/Profile';
 
@@ -37,11 +38,12 @@ const AdminComponents = {
   2: <div>"Schedule Interview" Component goes here</div>,
   3: <ManageResources />,
   4: <PendingApplications />,
-  5: <UserManagement />,
-  6: <div>"View Support Requests" Component goes here</div>,
-  7: <div>"View All Meetings" Component goes here</div>,
-  8: <Profile />,
-  9: <div>Do we need Account settings?</div>,
+  5: <MentorMenteeMatching />,
+  6: <UserManagement />,
+  7: <div>"View Support Requests" Component goes here</div>,
+  8: <div>"View All Meetings" Component goes here</div>,
+  9: <Profile />,
+  10: <div>Do we need Account settings?</div>,
 };
 
 export { AdminComponents, MentorComponents, MenteeComponents };
