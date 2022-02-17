@@ -3,6 +3,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const MentorMenteeMatching = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
@@ -15,20 +16,28 @@ const MentorMenteeMatching = () => {
 =======
   const [mentors, setMentors] = useState([]);
   const [mentees, setMentees] = useState([]);
+=======
+  const [assignments, setAssignments] = useState([]);
+>>>>>>> 18bb7ae (cleared redundant code, added correct endpoint)
 
   useEffect(() => {
-    const getMentors = () => {
+    const getAssignments = () => {
       axiosWithAuth()
-        //put correct endpoint
-        .get('/')
+        .get('/assignments')
         .then(res => {
+<<<<<<< HEAD
           setMentors(res);
 >>>>>>> bc81dae (matching component started)
+=======
+          console.log(res);
+          //   setAssignments(res);
+>>>>>>> 18bb7ae (cleared redundant code, added correct endpoint)
         })
         .catch(err => {
           console.log(err);
         });
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
     getAssignments();
 =======
@@ -49,15 +58,22 @@ const MentorMenteeMatching = () => {
     };
     getMentees();
 >>>>>>> bc81dae (matching component started)
+=======
+    getAssignments();
+>>>>>>> 18bb7ae (cleared redundant code, added correct endpoint)
   }, []);
 
   return (
     <>
       <h2>Matching</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <p>list here</p>
 =======
 >>>>>>> bc81dae (matching component started)
+=======
+      <p>list here</p>
+>>>>>>> 18bb7ae (cleared redundant code, added correct endpoint)
     </>
   );
 };
