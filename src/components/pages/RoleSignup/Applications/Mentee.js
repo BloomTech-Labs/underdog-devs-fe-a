@@ -48,7 +48,6 @@ const Mentee = () => {
   };
 
   const inputChange = (name, value) => {
-    console.log([name]); // DELETE CONSOLE.LOG
     setFormValues({
       ...formValues,
       [name]: value,
@@ -171,7 +170,7 @@ const Mentee = () => {
                   </Form.Item>
                   <Select
                     defaultValue="State"
-                    style={{ width: 120 }}
+                    style={{ width: 200 }}
                     onChange={handleChangeStates}
                   >
                     <Option value="none">--None--</Option>
@@ -253,7 +252,7 @@ const Mentee = () => {
                   Which criteria represents you for membership? Check All That
                   Apply
                 </h3>
-                <Form.Item>
+                {/* <Form.Item>
                   <Input
                     type="checkbox"
                     onClick={
@@ -262,7 +261,7 @@ const Mentee = () => {
                         : inputChange('formerly_incarcerated', true)
                     }
                   />
-                </Form.Item>
+                </Form.Item> */}
               </div>
               <hr />
               <br />
