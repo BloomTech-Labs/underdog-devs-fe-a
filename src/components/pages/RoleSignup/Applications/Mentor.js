@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select } from 'antd';
+import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
@@ -17,7 +17,7 @@ const initialFormValues = {
   state: '',
   country: '',
   current_comp: '',
-  tech_stack: '',
+  tech_stack: false,
   can_commit: '',
   how_commit: '',
   other_info: '',
@@ -253,8 +253,38 @@ const Mentor = () => {
                   </Form.Item>
                 </div>
                 <div className="tech_stack">
-                  <h3>What is your tech stack?*</h3>
+                  <h3>
+                    Which best describes your tech stack?* (Check all that
+                    apply)
+                  </h3>
+                </div>
+                <div>
                   <Form.Item
+                    type="checkbox"
+                    name="tech_stack"
+                    value={formValues.tech_stack}
+                    onChange={evt => {
+                      inputChange('tech_stack', evt.target.value);
+                    }}
+                  >
+                    <Checkbox />
+                    Frontend
+                    <Checkbox />
+                    Backend
+                    <Checkbox />
+                    Full-Stack
+                    <Checkbox />
+                    Design (UX/UI)
+                    <Checkbox />
+                    Android
+                    <Checkbox />
+                    IOS
+                    <Checkbox />
+                    Career Development
+                  </Form.Item>
+                </div>
+
+                {/* <Form.Item
                     type="text"
                     name="tech_stack"
                     rules={[
@@ -269,8 +299,7 @@ const Mentor = () => {
                     }}
                   >
                     <Input placeholder="Your answer" />
-                  </Form.Item>
-                </div>
+                  </Form.Item> */}
               </div>
               <hr />
               <br />
