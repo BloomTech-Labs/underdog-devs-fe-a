@@ -47,22 +47,20 @@ const PendingApplications = () => {
         .then(res => {
           setApplications(
             res.data.map(row => ({
-              key: row.application_id,
+              key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
-              role: row.role_name,
+              role: row.role_id,
               date: Date(row.created_at),
               notes: 'this is a note',
             }))
           );
-          console.log(applications);
         })
         .catch(err => {
           console.log(err);
         });
     };
     getPendingApps();
-  }, [applications]);
-  console.log(applications);
+  }, []);
   return (
     <>
       <h2>Pending Applications</h2>
