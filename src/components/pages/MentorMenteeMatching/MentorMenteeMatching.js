@@ -2,42 +2,27 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const MentorMenteeMatching = () => {
-  const [mentors, setMentors] = useState([]);
-  const [mentees, setMentees] = useState([]);
+  const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
-    const getMentors = () => {
+    const getAssignments = () => {
       axiosWithAuth()
-        //put correct endpoint
-        .get('/')
+        .get('/assignments')
         .then(res => {
-          setMentors(res);
+          console.log(res);
+          //   setAssignments(res);
         })
         .catch(err => {
           console.log(err);
         });
     };
-    getMentors();
-  }, []);
-
-  useEffect(() => {
-    const getMentees = () => {
-      axiosWithAuth()
-        //put correct endpoint
-        .get('/')
-        .then(res => {
-          setMentees(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    };
-    getMentees();
+    getAssignments();
   }, []);
 
   return (
     <>
       <h2>Matching</h2>
+      <p>list here</p>
     </>
   );
 };
