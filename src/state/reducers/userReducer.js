@@ -16,11 +16,12 @@ const userReducer = (state = initialState, action) => {
       return { ...state, isFetching: true };
     case ACTIONS.FETCH_ERROR:
       return { ...state, errors: action.payload };
+    case ACTIONS.FETCH_END:
+      return { ...state, isFetching: false };
     case ACTIONS.SET_USER_INFO:
       return {
         ...state,
         userInfo: action.payload,
-        isFetching: false,
       };
     case ACTIONS.USER_PROFILE:
       return {

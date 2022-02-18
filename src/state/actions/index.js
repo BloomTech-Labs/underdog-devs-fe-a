@@ -18,7 +18,8 @@ export const authenticateUser = authService => {
       })
       .catch(err => {
         dispatch(fetchError(err));
-      });
+      })
+      .finally(() => dispatch(fetchEnd()));
   };
 };
 export const SET_USER_INFO = 'SET_USER_INFO';
@@ -60,4 +61,8 @@ export const fetchStart = () => {
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const fetchError = error => {
   return { type: FETCH_ERROR, payload: error };
+};
+export const FETCH_END = 'FETCH_END';
+export const fetchEnd = () => {
+  return { type: FETCH_END };
 };
