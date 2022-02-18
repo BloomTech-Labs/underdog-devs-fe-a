@@ -17,7 +17,7 @@ export const authenticateUser = authService => {
         dispatch(setUserInfo({ ...info, role: role_id }));
       })
       .catch(err => {
-        console.log(err);
+        dispatch(fetchError(err));
       });
   };
 };
@@ -56,4 +56,8 @@ export const getEventTemplateStub2 = event => {
 export const FETCH_START = 'FETCH_START';
 export const fetchStart = () => {
   return { type: FETCH_START };
+};
+export const FETCH_ERROR = 'FETCH_ERROR';
+export const fetchError = error => {
+  return { type: FETCH_ERROR, payload: error };
 };

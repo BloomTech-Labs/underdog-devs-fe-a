@@ -5,6 +5,7 @@ const initialState = {
   authService: {},
   userInfo: '',
   isFetching: false,
+  errors: '',
   photo: '',
   profile: '',
 };
@@ -13,6 +14,8 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIONS.FETCH_START:
       return { ...state, isFetching: true };
+    case ACTIONS.FETCH_ERROR:
+      return { ...state, errors: action.payload };
     case ACTIONS.SET_USER_INFO:
       return {
         ...state,
