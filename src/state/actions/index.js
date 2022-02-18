@@ -4,7 +4,8 @@
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
 
-import { getRole } from '../../api/index';
+import axiosWithAuth from '../../utils/axiosWithAuth';
+import { API_URL } from '../../config';
 
 // USER ACTIONS
 export const authenticateUser = authService => {
@@ -12,9 +13,12 @@ export const authenticateUser = authService => {
     dispatch(fetchStart());
     authService
       .getUser()
-      .then(async info => {
-        const role_id = await getRole(info.sub);
-        dispatch(setUserInfo({ ...info, role: role_id }));
+      .then(authenticatedUser => {
+        dispatch(setUserId(authenticatedUser.sub));
+        return authenticatedUser.sub; // sub = profile_id
+      })
+      .then(profile_id => {
+        dispatch(getProfile(profile_id));
       })
       .catch(err => {
         dispatch(fetchError(err));
@@ -22,11 +26,33 @@ export const authenticateUser = authService => {
       .finally(() => dispatch(fetchEnd()));
   };
 };
+
+export const SET_USER_ID = 'SET_USER_ID';
+export const setUserId = user_id => {
+  return { type: SET_USER_ID, payload: user_id };
+};
+
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const setUserInfo = info => {
   return { type: SET_USER_INFO, payload: info };
 };
 
+export const getProfile = profile_id => {
+  return dispatch => {
+    axiosWithAuth()
+      .get(`${API_URL}profiles/${profile_id}`)
+      .then(res => {
+        if (res.data) {
+          dispatch(setUserInfo(res.data));
+        } else {
+          throw new Error('not found');
+        }
+      })
+      .catch(error => {
+        dispatch(fetchError(error.message));
+      });
+  };
+};
 // NOTE: appears to be redundant code, commenting out for now
 // user profile is stored in userReducer state labeled "userInfo"
 
