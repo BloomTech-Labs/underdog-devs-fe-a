@@ -281,31 +281,19 @@ const Mentor = () => {
                     Which best describes your tech stack?* (Check all that
                     apply)
                   </h3>
-                </div>
-                <div>
-                  <Form.Item
-                    type="checkbox"
-                    name="tech_stack"
-                    value={formValues.tech_stack}
+                  <Select
+                    defaultValue="- Select -"
                     onChange={evt => {
-                      inputChange('tech_stack', evt.target.value);
+                      inputChange('subject', evt);
                     }}
                   >
-                    <Checkbox />
-                    Frontend
-                    <Checkbox />
-                    Backend
-                    <Checkbox />
-                    Full-Stack
-                    <Checkbox />
-                    Design (UX/UI)
-                    <Checkbox />
-                    Android
-                    <Checkbox />
-                    IOS
-                    <Checkbox />
-                    Career Development
-                  </Form.Item>
+                    <Option value="career">Career Development</Option>
+                    <Option value="frontend">Frontend Development</Option>
+                    <Option value="backend">Backend Development</Option>
+                    <Option value="design">Design UI/UX</Option>
+                    <Option value="IOS">IOS Development</Option>
+                    <Option value="android">Android Development</Option>
+                  </Select>
                 </div>
               </div>
               <hr />
