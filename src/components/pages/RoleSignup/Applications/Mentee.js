@@ -37,7 +37,7 @@ const Mentee = () => {
         `${process.env.REACT_APP_API_URI}application/new/mentee`,
         newAccount
       );
-      console.log('post response', response); // DELETE CONSOLE.LOG
+      console.log('post response', response);
     } catch (err) {
       console.log(err);
     }
@@ -45,7 +45,6 @@ const Mentee = () => {
 
   const formSubmit = () => {
     const newAccount = formValues;
-    console.log('newAccount', newAccount); // DELETE CONSOLE.LOG
     postNewAccount(newAccount);
   };
 
@@ -55,11 +54,6 @@ const Mentee = () => {
       [name]: value,
     });
   };
-
-  function handleChangeStates(value) {
-    // REVIEW THIS LATER, MAY COMBINE WITH INPUTCHANGE??
-    console.log(`selected ${value}`);
-  }
 
   return (
     <div>
@@ -205,7 +199,9 @@ const Mentee = () => {
                       <Select
                         defaultValue="State"
                         style={{ width: 200 }}
-                        onChange={handleChangeStates}
+                        onChange={evt => {
+                          inputChange('state', evt);
+                        }}
                       >
                         <Option value="Alabama">Alabama</Option>
                         <Option value="Alaska">Alaska</Option>
@@ -271,17 +267,35 @@ const Mentee = () => {
                   Which criteria represents you for membership? Check All That
                   Apply
                 </h3>
-                <Checkbox.Group
-                  style={{ width: '100%' }}
-                  onChange={handleChangeStates}
-                >
-                  <Checkbox value="formerly_incarcerated">
+                <Checkbox.Group style={{ width: '100%' }}>
+                  <Checkbox
+                    value="formerly_incarcerated"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.formerly_incarcerated
+                      );
+                    }}
+                  >
                     Formerly incarcerated
                   </Checkbox>
-                  <Checkbox value="low_income">
+                  <Checkbox
+                    value="low_income"
+                    onChange={evt => {
+                      inputChange(evt.target.value, !formValues.low_income);
+                    }}
+                  >
                     From a lower socioeconomic background
                   </Checkbox>
-                  <Checkbox value="underrepresented">
+                  <Checkbox
+                    value="underrepresented_group"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.underrepresented_group
+                      );
+                    }}
+                  >
                     From an underrepresented group
                   </Checkbox>
                 </Checkbox.Group>
@@ -308,8 +322,9 @@ const Mentee = () => {
                 </h3>
                 <Select
                   defaultValue="- Select -"
-                  // style={{ width: 400 }}
-                  onChange={handleChangeStates}
+                  onChange={evt => {
+                    inputChange('subject', evt);
+                  }}
                 >
                   <Option value="career">Career Development</Option>
                   <Option value="frontend">Frontend Development</Option>
@@ -335,15 +350,35 @@ const Mentee = () => {
               </div>
               <div className="your_hope">
                 <h3>What are you hoping to gain from the community?*</h3>
-                <Checkbox.Group
-                  style={{ width: '100%' }}
-                  onChange={handleChangeStates}
-                >
-                  <Checkbox value="job_help">Job search help</Checkbox>
-                  <Checkbox value="industry_knowledge">
+                <Checkbox.Group style={{ width: '100%' }}>
+                  <Checkbox
+                    value="job_help"
+                    onChange={evt => {
+                      inputChange(evt.target.value, !formValues.job_help);
+                    }}
+                  >
+                    Job search help
+                  </Checkbox>
+                  <Checkbox
+                    value="industry_knowledge"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.industry_knowledge
+                      );
+                    }}
+                  >
                     Learn more about the tech industry
                   </Checkbox>
-                  <Checkbox value="pair_programming">
+                  <Checkbox
+                    value="pair_programming"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.pair_programming
+                      );
+                    }}
+                  >
                     Pair programming / coding practice
                   </Checkbox>
                 </Checkbox.Group>
