@@ -13,16 +13,18 @@ const initialFormValues = {
   first_name: '',
   last_name: '',
   email: '',
-  city: '', //TODO: separate to city, state, country & change to dropdown
+  city: '',
   state: '',
   country: '',
-  underRepGroup: false,
-  lowerBackground: false,
+  underrepresented_group: false,
+  low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  tech_stack: '',
+  subject: '',
   experience_level: '',
-  your_hope: '',
+  job_help: false,
+  industry_knowledge: false,
+  pair_programming: false,
   other_info: '',
 };
 
@@ -147,13 +149,10 @@ const Mentee = () => {
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
                 </div>
-
                 <div className="location">
                   <div className="titleContainer">
                     <h3>Location*</h3>
                   </div>
-
-                  {/*Are you located in the US ? if yes, country === USA, select state & city, if no, type in country*/}
                   <div>
                     <label>Are you located in the US? *</label>
                     <Radio.Group
@@ -167,7 +166,6 @@ const Mentee = () => {
                       <Radio value={'Other'}>No</Radio>
                     </Radio.Group>
                   </div>
-
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
                       type="text"
@@ -186,7 +184,6 @@ const Mentee = () => {
                       <Input placeholder="Country" />
                     </Form.Item>
                   )}
-
                   {formValues.country === 'USA' && (
                     <div>
                       <Form.Item
@@ -210,7 +207,6 @@ const Mentee = () => {
                         style={{ width: 200 }}
                         onChange={handleChangeStates}
                       >
-                        <Option value="none">--None--</Option>
                         <Option value="Alabama">Alabama</Option>
                         <Option value="Alaska">Alaska</Option>
                         <Option value="Arizona">Arizona</Option>
@@ -275,16 +271,20 @@ const Mentee = () => {
                   Which criteria represents you for membership? Check All That
                   Apply
                 </h3>
-                {/* <Form.Item>
-                  <Input
-                    type="checkbox"
-                    onClick={
-                      initialFormValues.formerly_incarcerated
-                        ? inputChange('formerly_incarcerated', false)
-                        : inputChange('formerly_incarcerated', true)
-                    }
-                  />
-                </Form.Item> */}
+                <Checkbox.Group
+                  style={{ width: '100%' }}
+                  onChange={handleChangeStates}
+                >
+                  <Checkbox value="formerly_incarcerated">
+                    Formerly incarcerated
+                  </Checkbox>
+                  <Checkbox value="low_income">
+                    From a lower socioeconomic background
+                  </Checkbox>
+                  <Checkbox value="underrepresented">
+                    From an underrepresented group
+                  </Checkbox>
+                </Checkbox.Group>
               </div>
               <hr />
               <br />
@@ -301,65 +301,52 @@ const Mentee = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-
               <div className="tech_stack">
-                <h3>What is your tech stack?*</h3>
-                <Form.Item
-                  type="text"
-                  name="tech_stack"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'This field is required!',
-                    },
-                  ]}
-                  value={formValues.tech_stack}
-                  onChange={evt => {
-                    inputChange('tech_stack', evt.target.value);
-                  }}
+                <h3>
+                  Which best describes the tech path you are working towards or
+                  are interested in? *
+                </h3>
+                <Select
+                  defaultValue="- Select -"
+                  // style={{ width: 400 }}
+                  onChange={handleChangeStates}
                 >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
+                  <Option value="career">Career Development</Option>
+                  <Option value="frontend">Frontend Development</Option>
+                  <Option value="backend">Backend Development</Option>
+                  <Option value="design">Design UI/UX</Option>
+                  <Option value="iOS">iOS Development</Option>
+                  <Option value="android">Android Development</Option>
+                </Select>
               </div>
-
               <div className="experience_level">
                 <h3>What is your level of experience?*</h3>
-                <Form.Item
-                  type="text"
+                <Radio.Group
                   name="experience_level"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Experience is required!',
-                    },
-                  ]}
-                  value={formValues.experience_level}
                   onChange={evt => {
                     inputChange('experience_level', evt.target.value);
                   }}
+                  value={formValues.experience_level}
                 >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
+                  <Radio value={'beginner'}>Beginner</Radio>
+                  <Radio value={'intermediate'}>Intermediate</Radio>
+                  <Radio value={'expert'}>Expert</Radio>
+                </Radio.Group>
               </div>
-
               <div className="your_hope">
                 <h3>What are you hoping to gain from the community?*</h3>
-                <Form.Item
-                  type="text"
-                  name="your_hope"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'This field is required!',
-                    },
-                  ]}
-                  value={formValues.your_hope}
-                  onChange={evt => {
-                    inputChange('your_hope', evt.target.value);
-                  }}
+                <Checkbox.Group
+                  style={{ width: '100%' }}
+                  onChange={handleChangeStates}
                 >
-                  <Input.TextArea placeholder="Your goals" />
-                </Form.Item>
+                  <Checkbox value="job_help">Job search help</Checkbox>
+                  <Checkbox value="industry_knowledge">
+                    Learn more about the tech industry
+                  </Checkbox>
+                  <Checkbox value="pair_programming">
+                    Pair programming / coding practice
+                  </Checkbox>
+                </Checkbox.Group>
               </div>
 
               <div className="other_info">
