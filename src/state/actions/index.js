@@ -3,15 +3,13 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
-import { useMemo } from 'react';
 import { getRole } from '../../api/index';
 
 // USER ACTIONS
 export const authenticateUser = authService => {
   return dispatch => {
     dispatch(fetchStart());
-    const [memoAuthService] = useMemo(() => [authService], []);
-    memoAuthService
+    authService
       .getUser()
       .then(async info => {
         const role_id = await getRole(info.sub);
