@@ -11,13 +11,14 @@ import './Styles/application.css';
 const initialFormValues = {
   email: '',
   location: '',
-  name: '',
+  first_name: '',
+  last_name: '',
   lives_in_us: '',
   formerly_incarcerated: '',
   list_convictions: '',
   tech_stack: '',
   experience_level: '',
-  your_hopes: '',
+  your_hope: '',
   other_info: '',
 };
 
@@ -27,7 +28,7 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        'https://underdog-devs-a-api.herokuapp.com/application/new-mentee',
+        `${process.env.REACT_APP_API_URI}application/new/mentee`,
         newAccount
       );
       console.log(response);
@@ -73,25 +74,46 @@ const Mentee = () => {
               <div className="infoDiv">
                 <h3>Please fill out your user information</h3>
                 <br />
-                <div className="name">
+                <div className="firstName">
                   <div className="titleContainer">
-                    <h3>Full Name*</h3>
+                    <h3>First Name*</h3>
                   </div>
                   <Form.Item
                     type="text"
-                    name="name"
+                    name="first_name"
                     rules={[
                       {
                         required: true,
-                        message: 'Name is required!',
+                        message: 'First name is required!',
                       },
                     ]}
-                    value={formValues.name}
+                    value={formValues.first_name}
                     onChange={evt => {
-                      inputChange('name', evt.target.value);
+                      inputChange('first_name', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Your Name" />
+                    <Input placeholder="Your First Name" />
+                  </Form.Item>
+                </div>
+                <div className="lastName">
+                  <div className="titleContainer">
+                    <h3>Last Name*</h3>
+                  </div>
+                  <Form.Item
+                    type="text"
+                    name="last_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Last name is required!',
+                      },
+                    ]}
+                    value={formValues.last_name}
+                    onChange={evt => {
+                      inputChange('last_name', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </div>
                 <div className="email">
@@ -155,7 +177,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('lives_in_us', evt.target.value);
                       }}
-                      value="Yes"
+                      value="true"
                     >
                       Yes
                     </Radio>
@@ -163,7 +185,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('lives_in_us', evt.target.value);
                       }}
-                      value="No"
+                      value="false"
                     >
                       No
                     </Radio>
@@ -187,7 +209,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('formerly_incarcerated', evt.target.value);
                       }}
-                      value="Yes"
+                      value="true"
                     >
                       Yes
                     </Radio>
@@ -195,7 +217,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('formerly_incarcerated', evt.target.value);
                       }}
-                      value="No"
+                      value="false"
                     >
                       No
                     </Radio>
@@ -258,20 +280,20 @@ const Mentee = () => {
                 </Form.Item>
               </div>
 
-              <div className="your_hopes">
+              <div className="your_hope">
                 <h3>What are you hoping to gain from the community?*</h3>
                 <Form.Item
                   type="text"
-                  name="your_hopes"
+                  name="your_hope"
                   rules={[
                     {
                       required: true,
                       message: 'This field is required!',
                     },
                   ]}
-                  value={formValues.your_hopes}
+                  value={formValues.your_hope}
                   onChange={evt => {
-                    inputChange('your_hopes', evt.target.value);
+                    inputChange('your_hope', evt.target.value);
                   }}
                 >
                   <Input.TextArea placeholder="Your goals" />
