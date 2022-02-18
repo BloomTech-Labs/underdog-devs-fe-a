@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
+import { Link } from 'react-router-dom';
 import { Layout, Menu, Switch as Toggle } from 'antd';
 import {
   QuestionCircleOutlined,
@@ -159,7 +160,7 @@ const Sidebar = props => {
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
             <Menu.Item key="8" onClick={handleMenuClick}>
-              Profile Settings
+              <Link to="/profile">Profile Settings</Link>
             </Menu.Item>
             <Menu.Item key="9" onClick={handleMenuClick}>
               Account Settings
