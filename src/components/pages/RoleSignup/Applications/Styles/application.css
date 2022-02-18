@@ -1,12 +1,14 @@
 .application {
   padding: 10vh 20vw;
 }
+
 h1 {
   border-bottom: solid 1px rgba(128, 128, 128, 0.342);
   background-color: #001529;
   text-align: left;
   padding-left: 3vw;
 }
+
 h3 {
   font-style: italic;
 }
@@ -21,12 +23,12 @@ h3 {
 }
 
 .titleContainer {
-  width: 6vw;
+  width: 7vw;
 }
 
-#name, #email, #location, 
+#first_name, #last_name, #email, #location, 
 #list_convictions, #tech_stack, 
-#experience_level, #your_hopes, 
+#experience_level, #your_hope, 
 #other_info, #current_comp, 
 #how_commit {
   width: 35vw;
@@ -76,7 +78,7 @@ h3 {
 }
 
 .list_convictions, .tech_stack, 
-.experience_level, .your_hopes, 
+.experience_level, .your_hope, 
 .other_info, .current_comp, .name, 
 .can_commit, .how_commit,
 .location, .email, 
@@ -100,7 +102,7 @@ h3 {
 
 @media only screen and (max-width: 1000px) {
     .list_convictions, .tech_stack, 
-    .experience_level, .your_hopes, 
+    .experience_level, .your_hope, 
     .other_info, .current_comp, .name, 
     .can_commit, .how_commit,
     .location, .email, 
@@ -110,7 +112,7 @@ h3 {
   }
     #name, #email, #location, 
     #list_convictions, #tech_stack, 
-    #experience_level, #your_hopes, 
+    #experience_level, #your_hope, 
     #other_info, #current_comp, 
     #how_commit {
       width: 100%;
