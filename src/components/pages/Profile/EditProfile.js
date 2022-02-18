@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio, Modal, Typography, message } from 'antd';
+import '../../../styles/styles.css';
 
 function EditProfile() {
   // Grab initial values from profile component
@@ -37,11 +38,24 @@ function EditProfile() {
   ////
 
   //// Styling
+  const buttonStyle = {
+    backgroundColor: '#003D71',
+    color: '#ffffff',
+  };
 
   return (
     <>
-      <Button onClick={showModal}>Edit</Button>
-      <Modal visible={ModalOpen} onCancel={handleCancel} onOk={handleOk}>
+      <Button style={buttonStyle} onClick={showModal}>
+        Edit
+      </Button>
+      <Modal
+        visible={ModalOpen}
+        onCancel={handleCancel}
+        onOk={handleOk}
+        title="Update Information:"
+        okText="Update"
+        className="modalStyle"
+      >
         <Form
           name="basic"
           labelCol={{
