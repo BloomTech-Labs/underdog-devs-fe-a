@@ -3,6 +3,7 @@
 // Actions should be focused to a single purpose.
 // You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
 // Declare action TYPES at the top of the file
+
 import { getRole } from '../../api/index';
 
 // USER ACTIONS
@@ -15,9 +16,6 @@ export const authenticateUser = authService => {
         const role_id = await getRole(info.sub);
         dispatch(setUserInfo({ ...info, role: role_id }));
       })
-      .then(() => {
-        dispatch(getUserProfile());
-      })
       .catch(err => {
         console.log(err);
       });
@@ -28,12 +26,15 @@ export const setUserInfo = info => {
   return { type: SET_USER_INFO, payload: info };
 };
 
-export const getUserProfile = () => {
-  return dispatch => {
-    const token = localStorage.getItem('okta-token-storage');
-    dispatch(fetchUserProfile(JSON.parse(token).idToken.claims));
-  };
-};
+// NOTE: appears to be redundant code, commenting out for now
+// user profile is stored in userReducer state labeled "userInfo"
+
+// export const getUserProfile = () => {
+//   return dispatch => {
+//     const token = localStorage.getItem('okta-token-storage');
+//     dispatch(fetchUserProfile(JSON.parse(token).idToken.claims));
+//   };
+// };
 
 export const USER_PROFILE = 'USER_PROFILE';
 export const fetchUserProfile = profile => {

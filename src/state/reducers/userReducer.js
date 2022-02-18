@@ -3,7 +3,7 @@ import * as ACTIONS from '../actions/index';
 const initialState = {
   authState: {},
   authService: {},
-  userInfo: null,
+  userInfo: '',
   isFetching: false,
   photo: '',
   profile: '',
