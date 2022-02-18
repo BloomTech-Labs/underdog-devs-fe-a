@@ -300,8 +300,6 @@ const Mentee = () => {
                   </Checkbox>
                 </Checkbox.Group>
               </div>
-              <hr />
-              <br />
               <div className="list_convictions">
                 <h3>Please list your convictions if comfortable</h3>
                 <Form.Item
@@ -315,6 +313,8 @@ const Mentee = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
+              <hr />
+              <br />
               <div className="tech_stack">
                 <h3>
                   Which best describes the tech path you are working towards or
@@ -397,7 +397,6 @@ const Mentee = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-              <hr />
             </div>
             <Button htmlType="submit" id="button">
               Submit
