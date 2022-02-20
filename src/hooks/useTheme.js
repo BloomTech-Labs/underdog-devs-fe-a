@@ -5,12 +5,11 @@ const stylesheets = {
   light: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.min.css',
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.dark.min.css',
 };
-const createStylesheetLink = () => {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.id = 'antd-stylesheet';
-  document.head.appendChild(link);
-  return link;
+const createAntStylesheet = () => {
+  const antStylesheet = document.createElement('link');
+  antStylesheet.rel = 'stylesheet';
+  antStylesheet.id = 'antd-stylesheet';
+  document.head.appendChild(antStylesheet);
 };
 
 export default function useTheme() {
@@ -21,26 +20,27 @@ export default function useTheme() {
   );
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
-  useEffect(() => setTheme(darkTheme ? 'dark' : 'light'), []); //eslint-disable-line
+  useLayoutEffect(
+    function flipToggle() {
+      const toggleElement = document.getElementById('darkModeToggle');
+      theme === 'dark' && toggleElement.classList.add('ant-switch-checked');
+      theme === 'light' && toggleElement.classList.remove('ant-switch-checked');
+    },
+    [theme]
+  );
+
+  useLayoutEffect(() => {
+    setTheme(darkTheme ? 'dark' : 'light');
+    createAntStylesheet();
+  }, []); //eslint-disable-line
 
   useEffect(
-    function setAntStyleSheet() {
-      const getStylesheet = document.head.querySelector('#antd-stylesheet');
-      const antStylesheet = getStylesheet || createStylesheetLink();
+    function setAntStylesheetTheme() {
+      const antStylesheet = document.head.querySelector('#antd-stylesheet');
       antStylesheet.href = stylesheets[theme];
     },
     [theme]
   );
 
-  useLayoutEffect(
-    function flipToggle() {
-      const toggleOn = 'ant-switch ant-switch-small ant-switch-checked';
-      const toggleOff = 'ant-switch ant-switch-small';
-      const toggleElement = document.getElementById('darkModeToggle');
-      toggleElement.className = theme === 'dark' ? toggleOn : toggleOff;
-    },
-    [theme]
-  );
-
-  return [toggleTheme];
+  return [theme, toggleTheme];
 }
