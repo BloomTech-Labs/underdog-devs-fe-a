@@ -42,5 +42,5 @@ export default function useTheme() {
     [theme]
   );
 
-  return [theme, toggleTheme];
+  return [toggleTheme];
 }
