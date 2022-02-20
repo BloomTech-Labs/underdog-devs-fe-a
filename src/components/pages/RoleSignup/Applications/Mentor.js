@@ -262,6 +262,7 @@ const Mentor = () => {
                   )}
                 </div>
                 <hr />
+                <br />
                 <div className="current_comp">
                   <h3>Current company/position?</h3>
                   <Form.Item
@@ -275,6 +276,8 @@ const Mentor = () => {
                     <Input placeholder="Your answer" />
                   </Form.Item>
                 </div>
+                <hr />
+                <br />
                 <div className="tech_stack">
                   <h3>
                     Which best describes your tech stack?* (Check all that
@@ -295,7 +298,6 @@ const Mentor = () => {
                   </Select>
                 </div>
               </div>
-              <hr />
               <br />
               <div className="experience_level">
                 <h3>What is your level of experience?*</h3>
@@ -314,7 +316,6 @@ const Mentor = () => {
                   </div>
                 </Radio.Group>
               </div>
-              <hr />
               <br />
               <div className="can_commit">
                 <h3>
@@ -368,7 +369,6 @@ const Mentor = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-              <hr />
               <br />
             </div>
 
