@@ -19,22 +19,28 @@ export default function useTheme() {
     'theme',
     darkTheme ? 'dark' : 'light'
   );
-
-  useEffect(() => setTheme(darkTheme ? 'dark' : 'light'), []); //eslint-disable-line
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
-  useEffect(() => {
-    const getStylesheet = document.head.querySelector('#antd-stylesheet');
-    const antStylesheet = getStylesheet || createStylesheetLink();
-    antStylesheet.href = stylesheets[theme];
-  }, [theme]);
+  useEffect(() => setTheme(darkTheme ? 'dark' : 'light'), []); //eslint-disable-line
 
-  useLayoutEffect(() => {
-    const toggleOn = 'ant-switch ant-switch-small ant-switch-checked';
-    const toggleOff = 'ant-switch ant-switch-small';
-    const toggleElement = document.getElementById('darkModeToggle');
-    toggleElement.className = theme === 'dark' ? toggleOn : toggleOff;
-  }, [theme]);
+  useEffect(
+    function setAntStyleSheet() {
+      const getStylesheet = document.head.querySelector('#antd-stylesheet');
+      const antStylesheet = getStylesheet || createStylesheetLink();
+      antStylesheet.href = stylesheets[theme];
+    },
+    [theme]
+  );
+
+  useLayoutEffect(
+    function flipToggle() {
+      const toggleOn = 'ant-switch ant-switch-small ant-switch-checked';
+      const toggleOff = 'ant-switch ant-switch-small';
+      const toggleElement = document.getElementById('darkModeToggle');
+      toggleElement.className = theme === 'dark' ? toggleOn : toggleOff;
+    },
+    [theme]
+  );
 
   return [theme, toggleTheme];
 }
