@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select } from 'antd';
+import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
@@ -22,7 +22,6 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  how_commit: '',
   other_info: '',
 };
 
@@ -319,79 +318,42 @@ const Mentor = () => {
               <br />
               <div className="can_commit">
                 <h3>
-                  Can you commit to 1:1 mentoring of one or more mentees at a
-                  cadence you both decide upon or a minimum of 1 hour per week
-                  pair program (problem solving) with a mentee in our stipend
-                  program?*
+                  How else can you contribute in the progression of our
+                  mentees?*
                 </h3>
-                <Form.Item
-                  name="can_commit"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please choose one!',
-                    },
-                  ]}
-                >
-                  <Radio.Group className="mentor-radio-group">
-                    <div className="radio-space">
-                      <Radio
-                        onChange={evt => {
-                          inputChange('can_commit', evt.target.value);
-                        }}
-                        value="1:1 Mentoring"
-                      >
-                        1:1 Mentoring
-                      </Radio>
-                      <Radio
-                        onChange={evt => {
-                          inputChange('can_commit', evt.target.value);
-                        }}
-                        value="Pair Program"
-                      >
-                        Pair Program
-                      </Radio>
-                      <Radio
-                        onChange={evt => {
-                          inputChange('can_commit', evt.target.value);
-                        }}
-                        value="Neither"
-                      >
-                        Neither
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </Form.Item>
-              </div>
-              <br />
-
-              {formValues.can_commit === 'Neither' ? (
-                <div className="how_commit">
-                  <h3>
-                    If you can not commit to 1:1 mentoring or pair programming
-                    what type of commitment did you have in mind to help our
-                    mentees? *
-                  </h3>
-                  <Form.Item
-                    type="text"
-                    name="how_commit"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please indicate type of commitment.',
-                      },
-                    ]}
-                    value={formValues.how_commit}
+                <Checkbox.Group className="radio-space">
+                  <Checkbox
+                    value="job_help"
                     onChange={evt => {
-                      inputChange('how_commit', evt.target.value);
+                      inputChange(evt.target.value, !formValues.job_help);
                     }}
                   >
-                    <Input.TextArea placeholder="Your answer" />
-                  </Form.Item>
-                </div>
-              ) : (
-                ''
-              )}
+                    Job Search Help
+                  </Checkbox>
+                  <Checkbox
+                    value="industry_knowledge"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.industry_knowledge
+                      );
+                    }}
+                  >
+                    Tech Industry Coaching
+                  </Checkbox>
+                  <Checkbox
+                    value="pair_programming"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.pair_programming
+                      );
+                    }}
+                  >
+                    Pair Programming / Coding Practice
+                  </Checkbox>
+                </Checkbox.Group>
+              </div>
               <br />
               <div className="other_info">
                 <h3>Anything else you want us to know?</h3>
