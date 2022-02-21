@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
-import { Table } from 'antd';
+import { Table, Modal, Button } from 'antd';
 import './PendingApplication.css';
 
 const columns = [
@@ -35,10 +35,50 @@ const columns = [
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.date - b.date,
   },
+  {
+    title: 'Application',
+    dataIndex: 'button',
+    key: 'button',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => a.date - b.date,
+  },
 ];
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
+  const [displayModal, setDisplayModal] = useState(false);
+  const [currentApplication, setCurrentApplication] = useState({});
+  const [profileId, setProfileId] = useState('');
+
+  const showModal = profile_id => {
+    setProfileId(profile_id);
+    // getCurrentApp();
+    setDisplayModal(true);
+  };
+
+  const handleOk = () => {
+    setDisplayModal(false);
+    console.log(currentApplication);
+    console.log(profileId);
+  };
+
+  const handleCancel = () => {
+    setDisplayModal(false);
+  };
+
+  useEffect(() => {
+    const getCurrentApp = () => {
+      axiosWithAuth()
+        .get(`/application/profileId/${profileId}`)
+        .then(res => {
+          setCurrentApplication(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    getCurrentApp();
+  }, [profileId]);
 
   useEffect(() => {
     const getPendingApps = () => {
@@ -52,8 +92,18 @@ const PendingApplications = () => {
               role: row.role_name,
               date: Date(row.created_at),
               notes: 'this is a note',
+              button: (
+                <Button
+                  type="primary"
+                  id={row.profile_id}
+                  onClick={() => showModal(row.profile_id)}
+                >
+                  Review Application
+                </Button>
+              ),
             }))
           );
+          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -65,12 +115,44 @@ const PendingApplications = () => {
     <>
       <h2>Pending Applications</h2>
 
+      <Modal
+        title="Application Modal"
+        visible={displayModal}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+        destroyOnClose={true}
+      >
+        <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
+        Can commit: {`${currentApplication.can_commit === true ? 'yes' : 'no'}`}
+        <br></br>
+        Submission Date: {currentApplication.created_at}
+        <br></br>
+        Current Employer: {currentApplication.current_comp}
+        <br></br>
+        Email: {currentApplication.email}
+        <br></br>
+        Availability: {currentApplication.how_commit}
+        <br></br>
+        Location: {currentApplication.location}
+        <br></br>
+        Progress Status: {currentApplication.progress_status}
+        <br></br>
+        Role: {currentApplication.role_name}
+        <br></br>
+        Tech Stack: {currentApplication.tech_stack}
+        <br></br>
+        Notes: {currentApplication.other_info}
+        <br></br>
+      </Modal>
       <Table
         columns={columns}
         dataSource={applications}
         expandable={{
           expandedRowRender: record => (
-            <p style={{ margin: 0 }}>{record.notes}</p>
+            <div>
+              <p style={{ margin: 0 }}>{record.name}</p>
+            </div>
           ),
         }}
       />
