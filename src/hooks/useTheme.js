@@ -21,23 +21,22 @@ export default function useTheme() {
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
   useLayoutEffect(
-    function flipToggle() {
-      const toggleElement = document.getElementById('darkModeToggle');
-      theme === 'dark' && toggleElement.classList.add('ant-switch-checked');
-      theme === 'light' && toggleElement.classList.remove('ant-switch-checked');
+    function flipToggleBtn() {
+      const toggleBtn = document.getElementById('darkModeToggle');
+      theme === 'dark' && toggleBtn.classList.add('ant-switch-checked');
+      theme === 'light' && toggleBtn.classList.remove('ant-switch-checked');
     },
     [theme]
   );
 
   useLayoutEffect(() => {
     setTheme(darkTheme ? 'dark' : 'light');
-    createAntStylesheet();
+    document.head.querySelector('#antd-stylesheet') || createAntStylesheet();
   }, []); //eslint-disable-line
 
   useEffect(
     function setAntStylesheetTheme() {
-      const antStylesheet = document.head.querySelector('#antd-stylesheet');
-      antStylesheet.href = stylesheets[theme];
+      document.head.querySelector('#antd-stylesheet').href = stylesheets[theme];
     },
     [theme]
   );
