@@ -102,48 +102,51 @@ const Mentor = () => {
               <div className="infoDiv">
                 <h3>Please fill out your user information</h3>
                 <br />
-                <div className="firstName">
-                  <div className="titleContainer">
-                    <h3>Full Name*:</h3>
+                <div className="fullName">
+                  <div className="firstName">
+                    <div className="titleContainer">
+                      <h3>First Name*:</h3>
+                    </div>
+                    <Form.Item
+                      type="text"
+                      name="first_name"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'First name is required!',
+                        },
+                      ]}
+                      value={formValues.first_name}
+                      onChange={evt => {
+                        inputChange('first_name', evt.target.value);
+                      }}
+                    >
+                      <Input placeholder="Your First Name" />
+                    </Form.Item>
                   </div>
-                  <Form.Item
-                    type="text"
-                    name="first_name"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'First name is required!',
-                      },
-                    ]}
-                    value={formValues.first_name}
-                    onChange={evt => {
-                      inputChange('first_name', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your First Name" />
-                  </Form.Item>
-                </div>
-                <div className="lastName">
-                  <div className="titleContainer">
-                    <h3>Last Name*</h3>
+                  <div className="lastName">
+                    <div className="titleContainer">
+                      <h3>Last Name*</h3>
+                    </div>
+                    <Form.Item
+                      type="text"
+                      name="last_name"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Last name is required!',
+                        },
+                      ]}
+                      value={formValues.last_name}
+                      onChange={evt => {
+                        inputChange('last_name', evt.target.value);
+                      }}
+                    >
+                      <Input placeholder="Your Last Name" />
+                    </Form.Item>
                   </div>
-                  <Form.Item
-                    type="text"
-                    name="last_name"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Last name is required!',
-                      },
-                    ]}
-                    value={formValues.last_name}
-                    onChange={evt => {
-                      inputChange('last_name', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your Last Name" />
-                  </Form.Item>
                 </div>
+
                 <div className="email">
                   <div className="titleContainer">
                     <h3>Email*:</h3>
