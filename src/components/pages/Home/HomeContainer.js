@@ -1,26 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
 
-import { authenticateUser } from '../../../state/actions';
-
-function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
-  const { authState, authService } = useOktaAuth();
-
-  useEffect(() => {
-    dispatch(authenticateUser(authService));
-  }, [dispatch, authService]);
+function HomeContainer({ LoadingComponent, isAuthenticated, userProfile }) {
+  const { authService } = useOktaAuth();
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
-      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
-        <PendingApproval userInfo={userInfo} authService={authService} />
+      {isAuthenticated && !userProfile && <LoadingComponent />}
+      {isAuthenticated && userProfile && userProfile.role_id === 5 ? (
+        <PendingApproval userInfo={userProfile} authService={authService} />
       ) : (
-        <Sidebar userInfo={userInfo} authService={authService} />
+        <Sidebar userInfo={userProfile} authService={authService} />
       )}
     </>
   );
@@ -28,7 +22,8 @@ function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.userInfo,
+    isAuthenticated: state.auth.isAuthenticated,
+    userProfile: state.userProfile,
   };
 };
 
