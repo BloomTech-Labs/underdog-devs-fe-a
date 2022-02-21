@@ -7,11 +7,11 @@ const stylesheets = {
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.dark.min.css',
 };
 const createAntStylesheet = () => {
-  const antStylesheett = createElement('link', {
+  const antStylesheet = createElement('link', {
     rel: 'stylesheet',
     id: 'antd-stylesheet',
   });
-  ReactDOM.render(antStylesheett);
+  ReactDOM.render(antStylesheet);
 };
 
 export default function useTheme() {
