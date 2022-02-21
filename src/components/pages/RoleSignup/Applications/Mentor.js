@@ -52,11 +52,6 @@ const Mentor = () => {
     });
   };
 
-  function handleChangeStates(value) {
-    // REVIEW THIS LATER, MAY COMBINE WITH INPUTCHANGE??
-    console.log(`selected ${value}`);
-  }
-
   return (
     <div>
       <div className="breadcrumbs">
