@@ -1,17 +1,15 @@
 import useLocalStorage from './useLocalStorage';
-import { createElement, useEffect, useLayoutEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useLayoutEffect } from 'react';
 
 const stylesheets = {
   light: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.min.css',
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.dark.min.css',
 };
 const createAntStylesheet = () => {
-  const antStylesheet = createElement('link', {
-    rel: 'stylesheet',
-    id: 'antd-stylesheet',
-  });
-  ReactDOM.render(antStylesheet);
+  const antStylesheet = document.createElement('link');
+  antStylesheet.rel = 'stylesheet';
+  antStylesheet.id = 'antd-stylesheet';
+  document.head.appendChild(antStylesheet);
 };
 
 export default function useTheme() {
