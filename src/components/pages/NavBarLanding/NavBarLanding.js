@@ -19,6 +19,8 @@ function NavBarLanding(props) {
     'https://joeschmoe.io/api/v1/random'
   );
 
+  console.log(props);
+
   return (
     <>
       <Nav>
