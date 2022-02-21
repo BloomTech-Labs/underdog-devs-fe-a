@@ -2,11 +2,11 @@
 // This allows for the simplification of flow when importing reducers into your actions throughout your app.
 import { combineReducers } from 'redux';
 
-import userReducer from './userReducer';
+import applicationReducer from './applicationReducer';
 import calendarReducer from './calendarReducer';
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  applicationReducer,
   calendarReducer,
 });
 
