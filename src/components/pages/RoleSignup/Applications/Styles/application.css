@@ -4,13 +4,15 @@
 
 h1 {
   border-bottom: solid 1px rgba(128, 128, 128, 0.342);
-  background-color: #001529;
+  background-color:#003D71;
   text-align: left;
   padding-left: 3vw;
 }
 
 h3 {
   font-style: italic;
+  color:#003D71;
+
 }
 
 .signUpForm {
@@ -44,7 +46,8 @@ h3 {
 #button {
   width: 20vw;
   color: white;
-  background-color: #001529;
+  background-color:#003D71;
+
 }
 
 .ant-radio-group {
@@ -86,6 +89,18 @@ h3 {
   display: flex;
   justify-content: space-between;
   padding: 1vh;
+}
+
+div.ant-col.ant-col-8.ant-form-item-label {
+  margin-right: -13px;
+  font-style: italic;
+  color:#003D71;
+  font-size:  1.17em;
+
+}
+.ant-form-item-label > label{
+  font-size: 1.17em;
+  color:#003D71;
 }
 
 
