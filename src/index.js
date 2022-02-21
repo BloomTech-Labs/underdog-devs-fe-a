@@ -29,6 +29,7 @@ import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import { Profile } from './components/pages/Profile';
+import Dashboard from './components/pages/Dashboard/Dashboard';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -90,6 +91,7 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
         <Route component={NotFoundPage} />
       </Switch>

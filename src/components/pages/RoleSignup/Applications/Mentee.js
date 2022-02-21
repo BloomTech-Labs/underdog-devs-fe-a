@@ -16,7 +16,10 @@ const initialFormValues = {
   city: '',
   state: '',
   country: '',
-  current_comp: '',
+  underrepresented_group: false,
+  low_income: false,
+  formerly_incarcerated: false,
+  list_convictions: '',
   subject: '',
   experience_level: '',
   job_help: false,
@@ -25,16 +28,16 @@ const initialFormValues = {
   other_info: '',
 };
 
-const Mentor = () => {
+const Mentee = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}application/new/mentor`,
+        `${process.env.REACT_APP_API_URI}application/new/mentee`,
         newAccount
       );
-      console.log(response);
+      console.log('post response', response);
     } catch (err) {
       console.log(err);
     }
@@ -65,21 +68,21 @@ const Mentor = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
-            <span>Mentor Application</span>
+            <span>Mentee Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
-      <div className="application" id="mentorapplication">
+      <div className="application">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
-            <h1> Mentor Application </h1>
+            <h1> Mentee Application </h1>
             <div className="questions">
               <div className="infoDiv">
                 <h3>Please fill out your user information</h3>
                 <br />
                 <div className="firstName">
                   <div className="titleContainer">
-                    <h3>Full Name*:</h3>
+                    <h3>First Name*</h3>
                   </div>
                   <Form.Item
                     type="text"
@@ -121,7 +124,7 @@ const Mentor = () => {
                 </div>
                 <div className="email">
                   <div className="titleContainer">
-                    <h3>Email*:</h3>
+                    <h3>Email*</h3>
                   </div>
                   <Form.Item
                     type="email"
@@ -142,10 +145,10 @@ const Mentor = () => {
                 </div>
                 <div className="location">
                   <div className="titleContainer">
-                    <h3>Location*:</h3>
+                    <h3>Location*</h3>
                   </div>
                   <div>
-                    <label>Are you located in the U.S.?*</label>
+                    <label>Are you located in the US? *</label>
                     <Radio.Group
                       name="livesInUS"
                       onChange={evt => {
@@ -200,7 +203,6 @@ const Mentor = () => {
                           inputChange('state', evt);
                         }}
                       >
-                        <Option value="none">--None--</Option>
                         <Option value="Alabama">Alabama</Option>
                         <Option value="Alaska">Alaska</Option>
                         <Option value="Arizona">Arizona</Option>
@@ -256,75 +258,106 @@ const Mentor = () => {
                     </div>
                   )}
                 </div>
-                <hr />
-                <br />
-                <div className="current_comp">
-                  <h3>Current company/position?:</h3>
-                  <Form.Item
-                    type="text"
-                    name="current_comp"
-                    value={formValues.current_comp}
-                    onChange={evt => {
-                      inputChange('current_comp', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your answer" />
-                  </Form.Item>
-                </div>
-                <hr />
-                <br />
-                <div className="tech_stack">
-                  <h3>
-                    Which best describes your tech stack?* (Check all that
-                    apply)
-                  </h3>
-                  <Select
-                    defaultValue="- Select -"
-                    onChange={evt => {
-                      inputChange('subject', evt);
-                    }}
-                  >
-                    <Option value="career">Career Development</Option>
-                    <Option value="frontend">Frontend Development</Option>
-                    <Option value="backend">Backend Development</Option>
-                    <Option value="design">Design UI/UX</Option>
-                    <Option value="IOS">IOS Development</Option>
-                    <Option value="android">Android Development</Option>
-                  </Select>
-                </div>
               </div>
+              <hr />
+
               <br />
+              <div className="formerly_incarcerated">
+                <h3>
+                  Which criteria represents you for membership? Check All That
+                  Apply
+                </h3>
+                <Checkbox.Group style={{ width: '100%' }}>
+                  <Checkbox
+                    value="formerly_incarcerated"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.formerly_incarcerated
+                      );
+                    }}
+                  >
+                    Formerly incarcerated
+                  </Checkbox>
+                  <Checkbox
+                    value="low_income"
+                    onChange={evt => {
+                      inputChange(evt.target.value, !formValues.low_income);
+                    }}
+                  >
+                    From a lower socioeconomic background
+                  </Checkbox>
+                  <Checkbox
+                    value="underrepresented_group"
+                    onChange={evt => {
+                      inputChange(
+                        evt.target.value,
+                        !formValues.underrepresented_group
+                      );
+                    }}
+                  >
+                    From an underrepresented group
+                  </Checkbox>
+                </Checkbox.Group>
+              </div>
+              <div className="list_convictions">
+                <h3>Please list your convictions if comfortable</h3>
+                <Form.Item
+                  type="text"
+                  name="list_convictions"
+                  value={formValues.list_convictions}
+                  onChange={evt => {
+                    inputChange('list_convictions', evt.target.value);
+                  }}
+                >
+                  <Input.TextArea placeholder="Your answer" />
+                </Form.Item>
+              </div>
+              <hr />
+              <br />
+              <div className="tech_stack">
+                <h3>
+                  Which best describes the tech path you are working towards or
+                  are interested in? *
+                </h3>
+                <Select
+                  defaultValue="- Select -"
+                  onChange={evt => {
+                    inputChange('subject', evt);
+                  }}
+                >
+                  <Option value="career">Career Development</Option>
+                  <Option value="frontend">Frontend Development</Option>
+                  <Option value="backend">Backend Development</Option>
+                  <Option value="design">Design UI/UX</Option>
+                  <Option value="iOS">iOS Development</Option>
+                  <Option value="android">Android Development</Option>
+                </Select>
+              </div>
               <div className="experience_level">
                 <h3>What is your level of experience?*</h3>
                 <Radio.Group
-                  className="mentor-radio-group"
                   name="experience_level"
                   onChange={evt => {
                     inputChange('experience_level', evt.target.value);
                   }}
                   value={formValues.experience_level}
                 >
-                  <div className="radio-space">
-                    <Radio value={'beginner'}>Beginner</Radio>
-                    <Radio value={'intermediate'}>Intermediate</Radio>
-                    <Radio value={'expert'}>Expert</Radio>
-                  </div>
+                  <Radio value={'beginner'}>Beginner</Radio>
+                  <Radio value={'intermediate'}>Intermediate</Radio>
+                  <Radio value={'expert'}>Expert</Radio>
                 </Radio.Group>
               </div>
-              <br />
-              <div className="can_commit">
-                <h3>
-                  How else can you contribute in the progression of our
-                  mentees?*
-                </h3>
-                <Checkbox.Group className="radio-space">
+              <div className="your_hope">
+                <h3>What are you hoping to gain from the community?*</h3>
+                <Checkbox.Group style={{ width: '100%' }}>
                   <Checkbox
                     value="job_help"
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.job_help);
                     }}
                   >
-                    Job Search Help
+                    Job search help
                   </Checkbox>
                   <Checkbox
                     value="industry_knowledge"
@@ -335,7 +368,7 @@ const Mentor = () => {
                       );
                     }}
                   >
-                    Tech Industry Coaching
+                    Learn more about the tech industry
                   </Checkbox>
                   <Checkbox
                     value="pair_programming"
@@ -346,11 +379,11 @@ const Mentor = () => {
                       );
                     }}
                   >
-                    Pair Programming / Coding Practice
+                    Pair programming / coding practice
                   </Checkbox>
                 </Checkbox.Group>
               </div>
-              <br />
+
               <div className="other_info">
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
@@ -364,12 +397,9 @@ const Mentor = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-              <br />
             </div>
-
             <Button htmlType="submit" id="button">
-              {' '}
-              Submit{' '}
+              Submit
             </Button>
           </div>
         </Form>
@@ -378,4 +408,4 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+export default Mentee;
