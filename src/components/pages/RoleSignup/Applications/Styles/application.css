@@ -99,7 +99,7 @@ h3 {
 .other_info, .current_comp, .name, 
 .can_commit, .how_commit,
 .location, .email, 
-.lives_in_us, .formerly_incarcerated {
+.lives_in_us, .formerly_incarcerated{
   display: flex;
   justify-content: space-between;
   padding: 1vh;
@@ -132,7 +132,7 @@ div.ant-col.ant-col-8.ant-form-item-label {
     .other_info, .current_comp, .name, 
     .can_commit, .how_commit,
     .location, .email, 
-    .lives_in_us, .formerly_incarcerated {
+    .lives_in_us, .formerly_incarcerated{
     display: flex;
     flex-direction: column;
   }
@@ -140,7 +140,7 @@ div.ant-col.ant-col-8.ant-form-item-label {
     #list_convictions, #tech_stack, 
     #experience_level, #your_hope, 
     #other_info, #current_comp, 
-    #how_commit {
+    #how_commit{
       width: 100%;
       display: flex;
   }
