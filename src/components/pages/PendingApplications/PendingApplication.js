@@ -8,12 +8,14 @@ const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
+    key: 'name',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.name - b.name,
   },
   {
     title: 'Role',
     dataIndex: 'role',
+    key: 'role',
     filters: [
       {
         text: 'mentor',
@@ -29,6 +31,7 @@ const columns = [
   {
     title: 'Date',
     dataIndex: 'date',
+    key: 'date',
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.date - b.date,
   },
@@ -44,9 +47,11 @@ const PendingApplications = () => {
         .then(res => {
           setApplications(
             res.data.map(row => ({
+              key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
               role: row.role_name,
               date: Date(row.created_at),
+              notes: 'this is a note',
             }))
           );
         })
@@ -56,12 +61,19 @@ const PendingApplications = () => {
     };
     getPendingApps();
   }, []);
-
   return (
     <>
       <h2>Pending Applications</h2>
 
-      <Table columns={columns} dataSource={applications} />
+      <Table
+        columns={columns}
+        dataSource={applications}
+        expandable={{
+          expandedRowRender: record => (
+            <p style={{ margin: 0 }}>{record.notes}</p>
+          ),
+        }}
+      />
     </>
   );
 };
