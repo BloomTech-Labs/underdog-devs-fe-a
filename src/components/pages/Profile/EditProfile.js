@@ -100,7 +100,7 @@ function EditProfile(props) {
         <Form
           name="basic"
           labelCol={{
-            span: 8,
+            span: 10,
           }}
           wrapperCol={{
             span: 14,
@@ -188,7 +188,7 @@ function EditProfile(props) {
             label="Commitment"
             name="commitment"
             labelCol={{
-              span: 13,
+              span: 15,
             }}
             wrapperCol={{
               span: 9,
