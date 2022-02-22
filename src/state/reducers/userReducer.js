@@ -23,7 +23,7 @@ const initialState = {
   ],
 };
 
-const applicationReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTIONS.SET_FETCH_START:
       return { ...state, lifecycle: { ...state.lifecycle, isFetching: true } };
@@ -50,4 +50,4 @@ const applicationReducer = (state = initialState, action) => {
   }
 };
 
-export default applicationReducer;
+export default userReducer;
