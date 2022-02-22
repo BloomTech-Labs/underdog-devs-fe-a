@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Breadcrumb,
+  Select,
+  Checkbox,
+  Row,
+} from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
@@ -57,7 +66,7 @@ const Mentee = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vw' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -71,7 +80,7 @@ const Mentee = () => {
             <span>Mentee Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
+      </Row>
       <div className="application">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
