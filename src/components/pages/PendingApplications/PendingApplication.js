@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import ApplicationModal from './ApplicationModal';
 
-import { Table, Modal, Button } from 'antd';
+import { Table, Button } from 'antd';
 import './PendingApplication.css';
 
 const columns = [
@@ -95,17 +95,7 @@ const PendingApplications = () => {
         profileId={profileId}
         setProfileId={setProfileId}
       />
-      <Table
-        columns={columns}
-        dataSource={applications}
-        expandable={{
-          expandedRowRender: record => (
-            <div>
-              <p style={{ margin: 0 }}>{record.name}</p>
-            </div>
-          ),
-        }}
-      />
+      <Table columns={columns} dataSource={applications} />
     </>
   );
 };
