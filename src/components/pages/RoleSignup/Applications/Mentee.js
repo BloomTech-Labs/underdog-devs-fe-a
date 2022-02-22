@@ -90,7 +90,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'First name is required!',
+                        message: 'First name is required',
                       },
                     ]}
                     value={formValues.first_name}
@@ -111,7 +111,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Last name is required!',
+                        message: 'Last name is required',
                       },
                     ]}
                     value={formValues.last_name}
@@ -132,11 +132,11 @@ const Mentee = () => {
                     rules={[
                       {
                         type: 'email',
-                        message: 'Please input a valid E-mail.',
+                        message: 'Please input a valid Email',
                       },
                       {
                         required: true,
-                        message: 'Please input your E-mail.',
+                        message: 'Please input your Email',
                       },
                     ]}
                     value={formValues.email}
@@ -152,7 +152,7 @@ const Mentee = () => {
                     <h3>Location*</h3>
                   </div>
                   <div>
-                    <label>Are you located in the US? *</label>
+                    <label>Are you located in the US?</label>
                     <Radio.Group
                       name="livesInUS"
                       onChange={evt => {
@@ -171,7 +171,7 @@ const Mentee = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Country is required!',
+                          message: 'Country is required',
                         },
                       ]}
                       value={formValues.country}
@@ -190,7 +190,7 @@ const Mentee = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'City is required!',
+                            message: 'City is required',
                           },
                         ]}
                         value={formValues.city}
@@ -269,7 +269,7 @@ const Mentee = () => {
               <div className="formerly_incarcerated">
                 <h3>
                   Which criteria represents you for membership? Check All That
-                  Apply
+                  Apply*
                 </h3>
                 <Checkbox.Group style={{ width: '100%' }}>
                   <Checkbox
@@ -322,7 +322,7 @@ const Mentee = () => {
               <div className="tech_stack">
                 <h3>
                   Which best describes the tech path you are working towards or
-                  are interested in? *
+                  are interested in?*
                 </h3>
                 <Select
                   defaultValue="- Select -"
