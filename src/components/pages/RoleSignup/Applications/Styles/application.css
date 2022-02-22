@@ -1,5 +1,5 @@
 .application {
-  padding: 10vh 15vw;
+  padding: 10vh 8vw;
 }
 
 h1 {
@@ -33,6 +33,9 @@ h3 {
   width: 35vw;
   display: flex;
   justify-content: left;
+}
+#first_name, #last_name{
+  width:20vw
 }
 .fullName{
   display:flex;

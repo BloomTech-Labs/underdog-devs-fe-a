@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Breadcrumb,
+  Select,
+  Checkbox,
+  Row,
+} from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
 import './Styles/application.css';
+import Grid from 'antd/lib/card/Grid';
 const { Option } = Select;
 
 const initialFormValues = {
@@ -54,7 +64,7 @@ const Mentor = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -68,7 +78,7 @@ const Mentor = () => {
             <span>Mentor Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
+      </Row>
       <div className="application" id="mentorapplication">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
@@ -100,9 +110,6 @@ const Mentor = () => {
                     </Form.Item>
                   </div>
                   <div className="lastName">
-                    <div className="titleContainer">
-                      <h3>Last Name*</h3>
-                    </div>
                     <Form.Item
                       type="text"
                       name="last_name"
@@ -121,7 +128,6 @@ const Mentor = () => {
                     </Form.Item>
                   </div>
                 </div>
-
                 <div className="email">
                   <div className="titleContainer">
                     <h3>Email*:</h3>
