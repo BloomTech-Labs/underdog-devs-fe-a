@@ -18,8 +18,7 @@ import {
   IdcardOutlined,
 } from '@ant-design/icons';
 import './Styles/application.css';
-import Grid from 'antd/lib/card/Grid';
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const { Option } = Select;
 
@@ -83,16 +82,15 @@ const Mentor = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
-      <Row className="row">
+      <Row className="mentorApplication">
         <Col span={24} className="applicationForm">
           <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
-            <Title className="title" level={3}>
+            <Title className="mentorTitle" level={3}>
               Mentor Application
             </Title>
             <Col span={18} offset={3}>
               <Title level={5}>Fill out your user Information</Title>
               <br />
-
               <Row gutter={[16, 16]}>
                 <Col span={12}>
                   <Form.Item
