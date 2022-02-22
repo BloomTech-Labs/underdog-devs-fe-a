@@ -1,6 +1,24 @@
+.row{
+  padding:2vh 6vw;
+  justify-content: center;
+}
+.applicationForm{
+  border-radius:'4px';
+   border:solid 1px rgba(128, 128, 128, 0.342)
+}
+.title{
+  border-bottom:solid 1px rgba(128, 128, 128, 0.342); 
+  background-color:#003D71;
+ text-align:center;
+ color:#FFF !important;
+ padding:1vh;
+}
+
+/*
 .application {
   padding: 10vh 8vw;
 }
+
 
 h1 {
   border-bottom: solid 1px rgba(128, 128, 128, 0.342);
@@ -175,3 +193,4 @@ div.ant-col.ant-col-8.ant-form-item-label {
     padding: 0;
   }
 }
+*/
