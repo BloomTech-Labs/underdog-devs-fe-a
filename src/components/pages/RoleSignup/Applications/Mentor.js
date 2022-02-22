@@ -89,10 +89,8 @@ const Mentor = () => {
                 <br />
                 <div className="fullName">
                   <div className="firstName">
-                    <div className="titleContainer">
-                      <h3>First Name*:</h3>
-                    </div>
                     <Form.Item
+                      label="First Name"
                       type="text"
                       name="first_name"
                       rules={[
@@ -111,6 +109,7 @@ const Mentor = () => {
                   </div>
                   <div className="lastName">
                     <Form.Item
+                      label="Last Name"
                       type="text"
                       name="last_name"
                       rules={[
@@ -129,10 +128,8 @@ const Mentor = () => {
                   </div>
                 </div>
                 <div className="email">
-                  <div className="titleContainer">
-                    <h3>Email*:</h3>
-                  </div>
                   <Form.Item
+                    label="Email"
                     type="email"
                     name="email"
                     rules={[
