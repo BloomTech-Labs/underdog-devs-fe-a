@@ -155,6 +155,12 @@ const Mentee = () => {
                     <label>Are you located in the US?</label>
                     <Radio.Group
                       name="livesInUS"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please tell us whether you live in the US',
+                        },
+                      ]}
                       onChange={evt => {
                         inputChange('country', evt.target.value);
                       }}
@@ -201,6 +207,12 @@ const Mentee = () => {
                         <Input placeholder="City" />
                       </Form.Item>
                       <Select
+                        rules={[
+                          {
+                            required: true,
+                            message: 'State is required',
+                          },
+                        ]}
                         defaultValue="State"
                         style={{ width: 200 }}
                         onChange={evt => {
@@ -271,7 +283,15 @@ const Mentee = () => {
                   Which criteria represents you for membership? Check All That
                   Apply*
                 </h3>
-                <Checkbox.Group style={{ width: '100%' }}>
+                <Checkbox.Group
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Membership criteria are required',
+                    },
+                  ]}
+                  style={{ width: '100%' }}
+                >
                   <Checkbox
                     value="formerly_incarcerated"
                     onChange={evt => {
@@ -325,6 +345,12 @@ const Mentee = () => {
                   are interested in?*
                 </h3>
                 <Select
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Tech path is required',
+                    },
+                  ]}
                   defaultValue="- Select -"
                   onChange={evt => {
                     inputChange('subject', evt);
@@ -342,6 +368,12 @@ const Mentee = () => {
                 <h3>What is your level of experience?*</h3>
                 <Radio.Group
                   name="experience_level"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select an experience level',
+                    },
+                  ]}
                   onChange={evt => {
                     inputChange('experience_level', evt.target.value);
                   }}
@@ -354,7 +386,15 @@ const Mentee = () => {
               </div>
               <div className="your_hope">
                 <h3>What are you hoping to gain from the community?*</h3>
-                <Checkbox.Group style={{ width: '100%' }}>
+                <Checkbox.Group
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please make a selection',
+                    },
+                  ]}
+                  style={{ width: '100%' }}
+                >
                   <Checkbox
                     value="job_help"
                     onChange={evt => {
