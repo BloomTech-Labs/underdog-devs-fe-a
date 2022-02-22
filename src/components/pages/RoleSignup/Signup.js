@@ -9,7 +9,7 @@ const Signup = () => {
 
   return (
     <div>
-      <Row style={{ padding: '3vw' }}>
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
