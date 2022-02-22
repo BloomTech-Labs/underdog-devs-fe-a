@@ -44,9 +44,9 @@ function HomeContainer({
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.application.auth.isAuthenticated,
-    profile_id: state.application.auth.profile_id,
-    userProfile: state.application.userProfile,
+    isAuthenticated: state.user.auth.isAuthenticated,
+    profile_id: state.user.auth.profile_id,
+    userProfile: state.user.userProfile,
   };
 };
 
