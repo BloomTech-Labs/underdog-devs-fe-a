@@ -18,6 +18,18 @@ function HomeContainer({
 }) {
   const { authState, authService } = useOktaAuth();
 
+  useEffect(() => {
+    if (!isAuthenticated) {
+      authenticateUser(authState, authService);
+    }
+  }, [authState, authService, isAuthenticated, authenticateUser]);
+
+  useEffect(() => {
+    if (profile_id) {
+      getProfile(profile_id);
+    }
+  }, [profile_id, getProfile]);
+
   return (
     <>
       {isAuthenticated && !userProfile && <LoadingComponent />}
