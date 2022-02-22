@@ -1,7 +1,9 @@
-export { SET_PROFILE_ID, SET_IS_AUTHENTICATED } from './auth';
-export { SET_USER_PROFILE } from './userProfile';
-export { SET_FETCH_START, SET_FETCH_END } from './lifecycle';
-export { SET_FETCH_ERROR } from './errors';
+export { SET_PROFILE_ID } from './auth/setProfileId';
+export { SET_IS_AUTHENTICATED } from './auth/setIsAuthenticated';
+export { SET_USER_PROFILE } from './userProfile/setUserProfile';
+export { SET_FETCH_START } from './lifecycle/setFetchStart';
+export { SET_FETCH_END } from './lifecycle/setFetchEnd';
+export { SET_FETCH_ERROR } from './errors/setFetchError';
 
 // CALENDAR ACTIONS----------------------
 export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';

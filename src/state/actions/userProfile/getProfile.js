@@ -1,8 +1,9 @@
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { API_URL } from '../../../config';
-import { setFetchError } from '../errors';
 import { setUserProfile } from './setUserProfile';
-import { setFetchStart, setFetchEnd } from '../lifecycle';
+import { setFetchError } from '../errors/setFetchError';
+import { setFetchStart } from '../lifecycle/setFetchStart';
+import { setFetchEnd } from '../lifecycle/setFetchEnd';
 
 export const getProfile = profile_id => dispatch => {
   dispatch(setFetchStart());

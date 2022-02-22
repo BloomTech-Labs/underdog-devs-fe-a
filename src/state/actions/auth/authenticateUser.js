@@ -1,5 +1,6 @@
-import { setFetchStart, setFetchEnd } from '../lifecycle';
-import { setFetchError } from '../errors';
+import { setFetchStart } from '../lifecycle/setFetchStart';
+import { setFetchEnd } from '../lifecycle/setFetchEnd';
+import { setFetchError } from '../errors/setFetchError';
 import { setProfileId } from './setProfileId';
 import { setIsAuthenticated } from './setIsAuthenticated';
 

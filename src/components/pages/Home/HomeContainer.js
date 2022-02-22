@@ -5,8 +5,8 @@ import { useOktaAuth } from '@okta/okta-react';
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
 
-import { authenticateUser } from '../../../state/actions/auth';
-import { getProfile } from '../../../state/actions/userProfile';
+import { authenticateUser } from '../../../state/actions/auth/authenticateUser';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
 function HomeContainer({
   LoadingComponent,
