@@ -6,7 +6,7 @@ import applicationReducer from './applicationReducer';
 import calendarReducer from './calendarReducer';
 
 const rootReducer = combineReducers({
-  applicationReducer,
+  application: applicationReducer,
   calendarReducer,
 });
 

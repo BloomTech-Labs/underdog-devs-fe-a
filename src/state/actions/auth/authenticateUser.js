@@ -1,10 +1,11 @@
-import { fetchStart, fetchEnd, fetchError } from '../lifecycle';
+import { setFetchStart, setFetchEnd } from '../lifecycle';
+import { setFetchError } from '../errors';
 import { setProfileId } from './setProfileId';
 import { setIsAuthenticated } from './setIsAuthenticated';
 
 export const authenticateUser = (authState, authService) => dispatch => {
   if (authState.isAuthenticated) {
-    dispatch(fetchStart());
+    dispatch(setFetchStart());
     authService
       .getUser()
       .then(parsedJWT => {
@@ -13,8 +14,8 @@ export const authenticateUser = (authState, authService) => dispatch => {
         dispatch(setIsAuthenticated(true));
       })
       .catch(error => {
-        dispatch(fetchError(error));
+        dispatch(setFetchError(error));
       })
-      .finally(() => dispatch(fetchEnd()));
+      .finally(() => dispatch(setFetchEnd()));
   }
 };

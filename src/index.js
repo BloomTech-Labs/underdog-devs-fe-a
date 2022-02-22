@@ -43,10 +43,6 @@ import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
 import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
-import { connect } from 'react-redux';
-import { authenticateUser } from './state/actions/auth';
-import { getProfile } from './state/actions/userProfile';
-
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
@@ -56,31 +52,17 @@ ReactDOM.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <ConnectedApp />
+        <App />
       </Provider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')
 );
 
-function App({ dispatch, profile_id, isAuthenticated }) {
+function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   const history = useHistory();
-
-  const { authState, authService } = useOktaAuth();
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(authenticateUser(authState, authService));
-    }
-  }, [authState, authService, dispatch, isAuthenticated]);
-
-  useEffect(() => {
-    if (profile_id) {
-      dispatch(getProfile(profile_id));
-    }
-  }, [dispatch, profile_id]);
 
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
@@ -91,7 +73,7 @@ function App({ dispatch, profile_id, isAuthenticated }) {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       {/* <Navbar /> */}
-      <NavBarLanding />
+      {/* <NavBarLanding /> */}
 
       <Switch>
         <Route path="/landing" component={Landing} />
@@ -121,9 +103,3 @@ function App({ dispatch, profile_id, isAuthenticated }) {
     </Security>
   );
 }
-
-const mapStateToProps = state => ({
-  profile_id: state.auth.profile_id,
-  isAuthenticated: state.auth.isAuthenticated,
-});
-const ConnectedApp = connect(mapStateToProps)(App);

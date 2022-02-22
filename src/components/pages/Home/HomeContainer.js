@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
 
-function HomeContainer({ LoadingComponent, isAuthenticated, userProfile }) {
-  const { authService } = useOktaAuth();
+import { authenticateUser } from '../../../state/actions/auth';
+import { getProfile } from '../../../state/actions/userProfile';
+
+function HomeContainer({
+  LoadingComponent,
+  isAuthenticated,
+  profile_id,
+  userProfile,
+  authenticateUser,
+  getProfile,
+}) {
+  const { authState, authService } = useOktaAuth();
 
   return (
     <>
@@ -22,9 +32,12 @@ function HomeContainer({ LoadingComponent, isAuthenticated, userProfile }) {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    userProfile: state.userProfile,
+    isAuthenticated: state.application.auth.isAuthenticated,
+    profile_id: state.application.auth.profile_id,
+    userProfile: state.application.userProfile,
   };
 };
 
-export default connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps, { authenticateUser, getProfile })(
+  HomeContainer
+);

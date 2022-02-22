@@ -1,7 +1,7 @@
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { API_URL } from '../../../config';
-import { fetchError } from '../errors';
-import { setUserInfo } from './setUserProfile';
+import { setFetchError } from '../errors';
+import { setUserProfile } from './setUserProfile';
 import { setFetchStart, setFetchEnd } from '../lifecycle';
 
 export const getProfile = profile_id => dispatch => {
@@ -10,11 +10,11 @@ export const getProfile = profile_id => dispatch => {
     .get(`${API_URL}profiles/${profile_id}`)
     .then(res => {
       if (res.data) {
-        dispatch(setUserInfo(res.data));
+        dispatch(setUserProfile(res.data));
       }
     })
     .catch(error => {
-      dispatch(fetchError(error));
+      dispatch(setFetchError(error));
     })
     .finally(() => dispatch(setFetchEnd()));
 };
