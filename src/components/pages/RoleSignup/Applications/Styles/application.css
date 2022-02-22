@@ -1,11 +1,11 @@
 .application {
-  padding: 10vh 20vw;
+  padding: 10vh 15vw;
 }
 
 h1 {
   border-bottom: solid 1px rgba(128, 128, 128, 0.342);
   background-color:#003D71;
-  text-align: left;
+  text-align: center;
   padding-left: 3vw;
 }
 
@@ -24,19 +24,33 @@ h3 {
   border: solid 1px rgba(128, 128, 128, 0.342);
 }
 
-.titleContainer {
-  width: 7vw;
-}
 
-#first_name, #last_name, #email, #location, 
+ #email, #location, 
 #list_convictions, #tech_stack, 
 #experience_level, #your_hope, 
 #other_info, #current_comp, 
 #how_commit {
   width: 35vw;
   display: flex;
-  justify-content: right;
+  justify-content: left;
 }
+.fullName{
+  display:flex;
+  justify-content: space-between;
+}
+.firstName{
+  display:flex;
+  flex-direction: row;
+}
+.titleContainer{
+  width:15vw;
+}
+
+.lastName{
+  display:flex;
+  flex-direction: row;
+}
+
 
 .questions {
   padding: 1vh 4vw;
@@ -109,10 +123,7 @@ div.ant-col.ant-col-8.ant-form-item-label {
   #mentorapplication {
     padding: 10vh 8vw;
   }
-
-  .titleContainer {
-    width: 100%;
-  }
+ 
 }
 
 @media only screen and (max-width: 1000px) {
@@ -132,10 +143,6 @@ div.ant-col.ant-col-8.ant-form-item-label {
     #how_commit{
       width: 100%;
       display: flex;
-  }
-
-  .titleContainer {
-    width: 100%;
   }
 
   .can_commit h3 {
