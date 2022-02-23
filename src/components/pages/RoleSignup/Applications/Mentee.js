@@ -286,6 +286,7 @@ const Mentee = () => {
                         !formValues.formerly_incarcerated
                       );
                     }}
+                    style={{ margin: '1.8rem' }}
                   >
                     Formerly incarcerated
                   </Checkbox>
@@ -294,6 +295,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.low_income);
                     }}
+                    style={{ margin: '1.8rem' }}
                   >
                     From a lower socioeconomic background
                   </Checkbox>
@@ -305,6 +307,7 @@ const Mentee = () => {
                         !formValues.underrepresented_group
                       );
                     }}
+                    style={{ margin: '1.8rem' }}
                   >
                     From an underrepresented group
                   </Checkbox>
