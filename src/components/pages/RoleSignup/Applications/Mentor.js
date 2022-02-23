@@ -298,9 +298,7 @@ const Mentor = () => {
               <br />
               <hr />
               <br />
-              <h3>
-                Which best describes your tech stack?* (Check all that apply)
-              </h3>
+              <h3>Which best describes your tech stack?*</h3>
               <Select
                 defaultValue="- Select -"
                 onChange={evt => {
