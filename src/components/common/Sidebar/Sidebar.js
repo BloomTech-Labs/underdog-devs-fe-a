@@ -161,13 +161,8 @@ const Sidebar = ({ authService, userProfile }) => {
             <></>
           )}
           <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
-<<<<<<< HEAD
-            <Menu.Item key="8" onClick={handleMenuClick}>
-              <Link to="/profile">Profile Settings</Link>
-=======
             <Menu.Item key="9" onClick={handleMenuClick}>
               Profile Settings
->>>>>>> bc81dae (matching component started)
             </Menu.Item>
             <Menu.Item key="10" onClick={handleMenuClick}>
               Account Settings
