@@ -55,19 +55,19 @@ const ApplicationModal = props => {
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
             <div>
-              email: {currentApplication.email}
+              <b>Email:</b> {currentApplication.email}
               <br></br>
-              Location: {currentApplication.city}, {currentApplication.state}{' '}
-              {currentApplication.country}
+              <b>Location:</b> {currentApplication.city},{' '}
+              {currentApplication.state} {currentApplication.country}
               <br></br>
-              Convictions:{' '}
+              <b>Convictions:</b>{' '}
               {`${
                 currentApplication.formerly_incarcerated === true
                   ? currentApplication.list_convictions
                   : 'none'
               }`}
               <br></br>
-              Experience Level: {currentApplication.experience_level}
+              <b>Experience Level:</b> {currentApplication.experience_level}
               {`${currentApplication.low_income === true ? 'Low Income' : ''}`}
               {`${
                 currentApplication.underrepresented_group === true
@@ -75,7 +75,7 @@ const ApplicationModal = props => {
                   : ''
               }`}
               <br></br>
-              Applicant needs help with:{' '}
+              <b>Applicant needs help with:</b>{' '}
               {`${
                 currentApplication.industry_knowledge === true
                   ? 'Industry Knowledge,'
@@ -86,15 +86,16 @@ const ApplicationModal = props => {
                   : ''
               }`}
               <br></br>
-              Subject most interested in: {currentApplication.subject}
+              <b>Subject most interested in:</b> {currentApplication.subject}
               <br></br>
-              Role: {currentApplication.role_name}
+              <b>Role:</b> {currentApplication.role_name}
               <br></br>
-              Other information: {currentApplication.other_info}
+              <b>Other information:</b> {currentApplication.other_info}
               <br></br>
-              Submission Date: {currentApplication.created_at.slice(0, 10)}
+              <b>Submission Date:</b>{' '}
+              {currentApplication.created_at.slice(0, 10)}
               <br></br>
-              Application Status: {currentApplication.validateStatus}
+              <b>Application Status:</b> {currentApplication.validateStatus}
             </div>
           ) : (
             <div>
