@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Breadcrumb,
+  Select,
+  Checkbox,
+  Row,
+  Col,
+  Typography,
+} from 'antd';
+
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+
 import './Styles/menteeApplication.css';
+
+const { Title } = Typography;
+
 const { Option } = Select;
 
 const initialFormValues = {
@@ -57,7 +73,7 @@ const Mentee = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -71,45 +87,39 @@ const Mentee = () => {
             <span>Mentee Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
-      <div className="application">
-        <Form onFinish={formSubmit}>
-          <div className="signUpForm">
-            <h1> Mentee Application </h1>
-            <h3>Please fill out your user information</h3>
-            <div className="questions">
-              <div className="infoDiv">
-                <div className="firstName">
-                  <div className="titleContainer">
-                    <h3>First Name*</h3>
-                  </div>
-                  <div classname="inputField">
-                    <Form.Item
-                      type="text"
-                      name="first_name"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'First name is required!',
-                        },
-                      ]}
-                      value={formValues.first_name}
-                      onChange={evt => {
-                        inputChange('first_name', evt.target.value);
-                      }}
-                    >
-                      <Input
-                        classname="titleInput"
-                        placeholder="Your First Name"
-                      />
-                    </Form.Item>
-                  </div>
-                </div>
-                <div className="lastName">
-                  <div className="titleContainer">
-                    <h3>Last Name*</h3>
-                  </div>
+      </Row>
+      <Row className="menteeApplication">
+        <Col span={24} className="applicationForm">
+          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
+            <Title className="menteeTitle" level={3}>
+              Mentee Application
+            </Title>
+            <Col span={18} offset={3}>
+              <Title level={5}>Please fill out your user information</Title>
+              <br />
+              <Row gutter={[16, 16]}>
+                <Col md={12} xs={24}>
                   <Form.Item
+                    label="First Name"
+                    type="text"
+                    name="first_name"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'First name is required!',
+                      },
+                    ]}
+                    value={formValues.first_name}
+                    onChange={evt => {
+                      inputChange('first_name', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Your First Name" />
+                  </Form.Item>
+                </Col>
+                <Col md={12} xs={24}>
+                  <Form.Item
+                    label="Last Name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -123,17 +133,13 @@ const Mentee = () => {
                       inputChange('last_name', evt.target.value);
                     }}
                   >
-                    <Input
-                      classname="titleInput"
-                      placeholder="Your Last Name"
-                    />
+                    <Input placeholder="Your Last Name" />
                   </Form.Item>
-                </div>
-                <div className="email">
-                  <div className="titleContainer">
-                    <h3>Email*</h3>
-                  </div>
+                </Col>
+
+                <Col span={24}>
                   <Form.Item
+                    label="Email"
                     type="email"
                     name="email"
                     rules={[
@@ -147,128 +153,128 @@ const Mentee = () => {
                       inputChange('email', evt.target.value);
                     }}
                   >
-                    <Input
-                      classname="titleInput"
-                      placeholder="Enter valid email"
-                    />
+                    <Input placeholder="Enter valid email" />
                   </Form.Item>
+                </Col>
+
+                <Col span={24}>
+                  <h3>Location:</h3>
+                </Col>
+                <Col style={{ paddingBottom: '7%' }}>
+                  <label>Are you located in the US? *</label>
+                </Col>
+                <Col offset={1}>
+                  <Radio.Group
+                    name="livesInUS"
+                    onChange={evt => {
+                      inputChange('country', evt.target.value);
+                    }}
+                    value={formValues.country}
+                  >
+                    <Radio value={'USA'}>Yes</Radio>
+                    <Radio value={'Other'}>No</Radio>
+                  </Radio.Group>
+                </Col>
+              </Row>
+
+              {formValues.country !== 'USA' && formValues.country !== '' && (
+                <Form.Item
+                  type="text"
+                  name="country"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Country is required!',
+                    },
+                  ]}
+                  value={formValues.country}
+                  onChange={evt => {
+                    inputChange('country', evt.target.value);
+                  }}
+                >
+                  <Input placeholder="Country" />
+                </Form.Item>
+              )}
+              {formValues.country === 'USA' && (
+                <div>
+                  <Form.Item
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={evt => {
+                      inputChange('city', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="City" />
+                  </Form.Item>
+                  <Select
+                    defaultValue="State"
+                    style={{ width: 200 }}
+                    onChange={evt => {
+                      inputChange('state', evt);
+                    }}
+                  >
+                    <Option value="Alabama">Alabama</Option>
+                    <Option value="Alaska">Alaska</Option>
+                    <Option value="Arizona">Arizona</Option>
+                    <Option value="Arkansas">Arkansas</Option>
+                    <Option value="California">California</Option>
+                    <Option value="Colorado">Colorado</Option>
+                    <Option value="Connecticut">Connecticut</Option>
+                    <Option value="Delaware">Delaware</Option>
+                    <Option value="DC">District of Columbia</Option>
+                    <Option value="Florida">Florida</Option>
+                    <Option value="Georgia">Georgia</Option>
+                    <Option value="Hawaii">Hawaii</Option>
+                    <Option value="Idaho">Idaho</Option>
+                    <Option value="Illinois">Illinois</Option>
+                    <Option value="Indiana">Indiana</Option>
+                    <Option value="Iowa">Iowa</Option>
+                    <Option value="Kansas">Kansas</Option>
+                    <Option value="Kentucky">Kentucky</Option>
+                    <Option value="Louisiana">Louisiana</Option>
+                    <Option value="Maine">Maine</Option>
+                    <Option value="Maryland">Maryland</Option>
+                    <Option value="Massachusetts">Massachusetts</Option>
+                    <Option value="Michigan">Michigan</Option>
+                    <Option value="Minnesota">Minnesota</Option>
+                    <Option value="Mississippi">Mississippi</Option>
+                    <Option value="Missouri">Missouri</Option>
+                    <Option value="Montana">Montana</Option>
+                    <Option value="Nebraska">Nebraska</Option>
+                    <Option value="Nevada">Nevada</Option>
+                    <Option value="New Hampshire">New Hampshire</Option>
+                    <Option value="New Jersey">New Jersey</Option>
+                    <Option value="New Mexico">New Mexico</Option>
+                    <Option value="New York">New York</Option>
+                    <Option value="North Carolina">North Carolina</Option>
+                    <Option value="North Dakota">North Dakota</Option>
+                    <Option value="Ohio">Ohio</Option>
+                    <Option value="Oklahoma">Oklahoma</Option>
+                    <Option value="Oregon">Oregon</Option>
+                    <Option value="Pennsylvania">Pennsylvania</Option>
+                    <Option value="Rhode Island">Rhode Island</Option>
+                    <Option value="South Carolina">South Carolina</Option>
+                    <Option value="South Dakota">South Dakota</Option>
+                    <Option value="Tennessee">Tennessee</Option>
+                    <Option value="Texas">Texas</Option>
+                    <Option value="Utah">Utah</Option>
+                    <Option value="Vermont">Vermont</Option>
+                    <Option value="Virginia">Virginia</Option>
+                    <Option value="Washington">Washington</Option>
+                    <Option value="West Virginia">West Virginia</Option>
+                    <Option value="Wisconsin">Wisconsin</Option>
+                    <Option value="Wyoming">Wyoming</Option>
+                  </Select>
                 </div>
-                <div className="location">
-                  <div className="titleContainer">
-                    <h3>Location*</h3>
-                  </div>
-                  <div>
-                    <label>Are you located in the US? *</label>
-                    <Radio.Group
-                      name="livesInUS"
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                      value={formValues.country}
-                    >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
-                  </div>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
-                    <Form.Item
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                    >
-                      <Input placeholder="Country" />
-                    </Form.Item>
-                  )}
-                  {formValues.country === 'USA' && (
-                    <div>
-                      <Form.Item
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required!',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={evt => {
-                          inputChange('city', evt.target.value);
-                        }}
-                      >
-                        <Input placeholder="City" />
-                      </Form.Item>
-                      <Select
-                        defaultValue="State"
-                        style={{ width: 200 }}
-                        onChange={evt => {
-                          inputChange('state', evt);
-                        }}
-                      >
-                        <Option value="Alabama">Alabama</Option>
-                        <Option value="Alaska">Alaska</Option>
-                        <Option value="Arizona">Arizona</Option>
-                        <Option value="Arkansas">Arkansas</Option>
-                        <Option value="California">California</Option>
-                        <Option value="Colorado">Colorado</Option>
-                        <Option value="Connecticut">Connecticut</Option>
-                        <Option value="Delaware">Delaware</Option>
-                        <Option value="DC">District of Columbia</Option>
-                        <Option value="Florida">Florida</Option>
-                        <Option value="Georgia">Georgia</Option>
-                        <Option value="Hawaii">Hawaii</Option>
-                        <Option value="Idaho">Idaho</Option>
-                        <Option value="Illinois">Illinois</Option>
-                        <Option value="Indiana">Indiana</Option>
-                        <Option value="Iowa">Iowa</Option>
-                        <Option value="Kansas">Kansas</Option>
-                        <Option value="Kentucky">Kentucky</Option>
-                        <Option value="Louisiana">Louisiana</Option>
-                        <Option value="Maine">Maine</Option>
-                        <Option value="Maryland">Maryland</Option>
-                        <Option value="Massachusetts">Massachusetts</Option>
-                        <Option value="Michigan">Michigan</Option>
-                        <Option value="Minnesota">Minnesota</Option>
-                        <Option value="Mississippi">Mississippi</Option>
-                        <Option value="Missouri">Missouri</Option>
-                        <Option value="Montana">Montana</Option>
-                        <Option value="Nebraska">Nebraska</Option>
-                        <Option value="Nevada">Nevada</Option>
-                        <Option value="New Hampshire">New Hampshire</Option>
-                        <Option value="New Jersey">New Jersey</Option>
-                        <Option value="New Mexico">New Mexico</Option>
-                        <Option value="New York">New York</Option>
-                        <Option value="North Carolina">North Carolina</Option>
-                        <Option value="North Dakota">North Dakota</Option>
-                        <Option value="Ohio">Ohio</Option>
-                        <Option value="Oklahoma">Oklahoma</Option>
-                        <Option value="Oregon">Oregon</Option>
-                        <Option value="Pennsylvania">Pennsylvania</Option>
-                        <Option value="Rhode Island">Rhode Island</Option>
-                        <Option value="South Carolina">South Carolina</Option>
-                        <Option value="South Dakota">South Dakota</Option>
-                        <Option value="Tennessee">Tennessee</Option>
-                        <Option value="Texas">Texas</Option>
-                        <Option value="Utah">Utah</Option>
-                        <Option value="Vermont">Vermont</Option>
-                        <Option value="Virginia">Virginia</Option>
-                        <Option value="Washington">Washington</Option>
-                        <Option value="West Virginia">West Virginia</Option>
-                        <Option value="Wisconsin">Wisconsin</Option>
-                        <Option value="Wyoming">Wyoming</Option>
-                      </Select>
-                    </div>
-                  )}
-                </div>
-              </div>
+              )}
+
               <hr />
 
               <br />
@@ -410,13 +416,16 @@ const Mentee = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-            </div>
-            <Button htmlType="submit" id="button">
-              Submit
-            </Button>
-          </div>
-        </Form>
-      </div>
+              <br />
+            </Col>
+            <Col offset={10}>
+              <Button htmlType="submit" id="button">
+                Submit
+              </Button>
+            </Col>
+          </Form>
+        </Col>
+      </Row>
     </div>
   );
 };
