@@ -92,7 +92,7 @@ const Mentor = () => {
               <Title level={5}>Fill out your user Information</Title>
               <br />
               <Row gutter={[16, 16]}>
-                <Col span={12}>
+                <Col md={12} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -111,7 +111,7 @@ const Mentor = () => {
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col md={12} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -152,7 +152,7 @@ const Mentor = () => {
                 </Col>
 
                 <Col span={24}>
-                  <h3>Location*:</h3>
+                  <h3>Location:</h3>
                 </Col>
                 <Col>
                   <label>Are you located in the U.S.?*</label>
