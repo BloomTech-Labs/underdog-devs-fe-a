@@ -154,10 +154,10 @@ const Mentor = () => {
                 <Col span={24}>
                   <h3>Location:</h3>
                 </Col>
-                <Col style={{ paddingBottom: '7%' }}>
+                <Col span={8}>
                   <label>Are you located in the U.S.?*</label>
                 </Col>
-                <Col offset={1}>
+                <Col span={6} style={{ paddingBottom: '5%' }}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
@@ -172,7 +172,7 @@ const Mentor = () => {
               </Row>
 
               <Row>
-                <Col span={12}>
+                <Col span={10}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
                       label="Country"
@@ -195,9 +195,9 @@ const Mentor = () => {
                 </Col>
               </Row>
               <Row>
-                <Col span={12}>
+                <Col span={24}>
                   {formValues.country === 'USA' && (
-                    <div>
+                    <div className="locationUS">
                       <Form.Item
                         label="City"
                         type="text"
@@ -217,9 +217,8 @@ const Mentor = () => {
                       </Form.Item>
 
                       <Select
-                        span={24}
                         defaultValue="State"
-                        style={{ width: 200 }}
+                        style={{ width: 250, paddingLeft: '5%' }}
                         onChange={evt => {
                           inputChange('state', evt);
                         }}

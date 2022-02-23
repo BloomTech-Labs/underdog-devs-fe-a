@@ -13,6 +13,9 @@
   color:#FFF !important;
   padding:1vh;
 }
+.locationUS{
+  display: flex;
+}
 #mentorSubmitButton{
   background-color: #003D71;
   color: #FFF;

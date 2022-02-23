@@ -13,6 +13,11 @@
     color:#FFF !important;
     padding:1vh;
   }
+
+  .locationUS {
+      display: flex;
+  }
+
   #menteeSubmitButton{
     background-color: #003D71;
     color: #FFF;
