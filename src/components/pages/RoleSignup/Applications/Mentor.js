@@ -154,10 +154,10 @@ const Mentor = () => {
                 <Col span={24}>
                   <h3>Location*:</h3>
                 </Col>
-                <Col style={{ overflowX: 'none' }}>
+                <Col>
                   <label>Are you located in the U.S.?*</label>
                 </Col>
-                <Col offset={3}>
+                <Col offset={1}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {

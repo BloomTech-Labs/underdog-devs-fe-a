@@ -15,7 +15,7 @@ import {
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
-import './Styles/menteeApplication';
+import './Styles/menteeApplication.css';
 const { Option } = Select;
 
 const initialFormValues = {
