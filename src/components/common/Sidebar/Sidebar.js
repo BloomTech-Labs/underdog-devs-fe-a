@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
@@ -19,9 +19,9 @@ import {
   AdminComponents,
 } from './SidebarComponents';
 
-import { DarkModeToggle, setTheme, getTheme } from '../DarkModeToggle';
 import { useEffect } from 'react';
 import { getAuthHeader } from '../../../api/index';
+import useTheme from '../../../hooks/useTheme';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -33,25 +33,11 @@ const Sidebar = props => {
   //  render will update on click of Menu.item (56-58), therefore rendering the correct component (203-205)
   const [render, updateRender] = useState(1);
   const { authState } = useOktaAuth();
-  const [toggle, setToggle] = useState(false);
+
+  const toggleTheme = useTheme();
 
   useEffect(() => {
     getAuthHeader(authState);
-  });
-
-  //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
-  useLayoutEffect(() => {
-    setTheme(getTheme());
-  }, [toggle]);
-
-  useLayoutEffect(() => {
-    if (localStorage.theme === 'dark') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small ant-switch-checked';
-    } else if (localStorage.theme === 'light') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small';
-    }
   });
 
   const onCollapse = collapsed => {
@@ -191,12 +177,7 @@ const Sidebar = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle
-                size="small"
-                id="darkModeToggle"
-                onChange={() => setToggle(!toggle)}
-                onClick={DarkModeToggle}
-              />
+              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
             </div>
           </Menu.Item>
         </Menu>
