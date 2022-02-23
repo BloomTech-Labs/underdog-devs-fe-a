@@ -9,3 +9,7 @@
   padding-right: 50%;
   padding-top: 20%;
 }
+#menteeModel p {
+ padding: 0%;
+ color: darkgreen;
+}
