@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Modal } from 'antd';
+import '../../../styles/styles.css';
 
 const ApplicationModal = props => {
   const [currentApplication, setCurrentApplication] = useState([]);
@@ -8,6 +9,7 @@ const ApplicationModal = props => {
 
   const handleOk = () => {
     setDisplayModal(false);
+    console.log(currentApplication);
   };
 
   const handleCancel = () => {
@@ -43,18 +45,16 @@ const ApplicationModal = props => {
         </Modal>
       ) : (
         <Modal
-          title={
-            <header className="applicationHeader">Review Application</header>
-          }
+          title="Application"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
-          footer={null}
+          className="modalStyle"
+          // footer={null}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
-            //Mentee Application Information
             <div>
               email: {currentApplication.email}
               <br></br>
@@ -98,20 +98,19 @@ const ApplicationModal = props => {
               Application Status: {currentApplication.validateStatus}
             </div>
           ) : (
-            //Mentor Application Information
             <div>
-              Email: {currentApplication.email}
+              <b>Email:</b> {currentApplication.email}
               <br></br>
-              Location: {currentApplication.city}, {currentApplication.state}{' '}
-              {currentApplication.country}
+              <b>Location:</b> {currentApplication.city},{' '}
+              {currentApplication.state} {currentApplication.country}
               <br></br>
-              Current Employer: {currentApplication.current_comp}
+              <b>Current Employer:</b> {currentApplication.current_comp}
               <br></br>
-              Tech Stack: {currentApplication.tech_stack}
+              <b>Tech Stack:</b> {currentApplication.tech_stack}
               <br></br>
-              Experience Level {currentApplication.experience_level}
+              <b>Experience Level:</b> {currentApplication.experience_level}
               <br></br>
-              Applicant wants to focus on:{' '}
+              <b>Applicant wants to focus on:</b>{' '}
               {`${
                 currentApplication.industry_knowledge === true
                   ? 'Industry Knowledge,'
@@ -122,13 +121,13 @@ const ApplicationModal = props => {
                   : ''
               }`}
               <br></br>
-              Role: {currentApplication.role_name}
+              <b>Role:</b> {currentApplication.role_name}
               <br></br>
-              Other information: {currentApplication.other_info}
+              <b>Other information:</b> {currentApplication.other_info}
               <br></br>
-              Submission Date: {currentApplication.created_at}
+              <b>Submission Date:</b> {currentApplication.created_at}
               <br></br>
-              Application Status: {currentApplication.validateStatus}
+              <b>Application Status:</b> {currentApplication.validateStatus}
             </div>
           )}
         </Modal>

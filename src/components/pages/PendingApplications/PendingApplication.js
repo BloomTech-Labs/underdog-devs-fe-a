@@ -40,8 +40,6 @@ const columns = [
     title: 'Application',
     dataIndex: 'button',
     key: 'button',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.date - b.date,
   },
 ];
 
@@ -65,8 +63,7 @@ const PendingApplications = () => {
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
               role: row.role_name,
-              date: Date(row.created_at),
-              notes: 'this is a note',
+              date: Date(row.created_at.slice).slice(0, 16),
               button: (
                 <Button
                   type="primary"
