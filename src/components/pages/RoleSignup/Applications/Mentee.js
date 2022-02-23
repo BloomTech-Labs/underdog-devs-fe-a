@@ -7,7 +7,7 @@ import {
   IdcardOutlined,
 } from '@ant-design/icons';
 import './Styles/application.css';
-import states from '../../../common/constants';
+import { states } from '../../../common/constants';
 const { Option } = Select;
 
 const initialFormValues = {
