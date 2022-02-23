@@ -318,7 +318,7 @@ const Mentor = () => {
               </Radio.Group>
 
               <br />
-              <div>
+              <Row>
                 <h3>
                   How else can you contribute in the progression of our
                   mentees?*
@@ -329,6 +329,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.job_help);
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Job Search Help
                   </Checkbox>
@@ -340,6 +341,7 @@ const Mentor = () => {
                         !formValues.industry_knowledge
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Tech Industry Coaching
                   </Checkbox>
@@ -351,11 +353,12 @@ const Mentor = () => {
                         !formValues.pair_programming
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Pair Programming / Coding Practice
                   </Checkbox>
                 </Checkbox.Group>
-              </div>
+              </Row>
               <br />
               <div>
                 <h3>Anything else you want us to know?</h3>

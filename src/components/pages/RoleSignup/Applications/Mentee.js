@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Breadcrumb,
-  Select,
-  Checkbox,
-  Row,
-} from 'antd';
+import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
-import './Styles/menteeApplication';
+import './Styles/menteeApplication.css';
 const { Option } = Select;
 
 const initialFormValues = {
@@ -66,7 +57,7 @@ const Mentee = () => {
 
   return (
     <div>
-      <Row style={{ padding: '3vh' }}>
+      <div className="breadcrumbs">
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -80,35 +71,39 @@ const Mentee = () => {
             <span>Mentee Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </Row>
+      </div>
       <div className="application">
         <Form onFinish={formSubmit}>
           <div className="signUpForm">
             <h1> Mentee Application </h1>
+            <h3>Please fill out your user information</h3>
             <div className="questions">
               <div className="infoDiv">
-                <h3>Please fill out your user information</h3>
-                <br />
                 <div className="firstName">
                   <div className="titleContainer">
                     <h3>First Name*</h3>
                   </div>
-                  <Form.Item
-                    type="text"
-                    name="first_name"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'First name is required!',
-                      },
-                    ]}
-                    value={formValues.first_name}
-                    onChange={evt => {
-                      inputChange('first_name', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your First Name" />
-                  </Form.Item>
+                  <div classname="inputField">
+                    <Form.Item
+                      type="text"
+                      name="first_name"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'First name is required!',
+                        },
+                      ]}
+                      value={formValues.first_name}
+                      onChange={evt => {
+                        inputChange('first_name', evt.target.value);
+                      }}
+                    >
+                      <Input
+                        classname="titleInput"
+                        placeholder="Your First Name"
+                      />
+                    </Form.Item>
+                  </div>
                 </div>
                 <div className="lastName">
                   <div className="titleContainer">
@@ -128,7 +123,10 @@ const Mentee = () => {
                       inputChange('last_name', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input
+                      classname="titleInput"
+                      placeholder="Your Last Name"
+                    />
                   </Form.Item>
                 </div>
                 <div className="email">
@@ -149,7 +147,10 @@ const Mentee = () => {
                       inputChange('email', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Enter valid email" />
+                    <Input
+                      classname="titleInput"
+                      placeholder="Enter valid email"
+                    />
                   </Form.Item>
                 </div>
                 <div className="location">
