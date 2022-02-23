@@ -9,7 +9,6 @@ const ApplicationModal = props => {
 
   const handleOk = () => {
     setDisplayModal(false);
-    console.log(currentApplication);
   };
 
   const handleCancel = () => {
@@ -51,7 +50,7 @@ const ApplicationModal = props => {
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          // footer={null}
+          footer={null}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
@@ -93,7 +92,7 @@ const ApplicationModal = props => {
               <br></br>
               Other information: {currentApplication.other_info}
               <br></br>
-              Submission Date: {currentApplication.created_at}
+              Submission Date: {currentApplication.created_at.slice(0, 10)}
               <br></br>
               Application Status: {currentApplication.validateStatus}
             </div>
@@ -125,7 +124,8 @@ const ApplicationModal = props => {
               <br></br>
               <b>Other information:</b> {currentApplication.other_info}
               <br></br>
-              <b>Submission Date:</b> {currentApplication.created_at}
+              <b>Submission Date:</b>{' '}
+              {currentApplication.created_at.slice(0, 10)}
               <br></br>
               <b>Application Status:</b> {currentApplication.validateStatus}
             </div>
