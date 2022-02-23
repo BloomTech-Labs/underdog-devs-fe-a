@@ -17,8 +17,8 @@ import {
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
-import './Styles/application.css';
-const { Title, Text } = Typography;
+import './Styles/mentorApplication.css';
+const { Title } = Typography;
 
 const { Option } = Select;
 
@@ -130,34 +130,34 @@ const Mentor = () => {
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </Col>
-              </Row>
-              <Col span={24}>
-                <Form.Item
-                  label="Email"
-                  type="email"
-                  name="email"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Email is required!',
-                    },
-                  ]}
-                  value={formValues.email}
-                  onChange={evt => {
-                    inputChange('email', evt.target.value);
-                  }}
-                >
-                  <Input placeholder="Enter valid email" />
-                </Form.Item>
-              </Col>
-              <Row style={{ margin: 4 }}>
+
+                <Col span={24}>
+                  <Form.Item
+                    label="Email"
+                    type="email"
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Email is required!',
+                      },
+                    ]}
+                    value={formValues.email}
+                    onChange={evt => {
+                      inputChange('email', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Enter valid email" />
+                  </Form.Item>
+                </Col>
+
                 <Col span={24}>
                   <h3>Location*:</h3>
                 </Col>
-                <Col>
+                <Col style={{ overflowX: 'none' }}>
                   <label>Are you located in the U.S.?*</label>
                 </Col>
-                <Col span={10} offset={3}>
+                <Col offset={3}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
@@ -192,6 +192,7 @@ const Mentor = () => {
               {formValues.country === 'USA' && (
                 <div>
                   <Form.Item
+                    label="City"
                     type="text"
                     name="city"
                     rules={[
@@ -272,64 +273,57 @@ const Mentor = () => {
 
               <hr />
               <br />
-              <div className="current_comp">
-                <h3>Current company/position?:</h3>
-                <Form.Item
-                  type="text"
-                  name="current_comp"
-                  value={formValues.current_comp}
-                  onChange={evt => {
-                    inputChange('current_comp', evt.target.value);
-                  }}
-                >
-                  <Input placeholder="Your answer" />
-                </Form.Item>
-              </div>
+              <h3>Current company/position?:</h3>
+              <Form.Item
+                type="text"
+                name="current_comp"
+                value={formValues.current_comp}
+                onChange={evt => {
+                  inputChange('current_comp', evt.target.value);
+                }}
+              >
+                <Input placeholder="Your answer" />
+              </Form.Item>
               <hr />
               <br />
-              <div className="tech_stack">
-                <h3>
-                  Which best describes your tech stack?* (Check all that apply)
-                </h3>
-                <Select
-                  defaultValue="- Select -"
-                  onChange={evt => {
-                    inputChange('subject', evt);
-                  }}
-                >
-                  <Option value="career">Career Development</Option>
-                  <Option value="frontend">Frontend Development</Option>
-                  <Option value="backend">Backend Development</Option>
-                  <Option value="design">Design UI/UX</Option>
-                  <Option value="IOS">IOS Development</Option>
-                  <Option value="android">Android Development</Option>
-                </Select>
-              </div>
+              <h3>
+                Which best describes your tech stack?* (Check all that apply)
+              </h3>
+              <Select
+                defaultValue="- Select -"
+                onChange={evt => {
+                  inputChange('subject', evt);
+                }}
+              >
+                <Option value="career">Career Development</Option>
+                <Option value="frontend">Frontend Development</Option>
+                <Option value="backend">Backend Development</Option>
+                <Option value="design">Design UI/UX</Option>
+                <Option value="IOS">IOS Development</Option>
+                <Option value="android">Android Development</Option>
+              </Select>
               <br />
-              <div className="experience_level">
-                <h3>What is your level of experience?*</h3>
-                <Radio.Group
-                  className="mentor-radio-group"
-                  name="experience_level"
-                  onChange={evt => {
-                    inputChange('experience_level', evt.target.value);
-                  }}
-                  value={formValues.experience_level}
-                >
-                  <div className="radio-space">
-                    <Radio value={'beginner'}>Beginner</Radio>
-                    <Radio value={'intermediate'}>Intermediate</Radio>
-                    <Radio value={'expert'}>Expert</Radio>
-                  </div>
-                </Radio.Group>
-              </div>
+
+              <h3>What is your level of experience?*</h3>
+              <Radio.Group
+                name="experience_level"
+                onChange={evt => {
+                  inputChange('experience_level', evt.target.value);
+                }}
+                value={formValues.experience_level}
+              >
+                <Radio value={'beginner'}>Beginner</Radio>
+                <Radio value={'intermediate'}>Intermediate</Radio>
+                <Radio value={'expert'}>Expert</Radio>
+              </Radio.Group>
+
               <br />
-              <div className="can_commit">
+              <div>
                 <h3>
                   How else can you contribute in the progression of our
                   mentees?*
                 </h3>
-                <Checkbox.Group className="radio-space">
+                <Checkbox.Group>
                   <Checkbox
                     value="job_help"
                     onChange={evt => {
@@ -363,7 +357,7 @@ const Mentor = () => {
                 </Checkbox.Group>
               </div>
               <br />
-              <div className="other_info">
+              <div>
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
                   type="text"
@@ -378,11 +372,12 @@ const Mentor = () => {
               </div>
               <br />
             </Col>
-
-            <Button htmlType="submit" id="button">
-              {' '}
-              Submit{' '}
-            </Button>
+            <Col offset={10}>
+              <Button htmlType="submit" id="mentorSubmitButton" size="large">
+                {' '}
+                Submit{' '}
+              </Button>
+            </Col>
           </Form>
         </Col>
       </Row>
