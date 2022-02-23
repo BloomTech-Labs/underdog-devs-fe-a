@@ -1,5 +1,4 @@
 import React from 'react';
-import CalendarFeature from '../Calendar';
 import PendingApplications from '../../pages/PendingApplications/PendingApplication';
 import UserManagement from '../../pages/UserManagement/UserManagement';
 import Dashboard from '../../pages/Dashboard/Dashboard';
