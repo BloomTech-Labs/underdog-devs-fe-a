@@ -3,11 +3,9 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './userReducer';
-import calendarReducer from './calendarReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  calendarReducer,
 });
 
 export default rootReducer;
