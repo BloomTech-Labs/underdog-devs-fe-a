@@ -29,6 +29,7 @@ import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import { Profile } from './components/pages/Profile';
+import Dashboard from './components/pages/Dashboard/Dashboard';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -80,24 +81,59 @@ function App() {
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
-          path="/pending"
-          component={PendingApproval}
-          allowRoles={[5]}
+          path="/dashboard"
+          component={() => (
+            <div>
+              <button onClick={() => history.push('/dashboard')}>
+                Dashboard
+              </button>
+              <button onClick={() => history.push('/allowed')}>Allowed</button>
+              <button onClick={() => history.push('/not-allowed')}>
+                Not Allowed
+              </button>
+            </div>
+          )}
+          loadingComponent={() => <div>Loading...</div>}
+          allowRoles={[1, 2, 3, 4]}
           redirect="/"
         />
 
         <PrivateRoute
-          path="/dashboard"
-          component={() => <div>Dashboard</div>}
-          allowRoles={[1, 2, 3, 4]}
-          redirect="/login"
+          path="/allowed"
+          component={() => (
+            <div>
+              <button onClick={() => history.push('/dashboard')}>
+                Dashboard
+              </button>
+              <button onClick={() => history.push('/allowed')}>Allowed</button>
+              <button onClick={() => history.push('/not-allowed')}>
+                Not Allowed
+              </button>
+            </div>
+          )}
+          loadingComponent={() => <div>Loading...</div>}
+          allowRoles={[1, 2, 3, 4, 5]}
+          redirect="/"
         />
 
         <PrivateRoute
-          path="/profile"
-          component={Profile}
-          allowRoles={[1, 2, 3, 4]}
-          redirect="/login"
+          path="/not-allowed"
+          component={() => (
+            <div>
+              <button onClick={() => history.push('/dashboard')}>
+                Dashboard
+              </button>
+              <button onClick={() => history.push('/allowed')}>Allowed</button>
+              <button onClick={() => history.push('/not-allowed')}>
+                Not Allowed
+              </button>
+
+              <div>IMPORTANT INFORMATION</div>
+            </div>
+          )}
+          loadingComponent={() => <div>Loading...</div>}
+          allowRoles={[]}
+          redirect="/dashboard"
         />
 
         <SecureRoute
@@ -105,7 +141,6 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
 
         <Route component={NotFoundPage} />
