@@ -92,7 +92,7 @@ const Mentor = () => {
               <Title level={5}>Fill out your user Information</Title>
               <br />
               <Row gutter={[16, 16]}>
-                <Col span={12}>
+                <Col md={12} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -111,7 +111,7 @@ const Mentor = () => {
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col md={12} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -152,12 +152,12 @@ const Mentor = () => {
                 </Col>
 
                 <Col span={24}>
-                  <h3>Location*:</h3>
+                  <h3>Location:</h3>
                 </Col>
-                <Col>
+                <Col span={8}>
                   <label>Are you located in the U.S.?*</label>
                 </Col>
-                <Col offset={1}>
+                <Col span={6} style={{ paddingBottom: '5%' }}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
@@ -171,105 +171,115 @@ const Mentor = () => {
                 </Col>
               </Row>
 
-              {formValues.country !== 'USA' && formValues.country !== '' && (
-                <Form.Item
-                  type="text"
-                  name="country"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Country is required!',
-                    },
-                  ]}
-                  value={formValues.country}
-                  onChange={evt => {
-                    inputChange('country', evt.target.value);
-                  }}
-                >
-                  <Input placeholder="Country" />
-                </Form.Item>
-              )}
-              {formValues.country === 'USA' && (
-                <div>
-                  <Form.Item
-                    label="City"
-                    type="text"
-                    name="city"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'City is required!',
-                      },
-                    ]}
-                    value={formValues.city}
-                    onChange={evt => {
-                      inputChange('city', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="City" />
-                  </Form.Item>
-                  <Select
-                    defaultValue="State"
-                    style={{ width: 200 }}
-                    onChange={evt => {
-                      inputChange('state', evt);
-                    }}
-                  >
-                    <Option value="none">--None--</Option>
-                    <Option value="Alabama">Alabama</Option>
-                    <Option value="Alaska">Alaska</Option>
-                    <Option value="Arizona">Arizona</Option>
-                    <Option value="Arkansas">Arkansas</Option>
-                    <Option value="California">California</Option>
-                    <Option value="Colorado">Colorado</Option>
-                    <Option value="Connecticut">Connecticut</Option>
-                    <Option value="Delaware">Delaware</Option>
-                    <Option value="DC">District of Columbia</Option>
-                    <Option value="Florida">Florida</Option>
-                    <Option value="Georgia">Georgia</Option>
-                    <Option value="Hawaii">Hawaii</Option>
-                    <Option value="Idaho">Idaho</Option>
-                    <Option value="Illinois">Illinois</Option>
-                    <Option value="Indiana">Indiana</Option>
-                    <Option value="Iowa">Iowa</Option>
-                    <Option value="Kansas">Kansas</Option>
-                    <Option value="Kentucky">Kentucky</Option>
-                    <Option value="Louisiana">Louisiana</Option>
-                    <Option value="Maine">Maine</Option>
-                    <Option value="Maryland">Maryland</Option>
-                    <Option value="Massachusetts">Massachusetts</Option>
-                    <Option value="Michigan">Michigan</Option>
-                    <Option value="Minnesota">Minnesota</Option>
-                    <Option value="Mississippi">Mississippi</Option>
-                    <Option value="Missouri">Missouri</Option>
-                    <Option value="Montana">Montana</Option>
-                    <Option value="Nebraska">Nebraska</Option>
-                    <Option value="Nevada">Nevada</Option>
-                    <Option value="New Hampshire">New Hampshire</Option>
-                    <Option value="New Jersey">New Jersey</Option>
-                    <Option value="New Mexico">New Mexico</Option>
-                    <Option value="New York">New York</Option>
-                    <Option value="North Carolina">North Carolina</Option>
-                    <Option value="North Dakota">North Dakota</Option>
-                    <Option value="Ohio">Ohio</Option>
-                    <Option value="Oklahoma">Oklahoma</Option>
-                    <Option value="Oregon">Oregon</Option>
-                    <Option value="Pennsylvania">Pennsylvania</Option>
-                    <Option value="Rhode Island">Rhode Island</Option>
-                    <Option value="South Carolina">South Carolina</Option>
-                    <Option value="South Dakota">South Dakota</Option>
-                    <Option value="Tennessee">Tennessee</Option>
-                    <Option value="Texas">Texas</Option>
-                    <Option value="Utah">Utah</Option>
-                    <Option value="Vermont">Vermont</Option>
-                    <Option value="Virginia">Virginia</Option>
-                    <Option value="Washington">Washington</Option>
-                    <Option value="West Virginia">West Virginia</Option>
-                    <Option value="Wisconsin">Wisconsin</Option>
-                    <Option value="Wyoming">Wyoming</Option>
-                  </Select>
-                </div>
-              )}
+              <Row>
+                <Col span={10}>
+                  {formValues.country !== 'USA' && formValues.country !== '' && (
+                    <Form.Item
+                      label="Country"
+                      type="text"
+                      name="country"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Country is required!',
+                        },
+                      ]}
+                      value={formValues.country}
+                      onChange={evt => {
+                        inputChange('country', evt.target.value);
+                      }}
+                    >
+                      <Input placeholder="Your Country" />
+                    </Form.Item>
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  {formValues.country === 'USA' && (
+                    <div className="locationUS">
+                      <Form.Item
+                        label="City"
+                        type="text"
+                        name="city"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'City is required!',
+                          },
+                        ]}
+                        value={formValues.city}
+                        onChange={evt => {
+                          inputChange('city', evt.target.value);
+                        }}
+                      >
+                        <Input placeholder="Your City" />
+                      </Form.Item>
+
+                      <Select
+                        defaultValue="State"
+                        style={{ width: 250, paddingLeft: '5%' }}
+                        onChange={evt => {
+                          inputChange('state', evt);
+                        }}
+                      >
+                        <Option value="none">--None--</Option>
+                        <Option value="Alabama">Alabama</Option>
+                        <Option value="Alaska">Alaska</Option>
+                        <Option value="Arizona">Arizona</Option>
+                        <Option value="Arkansas">Arkansas</Option>
+                        <Option value="California">California</Option>
+                        <Option value="Colorado">Colorado</Option>
+                        <Option value="Connecticut">Connecticut</Option>
+                        <Option value="Delaware">Delaware</Option>
+                        <Option value="DC">District of Columbia</Option>
+                        <Option value="Florida">Florida</Option>
+                        <Option value="Georgia">Georgia</Option>
+                        <Option value="Hawaii">Hawaii</Option>
+                        <Option value="Idaho">Idaho</Option>
+                        <Option value="Illinois">Illinois</Option>
+                        <Option value="Indiana">Indiana</Option>
+                        <Option value="Iowa">Iowa</Option>
+                        <Option value="Kansas">Kansas</Option>
+                        <Option value="Kentucky">Kentucky</Option>
+                        <Option value="Louisiana">Louisiana</Option>
+                        <Option value="Maine">Maine</Option>
+                        <Option value="Maryland">Maryland</Option>
+                        <Option value="Massachusetts">Massachusetts</Option>
+                        <Option value="Michigan">Michigan</Option>
+                        <Option value="Minnesota">Minnesota</Option>
+                        <Option value="Mississippi">Mississippi</Option>
+                        <Option value="Missouri">Missouri</Option>
+                        <Option value="Montana">Montana</Option>
+                        <Option value="Nebraska">Nebraska</Option>
+                        <Option value="Nevada">Nevada</Option>
+                        <Option value="New Hampshire">New Hampshire</Option>
+                        <Option value="New Jersey">New Jersey</Option>
+                        <Option value="New Mexico">New Mexico</Option>
+                        <Option value="New York">New York</Option>
+                        <Option value="North Carolina">North Carolina</Option>
+                        <Option value="North Dakota">North Dakota</Option>
+                        <Option value="Ohio">Ohio</Option>
+                        <Option value="Oklahoma">Oklahoma</Option>
+                        <Option value="Oregon">Oregon</Option>
+                        <Option value="Pennsylvania">Pennsylvania</Option>
+                        <Option value="Rhode Island">Rhode Island</Option>
+                        <Option value="South Carolina">South Carolina</Option>
+                        <Option value="South Dakota">South Dakota</Option>
+                        <Option value="Tennessee">Tennessee</Option>
+                        <Option value="Texas">Texas</Option>
+                        <Option value="Utah">Utah</Option>
+                        <Option value="Vermont">Vermont</Option>
+                        <Option value="Virginia">Virginia</Option>
+                        <Option value="Washington">Washington</Option>
+                        <Option value="West Virginia">West Virginia</Option>
+                        <Option value="Wisconsin">Wisconsin</Option>
+                        <Option value="Wyoming">Wyoming</Option>
+                      </Select>
+                    </div>
+                  )}
+                </Col>
+              </Row>
 
               <hr />
               <br />
@@ -284,11 +294,10 @@ const Mentor = () => {
               >
                 <Input placeholder="Your answer" />
               </Form.Item>
+              <br />
               <hr />
               <br />
-              <h3>
-                Which best describes your tech stack?* (Check all that apply)
-              </h3>
+              <h3>Which best describes your tech stack?*</h3>
               <Select
                 defaultValue="- Select -"
                 onChange={evt => {
@@ -318,7 +327,7 @@ const Mentor = () => {
               </Radio.Group>
 
               <br />
-              <div>
+              <Row>
                 <h3>
                   How else can you contribute in the progression of our
                   mentees?*
@@ -329,6 +338,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.job_help);
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Job Search Help
                   </Checkbox>
@@ -340,6 +350,7 @@ const Mentor = () => {
                         !formValues.industry_knowledge
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Tech Industry Coaching
                   </Checkbox>
@@ -351,11 +362,12 @@ const Mentor = () => {
                         !formValues.pair_programming
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Pair Programming / Coding Practice
                   </Checkbox>
                 </Checkbox.Group>
-              </div>
+              </Row>
               <br />
               <div>
                 <h3>Anything else you want us to know?</h3>

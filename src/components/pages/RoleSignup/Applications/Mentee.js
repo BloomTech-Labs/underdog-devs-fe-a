@@ -9,13 +9,20 @@ import {
   Select,
   Checkbox,
   Row,
+  Col,
+  Typography,
 } from 'antd';
+
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+
 import './Styles/menteeApplication.css';
+
+const { Title } = Typography;
+
 const { Option } = Select;
 
 const initialFormValues = {
@@ -81,19 +88,21 @@ const Mentee = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
-      <div className="application">
-        <Form onFinish={formSubmit}>
-          <div className="signUpForm">
-            <h1> Mentee Application </h1>
-            <div className="questions">
-              <div className="infoDiv">
-                <h3>Please fill out your user information</h3>
-                <br />
-                <div className="firstName">
-                  <div className="titleContainer">
-                    <h3>First Name*</h3>
-                  </div>
+      <Row className="menteeApplication">
+        <Col span={24} className="applicationForm">
+          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
+            <Title className="menteeTitle" level={3}>
+              Mentee Application
+            </Title>
+            <Col span={18} offset={3}>
+              <Title style={{ paddingBottom: '5%' }} level={5}>
+                Please fill out your user information
+              </Title>
+
+              <Row gutter={[16, 16]}>
+                <Col md={12} xs={24}>
                   <Form.Item
+                    label="First Name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -109,12 +118,10 @@ const Mentee = () => {
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
-                </div>
-                <div className="lastName">
-                  <div className="titleContainer">
-                    <h3>Last Name*</h3>
-                  </div>
+                </Col>
+                <Col md={12} xs={24}>
                   <Form.Item
+                    label="Last Name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -130,12 +137,11 @@ const Mentee = () => {
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
-                </div>
-                <div className="email">
-                  <div className="titleContainer">
-                    <h3>Email*</h3>
-                  </div>
+                </Col>
+
+                <Col span={24}>
                   <Form.Item
+                    label="Email"
                     type="email"
                     name="email"
                     rules={[
@@ -151,26 +157,32 @@ const Mentee = () => {
                   >
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
-                </div>
-                <div className="location">
-                  <div className="titleContainer">
-                    <h3>Location*</h3>
-                  </div>
-                  <div>
-                    <label>Are you located in the US? *</label>
-                    <Radio.Group
-                      name="livesInUS"
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                      value={formValues.country}
-                    >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
-                  </div>
+                </Col>
+
+                <Col span={24}>
+                  <h3>Location:</h3>
+                </Col>
+                <Col span={8}>
+                  <label>Are you located in the US? *</label>
+                </Col>
+                <Col span={6} style={{ paddingBottom: '5%' }}>
+                  <Radio.Group
+                    name="livesInUS"
+                    onChange={evt => {
+                      inputChange('country', evt.target.value);
+                    }}
+                    value={formValues.country}
+                  >
+                    <Radio value={'USA'}>Yes</Radio>
+                    <Radio value={'Other'}>No</Radio>
+                  </Radio.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={10}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
+                      label="Country"
                       type="text"
                       name="country"
                       rules={[
@@ -184,12 +196,17 @@ const Mentee = () => {
                         inputChange('country', evt.target.value);
                       }}
                     >
-                      <Input placeholder="Country" />
+                      <Input placeholder="Your Country" />
                     </Form.Item>
                   )}
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
                   {formValues.country === 'USA' && (
-                    <div>
+                    <div className="locationUS">
                       <Form.Item
+                        label="City"
                         type="text"
                         name="city"
                         rules={[
@@ -203,15 +220,16 @@ const Mentee = () => {
                           inputChange('city', evt.target.value);
                         }}
                       >
-                        <Input placeholder="City" />
+                        <Input placeholder="Your City" />
                       </Form.Item>
                       <Select
                         defaultValue="State"
-                        style={{ width: 200 }}
+                        style={{ width: 250, paddingLeft: '5%' }}
                         onChange={evt => {
                           inputChange('state', evt);
                         }}
                       >
+                        <label>State</label>
                         <Option value="Alabama">Alabama</Option>
                         <Option value="Alaska">Alaska</Option>
                         <Option value="Arizona">Arizona</Option>
@@ -266,62 +284,72 @@ const Mentee = () => {
                       </Select>
                     </div>
                   )}
-                </div>
-              </div>
+                </Col>
+              </Row>
+
               <hr />
 
-              <br />
-              <div className="formerly_incarcerated">
-                <h3>
-                  Which criteria represents you for membership? Check All That
-                  Apply
-                </h3>
-                <Checkbox.Group style={{ width: '100%' }}>
-                  <Checkbox
-                    value="formerly_incarcerated"
+              <Row style={{ paddingTop: '3%' }}>
+                <Col>
+                  <h3>
+                    Which criteria represents you for membership? (Select all
+                    that apply)
+                  </h3>
+                </Col>
+                <Col>
+                  <Checkbox.Group style={{ width: '100%' }}>
+                    <Checkbox
+                      value="formerly_incarcerated"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.formerly_incarcerated
+                        );
+                      }}
+                      style={{ margin: '1.8rem' }}
+                    >
+                      Formerly incarcerated
+                    </Checkbox>
+                    <Checkbox
+                      value="low_income"
+                      onChange={evt => {
+                        inputChange(evt.target.value, !formValues.low_income);
+                      }}
+                      style={{ margin: '1.8rem' }}
+                    >
+                      From a lower socioeconomic background
+                    </Checkbox>
+                    <Checkbox
+                      value="underrepresented_group"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.underrepresented_group
+                        );
+                      }}
+                      style={{ margin: '1.8rem' }}
+                    >
+                      From an underrepresented group
+                    </Checkbox>
+                  </Checkbox.Group>
+                </Col>
+                <Col span={24}>
+                  <h3>Please list your convictions if comfortable</h3>
+                </Col>
+                <Col span={24}>
+                  <Form.Item
+                    type="text"
+                    name="list_convictions"
+                    value={formValues.list_convictions}
                     onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.formerly_incarcerated
-                      );
+                      inputChange('list_convictions', evt.target.value);
                     }}
                   >
-                    Formerly incarcerated
-                  </Checkbox>
-                  <Checkbox
-                    value="low_income"
-                    onChange={evt => {
-                      inputChange(evt.target.value, !formValues.low_income);
-                    }}
-                  >
-                    From a lower socioeconomic background
-                  </Checkbox>
-                  <Checkbox
-                    value="underrepresented_group"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.underrepresented_group
-                      );
-                    }}
-                  >
-                    From an underrepresented group
-                  </Checkbox>
-                </Checkbox.Group>
-              </div>
-              <div className="list_convictions">
-                <h3>Please list your convictions if comfortable</h3>
-                <Form.Item
-                  type="text"
-                  name="list_convictions"
-                  value={formValues.list_convictions}
-                  onChange={evt => {
-                    inputChange('list_convictions', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </div>
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </Col>
+              </Row>
+
               <hr />
               <br />
               <div className="tech_stack">
@@ -406,13 +434,16 @@ const Mentee = () => {
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </div>
-            </div>
-            <Button htmlType="submit" id="button">
-              Submit
-            </Button>
-          </div>
-        </Form>
-      </div>
+              <br />
+            </Col>
+            <Col offset={10}>
+              <Button htmlType="submit" id="button">
+                Submit
+              </Button>
+            </Col>
+          </Form>
+        </Col>
+      </Row>
     </div>
   );
 };
