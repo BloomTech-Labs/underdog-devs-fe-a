@@ -369,7 +369,7 @@ const Mentor = () => {
                 </Checkbox.Group>
               </Col>
               <br />
-              <Col>
+              <Col span={24}>
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
                   type="text"
