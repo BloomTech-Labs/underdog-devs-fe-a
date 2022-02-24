@@ -369,7 +369,7 @@ const Mentor = () => {
                 </Checkbox.Group>
               </Col>
               <br />
-              <div>
+              <Col>
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
                   type="text"
@@ -381,7 +381,7 @@ const Mentor = () => {
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
-              </div>
+              </Col>
               <br />
             </Col>
             <Col offset={10}>
