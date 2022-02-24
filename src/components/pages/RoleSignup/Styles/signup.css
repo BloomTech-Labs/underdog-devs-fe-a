@@ -35,6 +35,11 @@
   padding: 3vh;
 }
 
+.ant-btn.ant-btn-primary.ant-btn-block.button {
+
+    background-color: #003d71;
+}
+
 @media only screen and (max-width: 880px) {
   .col1,
   .col2 {

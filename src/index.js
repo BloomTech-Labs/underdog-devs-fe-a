@@ -141,6 +141,7 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
+        <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
 
         <Route component={NotFoundPage} />

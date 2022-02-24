@@ -19,6 +19,8 @@ function NavBarLanding(props) {
     'https://joeschmoe.io/api/v1/random'
   );
 
+  console.log(props);
+
   return (
     <>
       <Nav>
@@ -33,7 +35,7 @@ function NavBarLanding(props) {
         </NavLink>
         <Bars />
 
-        {props.user.profile.name ? (
+        {props.user.userInfo.name ? (
           <div></div>
         ) : (
           <div>
@@ -57,13 +59,13 @@ function NavBarLanding(props) {
           </div>
         )}
 
-        {!props.user.profile.name ? (
+        {!props.user.userInfo.name ? (
           <div></div>
         ) : (
           <div className="userInfo-and-profilePic">
             <div className="userInfo">
               {/* Username State Goes Here */}
-              <div className="username"> {props.user.profile.name} </div>
+              <div className="username"> {props.user.userInfo.name} </div>
               {/* Role State Goes Here */}
               <div className="userRole">Role</div>
             </div>
