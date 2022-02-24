@@ -1,57 +1,55 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 
-import { getRole } from '../../../api/index';
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
 
-import { getUserProfile } from '../../../state/actions';
+import { authenticateUser } from '../../../state/actions/auth/authenticateUser';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
-function HomeContainer({ getUserProfile, LoadingComponent }) {
+function HomeContainer({
+  LoadingComponent,
+  isAuthenticated,
+  profile_id,
+  userProfile,
+  authenticateUser,
+  getProfile,
+}) {
   const { authState, authService } = useOktaAuth();
-  const [userInfo, setUserInfo] = useState(null);
-  // eslint-disable-next-line
-  const [memoAuthService] = useMemo(() => [authService], []);
 
   useEffect(() => {
-    let isSubscribed = true;
-
-    memoAuthService
-      .getUser()
-      .then(async info => {
-        // if user is authenticated we can use the authService to snag some user info.
-        // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
-        const role_id = await getRole(info.sub);
-        if (isSubscribed) {
-          setUserInfo({ ...info, role: role_id });
-        }
-      })
-      .catch(err => {
-        isSubscribed = false;
-        return setUserInfo(null);
-      });
-    return () => (isSubscribed = false);
-  }, [memoAuthService]);
+    if (!isAuthenticated) {
+      authenticateUser(authState, authService);
+    }
+  }, [authState, authService, isAuthenticated, authenticateUser]);
 
   useEffect(() => {
-    getUserProfile(userInfo);
-  });
+    if (profile_id) {
+      getProfile(profile_id);
+    }
+  }, [profile_id, getProfile]);
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
-      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
-        <PendingApproval userInfo={userInfo} authService={authService} />
+      {isAuthenticated && !userProfile && <LoadingComponent />}
+      {isAuthenticated && userProfile && userProfile.role_id === 5 ? (
+        <PendingApproval userInfo={userProfile} authService={authService} />
       ) : (
-        <Sidebar userInfo={userInfo} authService={authService} />
+        <Sidebar userInfo={userProfile} authService={authService} />
       )}
     </>
   );
 }
 
-const mapActionsToProps = {
-  getUserProfile: getUserProfile,
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.user.auth.isAuthenticated,
+    profile_id: state.user.auth.profile_id,
+    userProfile: state.user.userProfile,
+  };
 };
 
-export default connect(null, mapActionsToProps)(HomeContainer);
+export default connect(mapStateToProps, { authenticateUser, getProfile })(
+  HomeContainer
+);
