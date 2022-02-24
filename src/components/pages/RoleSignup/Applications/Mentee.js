@@ -297,7 +297,9 @@ const Mentee = () => {
                   </h3>
                 </Col>
                 <Col>
-                  <Checkbox.Group style={{ width: '100%' }}>
+                  <Checkbox.Group
+                    style={{ display: 'flex', justifyContent: 'space-evenly' }}
+                  >
                     <Checkbox
                       value="formerly_incarcerated"
                       onChange={evt => {
@@ -385,9 +387,11 @@ const Mentee = () => {
                   <Radio value={'expert'}>Expert</Radio>
                 </Radio.Group>
               </div>
-              <div className="your_hope">
+              <Col span={24}>
                 <h3>What are you hoping to gain from the community?*</h3>
-                <Checkbox.Group style={{ width: '100%' }}>
+                <Checkbox.Group
+                  style={{ display: 'flex', justifyContent: 'space-evenly' }}
+                >
                   <Checkbox
                     value="job_help"
                     onChange={evt => {
@@ -419,9 +423,9 @@ const Mentee = () => {
                     Pair programming / coding practice
                   </Checkbox>
                 </Checkbox.Group>
-              </div>
+              </Col>
 
-              <div className="other_info">
+              <Col span={24}>
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
                   type="text"
@@ -433,7 +437,7 @@ const Mentee = () => {
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
-              </div>
+              </Col>
               <br />
             </Col>
             <Col offset={10}>
