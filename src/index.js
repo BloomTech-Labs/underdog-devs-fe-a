@@ -82,58 +82,9 @@ function App() {
 
         <PrivateRoute
           path="/dashboard"
-          component={() => (
-            <div>
-              <button onClick={() => history.push('/dashboard')}>
-                Dashboard
-              </button>
-              <button onClick={() => history.push('/allowed')}>Allowed</button>
-              <button onClick={() => history.push('/not-allowed')}>
-                Not Allowed
-              </button>
-            </div>
-          )}
-          loadingComponent={() => <div>Loading...</div>}
+          component={Dashboard}
           allowRoles={[1, 2, 3, 4]}
-          redirect="/"
-        />
-
-        <PrivateRoute
-          path="/allowed"
-          component={() => (
-            <div>
-              <button onClick={() => history.push('/dashboard')}>
-                Dashboard
-              </button>
-              <button onClick={() => history.push('/allowed')}>Allowed</button>
-              <button onClick={() => history.push('/not-allowed')}>
-                Not Allowed
-              </button>
-            </div>
-          )}
-          loadingComponent={() => <div>Loading...</div>}
-          allowRoles={[1, 2, 3, 4, 5]}
-          redirect="/"
-        />
-
-        <PrivateRoute
-          path="/not-allowed"
-          component={() => (
-            <div>
-              <button onClick={() => history.push('/dashboard')}>
-                Dashboard
-              </button>
-              <button onClick={() => history.push('/allowed')}>Allowed</button>
-              <button onClick={() => history.push('/not-allowed')}>
-                Not Allowed
-              </button>
-
-              <div>IMPORTANT INFORMATION</div>
-            </div>
-          )}
-          loadingComponent={() => <div>Loading...</div>}
-          allowRoles={[]}
-          redirect="/dashboard"
+          redirect="/login"
         />
 
         <SecureRoute
@@ -141,7 +92,6 @@ function App() {
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
 
         <Route component={NotFoundPage} />
