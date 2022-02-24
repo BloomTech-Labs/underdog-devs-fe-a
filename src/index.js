@@ -68,7 +68,7 @@ function App() {
   return (
     <Security {...config} onAuthRequired={authHandler}>
       {/* <Navbar /> */}
-      <NavBarLanding />
+      {/* <NavBarLanding /> */}
 
       <Switch>
         <Route path="/landing" component={Landing} />

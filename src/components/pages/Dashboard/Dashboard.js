@@ -96,7 +96,7 @@ const Dashboard = props => {
   return (
     <div className="dashboard-container">
       <h2>Tickets Dashboard</h2>
-      <div classname="dashboard-statistics">
+      <div className="dashboard-statistics">
         <Row gutter={16}>
           <Col span={5}>
             <Statistic title="Escalation Tickets" value={3} />
@@ -109,7 +109,7 @@ const Dashboard = props => {
           </Col>
         </Row>
       </div>
-      <div classname="dashboard-table-container">
+      <div className="dashboard-table-container">
         <Table dataSource={data} columns={columns} onChange={onChange} />
       </div>
     </div>

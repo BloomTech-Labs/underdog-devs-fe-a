@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
+import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
@@ -19,39 +20,24 @@ import {
   AdminComponents,
 } from './SidebarComponents';
 
-import { DarkModeToggle, setTheme, getTheme } from '../DarkModeToggle';
 import { useEffect } from 'react';
 import { getAuthHeader } from '../../../api/index';
+import useTheme from '../../../hooks/useTheme';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const Sidebar = props => {
-  const { authService } = props;
-
+const Sidebar = ({ authService, userProfile }) => {
+  const { role_id } = userProfile;
   const [collapsed, setCollapsed] = useState(false);
   //  render will update on click of Menu.item (56-58), therefore rendering the correct component (203-205)
   const [render, updateRender] = useState(1);
   const { authState } = useOktaAuth();
-  const [toggle, setToggle] = useState(false);
+
+  const toggleTheme = useTheme();
 
   useEffect(() => {
     getAuthHeader(authState);
-  });
-
-  //Sets the default theme and position of the toggle when the component is mounted and on when the toggle is changed.
-  useLayoutEffect(() => {
-    setTheme(getTheme());
-  }, [toggle]);
-
-  useLayoutEffect(() => {
-    if (localStorage.theme === 'dark') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small ant-switch-checked';
-    } else if (localStorage.theme === 'light') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small';
-    }
   });
 
   const onCollapse = collapsed => {
@@ -69,21 +55,20 @@ const Sidebar = props => {
   };
 
   // This is determining which role is currently in session, implemented further in ternary statements in the return clause
-  const role = localStorage.role_id;
   const isUserMentee = () => {
-    if (role === '4') {
+    if (role_id === '4') {
       return true;
     }
     return false;
   };
   const isUserMentor = () => {
-    if (role === '3') {
+    if (role_id === '3') {
       return true;
     }
     return false;
   };
   const isUserAdmin = () => {
-    if (role <= '2' && role >= '1') {
+    if (role_id <= '2' && role_id >= '1') {
       return true;
     }
     return false;
@@ -191,12 +176,7 @@ const Sidebar = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle
-                size="small"
-                id="darkModeToggle"
-                onChange={() => setToggle(!toggle)}
-                onClick={DarkModeToggle}
-              />
+              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
             </div>
           </Menu.Item>
         </Menu>
@@ -215,8 +195,10 @@ const Sidebar = props => {
     </Layout>
   );
 };
-
-export default Sidebar;
+const mapStateToProps = state => {
+  return { userProfile: state.user.userProfile };
+};
+export default connect(mapStateToProps)(Sidebar);
 
 //Template for further role specific Menu.Items
 //
