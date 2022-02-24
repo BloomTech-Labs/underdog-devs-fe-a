@@ -13,6 +13,8 @@ export const authenticateUser = (authState, authService) => dispatch => {
         const profile_id = parsedJWT.sub; // sub = profile_id from Okta JWT
         dispatch(setProfileId(profile_id));
         dispatch(setIsAuthenticated(true));
+
+        localStorage.setItem('token', authState.idToken);
       })
       .catch(error => {
         dispatch(setFetchError(error));
