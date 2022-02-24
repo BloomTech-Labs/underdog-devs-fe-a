@@ -1,31 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { SecureRoute, useOktaAuth } from '@okta/okta-react';
 import { useHistory } from 'react-router-dom';
-import { getRole } from '../../api';
+import { SecureRoute, useOktaAuth } from '@okta/okta-react';
+import { authenticateUser } from '../../state/actions/auth/authenticateUser';
+import { getProfile } from '../../state/actions/userProfile/getProfile';
 
 const PrivateRoute = ({
   component: Component,
+  loadingComponent: LoadingComponent = <></>, // TODO: create general page loading component
   path,
-  allowRoles,
   redirect,
-  profile,
+  allowRoles, // should be an array of allowed role_id's i.e. [3, 4]
+  isAuthenticated,
+  profile_id,
+  userProfile,
+  dispatch,
   ...rest
 }) => {
-  const [pending, setPending] = useState(true);
   const { push } = useHistory();
+  const { authState, authService } = useOktaAuth();
+  const [loading, setLoading] = useState(true); // hiding contents
 
   useEffect(() => {
-    if (!allowRoles.includes(profile.role)) push(redirect);
-    else setPending(false);
-  }, [allowRoles, redirect, profile.role, push]);
+    if (Object.keys(userProfile).length === 0) {
+      if (profile_id === null) {
+        if (authState.isPending || authState.isAuthenticated) {
+          dispatch(authenticateUser(authState, authService));
+        } else {
+          push(redirect);
+        }
+      } else {
+        dispatch(getProfile(profile_id));
+      }
+    } else if (allowRoles.includes(userProfile.role_id)) {
+      setLoading(false);
+    } else {
+      push(redirect);
+    }
+  }, [
+    isAuthenticated,
+    userProfile,
+    profile_id,
+    allowRoles,
+    redirect,
+    dispatch,
+    authService,
+    authState,
+    push,
+  ]);
 
-  if (pending) return <></>;
-
-  return <SecureRoute path={path} component={() => Component({ ...rest })} />;
+  return loading ? (
+    <LoadingComponent />
+  ) : (
+    <SecureRoute path={path} component={() => Component({ ...rest })} />
+  );
 };
 
-// get userProfile from redux
-const mapStateToProps = state => ({ profile: state.profile });
+const mapStateToProps = state => ({
+  isAuthenticated: state.user.auth.isAuthenticated,
+  profile_id: state.user.auth.profile_id,
+  userProfile: state.user.userProfile,
+});
 
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);
