@@ -327,7 +327,7 @@ const Mentor = () => {
               </Radio.Group>
 
               <br />
-              <Row>
+              <Col>
                 <h3>
                   How else can you contribute in the progression of our
                   mentees?*
@@ -367,7 +367,7 @@ const Mentor = () => {
                     Pair Programming / Coding Practice
                   </Checkbox>
                 </Checkbox.Group>
-              </Row>
+              </Col>
               <br />
               <div>
                 <h3>Anything else you want us to know?</h3>
