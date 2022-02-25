@@ -90,7 +90,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'First name is required',
+                        message: 'First name is required.',
                       },
                     ]}
                     value={formValues.first_name}
@@ -111,7 +111,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Last name is required',
+                        message: 'Last name is required.',
                       },
                     ]}
                     value={formValues.last_name}
@@ -132,11 +132,11 @@ const Mentee = () => {
                     rules={[
                       {
                         type: 'email',
-                        message: 'Please input a valid Email',
+                        message: 'Please input a valid e-mail address.',
                       },
                       {
                         required: true,
-                        message: 'Please input your Email',
+                        message: 'E-mail is required.',
                       },
                     ]}
                     value={formValues.email}
@@ -144,7 +144,7 @@ const Mentee = () => {
                       inputChange('email', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Enter valid email" />
+                    <Input placeholder="Email address" />
                   </Form.Item>
                 </div>
                 <div className="location">
@@ -152,23 +152,27 @@ const Mentee = () => {
                     <h3>Location*</h3>
                   </div>
                   <div>
-                    <label>Are you located in the US?</label>
-                    <Radio.Group
-                      name="livesInUS"
+                    <label>Are you located in the US? *</label>
+                    <Form.Item
+                      name="country"
                       rules={[
                         {
                           required: true,
-                          message: 'Please tell us whether you live in the US',
+                          message: 'Please select whether your live in the US.',
                         },
                       ]}
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                      value={formValues.country}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
+                      <Radio.Group
+                        name="livesInUS"
+                        onChange={evt => {
+                          inputChange('country', evt.target.value);
+                        }}
+                        value={formValues.country}
+                      >
+                        <Radio value={'USA'}>Yes</Radio>
+                        <Radio value={'Your Country'}>No</Radio>
+                      </Radio.Group>
+                    </Form.Item>
                   </div>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
@@ -177,7 +181,7 @@ const Mentee = () => {
                       rules={[
                         {
                           required: true,
-                          message: 'Country is required',
+                          message: 'Country is required!',
                         },
                       ]}
                       value={formValues.country}
@@ -196,7 +200,7 @@ const Mentee = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'City is required',
+                            message: 'City is required.',
                           },
                         ]}
                         value={formValues.city}
@@ -206,71 +210,75 @@ const Mentee = () => {
                       >
                         <Input placeholder="City" />
                       </Form.Item>
-                      <Select
+                      <Form.Item
+                        name="state"
                         rules={[
                           {
                             required: true,
-                            message: 'State is required',
+                            message: 'State is required.',
                           },
                         ]}
-                        defaultValue="State"
-                        style={{ width: 200 }}
-                        onChange={evt => {
-                          inputChange('state', evt);
-                        }}
                       >
-                        <Option value="Alabama">Alabama</Option>
-                        <Option value="Alaska">Alaska</Option>
-                        <Option value="Arizona">Arizona</Option>
-                        <Option value="Arkansas">Arkansas</Option>
-                        <Option value="California">California</Option>
-                        <Option value="Colorado">Colorado</Option>
-                        <Option value="Connecticut">Connecticut</Option>
-                        <Option value="Delaware">Delaware</Option>
-                        <Option value="DC">District of Columbia</Option>
-                        <Option value="Florida">Florida</Option>
-                        <Option value="Georgia">Georgia</Option>
-                        <Option value="Hawaii">Hawaii</Option>
-                        <Option value="Idaho">Idaho</Option>
-                        <Option value="Illinois">Illinois</Option>
-                        <Option value="Indiana">Indiana</Option>
-                        <Option value="Iowa">Iowa</Option>
-                        <Option value="Kansas">Kansas</Option>
-                        <Option value="Kentucky">Kentucky</Option>
-                        <Option value="Louisiana">Louisiana</Option>
-                        <Option value="Maine">Maine</Option>
-                        <Option value="Maryland">Maryland</Option>
-                        <Option value="Massachusetts">Massachusetts</Option>
-                        <Option value="Michigan">Michigan</Option>
-                        <Option value="Minnesota">Minnesota</Option>
-                        <Option value="Mississippi">Mississippi</Option>
-                        <Option value="Missouri">Missouri</Option>
-                        <Option value="Montana">Montana</Option>
-                        <Option value="Nebraska">Nebraska</Option>
-                        <Option value="Nevada">Nevada</Option>
-                        <Option value="New Hampshire">New Hampshire</Option>
-                        <Option value="New Jersey">New Jersey</Option>
-                        <Option value="New Mexico">New Mexico</Option>
-                        <Option value="New York">New York</Option>
-                        <Option value="North Carolina">North Carolina</Option>
-                        <Option value="North Dakota">North Dakota</Option>
-                        <Option value="Ohio">Ohio</Option>
-                        <Option value="Oklahoma">Oklahoma</Option>
-                        <Option value="Oregon">Oregon</Option>
-                        <Option value="Pennsylvania">Pennsylvania</Option>
-                        <Option value="Rhode Island">Rhode Island</Option>
-                        <Option value="South Carolina">South Carolina</Option>
-                        <Option value="South Dakota">South Dakota</Option>
-                        <Option value="Tennessee">Tennessee</Option>
-                        <Option value="Texas">Texas</Option>
-                        <Option value="Utah">Utah</Option>
-                        <Option value="Vermont">Vermont</Option>
-                        <Option value="Virginia">Virginia</Option>
-                        <Option value="Washington">Washington</Option>
-                        <Option value="West Virginia">West Virginia</Option>
-                        <Option value="Wisconsin">Wisconsin</Option>
-                        <Option value="Wyoming">Wyoming</Option>
-                      </Select>
+                        <Select
+                          placeholder="State"
+                          style={{ width: 200 }}
+                          onChange={evt => {
+                            inputChange('state', evt);
+                          }}
+                        >
+                          <Option value="Alabama">Alabama</Option>
+                          <Option value="Alaska">Alaska</Option>
+                          <Option value="Arizona">Arizona</Option>
+                          <Option value="Arkansas">Arkansas</Option>
+                          <Option value="California">California</Option>
+                          <Option value="Colorado">Colorado</Option>
+                          <Option value="Connecticut">Connecticut</Option>
+                          <Option value="Delaware">Delaware</Option>
+                          <Option value="DC">District of Columbia</Option>
+                          <Option value="Florida">Florida</Option>
+                          <Option value="Georgia">Georgia</Option>
+                          <Option value="Hawaii">Hawaii</Option>
+                          <Option value="Idaho">Idaho</Option>
+                          <Option value="Illinois">Illinois</Option>
+                          <Option value="Indiana">Indiana</Option>
+                          <Option value="Iowa">Iowa</Option>
+                          <Option value="Kansas">Kansas</Option>
+                          <Option value="Kentucky">Kentucky</Option>
+                          <Option value="Louisiana">Louisiana</Option>
+                          <Option value="Maine">Maine</Option>
+                          <Option value="Maryland">Maryland</Option>
+                          <Option value="Massachusetts">Massachusetts</Option>
+                          <Option value="Michigan">Michigan</Option>
+                          <Option value="Minnesota">Minnesota</Option>
+                          <Option value="Mississippi">Mississippi</Option>
+                          <Option value="Missouri">Missouri</Option>
+                          <Option value="Montana">Montana</Option>
+                          <Option value="Nebraska">Nebraska</Option>
+                          <Option value="Nevada">Nevada</Option>
+                          <Option value="New Hampshire">New Hampshire</Option>
+                          <Option value="New Jersey">New Jersey</Option>
+                          <Option value="New Mexico">New Mexico</Option>
+                          <Option value="New York">New York</Option>
+                          <Option value="North Carolina">North Carolina</Option>
+                          <Option value="North Dakota">North Dakota</Option>
+                          <Option value="Ohio">Ohio</Option>
+                          <Option value="Oklahoma">Oklahoma</Option>
+                          <Option value="Oregon">Oregon</Option>
+                          <Option value="Pennsylvania">Pennsylvania</Option>
+                          <Option value="Rhode Island">Rhode Island</Option>
+                          <Option value="South Carolina">South Carolina</Option>
+                          <Option value="South Dakota">South Dakota</Option>
+                          <Option value="Tennessee">Tennessee</Option>
+                          <Option value="Texas">Texas</Option>
+                          <Option value="Utah">Utah</Option>
+                          <Option value="Vermont">Vermont</Option>
+                          <Option value="Virginia">Virginia</Option>
+                          <Option value="Washington">Washington</Option>
+                          <Option value="West Virginia">West Virginia</Option>
+                          <Option value="Wisconsin">Wisconsin</Option>
+                          <Option value="Wyoming">Wyoming</Option>
+                        </Select>
+                      </Form.Item>
                     </div>
                   )}
                 </div>
@@ -280,18 +288,10 @@ const Mentee = () => {
               <br />
               <div className="formerly_incarcerated">
                 <h3>
-                  Which criteria represents you for membership? Check All That
-                  Apply*
+                  Which criteria represents your criteria for membership? Check
+                  all that apply
                 </h3>
-                <Checkbox.Group
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Membership criteria are required',
-                    },
-                  ]}
-                  style={{ width: '100%' }}
-                >
+                <Checkbox.Group style={{ width: '100%' }}>
                   <Checkbox
                     value="formerly_incarcerated"
                     onChange={evt => {
@@ -344,88 +344,98 @@ const Mentee = () => {
                   Which best describes the tech path you are working towards or
                   are interested in?*
                 </h3>
-                <Select
+                <Form.Item
+                  name="tech_stack"
                   rules={[
                     {
                       required: true,
-                      message: 'Tech path is required',
+                      message: 'Please select a path.',
                     },
                   ]}
-                  defaultValue="- Select -"
-                  onChange={evt => {
-                    inputChange('subject', evt);
-                  }}
                 >
-                  <Option value="career">Career Development</Option>
-                  <Option value="frontend">Frontend Development</Option>
-                  <Option value="backend">Backend Development</Option>
-                  <Option value="design">Design UI/UX</Option>
-                  <Option value="iOS">iOS Development</Option>
-                  <Option value="android">Android Development</Option>
-                </Select>
+                  <Select
+                    placeholder="- Select -"
+                    onChange={evt => {
+                      inputChange('subject', evt);
+                    }}
+                  >
+                    <Option value="career">Career Development</Option>
+                    <Option value="frontend">Frontend Development</Option>
+                    <Option value="backend">Backend Development</Option>
+                    <Option value="design">Design UI/UX</Option>
+                    <Option value="iOS">iOS Development</Option>
+                    <Option value="android">Android Development</Option>
+                  </Select>
+                </Form.Item>
               </div>
               <div className="experience_level">
                 <h3>What is your level of experience?*</h3>
-                <Radio.Group
+                <Form.Item
                   name="experience_level"
                   rules={[
                     {
                       required: true,
-                      message: 'Please select an experience level',
+                      message: 'Please select an experience level.',
                     },
                   ]}
-                  onChange={evt => {
-                    inputChange('experience_level', evt.target.value);
-                  }}
-                  value={formValues.experience_level}
                 >
-                  <Radio value={'beginner'}>Beginner</Radio>
-                  <Radio value={'intermediate'}>Intermediate</Radio>
-                  <Radio value={'expert'}>Expert</Radio>
-                </Radio.Group>
+                  <Radio.Group
+                    name="experience_level"
+                    onChange={evt => {
+                      inputChange('experience_level', evt.target.value);
+                    }}
+                    value={formValues.experience_level}
+                  >
+                    <Radio value={'beginner'}>Beginner</Radio>
+                    <Radio value={'intermediate'}>Intermediate</Radio>
+                    <Radio value={'expert'}>Expert</Radio>
+                  </Radio.Group>
+                </Form.Item>
               </div>
               <div className="your_hope">
                 <h3>What are you hoping to gain from the community?*</h3>
-                <Checkbox.Group
+                <Form.Item
+                  name="your_hope"
                   rules={[
                     {
                       required: true,
-                      message: 'Please make a selection',
+                      message: 'Please select a topic of focus',
                     },
                   ]}
-                  style={{ width: '100%' }}
                 >
-                  <Checkbox
-                    value="job_help"
-                    onChange={evt => {
-                      inputChange(evt.target.value, !formValues.job_help);
-                    }}
-                  >
-                    Job search help
-                  </Checkbox>
-                  <Checkbox
-                    value="industry_knowledge"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.industry_knowledge
-                      );
-                    }}
-                  >
-                    Learn more about the tech industry
-                  </Checkbox>
-                  <Checkbox
-                    value="pair_programming"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.pair_programming
-                      );
-                    }}
-                  >
-                    Pair programming / coding practice
-                  </Checkbox>
-                </Checkbox.Group>
+                  <Checkbox.Group style={{ width: '100%' }}>
+                    <Checkbox
+                      value="job_help"
+                      onChange={evt => {
+                        inputChange(evt.target.value, !formValues.job_help);
+                      }}
+                    >
+                      Job search help
+                    </Checkbox>
+                    <Checkbox
+                      value="industry_knowledge"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.industry_knowledge
+                        );
+                      }}
+                    >
+                      Learn more about the tech industry
+                    </Checkbox>
+                    <Checkbox
+                      value="pair_programming"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.pair_programming
+                        );
+                      }}
+                    >
+                      Pair programming / coding practice
+                    </Checkbox>
+                  </Checkbox.Group>
+                </Form.Item>
               </div>
 
               <div className="other_info">
