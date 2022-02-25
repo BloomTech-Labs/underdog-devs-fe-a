@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import ApplicationModal from './ApplicationModal';
 
-import { Table, Button } from 'antd';
+import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 
 const columns = [
@@ -62,8 +62,17 @@ const PendingApplications = () => {
             res.data.map(row => ({
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
-              role: row.role_name,
-              date: Date(row.created_at.slice).slice(0, 16),
+              role: (
+                <Tag color={row.role_name === 'mentor' ? 'blue' : 'orange'}>
+                  {row.role_name}
+                </Tag>
+              ),
+              date:
+                Date(row.created_at.slice).slice(0, 3) +
+                '. ' +
+                Date(row.created_at.slice).slice(4, 9) +
+                ', ' +
+                Date(row.created_at.slice).slice(10, 16),
               button: (
                 <Button
                   type="primary"
