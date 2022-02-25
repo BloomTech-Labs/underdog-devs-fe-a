@@ -61,7 +61,6 @@ const ApplicationModal = ({
         console.log(err);
       });
     e.preventDefault();
-    // setNotesValue(notes);
     setHideForm(true);
   };
 
@@ -226,9 +225,6 @@ const ApplicationModal = ({
             </div>
           )}
           <form className="notesField" onSubmit={addNote} hidden={hideForm}>
-            <label htmlFor="application_notes">
-              <b>Application notes:</b>
-            </label>
             <textarea
               id="application_notes"
               type="text"
