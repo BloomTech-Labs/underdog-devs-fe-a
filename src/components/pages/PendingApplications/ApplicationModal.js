@@ -36,7 +36,7 @@ const ApplicationModal = ({
     setDisplayModal(false);
     setProfileId('');
     setNotesValue(notes);
-    setNotesValue(notes);
+    setHideForm(true);
   };
 
   const displayForm = () => {
@@ -225,10 +225,9 @@ const ApplicationModal = ({
             <label htmlFor="application_notes">
               <b>Application notes</b>
             </label>
-            <input
+            <textarea
               id="application_notes"
               type="text"
-              size="50"
               name="application_notes"
               placeholder="Write Notes Here"
               value={notesValue.application_notes}

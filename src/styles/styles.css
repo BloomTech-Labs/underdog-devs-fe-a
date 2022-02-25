@@ -40,5 +40,6 @@ div.ant-card-head  {
     color: #003D71;
 }
 .applicationNotes{
-    padding-bottom: 25%;
+   width:max-content;
+   height:max-content;
 }
