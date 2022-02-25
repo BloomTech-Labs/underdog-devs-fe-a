@@ -1,24 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Modal } from 'antd';
-// import '../../../styles/styles.css';
+import '../../../styles/styles.css';
 import './PendingApplication.css';
 
 const ApplicationModal = ({
   profileId,
   setProfileId,
-  displayModal,
   setDisplayModal,
+  displayModal,
 }) => {
+  const notes = { application_notes: '' };
+
   const [currentApplication, setCurrentApplication] = useState({});
+  const [notesValue, setNotesValue] = useState(notes);
+  const [hideForm, setHideForm] = useState(true);
+
+  const updateModal = () => {
+    axiosWithAuth()
+      .get(`/application/profileId/${profileId}`)
+      .then(res => {
+        setCurrentApplication(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const handleOk = () => {
     setDisplayModal(false);
+    setDisplayModal(true);
   };
 
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
+    setNotesValue(notes);
+    setNotesValue(notes);
+  };
+
+  const displayForm = () => {
+    setHideForm(false);
+  };
+  const handleChange = e => {
+    setNotesValue({
+      ...notesValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addNote = e => {
+    axiosWithAuth()
+      .put(
+        `/application/update-notes/${currentApplication.application_id}`,
+        notesValue
+      )
+      .then(res => {
+        updateModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    e.preventDefault();
+    // setNotesValue(notes);
+    setHideForm(true);
   };
 
   useEffect(() => {
@@ -27,6 +71,7 @@ const ApplicationModal = ({
         .get(`/application/profileId/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data);
+          setNotesValue(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -120,6 +165,10 @@ const ApplicationModal = ({
               <p>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button onClick={displayForm}>Edit Notes</button>
             </div>
           ) : (
             <div className="mentorModal">
@@ -166,8 +215,28 @@ const ApplicationModal = ({
               <p>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button onClick={displayForm}>Edit Notes</button>
             </div>
           )}
+          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
+            <label htmlFor="application_notes">
+              <b>Application notes</b>
+            </label>
+            <input
+              id="application_notes"
+              type="text"
+              size="50"
+              name="application_notes"
+              placeholder="Write Notes Here"
+              value={notesValue.application_notes}
+              onChange={handleChange}
+              className="applicationNotes"
+            />
+            <button>Save notes</button>
+          </form>
         </Modal>
       )}
     </>
