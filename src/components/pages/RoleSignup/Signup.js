@@ -16,7 +16,7 @@ const Signup = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -54,7 +54,7 @@ const Signup = () => {
                 style={{ height: 100 }}
               />
 
-              <Link to="/menteeapplication">
+              <Link to="/apply/mentee">
                 <Button className="button" type="primary" block>
                   MENTEE
                 </Button>
@@ -95,7 +95,7 @@ const Signup = () => {
                 style={{ height: 100 }}
               />
 
-              <Link to="/mentorapplication">
+              <Link to="/apply/mentor">
                 <Button className="button" type="primary" block>
                   MENTOR
                 </Button>

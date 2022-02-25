@@ -24,10 +24,10 @@ function NavBarLanding(props) {
   return (
     <>
       <Nav>
-        <NavLink to="/landing">
+        <NavLink to="/">
           <img
             src={logo}
-            to={`/landing`}
+            to={`/`}
             alt="underdog devs logo"
             height="68"
             style={{ marginLeft: '1vw' }}

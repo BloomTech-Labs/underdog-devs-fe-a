@@ -62,9 +62,9 @@ const Mentee = () => {
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
           </Breadcrumb.Item>
-          <Breadcrumb.Item href="/signup">
+          <Breadcrumb.Item href="/apply">
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
