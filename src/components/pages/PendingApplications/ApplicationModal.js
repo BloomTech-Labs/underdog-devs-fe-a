@@ -168,7 +168,9 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-              <button onClick={displayForm}>Edit Notes</button>
+              <button onClick={displayForm} hidden={!hideForm}>
+                Edit Notes
+              </button>
             </div>
           ) : (
             <div className="mentorModal">
@@ -218,12 +220,14 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-              <button onClick={displayForm}>Edit Notes</button>
+              <button onClick={displayForm} hidden={!hideForm}>
+                Edit Notes
+              </button>
             </div>
           )}
           <form className="notesField" onSubmit={addNote} hidden={hideForm}>
             <label htmlFor="application_notes">
-              <b>Application notes</b>
+              <b>Application notes:</b>
             </label>
             <textarea
               id="application_notes"
