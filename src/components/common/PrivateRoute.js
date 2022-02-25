@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { SecureRoute, useOktaAuth } from '@okta/okta-react';
 import { authenticateUser } from '../../state/actions/auth/authenticateUser';
 import { getProfile } from '../../state/actions/userProfile/getProfile';
+import LoadingComponent from './LoadingComponent';
 
 const PrivateRoute = ({
   component: Component,
-  loadingComponent: LoadingComponent = <></>, // TODO: create general page loading component
   path,
   redirect,
   allowRoles, // should be an array of allowed role_id's i.e. [3, 4]
