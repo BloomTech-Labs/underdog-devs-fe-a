@@ -35,23 +35,23 @@ function NavBarLanding(props) {
         </NavLink>
         <Bars />
 
-        {props.user.userInfo.name ? (
+        {props.user.userInfo?.name ? (
           <div></div>
         ) : (
           <div>
             <NavItems>
               <NavMenu>
-                <NavLink to={`/mentor`}>Mentor</NavLink>
-                <NavLink to={`/mentee`}>Mentee</NavLink>
-                <NavLink to={`/about`}> About Us</NavLink>
-                <NavLink to={`/donate`}>Donate</NavLink>
+                <NavLink to={`/apply/mentor`}>Mentor</NavLink>
+                <NavLink to={`/apply/mentee`}>Mentee</NavLink>
+                <NavLink to={`#`}> About Us</NavLink>
+                <NavLink to={`#`}>Donate</NavLink>
               </NavMenu>
 
               <NavBtn>
                 <NavBtnLink to={`/login`} key="login">
                   Login
                 </NavBtnLink>
-                <NavBtnLink to={`/signup`} key="signup">
+                <NavBtnLink to={`/apply`} key="signup">
                   Signup
                 </NavBtnLink>
               </NavBtn>
@@ -59,13 +59,13 @@ function NavBarLanding(props) {
           </div>
         )}
 
-        {!props.user.userInfo.name ? (
+        {!props.user.userInfo?.name ? (
           <div></div>
         ) : (
           <div className="userInfo-and-profilePic">
             <div className="userInfo">
               {/* Username State Goes Here */}
-              <div className="username"> {props.user.userInfo.name} </div>
+              <div className="username"> {props.user.userInfo?.name} </div>
               {/* Role State Goes Here */}
               <div className="userRole">Role</div>
             </div>

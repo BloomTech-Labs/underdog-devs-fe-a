@@ -69,23 +69,15 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      {/* <Navbar /> */}
-      {/* <NavBarLanding /> */}
+      <Navbar />
 
       <Switch>
-        <Route path="/" exact component={Landing} />
+        {/* <Route path="/" exact component={Landing} /> // leave commented out until routing refactor is complete */}
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/implicit/callback" component={LoginCallback} />
-
-        <PrivateRoute
-          path="/dashboard"
-          component={Dashboard}
-          allowRoles={[1, 2, 3, 4]}
-          redirect="/login"
-        />
 
         <SecureRoute
           path="/"
