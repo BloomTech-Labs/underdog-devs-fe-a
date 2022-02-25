@@ -5,22 +5,38 @@ import { useOktaAuth } from '@okta/okta-react';
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
 
-import { authenticateUser } from '../../../state/actions';
+import { authenticateUser } from '../../../state/actions/auth/authenticateUser';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
-function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
+function HomeContainer({
+  LoadingComponent,
+  isAuthenticated,
+  profile_id,
+  userProfile,
+  authenticateUser,
+  getProfile,
+}) {
   const { authState, authService } = useOktaAuth();
 
   useEffect(() => {
-    dispatch(authenticateUser(authService));
-  }, [dispatch, authService]);
+    if (!isAuthenticated) {
+      authenticateUser(authState, authService);
+    }
+  }, [authState, authService, isAuthenticated, authenticateUser]);
+
+  useEffect(() => {
+    if (profile_id) {
+      getProfile(profile_id);
+    }
+  }, [profile_id, getProfile]);
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
-      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
-        <PendingApproval userInfo={userInfo} authService={authService} />
+      {isAuthenticated && !userProfile && <LoadingComponent />}
+      {isAuthenticated && userProfile && userProfile.role_id === 5 ? (
+        <PendingApproval userInfo={userProfile} authService={authService} />
       ) : (
-        <Sidebar userInfo={userInfo} authService={authService} />
+        <Sidebar userInfo={userProfile} authService={authService} />
       )}
     </>
   );
@@ -28,8 +44,12 @@ function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.userInfo,
+    isAuthenticated: state.user.auth.isAuthenticated,
+    profile_id: state.user.auth.profile_id,
+    userProfile: state.user.userProfile,
   };
 };
 
-export default connect(mapStateToProps)(HomeContainer);
+export default connect(mapStateToProps, { authenticateUser, getProfile })(
+  HomeContainer
+);
