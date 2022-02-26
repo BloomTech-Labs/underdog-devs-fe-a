@@ -219,7 +219,11 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-              <button onClick={displayForm} hidden={!hideForm}>
+              <button
+                className="note-button-color"
+                onClick={displayForm}
+                hidden={!hideForm}
+              >
                 Edit Notes
               </button>
             </div>
@@ -234,7 +238,7 @@ const ApplicationModal = ({
               onChange={handleChange}
               className="applicationNotes"
             />
-            <button>Save notes</button>
+            <button className="note-button-color">Save Notes</button>
           </form>
         </Modal>
       )}
