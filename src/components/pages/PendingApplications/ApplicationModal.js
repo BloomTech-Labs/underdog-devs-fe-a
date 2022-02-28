@@ -103,7 +103,7 @@ const ApplicationModal = ({
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
-            <div id="menteeModal">
+            <div>
               <p>
                 <b>Email:</b> {currentApplication.email}
               </p>
@@ -172,7 +172,7 @@ const ApplicationModal = ({
               </button>
             </div>
           ) : (
-            <div className="mentorModal">
+            <div>
               <p>
                 <b>Email:</b> {currentApplication.email}
               </p>
