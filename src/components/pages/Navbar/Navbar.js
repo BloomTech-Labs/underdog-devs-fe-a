@@ -5,13 +5,18 @@ import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
+import NavBarLanding from '../NavBarLanding/NavBarLanding';
 
 const { Header } = Layout;
 
-const Navbar = props => {
+const Navbar = ({ isAuthenticated, userProfile }) => {
   const [profilePic, setProfilePic] = useState(
     'https://joeschmoe.io/api/v1/random'
   );
+
+  if (!isAuthenticated) {
+    return <NavBarLanding />;
+  }
 
   return (
     <Layout className="layout">
@@ -25,13 +30,11 @@ const Navbar = props => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
-          {!props.user.profile.name ? (
-            <div></div>
-          ) : (
+          {Object.keys(userProfile).length && (
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
                 {/* Username State Goes Here */}
-                <div className="username"> {props.user.profile.name} </div>
+                <div className="username">{userProfile?.first_name}</div>
                 {/* Role State Goes Here */}
                 <div className="userRole">Role</div>
               </div>
@@ -48,7 +51,8 @@ const Navbar = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    userProfile: state.user.userProfile,
+    isAuthenticated: state.user.auth.isAuthenticated,
   };
 };
 

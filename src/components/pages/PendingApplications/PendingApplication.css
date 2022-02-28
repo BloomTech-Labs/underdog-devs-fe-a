@@ -9,6 +9,12 @@
   padding-right: 50%;
   padding-top: 20%;
 }
+.note-button-color {
+  background: #003D71;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+}
 #menteeModel p {
  padding: 0%;
  color: darkgreen;
