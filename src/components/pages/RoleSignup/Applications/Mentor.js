@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Form, Input, Button, Radio, Breadcrumb, Select, Checkbox } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Breadcrumb,
+  Select,
+  Checkbox,
+  Row,
+  Col,
+  Typography,
+} from 'antd';
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
-import './Styles/application.css';
+import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
+const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
@@ -55,7 +67,7 @@ const Mentor = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -69,20 +81,20 @@ const Mentor = () => {
             <span>Mentor Application</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
-      <div className="application" id="mentorapplication">
-        <Form onFinish={formSubmit}>
-          <div className="signUpForm">
-            <h1> Mentor Application </h1>
-            <div className="questions">
-              <div className="infoDiv">
-                <h3>Please fill out your user information</h3>
-                <br />
-                <div className="firstName">
-                  <div className="titleContainer">
-                    <h3>Full Name*:</h3>
-                  </div>
+      </Row>
+      <Row className="mentorApplication">
+        <Col span={24} className="applicationForm">
+          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
+            <Title className="mentorTitle" level={3}>
+              Mentor Application
+            </Title>
+            <Col span={18} offset={3}>
+              <Title level={5}>Fill out your user Information</Title>
+              <br />
+              <Row gutter={[16, 16]}>
+                <Col md={12} xs={24}>
                   <Form.Item
+                    label="First Name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -98,12 +110,10 @@ const Mentor = () => {
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
-                </div>
-                <div className="lastName">
-                  <div className="titleContainer">
-                    <h3>Last Name*</h3>
-                  </div>
+                </Col>
+                <Col md={12} xs={24}>
                   <Form.Item
+                    label="Last Name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -119,12 +129,11 @@ const Mentor = () => {
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
-                </div>
-                <div className="email">
-                  <div className="titleContainer">
-                    <h3>Email*:</h3>
-                  </div>
+                </Col>
+
+                <Col span={24}>
                   <Form.Item
+                    label="Email"
                     type="email"
                     name="email"
                     rules={[
@@ -140,26 +149,33 @@ const Mentor = () => {
                   >
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
-                </div>
-                <div className="location">
-                  <div className="titleContainer">
-                    <h3>Location*:</h3>
-                  </div>
-                  <div>
-                    <label>Are you located in the U.S.?*</label>
-                    <Radio.Group
-                      name="livesInUS"
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                      value={formValues.country}
-                    >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
-                  </div>
+                </Col>
+
+                <Col span={24}>
+                  <h3>Location:</h3>
+                </Col>
+                <Col span={8}>
+                  <label>Are you located in the U.S.?*</label>
+                </Col>
+                <Col span={6} style={{ paddingBottom: '5%' }}>
+                  <Radio.Group
+                    name="livesInUS"
+                    onChange={evt => {
+                      inputChange('country', evt.target.value);
+                    }}
+                    value={formValues.country}
+                  >
+                    <Radio value={'USA'}>Yes</Radio>
+                    <Radio value={'Other'}>No</Radio>
+                  </Radio.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col span={10}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
+                      label="Country"
                       type="text"
                       name="country"
                       rules={[
@@ -173,12 +189,17 @@ const Mentor = () => {
                         inputChange('country', evt.target.value);
                       }}
                     >
-                      <Input placeholder="Country" />
+                      <Input placeholder="Your Country" />
                     </Form.Item>
                   )}
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
                   {formValues.country === 'USA' && (
-                    <div>
+                    <div className="locationUS">
                       <Form.Item
+                        label="City"
                         type="text"
                         name="city"
                         rules={[
@@ -192,11 +213,12 @@ const Mentor = () => {
                           inputChange('city', evt.target.value);
                         }}
                       >
-                        <Input placeholder="City" />
+                        <Input placeholder="Your City" />
                       </Form.Item>
+
                       <Select
                         defaultValue="State"
-                        style={{ width: 200 }}
+                        style={{ width: 250, paddingLeft: '5%' }}
                         onChange={value => {
                           inputChange('state', value);
                         }}
@@ -207,74 +229,67 @@ const Mentor = () => {
                       </Select>
                     </div>
                   )}
-                </div>
-                <hr />
-                <br />
-                <div className="current_comp">
-                  <h3>Current company/position?:</h3>
-                  <Form.Item
-                    type="text"
-                    name="current_comp"
-                    value={formValues.current_comp}
-                    onChange={evt => {
-                      inputChange('current_comp', evt.target.value);
-                    }}
-                  >
-                    <Input placeholder="Your answer" />
-                  </Form.Item>
-                </div>
-                <hr />
-                <br />
-                <div className="tech_stack">
-                  <h3>
-                    Which best describes your tech stack?* (Check all that
-                    apply)
-                  </h3>
-                  <Select
-                    defaultValue="- Select -"
-                    onChange={evt => {
-                      inputChange('subject', evt);
-                    }}
-                  >
-                    <Option value="career">Career Development</Option>
-                    <Option value="frontend">Frontend Development</Option>
-                    <Option value="backend">Backend Development</Option>
-                    <Option value="design">Design UI/UX</Option>
-                    <Option value="IOS">IOS Development</Option>
-                    <Option value="android">Android Development</Option>
-                  </Select>
-                </div>
-              </div>
+                </Col>
+              </Row>
+
+              <hr />
               <br />
-              <div className="experience_level">
-                <h3>What is your level of experience?*</h3>
-                <Radio.Group
-                  className="mentor-radio-group"
-                  name="experience_level"
-                  onChange={evt => {
-                    inputChange('experience_level', evt.target.value);
-                  }}
-                  value={formValues.experience_level}
-                >
-                  <div className="radio-space">
-                    <Radio value={'beginner'}>Beginner</Radio>
-                    <Radio value={'intermediate'}>Intermediate</Radio>
-                    <Radio value={'expert'}>Expert</Radio>
-                  </div>
-                </Radio.Group>
-              </div>
+              <h3>Current company/position?:</h3>
+              <Form.Item
+                type="text"
+                name="current_comp"
+                value={formValues.current_comp}
+                onChange={evt => {
+                  inputChange('current_comp', evt.target.value);
+                }}
+              >
+                <Input placeholder="Your answer" />
+              </Form.Item>
               <br />
-              <div className="can_commit">
+              <hr />
+              <br />
+              <h3>Which best describes your tech stack?*</h3>
+              <Select
+                defaultValue="- Select -"
+                onChange={evt => {
+                  inputChange('subject', evt);
+                }}
+              >
+                <Option value="career">Career Development</Option>
+                <Option value="frontend">Frontend Development</Option>
+                <Option value="backend">Backend Development</Option>
+                <Option value="design">Design UI/UX</Option>
+                <Option value="IOS">IOS Development</Option>
+                <Option value="android">Android Development</Option>
+              </Select>
+              <br />
+
+              <h3>What is your level of experience?*</h3>
+              <Radio.Group
+                name="experience_level"
+                onChange={evt => {
+                  inputChange('experience_level', evt.target.value);
+                }}
+                value={formValues.experience_level}
+              >
+                <Radio value={'beginner'}>Beginner</Radio>
+                <Radio value={'intermediate'}>Intermediate</Radio>
+                <Radio value={'expert'}>Expert</Radio>
+              </Radio.Group>
+
+              <br />
+              <Col>
                 <h3>
                   How else can you contribute in the progression of our
                   mentees?*
                 </h3>
-                <Checkbox.Group className="radio-space">
+                <Checkbox.Group>
                   <Checkbox
                     value="job_help"
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.job_help);
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Job Search Help
                   </Checkbox>
@@ -286,6 +301,7 @@ const Mentor = () => {
                         !formValues.industry_knowledge
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Tech Industry Coaching
                   </Checkbox>
@@ -297,13 +313,14 @@ const Mentor = () => {
                         !formValues.pair_programming
                       );
                     }}
+                    style={{ margin: '1rem' }}
                   >
                     Pair Programming / Coding Practice
                   </Checkbox>
                 </Checkbox.Group>
-              </div>
+              </Col>
               <br />
-              <div className="other_info">
+              <Col span={24}>
                 <h3>Anything else you want us to know?</h3>
                 <Form.Item
                   type="text"
@@ -315,17 +332,18 @@ const Mentor = () => {
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
-              </div>
+              </Col>
               <br />
-            </div>
-
-            <Button htmlType="submit" id="button">
-              {' '}
-              Submit{' '}
-            </Button>
-          </div>
-        </Form>
-      </div>
+            </Col>
+            <Col offset={10}>
+              <Button htmlType="submit" id="mentorSubmitButton" size="large">
+                {' '}
+                Submit{' '}
+              </Button>
+            </Col>
+          </Form>
+        </Col>
+      </Row>
     </div>
   );
 };
