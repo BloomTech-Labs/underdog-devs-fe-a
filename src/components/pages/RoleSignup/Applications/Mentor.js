@@ -32,7 +32,7 @@ const Mentor = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}application/new/mentor`,
+        `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
       console.log(response);
