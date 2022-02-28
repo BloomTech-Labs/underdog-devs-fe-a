@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import ApplicationModal from './ApplicationModal';
-
 import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 

@@ -14,4 +14,11 @@
   border: none;
   color: white;
   padding: 0.5rem;
+<<<<<<< HEAD
+=======
+}
+#menteeModel p {
+ padding: 0%;
+ color: darkgreen;
+>>>>>>> 7ab9aba1fb6a23bc0e407cb47cd99a498ac53829
 }
