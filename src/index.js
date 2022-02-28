@@ -38,6 +38,8 @@ import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
 import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
+import PrivateRoute from './components/common/PrivateRoute';
+
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
@@ -67,32 +69,23 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      {/* <Navbar /> */}
-      {/* <NavBarLanding /> */}
+      <Navbar />
 
       <Switch>
-        <Route path="/landing" component={Landing} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/menteeapplication" component={Mentee} />
-        <Route path="/mentorapplication" component={Mentor} />
+        {/* <Route path="/" exact component={Landing} /> // leave commented out until routing refactor is complete */}
         <Route path="/login" component={LoginPage} />
-        <Route path="/pendingapproval" component={PendingApproval} />
-        <Route path="/pendingapplications" component={PendingApplications} />
-        <Route path="/availability" component={Availability} />
-        <Route path="/schedule" component={Schedule} />
-        <Route path="/manageresources" component={ManageResources} />
-        <Route path="/Profile" component={Profile} />
-        <Route path="/menteesprogress" component={MenteesProgress} />
+        <Route path="/apply" exact component={Signup} />
+        <Route path="/apply/mentee" component={Mentee} />
+        <Route path="/apply/mentor" component={Mentor} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
         <SecureRoute
           path="/"
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
-        <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
+
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
