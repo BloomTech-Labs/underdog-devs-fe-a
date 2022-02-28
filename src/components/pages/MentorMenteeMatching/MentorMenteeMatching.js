@@ -9,7 +9,7 @@ const MentorMenteeMatching = () => {
       axiosWithAuth()
         .get('/assignments')
         .then(res => {
-          console.log(res);
+          console.log(res.data);
           //   setAssignments(res);
         });
     };
