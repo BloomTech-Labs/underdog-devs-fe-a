@@ -16,7 +16,8 @@ const initialFormValues = {
   city: '',
   state: '',
   country: '',
-  current_comp: '',
+  current_company: '',
+  current_position: '',
   subject: '',
   experience_level: '',
   job_help: false,
@@ -259,18 +260,35 @@ const Mentor = () => {
                 <hr />
                 <br />
                 <div className="current_comp">
-                  <h3>Current company/position?:</h3>
+                  <h3>Current company and position?:</h3>
+                </div>
+                <label>
+                  Current company
                   <Form.Item
                     type="text"
-                    name="current_comp"
-                    value={formValues.current_comp}
+                    name="current_company"
+                    value={formValues.current_company}
                     onChange={evt => {
-                      inputChange('current_comp', evt.target.value);
+                      inputChange('current_company', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Your answer" />
+                    <Input placeholder="Current company" />
                   </Form.Item>
-                </div>
+                </label>
+                <label>
+                  Current position
+                  <Form.Item
+                    type="text"
+                    name="current_position"
+                    value={formValues.current_position}
+                    onChange={evt => {
+                      inputChange('current_position', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Current position" />
+                  </Form.Item>
+                </label>
+
                 <hr />
                 <br />
                 <div className="tech_stack">
