@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import ApplicationModal from './ApplicationModal';
 
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import './PendingApplication.css';
 
 const columns = [
@@ -35,10 +36,22 @@ const columns = [
     defaultSortOrder: 'descend',
     sorter: (a, b) => a.date - b.date,
   },
+  {
+    title: 'Application',
+    dataIndex: 'button',
+    key: 'button',
+  },
 ];
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
+  const [displayModal, setDisplayModal] = useState(false);
+  const [profileId, setProfileId] = useState('');
+
+  const showModal = profile_id => {
+    setProfileId(profile_id);
+    setDisplayModal(true);
+  };
 
   useEffect(() => {
     const getPendingApps = () => {
@@ -50,8 +63,16 @@ const PendingApplications = () => {
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
               role: row.role_name,
-              date: Date(row.created_at),
-              notes: 'this is a note',
+              date: Date(row.created_at.slice).slice(0, 16),
+              button: (
+                <Button
+                  type="primary"
+                  id={row.profile_id}
+                  onClick={() => showModal(row.profile_id)}
+                >
+                  Review Application
+                </Button>
+              ),
             }))
           );
         })
@@ -64,16 +85,13 @@ const PendingApplications = () => {
   return (
     <>
       <h2>Pending Applications</h2>
-
-      <Table
-        columns={columns}
-        dataSource={applications}
-        expandable={{
-          expandedRowRender: record => (
-            <p style={{ margin: 0 }}>{record.notes}</p>
-          ),
-        }}
+      <ApplicationModal
+        displayModal={displayModal}
+        setDisplayModal={setDisplayModal}
+        profileId={profileId}
+        setProfileId={setProfileId}
       />
+      <Table columns={columns} dataSource={applications} />
     </>
   );
 };
