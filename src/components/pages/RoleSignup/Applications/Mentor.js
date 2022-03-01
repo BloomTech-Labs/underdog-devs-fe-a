@@ -299,25 +299,33 @@ const Mentor = () => {
                       inputChange('experience_level', evt.target.value);
                     }}
                     value={formValues.experience_level}
+                    style={{ width: 250, margin: '1.5rem' }}
                   >
                     <Radio value={'beginner'}>Beginner</Radio>
                     <Radio value={'intermediate'}>Intermediate</Radio>
                     <Radio value={'expert'}>Expert</Radio>
                   </Radio.Group>
                 </Col>
-                <br />
-                <Col>
+                <Col span={24}>
                   <h3>
                     How else can you contribute in the progression of our
                     mentees?*
                   </h3>
-                  <Checkbox.Group>
+                  <Checkbox.Group
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      flexFlow: 'column',
+                      width: 350,
+                      margin: '1.5rem',
+                    }}
+                  >
                     <Checkbox
                       value="job_help"
                       onChange={evt => {
                         inputChange(evt.target.value, !formValues.job_help);
                       }}
-                      style={{ margin: '1rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       Job Search Help
                     </Checkbox>
@@ -329,7 +337,7 @@ const Mentor = () => {
                           !formValues.industry_knowledge
                         );
                       }}
-                      style={{ margin: '1rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       Tech Industry Coaching
                     </Checkbox>
@@ -341,13 +349,13 @@ const Mentor = () => {
                           !formValues.pair_programming
                         );
                       }}
-                      style={{ margin: '1rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       Pair Programming / Coding Practice
                     </Checkbox>
                   </Checkbox.Group>
                 </Col>
-                <br />
+
                 <Col span={24}>
                   <h3>Anything else you want us to know?</h3>
                   <Form.Item
@@ -357,6 +365,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('other_info', evt.target.value);
                     }}
+                    style={{ width: 600, margin: '1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
