@@ -67,6 +67,11 @@ function App() {
     history.push('/login');
   };
 
+  //1 = superadmin
+  //2 = admin
+  //3 = mentor
+  //4 = mentee
+  //5 = pending
   return (
     <Security {...config} onAuthRequired={authHandler}>
       <Navbar />
@@ -79,13 +84,19 @@ function App() {
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
+        <PrivateRoute
+          path="/dashboard"
+          redirect="/login"
+          allowRoles={[1, 2, 3, 4]}
+          component={Dashboard}
+        />
+
         <SecureRoute
           path="/"
           exact
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
-
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
