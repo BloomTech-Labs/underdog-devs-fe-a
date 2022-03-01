@@ -148,11 +148,11 @@ const Mentee = () => {
                     rules={[
                       {
                         type: 'email',
-                        message: 'Please input a valid e-mail address.',
+                        message: 'Please input a valid email address.',
                       },
                       {
                         required: true,
-                        message: 'E-mail is required.',
+                        message: 'Email is required.',
                       },
                     ]}
                     value={formValues.email}
