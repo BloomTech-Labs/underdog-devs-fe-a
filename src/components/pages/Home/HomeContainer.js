@@ -4,20 +4,19 @@ import { useOktaAuth } from '@okta/okta-react';
 
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
-import { authenticateUser } from '../../../state/actions/auth/authenticateUser';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import { authenticateUser, getProfile } from '../../../state/actions/user';
 
 function HomeContainer({
   LoadingComponent,
   isAuthenticated,
   profile_id,
-  userProfile,
+  profile,
   dispatch,
 }) {
   const { authState, authService } = useOktaAuth();
 
   useEffect(() => {
-    if (Object.keys(userProfile).length === 0) {
+    if (Object.keys(profile).length === 0) {
       if (profile_id === null) {
         if (authState.isPending || authState.isAuthenticated) {
           dispatch(authenticateUser(authState, authService));
@@ -26,15 +25,15 @@ function HomeContainer({
         dispatch(getProfile(profile_id));
       }
     }
-  }, [userProfile, profile_id, authState, authService, dispatch]);
+  }, [profile, profile_id, authState, authService, dispatch]);
 
   return (
     <>
-      {isAuthenticated && !userProfile && <LoadingComponent />}
-      {isAuthenticated && userProfile && userProfile.role_id === 5 ? (
-        <PendingApproval userInfo={userProfile} authService={authService} />
+      {isAuthenticated && !profile && <LoadingComponent />}
+      {isAuthenticated && profile && profile.role_id === 5 ? (
+        <PendingApproval userInfo={profile} authService={authService} />
       ) : (
-        <Sidebar userInfo={userProfile} authService={authService} />
+        <Sidebar userInfo={profile} authService={authService} />
       )}
     </>
   );
@@ -44,7 +43,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.user.auth.isAuthenticated,
     profile_id: state.user.auth.profile_id,
-    userProfile: state.user.userProfile,
+    profile: state.user.profile,
   };
 };
 

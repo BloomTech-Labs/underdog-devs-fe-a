@@ -33,7 +33,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './state/reducers';
+import rootReducer from './state/reducers2';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
 import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';

@@ -9,7 +9,7 @@ import NavBarLanding from '../NavBarLanding/NavBarLanding';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile }) => {
+const Navbar = ({ isAuthenticated, profile }) => {
   const [profilePic, setProfilePic] = useState(
     'https://joeschmoe.io/api/v1/random'
   );
@@ -30,11 +30,11 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
-          {Object.keys(userProfile).length && (
+          {Object.keys(profile).length && (
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
                 {/* Username State Goes Here */}
-                <div className="username">{userProfile?.first_name}</div>
+                <div className="username">{profile?.first_name}</div>
                 {/* Role State Goes Here */}
                 <div className="userRole">Role</div>
               </div>
@@ -51,7 +51,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
 
 const mapStateToProps = state => {
   return {
-    userProfile: state.user.userProfile,
+    profile: state.user.profile,
     isAuthenticated: state.user.auth.isAuthenticated,
   };
 };

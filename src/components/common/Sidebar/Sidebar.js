@@ -27,8 +27,8 @@ import useTheme from '../../../hooks/useTheme';
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const Sidebar = ({ authService, userProfile }) => {
-  const { role_id } = userProfile;
+const Sidebar = ({ authService, profile }) => {
+  const { role_id } = profile;
   const [collapsed, setCollapsed] = useState(false);
   //  render will update on click of Menu.item (56-58), therefore rendering the correct component (203-205)
   const [render, updateRender] = useState(1);
@@ -196,7 +196,7 @@ const Sidebar = ({ authService, userProfile }) => {
   );
 };
 const mapStateToProps = state => {
-  return { userProfile: state.user.userProfile };
+  return { profile: state.user.profile };
 };
 export default connect(mapStateToProps)(Sidebar);
 
