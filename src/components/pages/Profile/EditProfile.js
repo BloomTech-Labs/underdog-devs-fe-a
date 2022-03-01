@@ -10,8 +10,9 @@ import {
   TreeSelect,
 } from 'antd';
 import '../../../styles/styles.css';
+import { connect } from 'react-redux';
 
-function EditProfile(props) {
+function EditProfile({ userInfo }) {
   // Grab initial values from profile component
   const initialValues = {
     first_name: 'Hal',
@@ -214,4 +215,11 @@ function EditProfile(props) {
     </>
   );
 }
-export default EditProfile;
+
+const mapStateToProps = state => {
+  return {
+    userInfo: state.user.userInfo,
+  };
+};
+
+export default connect(mapStateToProps)(EditProfile);

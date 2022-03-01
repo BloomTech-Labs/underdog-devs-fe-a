@@ -1,46 +1,9 @@
-// import all of your actions into this file, and export them back out.
-// This allows for the simplification of flow when importing actions into your components throughout your app.
-// Actions should be focused to a single purpose.
-// You can have multiple action creators per file if it makes sense to the purpose those action creators are serving.
-// Declare action TYPES at the top of the file
-
-import { getRole } from '../../api/index';
-
-// USER ACTIONS
-export const authenticateUser = authService => {
-  return dispatch => {
-    dispatch(fetchStart());
-    authService
-      .getUser()
-      .then(async info => {
-        const role_id = await getRole(info.sub);
-        dispatch(setUserInfo({ ...info, role: role_id }));
-      })
-      .catch(err => {
-        dispatch(fetchError(err));
-      })
-      .finally(() => dispatch(fetchEnd()));
-  };
-};
-export const SET_USER_INFO = 'SET_USER_INFO';
-export const setUserInfo = info => {
-  return { type: SET_USER_INFO, payload: info };
-};
-
-// NOTE: appears to be redundant code, commenting out for now
-// user profile is stored in userReducer state labeled "userInfo"
-
-// export const getUserProfile = () => {
-//   return dispatch => {
-//     const token = localStorage.getItem('okta-token-storage');
-//     dispatch(fetchUserProfile(JSON.parse(token).idToken.claims));
-//   };
-// };
-
-export const USER_PROFILE = 'USER_PROFILE';
-export const fetchUserProfile = profile => {
-  return { type: USER_PROFILE, payload: profile };
-};
+export { SET_PROFILE_ID } from './auth/setProfileId';
+export { SET_IS_AUTHENTICATED } from './auth/setIsAuthenticated';
+export { SET_USER_PROFILE } from './userProfile/setUserProfile';
+export { SET_FETCH_START } from './lifecycle/setFetchStart';
+export { SET_FETCH_END } from './lifecycle/setFetchEnd';
+export { SET_FETCH_ERROR } from './errors/setFetchError';
 
 // CALENDAR ACTIONS----------------------
 export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';
@@ -50,19 +13,4 @@ export const getEventTemplateStub = event => {
 export const MENTEE_EVENT_STUB = 'MENTEE_EVENT_STUB';
 export const getEventTemplateStub2 = event => {
   return { type: MENTEE_EVENT_STUB, payload: event };
-};
-// ADMIN TICKETS--------------------------
-
-// ASYNC MANAGEMENT --------------------------
-export const FETCH_START = 'FETCH_START';
-export const fetchStart = () => {
-  return { type: FETCH_START };
-};
-export const FETCH_ERROR = 'FETCH_ERROR';
-export const fetchError = error => {
-  return { type: FETCH_ERROR, payload: error };
-};
-export const FETCH_END = 'FETCH_END';
-export const fetchEnd = () => {
-  return { type: FETCH_END };
 };
