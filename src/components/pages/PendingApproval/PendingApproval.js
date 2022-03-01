@@ -1,34 +1,16 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import '../../common/styles/Sidebar.css';
 import { Layout, Menu, Switch as Toggle } from 'antd';
 import { BulbOutlined } from '@ant-design/icons';
-
-import {
-  DarkModeToggle,
-  setTheme,
-  getTheme,
-} from '../../common/DarkModeToggle';
+import useTheme from '../../../hooks/useTheme';
 
 const { Content, Sider } = Layout;
 
 const PendingApproval = props => {
   const { authService, userInfo } = props;
-
   const [collapsed, setCollapsed] = useState(false);
-
-  const [toggle, setToggle] = useState(false);
-
-  useLayoutEffect(() => {
-    if (localStorage.theme === 'dark') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small ant-switch-checked';
-    } else if (localStorage.theme === 'light') {
-      document.getElementById('darkModeToggle').className =
-        'ant-switch ant-switch-small';
-    }
-    setTheme(getTheme());
-  }, [toggle]);
+  const toggleTheme = useTheme();
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
@@ -50,12 +32,7 @@ const PendingApproval = props => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle
-                size="small"
-                id="darkModeToggle"
-                onChange={() => setToggle(!toggle)}
-                onClick={DarkModeToggle}
-              />
+              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
             </div>
           </Menu.Item>
         </Menu>

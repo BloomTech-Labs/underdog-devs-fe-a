@@ -9,17 +9,17 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
+      </Row>
 
       <Row className="row">
         <Col sm={3} md={2} lg={1} className="col1">
@@ -54,7 +54,7 @@ const Signup = () => {
                 style={{ height: 100 }}
               />
 
-              <Link to="/menteeapplication">
+              <Link to="/apply/mentee">
                 <Button className="button" type="primary" block>
                   MENTEE
                 </Button>
@@ -95,7 +95,7 @@ const Signup = () => {
                 style={{ height: 100 }}
               />
 
-              <Link to="/mentorapplication">
+              <Link to="/apply/mentor">
                 <Button className="button" type="primary" block>
                   MENTOR
                 </Button>

@@ -9,7 +9,16 @@
 .modalStyle .ant-modal-title /*For Edit Profile Button*/{
     color: white;
 }
-
+.modalStyle p{
+    margin:0%;
+}
+.modalStyle ul{
+    margin:0%;
+    padding-left: 0%;
+}
+.modalStyle li{
+    margin-left: 5%;
+}
 .cEQGvI /*Navbar background color*/ {
     background-color:#003D71;
 }

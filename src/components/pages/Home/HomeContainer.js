@@ -4,23 +4,37 @@ import { useOktaAuth } from '@okta/okta-react';
 
 import Sidebar from '../../common/Sidebar/Sidebar';
 import PendingApproval from '../PendingApproval/PendingApproval';
+import { authenticateUser } from '../../../state/actions/auth/authenticateUser';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
-import { authenticateUser } from '../../../state/actions';
-
-function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
+function HomeContainer({
+  LoadingComponent,
+  isAuthenticated,
+  profile_id,
+  userProfile,
+  dispatch,
+}) {
   const { authState, authService } = useOktaAuth();
 
   useEffect(() => {
-    dispatch(authenticateUser(authService));
-  }, [dispatch, authService]);
+    if (Object.keys(userProfile).length === 0) {
+      if (profile_id === null) {
+        if (authState.isPending || authState.isAuthenticated) {
+          dispatch(authenticateUser(authState, authService));
+        }
+      } else {
+        dispatch(getProfile(profile_id));
+      }
+    }
+  }, [userProfile, profile_id, authState, authService, dispatch]);
 
   return (
     <>
-      {authState.isAuthenticated && !userInfo && <LoadingComponent />}
-      {authState.isAuthenticated && userInfo && userInfo.role === 5 ? (
-        <PendingApproval userInfo={userInfo} authService={authService} />
+      {isAuthenticated && !userProfile && <LoadingComponent />}
+      {isAuthenticated && userProfile && userProfile.role_id === 5 ? (
+        <PendingApproval userInfo={userProfile} authService={authService} />
       ) : (
-        <Sidebar userInfo={userInfo} authService={authService} />
+        <Sidebar userInfo={userProfile} authService={authService} />
       )}
     </>
   );
@@ -28,7 +42,9 @@ function HomeContainer({ LoadingComponent, dispatch, userInfo }) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.userInfo,
+    isAuthenticated: state.user.auth.isAuthenticated,
+    profile_id: state.user.auth.profile_id,
+    userProfile: state.user.userProfile,
   };
 };
 
