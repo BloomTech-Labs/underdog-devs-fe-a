@@ -11,7 +11,6 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
@@ -20,25 +19,28 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import Navbar from './components/pages/Navbar/Navbar';
-import PendingApproval from './components/pages/PendingApproval/PendingApproval';
-import PendingApplications from './components/pages/PendingApplications/PendingApplication';
-import { Availability } from './components/pages/Availability/Availability';
-import { Schedule } from './components/pages/Schedule/Schedule';
-import { ManageResources } from './components/pages/ManageResources/ManageResources';
-import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
-import { Profile } from './components/pages/Profile';
-import Dashboard from './components/pages/Dashboard/Dashboard';
+
+// WIP. Seeing if these are necessary for future Authenticated PrivateRouter solution
+// import { Landing } from './components/pages/LandingPage';
+// import PendingApproval from './components/pages/PendingApproval/PendingApproval';
+// import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+// import { Availability } from './components/pages/Availability/Availability';
+// import { Schedule } from './components/pages/Schedule/Schedule';
+// import { ManageResources } from './components/pages/ManageResources/ManageResources';
+// import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
+// import { Profile } from './components/pages/Profile';
+// import Dashboard from './components/pages/Dashboard/Dashboard';
+
+// import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
+
+// import PrivateRoute from './components/common/PrivateRoute';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
-import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
-
-import PrivateRoute from './components/common/PrivateRoute';
 
 const store = createStore(
   rootReducer,

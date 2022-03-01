@@ -1,18 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import logo from '../Navbar/ud_logo2.png';
 import { FooterStyle } from './FooterStyle';
 import FooterCol from './FooterCol';
 import { Layout } from 'antd';
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  NavBtn,
-  NavBtnLink,
-} from '../NavBarLanding/NavBarStyle';
+import { NavBtn, NavBtnLink } from '../NavBarLanding/NavBarStyle';
 
 const { Footer } = Layout;
 

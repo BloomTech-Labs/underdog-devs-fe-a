@@ -36,6 +36,7 @@ function RenderUserManagement(props) {
   //modifyUserForm
   const [formProfile] = Form.useForm();
   const [user, setUser] = useState(defaultUser);
+  // eslint-disable-next-line no-unused-vars
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeactivateModalVisible, setDeactivateModalVisible] = useState(false);
