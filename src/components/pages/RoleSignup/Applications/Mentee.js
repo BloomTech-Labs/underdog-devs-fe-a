@@ -235,17 +235,27 @@ const Mentee = () => {
                       >
                         <Input placeholder="City" />
                       </Form.Item>
-                      <Select
-                        defaultValue="State"
-                        style={{ width: 250, paddingLeft: '5%' }}
-                        onChange={value => {
-                          inputChange('state', value);
-                        }}
+                      <Form.Item
+                        label="State"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'State is required.',
+                          },
+                        ]}
                       >
-                        {states.map(state => (
-                          <Option value={state}> {state} </Option>
-                        ))}
-                      </Select>
+                        <Select
+                          defaultValue="State"
+                          style={{ width: 250, paddingLeft: '5%' }}
+                          onChange={value => {
+                            inputChange('state', value);
+                          }}
+                        >
+                          {states.map(state => (
+                            <Option value={state}> {state} </Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
                     </div>
                   )}
                 </Col>
