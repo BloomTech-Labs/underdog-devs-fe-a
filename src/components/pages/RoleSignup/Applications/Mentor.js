@@ -269,12 +269,13 @@ const Mentor = () => {
                     <Input placeholder="Current position" />
                   </Form.Item>
                 </Col>
+              </Row>
 
-                <Col>
-                  <h3>
-                    Which best describes your tech stack?* (Check all that
-                    apply)
-                  </h3>
+              <hr />
+
+              <Row style={{ padding: '3%' }}>
+                <Col span={24}>
+                  <h3>Which best describes your tech stack?*</h3>
                   <Select
                     defaultValue="- Select -"
                     onChange={evt => {
@@ -290,96 +291,77 @@ const Mentor = () => {
                     <Option value="android">Android Development</Option>
                   </Select>
                 </Col>
+                <Col span={24}>
+                  <h3>What is your level of experience?*</h3>
+                  <Radio.Group
+                    name="experience_level"
+                    onChange={evt => {
+                      inputChange('experience_level', evt.target.value);
+                    }}
+                    value={formValues.experience_level}
+                  >
+                    <Radio value={'beginner'}>Beginner</Radio>
+                    <Radio value={'intermediate'}>Intermediate</Radio>
+                    <Radio value={'expert'}>Expert</Radio>
+                  </Radio.Group>
+                </Col>
+                <br />
+                <Col>
+                  <h3>
+                    How else can you contribute in the progression of our
+                    mentees?*
+                  </h3>
+                  <Checkbox.Group>
+                    <Checkbox
+                      value="job_help"
+                      onChange={evt => {
+                        inputChange(evt.target.value, !formValues.job_help);
+                      }}
+                      style={{ margin: '1rem' }}
+                    >
+                      Job Search Help
+                    </Checkbox>
+                    <Checkbox
+                      value="industry_knowledge"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.industry_knowledge
+                        );
+                      }}
+                      style={{ margin: '1rem' }}
+                    >
+                      Tech Industry Coaching
+                    </Checkbox>
+                    <Checkbox
+                      value="pair_programming"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.pair_programming
+                        );
+                      }}
+                      style={{ margin: '1rem' }}
+                    >
+                      Pair Programming / Coding Practice
+                    </Checkbox>
+                  </Checkbox.Group>
+                </Col>
+                <br />
+                <Col span={24}>
+                  <h3>Anything else you want us to know?</h3>
+                  <Form.Item
+                    type="text"
+                    name="other_info"
+                    value={formValues.other_info}
+                    onChange={evt => {
+                      inputChange('other_info', evt.target.value);
+                    }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </Col>
               </Row>
-
-              <hr />
-              <br />
-              <h3>Which best describes your tech stack?*</h3>
-              <Select
-                defaultValue="- Select -"
-                onChange={evt => {
-                  inputChange('subject', evt);
-                }}
-              >
-                <Option value="career">Career Development</Option>
-                <Option value="frontend">Frontend Development</Option>
-                <Option value="backend">Backend Development</Option>
-                <Option value="design">Design UI/UX</Option>
-                <Option value="IOS">IOS Development</Option>
-                <Option value="android">Android Development</Option>
-              </Select>
-              <br />
-
-              <h3>What is your level of experience?*</h3>
-              <Radio.Group
-                name="experience_level"
-                onChange={evt => {
-                  inputChange('experience_level', evt.target.value);
-                }}
-                value={formValues.experience_level}
-              >
-                <Radio value={'beginner'}>Beginner</Radio>
-                <Radio value={'intermediate'}>Intermediate</Radio>
-                <Radio value={'expert'}>Expert</Radio>
-              </Radio.Group>
-
-              <br />
-              <Col>
-                <h3>
-                  How else can you contribute in the progression of our
-                  mentees?*
-                </h3>
-                <Checkbox.Group>
-                  <Checkbox
-                    value="job_help"
-                    onChange={evt => {
-                      inputChange(evt.target.value, !formValues.job_help);
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Job Search Help
-                  </Checkbox>
-                  <Checkbox
-                    value="industry_knowledge"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.industry_knowledge
-                      );
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Tech Industry Coaching
-                  </Checkbox>
-                  <Checkbox
-                    value="pair_programming"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.pair_programming
-                      );
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Pair Programming / Coding Practice
-                  </Checkbox>
-                </Checkbox.Group>
-              </Col>
-              <br />
-              <Col span={24}>
-                <h3>Anything else you want us to know?</h3>
-                <Form.Item
-                  type="text"
-                  name="other_info"
-                  value={formValues.other_info}
-                  onChange={evt => {
-                    inputChange('other_info', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </Col>
-              <br />
             </Col>
             <Col offset={10}>
               <Button htmlType="submit" id="mentorSubmitButton" size="large">
