@@ -30,6 +30,7 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
+import UserManagement from './components/pages/UserManagement/UserManagement';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -82,6 +83,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
+        <Route path="/pending" component={PendingApproval} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -89,6 +91,27 @@ function App() {
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
           component={Dashboard}
+        />
+
+        <PrivateRoute
+          path="/profile"
+          redirect="/login"
+          allowRoles={[1, 2, 3, 4]}
+          component={Profile}
+        />
+
+        <PrivateRoute
+          path="/users"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={UserManagement}
+        />
+
+        <PrivateRoute
+          path="/resources"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={ManageResources}
         />
 
         <SecureRoute
