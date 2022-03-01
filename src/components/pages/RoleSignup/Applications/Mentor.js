@@ -90,9 +90,11 @@ const Mentor = () => {
               Mentor Application
             </Title>
             <Col span={18} offset={3}>
-              <Title level={5}>Fill out your user Information</Title>
-              <br />
-              <Row gutter={[16, 16]}>
+              <Title style={{ paddingBottom: '5%' }} level={5}>
+                Fill out your user Information
+              </Title>
+
+              <Row gutter={[16, 16]} style={{ padding: '3%' }}>
                 <Col md={12} xs={24}>
                   <Form.Item
                     label="First Name"
@@ -158,7 +160,7 @@ const Mentor = () => {
                 <Col span={8}>
                   <label>Are you located in the U.S.?*</label>
                 </Col>
-                <Col span={6} style={{ paddingBottom: '5%' }}>
+                <Col span={6}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
@@ -231,41 +233,44 @@ const Mentor = () => {
                     </div>
                   )}
                 </Col>
-                <hr />
-                <br />
-                <div className="current_comp">
+              </Row>
+
+              <hr />
+
+              <Row style={{ padding: '3%' }}>
+                <Col span={24}>
                   <h3>Current company and position?:</h3>
-                </div>
-                <label>
-                  Current company
+                </Col>
+                <Col span={24}>
                   <Form.Item
+                    label="Current Company"
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
                     onChange={evt => {
                       inputChange('current_company', evt.target.value);
                     }}
+                    style={{ width: 400, margin: '1.5rem' }}
                   >
                     <Input placeholder="Current company" />
                   </Form.Item>
-                </label>
-                <label>
-                  Current position
+                </Col>
+                <Col span={24}>
                   <Form.Item
+                    label="Current Position"
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
                     onChange={evt => {
                       inputChange('current_position', evt.target.value);
                     }}
+                    style={{ width: 400, margin: '1.5rem' }}
                   >
                     <Input placeholder="Current position" />
                   </Form.Item>
-                </label>
+                </Col>
 
-                <hr />
-                <br />
-                <div className="tech_stack">
+                <Col>
                   <h3>
                     Which best describes your tech stack?* (Check all that
                     apply)
@@ -275,6 +280,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('subject', evt);
                     }}
+                    style={{ width: 250, margin: '1.5rem' }}
                   >
                     <Option value="career">Career Development</Option>
                     <Option value="frontend">Frontend Development</Option>
@@ -283,21 +289,9 @@ const Mentor = () => {
                     <Option value="IOS">IOS Development</Option>
                     <Option value="android">Android Development</Option>
                   </Select>
-                </div>
+                </Col>
               </Row>
-              <br />
-              <h3>Current company/position?:</h3>
-              <Form.Item
-                type="text"
-                name="current_comp"
-                value={formValues.current_comp}
-                onChange={evt => {
-                  inputChange('current_comp', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your answer" />
-              </Form.Item>
-              <br />
+
               <hr />
               <br />
               <h3>Which best describes your tech stack?*</h3>
