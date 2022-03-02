@@ -221,7 +221,6 @@ const Mentor = () => {
                       >
                         <Input placeholder="Your City" />
                       </Form.Item>
-
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1.5rem 1.5rem' }}
