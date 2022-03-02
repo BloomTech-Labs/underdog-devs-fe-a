@@ -39,3 +39,7 @@ a.sc-gKclnd.cxVpss /*Login/Sign up Button background color*/{
 div.ant-card-head  {
     color: #003D71;
 }
+.notesField{
+    display: flex;
+    flex-direction: column;
+}
