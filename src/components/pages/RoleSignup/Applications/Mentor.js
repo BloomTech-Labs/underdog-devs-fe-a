@@ -29,7 +29,8 @@ const initialFormValues = {
   city: '',
   state: '',
   country: '',
-  current_comp: '',
+  current_company: '',
+  current_position: '',
   subject: '',
   experience_level: '',
   job_help: false,
@@ -44,7 +45,7 @@ const Mentor = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}application/new/mentor`,
+        `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
       console.log(response);
@@ -230,9 +231,60 @@ const Mentor = () => {
                     </div>
                   )}
                 </Col>
-              </Row>
+                <hr />
+                <br />
+                <div className="current_comp">
+                  <h3>Current company and position?:</h3>
+                </div>
+                <label>
+                  Current company
+                  <Form.Item
+                    type="text"
+                    name="current_company"
+                    value={formValues.current_company}
+                    onChange={evt => {
+                      inputChange('current_company', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Current company" />
+                  </Form.Item>
+                </label>
+                <label>
+                  Current position
+                  <Form.Item
+                    type="text"
+                    name="current_position"
+                    value={formValues.current_position}
+                    onChange={evt => {
+                      inputChange('current_position', evt.target.value);
+                    }}
+                  >
+                    <Input placeholder="Current position" />
+                  </Form.Item>
+                </label>
 
-              <hr />
+                <hr />
+                <br />
+                <div className="tech_stack">
+                  <h3>
+                    Which best describes your tech stack?* (Check all that
+                    apply)
+                  </h3>
+                  <Select
+                    defaultValue="- Select -"
+                    onChange={evt => {
+                      inputChange('subject', evt);
+                    }}
+                  >
+                    <Option value="career">Career Development</Option>
+                    <Option value="frontend">Frontend Development</Option>
+                    <Option value="backend">Backend Development</Option>
+                    <Option value="design">Design UI/UX</Option>
+                    <Option value="IOS">IOS Development</Option>
+                    <Option value="android">Android Development</Option>
+                  </Select>
+                </div>
+              </Row>
               <br />
               <h3>Current company/position?:</h3>
               <Form.Item
