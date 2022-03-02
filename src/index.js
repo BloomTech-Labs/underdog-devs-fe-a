@@ -7,17 +7,14 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
+import { Security, LoginCallback } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
-import { HomePage } from './components/pages/Home';
-import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
@@ -139,12 +136,6 @@ function App() {
           component={() => <div>"View All Meetings" Component goes here</div>}
         />
 
-        <SecureRoute
-          path="/"
-          exact
-          component={() => <HomePage LoadingComponent={LoadingComponent} />}
-        />
-        <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
