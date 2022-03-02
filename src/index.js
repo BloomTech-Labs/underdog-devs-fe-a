@@ -5,13 +5,13 @@ import {
   Route,
   useHistory,
   Switch,
+  Redirect,
 } from 'react-router-dom';
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-// eslint-disable-next-line no-unused-vars
 import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
@@ -69,7 +69,7 @@ function App() {
       <Navbar />
 
       <Switch>
-        {/* <Route path="/" exact component={Landing} /> // leave commented out until routing refactor is complete */}
+        <Redirect path="/" to="/dashboard" exact component={Landing} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
@@ -88,35 +88,36 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={Dashboard}
         />
-
         <PrivateRoute
           path="/profile"
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
           component={Profile}
         />
-
         <PrivateRoute
           path="/users"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={UserManagement}
         />
-
+        <PrivateRoute
+          path="/mentees"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3]}
+          component={() => <div>"My Mentees" Component goes here</div>}
+        />
         <PrivateRoute
           path="/resources"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={ManageResources}
         />
-
         <PrivateRoute
           path="/applications"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={PendingApplications}
         />
-
         <PrivateRoute
           path="/support"
           redirect="/dashboard"
@@ -125,7 +126,12 @@ function App() {
             <div>"View Support Requests" Component goes here</div>
           )}
         />
-
+        <PrivateRoute
+          path="/meetings/schedule"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={() => <div>"Schedule Meeting" Component goes here</div>}
+        />
         <PrivateRoute
           path="/meetings"
           redirect="/dashboard"
