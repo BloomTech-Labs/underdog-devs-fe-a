@@ -84,36 +84,42 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={Dashboard}
         />
+
         <PrivateRoute
           path="/profile"
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
           component={Profile}
         />
+
         <PrivateRoute
           path="/users"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={UserManagement}
         />
+
         <PrivateRoute
           path="/mentees"
           redirect="/dashboard"
           allowRoles={[1, 2, 3]}
           component={() => <div>"My Mentees" Component goes here</div>}
         />
+
         <PrivateRoute
           path="/resources"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={ManageResources}
         />
+
         <PrivateRoute
           path="/applications"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={PendingApplications}
         />
+
         <PrivateRoute
           path="/support"
           redirect="/dashboard"
@@ -122,12 +128,14 @@ function App() {
             <div>"View Support Requests" Component goes here</div>
           )}
         />
+
         <PrivateRoute
           path="/meetings/schedule"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={() => <div>"Schedule Meeting" Component goes here</div>}
         />
+
         <PrivateRoute
           path="/meetings"
           redirect="/dashboard"
