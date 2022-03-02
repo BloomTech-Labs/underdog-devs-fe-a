@@ -51,8 +51,8 @@ const MentorMenteeMatching = () => {
     <div
       style={{
         display: 'flex',
-        'flex-direction': 'row',
-        'justify-content': 'space-evenly',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
       }}
     >
       <Card title="Information" style={{ width: '30%' }}>
@@ -79,7 +79,7 @@ const MentorMenteeMatching = () => {
       <Table
         columns={columns}
         expandable={{
-          expandedRowRender: record => <p style={{ margin: 0 }}>{cards}</p>,
+          expandedRowRender: record => <div style={{ margin: 0 }}>{cards}</div>,
           rowExpandable: record => record.name !== 'Not Expandable',
         }}
         dataSource={data}
