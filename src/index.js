@@ -11,6 +11,7 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+// eslint-disable-next-line no-unused-vars
 import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
@@ -22,21 +23,17 @@ import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
 import Navbar from './components/pages/Navbar/Navbar';
-import PendingApproval from './components/pages/PendingApproval/PendingApproval';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
-import { Availability } from './components/pages/Availability/Availability';
-import { Schedule } from './components/pages/Schedule/Schedule';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
-import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
+import UserManagement from './components/pages/UserManagement/UserManagement';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
-import NavBarLanding from './components/pages/NavBarLanding/NavBarLanding';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
@@ -77,7 +74,64 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
+        <Route
+          path="/pending"
+          component={() => (
+            <div>"Application Is Pending" Component goes here</div>
+          )}
+        />
         <Route path="/implicit/callback" component={LoginCallback} />
+
+        <PrivateRoute
+          path="/dashboard"
+          redirect="/login"
+          allowRoles={[1, 2, 3, 4]}
+          component={Dashboard}
+        />
+
+        <PrivateRoute
+          path="/profile"
+          redirect="/login"
+          allowRoles={[1, 2, 3, 4]}
+          component={Profile}
+        />
+
+        <PrivateRoute
+          path="/users"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={UserManagement}
+        />
+
+        <PrivateRoute
+          path="/resources"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={ManageResources}
+        />
+
+        <PrivateRoute
+          path="/applications"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={PendingApplications}
+        />
+
+        <PrivateRoute
+          path="/support"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={() => (
+            <div>"View Support Requests" Component goes here</div>
+          )}
+        />
+
+        <PrivateRoute
+          path="/meetings"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={() => <div>"View All Meetings" Component goes here</div>}
+        />
 
         <SecureRoute
           path="/"
@@ -85,7 +139,6 @@ function App() {
           component={() => <HomePage LoadingComponent={LoadingComponent} />}
         />
         <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
-
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
