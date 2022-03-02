@@ -235,7 +235,10 @@ const Mentee = () => {
                           }}
                         >
                           {states.map(state => (
-                            <Option value={state}> {state} </Option>
+                            <Option key={state} value={state}>
+                              {' '}
+                              {state}{' '}
+                            </Option>
                           ))}
                         </Select>
                       </Form.Item>

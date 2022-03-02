@@ -12,14 +12,16 @@ import {
   Col,
   Typography,
 } from 'antd';
+
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
-import Column from 'antd/lib/table/Column';
+
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -232,7 +234,10 @@ const Mentor = () => {
                           }}
                         >
                           {states.map(state => (
-                            <Option value={state}> {state} </Option>
+                            <Option key={state} value={state}>
+                              {' '}
+                              {state}{' '}
+                            </Option>
                           ))}
                         </Select>
                       </Form.Item>
