@@ -13,7 +13,6 @@ const MentorMenteeMatching = () => {
       axiosWithAuth()
         .get('/assignments')
         .then(res => {
-          console.log(res.data);
           setAssignments(res.data);
         });
     };
@@ -73,8 +72,6 @@ const MentorMenteeMatching = () => {
       </Card>
     </div>
   );
-
-  // let cards = [card, card2];
 
   return (
     <>
