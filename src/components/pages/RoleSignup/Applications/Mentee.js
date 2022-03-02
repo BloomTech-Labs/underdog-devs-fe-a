@@ -50,7 +50,7 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}/application/new/mentee`,
+        `${process.env.REACT_APP_API_URI}/application/new/Mentees`,
         newAccount
       );
       console.log('post response', response);
