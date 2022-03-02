@@ -10,9 +10,7 @@ import NavBarLanding from '../NavBarLanding/NavBarLanding';
 const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile }) => {
-  const [profilePic, setProfilePic] = useState(
-    'https://joeschmoe.io/api/v1/random'
-  );
+  const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
 
   if (!isAuthenticated) {
     return <NavBarLanding />;

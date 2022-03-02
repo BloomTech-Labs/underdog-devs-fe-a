@@ -77,7 +77,7 @@ const PendingApplications = () => {
                 Date(row.created_at.slice).slice(4, 9) +
                 ', ' +
                 Date(row.created_at.slice).slice(10, 16),
-               email: <a href={row.email}>{row.email}</a>,
+              email: <a href={row.email}>{row.email}</a>,
               button: (
                 <Button
                   type="primary"

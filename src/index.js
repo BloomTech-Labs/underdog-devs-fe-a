@@ -11,8 +11,6 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-// eslint-disable-next-line no-unused-vars
-import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
@@ -21,7 +19,6 @@ import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
