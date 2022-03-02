@@ -14,7 +14,7 @@ const MentorMenteeMatching = () => {
         .get('/assignments')
         .then(res => {
           console.log(res.data);
-          //   setAssignments(res);
+          setAssignments(res.data);
         });
     };
     getAssignments();
@@ -34,49 +34,25 @@ const MentorMenteeMatching = () => {
     { title: 'Stack', dataIndex: 'stack', key: 'stack' },
   ];
 
-  const data = [
-    {
-      key: 1,
-      name: 'Billy Bob',
-      contact: 'email@email.com',
-      tags: 'Matched',
+  const data = [];
+
+  assignments.map(p => {
+    const profile = {
+      key: p.profile_id,
+      name: `${p.first_name} ${p.last_name}`,
+      contact: p.email,
       stack: 'HTML, JS, CSS',
-      description:
-        'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-    },
-    {
-      key: 2,
-      name: 'Jim Green',
-      contact: '3055555555',
-      tags: 'Unmatched',
-      stack: 'MERN',
-      description:
-        'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.',
-    },
-    {
-      key: 3,
-      name: 'Gary Bucey',
-      contact: 'email3@email.com',
-      tags: 'Matched',
-      stack: 'HTML, JS, CSS',
-      description: 'This not expandable',
-    },
-    {
-      key: 4,
-      name: 'Joe Black',
-      contact: 'email4@email.com',
-      tags: 'Matched',
-      stack: 'Python',
-      description:
-        'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
-    },
-  ];
+      description: 'Description goes here',
+      tags: p.matched ? 'Matched' : 'Unmatched',
+    };
+    data.push(profile);
+  });
 
   let cards = (
     <div
       style={{
         display: 'flex',
-        'flex-direciton': 'row',
+        'flex-direction': 'row',
         'justify-content': 'space-evenly',
       }}
     >
@@ -90,7 +66,7 @@ const MentorMenteeMatching = () => {
         <p>Card content</p>
         <p>Card content</p>
       </Card>
-      <Card title="Mentor Infromation" style={{ width: '30%' }}>
+      <Card title="Mentor Information" style={{ width: '30%' }}>
         <p>Card content</p>
         <p>Card content</p>
         <p>Card content</p>
