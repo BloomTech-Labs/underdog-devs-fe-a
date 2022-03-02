@@ -50,7 +50,7 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}application/new/mentee`,
+        `${process.env.REACT_APP_API_URI}/application/new/mentee`,
         newAccount
       );
       console.log('post response', response);
@@ -88,6 +88,7 @@ const Mentee = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
+
       <Row className="menteeApplication">
         <Col span={24} className="applicationForm">
           <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
@@ -105,7 +106,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'First name is required!',
+                        message: 'First name is required.',
                       },
                     ]}
                     value={formValues.first_name}
@@ -125,7 +126,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Last name is required!',
+                        message: 'Last name is required.',
                       },
                     ]}
                     value={formValues.last_name}
@@ -145,8 +146,12 @@ const Mentee = () => {
                     name="email"
                     rules={[
                       {
+                        type: 'email',
+                        message: 'Please input a valid email address.',
+                      },
+                      {
                         required: true,
-                        message: 'Email is required!',
+                        message: 'Email is required.',
                       },
                     ]}
                     value={formValues.email}
@@ -155,7 +160,7 @@ const Mentee = () => {
                     }}
                     style={{ margin: '1.5rem' }}
                   >
-                    <Input placeholder="Enter valid email" />
+                    <Input placeholder="Email address" />
                   </Form.Item>
                 </Col>
 
@@ -172,9 +177,17 @@ const Mentee = () => {
                     value={formValues.country}
                     style={{ width: '250', margin: '.5rem 1.5rem' }}
                   >
-                    <Radio value={'USA'}>Yes</Radio>
-                    <Radio value={'Other'}>No</Radio>
-                  </Radio.Group>
+                    <Radio.Group
+                      name="livesInUS"
+                      onChange={evt => {
+                        inputChange('country', evt.target.value);
+                      }}
+                      value={formValues.country}
+                    >
+                      <Radio value={'USA'}>Yes</Radio>
+                      <Radio value={'Your Country'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -213,7 +226,7 @@ const Mentee = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'City is required!',
+                            message: 'City is required.',
                           },
                         ]}
                         value={formValues.city}
@@ -222,7 +235,7 @@ const Mentee = () => {
                         }}
                         style={{ margin: '.5rem 1.5rem 1.5rem' }}
                       >
-                        <Input placeholder="Your City" />
+                        <Input placeholder="City" />
                       </Form.Item>
                       <Form.Item
                         label="State"
