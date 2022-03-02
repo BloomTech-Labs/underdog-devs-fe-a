@@ -37,6 +37,11 @@ const columns = [
     sorter: (a, b) => a.date - b.date,
   },
   {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+  {
     title: 'Application',
     dataIndex: 'button',
     key: 'button',
@@ -64,6 +69,7 @@ const PendingApplications = () => {
               name: row.first_name + ' ' + row.last_name,
               role: row.role_name,
               date: Date(row.created_at.slice).slice(0, 16),
+              email: <a href={row.email}>{row.email}</a>,
               button: (
                 <Button
                   type="primary"
