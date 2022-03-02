@@ -18,7 +18,6 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
