@@ -20,7 +20,6 @@ const { SubMenu } = Menu;
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
   const [collapsed, setCollapsed] = useState(false);
-  //  render will update on click of Menu.item (56-58), therefore rendering the correct component (203-205)
   const { authService } = useOktaAuth();
   const { push } = useHistory();
   const { pathname } = useLocation();
@@ -38,7 +37,6 @@ const Sidebar = ({ children, userProfile }) => {
   };
 
   const handleMenuClick = menu => {
-    // updateRender(menu.key);
     push(menu.key);
   };
 
