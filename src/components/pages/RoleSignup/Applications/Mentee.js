@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   Form,
@@ -46,6 +47,9 @@ const initialFormValues = {
 
 const Mentee = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [res, setResponse] = useState(0);
+
+  let history = useHistory();
 
   const postNewAccount = async newAccount => {
     try {
@@ -53,6 +57,7 @@ const Mentee = () => {
         `${process.env.REACT_APP_API_URI}/application/new/mentee`,
         newAccount
       );
+      setResponse(response.status);
       console.log('post response', response);
     } catch (err) {
       console.log(err);
@@ -62,6 +67,11 @@ const Mentee = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
+    if (res === 201) {
+      history.push('/apply/success');
+    } else {
+      history.push('/apply/error');
+    }
   };
 
   const inputChange = (name, value) => {
