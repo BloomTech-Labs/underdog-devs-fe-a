@@ -13,8 +13,8 @@ const LoginContainer = () => {
       clientId,
       redirectUri,
       registration: {
-        click: function() {
-          window.location.href = '/signup';
+        click: function () {
+          window.location.href = '/apply';
         },
         // there is more we can do to handle some errors here.
       },

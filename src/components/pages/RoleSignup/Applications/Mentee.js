@@ -50,7 +50,7 @@ const Mentee = () => {
   const postNewAccount = async newAccount => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URI}application/new/mentee`,
+        `${process.env.REACT_APP_API_URI}/application/new/mentee`,
         newAccount
       );
       console.log('post response', response);
@@ -88,6 +88,7 @@ const Mentee = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
+
       <Row className="menteeApplication">
         <Col span={24} className="applicationForm">
           <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
@@ -108,7 +109,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'First name is required!',
+                        message: 'First name is required.',
                       },
                     ]}
                     value={formValues.first_name}
@@ -127,7 +128,7 @@ const Mentee = () => {
                     rules={[
                       {
                         required: true,
-                        message: 'Last name is required!',
+                        message: 'Last name is required.',
                       },
                     ]}
                     value={formValues.last_name}
@@ -146,8 +147,12 @@ const Mentee = () => {
                     name="email"
                     rules={[
                       {
+                        type: 'email',
+                        message: 'Please input a valid email address.',
+                      },
+                      {
                         required: true,
-                        message: 'Email is required!',
+                        message: 'Email is required.',
                       },
                     ]}
                     value={formValues.email}
@@ -155,27 +160,35 @@ const Mentee = () => {
                       inputChange('email', evt.target.value);
                     }}
                   >
-                    <Input placeholder="Enter valid email" />
+                    <Input placeholder="Email address" />
                   </Form.Item>
                 </Col>
 
                 <Col span={24}>
                   <h3>Location:</h3>
                 </Col>
-                <Col span={8}>
-                  <label>Are you located in the US? *</label>
-                </Col>
-                <Col span={6} style={{ paddingBottom: '5%' }}>
-                  <Radio.Group
-                    name="livesInUS"
-                    onChange={evt => {
-                      inputChange('country', evt.target.value);
-                    }}
-                    value={formValues.country}
+                <Col style={{ paddingBottom: '5%' }}>
+                  <Form.Item
+                    label="Are you located in the US?"
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select whether you live in the US.',
+                      },
+                    ]}
                   >
-                    <Radio value={'USA'}>Yes</Radio>
-                    <Radio value={'Other'}>No</Radio>
-                  </Radio.Group>
+                    <Radio.Group
+                      name="livesInUS"
+                      onChange={evt => {
+                        inputChange('country', evt.target.value);
+                      }}
+                      value={formValues.country}
+                    >
+                      <Radio value={'USA'}>Yes</Radio>
+                      <Radio value={'Your Country'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </Col>
               </Row>
               <Row>
@@ -212,7 +225,7 @@ const Mentee = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'City is required!',
+                            message: 'City is required.',
                           },
                         ]}
                         value={formValues.city}
@@ -220,19 +233,29 @@ const Mentee = () => {
                           inputChange('city', evt.target.value);
                         }}
                       >
-                        <Input placeholder="Your City" />
+                        <Input placeholder="City" />
                       </Form.Item>
-                      <Select
-                        defaultValue="State"
-                        style={{ width: 250, paddingLeft: '5%' }}
-                        onChange={value => {
-                          inputChange('state', value);
-                        }}
+                      <Form.Item
+                        label="State"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'State is required.',
+                          },
+                        ]}
                       >
-                        {states.map(state => (
-                          <Option value={state}> {state} </Option>
-                        ))}
-                      </Select>
+                        <Select
+                          defaultValue="State"
+                          style={{ width: 250, paddingLeft: '5%' }}
+                          onChange={value => {
+                            inputChange('state', value);
+                          }}
+                        >
+                          {states.map(state => (
+                            <Option value={state}> {state} </Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
                     </div>
                   )}
                 </Col>
@@ -308,38 +331,68 @@ const Mentee = () => {
               <div className="tech_stack">
                 <h3>
                   Which best describes the tech path you are working towards or
-                  are interested in? *
+                  are interested in?*
                 </h3>
-                <Select
-                  defaultValue="- Select -"
-                  onChange={evt => {
-                    inputChange('subject', evt);
-                  }}
+                <Form.Item
+                  name="tech_stack"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select a path.',
+                    },
+                  ]}
                 >
-                  <Option value="career">Career Development</Option>
-                  <Option value="frontend">Frontend Development</Option>
-                  <Option value="backend">Backend Development</Option>
-                  <Option value="design">Design UI/UX</Option>
-                  <Option value="iOS">iOS Development</Option>
-                  <Option value="android">Android Development</Option>
-                </Select>
+                  <Select
+                    placeholder="- Select -"
+                    onChange={evt => {
+                      inputChange('subject', evt);
+                    }}
+                  >
+                    <Option value="career">Career Development</Option>
+                    <Option value="frontend">Frontend Development</Option>
+                    <Option value="backend">Backend Development</Option>
+                    <Option value="design">Design UI/UX</Option>
+                    <Option value="iOS">iOS Development</Option>
+                    <Option value="android">Android Development</Option>
+                  </Select>
+                </Form.Item>
               </div>
               <div className="experience_level">
                 <h3>What is your level of experience?*</h3>
-                <Radio.Group
+                <Form.Item
                   name="experience_level"
-                  onChange={evt => {
-                    inputChange('experience_level', evt.target.value);
-                  }}
-                  value={formValues.experience_level}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select an experience level.',
+                    },
+                  ]}
                 >
-                  <Radio value={'beginner'}>Beginner</Radio>
-                  <Radio value={'intermediate'}>Intermediate</Radio>
-                  <Radio value={'expert'}>Expert</Radio>
-                </Radio.Group>
+                  <Radio.Group
+                    name="experience_level"
+                    onChange={evt => {
+                      inputChange('experience_level', evt.target.value);
+                    }}
+                    value={formValues.experience_level}
+                  >
+                    <Radio value={'beginner'}>Beginner</Radio>
+                    <Radio value={'intermediate'}>Intermediate</Radio>
+                    <Radio value={'expert'}>Expert</Radio>
+                  </Radio.Group>
+                </Form.Item>
               </div>
               <Col span={24}>
                 <h3>What are you hoping to gain from the community?*</h3>
+              </Col>
+              <Form.Item
+                name="your_hope"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please select a topic of focus',
+                  },
+                ]}
+              >
                 <Checkbox.Group
                   style={{ display: 'flex', justifyContent: 'space-evenly' }}
                 >
@@ -374,7 +427,7 @@ const Mentee = () => {
                     Pair programming / coding practice
                   </Checkbox>
                 </Checkbox.Group>
-              </Col>
+              </Form.Item>
 
               <Col span={24}>
                 <h3>Anything else you want us to know?</h3>
