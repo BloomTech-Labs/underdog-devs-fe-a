@@ -19,6 +19,7 @@ import {
 } from '@ant-design/icons';
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
+import Column from 'antd/lib/table/Column';
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -90,12 +91,9 @@ const Mentor = () => {
               Mentor Application
             </Title>
             <Col span={18} offset={3}>
-              <Title style={{ paddingBottom: '5%' }} level={5}>
-                Fill out your user Information
-              </Title>
-
-              <Row gutter={[16, 16]} style={{ padding: '3%' }}>
-                <Col md={12} xs={24}>
+              <Title level={5}>Fill out your user Information</Title>
+              <Row style={{ padding: '3%' }}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -110,11 +108,13 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('first_name', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col md={12} xs={24}>
+
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -129,12 +129,13 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('last_name', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Email"
                     type="email"
@@ -149,6 +150,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('email', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
@@ -157,16 +159,15 @@ const Mentor = () => {
                 <Col span={24}>
                   <h3>Location:</h3>
                 </Col>
-                <Col span={8}>
+                <Col span={24}>
                   <label>Are you located in the U.S.?*</label>
-                </Col>
-                <Col span={6}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
                       inputChange('country', evt.target.value);
                     }}
                     value={formValues.country}
+                    style={{ width: '250', margin: '.5rem 1.5rem' }}
                   >
                     <Radio value={'USA'}>Yes</Radio>
                     <Radio value={'Other'}>No</Radio>
@@ -175,7 +176,7 @@ const Mentor = () => {
               </Row>
 
               <Row>
-                <Col span={10}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
                       label="Country"
@@ -191,6 +192,7 @@ const Mentor = () => {
                       onChange={evt => {
                         inputChange('country', evt.target.value);
                       }}
+                      style={{ margin: '.5rem 1.5rem 1.5rem' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -198,7 +200,7 @@ const Mentor = () => {
                 </Col>
               </Row>
               <Row>
-                <Col span={24}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country === 'USA' && (
                     <div className="locationUS">
                       <Form.Item
@@ -215,21 +217,26 @@ const Mentor = () => {
                         onChange={evt => {
                           inputChange('city', evt.target.value);
                         }}
+                        style={{ margin: '.5rem 1.5rem 1.5rem' }}
                       >
                         <Input placeholder="Your City" />
                       </Form.Item>
 
-                      <Select
-                        defaultValue="State"
-                        style={{ width: 250, paddingLeft: '5%' }}
-                        onChange={value => {
-                          inputChange('state', value);
-                        }}
+                      <Form.Item
+                        label="State"
+                        style={{ margin: '.5rem 1.5rem 1.5rem' }}
                       >
-                        {states.map(state => (
-                          <Option value={state}> {state} </Option>
-                        ))}
-                      </Select>
+                        <Select
+                          defaultValue="- Select -"
+                          onChange={value => {
+                            inputChange('state', value);
+                          }}
+                        >
+                          {states.map(state => (
+                            <Option value={state}> {state} </Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
                     </div>
                   )}
                 </Col>
@@ -241,7 +248,7 @@ const Mentor = () => {
                 <Col span={24}>
                   <h3>Current company and position?:</h3>
                 </Col>
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Current Company"
                     type="text"
@@ -250,12 +257,12 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('current_company', evt.target.value);
                     }}
-                    style={{ width: 400, margin: '1.5rem' }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Current company" />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Current Position"
                     type="text"
@@ -264,7 +271,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('current_position', evt.target.value);
                     }}
-                    style={{ width: 400, margin: '1.5rem' }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input placeholder="Current position" />
                   </Form.Item>
@@ -274,7 +281,7 @@ const Mentor = () => {
               <hr />
 
               <Row style={{ padding: '3%' }}>
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <h3>Which best describes your tech stack?*</h3>
                   <Select
                     defaultValue="- Select -"
@@ -291,7 +298,7 @@ const Mentor = () => {
                     <Option value="android">Android Development</Option>
                   </Select>
                 </Col>
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <h3>What is your level of experience?*</h3>
                   <Radio.Group
                     name="experience_level"
@@ -306,7 +313,7 @@ const Mentor = () => {
                     <Radio value={'expert'}>Expert</Radio>
                   </Radio.Group>
                 </Col>
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <h3>
                     How else can you contribute in the progression of our
                     mentees?*
@@ -356,7 +363,7 @@ const Mentor = () => {
                   </Checkbox.Group>
                 </Col>
 
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <h3>Anything else you want us to know?</h3>
                   <Form.Item
                     type="text"
@@ -365,7 +372,7 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('other_info', evt.target.value);
                     }}
-                    style={{ width: 600, margin: '1.5rem' }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>

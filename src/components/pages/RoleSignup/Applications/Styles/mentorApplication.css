@@ -15,6 +15,7 @@
 }
 .locationUS{
   display: flex;
+  flex-direction: column;
 }
 #mentorSubmitButton{
   background-color: #003D71;
