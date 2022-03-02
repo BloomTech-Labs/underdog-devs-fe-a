@@ -1,15 +1,3 @@
-// import React from 'react';
-// import RenderUserManagement from './RenderUserManagement';
-
-// function UserManagement({ LoadingComponent }) {
-//   return (
-//     <>
-//       <RenderUserManagement />
-//     </>
-//   );
-// }
-
-// export default UserManagement;
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
