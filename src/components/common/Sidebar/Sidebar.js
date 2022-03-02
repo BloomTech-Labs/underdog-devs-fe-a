@@ -43,24 +43,9 @@ const Sidebar = ({ children, userProfile }) => {
   };
 
   // This is determining which role is currently in session, implemented further in ternary statements in the return clause
-  const isUserMentee = () => {
-    if (role_id === '4') {
-      return true;
-    }
-    return false;
-  };
-  const isUserMentor = () => {
-    if (role_id === '3') {
-      return true;
-    }
-    return false;
-  };
-  const isUserAdmin = () => {
-    if (role_id <= '2' && role_id >= '1') {
-      return true;
-    }
-    return false;
-  };
+  const isUserMentee = () => role_id === 4;
+  const isUserMentor = () => role_id === 3;
+  const isUserAdmin = () => role_id <= 2;
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
