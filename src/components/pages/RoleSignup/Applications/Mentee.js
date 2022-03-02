@@ -177,17 +177,9 @@ const Mentee = () => {
                     value={formValues.country}
                     style={{ width: '250', margin: '.5rem 1.5rem' }}
                   >
-                    <Radio.Group
-                      name="livesInUS"
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
-                      value={formValues.country}
-                    >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Your Country'}>No</Radio>
-                    </Radio.Group>
-                  </Form.Item>
+                    <Radio value={'USA'}>Yes</Radio>
+                    <Radio value={'Your Country'}>No</Radio>
+                  </Radio.Group>
                 </Col>
               </Row>
 
