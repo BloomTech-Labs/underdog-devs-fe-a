@@ -15,7 +15,6 @@ const MentorMenteeMatching = () => {
         .then(res => {
           console.log(res.data);
           //   setAssignments(res);
-          // test comment
         });
     };
     getAssignments();
