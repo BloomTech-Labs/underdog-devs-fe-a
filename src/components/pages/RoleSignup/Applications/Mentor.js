@@ -21,7 +21,6 @@ import {
 
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
-
 const { Title } = Typography;
 const { Option } = Select;
 
