@@ -48,19 +48,17 @@ const initialFormValues = {
 const Mentee = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  let history = useHistory();
+  const history = useHistory();
 
   const postNewAccount = async newAccount => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URI}/application/new/mentee`,
         newAccount
       );
       history.push('/apply/success');
-      console.log('post response', response);
     } catch (err) {
       history.push('/apply/error');
-      console.log(err);
     }
   };
 

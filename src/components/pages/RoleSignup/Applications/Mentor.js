@@ -43,19 +43,17 @@ const initialFormValues = {
 const Mentor = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  let history = useHistory();
+  const history = useHistory();
 
   const postNewAccount = async newAccount => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
       history.push('/apply/success');
-      console.log(response);
     } catch (err) {
       history.push('/apply/error');
-      console.log(err);
     }
   };
 
