@@ -62,7 +62,6 @@ const Mentee = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-    console.log(formValues);
   };
 
   return (
