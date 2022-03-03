@@ -159,14 +159,14 @@ const Sidebar = ({ authService, userProfile }) => {
           {isUserAdmin() === false && (
             <>
               <Menu.Item
-                key="11"
+                key="12"
                 icon={<DollarOutlined />}
                 onClick={handleMenuClick}
               >
                 Donate
               </Menu.Item>
               <Menu.Item
-                key="12"
+                key="13"
                 icon={<QuestionCircleOutlined />}
                 onClick={handleMenuClick}
               >
@@ -175,7 +175,7 @@ const Sidebar = ({ authService, userProfile }) => {
             </>
           )}
           <Menu.Divider />
-          <Menu.Item key="13" icon={<BulbOutlined />}>
+          <Menu.Item key="14" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
               <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
