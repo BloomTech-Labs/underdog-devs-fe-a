@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import useForms from '../../../../hooks/useForms';
 import {
@@ -206,7 +206,10 @@ const Mentor = () => {
                         onChange={e => handleChange(e, 'select', 'state')}
                       >
                         {states.map(state => (
-                          <Option value={state}> {state} </Option>
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
                         ))}
                       </Select>
                     </div>
