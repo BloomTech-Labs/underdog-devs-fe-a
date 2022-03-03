@@ -121,6 +121,7 @@ const Mentee = () => {
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
+
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Last Name"
@@ -163,7 +164,7 @@ const Mentee = () => {
                     }}
                     style={{ margin: '.5rem 1rem 1rem' }}
                   >
-                    <Input placeholder="Email address" />
+                    <Input placeholder="Enter Valid Email" />
                   </Form.Item>
                 </Col>
 
@@ -214,6 +215,7 @@ const Mentee = () => {
                   )}
                 </Col>
               </Row>
+
               <Row>
                 <Col md={15} xs={24} offset={1}>
                   {formValues.country === 'USA' && (
