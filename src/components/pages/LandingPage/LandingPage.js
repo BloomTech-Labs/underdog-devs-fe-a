@@ -3,7 +3,6 @@ import './LandingPage.css';
 import pointAtScreen from './resources/pointatscreen.jpg';
 import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
 import guyAtComputer from './resources/guyatcomputer.jpg';
-import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import FooterLanding from '../FooterLanding/FooterLanding';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.

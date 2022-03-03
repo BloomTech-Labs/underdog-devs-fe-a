@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Modal,
-  Typography,
-  message,
-  TreeSelect,
-} from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 
@@ -25,6 +16,7 @@ function EditProfile({ userInfo }) {
   };
 
   const [ModalOpen, setModalOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [radio, setRadio] = useState(initialValues);
 
   //// Event Handlers
@@ -56,7 +48,6 @@ function EditProfile({ userInfo }) {
   ////
 
   //// Dropdown Data
-  const { SHOW_PARENT } = TreeSelect;
 
   const treeData = [
     {

@@ -1,24 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Modal } from 'antd';
-// import '../../../styles/styles.css';
+import '../../../styles/styles.css';
 import './PendingApplication.css';
 
 const ApplicationModal = ({
   profileId,
   setProfileId,
-  displayModal,
   setDisplayModal,
+  displayModal,
 }) => {
+  const notes = { application_notes: '' };
+
   const [currentApplication, setCurrentApplication] = useState({});
+  const [notesValue, setNotesValue] = useState(notes);
+  const [hideForm, setHideForm] = useState(true);
+
+  const updateModal = () => {
+    axiosWithAuth()
+      .get(`/application/profileId/${profileId}`)
+      .then(res => {
+        setCurrentApplication(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const handleOk = () => {
     setDisplayModal(false);
+    setDisplayModal(true);
   };
 
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
+    setNotesValue(notes);
+    setHideForm(true);
+  };
+
+  const displayForm = () => {
+    setHideForm(false);
+  };
+  const handleChange = e => {
+    setNotesValue({
+      ...notesValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addNote = e => {
+    axiosWithAuth()
+      .put(
+        `/application/update-notes/${currentApplication.application_id}`,
+        notesValue
+      )
+      .then(res => {
+        updateModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    e.preventDefault();
+    setHideForm(true);
   };
 
   useEffect(() => {
@@ -27,6 +70,7 @@ const ApplicationModal = ({
         .get(`/application/profileId/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data);
+          setNotesValue(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -59,7 +103,7 @@ const ApplicationModal = ({
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
-            <div id="menteeModal">
+            <div>
               <p>
                 <b>Email:</b> {currentApplication.email}
               </p>
@@ -120,9 +164,15 @@ const ApplicationModal = ({
               <p>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button onClick={displayForm} hidden={!hideForm}>
+                Edit Notes
+              </button>
             </div>
           ) : (
-            <div className="mentorModal">
+            <div>
               <p>
                 <b>Email:</b> {currentApplication.email}
               </p>
@@ -166,8 +216,30 @@ const ApplicationModal = ({
               <p>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button
+                className="note-button-color"
+                onClick={displayForm}
+                hidden={!hideForm}
+              >
+                Edit Notes
+              </button>
             </div>
           )}
+          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
+            <textarea
+              id="application_notes"
+              type="text"
+              name="application_notes"
+              placeholder="Write Notes Here"
+              value={notesValue.application_notes}
+              onChange={handleChange}
+              className="applicationNotes"
+            />
+            <button className="note-button-color">Save Notes</button>
+          </form>
         </Modal>
       )}
     </>

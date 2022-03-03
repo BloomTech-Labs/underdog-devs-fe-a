@@ -11,8 +11,6 @@ import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
-// eslint-disable-next-line no-unused-vars
-import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
 import { HomePage } from './components/pages/Home';
 import { SuperAdminForm } from './components/pages/SuperAdminForm';
