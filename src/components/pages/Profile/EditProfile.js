@@ -2,50 +2,40 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
+import useForms from '../../../hooks/useForms';
+
+const initialValues = {
+  first_name: 'Hal',
+  last_name: 'Jordan',
+  email: 'greenguy123@gmail.com',
+  location: 'Earth',
+  company: 'Bloom Tech, SWE',
+  tech_stack: 'React',
+  commitment: 'Pair Programming',
+};
 
 function EditProfile({ userInfo }) {
-  // Grab initial values from profile component
-  const initialValues = {
-    first_name: 'Hal',
-    last_name: 'Jordan',
-    email: 'greenguy123@gmail.com',
-    location: 'Earth',
-    company: 'Bloom Tech, SWE',
-    tech_stack: 'React',
-    commitment: 'Pair Programming',
-  };
+  const [formValues, handleChange, clearForm] = useForms(initialValues);
 
   const [ModalOpen, setModalOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [radio, setRadio] = useState(initialValues);
 
-  //// Event Handlers
+  const showModal = () => setModalOpen(true);
 
-  const showModal = () => {
-    setModalOpen(true);
-  };
+  const handleCancel = () => setModalOpen(false);
 
-  const handleCancel = () => {
+  const handleSubmit = e => {
     setModalOpen(false);
+    console.log(formValues);
+    clearForm(e);
   };
-
-  const handleOk = () => {
-    setModalOpen(false);
-  };
-
-  const handleRadio = event => {
-    setRadio(event.target.value);
-  };
-
-  ////
 
   //// Styling
   const buttonStyle = {
     backgroundColor: '#003D71',
     color: '#ffffff',
   };
-
-  ////
 
   //// Dropdown Data
 
@@ -84,7 +74,7 @@ function EditProfile({ userInfo }) {
       <Modal
         visible={ModalOpen}
         onCancel={handleCancel}
-        onOk={handleOk}
+        onOk={handleSubmit}
         title="Update Information:"
         okText="Update"
         className="modalStyle"
@@ -101,7 +91,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="First Name"
             name="firstName"
-            initialValue={initialValues.first_name}
+            initialValue={formValues.first_name}
+            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -115,7 +106,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Last Name"
             name="lastName"
-            initialValue={initialValues.last_name}
+            initialValue={formValues.last_name}
+            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -129,7 +121,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
-            initialValue={initialValues.email}
+            initialValue={formValues.email}
+            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -143,7 +136,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={initialValues.location}
+            initialValue={formValues.location}
+            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -157,7 +151,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Company/Position"
             name="company"
-            initialValue={initialValues.company}
+            initialValue={formValues.company}
+            onChange={handleChange}
           >
             <Input />
           </Form.Item>
@@ -165,7 +160,8 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={initialValues.tech_stack}
+            initialValue={formValues.tech_stack}
+            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -186,17 +182,14 @@ function EditProfile({ userInfo }) {
               span: 9,
             }}
           >
-            <Radio.Group
-              name="commitment"
-              defaultValue={initialValues.commitment}
-            >
-              <Radio value="1:1 Mentoring" onClick={handleRadio}>
+            <Radio.Group name="commitment" defaultValue={formValues.commitment}>
+              <Radio value="1:1 Mentoring" onClick={handleChange}>
                 1:1 Mentoring
               </Radio>
-              <Radio value="Pair Programming" onClick={handleRadio}>
+              <Radio value="Pair Programming" onClick={handleChange}>
                 Pair Programming
               </Radio>
-              <Radio value="Neither" onClick={handleRadio}>
+              <Radio value="Neither" onClick={handleChange}>
                 Neither
               </Radio>
             </Radio.Group>
