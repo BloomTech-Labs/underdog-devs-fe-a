@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import useForms from '../../../../hooks/useForms';
 import {
   Form,
   Input,
@@ -40,7 +41,7 @@ const initialFormValues = {
 };
 
 const Mentor = () => {
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const postNewAccount = async newAccount => {
     try {
@@ -57,13 +58,7 @@ const Mentor = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-  };
-
-  const inputChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    console.log(formValues);
   };
 
   return (
@@ -105,9 +100,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.first_name}
-                    onChange={evt => {
-                      inputChange('first_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
@@ -124,9 +117,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.last_name}
-                    onChange={evt => {
-                      inputChange('last_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
@@ -144,9 +135,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.email}
-                    onChange={evt => {
-                      inputChange('email', evt.target.value);
-                    }}
+                    onChange={handleChange}
                   >
                     <Input placeholder="Enter valid email" />
                   </Form.Item>
@@ -160,10 +149,8 @@ const Mentor = () => {
                 </Col>
                 <Col span={6} style={{ paddingBottom: '5%' }}>
                   <Radio.Group
-                    name="livesInUS"
-                    onChange={evt => {
-                      inputChange('country', evt.target.value);
-                    }}
+                    name="country"
+                    onChange={handleChange}
                     value={formValues.country}
                   >
                     <Radio value={'USA'}>Yes</Radio>
@@ -186,9 +173,7 @@ const Mentor = () => {
                         },
                       ]}
                       value={formValues.country}
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
+                      onChange={handleChange}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -210,9 +195,7 @@ const Mentor = () => {
                           },
                         ]}
                         value={formValues.city}
-                        onChange={evt => {
-                          inputChange('city', evt.target.value);
-                        }}
+                        onChange={handleChange}
                       >
                         <Input placeholder="Your City" />
                       </Form.Item>
@@ -220,9 +203,7 @@ const Mentor = () => {
                       <Select
                         defaultValue="State"
                         style={{ width: 250, paddingLeft: '5%' }}
-                        onChange={value => {
-                          inputChange('state', value);
-                        }}
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
                         {states.map(state => (
                           <Option value={state}> {state} </Option>
@@ -242,9 +223,7 @@ const Mentor = () => {
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
-                    onChange={evt => {
-                      inputChange('current_company', evt.target.value);
-                    }}
+                    onChange={handleChange}
                   >
                     <Input placeholder="Current company" />
                   </Form.Item>
@@ -255,9 +234,7 @@ const Mentor = () => {
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
-                    onChange={evt => {
-                      inputChange('current_position', evt.target.value);
-                    }}
+                    onChange={handleChange}
                   >
                     <Input placeholder="Current position" />
                   </Form.Item>
@@ -272,9 +249,7 @@ const Mentor = () => {
                   </h3>
                   <Select
                     defaultValue="- Select -"
-                    onChange={evt => {
-                      inputChange('subject', evt);
-                    }}
+                    onChange={e => handleChange(e, 'select', 'tech_stack')}
                   >
                     <Option value="career">Career Development</Option>
                     <Option value="frontend">Frontend Development</Option>
@@ -291,9 +266,7 @@ const Mentor = () => {
                 type="text"
                 name="current_comp"
                 value={formValues.current_comp}
-                onChange={evt => {
-                  inputChange('current_comp', evt.target.value);
-                }}
+                onChange={handleChange}
               >
                 <Input placeholder="Your answer" />
               </Form.Item>
@@ -303,9 +276,7 @@ const Mentor = () => {
               <h3>Which best describes your tech stack?*</h3>
               <Select
                 defaultValue="- Select -"
-                onChange={evt => {
-                  inputChange('subject', evt);
-                }}
+                onChange={e => handleChange(e, 'select', 'current_comp')}
               >
                 <Option value="career">Career Development</Option>
                 <Option value="frontend">Frontend Development</Option>
@@ -319,9 +290,7 @@ const Mentor = () => {
               <h3>What is your level of experience?*</h3>
               <Radio.Group
                 name="experience_level"
-                onChange={evt => {
-                  inputChange('experience_level', evt.target.value);
-                }}
+                onChange={handleChange}
                 value={formValues.experience_level}
               >
                 <Radio value={'beginner'}>Beginner</Radio>
@@ -338,33 +307,21 @@ const Mentor = () => {
                 <Checkbox.Group>
                   <Checkbox
                     value="job_help"
-                    onChange={evt => {
-                      inputChange(evt.target.value, !formValues.job_help);
-                    }}
+                    onChange={e => handleChange(e, 'checkbox')}
                     style={{ margin: '1rem' }}
                   >
                     Job Search Help
                   </Checkbox>
                   <Checkbox
                     value="industry_knowledge"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.industry_knowledge
-                      );
-                    }}
+                    onChange={e => handleChange(e, 'checkbox')}
                     style={{ margin: '1rem' }}
                   >
                     Tech Industry Coaching
                   </Checkbox>
                   <Checkbox
                     value="pair_programming"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.pair_programming
-                      );
-                    }}
+                    onChange={e => handleChange(e, 'checkbox')}
                     style={{ margin: '1rem' }}
                   >
                     Pair Programming / Coding Practice
@@ -378,9 +335,7 @@ const Mentor = () => {
                   type="text"
                   name="other_info"
                   value={formValues.other_info}
-                  onChange={evt => {
-                    inputChange('other_info', evt.target.value);
-                  }}
+                  onChange={handleChange}
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
