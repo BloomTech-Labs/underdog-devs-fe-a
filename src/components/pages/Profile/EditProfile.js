@@ -18,8 +18,6 @@ function EditProfile({ userInfo }) {
   const [formValues, handleChange, clearForm] = useForms(initialValues);
 
   const [ModalOpen, setModalOpen] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [radio, setRadio] = useState(initialValues);
 
   const showModal = () => setModalOpen(true);
 
