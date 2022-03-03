@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import EditProfile from '../Profile/EditProfile';
 
 // import '../Dashboard/Admin/index.css';
-import { Layout, Menu, Breadcrumb, Row, Col, Typography, Card } from 'antd';
+import { Row, Col, Typography, Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import {
   TwitterOutlined,
@@ -12,18 +11,8 @@ import {
   FacebookOutlined,
 } from '@ant-design/icons';
 
-import {
-  AppstoreOutlined,
-  LaptopOutlined,
-  LineChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  CalendarOutlined,
-  FormOutlined,
-} from '@ant-design/icons';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
-const { SubMenu } = Menu;
 const { Title } = Typography;
 const { Meta } = Card;
 

@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
@@ -10,7 +10,6 @@ import {
   DollarOutlined,
   BulbOutlined,
   CalendarOutlined,
-  ContainerOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 

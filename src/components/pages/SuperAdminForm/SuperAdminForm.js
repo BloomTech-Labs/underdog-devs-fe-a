@@ -64,6 +64,7 @@ const SuperAdminForm = props => {
       setSuccessMessage(
         `SuperAdmin account ${resOkta.data.userName} is created!`
       );
+      // eslint-disable-next-line no-unused-vars
       const resDb = await axios.post(CREATE_DB_ENDPOINT, values);
       //do something with the returned data
       form.resetFields();
