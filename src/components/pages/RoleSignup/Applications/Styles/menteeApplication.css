@@ -16,6 +16,7 @@
 
   .locationUS {
       display: flex;
+      flex-direction: column;
   }
 
   #menteeSubmitButton{

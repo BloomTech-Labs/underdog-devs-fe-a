@@ -96,12 +96,9 @@ const Mentee = () => {
               Mentee Application
             </Title>
             <Col span={18} offset={3}>
-              <Title style={{ paddingBottom: '5%' }} level={5}>
-                Please fill out your user information
-              </Title>
-
-              <Row gutter={[16, 16]} style={{ padding: '3%' }}>
-                <Col md={12} xs={24}>
+              <Title level={5}>Please fill out your user information</Title>
+              <Row style={{ padding: '3%' }}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -116,11 +113,12 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('first_name', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col md={12} xs={24}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -135,12 +133,13 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('last_name', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}>
+                <Col md={16} xs={24}>
                   <Form.Item
                     label="Email"
                     type="email"
@@ -159,6 +158,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('email', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input placeholder="Email address" />
                   </Form.Item>
@@ -191,8 +191,9 @@ const Mentee = () => {
                   </Form.Item>
                 </Col>
               </Row>
+
               <Row>
-                <Col span={10}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
                       label="Country"
@@ -208,6 +209,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('country', evt.target.value);
                       }}
+                      style={{ margin: '.5rem 1.5rem 1.5rem' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -215,7 +217,7 @@ const Mentee = () => {
                 </Col>
               </Row>
               <Row>
-                <Col span={24}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country === 'USA' && (
                     <div className="locationUS">
                       <Form.Item
@@ -232,6 +234,7 @@ const Mentee = () => {
                         onChange={evt => {
                           inputChange('city', evt.target.value);
                         }}
+                        style={{ margin: '.5rem 1.5rem 1.5rem' }}
                       >
                         <Input placeholder="City" />
                       </Form.Item>
@@ -264,7 +267,7 @@ const Mentee = () => {
               <hr />
 
               <Row style={{ padding: '3%' }}>
-                <Col>
+                <Col md={16} xs={24}>
                   <h3>
                     Which criteria represents you for membership? (Select all
                     that apply)
@@ -313,7 +316,8 @@ const Mentee = () => {
                     </Checkbox>
                   </Checkbox.Group>
                 </Col>
-                <Col span={24}>
+
+                <Col md={16} xs={24}>
                   <h3>Please list your convictions if comfortable</h3>
                   <Form.Item
                     type="text"
@@ -322,7 +326,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('list_convictions', evt.target.value);
                     }}
-                    style={{ width: 600, margin: '1.5rem' }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
