@@ -466,7 +466,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('other_info', evt.target.value);
                     }}
-                    style={{ width: 600, margin: '1.5rem' }}
+                    style={{ margin: '1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
