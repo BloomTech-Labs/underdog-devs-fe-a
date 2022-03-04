@@ -18,6 +18,7 @@ import {
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+
 import { states } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 
@@ -96,9 +97,11 @@ const Mentee = () => {
               Mentee Application
             </Title>
             <Col span={18} offset={3}>
-              <Title level={5}>Please fill out your user information</Title>
-              <Row style={{ padding: '3%' }}>
-                <Col md={16} xs={24}>
+              <Title level={5} style={{ paddingTop: '2%' }}>
+                Please fill out your user information
+              </Title>
+              <Row style={{ padding: '0 0 3% 3%' }}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -113,12 +116,12 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('first_name', evt.target.value);
                     }}
-                    style={{ margin: '1.5rem 1.5rem .5rem' }}
+                    style={{ margin: '1.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col md={16} xs={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -133,13 +136,13 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('last_name', evt.target.value);
                     }}
-                    style={{ margin: '1.5rem 1.5rem .5rem' }}
+                    style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </Col>
 
-                <Col md={16} xs={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Email"
                     type="email"
@@ -158,7 +161,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('email', evt.target.value);
                     }}
-                    style={{ margin: '1.5rem' }}
+                    style={{ margin: '.5rem 1rem 1rem' }}
                   >
                     <Input placeholder="Email address" />
                   </Form.Item>
@@ -178,9 +181,17 @@ const Mentee = () => {
                       },
                     ]}
                   >
-                    <Radio value={'USA'}>Yes</Radio>
-                    <Radio value={'Your Country'}>No</Radio>
-                  </Radio.Group>
+                    <Radio.Group
+                      name="livesInUS"
+                      onChange={evt => {
+                        inputChange('country', evt.target.value);
+                      }}
+                      value={formValues.country}
+                    >
+                      <Radio value={'USA'}>Yes</Radio>
+                      <Radio value={'Your Country'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -201,7 +212,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange('country', evt.target.value);
                       }}
-                      style={{ margin: '.5rem 1.5rem 1.5rem' }}
+                      style={{ margin: '0 1rem 1rem' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -226,7 +237,7 @@ const Mentee = () => {
                         onChange={evt => {
                           inputChange('city', evt.target.value);
                         }}
-                        style={{ margin: '.5rem 1.5rem 1.5rem' }}
+                        style={{ margin: '0 1rem .5rem' }}
                       >
                         <Input placeholder="City" />
                       </Form.Item>
@@ -261,8 +272,8 @@ const Mentee = () => {
 
               <hr />
 
-              <Row style={{ padding: '3%' }}>
-                <Col md={16} xs={24}>
+              <Row style={{ padding: '3% 0 3% 3%' }}>
+                <Col md={22} xs={24}>
                   <h3>
                     Which criteria represents you for membership? (Select all
                     that apply)
@@ -273,7 +284,7 @@ const Mentee = () => {
                       justifyContent: 'space-evenly',
                       flexFlow: 'column',
                       width: 350,
-                      margin: '1.5rem',
+                      margin: '0rem 1rem 1rem 1.5rem',
                     }}
                   >
                     <Checkbox
@@ -312,7 +323,7 @@ const Mentee = () => {
                   </Checkbox.Group>
                 </Col>
 
-                <Col md={16} xs={24}>
+                <Col md={22} xs={24}>
                   <h3>Please list your convictions if comfortable</h3>
                   <Form.Item
                     type="text"
@@ -321,7 +332,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('list_convictions', evt.target.value);
                     }}
-                    style={{ margin: '1.5rem' }}
+                    style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
@@ -448,8 +459,8 @@ const Mentee = () => {
                 </Form.Item>
               </Col>
             </Col>
-            <Col offset={10}>
-              <Button htmlType="submit" id="mentorSubmitButton" size="large">
+            <Col style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button htmlType="submit" id="menteeSubmitButton" size="large">
                 Submit
               </Button>
             </Col>
