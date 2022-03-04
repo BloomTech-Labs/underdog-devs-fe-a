@@ -100,7 +100,7 @@ const Mentee = () => {
                 Please fill out your user information
               </Title>
 
-              <Row gutter={[16, 16]}>
+              <Row gutter={[16, 16]} style={{ padding: '3%' }}>
                 <Col md={12} xs={24}>
                   <Form.Item
                     label="First Name"
@@ -263,16 +263,20 @@ const Mentee = () => {
 
               <hr />
 
-              <Row style={{ paddingTop: '3%' }}>
+              <Row style={{ padding: '3%' }}>
                 <Col>
                   <h3>
                     Which criteria represents you for membership? (Select all
                     that apply)
                   </h3>
-                </Col>
-                <Col>
                   <Checkbox.Group
-                    style={{ display: 'flex', justifyContent: 'space-evenly' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      flexFlow: 'column',
+                      width: 350,
+                      margin: '1.5rem',
+                    }}
                   >
                     <Checkbox
                       value="formerly_incarcerated"
@@ -282,7 +286,7 @@ const Mentee = () => {
                           !formValues.formerly_incarcerated
                         );
                       }}
-                      style={{ margin: '1.8rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       Formerly incarcerated
                     </Checkbox>
@@ -291,7 +295,7 @@ const Mentee = () => {
                       onChange={evt => {
                         inputChange(evt.target.value, !formValues.low_income);
                       }}
-                      style={{ margin: '1.8rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       From a lower socioeconomic background
                     </Checkbox>
@@ -303,7 +307,7 @@ const Mentee = () => {
                           !formValues.underrepresented_group
                         );
                       }}
-                      style={{ margin: '1.8rem' }}
+                      style={{ margin: '.2rem', width: '100%' }}
                     >
                       From an underrepresented group
                     </Checkbox>
@@ -311,8 +315,6 @@ const Mentee = () => {
                 </Col>
                 <Col span={24}>
                   <h3>Please list your convictions if comfortable</h3>
-                </Col>
-                <Col span={24}>
                   <Form.Item
                     type="text"
                     name="list_convictions"
@@ -320,6 +322,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('list_convictions', evt.target.value);
                     }}
+                    style={{ width: 600, margin: '1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
@@ -384,6 +387,7 @@ const Mentee = () => {
               <Col span={24}>
                 <h3>What are you hoping to gain from the community?*</h3>
               </Col>
+
               <Form.Item
                 name="your_hope"
                 rules={[
@@ -401,8 +405,9 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange(evt.target.value, !formValues.job_help);
                     }}
+                    style={{ width: 250, margin: '1.5rem' }}
                   >
-                    Job search help
+                    Job Search Help
                   </Checkbox>
                   <Checkbox
                     value="industry_knowledge"
@@ -438,11 +443,11 @@ const Mentee = () => {
                   onChange={evt => {
                     inputChange('other_info', evt.target.value);
                   }}
+                  style={{ width: 600, margin: '1.5rem' }}
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
               </Col>
-              <br />
             </Col>
             <Col offset={10}>
               <Button htmlType="submit" id="mentorSubmitButton" size="large">
