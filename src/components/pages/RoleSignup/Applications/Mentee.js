@@ -381,7 +381,6 @@ const Mentee = () => {
                 </Col>
                 <Col md={22} xs={24}>
                   <h3>What is your level of experience?*</h3>
-
                   <Form.Item
                     name="experience_level"
                     rules={[
@@ -405,59 +404,64 @@ const Mentee = () => {
                     </Radio.Group>
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col md={22} xs={24}>
                   <h3>What are you hoping to gain from the community?*</h3>
+                  <Form.Item
+                    name="your_hope"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a topic of focus',
+                      },
+                    ]}
+                  >
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0 1rem 1rem 1.5rem',
+                      }}
+                    >
+                      <Checkbox
+                        value="job_help"
+                        onChange={evt => {
+                          inputChange(evt.target.value, !formValues.job_help);
+                        }}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Job Search Help
+                      </Checkbox>
+                      <Checkbox
+                        value="industry_knowledge"
+                        onChange={evt => {
+                          inputChange(
+                            evt.target.value,
+                            !formValues.industry_knowledge
+                          );
+                        }}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Learn more about the tech industry
+                      </Checkbox>
+                      <Checkbox
+                        value="pair_programming"
+                        onChange={evt => {
+                          inputChange(
+                            evt.target.value,
+                            !formValues.pair_programming
+                          );
+                        }}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Pair Programming / Coding Practice
+                      </Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
                 </Col>
 
-                <Form.Item
-                  name="your_hope"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please select a topic of focus',
-                    },
-                  ]}
-                >
-                  <Checkbox.Group
-                    style={{ display: 'flex', justifyContent: 'space-evenly' }}
-                  >
-                    <Checkbox
-                      value="job_help"
-                      onChange={evt => {
-                        inputChange(evt.target.value, !formValues.job_help);
-                      }}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Job Search Help
-                    </Checkbox>
-                    <Checkbox
-                      value="industry_knowledge"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.industry_knowledge
-                        );
-                      }}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Learn more about the tech industry
-                    </Checkbox>
-                    <Checkbox
-                      value="pair_programming"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.pair_programming
-                        );
-                      }}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Pair Programming / Coding Practice
-                    </Checkbox>
-                  </Checkbox.Group>
-                </Form.Item>
-
-                <Col span={24}>
+                <Col md={22} xs={24}>
                   <h3>Anything else you want us to know?</h3>
                   <Form.Item
                     type="text"
@@ -466,7 +470,7 @@ const Mentee = () => {
                     onChange={evt => {
                       inputChange('other_info', evt.target.value);
                     }}
-                    style={{ margin: '1.5rem' }}
+                    style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
