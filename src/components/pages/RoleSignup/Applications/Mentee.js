@@ -176,18 +176,28 @@ const Mentee = () => {
                   offset={1}
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
-                  <label>Are you located in the US? *</label>
-                  <Radio.Group
-                    name="livesInUS"
-                    onChange={evt => {
-                      inputChange('country', evt.target.value);
-                    }}
-                    value={formValues.country}
-                    style={{ width: '250', display: 'flex' }}
+                  <Form.Item
+                    label="Are you located in the US?"
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select whether you live in the US.',
+                      },
+                    ]}
                   >
-                    <Radio value={'USA'}>Yes</Radio>
-                    <Radio value={'Your Country'}>No</Radio>
-                  </Radio.Group>
+                    <Radio.Group
+                      name="livesInUS"
+                      onChange={evt => {
+                        inputChange('country', evt.target.value);
+                      }}
+                      value={formValues.country}
+                      style={{ width: '250', display: 'flex' }}
+                    >
+                      <Radio value={'USA'}>Yes</Radio>
+                      <Radio value={'Your Country'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -241,6 +251,12 @@ const Mentee = () => {
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1rem 1rem' }}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'State is required.',
+                          },
+                        ]}
                       >
                         <Select
                           defaultValue="- Select -"
@@ -338,20 +354,30 @@ const Mentee = () => {
                     Which best describes the tech path you are working towards
                     or are interested in? *
                   </h3>
-                  <Select
-                    defaultValue="- Select -"
-                    onChange={evt => {
-                      inputChange('subject', evt);
-                    }}
-                    style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                  <Form.Item
+                    name="tech_stack"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a path.',
+                      },
+                    ]}
                   >
-                    <Option value="career">Career Development</Option>
-                    <Option value="frontend">Frontend Development</Option>
-                    <Option value="backend">Backend Development</Option>
-                    <Option value="design">Design UI/UX</Option>
-                    <Option value="iOS">iOS Development</Option>
-                    <Option value="android">Android Development</Option>
-                  </Select>
+                    <Select
+                      defaultValue="- Select -"
+                      onChange={evt => {
+                        inputChange('subject', evt);
+                      }}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Option value="career">Career Development</Option>
+                      <Option value="frontend">Frontend Development</Option>
+                      <Option value="backend">Backend Development</Option>
+                      <Option value="design">Design UI/UX</Option>
+                      <Option value="iOS">iOS Development</Option>
+                      <Option value="android">Android Development</Option>
+                    </Select>
+                  </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
                   <h3>What is your level of experience?*</h3>
