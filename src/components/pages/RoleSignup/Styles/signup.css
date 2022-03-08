@@ -40,15 +40,15 @@
 @media only screen and (max-width: 880px) {
   .col1,
   .col2 {
-    min-width: 100%;
     display: flex;
+    
   }
 
   .card1,
   .card2 {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 75vw;
   }
 
   .card-img {
@@ -64,6 +64,12 @@
   .title {
     font-size: 13px;
     font-weight: bolder;
+  }
+  .card1,
+  .card2 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
   }
 
   .description {

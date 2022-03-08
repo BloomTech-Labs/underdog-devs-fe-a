@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   Form,
@@ -12,11 +13,13 @@ import {
   Col,
   Typography,
 } from 'antd';
+
 import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
 } from '@ant-design/icons';
+
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
 const { Title } = Typography;
@@ -42,15 +45,17 @@ const initialFormValues = {
 const Mentor = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  const history = useHistory();
+
   const postNewAccount = async newAccount => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
-      console.log(response);
+      history.push('/apply/success');
     } catch (err) {
-      console.log(err);
+      history.push('/apply/error');
     }
   };
 
@@ -83,6 +88,7 @@ const Mentor = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
+
       <Row className="mentorApplication">
         <Col span={24} className="applicationForm">
           <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
@@ -90,10 +96,11 @@ const Mentor = () => {
               Mentor Application
             </Title>
             <Col span={18} offset={3}>
-              <Title level={5}>Fill out your user Information</Title>
-              <br />
-              <Row gutter={[16, 16]}>
-                <Col md={12} xs={24}>
+              <Title level={5} style={{ paddingTop: '2%' }}>
+                Fill out your user Information
+              </Title>
+              <Row style={{ padding: '0 0 3% 3%' }}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="First Name"
                     type="text"
@@ -108,11 +115,13 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('first_name', evt.target.value);
                     }}
+                    style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
                 </Col>
-                <Col md={12} xs={24}>
+
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Last Name"
                     type="text"
@@ -127,12 +136,13 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('last_name', evt.target.value);
                     }}
+                    style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Email"
                     type="email"
@@ -147,24 +157,28 @@ const Mentor = () => {
                     onChange={evt => {
                       inputChange('email', evt.target.value);
                     }}
+                    style={{ margin: '.5rem 1rem 1rem' }}
                   >
-                    <Input placeholder="Enter valid email" />
+                    <Input placeholder="Enter Valid Email" />
                   </Form.Item>
                 </Col>
 
                 <Col span={24}>
                   <h3>Location:</h3>
                 </Col>
-                <Col span={8}>
+                <Col
+                  span={14}
+                  offset={1}
+                  style={{ display: 'flex', justifyItems: 'left' }}
+                >
                   <label>Are you located in the U.S.?*</label>
-                </Col>
-                <Col span={6} style={{ paddingBottom: '5%' }}>
                   <Radio.Group
                     name="livesInUS"
                     onChange={evt => {
                       inputChange('country', evt.target.value);
                     }}
                     value={formValues.country}
+                    style={{ width: '250', display: 'flex' }}
                   >
                     <Radio value={'USA'}>Yes</Radio>
                     <Radio value={'Other'}>No</Radio>
@@ -173,7 +187,7 @@ const Mentor = () => {
               </Row>
 
               <Row>
-                <Col span={10}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country !== 'USA' && formValues.country !== '' && (
                     <Form.Item
                       label="Country"
@@ -189,14 +203,16 @@ const Mentor = () => {
                       onChange={evt => {
                         inputChange('country', evt.target.value);
                       }}
+                      style={{ margin: '0 1rem 1rem' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
                   )}
                 </Col>
               </Row>
+
               <Row>
-                <Col span={24}>
+                <Col md={15} xs={24} offset={1}>
                   {formValues.country === 'USA' && (
                     <div className="locationUS">
                       <Form.Item
@@ -213,68 +229,80 @@ const Mentor = () => {
                         onChange={evt => {
                           inputChange('city', evt.target.value);
                         }}
+                        style={{ margin: '0 1rem .5rem' }}
                       >
                         <Input placeholder="Your City" />
                       </Form.Item>
-
-                      <Select
-                        defaultValue="State"
-                        style={{ width: 250, paddingLeft: '5%' }}
-                        onChange={value => {
-                          inputChange('state', value);
-                        }}
+                      <Form.Item
+                        label="State"
+                        style={{ margin: '.5rem 1rem 1rem' }}
                       >
-                        {states.map(state => (
-                          <Option value={state}> {state} </Option>
-                        ))}
-                      </Select>
+                        <Select
+                          defaultValue="- Select -"
+                          onChange={value => {
+                            inputChange('state', value);
+                          }}
+                        >
+                          {states.map(state => (
+                            <Option key={state} value={state}>
+                              {' '}
+                              {state}{' '}
+                            </Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
                     </div>
                   )}
                 </Col>
-                <hr />
-                <br />
-                <div className="current_comp">
+              </Row>
+
+              <hr />
+
+              <Row style={{ padding: '3% 0 3% 3%' }}>
+                <Col md={22} xs={24}>
                   <h3>Current company and position?:</h3>
-                </div>
-                <label>
-                  Current company
+                </Col>
+                <Col md={20} xs={24}>
                   <Form.Item
+                    label="Current Company"
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
                     onChange={evt => {
                       inputChange('current_company', evt.target.value);
                     }}
+                    style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Current company" />
                   </Form.Item>
-                </label>
-                <label>
-                  Current position
+                </Col>
+                <Col md={20} xs={24}>
                   <Form.Item
+                    label="Current Position"
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
                     onChange={evt => {
                       inputChange('current_position', evt.target.value);
                     }}
+                    style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Current position" />
                   </Form.Item>
-                </label>
+                </Col>
+              </Row>
 
-                <hr />
-                <br />
-                <div className="tech_stack">
-                  <h3>
-                    Which best describes your tech stack?* (Check all that
-                    apply)
-                  </h3>
+              <hr />
+
+              <Row style={{ padding: '3% 0 3% 3%' }}>
+                <Col md={22} xs={24}>
+                  <h3>Which best describes your tech stack?*</h3>
                   <Select
                     defaultValue="- Select -"
                     onChange={evt => {
                       inputChange('subject', evt);
                     }}
+                    style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Option value="career">Career Development</Option>
                     <Option value="frontend">Frontend Development</Option>
@@ -283,111 +311,89 @@ const Mentor = () => {
                     <Option value="IOS">IOS Development</Option>
                     <Option value="android">Android Development</Option>
                   </Select>
-                </div>
+                </Col>
+                <Col md={22} xs={24}>
+                  <h3>What is your level of experience?*</h3>
+                  <Radio.Group
+                    name="experience_level"
+                    onChange={evt => {
+                      inputChange('experience_level', evt.target.value);
+                    }}
+                    value={formValues.experience_level}
+                    style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                  >
+                    <Radio value={'beginner'}>Beginner</Radio>
+                    <Radio value={'intermediate'}>Intermediate</Radio>
+                    <Radio value={'expert'}>Expert</Radio>
+                  </Radio.Group>
+                </Col>
+                <Col md={22} xs={24}>
+                  <h3>
+                    How else can you contribute in the progression of our
+                    mentees?*
+                  </h3>
+                  <Checkbox.Group
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-evenly',
+                      flexFlow: 'column',
+                      width: 350,
+                      margin: '0 1rem 1rem 1.5rem',
+                    }}
+                  >
+                    <Checkbox
+                      value="job_help"
+                      onChange={evt => {
+                        inputChange(evt.target.value, !formValues.job_help);
+                      }}
+                      style={{ margin: '.2rem', width: '100%' }}
+                    >
+                      Job Search Help
+                    </Checkbox>
+                    <Checkbox
+                      value="industry_knowledge"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.industry_knowledge
+                        );
+                      }}
+                      style={{ margin: '.2rem', width: '100%' }}
+                    >
+                      Tech Industry Coaching
+                    </Checkbox>
+                    <Checkbox
+                      value="pair_programming"
+                      onChange={evt => {
+                        inputChange(
+                          evt.target.value,
+                          !formValues.pair_programming
+                        );
+                      }}
+                      style={{ margin: '.2rem', width: '100%' }}
+                    >
+                      Pair Programming / Coding Practice
+                    </Checkbox>
+                  </Checkbox.Group>
+                </Col>
+
+                <Col md={22} xs={24}>
+                  <h3>Anything else you want us to know?</h3>
+                  <Form.Item
+                    type="text"
+                    name="other_info"
+                    value={formValues.other_info}
+                    onChange={evt => {
+                      inputChange('other_info', evt.target.value);
+                    }}
+                    style={{ margin: '0 1rem 1rem 1.5rem' }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </Col>
               </Row>
-              <br />
-              <h3>Current company/position?:</h3>
-              <Form.Item
-                type="text"
-                name="current_comp"
-                value={formValues.current_comp}
-                onChange={evt => {
-                  inputChange('current_comp', evt.target.value);
-                }}
-              >
-                <Input placeholder="Your answer" />
-              </Form.Item>
-              <br />
-              <hr />
-              <br />
-              <h3>Which best describes your tech stack?*</h3>
-              <Select
-                defaultValue="- Select -"
-                onChange={evt => {
-                  inputChange('subject', evt);
-                }}
-              >
-                <Option value="career">Career Development</Option>
-                <Option value="frontend">Frontend Development</Option>
-                <Option value="backend">Backend Development</Option>
-                <Option value="design">Design UI/UX</Option>
-                <Option value="IOS">IOS Development</Option>
-                <Option value="android">Android Development</Option>
-              </Select>
-              <br />
-
-              <h3>What is your level of experience?*</h3>
-              <Radio.Group
-                name="experience_level"
-                onChange={evt => {
-                  inputChange('experience_level', evt.target.value);
-                }}
-                value={formValues.experience_level}
-              >
-                <Radio value={'beginner'}>Beginner</Radio>
-                <Radio value={'intermediate'}>Intermediate</Radio>
-                <Radio value={'expert'}>Expert</Radio>
-              </Radio.Group>
-
-              <br />
-              <Col>
-                <h3>
-                  How else can you contribute in the progression of our
-                  mentees?*
-                </h3>
-                <Checkbox.Group>
-                  <Checkbox
-                    value="job_help"
-                    onChange={evt => {
-                      inputChange(evt.target.value, !formValues.job_help);
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Job Search Help
-                  </Checkbox>
-                  <Checkbox
-                    value="industry_knowledge"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.industry_knowledge
-                      );
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Tech Industry Coaching
-                  </Checkbox>
-                  <Checkbox
-                    value="pair_programming"
-                    onChange={evt => {
-                      inputChange(
-                        evt.target.value,
-                        !formValues.pair_programming
-                      );
-                    }}
-                    style={{ margin: '1rem' }}
-                  >
-                    Pair Programming / Coding Practice
-                  </Checkbox>
-                </Checkbox.Group>
-              </Col>
-              <br />
-              <Col span={24}>
-                <h3>Anything else you want us to know?</h3>
-                <Form.Item
-                  type="text"
-                  name="other_info"
-                  value={formValues.other_info}
-                  onChange={evt => {
-                    inputChange('other_info', evt.target.value);
-                  }}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
-              </Col>
-              <br />
             </Col>
-            <Col offset={10}>
+            <Col style={{ display: 'flex', justifyContent: 'center' }}>
               <Button htmlType="submit" id="mentorSubmitButton" size="large">
                 {' '}
                 Submit{' '}
