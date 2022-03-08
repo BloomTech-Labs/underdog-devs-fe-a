@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { SecureRoute, useOktaAuth } from '@okta/okta-react';
 import { authenticateUser } from '../../state/actions/auth/authenticateUser';
 import { getProfile } from '../../state/actions/userProfile/getProfile';
+import Sidebar from './Sidebar/Sidebar';
 import LoadingComponent from './LoadingComponent';
 
 const PrivateRoute = ({
@@ -52,7 +53,9 @@ const PrivateRoute = ({
   return loading ? (
     <LoadingComponent />
   ) : (
-    <SecureRoute path={path} component={() => Component({ ...rest })} />
+    <Sidebar>
+      <SecureRoute path={path} component={() => Component({ ...rest })} />
+    </Sidebar>
   );
 };
 

@@ -5,17 +5,16 @@ import {
   Route,
   useHistory,
   Switch,
+  Redirect,
 } from 'react-router-dom';
-import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
+import { Security, LoginCallback } from '@okta/okta-react';
 
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
+import { Landing } from './components/pages/LandingPage';
 import { LoginPage } from './components/pages/Login';
-import { HomePage } from './components/pages/Home';
-import { SuperAdminForm } from './components/pages/SuperAdminForm';
 import { config } from './utils/oktaConfig';
-import { LoadingComponent } from './components/common';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
@@ -25,6 +24,7 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
+import Calendar from './components/common/Calendar';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -66,7 +66,7 @@ function App() {
       <Navbar />
 
       <Switch>
-        {/* <Route path="/" exact component={Landing} /> // leave commented out until routing refactor is complete */}
+        <Redirect path="/" to="/dashboard" exact component={Landing} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
@@ -101,6 +101,13 @@ function App() {
         />
 
         <PrivateRoute
+          path="/mentees"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3]}
+          component={() => <div>"My Mentees" Component goes here</div>}
+        />
+
+        <PrivateRoute
           path="/resources"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
@@ -124,18 +131,26 @@ function App() {
         />
 
         <PrivateRoute
+          path="/meetings/schedule"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={() => <div>"Schedule Meeting" Component goes here</div>}
+        />
+
+        <PrivateRoute
           path="/meetings"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={() => <div>"View All Meetings" Component goes here</div>}
         />
 
-        <SecureRoute
-          path="/"
-          exact
-          component={() => <HomePage LoadingComponent={LoadingComponent} />}
+        <PrivateRoute
+          path="/calendar"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={Calendar}
         />
-        <SecureRoute path="/super-admin-form" component={SuperAdminForm} />
+
         <Route component={NotFoundPage} />
       </Switch>
     </Security>
