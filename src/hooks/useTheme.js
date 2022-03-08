@@ -1,5 +1,5 @@
 import useLocalStorage from './useLocalStorage';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
 const stylesheets = {
   light: 'https://cdnjs.cloudflare.com/ajax/libs/antd/4.9.4/antd.min.css',
@@ -20,16 +20,7 @@ export default function useTheme() {
   );
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
-  useLayoutEffect(
-    function flipToggleBtn() {
-      const toggleBtn = document.getElementById('darkModeToggle');
-      theme === 'dark' && toggleBtn.classList.add('ant-switch-checked');
-      theme === 'light' && toggleBtn.classList.remove('ant-switch-checked');
-    },
-    [theme]
-  );
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     setTheme(darkTheme ? 'dark' : 'light');
     document.head.querySelector('#antd-stylesheet') || createAntStylesheet();
   }, []); //eslint-disable-line
@@ -40,6 +31,5 @@ export default function useTheme() {
     },
     [theme]
   );
-
-  return toggleTheme;
+  return [theme, toggleTheme];
 }

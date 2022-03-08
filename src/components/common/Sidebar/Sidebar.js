@@ -24,7 +24,7 @@ const Sidebar = ({ children, userProfile }) => {
   const { push } = useHistory();
   const { pathname } = useLocation();
 
-  const toggleTheme = useTheme();
+  const [theme, toggleTheme] = useTheme();
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
@@ -132,7 +132,12 @@ const Sidebar = ({ children, userProfile }) => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
+              <Toggle
+                size="small"
+                id="darkModeToggle"
+                onClick={toggleTheme}
+                checked={theme === 'dark' ? true : false}
+              />
             </div>
           </Menu.Item>
         </Menu>
