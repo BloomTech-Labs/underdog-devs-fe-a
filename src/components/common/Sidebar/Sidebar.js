@@ -33,7 +33,7 @@ const Sidebar = ({ authService, userProfile }) => {
   const [render, updateRender] = useState(1);
   const { authState } = useOktaAuth();
 
-  const toggleTheme = useTheme();
+  const [theme, toggleTheme] = useTheme();
 
   useEffect(() => {
     getAuthHeader(authState);
@@ -175,7 +175,12 @@ const Sidebar = ({ authService, userProfile }) => {
           <Menu.Item key="13" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
-              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
+              <Toggle
+                size="small"
+                id="darkModeToggle"
+                onClick={toggleTheme}
+                checked={theme === 'dark' ? true : false}
+              />
             </div>
           </Menu.Item>
         </Menu>
