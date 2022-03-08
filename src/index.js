@@ -25,6 +25,7 @@ import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
+import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -149,6 +150,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={Calendar}
+        />
+
+        <PrivateRoute
+          path="/matching"
+          redirect="/dashboard"
+          allowRoles={[1]}
+          component={MentorMenteeMatching}
         />
 
         <Route component={NotFoundPage} />

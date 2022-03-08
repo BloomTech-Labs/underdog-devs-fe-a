@@ -101,6 +101,9 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/applications" onClick={handleMenuClick}>
                 Pending Applications
               </Menu.Item>
+              <Menu.Item key="/matching" onClick={handleMenuClick}>
+                Matching
+              </Menu.Item>
               <Menu.Item key="/users" onClick={handleMenuClick}>
                 Manage Users
               </Menu.Item>
@@ -123,16 +126,18 @@ const Sidebar = ({ children, userProfile }) => {
             </Menu.Item>
           </SubMenu>
           {isUserAdmin() === false && (
-            <Menu.Item
-              key="/support"
-              icon={<QuestionCircleOutlined />}
-              onClick={handleMenuClick}
-            >
-              Support
-            </Menu.Item>
+            <>
+              <Menu.Item
+                key="/support"
+                icon={<QuestionCircleOutlined />}
+                onClick={handleMenuClick}
+              >
+                Support
+              </Menu.Item>
+            </>
           )}
           <Menu.Divider />
-          <Menu.Item key="13" icon={<BulbOutlined />}>
+          <Menu.Item key="14" icon={<BulbOutlined />}>
             <div id="darkmode">
               Darkmode
               <Toggle
