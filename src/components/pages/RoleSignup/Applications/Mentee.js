@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useForms from '../../../../hooks/useForms';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -47,7 +48,7 @@ const initialFormValues = {
 };
 
 const Mentee = () => {
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const history = useHistory();
 
@@ -66,13 +67,6 @@ const Mentee = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-  };
-
-  const inputChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
   };
 
   return (
@@ -116,9 +110,7 @@ const Mentee = () => {
                       },
                     ]}
                     value={formValues.first_name}
-                    onChange={evt => {
-                      inputChange('first_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '1.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
@@ -137,9 +129,7 @@ const Mentee = () => {
                       },
                     ]}
                     value={formValues.last_name}
-                    onChange={evt => {
-                      inputChange('last_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
@@ -162,9 +152,7 @@ const Mentee = () => {
                       },
                     ]}
                     value={formValues.email}
-                    onChange={evt => {
-                      inputChange('email', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem' }}
                   >
                     <Input placeholder="Enter Valid Email" />
@@ -190,11 +178,9 @@ const Mentee = () => {
                     ]}
                   >
                     <Radio.Group
-                      name="livesInUS"
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
+                      name="country"
                       value={formValues.country}
+                      onChange={handleChange}
                       style={{ width: '250', display: 'flex' }}
                     >
                       <Radio value={'USA'}>Yes</Radio>
@@ -218,9 +204,7 @@ const Mentee = () => {
                         },
                       ]}
                       value={formValues.country}
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
+                      onChange={handleChange}
                       style={{ margin: '0 1rem 1rem' }}
                     >
                       <Input placeholder="Your Country" />
@@ -244,9 +228,7 @@ const Mentee = () => {
                           },
                         ]}
                         value={formValues.city}
-                        onChange={evt => {
-                          inputChange('city', evt.target.value);
-                        }}
+                        onChange={handleChange}
                         style={{ margin: '0 1rem .5rem' }}
                       >
                         <Input placeholder="City" />
@@ -262,10 +244,11 @@ const Mentee = () => {
                         ]}
                       >
                         <Select
-                          defaultValue="- Select -"
-                          onChange={value => {
-                            inputChange('state', value);
-                          }}
+                          defaultValue="State"
+                          style={{ width: 250, paddingLeft: '5%' }}
+                          name="state"
+                          value={formValues.state}
+                          onChange={e => handleChange(e, 'select', 'state')}
                         >
                           {states.map(state => (
                             <Option key={state} value={state}>
@@ -299,33 +282,21 @@ const Mentee = () => {
                   >
                     <Checkbox
                       value="formerly_incarcerated"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.formerly_incarcerated
-                        );
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       Formerly incarcerated
                     </Checkbox>
                     <Checkbox
                       value="low_income"
-                      onChange={evt => {
-                        inputChange(evt.target.value, !formValues.low_income);
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       From a lower socioeconomic background
                     </Checkbox>
                     <Checkbox
                       value="underrepresented_group"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.underrepresented_group
-                        );
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       From an underrepresented group
@@ -339,9 +310,7 @@ const Mentee = () => {
                     type="text"
                     name="list_convictions"
                     value={formValues.list_convictions}
-                    onChange={evt => {
-                      inputChange('list_convictions', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
@@ -368,9 +337,7 @@ const Mentee = () => {
                   >
                     <Select
                       defaultValue="- Select -"
-                      onChange={evt => {
-                        inputChange('subject', evt);
-                      }}
+                      onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="career">Career Development</Option>
@@ -395,9 +362,7 @@ const Mentee = () => {
                   >
                     <Radio.Group
                       name="experience_level"
-                      onChange={evt => {
-                        inputChange('experience_level', evt.target.value);
-                      }}
+                      onChange={handleChange}
                       value={formValues.experience_level}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
@@ -429,33 +394,21 @@ const Mentee = () => {
                     >
                       <Checkbox
                         value="job_help"
-                        onChange={evt => {
-                          inputChange(evt.target.value, !formValues.job_help);
-                        }}
+                        onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Job Search Help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
-                        onChange={evt => {
-                          inputChange(
-                            evt.target.value,
-                            !formValues.industry_knowledge
-                          );
-                        }}
+                        onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Learn more about the tech industry
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
-                        onChange={evt => {
-                          inputChange(
-                            evt.target.value,
-                            !formValues.pair_programming
-                          );
-                        }}
+                        onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Pair Programming / Coding Practice
@@ -470,9 +423,7 @@ const Mentee = () => {
                     type="text"
                     name="other_info"
                     value={formValues.other_info}
-                    onChange={evt => {
-                      inputChange('other_info', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
