@@ -16,12 +16,13 @@
 
   .locationUS {
       display: flex;
+      flex-direction: column;
   }
 
   #menteeSubmitButton{
     background-color: #003D71;
     color: #FFF;
-    margin-bottom: 4vh;
+    margin-bottom: 2vh;
   }
   
   @media only screen and (max-width: 600px) {
