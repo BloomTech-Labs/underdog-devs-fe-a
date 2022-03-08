@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   Form,
@@ -44,15 +45,17 @@ const initialFormValues = {
 const Mentor = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  const history = useHistory();
+
   const postNewAccount = async newAccount => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
-      console.log(response);
+      history.push('/apply/success');
     } catch (err) {
-      console.log(err);
+      history.push('/apply/error');
     }
   };
 

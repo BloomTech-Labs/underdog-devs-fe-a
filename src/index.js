@@ -18,6 +18,9 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+import AppError from './components/pages/RoleSignup/Applications/AppError';
+
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -72,12 +75,8 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        <Route
-          path="/pending"
-          component={() => (
-            <div>"Application Is Pending" Component goes here</div>
-          )}
-        />
+        <Route path="/apply/success" component={AppSuccess} />
+        <Route path="/apply/error" component={AppError} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
