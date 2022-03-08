@@ -24,6 +24,7 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
+import Calendar from './components/common/Calendar';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -141,6 +142,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={() => <div>"View All Meetings" Component goes here</div>}
+        />
+
+        <PrivateRoute
+          path="/calendar"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={Calendar}
         />
 
         <Route component={NotFoundPage} />
