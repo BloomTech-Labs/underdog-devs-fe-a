@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import useForms from '../../../../hooks/useForms';
 import {
   Form,
   Input,
@@ -43,7 +44,7 @@ const initialFormValues = {
 };
 
 const Mentor = () => {
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const history = useHistory();
 
@@ -62,13 +63,7 @@ const Mentor = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-  };
-
-  const inputChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    console.log(formValues);
   };
 
   return (
@@ -112,9 +107,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.first_name}
-                    onChange={evt => {
-                      inputChange('first_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '1.5rem 1.5rem .5rem' }}
                   >
                     <Input placeholder="Your First Name" />
@@ -133,9 +126,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.last_name}
-                    onChange={evt => {
-                      inputChange('last_name', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Your Last Name" />
@@ -154,9 +145,7 @@ const Mentor = () => {
                       },
                     ]}
                     value={formValues.email}
-                    onChange={evt => {
-                      inputChange('email', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem' }}
                   >
                     <Input placeholder="Enter Valid Email" />
@@ -173,10 +162,8 @@ const Mentor = () => {
                 >
                   <label>Are you located in the U.S.?*</label>
                   <Radio.Group
-                    name="livesInUS"
-                    onChange={evt => {
-                      inputChange('country', evt.target.value);
-                    }}
+                    name="country"
+                    onChange={handleChange}
                     value={formValues.country}
                     style={{ width: '250', display: 'flex' }}
                   >
@@ -200,9 +187,7 @@ const Mentor = () => {
                         },
                       ]}
                       value={formValues.country}
-                      onChange={evt => {
-                        inputChange('country', evt.target.value);
-                      }}
+                      onChange={handleChange}
                       style={{ margin: '0 1rem 1rem' }}
                     >
                       <Input placeholder="Your Country" />
@@ -226,9 +211,7 @@ const Mentor = () => {
                           },
                         ]}
                         value={formValues.city}
-                        onChange={evt => {
-                          inputChange('city', evt.target.value);
-                        }}
+                        onChange={handleChange}
                         style={{ margin: '0 1rem .5rem' }}
                       >
                         <Input placeholder="Your City" />
@@ -239,9 +222,7 @@ const Mentor = () => {
                       >
                         <Select
                           defaultValue="- Select -"
-                          onChange={value => {
-                            inputChange('state', value);
-                          }}
+                          onChange={e => handleChange(e, 'select', 'state')}
                         >
                           {states.map(state => (
                             <Option key={state} value={state}>
@@ -268,9 +249,7 @@ const Mentor = () => {
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
-                    onChange={evt => {
-                      inputChange('current_company', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Current company" />
@@ -282,9 +261,7 @@ const Mentor = () => {
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
-                    onChange={evt => {
-                      inputChange('current_position', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
                   >
                     <Input placeholder="Current position" />
@@ -299,9 +276,7 @@ const Mentor = () => {
                   <h3>Which best describes your tech stack?*</h3>
                   <Select
                     defaultValue="- Select -"
-                    onChange={evt => {
-                      inputChange('subject', evt);
-                    }}
+                    onChange={e => handleChange(e, 'select', 'tech_stack')}
                     style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Option value="career">Career Development</Option>
@@ -316,9 +291,7 @@ const Mentor = () => {
                   <h3>What is your level of experience?*</h3>
                   <Radio.Group
                     name="experience_level"
-                    onChange={evt => {
-                      inputChange('experience_level', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     value={formValues.experience_level}
                     style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                   >
@@ -343,33 +316,21 @@ const Mentor = () => {
                   >
                     <Checkbox
                       value="job_help"
-                      onChange={evt => {
-                        inputChange(evt.target.value, !formValues.job_help);
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       Job Search Help
                     </Checkbox>
                     <Checkbox
                       value="industry_knowledge"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.industry_knowledge
-                        );
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       Tech Industry Coaching
                     </Checkbox>
                     <Checkbox
                       value="pair_programming"
-                      onChange={evt => {
-                        inputChange(
-                          evt.target.value,
-                          !formValues.pair_programming
-                        );
-                      }}
+                      onChange={e => handleChange(e, 'checkbox')}
                       style={{ margin: '.2rem', width: '100%' }}
                     >
                       Pair Programming / Coding Practice
@@ -383,9 +344,7 @@ const Mentor = () => {
                     type="text"
                     name="other_info"
                     value={formValues.other_info}
-                    onChange={evt => {
-                      inputChange('other_info', evt.target.value);
-                    }}
+                    onChange={handleChange}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
