@@ -22,7 +22,7 @@ const Signup = () => {
       </Row>
 
       <Row className="row">
-        <Col sm={3} md={2} lg={1} className="col1">
+        <Col className="col1">
           <Card
             className="card1"
             hoverable
@@ -63,7 +63,7 @@ const Signup = () => {
           </Card>
         </Col>
 
-        <Col sm={3} md={2} lg={1} className="col2">
+        <Col span={18} className="col2">
           <Card
             hoverable
             className="card2"
