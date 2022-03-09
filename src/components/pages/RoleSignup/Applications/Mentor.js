@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import useForms from '../../../../hooks/useForms';
@@ -45,6 +45,7 @@ const initialFormValues = {
 
 const Mentor = () => {
   const [formValues, handleChange] = useForms(initialFormValues);
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
@@ -56,7 +57,7 @@ const Mentor = () => {
       );
       history.push('/apply/success');
     } catch (err) {
-      history.push('/apply/error');
+      setError(err);
     }
   };
 
@@ -413,6 +414,21 @@ const Mentor = () => {
                 {' '}
                 Submit{' '}
               </Button>
+            </Col>
+            <Col
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: 'red',
+              }}
+              align="middle"
+            >
+              {error ? (
+                <p className="error">
+                  We're sorry! Something went wrong. Please try again and submit
+                  later.
+                </p>
+              ) : null}
             </Col>
           </Form>
         </Col>
