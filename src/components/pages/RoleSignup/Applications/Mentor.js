@@ -151,9 +151,6 @@ const Mentor = () => {
                   </Form.Item>
                 </Col>
 
-                {/* <Col span={24}>
-                  <h3>Location:</h3>
-                </Col> */}
                 <Col
                   span={14}
                   offset={0}
