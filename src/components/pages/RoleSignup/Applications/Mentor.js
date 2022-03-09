@@ -22,6 +22,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
+import './Styles/mentorAndMenteeApplications.css';
 import { states } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
@@ -273,7 +274,15 @@ const Mentor = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <h3>Which best describes your tech stack?*</h3>
+                  <h3>
+                    Which best describes your tech stack?*&nbsp;
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        What development role have you trained for
+                      </span>
+                    </div>
+                  </h3>
                   <Select
                     defaultValue="- Select -"
                     onChange={e => handleChange(e, 'select', 'tech_stack')}
@@ -288,7 +297,15 @@ const Mentor = () => {
                   </Select>
                 </Col>
                 <Col md={22} xs={24}>
-                  <h3>What is your level of experience?*</h3>
+                  <h3>
+                    What is your level of experience?*&nbsp;
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        More info about experience
+                      </span>
+                    </div>
+                  </h3>
                   <Radio.Group
                     name="experience_level"
                     onChange={handleChange}
@@ -303,7 +320,13 @@ const Mentor = () => {
                 <Col md={22} xs={24}>
                   <h3>
                     How else can you contribute in the progression of our
-                    mentees?*
+                    mentees?*&nbsp;
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        More info about mentee contributions
+                      </span>
+                    </div>
                   </h3>
                   <Checkbox.Group
                     style={{
@@ -339,7 +362,15 @@ const Mentor = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Anything else you want us to know?</h3>
+                  <h3>
+                    Anything else you want us to know?&nbsp;
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        More info about anything else
+                      </span>
+                    </div>
+                  </h3>
                   <Form.Item
                     type="text"
                     name="other_info"

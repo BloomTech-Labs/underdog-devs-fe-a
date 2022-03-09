@@ -23,6 +23,7 @@ import {
 
 import { states } from '../../../common/constants';
 import './Styles/menteeApplication.css';
+import './Styles/mentorAndMenteeApplications.css';
 
 const { Title } = Typography;
 
@@ -269,7 +270,14 @@ const Mentee = () => {
                 <Col md={22} xs={24}>
                   <h3>
                     Which criteria represents you for membership? (Select all
-                    that apply)
+                    that apply)&nbsp;
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        More info about criteria testing long block of text.
+                        Please enter information blah
+                      </span>
+                    </div>
                   </h3>
                   <Checkbox.Group
                     style={{
@@ -305,7 +313,17 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Please list your convictions if comfortable</h3>
+                  <div className="question">
+                    <h3>
+                      Please list your convictions if comfortable&nbsp;
+                      <div className="tooltip">
+                        ⓘ
+                        <span class="tooltipText">
+                          More info about convictions
+                        </span>
+                      </div>
+                    </h3>
+                  </div>
                   <Form.Item
                     type="text"
                     name="list_convictions"
@@ -322,10 +340,18 @@ const Mentee = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <h3>
-                    Which best describes the tech path you are working towards
-                    or are interested in? *
-                  </h3>
+                  <div className="question">
+                    <h3>
+                      Which best describes the tech path you are working towards
+                      or are interested in? *&nbsp;
+                      <div className="tooltip">
+                        ⓘ
+                        <span class="tooltipText">
+                          More info about tech path
+                        </span>
+                      </div>
+                    </h3>
+                  </div>
                   <Form.Item
                     name="tech_stack"
                     rules={[
@@ -350,7 +376,17 @@ const Mentee = () => {
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
-                  <h3>What is your level of experience?*</h3>
+                  <div className="question">
+                    <h3>
+                      What is your level of experience?*&nbsp;
+                      <div className="tooltip">
+                        ⓘ
+                        <span class="tooltipText">
+                          More info about experience
+                        </span>
+                      </div>
+                    </h3>
+                  </div>
                   <Form.Item
                     name="experience_level"
                     rules={[
@@ -373,7 +409,14 @@ const Mentee = () => {
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
-                  <h3>What are you hoping to gain from the community?*</h3>
+                  <div className="question">
+                    <h3>
+                      What are you hoping to gain from the community?*&nbsp;
+                      <div className="tooltip">
+                        ⓘ<span class="tooltipText">More info about hopes</span>
+                      </div>
+                    </h3>
+                  </div>
                   <Form.Item
                     name="your_hope"
                     rules={[
@@ -418,7 +461,17 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Anything else you want us to know?</h3>
+                  <div className="question">
+                    <h3>
+                      Anything else you want us to know?&nbsp;
+                      <div className="tooltip">
+                        ⓘ
+                        <span class="tooltipText">
+                          More info about anything else
+                        </span>
+                      </div>
+                    </h3>
+                  </div>
                   <Form.Item
                     type="text"
                     name="other_info"
