@@ -62,7 +62,7 @@ const RenderProfileContainer = props => {
         </Col>
         <Col span={18}>
           <Title level={1}>{userData.name}</Title>
-          <Card title="My Profile">
+          <Card title="My Profile" extra={<EditProfile />}>
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
               {userData.bio || 'Profile bio will go here.'}
             </Card>
@@ -90,7 +90,6 @@ const RenderProfileContainer = props => {
               {userData.topics || 'Topics will go here.'}
             </Card>
           </Card>
-          <EditProfile />
         </Col>
       </Row>
     </div>
