@@ -33,7 +33,7 @@ const RenderProfileContainer = props => {
   return (
     <div>
       <Row style={{ height: '100vh' }}>
-        <Col span={6} style={{ padding: '3%' }}>
+        <Col span={6} style={{ padding: '1.8%' }}>
           <Card
             style={{ padding: '2%' }}
             cover={
@@ -50,7 +50,7 @@ const RenderProfileContainer = props => {
             <Typography>{userData.email}</Typography>
           </Card>
           <Card
-            style={{ width: 300, marginTop: 16 }}
+            style={{ width: 257, marginTop: 16 }}
             actions={[
               <TwitterOutlined />,
               <LinkedinOutlined />,
@@ -60,7 +60,7 @@ const RenderProfileContainer = props => {
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={18}>
+        <Col span={17}>
           <Title level={1}>{userData.name}</Title>
           <Card title="My Profile">
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
@@ -90,7 +90,7 @@ const RenderProfileContainer = props => {
               {userData.topics || 'Topics will go here.'}
             </Card>
           </Card>
-          <EditProfile />
+          {/* <EditProfile /> */}
         </Col>
       </Row>
     </div>
