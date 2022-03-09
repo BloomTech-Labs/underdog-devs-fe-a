@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -421,7 +421,7 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Anything else you want us to know?</h3>
+                  <p>Anything else you want us to know?</p>
                   <Form.Item
                     type="text"
                     name="other_info"

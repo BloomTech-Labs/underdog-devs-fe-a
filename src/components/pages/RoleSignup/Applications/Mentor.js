@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import useForms from '../../../../hooks/useForms';
@@ -63,7 +63,6 @@ const Mentor = () => {
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-    console.log(formValues);
   };
 
   return (
@@ -399,7 +398,7 @@ const Mentor = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Anything else you want us to know?</h3>
+                  <p>Anything else you want us to know?</p>
                   <Form.Item
                     type="text"
                     name="other_info"
