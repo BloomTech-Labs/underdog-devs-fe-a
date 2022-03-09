@@ -274,8 +274,7 @@ const Mentee = () => {
                     <div className="tooltip">
                       ⓘ
                       <span class="tooltipText">
-                        More info about criteria testing long block of text.
-                        Please enter information blah
+                        If none apply, leave blank
                       </span>
                     </div>
                   </h3>
@@ -319,7 +318,7 @@ const Mentee = () => {
                       <div className="tooltip">
                         ⓘ
                         <span class="tooltipText">
-                          More info about convictions
+                          Include any relevant info that you wish to share
                         </span>
                       </div>
                     </h3>
@@ -347,7 +346,7 @@ const Mentee = () => {
                       <div className="tooltip">
                         ⓘ
                         <span class="tooltipText">
-                          More info about tech path
+                          Select the title that best reflects your goals
                         </span>
                       </div>
                     </h3>
@@ -382,7 +381,7 @@ const Mentee = () => {
                       <div className="tooltip">
                         ⓘ
                         <span class="tooltipText">
-                          More info about experience
+                          Choose your current skill level
                         </span>
                       </div>
                     </h3>
@@ -413,7 +412,7 @@ const Mentee = () => {
                     <h3>
                       What are you hoping to gain from the community?*&nbsp;
                       <div className="tooltip">
-                        ⓘ<span class="tooltipText">More info about hopes</span>
+                        ⓘ<span class="tooltipText">Select all that apply</span>
                       </div>
                     </h3>
                   </div>
@@ -467,7 +466,8 @@ const Mentee = () => {
                       <div className="tooltip">
                         ⓘ
                         <span class="tooltipText">
-                          More info about anything else
+                          Include any relevant info that you think may be
+                          helpful
                         </span>
                       </div>
                     </h3>

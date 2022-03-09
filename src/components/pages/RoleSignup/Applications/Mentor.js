@@ -279,7 +279,7 @@ const Mentor = () => {
                     <div className="tooltip">
                       ⓘ
                       <span class="tooltipText">
-                        What development role have you trained for
+                        What development role have you trained for?
                       </span>
                     </div>
                   </h3>
@@ -302,7 +302,7 @@ const Mentor = () => {
                     <div className="tooltip">
                       ⓘ
                       <span class="tooltipText">
-                        More info about experience
+                        Choose your current skill level
                       </span>
                     </div>
                   </h3>
@@ -322,10 +322,7 @@ const Mentor = () => {
                     How else can you contribute in the progression of our
                     mentees?*&nbsp;
                     <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        More info about mentee contributions
-                      </span>
+                      ⓘ<span class="tooltipText">Select all that apply</span>
                     </div>
                   </h3>
                   <Checkbox.Group
@@ -367,7 +364,7 @@ const Mentor = () => {
                     <div className="tooltip">
                       ⓘ
                       <span class="tooltipText">
-                        More info about anything else
+                        Include any relevant info that you think may be helpful
                       </span>
                     </div>
                   </h3>
