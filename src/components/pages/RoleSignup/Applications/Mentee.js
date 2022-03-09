@@ -264,7 +264,7 @@ const Mentee = () => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="What are you hoping to gain from the community?"
+                    label="Which criteria represents you for membership? (Select all that apply)"
                     name="your_hope"
                     rules={[
                       {
@@ -274,8 +274,6 @@ const Mentee = () => {
                     ]}
                   >
                     <Checkbox.Group
-                      label="Which criteria represents you for membership? (Select all
-                      that apply)"
                       style={{
                         display: 'flex',
                         justifyContent: 'space-evenly',
