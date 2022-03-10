@@ -8,7 +8,7 @@ import { EditOutlined } from '@ant-design/icons';
 import {
   TwitterOutlined,
   LinkedinOutlined,
-  FacebookOutlined,
+  GithubOutlined,
 } from '@ant-design/icons';
 
 import axiosWithAuth from '../../../utils/axiosWithAuth';
@@ -54,7 +54,7 @@ const RenderProfileContainer = props => {
             actions={[
               <TwitterOutlined />,
               <LinkedinOutlined />,
-              <FacebookOutlined />,
+              <GithubOutlined />,
             ]}
           >
             <Meta title="Socials" description={<EditOutlined />} />
