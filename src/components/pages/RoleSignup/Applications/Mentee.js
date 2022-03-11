@@ -448,8 +448,8 @@ const Mentee = () => {
             >
               {error ? (
                 <p className="error">
-                  We're sorry! Something went wrong. Please try again and submit
-                  later.
+                  We're sorry! Something went wrong. Please re-apply and try
+                  again later.
                 </p>
               ) : null}
             </Col>
