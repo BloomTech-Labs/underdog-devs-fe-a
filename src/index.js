@@ -37,6 +37,7 @@ import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
 
 import PrivateRoute from './components/common/PrivateRoute';
+import { MenteesProgress } from './components/pages/MenteesProgress/MenteesProgress';
 
 const store = createStore(
   rootReducer,
@@ -156,6 +157,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1]}
           component={MentorMenteeMatching}
+        />
+
+        <PrivateRoute
+          path="/progress"
+          redirect="/dashboard"
+          allowRoles={[1]}
+          component={MenteesProgress}
         />
 
         <Route component={NotFoundPage} />
