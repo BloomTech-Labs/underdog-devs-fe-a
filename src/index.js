@@ -29,6 +29,8 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
+import Notes from './components/pages/Notes/Notes';
+import NotesForm from './components/pages/Notes/NotesForm';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -84,6 +86,19 @@ function App() {
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
           component={Dashboard}
+        />
+
+        <PrivateRoute
+          path="/notes"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={Notes}
+        />
+        <PrivateRoute
+          path="/notesform"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={NotesForm}
         />
 
         <PrivateRoute

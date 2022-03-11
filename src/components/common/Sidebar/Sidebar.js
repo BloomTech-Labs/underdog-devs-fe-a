@@ -107,6 +107,9 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/users" onClick={handleMenuClick}>
                 Manage Users
               </Menu.Item>
+              <Menu.Item key="/notes" onClick={handleMenuClick}>
+                Notes
+              </Menu.Item>
               <Menu.Item key="/support" onClick={handleMenuClick}>
                 View Support Requests
               </Menu.Item>
