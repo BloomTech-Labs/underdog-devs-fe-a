@@ -12,8 +12,9 @@ const AppSuccess = () => {
         </Col>
         <Col span={24} align="middle">
           <Typography>
-            Your application was successfully submitted! Underdog Devs will
-            contact you shortly in regards to your application approval.
+            Your application was successfully submitted! Someone at Underdog
+            Devs will contact you shortly in regards to your application
+            approval.
           </Typography>
         </Col>
         <Link to="/">
