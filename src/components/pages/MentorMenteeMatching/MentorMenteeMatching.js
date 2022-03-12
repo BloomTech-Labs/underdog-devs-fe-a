@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { EditOutlined } from '@ant-design/icons';
 
 import { Table } from 'antd';
 import { Card } from 'antd';
@@ -47,6 +48,8 @@ const MentorMenteeMatching = () => {
     data.push(profile);
   });
 
+  const menteeInfo = [];
+
   let cards = (
     <div
       style={{
@@ -60,10 +63,36 @@ const MentorMenteeMatching = () => {
         <p>Card content</p>
         <p>Card content</p>
       </Card>
-      <Card title="Mentors" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
+      <Card title="Mentors" style={{ width: '30%', marginTop: '6px' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <p>Jimmy React</p>
+          <EditOutlined />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <input style={{ paddingLeft: '5px' }} placeholder="Assign Mentor" />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: '20px',
+          }}
+        >
+          <input style={{ paddingLeft: '5px' }} placeholder="Assign Mentor" />
+        </div>
       </Card>
       <Card title="Mentor Information" style={{ width: '30%' }}>
         <p>Card content</p>
