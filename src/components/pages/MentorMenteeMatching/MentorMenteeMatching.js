@@ -73,7 +73,24 @@ const MentorMenteeMatching = () => {
         {edit ? (
           <div style={{ width: '80%' }}>
             <input
-              style={{ paddingLeft: '5px', width: '80%', height: '3.3vh' }}
+              style={
+                localStorage.getItem('theme') === 'dark'
+                  ? {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid black',
+                      backgroundColor: 'black',
+                    }
+                  : {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid #D3D3D3',
+                    }
+              }
               placeholder="Assign Mentor"
               value="Card Content"
             />
@@ -93,7 +110,24 @@ const MentorMenteeMatching = () => {
         {edit ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <input
-              style={{ paddingLeft: '5px', width: '80%', height: '3.3vh' }}
+              style={
+                localStorage.getItem('theme') === 'dark'
+                  ? {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid black',
+                      backgroundColor: 'black',
+                    }
+                  : {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid #D3D3D3',
+                    }
+              }
               placeholder="Assign Mentor"
               value="Card Content"
             />
@@ -112,11 +146,24 @@ const MentorMenteeMatching = () => {
         {edit ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <input
-              style={{
-                paddingLeft: '5px',
-                width: '80%',
-                height: '3.3vh',
-              }}
+              style={
+                localStorage.getItem('theme') === 'dark'
+                  ? {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid black',
+                      backgroundColor: 'black',
+                    }
+                  : {
+                      paddingLeft: '5px',
+                      width: '80%',
+                      height: '3.3vh',
+                      color: '#989898',
+                      border: '1px solid #D3D3D3',
+                    }
+              }
               placeholder="Assign Mentor"
               value="Card Content"
             />
