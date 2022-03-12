@@ -72,11 +72,13 @@ const Notes = props => {
 
   return (
     <>
-      <h2>Notes</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h2>Notes</h2>
+        <Link to="/notesform">
+          <Button className="add-note-button">Add Note</Button>
+        </Link>
+      </div>
       <Table columns={columns} dataSource={items} />
-      <Link to="/notesform">
-        <Button className="add-note-button">Add Note</Button>
-      </Link>
     </>
   );
 };
