@@ -9,6 +9,8 @@ import { Tag, Space } from 'antd';
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
 
+  const [edit, setEdit] = useState(false);
+
   useEffect(() => {
     const getAssignments = () => {
       axiosWithAuth()
@@ -48,8 +50,6 @@ const MentorMenteeMatching = () => {
     data.push(profile);
   });
 
-  const menteeInfo = [];
-
   let cards = (
     <div
       style={{
@@ -63,36 +63,75 @@ const MentorMenteeMatching = () => {
         <p>Card content</p>
         <p>Card content</p>
       </Card>
-      <Card title="Mentors" style={{ width: '30%', marginTop: '6px' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <p>Jimmy React</p>
-          <EditOutlined />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <input style={{ paddingLeft: '5px' }} placeholder="Assign Mentor" />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: '20px',
-          }}
-        >
-          <input style={{ paddingLeft: '5px' }} placeholder="Assign Mentor" />
-        </div>
+      <Card
+        title="Mentors"
+        style={{
+          width: '30%',
+        }}
+        extra={<EditOutlined onClick={() => setEdit(!edit)} />}
+      >
+        {edit ? (
+          <div style={{ width: '80%' }}>
+            <input
+              style={{ paddingLeft: '5px', width: '80%', height: '3.3vh' }}
+              placeholder="Assign Mentor"
+              value="Card Content"
+            />
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <p>Card Content</p>
+          </div>
+        )}
+
+        {edit ? (
+          <div style={{ width: '80%', marginTop: '20px' }}>
+            <input
+              style={{ paddingLeft: '5px', width: '80%', height: '3.3vh' }}
+              placeholder="Assign Mentor"
+              value="Card Content"
+            />
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <p>Card Content</p>
+          </div>
+        )}
+        {edit ? (
+          <div style={{ width: '80%', marginTop: '20px' }}>
+            <input
+              style={{
+                paddingLeft: '5px',
+                width: '80%',
+                height: '3.3vh',
+              }}
+              placeholder="Assign Mentor"
+              value="Card Content"
+            />
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <p>Card Content</p>
+          </div>
+        )}
       </Card>
       <Card title="Mentor Information" style={{ width: '30%' }}>
         <p>Card content</p>
