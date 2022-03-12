@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import Note from './Note';
+import { Table, Button } from 'antd';
 
 const Notes = props => {
   const [items, setItems] = useState([]);
@@ -10,41 +11,73 @@ const Notes = props => {
     axiosWithAuth()
       .get('https://mocki.io/v1/ad7eaaca-470f-4da9-a28a-349200e9263b')
       .then(res => {
-        console.log(res.data);
         setItems(res.data);
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
-  return (
-    <div className="notes-page">
-      <div className="headers">
-        <h1>Created By</h1>
-        <h1>Note</h1>
-        <h1>Role</h1>
-        <h1>Visibility</h1>
-        <h1>Concern Level</h1>
-        <h1>Date</h1>
-        <h1>Time</h1>
-      </div>
-      <div className="notes-container">
-        {items &&
-          items.map(itm => {
-            return <Note key={itm.id} item={itm} />;
-          })}
 
-        {/* <div className="entries">
-        <p>{items.name}</p>
-        <p>{items.note}</p>
-        <p>{items.date}</p>
-        <p>{items.time}</p>
-        </div> */}
-      </div>
+  const columns = [
+    {
+      title: 'Created By',
+      dataIndex: 'name',
+      key: 'name',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Note',
+      dataIndex: 'note',
+      key: 'note',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Visibility',
+      dataIndex: 'visibilty',
+      key: 'visibility',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Concern Level',
+      dataIndex: 'concern',
+      key: 'concern',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+    {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.name - b.name,
+    },
+  ];
+
+  return (
+    <>
+      <h2>Notes</h2>
+      <Table columns={columns} dataSource={items} />
       <Link to="/notesform">
-        <button className="add-note-button">Add Note</button>
+        <Button className="add-note-button">Add Note</Button>
       </Link>
-    </div>
+    </>
   );
 };
 
