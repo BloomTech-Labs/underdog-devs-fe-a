@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import Note from './Note';
 import { Table, Button } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
 const Notes = props => {
   const [items, setItems] = useState([]);
@@ -75,7 +76,17 @@ const Notes = props => {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h2>Notes</h2>
         <Link to="/notesform">
-          <Button className="add-note-button">Add Note</Button>
+          <Button
+            className="add-note-button"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '1em 0.5em',
+            }}
+          >
+            <PlusCircleOutlined />
+            Add Note
+          </Button>
         </Link>
       </div>
       <Table columns={columns} dataSource={items} />
