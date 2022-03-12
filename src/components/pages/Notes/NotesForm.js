@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card,
+  Modal,
   Menu,
   Space,
   Radio,
@@ -8,12 +8,11 @@ import {
   message,
   Dropdown,
   Button,
-  Divider,
   Input,
 } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
-const NotesForm = () => {
+const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
   const handleMenuClick = e => {
     message.info('Click on menu item.');
@@ -41,73 +40,79 @@ const NotesForm = () => {
     </Menu>
   );
   return (
-    <Card style={{ padding: '2%' }}>
-      <h1>Create a new note</h1>
-      <Divider />
-      <div
-        className="column"
-        style={{ display: 'flex', flexDirection: 'column' }}
-      >
-        <label htmlFor="">Content Type</label>
-        <Dropdown overlay={menu} style={{ width: '40%' }}>
-          <Button>
-            Select note type <DownOutlined />
-          </Button>
-        </Dropdown>
-        <br />
-        <label htmlFor="">Content</label>
-        <TextArea rows={4} />
-        <br />
-      </div>
-      <div
-        className="outer-column"
-        style={{ display: 'flex', flexDirection: 'column' }}
+    displayModal && (
+      <Modal
+        title="Create a new note"
+        visible={displayModal}
+        onOk={() => setDisplayModal(false)}
+        onCancel={() => setDisplayModal(false)}
+        footer={null}
       >
         <div
-          className="row1"
-          style={{ display: 'flex', justifyContent: 'space-between' }}
+          className="column"
+          style={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <label htmlFor="">Content Type</label>
+          <Dropdown overlay={menu} style={{ width: '40%' }}>
+            <Button>
+              Select note type <DownOutlined />
+            </Button>
+          </Dropdown>
+          <br />
+          <label htmlFor="">Content</label>
+          <TextArea rows={4} />
+          <br />
+        </div>
+        <div
+          className="outer-column"
+          style={{ display: 'flex', flexDirection: 'column' }}
         >
           <div
-            className="radio"
-            style={{ display: 'flex', flexDirection: 'column' }}
+            className="row1"
+            style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <label htmlFor="">Level of Concern</label>
-            <Radio.Group onChange={onChange}>
-              <Space direction="vertical">
-                <Radio>Option A</Radio>
-                <Radio>Option B</Radio>
-                <Radio>Option C</Radio>
-              </Space>
-            </Radio.Group>
-          </div>
+            <div
+              className="radio"
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <label htmlFor="">Level of Concern</label>
+              <Radio.Group onChange={onChange}>
+                <Space direction="vertical">
+                  <Radio>Option A</Radio>
+                  <Radio>Option B</Radio>
+                  <Radio>Option C</Radio>
+                </Space>
+              </Radio.Group>
+            </div>
 
-          <div className="check">
-            <label htmlFor="">Who can see</label>
-            <br />
-            <Checkbox.Group onChange={onChange} style={{ marginTop: '2%' }}>
-              <Checkbox style={{ display: 'flex' }}> Admin</Checkbox>
+            <div className="check">
+              <label htmlFor="">Who can see</label>
               <br />
-              <Checkbox style={{ display: 'flex' }}>Moderator</Checkbox>
-              <br />
-              <Checkbox style={{ display: 'flex' }}>Mentor</Checkbox>
-            </Checkbox.Group>
+              <Checkbox.Group onChange={onChange} style={{ marginTop: '2%' }}>
+                <Checkbox style={{ display: 'flex' }}> Admin</Checkbox>
+                <br />
+                <Checkbox style={{ display: 'flex' }}>Moderator</Checkbox>
+                <br />
+                <Checkbox style={{ display: 'flex' }}>Mentor</Checkbox>
+              </Checkbox.Group>
+            </div>
+          </div>
+          <br />
+
+          <div
+            className="row2"
+            style={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <Button style={{ minWidth: '45%', backgroundColor: '#F2692E' }}>
+              Save as draft
+            </Button>
+            <Button style={{ minWidth: '45%', backgroundColor: '#2368AA' }}>
+              Create
+            </Button>
           </div>
         </div>
-        <br />
-
-        <div
-          className="row2"
-          style={{ display: 'flex', justifyContent: 'space-between' }}
-        >
-          <Button style={{ minWidth: '45%', backgroundColor: '#F2692E' }}>
-            Save as draft
-          </Button>
-          <Button style={{ minWidth: '45%', backgroundColor: '#2368AA' }}>
-            Create
-          </Button>
-        </div>
-      </div>
-    </Card>
+      </Modal>
+    )
   );
 };
 
