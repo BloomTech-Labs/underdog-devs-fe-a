@@ -3,7 +3,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 import { Table } from 'antd';
 import { Card } from 'antd';
-import { Tag, Space } from 'antd';
+import { Tag } from 'antd';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
@@ -35,6 +35,7 @@ const MentorMenteeMatching = () => {
 
   const data = [];
 
+  // eslint-disable-next-line array-callback-return
   assignments.map(p => {
     const profile = {
       key: p.profile_id,
