@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { EditOutlined } from '@ant-design/icons';
-
+import MentorMenteeInfo from './MentorMenteeInfo';
 import { Table } from 'antd';
-import { Card } from 'antd';
 import { Tag, Space } from 'antd';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
-
-  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     const getAssignments = () => {
@@ -50,151 +46,17 @@ const MentorMenteeMatching = () => {
     data.push(profile);
   });
 
-  let cards = (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-      }}
-    >
-      <Card title="Information" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card
-        title="Mentors"
-        style={{
-          width: '30%',
-        }}
-        extra={<EditOutlined onClick={() => setEdit(!edit)} />}
-      >
-        {edit ? (
-          <div style={{ width: '80%' }}>
-            <input
-              style={
-                localStorage.getItem('theme') === 'dark'
-                  ? {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid black',
-                      backgroundColor: 'black',
-                    }
-                  : {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid #D3D3D3',
-                    }
-              }
-              placeholder="Assign Mentor"
-              value="Card Content"
-            />
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <p>Card Content</p>
-          </div>
-        )}
-
-        {edit ? (
-          <div style={{ width: '80%', marginTop: '20px' }}>
-            <input
-              style={
-                localStorage.getItem('theme') === 'dark'
-                  ? {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid black',
-                      backgroundColor: 'black',
-                    }
-                  : {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid #D3D3D3',
-                    }
-              }
-              placeholder="Assign Mentor"
-              value="Card Content"
-            />
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <p>Card Content</p>
-          </div>
-        )}
-        {edit ? (
-          <div style={{ width: '80%', marginTop: '20px' }}>
-            <input
-              style={
-                localStorage.getItem('theme') === 'dark'
-                  ? {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid black',
-                      backgroundColor: 'black',
-                    }
-                  : {
-                      paddingLeft: '5px',
-                      width: '80%',
-                      height: '3.3vh',
-                      color: '#989898',
-                      border: '1px solid #D3D3D3',
-                    }
-              }
-              placeholder="Assign Mentor"
-              value="Card Content"
-            />
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <p>Card Content</p>
-          </div>
-        )}
-      </Card>
-      <Card title="Mentor Information" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-    </div>
-  );
-
   return (
     <>
       <h2>Matching</h2>
       <Table
         columns={columns}
         expandable={{
-          expandedRowRender: record => <div style={{ margin: 0 }}>{cards}</div>,
+          expandedRowRender: record => (
+            <div style={{ margin: 0 }}>
+              <MentorMenteeInfo />
+            </div>
+          ),
           rowExpandable: record => record.name !== 'Not Expandable',
         }}
         dataSource={data}
