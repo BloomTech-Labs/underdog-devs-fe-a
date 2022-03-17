@@ -10,6 +10,10 @@ import {
   DashboardOutlined,
   BookOutlined,
   ContainerOutlined,
+  ContactsOutlined,
+  UsergroupAddOutlined,
+  ProjectOutlined,
+  CarryOutOutlined,
   QuestionCircleOutlined,
   BulbOutlined,
   CalendarOutlined,
@@ -126,16 +130,32 @@ const Sidebar = ({ children, userProfile }) => {
               >
                 Pending Applications
               </Menu.Item>
-              <Menu.Item key="/matching" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/matching"
+                icon={<UsergroupAddOutlined />}
+                onClick={handleMenuClick}
+              >
                 Matching
               </Menu.Item>
-              <Menu.Item key="/users" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/users"
+                icon={<ContactsOutlined />}
+                onClick={handleMenuClick}
+              >
                 Manage Users
               </Menu.Item>
-              <Menu.Item key="/support" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/support"
+                icon={<ProjectOutlined />}
+                onClick={handleMenuClick}
+              >
                 View Support Requests
               </Menu.Item>
-              <Menu.Item key="/meetings" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/meetings"
+                icon={<CarryOutOutlined />}
+                onClick={handleMenuClick}
+              >
                 View All Meetings
               </Menu.Item>
             </>
