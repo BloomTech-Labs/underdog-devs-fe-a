@@ -7,6 +7,9 @@ import '../styles/Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Modal, Menu, Switch as Toggle } from 'antd';
 import {
+  DashboardOutlined,
+  BookOutlined,
+  ContainerOutlined,
   QuestionCircleOutlined,
   BulbOutlined,
   CalendarOutlined,
@@ -92,19 +95,35 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/mentees" onClick={handleMenuClick}>
                 My Mentees
               </Menu.Item>
-              <Menu.Item key="/resources" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/resources"
+                icon={<BookOutlined />}
+                onClick={handleMenuClick}
+              >
                 Manage Resources
               </Menu.Item>
             </>
           ) : isUserAdmin() ? (
             <>
-              <Menu.Item key="/dashboard" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/dashboard"
+                icon={<DashboardOutlined />}
+                onClick={handleMenuClick}
+              >
                 Dashboard
               </Menu.Item>
-              <Menu.Item key="/resources" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/resources"
+                icon={<BookOutlined />}
+                onClick={handleMenuClick}
+              >
                 Manage Resources
               </Menu.Item>
-              <Menu.Item key="/applications" onClick={handleMenuClick}>
+              <Menu.Item
+                key="/applications"
+                icon={<ContainerOutlined />}
+                onClick={handleMenuClick}
+              >
                 Pending Applications
               </Menu.Item>
               <Menu.Item key="/matching" onClick={handleMenuClick}>
