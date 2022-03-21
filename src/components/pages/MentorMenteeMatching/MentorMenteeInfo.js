@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import './MentorMatching.css';
 import { Input } from 'antd';
 
 const MentorMenteeInfo = () => {
@@ -45,7 +44,6 @@ const MentorMenteeInfo = () => {
             {edit ? (
               <div style={{ width: '80%' }}>
                 <Input
-                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.first ? data.Mentors.first : 'Assign Mentor'
@@ -67,7 +65,6 @@ const MentorMenteeInfo = () => {
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
                 <Input
-                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.second ? data.Mentors.second : 'Assign Mentor'
@@ -85,7 +82,6 @@ const MentorMenteeInfo = () => {
                           : 'Assign Mentor'
                       }
                       placeholder="Assign Mentor"
-                      className="mentors"
                     />
                   ) : (
                     data.Mentors.second
@@ -96,7 +92,6 @@ const MentorMenteeInfo = () => {
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
                 <Input
-                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.third ? data.Mentors.third : 'Assign Mentor'
@@ -114,7 +109,6 @@ const MentorMenteeInfo = () => {
                           : 'Assign Mentor'
                       }
                       placeholder="Assign Mentor"
-                      className="mentors"
                     />
                   ) : (
                     data.Mentors.third
