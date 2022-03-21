@@ -113,9 +113,6 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/meetings" onClick={handleMenuClick}>
                 View All Meetings
               </Menu.Item>
-              <Menu.Item key="/progress" onClick={handleMenuClick}>
-                Mentee Progress
-              </Menu.Item>
             </>
           ) : (
             <></>
