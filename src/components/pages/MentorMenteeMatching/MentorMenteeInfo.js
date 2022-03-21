@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import './MentorMatching.css';
+import { Input } from 'antd';
 
 const MentorMenteeInfo = () => {
   const [edit, setEdit] = useState(false);
@@ -43,12 +44,8 @@ const MentorMenteeInfo = () => {
           >
             {edit ? (
               <div style={{ width: '80%' }}>
-                <input
-                  className={
-                    localStorage.getItem('theme') === 'dark'
-                      ? 'mentors-dark'
-                      : 'mentors'
-                  }
+                <Input
+                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.first ? data.Mentors.first : 'Assign Mentor'
@@ -59,14 +56,7 @@ const MentorMenteeInfo = () => {
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.first ? (
-                    <input
-                      placeholder="Assign Mentor"
-                      className={
-                        localStorage.getItem('theme') === 'dark'
-                          ? 'mentors-dark'
-                          : 'mentors'
-                      }
-                    />
+                    <Input placeholder="Assign Mentor" className="mentors" />
                   ) : (
                     data.Mentors.first
                   )}
@@ -76,12 +66,8 @@ const MentorMenteeInfo = () => {
 
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
-                <input
-                  className={
-                    localStorage.getItem('theme') === 'dark'
-                      ? 'mentors-dark'
-                      : 'mentors'
-                  }
+                <Input
+                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.second ? data.Mentors.second : 'Assign Mentor'
@@ -92,18 +78,14 @@ const MentorMenteeInfo = () => {
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.second ? (
-                    <input
+                    <Input
                       value={
                         data.Mentors.second
                           ? data.Mentors.second
                           : 'Assign Mentor'
                       }
                       placeholder="Assign Mentor"
-                      className={
-                        localStorage.getItem('theme') === 'dark'
-                          ? 'mentors-dark'
-                          : 'mentors'
-                      }
+                      className="mentors"
                     />
                   ) : (
                     data.Mentors.second
@@ -113,12 +95,8 @@ const MentorMenteeInfo = () => {
             )}
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
-                <input
-                  className={
-                    localStorage.getItem('theme') === 'dark'
-                      ? 'mentors-dark'
-                      : 'mentors'
-                  }
+                <Input
+                  className="mentors"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.third ? data.Mentors.third : 'Assign Mentor'
@@ -129,18 +107,14 @@ const MentorMenteeInfo = () => {
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.third ? (
-                    <input
+                    <Input
                       value={
                         data.Mentors.third
                           ? data.Mentors.third
                           : 'Assign Mentor'
                       }
                       placeholder="Assign Mentor"
-                      className={
-                        localStorage.getItem('theme') === 'dark'
-                          ? 'mentors-dark'
-                          : 'mentors'
-                      }
+                      className="mentors"
                     />
                   ) : (
                     data.Mentors.third

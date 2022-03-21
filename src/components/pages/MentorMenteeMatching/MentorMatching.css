@@ -6,12 +6,3 @@
   display: flex;
   color: #989898;
 }
-
-.mentors-dark {
-  width: 80%;
-  height: 3.3vh;
-  color: #989898;
-  border: 1px solid black;
-  background-color: black;
-  padding-left: 6px;
-}
