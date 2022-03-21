@@ -1,6 +1,8 @@
 .tooltip {
   position: relative;
   display: inline-block;
+  color: darkgrey;
+  /* font-size: 14px; */
 }
 
 .tooltip .tooltipText {

@@ -50,6 +50,7 @@ const initialFormValues = {
 
 const Mentee = () => {
   const [formValues, handleChange] = useForms(initialFormValues);
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
@@ -61,7 +62,7 @@ const Mentee = () => {
       );
       history.push('/apply/success');
     } catch (err) {
-      history.push('/apply/error');
+      setError(err);
     }
   };
 
@@ -112,7 +113,7 @@ const Mentee = () => {
                     ]}
                     value={formValues.first_name}
                     onChange={handleChange}
-                    style={{ margin: '1.5rem 1rem .5rem' }}
+                    style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
@@ -131,7 +132,7 @@ const Mentee = () => {
                     ]}
                     value={formValues.last_name}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem' }}
+                    style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
@@ -154,18 +155,16 @@ const Mentee = () => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem 1rem' }}
+                    style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter Valid Email" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}>
-                  <h3>Location:</h3>
-                </Col>
+                <Col span={24}></Col>
                 <Col
                   span={14}
-                  offset={1}
+                  offset={0}
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
@@ -206,7 +205,7 @@ const Mentee = () => {
                       ]}
                       value={formValues.country}
                       onChange={handleChange}
-                      style={{ margin: '0 1rem 1rem' }}
+                      style={{ margin: '0 1rem 1rem 0' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -230,13 +229,14 @@ const Mentee = () => {
                         ]}
                         value={formValues.city}
                         onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem' }}
+                        style={{ margin: '0 1rem .5rem 0' }}
                       >
-                        <Input placeholder="City" />
+                        <Input placeholder="Your City" />
                       </Form.Item>
                       <Form.Item
                         label="State"
-                        style={{ margin: '.5rem 1rem 1rem' }}
+                        name="state"
+                        style={{ margin: '.5rem 1rem 1rem 0' }}
                         rules={[
                           {
                             required: true,
@@ -245,10 +245,7 @@ const Mentee = () => {
                         ]}
                       >
                         <Select
-                          defaultValue="State"
-                          style={{ width: 250, paddingLeft: '5%' }}
-                          name="state"
-                          value={formValues.state}
+                          placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
                           {states.map(state => (
@@ -268,61 +265,60 @@ const Mentee = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <h3>
-                    Which criteria represents you for membership? (Select all
-                    that apply)&nbsp;
+                  <div className="question"></div>
+                  <Form.Item
+                    label="Which criteria represents you for membership? (Select all that apply)"
+                    name="your_hope"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a topic of focus',
+                      },
+                    ]}
+                  >
                     <div className="tooltip">
                       ⓘ
                       <span class="tooltipText">
                         If none apply, leave blank
                       </span>
                     </div>
-                  </h3>
-                  <Checkbox.Group
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-evenly',
-                      flexFlow: 'column',
-                      width: 350,
-                      margin: '0rem 1rem 1rem 1.5rem',
-                    }}
-                  >
-                    <Checkbox
-                      value="formerly_incarcerated"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
+
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0rem 1rem 1rem 1.5rem',
+                      }}
                     >
-                      Formerly incarcerated
-                    </Checkbox>
-                    <Checkbox
-                      value="low_income"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      From a lower socioeconomic background
-                    </Checkbox>
-                    <Checkbox
-                      value="underrepresented_group"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      From an underrepresented group
-                    </Checkbox>
-                  </Checkbox.Group>
+                      <Checkbox
+                        value="formerly_incarcerated"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Formerly incarcerated
+                      </Checkbox>
+                      <Checkbox
+                        value="low_income"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        From a lower socioeconomic background
+                      </Checkbox>
+                      <Checkbox
+                        value="underrepresented_group"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        From an underrepresented group
+                      </Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <div className="question">
-                    <h3>
-                      Please list your convictions if comfortable&nbsp;
-                      <div className="tooltip">
-                        ⓘ
-                        <span class="tooltipText">
-                          Include any relevant info that you wish to share
-                        </span>
-                      </div>
-                    </h3>
-                  </div>
+                  <p>Please list your convictions if comfortable</p>
                   <Form.Item
                     type="text"
                     name="list_convictions"
@@ -339,19 +335,9 @@ const Mentee = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <div className="question">
-                    <h3>
-                      Which best describes the tech path you are working towards
-                      or are interested in? *&nbsp;
-                      <div className="tooltip">
-                        ⓘ
-                        <span class="tooltipText">
-                          Select the title that best reflects your goals
-                        </span>
-                      </div>
-                    </h3>
-                  </div>
                   <Form.Item
+                    label="Which best describes the tech path you are working towards
+                    or are interested in?"
                     name="tech_stack"
                     rules={[
                       {
@@ -360,8 +346,15 @@ const Mentee = () => {
                       },
                     ]}
                   >
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        Select the title that best reflects your goals
+                      </span>
+                    </div>
+
                     <Select
-                      defaultValue="- Select -"
+                      placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
@@ -375,18 +368,8 @@ const Mentee = () => {
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
-                  <div className="question">
-                    <h3>
-                      What is your level of experience?*&nbsp;
-                      <div className="tooltip">
-                        ⓘ
-                        <span class="tooltipText">
-                          Choose your current skill level
-                        </span>
-                      </div>
-                    </h3>
-                  </div>
                   <Form.Item
+                    label="What is your level of experience?"
                     name="experience_level"
                     rules={[
                       {
@@ -395,6 +378,13 @@ const Mentee = () => {
                       },
                     ]}
                   >
+                    <div className="tooltip">
+                      ⓘ
+                      <span class="tooltipText">
+                        Choose your current skill level
+                      </span>
+                    </div>
+
                     <Radio.Group
                       name="experience_level"
                       onChange={handleChange}
@@ -408,15 +398,8 @@ const Mentee = () => {
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
-                  <div className="question">
-                    <h3>
-                      What are you hoping to gain from the community?*&nbsp;
-                      <div className="tooltip">
-                        ⓘ<span class="tooltipText">Select all that apply</span>
-                      </div>
-                    </h3>
-                  </div>
                   <Form.Item
+                    label="What are you hoping to gain from the community?"
                     name="your_hope"
                     rules={[
                       {
@@ -425,6 +408,9 @@ const Mentee = () => {
                       },
                     ]}
                   >
+                    <div className="tooltip">
+                      ⓘ<span class="tooltipText">Select all that apply</span>
+                    </div>
                     <Checkbox.Group
                       style={{
                         display: 'flex',
@@ -460,17 +446,12 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <div className="question">
-                    <h3>
-                      Anything else you want us to know?&nbsp;
-                      <div className="tooltip">
-                        ⓘ
-                        <span class="tooltipText">
-                          Include any relevant info that you think may be
-                          helpful
-                        </span>
-                      </div>
-                    </h3>
+                  <p>Anything else you want us to know?</p>
+                  <div className="tooltip">
+                    ⓘ
+                    <span class="tooltipText">
+                      Include any relevant info that you think may be helpful
+                    </span>
                   </div>
                   <Form.Item
                     type="text"
@@ -488,6 +469,21 @@ const Mentee = () => {
               <Button htmlType="submit" id="menteeSubmitButton" size="large">
                 Submit
               </Button>
+            </Col>
+            <Col
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: 'red',
+              }}
+              align="middle"
+            >
+              {error ? (
+                <p className="error">
+                  We're sorry! Something went wrong. Please re-apply and try
+                  again later.
+                </p>
+              ) : null}
             </Col>
           </Form>
         </Col>
