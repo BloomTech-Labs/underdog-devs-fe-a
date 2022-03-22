@@ -91,7 +91,7 @@ function App() {
         <PrivateRoute
           path="/notes"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 3, 4]}
           component={Notes}
         />
         <PrivateRoute

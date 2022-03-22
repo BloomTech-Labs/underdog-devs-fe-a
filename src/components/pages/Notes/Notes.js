@@ -10,8 +10,9 @@ const Notes = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/ad7eaaca-470f-4da9-a28a-349200e9263b')
+      .get('https://mocki.io/v1/94a4eccc-f153-4d24-a6db-307f780a4d9e')
       .then(res => {
+        console.log(res.data);
         setItems(res.data);
       })
       .catch(err => {
@@ -24,13 +25,6 @@ const Notes = props => {
       title: 'Created By',
       dataIndex: 'name',
       key: 'name',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.name - b.name,
-    },
-    {
-      title: 'Note',
-      dataIndex: 'note',
-      key: 'note',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.name - b.name,
     },
@@ -96,7 +90,15 @@ const Notes = props => {
           setDisplayModal={setDisplayModal}
         />
       </div>
-      <Table columns={columns} dataSource={items} />
+      <Table
+        columns={columns}
+        dataSource={items}
+        expandable={{
+          expandedRowRender: record => (
+            <p style={{ margin: 0 }}>{record.note}</p>
+          ),
+        }}
+      />
     </>
   );
 };
