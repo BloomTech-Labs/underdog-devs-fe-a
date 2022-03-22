@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import MentorMenteeInfo from './MentorMenteeInfo';
 import { Table } from 'antd';
-import { Tag, Space } from 'antd';
+import { Tag } from 'antd';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
