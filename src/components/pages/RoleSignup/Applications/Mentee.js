@@ -19,12 +19,11 @@ import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 
 import { states } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import './Styles/mentorAndMenteeApplications.css';
-import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 

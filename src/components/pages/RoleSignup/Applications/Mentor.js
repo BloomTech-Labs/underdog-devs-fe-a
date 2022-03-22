@@ -19,10 +19,10 @@ import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import './Styles/mentorAndMenteeApplications.css';
 import { states } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
@@ -305,6 +305,10 @@ const Mentor = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Which best describes your tech stack?"
+                    tooltip={{
+                      title: 'What development role have you trained for?',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="tech_stack"
                     rules={[
                       {
@@ -313,12 +317,6 @@ const Mentor = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        What development role have you trained for?
-                      </span>
-                    </div>
                     <Select
                       placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
@@ -336,6 +334,10 @@ const Mentor = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What is your level of experience?"
+                    tooltip={{
+                      title: 'Choose your current skill level',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="experience_level"
                     rules={[
                       {
@@ -344,12 +346,6 @@ const Mentor = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        Choose your current skill level
-                      </span>
-                    </div>
                     <Radio.Group
                       name="experience_level"
                       onChange={handleChange}
@@ -366,6 +362,10 @@ const Mentor = () => {
                   <Form.Item
                     label="How else can you contribute in the progression of our
                     mentees?"
+                    tooltip={{
+                      title: 'Select all that apply',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="contribute"
                     rules={[
                       {
@@ -374,9 +374,6 @@ const Mentor = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ<span class="tooltipText">Select all that apply</span>
-                    </div>
                     <Checkbox.Group
                       style={{
                         display: 'flex',
@@ -412,13 +409,14 @@ const Mentor = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <p>Anything else you want us to know?</p>
-                  <div className="tooltip">
-                    ⓘ
-                    <span class="tooltipText">
-                      Include any relevant info that you think may be helpful
-                    </span>
-                  </div>
+                  <Form.Item
+                    label="Anything else you want us to know?"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
                   <Form.Item
                     type="text"
                     name="other_info"
