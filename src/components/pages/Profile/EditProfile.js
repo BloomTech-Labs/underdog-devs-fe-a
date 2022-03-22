@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import useForms from '../../../hooks/useForms';
+import axios from 'axios';
 
 const initialValues = {
   first_name: 'Hal',
@@ -13,6 +14,7 @@ const initialValues = {
   tech_stack: 'React',
   commitment: 'Pair Programming',
 };
+// Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
   const [formValues, handleChange, clearForm] = useForms(initialValues);
@@ -200,7 +202,7 @@ function EditProfile({ userInfo }) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.userInfo,
+    userInfo: state.user.userInfo, // userProfile?
   };
 };
 
