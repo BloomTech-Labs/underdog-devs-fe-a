@@ -24,6 +24,7 @@ import {
 import { states } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 import './Styles/mentorAndMenteeApplications.css';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -265,9 +266,12 @@ const Mentee = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <div className="question"></div>
                   <Form.Item
                     label="Which criteria represents you for membership? (Select all that apply)"
+                    tooltip={{
+                      title: 'If none apply, leave blank',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="your_hope"
                     rules={[
                       {
@@ -276,13 +280,6 @@ const Mentee = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        If none apply, leave blank
-                      </span>
-                    </div>
-
                     <Checkbox.Group
                       style={{
                         display: 'flex',
@@ -318,7 +315,14 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <p>Please list your convictions if comfortable</p>
+                  <Form.Item
+                    label="Please list your convictions if comfortable"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
                   <Form.Item
                     type="text"
                     name="list_convictions"
@@ -338,6 +342,10 @@ const Mentee = () => {
                   <Form.Item
                     label="Which best describes the tech path you are working towards
                     or are interested in?"
+                    tooltip={{
+                      title: 'Select the title that best reflects your goals',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="tech_stack"
                     rules={[
                       {
@@ -346,13 +354,6 @@ const Mentee = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        Select the title that best reflects your goals
-                      </span>
-                    </div>
-
                     <Select
                       placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
@@ -370,6 +371,10 @@ const Mentee = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What is your level of experience?"
+                    tooltip={{
+                      title: 'Choose your current skill level',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="experience_level"
                     rules={[
                       {
@@ -378,13 +383,6 @@ const Mentee = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ
-                      <span class="tooltipText">
-                        Choose your current skill level
-                      </span>
-                    </div>
-
                     <Radio.Group
                       name="experience_level"
                       onChange={handleChange}
@@ -400,6 +398,10 @@ const Mentee = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What are you hoping to gain from the community?"
+                    tooltip={{
+                      title: 'Select all that apply',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="your_hope"
                     rules={[
                       {
@@ -408,9 +410,6 @@ const Mentee = () => {
                       },
                     ]}
                   >
-                    <div className="tooltip">
-                      ⓘ<span class="tooltipText">Select all that apply</span>
-                    </div>
                     <Checkbox.Group
                       style={{
                         display: 'flex',
@@ -446,13 +445,14 @@ const Mentee = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <p>Anything else you want us to know?</p>
-                  <div className="tooltip">
-                    ⓘ
-                    <span class="tooltipText">
-                      Include any relevant info that you think may be helpful
-                    </span>
-                  </div>
+                  <Form.Item
+                    label="Anything else you want us to know? community?"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
                   <Form.Item
                     type="text"
                     name="other_info"
