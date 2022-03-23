@@ -68,6 +68,11 @@ export const columns = [
     title: 'Priority',
     dataIndex: 'priority',
     key: 'priority',
+    render: priority => (
+      <Flag style={{ backgroundColor: priorityColor[priority] }}>
+        {priority}
+      </Flag>
+    ),
   },
   {
     title: 'Date',
