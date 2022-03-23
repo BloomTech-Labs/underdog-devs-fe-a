@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table } from 'antd';
+import { Button, Avatar, Card, Comment, Table } from 'antd';
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
@@ -18,7 +18,33 @@ const NotesTable = () => {
       });
   }, []);
 
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      expandable={{
+        expandedRowRender: record => (
+          <>
+            <Card style={{ marginBottom: '1%' }}>
+              <>
+                <Comment
+                  actions={[<Button type="primary">Reply</Button>]}
+                  author={record.createdBy}
+                  avatar={
+                    <Avatar
+                      src="https://joeschmoe.io/api/v1/random"
+                      alt={record.createdBy}
+                    />
+                  }
+                  content={<p>{record.note}</p>}
+                ></Comment>
+              </>
+            </Card>
+          </>
+        ),
+      }}
+    />
+  );
 };
 
 export default NotesTable;
