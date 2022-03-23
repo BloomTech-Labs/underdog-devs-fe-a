@@ -36,7 +36,7 @@ const getDSData = (url, authState) => {
 };
 
 const apiAuthGet = authHeader => {
-  return axios.get(`${apiUrl}profiles`, { headers: authHeader });
+  return axios.get(`${apiUrl}profile`, { headers: authHeader });
 };
 
 const getProfileData = authState => {
