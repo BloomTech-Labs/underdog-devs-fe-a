@@ -88,5 +88,8 @@ export const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    render: status => (
+      <Flag style={{ backgroundColor: statusColor[status] }}>{status}</Flag>
+    ),
   },
 ];
