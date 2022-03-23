@@ -1,7 +1,8 @@
 import React from 'react';
+import { Table } from 'antd';
 
 const NotesTable = () => {
-  return <div>NotesTable</div>;
+  return <Table />;
 };
 
 export default NotesTable;
