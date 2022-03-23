@@ -50,6 +50,9 @@ export const columns = [
     title: 'Subject',
     dataIndex: 'subject',
     key: 'subject',
+    render: subject => (
+      <Flag style={{ backgroundColor: subjectColor[subject] }}>{subject}</Flag>
+    ),
   },
   {
     title: 'Visibility',
