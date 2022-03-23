@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Input } from 'antd';
+import { Card, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
 const MentorMenteeInfo = () => {
@@ -49,7 +49,9 @@ const MentorMenteeInfo = () => {
           >
             {edit ? (
               <div style={{ width: '80%' }}>
-                <Input
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.first ? data.Mentors.first : 'Assign Mentor'
@@ -60,7 +62,12 @@ const MentorMenteeInfo = () => {
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.first ? (
-                    <Input placeholder="Assign Mentor" className="mentors" />
+                    <Select
+                      showSearch
+                      style={{ width: '100%' }}
+                      placeholder="Assign Mentor"
+                      className="mentors"
+                    />
                   ) : (
                     data.Mentors.first
                   )}
@@ -70,18 +77,23 @@ const MentorMenteeInfo = () => {
 
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
-                <Input
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
+                  optionFilterProp="children"
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.second ? data.Mentors.second : 'Assign Mentor'
                   }
-                />
+                ></Select>
               </div>
             ) : (
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.second ? (
-                    <Input
+                    <Select
+                      showSearch
+                      style={{ width: '100%' }}
                       value={
                         data.Mentors.second
                           ? data.Mentors.second
@@ -97,7 +109,9 @@ const MentorMenteeInfo = () => {
             )}
             {edit ? (
               <div style={{ width: '80%', marginTop: '20px' }}>
-                <Input
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
                   placeholder="Assign Mentor"
                   value={
                     data.Mentors.third ? data.Mentors.third : 'Assign Mentor'
@@ -108,7 +122,9 @@ const MentorMenteeInfo = () => {
               <div style={{ width: '80%' }}>
                 <p>
                   {!data.Mentors.third ? (
-                    <Input
+                    <Select
+                      showSearch
+                      style={{ width: '100%' }}
                       value={
                         data.Mentors.third
                           ? data.Mentors.third
