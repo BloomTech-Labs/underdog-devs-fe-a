@@ -58,6 +58,11 @@ export const columns = [
     title: 'Visibility',
     dataIndex: 'visibility',
     key: 'visibility',
+    render: visibility => (
+      <Flag style={{ backgroundColor: visibilityColor[visibility] }}>
+        {visibility}
+      </Flag>
+    ),
   },
   {
     title: 'Priority',
