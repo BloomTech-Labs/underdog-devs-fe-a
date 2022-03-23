@@ -8,7 +8,7 @@ import { EditOutlined } from '@ant-design/icons';
 import {
   TwitterOutlined,
   LinkedinOutlined,
-  FacebookOutlined,
+  GithubOutlined,
 } from '@ant-design/icons';
 
 import axiosWithAuth from '../../../utils/axiosWithAuth';
@@ -33,7 +33,7 @@ const RenderProfileContainer = props => {
   return (
     <div>
       <Row style={{ height: '100vh' }}>
-        <Col span={6} style={{ padding: '3%' }}>
+        <Col span={6} style={{ padding: '1.8%' }}>
           <Card
             style={{ padding: '2%' }}
             cover={
@@ -50,19 +50,19 @@ const RenderProfileContainer = props => {
             <Typography>{userData.email}</Typography>
           </Card>
           <Card
-            style={{ width: 300, marginTop: 16 }}
+            style={{ width: 257, marginTop: 16 }}
             actions={[
               <TwitterOutlined />,
               <LinkedinOutlined />,
-              <FacebookOutlined />,
+              <GithubOutlined />,
             ]}
           >
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={18}>
+        <Col span={17}>
           <Title level={1}>{userData.name}</Title>
-          <Card title="My Profile">
+          <Card title="My Profile" extra={<EditProfile />}>
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
               {userData.bio || 'Profile bio will go here.'}
             </Card>
@@ -90,7 +90,6 @@ const RenderProfileContainer = props => {
               {userData.topics || 'Topics will go here.'}
             </Card>
           </Card>
-          <EditProfile />
         </Col>
       </Row>
     </div>
