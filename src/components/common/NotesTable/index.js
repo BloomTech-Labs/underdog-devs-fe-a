@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Button, Avatar, Card, Comment, Table } from 'antd';
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { connect } from 'react-redux';
 
-const NotesTable = () => {
+const NotesTable = ({ userProfile }) => {
+  console.log(userProfile);
   const [data, setData] = useState([]);
+  // Get profile_id of logged in user
+  const { profile_id } = userProfile;
+  // Get profile_id of note creator
+  const note_profile_id = data.map(data => data.profile_id);
 
   // Dummy data for table
   useEffect(() => {
@@ -28,7 +34,21 @@ const NotesTable = () => {
             <Card style={{ marginBottom: '1%' }}>
               <>
                 <Comment
-                  actions={[<Button type="primary">Reply</Button>]}
+                  actions={[
+                    profile_id === note_profile_id ? (
+                      <Button type="primary" size="middle">
+                        Edit
+                      </Button>
+                    ) : (
+                      <Button
+                        key="comment-nested-reply-to"
+                        type="primary"
+                        size="middle"
+                      >
+                        Reply
+                      </Button>
+                    ),
+                  ]}
                   author={record.createdBy}
                   avatar={
                     <Avatar
@@ -47,4 +67,8 @@ const NotesTable = () => {
   );
 };
 
-export default NotesTable;
+const mapStateToProps = state => {
+  return { userProfile: state.user.userProfile };
+};
+
+export default connect(mapStateToProps)(NotesTable);
