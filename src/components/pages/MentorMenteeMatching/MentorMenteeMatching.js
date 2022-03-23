@@ -33,6 +33,7 @@ const MentorMenteeMatching = () => {
 
   const data = [];
 
+  // eslint-disable-next-line array-callback-return
   assignments.map(p => {
     const profile = {
       key: p.profile_id,
