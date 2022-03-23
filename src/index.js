@@ -20,6 +20,7 @@ import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import AppError from './components/pages/RoleSignup/Applications/AppError';
+import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
@@ -141,7 +142,7 @@ function App() {
           path="/meetings"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => <div>"View All Meetings" Component goes here</div>}
+          component={ViewAllMeetings}
         />
 
         <PrivateRoute
