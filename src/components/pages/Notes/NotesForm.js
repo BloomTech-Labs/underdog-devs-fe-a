@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Menu,
@@ -14,18 +14,25 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
+  const [count, setCount] = useState(0);
+  const [toggle, setToggle] = useState(1);
+
   const handleMenuClick = e => {
     message.info('Click on menu item.');
     console.log('click', e);
   };
 
-  const onChange = e => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-      value: e.target.value,
-    });
+  const RonChange = e => {
+    // console.log('radio checked', e.target.value);
+    setToggle(e.target.value);
+    // this.setState({
+    //   value: e.target.value,
+    // });
   };
 
+  const ConChange = checkedValues => {
+    console.log('checked = ', checkedValues);
+  };
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1" icon={<UserOutlined />}>
@@ -60,7 +67,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           </Dropdown>
           <br />
           <label htmlFor="">Content</label>
-          <TextArea rows={4} />
+          <TextArea
+            rows={4}
+            maxLength="280"
+            onChange={e => setCount(e.target.value.length)}
+          />
+          <p style={{ marginTop: '1%' }}>{count}/280 Characters</p>
           <br />
         </div>
         <div
@@ -75,12 +87,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
               className="radio"
               style={{ display: 'flex', flexDirection: 'column' }}
             >
-              <label htmlFor="">Level of Concern</label>
-              <Radio.Group onChange={onChange}>
+              <label htmlFor="">Priority</label>
+              <Radio.Group onChange={RonChange} value={toggle}>
                 <Space direction="vertical">
-                  <Radio>Very Urgent</Radio>
-                  <Radio>Urgent</Radio>
-                  <Radio>Can wait</Radio>
+                  <Radio value={1}>Critical</Radio>
+                  <Radio value={2}>Medium</Radio>
+                  <Radio value={3}>Low</Radio>
                 </Space>
               </Radio.Group>
             </div>
@@ -88,12 +100,19 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             <div className="check">
               <label htmlFor="">Who can see</label>
               <br />
-              <Checkbox.Group onChange={onChange} style={{ marginTop: '2%' }}>
-                <Checkbox style={{ display: 'flex' }}> Admin</Checkbox>
+              <Checkbox.Group onChange={ConChange} style={{ marginTop: '2%' }}>
+                <Checkbox value={1} style={{ display: 'flex' }}>
+                  {' '}
+                  Admin
+                </Checkbox>
                 <br />
-                <Checkbox style={{ display: 'flex' }}>Moderator</Checkbox>
+                <Checkbox value={2} style={{ display: 'flex' }}>
+                  Moderator
+                </Checkbox>
                 <br />
-                <Checkbox style={{ display: 'flex' }}>Mentor</Checkbox>
+                <Checkbox value={3} style={{ display: 'flex' }}>
+                  Mentor
+                </Checkbox>
               </Checkbox.Group>
             </div>
           </div>
