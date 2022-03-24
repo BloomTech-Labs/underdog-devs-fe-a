@@ -40,7 +40,7 @@ const MentorsCard = ({ data }) => {
           )
         }
       >
-        {edit ? (
+        {edit || !mentors.first ? (
           <div style={{ width: '80%' }}>
             <Select
               name="first"
@@ -58,34 +58,11 @@ const MentorsCard = ({ data }) => {
           </div>
         ) : (
           <div style={{ width: '80%' }}>
-            <p>
-              {!mentors.first ? (
-                <Select
-                  name="first"
-                  onChange={value => setMentors({ ...mentors, first: value })}
-                  showSearch
-                  style={{ width: '100%' }}
-                  value={mentors.first || 'Assign Mentor'}
-                >
-                  {' '}
-                  <Option value={data.Mentors.first}>
-                    {data.Mentors.first}
-                  </Option>
-                  <Option value={data.Mentors.second}>
-                    {data.Mentors.second}
-                  </Option>
-                  <Option value={data.Mentors.third}>
-                    {data.Mentors.third}
-                  </Option>
-                </Select>
-              ) : (
-                mentors.first
-              )}
-            </p>
+            <p>{mentors.first}</p>
           </div>
         )}
 
-        {edit ? (
+        {edit || !mentors.second ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <Select
               name="second"
@@ -102,33 +79,10 @@ const MentorsCard = ({ data }) => {
           </div>
         ) : (
           <div style={{ width: '80%' }}>
-            <p>
-              {!mentors.second ? (
-                <Select
-                  name="second"
-                  onChange={value => setMentors({ ...mentors, second: value })}
-                  showSearch
-                  style={{ width: '100%' }}
-                  optionFilterProp="children"
-                  value={mentors.second || 'Assign Mentor'}
-                >
-                  <Option value={data.Mentors.first}>
-                    {data.Mentors.first}
-                  </Option>
-                  <Option value={data.Mentors.second}>
-                    {data.Mentors.second}
-                  </Option>
-                  <Option value={data.Mentors.third}>
-                    {data.Mentors.third}
-                  </Option>
-                </Select>
-              ) : (
-                mentors.second
-              )}
-            </p>
+            <p>{mentors.second}</p>
           </div>
         )}
-        {edit ? (
+        {edit || !mentors.third ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <Select
               name="third"
@@ -146,32 +100,7 @@ const MentorsCard = ({ data }) => {
           </div>
         ) : (
           <div style={{ width: '80%' }}>
-            <p>
-              {!mentors.third ? (
-                <Select
-                  name="third"
-                  onChange={value => setMentors({ ...mentors, third: value })}
-                  showSearch
-                  style={{ width: '100%' }}
-                  placeholder="Assign Mentor"
-                  optionFilterProp="children"
-                  value={mentors.third || 'Assign Mentor'}
-                >
-                  {' '}
-                  <Option value={data.Mentors.first}>
-                    {data.Mentors.first}
-                  </Option>
-                  <Option value={data.Mentors.second}>
-                    {data.Mentors.second}
-                  </Option>
-                  <Option value={data.Mentors.third}>
-                    {data.Mentors.third}
-                  </Option>
-                </Select>
-              ) : (
-                mentors.third
-              )}
-            </p>
+            <p>{mentors.third}</p>
           </div>
         )}
       </Card>
