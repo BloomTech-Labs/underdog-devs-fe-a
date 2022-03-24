@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-
-import { Table } from 'antd';
-import { Card } from 'antd';
-import { Tag } from 'antd';
+import MentorMenteeInfo from './MentorMenteeInfo';
+import { Table, Tag } from 'antd';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
@@ -48,39 +46,17 @@ const MentorMenteeMatching = () => {
     data.push(profile);
   });
 
-  let cards = (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-      }}
-    >
-      <Card title="Information" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card title="Mentors" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card title="Mentor Information" style={{ width: '30%' }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-    </div>
-  );
-
   return (
     <>
       <h2>Matching</h2>
       <Table
         columns={columns}
         expandable={{
-          expandedRowRender: record => <div style={{ margin: 0 }}>{cards}</div>,
+          expandedRowRender: record => (
+            <div style={{ margin: 0 }}>
+              <MentorMenteeInfo />
+            </div>
+          ),
           rowExpandable: record => record.name !== 'Not Expandable',
         }}
         dataSource={data}

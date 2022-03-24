@@ -21,7 +21,7 @@ const RenderProfileContainer = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/profiles/current_user_profile`)
+      .get(`/profile/current_user_profile`)
       .then(resp => {
         setUserData(resp.data);
       })

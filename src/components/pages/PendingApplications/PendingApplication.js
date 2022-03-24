@@ -36,11 +36,6 @@ const columns = [
     sorter: (a, b) => a.date - b.date,
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
     title: 'Application',
     dataIndex: 'button',
     key: 'button',
