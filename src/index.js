@@ -71,7 +71,7 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Redirect path="/" to="/dashboard" exact component={Landing} />
+        <Route path="/" exact component={Landing} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
