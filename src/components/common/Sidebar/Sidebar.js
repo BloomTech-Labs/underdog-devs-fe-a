@@ -18,6 +18,7 @@ import {
   BulbOutlined,
   CalendarOutlined,
   UserOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
@@ -143,6 +144,13 @@ const Sidebar = ({ children, userProfile }) => {
                 onClick={handleMenuClick}
               >
                 Manage Users
+              </Menu.Item>
+              <Menu.Item 
+                key="/notes"
+                icon={<FormOutlined />}
+                onClick={handleMenuClick}
+              >
+                Notes
               </Menu.Item>
               <Menu.Item
                 key="/support"
