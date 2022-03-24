@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useForms from '../../../../hooks/useForms';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -49,6 +49,7 @@ const initialFormValues = {
 
 const Mentee = () => {
   const [formValues, handleChange] = useForms(initialFormValues);
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
@@ -60,7 +61,7 @@ const Mentee = () => {
       );
       history.push('/apply/success');
     } catch (err) {
-      history.push('/apply/error');
+      setError(err);
     }
   };
 
@@ -436,6 +437,21 @@ const Mentee = () => {
               <Button htmlType="submit" id="menteeSubmitButton" size="large">
                 Submit
               </Button>
+            </Col>
+            <Col
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: 'red',
+              }}
+              align="middle"
+            >
+              {error ? (
+                <p className="error">
+                  We're sorry! Something went wrong. Please re-apply and try
+                  again later.
+                </p>
+              ) : null}
             </Col>
           </Form>
         </Col>
