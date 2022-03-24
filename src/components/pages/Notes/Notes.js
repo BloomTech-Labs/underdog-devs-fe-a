@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Table, Button } from 'antd';
+import { Table, Input, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import NotesForm from './NotesForm';
 

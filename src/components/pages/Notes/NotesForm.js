@@ -78,9 +78,9 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
               <label htmlFor="">Level of Concern</label>
               <Radio.Group onChange={onChange}>
                 <Space direction="vertical">
-                  <Radio>Option A</Radio>
-                  <Radio>Option B</Radio>
-                  <Radio>Option C</Radio>
+                  <Radio>Very Urgent</Radio>
+                  <Radio>Urgent</Radio>
+                  <Radio>Can wait</Radio>
                 </Space>
               </Radio.Group>
             </div>
