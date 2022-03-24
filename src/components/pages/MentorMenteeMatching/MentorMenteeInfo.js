@@ -27,8 +27,9 @@ const MentorMenteeInfo = () => {
 
   return (
     <>
-      {fakeData.map(data => (
+      {fakeData.map((data, index) => (
         <div
+          key={index}
           style={{
             display: 'flex',
             flexDirection: 'row',
