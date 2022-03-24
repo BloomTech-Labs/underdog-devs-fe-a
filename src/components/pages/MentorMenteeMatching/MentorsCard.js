@@ -8,9 +8,9 @@ const MentorsCard = ({ data }) => {
   const { Option } = Select;
 
   const [mentors, setMentors] = useState({
-    first: data.Mentors.first,
-    second: data.Mentors.second,
-    third: data.Mentors.third,
+    first: '',
+    second: '',
+    third: '',
   });
 
   return (
@@ -21,7 +21,24 @@ const MentorsCard = ({ data }) => {
         style={{
           width: '30%',
         }}
-        extra={<EditOutlined onClick={() => setEdit(!edit)} />}
+        extra={
+          edit ? (
+            <p
+              onClick={() => setEdit(!edit)}
+              style={{
+                textDecoration: 'underline',
+                cursor: 'pointer',
+              }}
+            >
+              save
+            </p>
+          ) : (
+            <EditOutlined
+              style={{ marginTop: '2px' }}
+              onClick={() => setEdit(!edit)}
+            />
+          )
+        }
       >
         {edit ? (
           <div style={{ width: '80%' }}>
@@ -31,7 +48,7 @@ const MentorsCard = ({ data }) => {
               showSearch
               style={{ width: '100%' }}
               placeholder="Assign Mentor"
-              value={mentors.first}
+              value={mentors.first || 'Assign Mentor'}
             >
               {' '}
               <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
@@ -42,12 +59,13 @@ const MentorsCard = ({ data }) => {
         ) : (
           <div style={{ width: '80%' }}>
             <p>
-              {!data.Mentors.first ? (
+              {!mentors.first ? (
                 <Select
+                  name="first"
+                  onChange={value => setMentors({ ...mentors, first: value })}
                   showSearch
                   style={{ width: '100%' }}
-                  placeholder="Assign Mentor"
-                  className="mentors"
+                  value={mentors.first || 'Assign Mentor'}
                 >
                   {' '}
                   <Option value={data.Mentors.first}>
@@ -75,8 +93,7 @@ const MentorsCard = ({ data }) => {
               showSearch
               style={{ width: '100%' }}
               optionFilterProp="children"
-              placeholder="Assign Mentor"
-              value={mentors.second}
+              value={mentors.second || 'Assign Mentor'}
             >
               <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
               <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
@@ -86,11 +103,14 @@ const MentorsCard = ({ data }) => {
         ) : (
           <div style={{ width: '80%' }}>
             <p>
-              {!data.Mentors.second ? (
+              {!mentors.second ? (
                 <Select
+                  name="second"
+                  onChange={value => setMentors({ ...mentors, second: value })}
                   showSearch
                   style={{ width: '100%' }}
-                  placeholder="Assign Mentor"
+                  optionFilterProp="children"
+                  value={mentors.second || 'Assign Mentor'}
                 >
                   <Option value={data.Mentors.first}>
                     {data.Mentors.first}
@@ -115,9 +135,8 @@ const MentorsCard = ({ data }) => {
               onChange={value => setMentors({ ...mentors, third: value })}
               showSearch
               style={{ width: '100%' }}
-              placeholder="Assign Mentor"
               optionFilterProp="children"
-              value={mentors.third}
+              value={mentors.third || 'Assign Mentor'}
             >
               {' '}
               <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
@@ -128,11 +147,15 @@ const MentorsCard = ({ data }) => {
         ) : (
           <div style={{ width: '80%' }}>
             <p>
-              {!data.Mentors.third ? (
+              {!mentors.third ? (
                 <Select
+                  name="third"
+                  onChange={value => setMentors({ ...mentors, third: value })}
                   showSearch
                   style={{ width: '100%' }}
                   placeholder="Assign Mentor"
+                  optionFilterProp="children"
+                  value={mentors.third || 'Assign Mentor'}
                 >
                   {' '}
                   <Option value={data.Mentors.first}>
