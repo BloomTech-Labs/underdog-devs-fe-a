@@ -11,28 +11,38 @@ import {
   Input,
 } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import './Notes.css';
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
   const [count, setCount] = useState(0);
   const [toggle, setToggle] = useState(1);
+  const [content, setContent] = useState(0);
 
   const handleMenuClick = e => {
-    message.info('Click on menu item.');
-    console.log('click', e);
+    setContent(e.key);
   };
 
   const RonChange = e => {
-    // console.log('radio checked', e.target.value);
     setToggle(e.target.value);
-    // this.setState({
-    //   value: e.target.value,
-    // });
   };
 
   const ConChange = checkedValues => {
     console.log('checked = ', checkedValues);
   };
+
+  const cType = () => {
+    if (content === '1') {
+      return 'Needs / resource request';
+    } else if (content === '2') {
+      return 'Changing Mentors';
+    } else if (content === '3') {
+      return 'Time sensitive needs';
+    } else {
+      return 'Select note type ';
+    }
+  };
+
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1" icon={<UserOutlined />}>
@@ -62,7 +72,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <label htmlFor="">Content Type</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              Select note type <DownOutlined />
+              {cType()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />
@@ -90,7 +100,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
               <label htmlFor="">Priority</label>
               <Radio.Group onChange={RonChange} value={toggle}>
                 <Space direction="vertical">
-                  <Radio value={1}>Critical</Radio>
+                  <Radio value={1}>Urgent</Radio>
                   <Radio value={2}>Medium</Radio>
                   <Radio value={3}>Low</Radio>
                 </Space>
