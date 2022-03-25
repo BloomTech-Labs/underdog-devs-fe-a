@@ -8,7 +8,7 @@ export const Flag = styled.div`
   justify-content: center;
   width: 45%;
   border-radius: 20px;
-  padding: 2px;
+  padding: 2px 1em;
   font-size: 12px;
   font-weight: bold;
   text-transform: capitalize;
@@ -37,7 +37,7 @@ export const priorityColor = {
 export const statusColor = {
   'in progress': '#2D88D9',
   draft: '#E8833B',
-  replied: '#9d4edd',
+  replied: '#9964C4',
   resolved: '#48C73A',
 };
 
@@ -47,12 +47,12 @@ export const columns = [
     title: 'Created By',
     dataIndex: 'createdBy',
     key: 'createdBy',
-    defaultSortOrder: 'descend',
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
       confirm,
       clearFilters,
+      name,
     }) => (
       <div style={{ padding: 8 }}>
         <Input
@@ -102,6 +102,21 @@ export const columns = [
     render: subject => (
       <Flag style={{ backgroundColor: subjectColor[subject] }}>{subject}</Flag>
     ),
+    filters: [
+      {
+        text: 'Needs',
+        value: 'needs',
+      },
+      {
+        text: 'Job Search',
+        value: 'job search',
+      },
+      {
+        text: 'Mentor',
+        value: 'mentor', //Unsure what the api will return, for mentor
+      },
+    ],
+    onFilter: (value, record) => record.subject === value,
   },
   {
     title: 'Visibility',
@@ -127,6 +142,9 @@ export const columns = [
     title: 'Date',
     dataIndex: 'date',
     key: 'date',
+    defaultSortOrder: 'descend',
+    sortDirections: ['ascend', 'descend', 'ascend'],
+    sorter: (a, b) => b.date < a.date,
   },
   {
     title: 'Time',
@@ -140,5 +158,20 @@ export const columns = [
     render: status => (
       <Flag style={{ backgroundColor: statusColor[status] }}>{status}</Flag>
     ),
+    filters: [
+      {
+        text: 'In Progress',
+        value: 'in progress',
+      },
+      {
+        text: 'Resolved',
+        value: 'resolved',
+      },
+      {
+        text: 'Replied',
+        value: 'replied',
+      },
+    ],
+    onFilter: (value, record) => record.status === value,
   },
 ];

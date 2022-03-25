@@ -19,6 +19,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   const [toggle, setToggle] = useState(1);
   const [content, setContent] = useState(0);
 
+  const theme = localStorage.getItem('theme');
   const handleMenuClick = e => {
     setContent(e.key);
   };
@@ -132,10 +133,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             className="row2"
             style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <Button style={{ minWidth: '45%', backgroundColor: '#F2692E' }}>
+            <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
               Save as draft
             </Button>
-            <Button style={{ minWidth: '45%', backgroundColor: '#2368AA' }}>
+            <Button
+              className={`modalBtn createBtn ${theme ? theme : ''}CreateBtn`}
+            >
               Create
             </Button>
           </div>

@@ -56,7 +56,7 @@ const columns = [
     title: 'Date Submitted',
     dataIndex: 'dateSubmitted',
     defaultSortOrder: 'descend',
-    sorter: (a, b) => a.dateSubmitted - b.dateSubmitted,
+    sorter: (a, b) => a.dateSubmitted < b.dateSubmitted,
   },
 ];
 
