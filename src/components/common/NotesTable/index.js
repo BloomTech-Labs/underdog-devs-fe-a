@@ -8,23 +8,28 @@ import {
   Space,
   Dropdown,
   Menu,
+  Form,
+  List,
+  Input,
 } from 'antd';
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 
 const NotesTable = ({ userProfile }) => {
-  console.log(userProfile);
   const [data, setData] = useState([]);
+  // edit users own comment states
+  const [editing, setEditing] = useState(false);
+  const [editNote, setEditNote] = useState({ key: '', note: '' });
+  const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
-  // Get profile_id of note creator
-  const note_profile_id = data.map(data => data.profile_id);
+  const { TextArea } = Input;
 
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/d52d79b6-7bc3-4fdb-8aea-25140c9a1041')
+      .get('https://mocki.io/v1/99557d46-6efa-4ab0-9cd6-63a4cb1492e8')
       .then(res => {
         setData(res.data);
       })
@@ -36,6 +41,31 @@ const NotesTable = ({ userProfile }) => {
   // click handlers
   const handleMenuClick = e => console.log('click', e);
   const handleDropDownClick = e => console.log('click', e);
+  const toggle = (key, note) => {
+    //editing note is currently for all comments
+    setEditing(!editing);
+    setEditNote({ key: key, note: note });
+  };
+  // dummy api update call, needs actual api endpoint to update
+  const handleSaveButton = () => {
+    axiosWithAuth()
+      .put('dummydata', { note: editNote.note })
+      .then(res => {
+        console.log(res);
+        setEditing(false);
+        setSubmitting(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  const handleChange = e => {
+    setEditNote({ ...editNote, note: e.target.value });
+  };
+  const handleCancel = () => {
+    setEditing(!editing);
+    if (submitting) setSubmitting(!submitting);
+  };
 
   // Dropdown menu items
   const menu = (
@@ -44,6 +74,26 @@ const NotesTable = ({ userProfile }) => {
       <Menu.Item key="2">2nd menu item</Menu.Item>
       <Menu.Item key="3">3rd menu item</Menu.Item>
     </Menu>
+  );
+
+  // edit comment ant framework
+  const Editor = ({ onChange, onSubmit, submitting, value }) => (
+    <>
+      <Form.Item>
+        <TextArea rows={4} onChange={onChange} value={value} />
+      </Form.Item>
+      <Form.Item>
+        <Button
+          htmlType="submit"
+          loading={submitting}
+          onClick={onSubmit}
+          type="primary"
+        >
+          Save edit
+        </Button>
+        <Button onClick={handleCancel}>Cancel</Button>
+      </Form.Item>
+    </>
   );
 
   return (
@@ -57,11 +107,18 @@ const NotesTable = ({ userProfile }) => {
               <>
                 <Comment
                   actions={[
-                    profile_id === note_profile_id ? (
-                      <Button type="primary" size="middle">
+                    // edit button
+                    profile_id === record.profile_id ? (
+                      <Button
+                        type="primary"
+                        size="middle"
+                        onClick={() => toggle(record.key, record.note)}
+                        style={{ display: editing ? 'none' : 'inline' }}
+                      >
                         Edit
                       </Button>
                     ) : (
+                      // reply button may be out the door
                       <Button
                         key="comment-nested-reply-to"
                         type="primary"
@@ -78,7 +135,20 @@ const NotesTable = ({ userProfile }) => {
                       alt={record.createdBy}
                     />
                   }
-                  content={<p>{record.note}</p>}
+                  content={
+                    // populating edit text box with previous value
+                    <>
+                      {editing ? (
+                        <Editor
+                          onChange={handleChange}
+                          onSubmit={handleSaveButton}
+                          value={editNote.note}
+                        />
+                      ) : (
+                        <>{record.note}</>
+                      )}
+                    </>
+                  }
                 ></Comment>
               </>
             </Card>
