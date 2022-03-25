@@ -21,7 +21,6 @@ import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 
 import Navbar from './components/pages/Navbar/Navbar';
-import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
