@@ -77,7 +77,11 @@ function App() {
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
-        <Route path="/implicit/callback" component={LoginCallback} />
+        <Redirect
+          path="/implicit/callback"
+          to="/dashboard"
+          component={LoginCallback}
+        />
 
         <PrivateRoute
           path="/dashboard"
