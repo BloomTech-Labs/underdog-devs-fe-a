@@ -8,7 +8,7 @@ export const Flag = styled.div`
   justify-content: center;
   width: 45%;
   border-radius: 20px;
-  padding: 2px;
+  padding: 2px 1em;
   font-size: 12px;
   font-weight: bold;
   text-transform: capitalize;
@@ -37,7 +37,7 @@ export const priorityColor = {
 export const statusColor = {
   'in progress': '#2D88D9',
   draft: '#E8833B',
-  replied: '#9d4edd',
+  replied: '#9964C4',
   resolved: '#48C73A',
 };
 
