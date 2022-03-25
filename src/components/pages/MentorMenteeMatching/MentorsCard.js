@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import { options, empty } from './MentorOptions';
 
 const MentorsCard = ({ data }) => {
   const [edit, setEdit] = useState(false);
@@ -11,29 +12,15 @@ const MentorsCard = ({ data }) => {
     third: '',
   });
 
-  const options = () => {
-    const { Option } = Select;
-    return (
-      <>
-        <Option value="Assign Mentor">Assign Mentor</Option>
-        <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
-        <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
-        <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
-      </>
-    );
-  };
-
   return (
     <>
-      {' '}
       <Card
         title="Mentors"
         style={{
           width: '30%',
         }}
         extra={
-          (!mentors.first && !mentors.second && !mentors.third) ||
-          !mentors.first ? (
+          !mentors.first && !mentors.second && !mentors.third ? (
             ''
           ) : edit ? (
             <p
@@ -53,7 +40,7 @@ const MentorsCard = ({ data }) => {
           )
         }
       >
-        {edit || !mentors.first || mentors.first === 'Assign Mentor' ? (
+        {edit || empty(mentors.first) ? (
           <div style={{ width: '80%' }}>
             <Select
               name="first"
@@ -63,8 +50,7 @@ const MentorsCard = ({ data }) => {
               optionFilterProp="children"
               value={mentors.first || 'Assign Mentor'}
             >
-              {' '}
-              {options()}
+              {options(data)}
             </Select>
           </div>
         ) : (
@@ -73,7 +59,7 @@ const MentorsCard = ({ data }) => {
           </div>
         )}
 
-        {edit || !mentors.second || mentors.second === 'Assign Mentor' ? (
+        {edit || empty(mentors.second) ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <Select
               name="second"
@@ -83,7 +69,7 @@ const MentorsCard = ({ data }) => {
               optionFilterProp="children"
               value={mentors.second || 'Assign Mentor'}
             >
-              {options()}
+              {options(data)}
             </Select>
           </div>
         ) : (
@@ -93,7 +79,7 @@ const MentorsCard = ({ data }) => {
             </p>
           </div>
         )}
-        {edit || !mentors.third || mentors.third === 'Assign Mentor' ? (
+        {edit || empty(mentors.third) ? (
           <div style={{ width: '80%', marginTop: '20px' }}>
             <Select
               name="third"
@@ -103,8 +89,7 @@ const MentorsCard = ({ data }) => {
               optionFilterProp="children"
               value={mentors.third || 'Assign Mentor'}
             >
-              {' '}
-              {options()}
+              {options(data)}
             </Select>
           </div>
         ) : (
