@@ -92,6 +92,7 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={Notes}
         />
+            
         <PrivateRoute
           path="/notesform"
           redirect="/dashboard"
@@ -126,6 +127,7 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={ManageResources}
         />
+            
         <PrivateRoute
           path="/resources"
           redirect="/dashboard"
