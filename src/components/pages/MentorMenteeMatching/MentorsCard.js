@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Card, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
-const { Option } = Select;
-
 const MentorsCard = ({ data }) => {
   const [edit, setEdit] = useState(false);
 
@@ -12,6 +10,18 @@ const MentorsCard = ({ data }) => {
     second: '',
     third: '',
   });
+
+  const options = () => {
+    const { Option } = Select;
+    return (
+      <>
+        <Option value="Assign Mentor">Assign Mentor</Option>
+        <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
+        <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
+        <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
+      </>
+    );
+  };
 
   return (
     <>
@@ -22,7 +32,8 @@ const MentorsCard = ({ data }) => {
           width: '30%',
         }}
         extra={
-          !mentors.first && !mentors.second && !mentors.third ? (
+          (!mentors.first && !mentors.second && !mentors.third) ||
+          !mentors.first ? (
             ''
           ) : edit ? (
             <p
@@ -49,14 +60,11 @@ const MentorsCard = ({ data }) => {
               onChange={value => setMentors({ ...mentors, first: value })}
               showSearch
               style={{ width: '100%' }}
-              placeholder="Assign Mentor"
+              optionFilterProp="children"
               value={mentors.first || 'Assign Mentor'}
             >
               {' '}
-              <Option value="Assign Mentor">Assign Mentor</Option>
-              <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
-              <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
-              <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
+              {options()}
             </Select>
           </div>
         ) : (
@@ -75,10 +83,7 @@ const MentorsCard = ({ data }) => {
               optionFilterProp="children"
               value={mentors.second || 'Assign Mentor'}
             >
-              <Option value="Assign Mentor">Assign Mentor</Option>
-              <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
-              <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
-              <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
+              {options()}
             </Select>
           </div>
         ) : (
@@ -99,10 +104,7 @@ const MentorsCard = ({ data }) => {
               value={mentors.third || 'Assign Mentor'}
             >
               {' '}
-              <Option value="Assign Mentor">Assign Mentor</Option>
-              <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
-              <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
-              <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
+              {options()}
             </Select>
           </div>
         ) : (
