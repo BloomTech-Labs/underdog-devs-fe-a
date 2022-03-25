@@ -16,7 +16,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
   const [count, setCount] = useState(0);
   const [toggle, setToggle] = useState(1);
-
+  const theme = localStorage.getItem('theme');
   const handleMenuClick = e => {
     message.info('Click on menu item.');
     console.log('click', e);
@@ -122,10 +122,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             className="row2"
             style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <Button style={{ minWidth: '45%', backgroundColor: '#F2692E' }}>
+            <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
               Save as draft
             </Button>
-            <Button style={{ minWidth: '45%', backgroundColor: '#2368AA' }}>
+            <Button
+              className={`modalBtn createBtn ${theme ? theme : ''}CreateBtn`}
+            >
               Create
             </Button>
           </div>
