@@ -3,7 +3,6 @@ import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import NotesForm from './NotesForm';
 import NotesTable from '../../common/NotesTable';
-
 const Notes = props => {
   const [displayModal, setDisplayModal] = useState(false);
 
