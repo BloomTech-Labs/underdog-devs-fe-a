@@ -42,7 +42,6 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
                 <div className="username">Welcome {user.first_name}</div>
-                <div className="userRole">{user.role_name}</div>
               </div>
               <div className="profilePic">
                 <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
