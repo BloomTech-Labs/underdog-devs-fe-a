@@ -16,7 +16,7 @@ const initialValues = {
 // Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
-  const [formValues, handleChange, clearForm] = useForms(initialValues);
+  const [formValues, handleChange, clearForm] = useForms(userInfo);
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -26,7 +26,14 @@ function EditProfile({ userInfo }) {
 
   const handleSubmit = e => {
     setModalOpen(false);
-    console.log(formValues);
+    axiosWithAuth()
+      .put('/profile', formValues)
+      .then(res => {
+        console.log('editing', res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     clearForm(e);
   };
 
@@ -200,8 +207,9 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    userInfo: state.user.userInfo, // userProfile?
+    userInfo: state.user.userProfile, // userProfile?
   };
 };
 
