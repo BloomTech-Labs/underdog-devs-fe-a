@@ -1,5 +1,6 @@
 import { Avatar } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -11,6 +12,15 @@ const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get('/profile/current_user_profile/')
+      .then(user => {
+        setUser(user.data);
+      });
+  }, []);
 
   if (!isAuthenticated) {
     return <NavBarLanding />;
@@ -28,13 +38,11 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               style={{ marginLeft: '1vw' }}
             />
           </div>
-          {Object.keys(userProfile).length && (
+          {Object.keys(user).length && (
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
-                {/* Username State Goes Here */}
-                <div className="username">{userProfile?.first_name}</div>
-                {/* Role State Goes Here */}
-                <div className="userRole">Role</div>
+                <div className="username">Welcome {user.first_name}</div>
+                <div className="userRole">{user.role_name}</div>
               </div>
               <div className="profilePic">
                 <Avatar size={50} icon={<UserOutlined />} src={profilePic} />
@@ -49,8 +57,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
 
 const mapStateToProps = state => {
   return {
-    userProfile: state.user.userProfile,
-    isAuthenticated: state.user.auth.isAuthenticated,
+    isAuthenticated: localStorage.getItem('token'),
   };
 };
 
