@@ -112,8 +112,8 @@ export const columns = [
         value: 'job search',
       },
       {
-        text: 'Mentor',
-        value: 'mentor', //Unsure what the api will return, for mentor
+        text: 'Other',
+        value: 'other', //Unsure what the api will return, for mentor
       },
     ],
     onFilter: (value, record) => record.subject === value,
@@ -132,11 +132,27 @@ export const columns = [
     title: 'Priority',
     dataIndex: 'priority',
     key: 'priority',
+
     render: priority => (
       <Flag style={{ backgroundColor: priorityColor[priority] }}>
         {priority}
       </Flag>
     ),
+    filters: [
+      {
+        text: 'Urgent',
+        value: 'urgent',
+      },
+      {
+        text: 'Medium',
+        value: 'medium',
+      },
+      {
+        text: 'Low',
+        value: 'low',
+      },
+    ],
+    onFilter: (value, record) => record.priority === value,
   },
   {
     title: 'Date',
@@ -144,7 +160,7 @@ export const columns = [
     key: 'date',
     defaultSortOrder: 'descend',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => b.date < a.date,
+    sorter: (a, b) => new Date(a.date) - new Date(b.date),
   },
   {
     title: 'Time',

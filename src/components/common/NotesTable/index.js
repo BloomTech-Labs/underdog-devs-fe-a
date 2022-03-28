@@ -30,6 +30,7 @@ const NotesTable = ({ userProfile }) => {
   useEffect(() => {
     axiosWithAuth()
       .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
+      // .get('https://mocki.io/v1/72cc0a0b-0ec2-4b46-bea5-93b67284fa54')
       .then(res => {
         console.log(res.data);
         setData(res.data);
