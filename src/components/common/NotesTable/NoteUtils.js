@@ -143,8 +143,8 @@ export const columns = [
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
-    sortDirections: ['ascend', 'descend', 'ascend'],
-    sorter: (a, b) => b.date < a.date,
+    sortDirections: ['ascend', 'descend'],
+    sorter: (a, b) => new Date(a.date) - new Date(b.date),
   },
   {
     title: 'Time',
