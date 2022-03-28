@@ -6,7 +6,7 @@ import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Header } = Layout;
 
@@ -21,14 +21,14 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     <Layout className="layout">
       <Header>
         <div className="logoDiv">
-          <NavLink to="/dashboard">
+          <Link to="/dashboard">
             <img
               src={logo}
               alt="underdog devs logo"
               height="68"
               style={{ marginLeft: '1vw' }}
             />
-          </NavLink>
+          </Link>
           {Object.keys(userProfile).length && (
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
