@@ -3,7 +3,7 @@ import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import useForms from '../../../hooks/useForms';
-import axios from 'axios';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const initialValues = {
   first_name: 'Hal',
@@ -17,7 +17,7 @@ const initialValues = {
 // Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
-  const [formValues, handleChange, clearForm] = useForms(initialValues);
+  const [formValues, handleChange, clearForm] = useForms(userInfo);
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -27,7 +27,14 @@ function EditProfile({ userInfo }) {
 
   const handleSubmit = e => {
     setModalOpen(false);
-    console.log(formValues);
+    axiosWithAuth()
+      .put('/profile', formValues)
+      .then(res => {
+        console.log('editing', res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     clearForm(e);
   };
 
@@ -201,8 +208,9 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    userInfo: state.user.userInfo, // userProfile?
+    userInfo: state.user.userProfile, // userProfile?
   };
 };
 
