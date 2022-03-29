@@ -3,6 +3,7 @@ import CalendarFeature from '../Calendar';
 import PendingApplications from '../../pages/PendingApplications/PendingApplication';
 import MentorMenteeMatching from '../../pages/MentorMenteeMatching/MentorMenteeMatching';
 import UserManagement from '../../pages/UserManagement/UserManagement';
+import Attendance from '../../pages/Attendance/attendance';
 import Dashboard from '../../pages/Dashboard/Dashboard';
 import { Profile } from '../../pages/Profile';
 
@@ -45,6 +46,7 @@ const AdminComponents = {
   8: <div>"View All Meetings" Component goes here</div>,
   9: <Profile />,
   10: <div>Do we need Account settings?</div>,
+  11: <Attendance />,
 };
 
 export { AdminComponents, MentorComponents, MenteeComponents };

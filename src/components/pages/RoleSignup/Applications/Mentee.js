@@ -445,7 +445,7 @@ const Mentee = () => {
 
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="Anything else you want us to know? community?"
+                    label="Anything else you want us to know?"
                     tooltip={{
                       title:
                         'Include any relevant info that you think may be helpful',

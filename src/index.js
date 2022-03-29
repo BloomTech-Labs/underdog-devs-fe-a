@@ -21,7 +21,6 @@ import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 
 import Navbar from './components/pages/Navbar/Navbar';
-import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
@@ -30,6 +29,7 @@ import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
+import Attendance from './components/pages/Attendance/attendance';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -96,6 +96,7 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={Notes}
         />
+            
         <PrivateRoute
           path="/notesform"
           redirect="/dashboard"
@@ -130,12 +131,19 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={ManageResources}
         />
+            
+        <PrivateRoute
+          path="/resources"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={ManageResources}
+        />
 
         <PrivateRoute
-          path="/applications"
+          path="/attendance"
           redirect="/dashboard"
           allowRoles={[1, 2]}
-          component={PendingApplications}
+          component={Attendance}
         />
 
         <PrivateRoute

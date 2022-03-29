@@ -35,11 +35,47 @@ a.sc-gKclnd.cxVpss /*Login/Sign up Button background color*/{
     background-color: #003d71
 }
 
-
 div.ant-card-head  {
     color: #003D71;
 }
 .notesField{
     display: flex;
     flex-direction: column;
+}
+
+div.row2 .modalBtn {
+    min-width: 45%;
+}
+
+div.row2 .modalBtn:hover {
+    color: #165996;
+}
+
+div.row2 .modalBtn:visited {
+    color: black;
+}
+
+div.row2 .saveBtn {
+    background-color: #F2692E;
+}
+
+div.row2 .saveBtn:hover {
+    background-color: #FBDACB;
+}
+
+div.row2 .darkSaveBtn {
+    background-color: #99350A;
+}
+
+div.row2 .createBtn {
+    background-color: #5A9EDD  ;
+}
+
+div.row2 .createBtn:hover {
+    background-color: #D9E9F7;
+}
+
+
+div.row2 .darkCreateBtn {
+    background-color: #1A4E7F;
 }
