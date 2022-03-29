@@ -31,7 +31,6 @@ function EditProfile({ userInfo }) {
     clearForm(e);
   };
 
-  //// Styling
   const buttonStyle = {
     backgroundColor: '#003D71',
     color: '#ffffff',
@@ -44,10 +43,8 @@ function EditProfile({ userInfo }) {
     boxShadow:
       'rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset',
     boxSizing: 'border-box',
-    //   color: #fff;
     cursor: 'pointer',
     display: 'inline-flex',
-    fontFamily: '"JetBrains Mono",monospace',
     justifyContent: 'center',
     lineHeight: 1,
     listStyle: 'none',
@@ -62,7 +59,7 @@ function EditProfile({ userInfo }) {
     touchAction: 'manipulation',
     whiteSpace: 'nowrap',
     willChange: 'box-shadow,transform',
-    fontSize: '18px',
+    fontSize: '1.125rem',
   };
 
   const treeData = [
