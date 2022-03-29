@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 /*Section 1*/
 .landInfo1 {
   display: flex;
@@ -31,7 +34,6 @@
 .landInfo2 {
   background-color: #e5f1f1;
   display: flex;
-  height: 600px;
   flex-wrap: wrap;
 }
 .head2 {
@@ -267,9 +269,6 @@
   }
 }
 @media screen and (max-width: 414px) {
-  * {
-    box-sizing: border-box;
-  }
   .landInfo1,
   .landInfo2,
   .landInfo3,

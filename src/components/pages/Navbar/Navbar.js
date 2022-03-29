@@ -38,7 +38,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               height="68"
               style={{ marginLeft: '1vw' }}
             />
-          </div>
+          </Link>
           {Object.keys(user).length && (
             <div className="userInfo-and-profilePic">
               <div className="userInfo">
