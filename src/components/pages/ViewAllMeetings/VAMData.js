@@ -5,11 +5,11 @@ const VAMData = props => {
   const { meetingData } = props;
 
   return (
-    <
+    <>
       {meetingData.map(info => {
         return <MeetingInfo info={info} key={info.meeting_id} />;
       })}
-    />
+    </>
   );
 };
 
