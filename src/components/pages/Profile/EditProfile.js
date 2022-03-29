@@ -35,9 +35,35 @@ function EditProfile({ userInfo }) {
   const buttonStyle = {
     backgroundColor: '#003D71',
     color: '#ffffff',
+    alignItems: 'center',
+    backgroundImage:
+      'radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%)',
+    appearance: 'none',
+    border: 0,
+    borderRadius: '6px',
+    boxShadow:
+      'rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset',
+    boxSizing: 'border-box',
+    //   color: #fff;
+    cursor: 'pointer',
+    display: 'inline-flex',
+    fontFamily: '"JetBrains Mono",monospace',
+    justifyContent: 'center',
+    lineHeight: 1,
+    listStyle: 'none',
+    overflow: 'hidden',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    position: 'relative',
+    textAlign: 'left',
+    textDecoration: 'none',
+    transition: 'box-shadow .15s,transform .15s',
+    userSelect: 'none',
+    touchAction: 'manipulation',
+    whiteSpace: 'nowrap',
+    willChange: 'box-shadow,transform',
+    fontSize: '18px',
   };
-
-  //// Dropdown Data
 
   const treeData = [
     {
