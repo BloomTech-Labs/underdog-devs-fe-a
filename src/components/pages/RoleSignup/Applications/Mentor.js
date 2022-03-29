@@ -19,6 +19,7 @@ import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
@@ -304,6 +305,10 @@ const Mentor = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Which best describes your tech stack?"
+                    tooltip={{
+                      title: 'What development role have you trained for?',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="tech_stack"
                     rules={[
                       {
@@ -329,6 +334,10 @@ const Mentor = () => {
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What is your level of experience?"
+                    tooltip={{
+                      title: 'Choose your current skill level',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="experience_level"
                     rules={[
                       {
@@ -353,6 +362,10 @@ const Mentor = () => {
                   <Form.Item
                     label="How else can you contribute in the progression of our
                     mentees?"
+                    tooltip={{
+                      title: 'Select all that apply',
+                      icon: <InfoCircleOutlined />,
+                    }}
                     name="contribute"
                     rules={[
                       {
@@ -396,7 +409,14 @@ const Mentor = () => {
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <p>Anything else you want us to know?</p>
+                  <Form.Item
+                    label="Anything else you want us to know?"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
                   <Form.Item
                     type="text"
                     name="other_info"

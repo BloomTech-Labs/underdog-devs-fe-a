@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Menu,
@@ -11,19 +11,37 @@ import {
   Input,
 } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import './Notes.css';
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
+  const [count, setCount] = useState(0);
+  const [toggle, setToggle] = useState(1);
+  const [content, setContent] = useState(0);
+
+  const theme = localStorage.getItem('theme');
   const handleMenuClick = e => {
-    message.info('Click on menu item.');
-    console.log('click', e);
+    setContent(e.key);
   };
 
-  const onChange = e => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-      value: e.target.value,
-    });
+  const RonChange = e => {
+    setToggle(e.target.value);
+  };
+
+  const ConChange = checkedValues => {
+    console.log('checked = ', checkedValues);
+  };
+
+  const cType = () => {
+    if (content === '1') {
+      return 'Needs / resource request';
+    } else if (content === '2') {
+      return 'Changing Mentors';
+    } else if (content === '3') {
+      return 'Time sensitive needs';
+    } else {
+      return 'Select note type ';
+    }
   };
 
   const menu = (
@@ -55,12 +73,17 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <label htmlFor="">Content Type</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              Select note type <DownOutlined />
+              {cType()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />
           <label htmlFor="">Content</label>
-          <TextArea rows={4} />
+          <TextArea
+            rows={4}
+            maxLength="280"
+            onChange={e => setCount(e.target.value.length)}
+          />
+          <p style={{ marginTop: '1%' }}>{count}/280 Characters</p>
           <br />
         </div>
         <div
@@ -75,12 +98,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
               className="radio"
               style={{ display: 'flex', flexDirection: 'column' }}
             >
-              <label htmlFor="">Level of Concern</label>
-              <Radio.Group onChange={onChange}>
+              <label htmlFor="">Priority</label>
+              <Radio.Group onChange={RonChange} value={toggle}>
                 <Space direction="vertical">
-                  <Radio>Option A</Radio>
-                  <Radio>Option B</Radio>
-                  <Radio>Option C</Radio>
+                  <Radio value={1}>Urgent</Radio>
+                  <Radio value={2}>Medium</Radio>
+                  <Radio value={3}>Low</Radio>
                 </Space>
               </Radio.Group>
             </div>
@@ -88,12 +111,19 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             <div className="check">
               <label htmlFor="">Who can see</label>
               <br />
-              <Checkbox.Group onChange={onChange} style={{ marginTop: '2%' }}>
-                <Checkbox style={{ display: 'flex' }}> Admin</Checkbox>
+              <Checkbox.Group onChange={ConChange} style={{ marginTop: '2%' }}>
+                <Checkbox value={1} style={{ display: 'flex' }}>
+                  {' '}
+                  Admin
+                </Checkbox>
                 <br />
-                <Checkbox style={{ display: 'flex' }}>Moderator</Checkbox>
+                <Checkbox value={2} style={{ display: 'flex' }}>
+                  Moderator
+                </Checkbox>
                 <br />
-                <Checkbox style={{ display: 'flex' }}>Mentor</Checkbox>
+                <Checkbox value={3} style={{ display: 'flex' }}>
+                  Mentor
+                </Checkbox>
               </Checkbox.Group>
             </div>
           </div>
@@ -103,10 +133,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             className="row2"
             style={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <Button style={{ minWidth: '45%', backgroundColor: '#F2692E' }}>
+            <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
               Save as draft
             </Button>
-            <Button style={{ minWidth: '45%', backgroundColor: '#2368AA' }}>
+            <Button
+              className={`modalBtn createBtn ${theme ? theme : ''}CreateBtn`}
+            >
               Create
             </Button>
           </div>

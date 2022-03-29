@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 import { Table } from 'antd';
+import NotesTable from '../../common/NotesTable';
 
 const columns = [
   {
@@ -85,9 +86,7 @@ const UserManagement = () => {
         columns={columns}
         dataSource={accounts}
         expandable={{
-          expandedRowRender: record => (
-            <p style={{ margin: 0 }}>{record.notes}</p>
-          ),
+          expandedRowRender: record => <NotesTable />,
         }}
       />
     </>
