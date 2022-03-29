@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Select } from 'antd';
+import { Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import { options, empty } from './MentorOptions';
+import { select } from './MentorOptions';
 
 const MentorsCard = ({ data }) => {
   const [edit, setEdit] = useState(false);
@@ -11,6 +11,8 @@ const MentorsCard = ({ data }) => {
     second: '',
     third: '',
   });
+
+  const key = Object.keys(mentors);
 
   return (
     <>
@@ -40,65 +42,15 @@ const MentorsCard = ({ data }) => {
           )
         }
       >
-        {edit || empty(mentors.first) ? (
-          <div style={{ width: '80%' }}>
-            <Select
-              name="first"
-              onChange={value => setMentors({ ...mentors, first: value })}
-              showSearch
-              style={{ width: '100%' }}
-              optionFilterProp="children"
-              value={mentors.first || 'Assign Mentor'}
-            >
-              {options(data)}
-            </Select>
-          </div>
-        ) : (
-          <div style={{ width: '80%' }}>
-            <p style={{ marginLeft: '5px' }}>{mentors.first}</p>
-          </div>
-        )}
-
-        {edit || empty(mentors.second) ? (
-          <div style={{ width: '80%', marginTop: '20px' }}>
-            <Select
-              name="second"
-              onChange={value => setMentors({ ...mentors, second: value })}
-              showSearch
-              style={{ width: '100%' }}
-              optionFilterProp="children"
-              value={mentors.second || 'Assign Mentor'}
-            >
-              {options(data)}
-            </Select>
-          </div>
-        ) : (
-          <div style={{ width: '80%' }}>
-            <p style={{ marginTop: '15px', marginLeft: '5px' }}>
-              {mentors.second}
-            </p>
-          </div>
-        )}
-        {edit || empty(mentors.third) ? (
-          <div style={{ width: '80%', marginTop: '20px' }}>
-            <Select
-              name="third"
-              onChange={value => setMentors({ ...mentors, third: value })}
-              showSearch
-              style={{ width: '100%' }}
-              optionFilterProp="children"
-              value={mentors.third || 'Assign Mentor'}
-            >
-              {options(data)}
-            </Select>
-          </div>
-        ) : (
-          <div style={{ width: '80%' }}>
-            <p style={{ marginTop: '15px', marginLeft: '5px' }}>
-              {mentors.third}
-            </p>
-          </div>
-        )}
+        <div>
+          {select(edit, mentors.first, setMentors, mentors, key[0], data)}
+        </div>
+        <div style={{ marginTop: '17px' }}>
+          {select(edit, mentors.second, setMentors, mentors, key[1], data)}
+        </div>
+        <div style={{ marginTop: '17px' }}>
+          {select(edit, mentors.third, setMentors, mentors, key[2], data)}
+        </div>
       </Card>
     </>
   );

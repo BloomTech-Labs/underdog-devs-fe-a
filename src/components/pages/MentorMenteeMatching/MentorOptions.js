@@ -1,5 +1,31 @@
 import { Select } from 'antd';
 
+export const select = (edit, name, setMentors, mentors, nameVal, data) => {
+  return (
+    <>
+      {' '}
+      {edit || empty(name) ? (
+        <div style={{ width: '80%' }}>
+          <Select
+            name={nameVal}
+            onChange={value => setMentors({ ...mentors, [nameVal]: value })}
+            showSearch
+            style={{ width: '100%' }}
+            optionFilterProp="children"
+            value={name || 'Assign Mentor'}
+          >
+            {options(data)}
+          </Select>
+        </div>
+      ) : (
+        <div style={{ width: '80%' }}>
+          <p style={{ marginLeft: '5px' }}>{name}</p>
+        </div>
+      )}
+    </>
+  );
+};
+
 export const options = data => {
   const { Option } = Select;
 
