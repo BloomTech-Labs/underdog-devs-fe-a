@@ -19,6 +19,7 @@ import {
   LoginOutlined,
   ReconciliationOutlined,
   IdcardOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
@@ -45,6 +46,7 @@ const initialFormValues = {
 
 const Mentor = () => {
   const [formValues, handleChange] = useForms(initialFormValues);
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
@@ -56,14 +58,13 @@ const Mentor = () => {
       );
       history.push('/apply/success');
     } catch (err) {
-      history.push('/apply/error');
+      setError(err);
     }
   };
 
   const formSubmit = () => {
     const newAccount = formValues;
     postNewAccount(newAccount);
-    console.log(formValues);
   };
 
   return (
@@ -108,7 +109,7 @@ const Mentor = () => {
                     ]}
                     value={formValues.first_name}
                     onChange={handleChange}
-                    style={{ margin: '1.5rem 1.5rem .5rem' }}
+                    style={{ margin: '1.5rem 1.5rem .5rem 0' }}
                   >
                     <Input placeholder="Your First Name" />
                   </Form.Item>
@@ -127,7 +128,7 @@ const Mentor = () => {
                     ]}
                     value={formValues.last_name}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem' }}
+                    style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your Last Name" />
                   </Form.Item>
@@ -146,30 +147,43 @@ const Mentor = () => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem 1rem' }}
+                    style={{ margin: '0.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter Valid Email" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}>
-                  <h3>Location:</h3>
-                </Col>
                 <Col
                   span={14}
-                  offset={1}
+                  offset={0}
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
-                  <label>Are you located in the U.S.?*</label>
-                  <Radio.Group
-                    name="country"
-                    onChange={handleChange}
-                    value={formValues.country}
-                    style={{ width: '250', display: 'flex' }}
+                  <Form.Item
+                    label="Are you located in the U.S.?"
+                    name="location"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Location is required.',
+                      },
+                    ]}
                   >
-                    <Radio value={'USA'}>Yes</Radio>
-                    <Radio value={'Other'}>No</Radio>
-                  </Radio.Group>
+                    <Radio.Group
+                      name="country"
+                      onChange={handleChange}
+                      value={formValues.country}
+                      style={{ width: '250', display: 'flex' }}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Country is required.',
+                        },
+                      ]}
+                    >
+                      <Radio value={'USA'}>Yes</Radio>
+                      <Radio value={'Other'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -188,7 +202,6 @@ const Mentor = () => {
                       ]}
                       value={formValues.country}
                       onChange={handleChange}
-                      style={{ margin: '0 1rem 1rem' }}
                     >
                       <Input placeholder="Your Country" />
                     </Form.Item>
@@ -212,16 +225,23 @@ const Mentor = () => {
                         ]}
                         value={formValues.city}
                         onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem' }}
+                        style={{ margin: '0 1rem .5rem 0' }}
                       >
                         <Input placeholder="Your City" />
                       </Form.Item>
                       <Form.Item
                         label="State"
-                        style={{ margin: '.5rem 1rem 1rem' }}
+                        style={{ margin: '.5rem 1rem 1rem 0' }}
+                        name="state"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'State is required!',
+                          },
+                        ]}
                       >
                         <Select
-                          defaultValue="- Select -"
+                          placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
                           {states.map(state => (
@@ -240,9 +260,7 @@ const Mentor = () => {
               <hr />
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
-                  <h3>Current company and position?:</h3>
-                </Col>
+                <Col md={22} xs={24}></Col>
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Current Company"
@@ -251,6 +269,12 @@ const Mentor = () => {
                     value={formValues.current_company}
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Current company is required.',
+                      },
+                    ]}
                   >
                     <Input placeholder="Current company" />
                   </Form.Item>
@@ -263,6 +287,12 @@ const Mentor = () => {
                     value={formValues.current_position}
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem' }}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Current position is required.',
+                      },
+                    ]}
                   >
                     <Input placeholder="Current position" />
                   </Form.Item>
@@ -273,73 +303,120 @@ const Mentor = () => {
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
-                  <h3>Which best describes your tech stack?*</h3>
-                  <Select
-                    defaultValue="- Select -"
-                    onChange={e => handleChange(e, 'select', 'tech_stack')}
-                    style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                  >
-                    <Option value="career">Career Development</Option>
-                    <Option value="frontend">Frontend Development</Option>
-                    <Option value="backend">Backend Development</Option>
-                    <Option value="design">Design UI/UX</Option>
-                    <Option value="IOS">IOS Development</Option>
-                    <Option value="android">Android Development</Option>
-                  </Select>
-                </Col>
-                <Col md={22} xs={24}>
-                  <h3>What is your level of experience?*</h3>
-                  <Radio.Group
-                    name="experience_level"
-                    onChange={handleChange}
-                    value={formValues.experience_level}
-                    style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                  >
-                    <Radio value={'beginner'}>Beginner</Radio>
-                    <Radio value={'intermediate'}>Intermediate</Radio>
-                    <Radio value={'expert'}>Expert</Radio>
-                  </Radio.Group>
-                </Col>
-                <Col md={22} xs={24}>
-                  <h3>
-                    How else can you contribute in the progression of our
-                    mentees?*
-                  </h3>
-                  <Checkbox.Group
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-evenly',
-                      flexFlow: 'column',
-                      width: 350,
-                      margin: '0 1rem 1rem 1.5rem',
+                  <Form.Item
+                    label="Which best describes your tech stack?"
+                    tooltip={{
+                      title: 'What development role have you trained for?',
+                      icon: <InfoCircleOutlined />,
                     }}
+                    name="tech_stack"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Tech stack is required.',
+                      },
+                    ]}
                   >
-                    <Checkbox
-                      value="job_help"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'tech_stack')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      Job Search Help
-                    </Checkbox>
-                    <Checkbox
-                      value="industry_knowledge"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
+                      <Option value="career">Career Development</Option>
+                      <Option value="frontend">Frontend Development</Option>
+                      <Option value="backend">Backend Development</Option>
+                      <Option value="design">Design UI/UX</Option>
+                      <Option value="IOS">IOS Development</Option>
+                      <Option value="android">Android Development</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="What is your level of experience?"
+                    tooltip={{
+                      title: 'Choose your current skill level',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="experience_level"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Experience is required.',
+                      },
+                    ]}
+                  >
+                    <Radio.Group
+                      name="experience_level"
+                      onChange={handleChange}
+                      value={formValues.experience_level}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      Tech Industry Coaching
-                    </Checkbox>
-                    <Checkbox
-                      value="pair_programming"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
+                      <Radio value={'beginner'}>Beginner</Radio>
+                      <Radio value={'intermediate'}>Intermediate</Radio>
+                      <Radio value={'expert'}>Expert</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How else can you contribute in the progression of our
+                    mentees?"
+                    tooltip={{
+                      title: 'Select all that apply',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="contribute"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Possible contribution is required.',
+                      },
+                    ]}
+                  >
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0 1rem 1rem 1.5rem',
+                      }}
                     >
-                      Pair Programming / Coding Practice
-                    </Checkbox>
-                  </Checkbox.Group>
+                      <Checkbox
+                        value="job_help"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Job Search Help
+                      </Checkbox>
+                      <Checkbox
+                        value="industry_knowledge"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Tech Industry Coaching
+                      </Checkbox>
+                      <Checkbox
+                        value="pair_programming"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Pair Programming / Coding Practice
+                      </Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
                 </Col>
 
                 <Col md={22} xs={24}>
-                  <h3>Anything else you want us to know?</h3>
+                  <Form.Item
+                    label="Anything else you want us to know?"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
                   <Form.Item
                     type="text"
                     name="other_info"
@@ -357,6 +434,21 @@ const Mentor = () => {
                 {' '}
                 Submit{' '}
               </Button>
+            </Col>
+            <Col
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: 'red',
+              }}
+              align="middle"
+            >
+              {error ? (
+                <p className="error">
+                  We're sorry! Something went wrong. Please re-apply and try
+                  again later.
+                </p>
+              ) : null}
             </Col>
           </Form>
         </Col>

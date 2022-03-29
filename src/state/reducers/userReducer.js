@@ -8,7 +8,7 @@ const initialState = {
     profile_id: null,
   },
   userProfile: {
-    // when user hits dashboard, make API call to [GET] /profiles/:id
+    // when user hits dashboard, make API call to [GET] /profile/:id
     // first_name: 'Test',
     // last_name: 'Test',
     // role_id: 3,

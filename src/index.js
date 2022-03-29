@@ -18,9 +18,10 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+
 import AppError from './components/pages/RoleSignup/Applications/AppError';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
+
 
 import Navbar from './components/pages/Navbar/Navbar';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
@@ -30,6 +31,8 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
+import Notes from './components/pages/Notes/Notes';
+import NotesForm from './components/pages/Notes/NotesForm';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -77,7 +80,6 @@ function App() {
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
-        <Route path="/apply/error" component={AppError} />
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -85,6 +87,19 @@ function App() {
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
           component={Dashboard}
+        />
+
+        <PrivateRoute
+          path="/notes"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={Notes}
+        />
+        <PrivateRoute
+          path="/notesform"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={NotesForm}
         />
 
         <PrivateRoute
