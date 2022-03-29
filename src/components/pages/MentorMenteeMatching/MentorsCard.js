@@ -12,6 +12,8 @@ const MentorsCard = ({ data }) => {
     third: '',
   });
 
+  const rest = [edit, setMentors, mentors, data];
+
   const key = Object.keys(mentors);
 
   return (
@@ -42,14 +44,12 @@ const MentorsCard = ({ data }) => {
           )
         }
       >
-        <div>
-          {select(edit, mentors.first, setMentors, mentors, key[0], data)}
+        <div>{select(...rest, mentors.first, key[0])}</div>
+        <div style={{ marginTop: '17px' }}>
+          {select(...rest, mentors.second, key[1])}
         </div>
         <div style={{ marginTop: '17px' }}>
-          {select(edit, mentors.second, setMentors, mentors, key[1], data)}
-        </div>
-        <div style={{ marginTop: '17px' }}>
-          {select(edit, mentors.third, setMentors, mentors, key[2], data)}
+          {select(...rest, mentors.third, key[2])}
         </div>
       </Card>
     </>

@@ -1,6 +1,6 @@
 import { Select } from 'antd';
 
-export const select = (edit, name, setMentors, mentors, nameVal, data) => {
+export const select = (edit, setMentors, mentors, data, name, nameVal) => {
   return (
     <>
       {' '}
