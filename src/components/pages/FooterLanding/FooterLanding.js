@@ -79,10 +79,6 @@ export default function FooterLanding() {
               </NavBtn>
             </div>
           </div>
-          <div className="copyright">
-            Underdog Devs
-            <div className="container"></div>
-          </div>
         </FooterStyle>
       </Footer>
     </>

@@ -22,6 +22,7 @@ export const FooterStyle = styled.div`
     .container {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 0rem;
       & > div {
         margin-top: 5%;
@@ -30,12 +31,14 @@ export const FooterStyle = styled.div`
     .footer__col1 {
       width: 100%;
       flex-basis: 100%;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
     }
     .footer__col2,
     .footer__col3,
     .footer__col4 {
-      width: 30%;
+      margin: 0 auto;
+      padding: 0 1% 0 1%;
     }
     .copyright {
       .container {
