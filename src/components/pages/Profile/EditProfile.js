@@ -30,7 +30,7 @@ function EditProfile({ userInfo }) {
     axiosWithAuth()
       .put('/profile', formValues)
       .then(res => {
-        console.log('editing', res.data);
+        console.log('data', res.data);
       })
       .catch(err => {
         console.log(err);
@@ -210,7 +210,7 @@ function EditProfile({ userInfo }) {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    userInfo: state.user.userProfile, // userProfile?
+    userInfo: state.user.userProfile,
   };
 };
 
