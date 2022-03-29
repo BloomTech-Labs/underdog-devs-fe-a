@@ -71,13 +71,17 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Redirect path="/" to="/dashboard" exact component={Landing} />
+        <Route path="/" exact component={Landing} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
-        <Route path="/implicit/callback" component={LoginCallback} />
+        <Redirect
+          path="/implicit/callback"
+          to="/dashboard"
+          component={LoginCallback}
+        />
 
         <PrivateRoute
           path="/dashboard"

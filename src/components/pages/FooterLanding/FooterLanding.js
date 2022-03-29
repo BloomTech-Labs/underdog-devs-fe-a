@@ -48,7 +48,7 @@ export default function FooterLanding() {
             </div>
             <div className="footer__col4">
               <FooterCol
-                heading="Connects"
+                heading="Company"
                 links={[
                   {
                     title: 'About Us',
