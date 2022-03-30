@@ -47,6 +47,7 @@ export const statusColor = {
 const statusIcon = {
   'in progress': <HiIcons.HiOutlineDotsCircleHorizontal size={25} />,
   resolved: <FaIcons.FaRegCheckCircle size={25} />,
+  replied: <FaIcons.FaRegCommentDots size={25} />,
 };
 
 // Table Columns
