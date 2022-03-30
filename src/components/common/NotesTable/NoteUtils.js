@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import * as HiIcons from 'react-icons/hi';
+import * as FaIcons from 'react-icons/fa';
 
 // Flag Styling
 export const Flag = styled.div`
@@ -45,6 +46,7 @@ export const statusColor = {
 // Flag Icons
 const statusIcon = {
   'in progress': <HiIcons.HiOutlineDotsCircleHorizontal size={25} />,
+  resolved: <FaIcons.FaRegCheckCircle size={25} />,
 };
 
 // Table Columns
