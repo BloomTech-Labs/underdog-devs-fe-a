@@ -123,9 +123,7 @@ export const columns = [
     dataIndex: 'visibility',
     key: 'visibility',
     render: visibility => (
-      <Flag style={{ backgroundColor: visibilityColor[visibility] }}>
-        {visibility}
-      </Flag>
+      <span style={{ textTransform: 'capitalize' }}>{visibility}</span>
     ),
   },
   {
