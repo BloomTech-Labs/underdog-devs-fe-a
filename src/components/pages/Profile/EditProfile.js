@@ -160,7 +160,7 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             label="Tech Stack"
             name="tech_stack"
             initialValue={form.tech_stack}
