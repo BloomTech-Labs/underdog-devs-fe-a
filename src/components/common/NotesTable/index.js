@@ -9,14 +9,34 @@ import {
   Dropdown,
   Menu,
   Form,
-  List,
   Input,
 } from 'antd';
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 
+// edit comment ant framework
+const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
+  <>
+    <Form.Item>
+      <Input.TextArea rows={4} onChange={onChange} defaultValue={value} />
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
+        Save edit
+      </Button>
+      <Button onClick={onCancel}>Cancel</Button>
+    </Form.Item>
+  </>
+);
+
 const NotesTable = ({ userProfile }) => {
+  console.log(userProfile);
   const [data, setData] = useState([]);
   // edit users own comment states
   const [editing, setEditing] = useState(false);
@@ -24,12 +44,11 @@ const NotesTable = ({ userProfile }) => {
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
-  const { TextArea } = Input;
 
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
+      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
       .then(res => {
         console.log(res.data);
         setData(res.data);
@@ -43,7 +62,6 @@ const NotesTable = ({ userProfile }) => {
   const handleMenuClick = e => console.log('click', e);
   const handleDropDownClick = e => console.log('click', e);
   const toggle = (key, note) => {
-    //editing note is currently for all comments
     setEditing(!editing);
     setEditNote({ key: key, note: note });
   };
@@ -75,26 +93,6 @@ const NotesTable = ({ userProfile }) => {
       <Menu.Item key="2">2nd menu item</Menu.Item>
       <Menu.Item key="3">3rd menu item</Menu.Item>
     </Menu>
-  );
-
-  // edit comment ant framework
-  const Editor = ({ onChange, onSubmit, submitting, value }) => (
-    <>
-      <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          htmlType="submit"
-          loading={submitting}
-          onClick={onSubmit}
-          type="primary"
-        >
-          Save edit
-        </Button>
-        <Button onClick={handleCancel}>Cancel</Button>
-      </Form.Item>
-    </>
   );
 
   return (
@@ -139,10 +137,11 @@ const NotesTable = ({ userProfile }) => {
                   content={
                     // populating edit text box with previous value
                     <>
-                      {editing ? (
+                      {editing && profile_id === record.profile_id ? (
                         <Editor
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
+                          onCancel={handleCancel}
                           value={editNote.note}
                         />
                       ) : (
