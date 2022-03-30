@@ -35,6 +35,7 @@
   background-color: #e5f1f1;
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 5%;
 }
 .head2 {
   background: #e5f1f1;
@@ -200,7 +201,7 @@
     font-weight: 700;
   }
   .left2 {
-    padding: 60px 10% 100px 10%;
+    padding: 5% 10% 5% 10%;
   }
   .subHead2 {
     font-size: 2.1rem;
