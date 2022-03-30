@@ -182,7 +182,7 @@ export const columns = [
       <div
         style={{
           display: 'flex',
-          gap: '0.3rem',
+          gap: '0.4rem',
         }}
       >
         {statusIcon[status]}
