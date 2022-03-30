@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import * as BiIcons from 'react-icons/bi';
 
 // Flag Styling
 export const Flag = styled.div`
@@ -39,6 +40,11 @@ export const statusColor = {
   draft: '#E8833B',
   replied: '#9964C4',
   resolved: '#48C73A',
+};
+
+// Flag Icons
+const statusIcon = {
+  'in progress': <BiIcons.BiDotsHorizontalRounded size={25} />,
 };
 
 // Table Columns
@@ -170,7 +176,15 @@ export const columns = [
     dataIndex: 'status',
     key: 'status',
     render: status => (
-      <Flag style={{ backgroundColor: statusColor[status] }}>{status}</Flag>
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.5rem',
+        }}
+      >
+        {statusIcon[status]}
+        <span style={{ textTransform: 'capitalize' }}>{status}</span>
+      </div>
     ),
     filters: [
       {
