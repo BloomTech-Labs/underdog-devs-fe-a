@@ -7,6 +7,8 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 function EditProfile({ userInfo }) {
   const [form] = Form.useForm();
 
+  // const [formValues, setFormValues] = useState(userInfo);
+
   const [ModalOpen, setModalOpen] = useState(false);
 
   const showModal = () => setModalOpen(true);
@@ -99,7 +101,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="First Name"
             name="first_name"
-            initialValue={form.first_name}
             rules={[
               {
                 required: true,
@@ -113,7 +114,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Last Name"
             name="last_name"
-            initialValue={form.last_name}
             rules={[
               {
                 required: true,
@@ -127,7 +127,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
-            initialValue={form.email}
             rules={[
               {
                 required: true,
@@ -141,7 +140,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={form.location}
             rules={[
               {
                 required: true,
@@ -152,11 +150,7 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Company/Position"
-            name="company"
-            initialValue={form.company}
-          >
+          <Form.Item label="Company/Position" name="company">
             <Input />
           </Form.Item>
 
