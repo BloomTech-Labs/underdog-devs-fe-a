@@ -4,7 +4,7 @@
 /*Section 1*/
 .landInfo1 {
   display: flex;
-  height: 550px;
+  padding-bottom: 5%;
 }
 .head1 {
   padding-bottom: 10px;
@@ -50,21 +50,17 @@
 .left2 {
   background-color: #e5f1f1;
   width: 50%;
-  padding: 0 5% 0 5%;
+  padding: 0 5% 0% 5%;
 }
 .right2 {
   background-color: #e5f1f1;
   width: 50%;
   padding: 0 5% 0 5%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
-.learn {
-  height: 40px;
-  width: 130px;
-  background-color: white;
-  border: 1px solid #003d71;
-  color: #003d71;
-  border-radius: 5px;
-}
+.learn,
 .learn2 {
   height: 40px;
   width: 130px;
@@ -73,19 +69,14 @@
   color: #003d71;
   border-radius: 5px;
 }
-.buttons2 {
-  padding: 2% 0 5% 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #e5f1f1;
+.rightButton {
+  margin-top: auto;
 }
 
 /*Section 3*/
 .landInfo3 {
   display: flex;
-  height: 600px;
-  padding-top: 17%;
+  padding-top: 5%;
   margin-bottom: 5%;
 }
 .subHead3 {
@@ -109,7 +100,6 @@
 .landInfo4 {
   background-color: #e5f1f1;
   display: flex;
-  height: 550px;
   padding: 5% 0 5% 0;
 }
 .subHead4 {
@@ -143,7 +133,7 @@
   justify-content: space-evenly;
   width: 35%;
   margin: 0 auto;
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }
 
 @media screen and (max-width: 320px) {
