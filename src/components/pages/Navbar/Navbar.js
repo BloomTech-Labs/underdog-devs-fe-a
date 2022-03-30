@@ -14,16 +14,15 @@ const { Header } = Layout;
 const Navbar = ({ isAuthenticated, userProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-
   useEffect(() => {
     axiosWithAuth()
-      .get('/profile/current_user_profile/')
+      .get(`/profile/current_user_profile/`)
       .then(user => {
         setUser(user.data);
       });
   }, []);
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <NavBarLanding />;
   }
 
