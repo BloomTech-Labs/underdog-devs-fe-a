@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import * as HiIcons from 'react-icons/hi';
+import * as FaIcons from 'react-icons/fa';
+import * as IoIcons from 'react-icons/io5';
 
 // Flag Styling
 export const Flag = styled.div`
@@ -39,6 +42,13 @@ export const statusColor = {
   draft: '#E8833B',
   replied: '#9964C4',
   resolved: '#48C73A',
+};
+
+// Flag Icons
+const statusIcon = {
+  'in progress': <HiIcons.HiOutlineDotsCircleHorizontal size={25} />,
+  resolved: <FaIcons.FaRegCheckCircle size={25} />,
+  replied: <IoIcons.IoChatbubbleEllipsesOutline size={25} />,
 };
 
 // Table Columns
@@ -100,7 +110,7 @@ export const columns = [
     dataIndex: 'subject',
     key: 'subject',
     render: subject => (
-      <Flag style={{ backgroundColor: subjectColor[subject] }}>{subject}</Flag>
+      <span style={{ textTransform: 'capitalize' }}>{subject}</span>
     ),
     filters: [
       {
@@ -123,9 +133,7 @@ export const columns = [
     dataIndex: 'visibility',
     key: 'visibility',
     render: visibility => (
-      <Flag style={{ backgroundColor: visibilityColor[visibility] }}>
-        {visibility}
-      </Flag>
+      <span style={{ textTransform: 'capitalize' }}>{visibility}</span>
     ),
   },
   {
@@ -172,7 +180,15 @@ export const columns = [
     dataIndex: 'status',
     key: 'status',
     render: status => (
-      <Flag style={{ backgroundColor: statusColor[status] }}>{status}</Flag>
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.4rem',
+        }}
+      >
+        {statusIcon[status]}
+        <span style={{ textTransform: 'capitalize' }}>{status}</span>
+      </div>
     ),
     filters: [
       {
