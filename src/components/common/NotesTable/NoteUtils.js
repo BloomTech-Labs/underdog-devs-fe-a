@@ -160,7 +160,7 @@ export const columns = [
     key: 'date',
     defaultSortOrder: 'descend',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => new Date(a.date) - new Date(b.date),
+    sorter: (a, b) => new Date(b.date) - new Date(a.date),
   },
   {
     title: 'Time',

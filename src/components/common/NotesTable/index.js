@@ -48,7 +48,7 @@ const NotesTable = ({ userProfile }) => {
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
+      .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
       .then(res => {
         console.log(res.data);
         setData(res.data);
