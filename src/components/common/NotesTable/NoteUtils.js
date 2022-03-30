@@ -100,7 +100,7 @@ export const columns = [
     dataIndex: 'subject',
     key: 'subject',
     render: subject => (
-      <Flag style={{ backgroundColor: subjectColor[subject] }}>{subject}</Flag>
+      <span style={{ textTransform: 'capitalize' }}>{subject}</span>
     ),
     filters: [
       {
