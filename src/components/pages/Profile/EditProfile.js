@@ -1,22 +1,21 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import useForms from '../../../hooks/useForms';
+=======
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Radio, Modal, TreeSelect, Layout } from 'antd';
+import '../../../styles/styles.css';
+import { connect } from 'react-redux';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+>>>>>>> 52ffdc7 (antd form data is functional)
 
-const initialValues = {
-  first_name: 'Hal',
-  last_name: 'Jordan',
-  email: 'greenguy123@gmail.com',
-  location: 'Earth',
-  company: 'Bloom Tech, SWE',
-  tech_stack: 'React',
-  commitment: 'Pair Programming',
-};
 // Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
-  const [formValues, handleChange, clearForm] = useForms(userInfo);
+  const [form] = Form.useForm();
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -24,17 +23,51 @@ function EditProfile({ userInfo }) {
 
   const handleCancel = () => setModalOpen(false);
 
-  const handleSubmit = e => {
-    setModalOpen(false);
+  useEffect(() => {
+    console.log('form', form);
+  }, []);
+
+  const onCreate = values => {
+    //  setModalOpen(false);
     axiosWithAuth()
-      .put('/profile', formValues)
+      .put('/profile', values)
       .then(res => {
         console.log('data', res.data);
       })
       .catch(err => {
         console.log(err);
       });
-    clearForm(e);
+  };
+
+  const approved = () => {
+    form
+      .validateFields()
+      .then(values => {
+        form.resetFields();
+        onCreate(values);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleSubmit = async data => {
+    try {
+      console.log('data', data);
+    } catch (err) {
+      console.log('err', err);
+    }
+    // e.preventDefault();
+    // setModalOpen(false);
+    // axiosWithAuth()
+    //   .put('/profile', form)
+    //   .then(res => {
+    //     console.log('data', res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    // clearForm(e);
   };
 
   //// Styling
@@ -80,13 +113,16 @@ function EditProfile({ userInfo }) {
       <Modal
         visible={ModalOpen}
         onCancel={handleCancel}
-        onOk={handleSubmit}
+        onOk={approved}
         title="Update Information:"
         okText="Update"
         className="modalStyle"
       >
         <Form
+          form={form}
           name="basic"
+          onFinish={handleSubmit}
+          initialValues={userInfo}
           labelCol={{
             span: 8,
           }}
@@ -96,9 +132,8 @@ function EditProfile({ userInfo }) {
         >
           <Form.Item
             label="First Name"
-            name="firstName"
-            initialValue={formValues.first_name}
-            onChange={handleChange}
+            name="first_name"
+            initialValue={form.first_name}
             rules={[
               {
                 required: true,
@@ -111,9 +146,8 @@ function EditProfile({ userInfo }) {
 
           <Form.Item
             label="Last Name"
-            name="lastName"
-            initialValue={formValues.last_name}
-            onChange={handleChange}
+            name="last_name"
+            initialValue={form.last_name}
             rules={[
               {
                 required: true,
@@ -127,8 +161,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
-            initialValue={formValues.email}
-            onChange={handleChange}
+            initialValue={form.email}
             rules={[
               {
                 required: true,
@@ -142,8 +175,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={formValues.location}
-            onChange={handleChange}
+            initialValue={form.location}
             rules={[
               {
                 required: true,
@@ -157,17 +189,15 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Company/Position"
             name="company"
-            initialValue={formValues.company}
-            onChange={handleChange}
+            initialValue={form.company}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={formValues.tech_stack}
-            onChange={handleChange}
+            initialValue={form.tech_stack}
             rules={[
               {
                 required: true,
@@ -176,7 +206,7 @@ function EditProfile({ userInfo }) {
             ]}
           >
             <TreeSelect {...treeProps} />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             label="Commitment"
@@ -188,16 +218,10 @@ function EditProfile({ userInfo }) {
               span: 9,
             }}
           >
-            <Radio.Group name="commitment" defaultValue={formValues.commitment}>
-              <Radio value="1:1 Mentoring" onClick={handleChange}>
-                1:1 Mentoring
-              </Radio>
-              <Radio value="Pair Programming" onClick={handleChange}>
-                Pair Programming
-              </Radio>
-              <Radio value="Neither" onClick={handleChange}>
-                Neither
-              </Radio>
+            <Radio.Group name="commitment" defaultValue={form.commitment}>
+              <Radio value="1:1 Mentoring">1:1 Mentoring</Radio>
+              <Radio value="Pair Programming">Pair Programming</Radio>
+              <Radio value="Neither">Neither</Radio>
             </Radio.Group>
           </Form.Item>
         </Form>
