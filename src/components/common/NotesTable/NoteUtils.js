@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import * as BiIcons from 'react-icons/bi';
+import * as HiIcons from 'react-icons/hi';
 
 // Flag Styling
 export const Flag = styled.div`
@@ -44,7 +44,7 @@ export const statusColor = {
 
 // Flag Icons
 const statusIcon = {
-  'in progress': <BiIcons.BiDotsHorizontalRounded size={25} />,
+  'in progress': <HiIcons.HiOutlineDotsCircleHorizontal size={25} />,
 };
 
 // Table Columns
@@ -179,7 +179,7 @@ export const columns = [
       <div
         style={{
           display: 'flex',
-          gap: '0.5rem',
+          gap: '0.3rem',
         }}
       >
         {statusIcon[status]}
