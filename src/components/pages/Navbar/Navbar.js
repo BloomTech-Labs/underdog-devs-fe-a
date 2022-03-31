@@ -5,15 +5,29 @@ import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
-import { Dropdown, Layout, Menu } from 'antd';
+import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
+import { useOktaAuth } from '@okta/okta-react';
 
 const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
+  const { authService } = useOktaAuth();
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => setModal(true);
+
+  const cancelOpen = () => setModal(false);
+
+  const handleLogout = () => {
+    setModal(false);
+    localStorage.removeItem('role_id');
+    localStorage.removeItem('token');
+    authService.logout();
+  };
 
   useEffect(() => {
     axiosWithAuth()
@@ -32,7 +46,9 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
       <Menu.Item key="navProfile" icon={<UserOutlined />}>
         <Link to="/profile">Profile Settings</Link>
       </Menu.Item>
-      <Menu.Item key="navLogout">Log Out</Menu.Item>
+      <Menu.Item key="navLogout" onClick={openModal}>
+        Log Out
+      </Menu.Item>
     </Menu>
   );
 
@@ -69,6 +85,14 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
           </div>
         </Header>
       </Layout>
+      <Modal
+        visible={modal}
+        onCancel={cancelOpen}
+        onOk={handleLogout}
+        title="Confirm Log Out"
+      >
+        Are you sure you want to log out now?
+      </Modal>
     </>
   );
 };
