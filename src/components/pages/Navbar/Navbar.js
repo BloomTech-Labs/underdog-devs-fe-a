@@ -67,20 +67,30 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               />
             </Link>
             {Object.keys(user).length && (
-              <Dropdown overlay={menu} placement="bottomLeft" arrow>
-                <div className="userInfo-and-profilePic">
-                  <div className="userInfo">
-                    <div className="username">Welcome {user.first_name}</div>
+              <>
+                <label for="logout" className="hidden">
+                  Logout
+                </label>
+                <Dropdown
+                  name="logout"
+                  overlay={menu}
+                  placement="bottomLeft"
+                  arrow
+                >
+                  <div className="userInfo-and-profilePic">
+                    <div className="userInfo">
+                      <div className="username">Welcome {user.first_name}</div>
+                    </div>
+                    <div className="profilePic">
+                      <Avatar
+                        size={50}
+                        icon={<UserOutlined />}
+                        src={profilePic}
+                      />
+                    </div>
                   </div>
-                  <div className="profilePic">
-                    <Avatar
-                      size={50}
-                      icon={<UserOutlined />}
-                      src={profilePic}
-                    />
-                  </div>
-                </div>
-              </Dropdown>
+                </Dropdown>
+              </>
             )}
           </div>
         </Header>
@@ -90,6 +100,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
         onCancel={cancelOpen}
         onOk={handleLogout}
         title="Confirm Log Out"
+        role="logout"
       >
         Are you sure you want to log out now?
       </Modal>
