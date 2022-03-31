@@ -41,7 +41,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     if (content === '1') {
       return 'Needs / resource request';
     } else if (content === '2') {
-      return 'Changing Mentors';
+      return 'Changing mentors';
     } else if (content === '3') {
       return 'Time sensitive needs';
     } else {
@@ -55,7 +55,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         Needs / resource request
       </Menu.Item>
       <Menu.Item key="2" icon={<UserSwitchOutlined />}>
-        Changing Mentors
+        Changing mentors
       </Menu.Item>
       <Menu.Item key="3" icon={<HourglassOutlined />}>
         Time sensitive needs
@@ -99,25 +99,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
                   <Radio value={3}>Low</Radio>
                 </Space>
               </Radio.Group>
-            </div>
-
-            <div className="check">
-              <label htmlFor="">Who can see</label>
-              <br />
-              <Checkbox.Group onChange={ConChange} style={{ marginTop: '2%' }}>
-                <Checkbox value={1} style={{ display: 'flex' }}>
-                  {' '}
-                  Admin
-                </Checkbox>
-                <br />
-                <Checkbox value={2} style={{ display: 'flex' }}>
-                  Moderator
-                </Checkbox>
-                <br />
-                <Checkbox value={3} style={{ display: 'flex' }}>
-                  Mentor
-                </Checkbox>
-              </Checkbox.Group>
             </div>
           </div>
           <br />
