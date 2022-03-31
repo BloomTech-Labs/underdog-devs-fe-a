@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
-import '../../../styles/styles.css';
-import { connect } from 'react-redux';
-import useForms from '../../../hooks/useForms';
-=======
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Radio, Modal, TreeSelect, Layout } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
->>>>>>> 52ffdc7 (antd form data is functional)
 
 // Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
   const [form] = Form.useForm();
-
-  // const [formValues, setFormValues] = useState(userInfo);
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -26,16 +16,15 @@ function EditProfile({ userInfo }) {
   const handleCancel = () => setModalOpen(false);
 
   useEffect(() => {
-    console.log(form);
+    console.log('form', form);
   }, []);
 
   const onCreate = values => {
-    // console.log(formValues);
-    setModalOpen(false);
+    //  setModalOpen(false);
     axiosWithAuth()
       .put('/profile', values)
       .then(res => {
-        form.setFieldsValue(values);
+        console.log('data', res.data);
       })
       .catch(err => {
         console.log(err);
@@ -52,6 +41,25 @@ function EditProfile({ userInfo }) {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  const handleSubmit = async data => {
+    try {
+      console.log('data', data);
+    } catch (err) {
+      console.log('err', err);
+    }
+    // e.preventDefault();
+    // setModalOpen(false);
+    // axiosWithAuth()
+    //   .put('/profile', form)
+    //   .then(res => {
+    //     console.log('data', res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    // clearForm(e);
   };
 
   //// Styling
@@ -105,6 +113,7 @@ function EditProfile({ userInfo }) {
         <Form
           form={form}
           name="basic"
+          onFinish={handleSubmit}
           initialValues={userInfo}
           labelCol={{
             span: 8,
@@ -116,6 +125,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="First Name"
             name="first_name"
+            initialValue={form.first_name}
             rules={[
               {
                 required: true,
@@ -129,6 +139,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Last Name"
             name="last_name"
+            initialValue={form.last_name}
             rules={[
               {
                 required: true,
@@ -142,6 +153,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
+            initialValue={form.email}
             rules={[
               {
                 required: true,
@@ -155,6 +167,7 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
+            initialValue={form.location}
             rules={[
               {
                 required: true,
@@ -165,7 +178,11 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Company/Position" name="company">
+          <Form.Item
+            label="Company/Position"
+            name="company"
+            initialValue={form.company}
+          >
             <Input />
           </Form.Item>
 
@@ -193,7 +210,7 @@ function EditProfile({ userInfo }) {
               span: 9,
             }}
           >
-            <Radio.Group name="commitment">
+            <Radio.Group name="commitment" defaultValue={form.commitment}>
               <Radio value="1:1 Mentoring">1:1 Mentoring</Radio>
               <Radio value="Pair Programming">Pair Programming</Radio>
               <Radio value="Neither">Neither</Radio>
