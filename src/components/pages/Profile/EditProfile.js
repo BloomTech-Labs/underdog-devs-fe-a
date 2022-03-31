@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Modal, TreeSelect, Layout } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
-// Not showing actual initial values in table ( logged in users info )
-
 function EditProfile({ userInfo }) {
   const [form] = Form.useForm();
-
-  // const [formValues, setFormValues] = useState(userInfo);
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -17,12 +13,7 @@ function EditProfile({ userInfo }) {
 
   const handleCancel = () => setModalOpen(false);
 
-  useEffect(() => {
-    console.log(form);
-  }, []);
-
   const onCreate = values => {
-    // console.log(formValues);
     setModalOpen(false);
     axiosWithAuth()
       .put('/profile', values)
@@ -33,7 +24,7 @@ function EditProfile({ userInfo }) {
         console.log(err);
       });
   };
-
+  // Required for activating the AntD forms through the modal
   const approved = () => {
     form
       .validateFields()
@@ -161,10 +152,9 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          {/* <Form.Item
+          <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={form.tech_stack}
             rules={[
               {
                 required: true,
@@ -173,23 +163,6 @@ function EditProfile({ userInfo }) {
             ]}
           >
             <TreeSelect {...treeProps} />
-          </Form.Item> */}
-
-          <Form.Item
-            label="Commitment"
-            name="commitment"
-            labelCol={{
-              span: 13,
-            }}
-            wrapperCol={{
-              span: 9,
-            }}
-          >
-            <Radio.Group name="commitment">
-              <Radio value="1:1 Mentoring">1:1 Mentoring</Radio>
-              <Radio value="Pair Programming">Pair Programming</Radio>
-              <Radio value="Neither">Neither</Radio>
-            </Radio.Group>
           </Form.Item>
         </Form>
       </Modal>
@@ -198,7 +171,6 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     userInfo: state.user.userProfile,
   };
