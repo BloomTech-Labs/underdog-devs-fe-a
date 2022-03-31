@@ -130,14 +130,6 @@ export const columns = [
     onFilter: (value, record) => record.subject === value,
   },
   {
-    title: 'Visibility',
-    dataIndex: 'visibility',
-    key: 'visibility',
-    render: visibility => (
-      <span style={{ textTransform: 'capitalize' }}>{visibility}</span>
-    ),
-  },
-  {
     title: 'Priority',
     dataIndex: 'priority',
     key: 'priority',
