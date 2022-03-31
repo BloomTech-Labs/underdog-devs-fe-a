@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
@@ -6,8 +6,6 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 function EditProfile({ userInfo }) {
   const [form] = Form.useForm();
-
-  // const [formValues, setFormValues] = useState(userInfo);
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -26,7 +24,7 @@ function EditProfile({ userInfo }) {
         console.log(err);
       });
   };
-
+  // Required for activating the AntD forms through the modal
   const approved = () => {
     form
       .validateFields()
@@ -154,10 +152,9 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          {/* <Form.Item
+          <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={form.tech_stack}
             rules={[
               {
                 required: true,
@@ -174,7 +171,6 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     userInfo: state.user.userProfile,
   };
