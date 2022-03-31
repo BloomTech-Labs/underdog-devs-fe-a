@@ -21,3 +21,9 @@
 .margin-top-1 {
   margin-top: 1%;
 }
+
+.add-note-button {
+  display: flex;
+  align-items: center;
+  padding: 1em 0.5em;
+}
