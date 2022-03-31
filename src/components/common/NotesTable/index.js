@@ -9,7 +9,6 @@ import {
   Dropdown,
   Menu,
   Form,
-  List,
   Input,
 } from 'antd';
 import { columns } from './NoteUtils';

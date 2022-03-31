@@ -1,9 +1,6 @@
-import styled from 'styled-components';
 import { Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import * as HiIcons from 'react-icons/hi';
 import * as FaIcons from 'react-icons/fa';
-import * as IoIcons from 'react-icons/io5';
 import * as MdIcons from 'react-icons/md';
 import '../styles/Notes.css';
 
