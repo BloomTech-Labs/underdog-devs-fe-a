@@ -11,6 +11,11 @@
   color: #000;
 }
 
+.cell-text {
+  text-transform: capitalize;
+}
+
+/* Priority Column */
 .priority-low {
   background-color: #6bcb77;
 }
@@ -21,4 +26,19 @@
 
 .priority-urgent {
   background-color: #ff6b6b;
+}
+
+/* Status Column */
+.status-container {
+  display: flex;
+  gap: 0.5em;
+}
+
+.note-menu-btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.created-by-filter-menu {
+  padding: 0.5em;
 }

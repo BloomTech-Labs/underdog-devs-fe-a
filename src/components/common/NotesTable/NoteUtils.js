@@ -27,7 +27,7 @@ export const columns = [
       clearFilters,
       name,
     }) => (
-      <div style={{ padding: 8 }}>
+      <div className="created-by-filter-menu">
         <Input
           autoFocus
           placeholder="Search by user"
@@ -72,9 +72,7 @@ export const columns = [
     title: 'Subject',
     dataIndex: 'subject',
     key: 'subject',
-    render: subject => (
-      <span style={{ textTransform: 'capitalize' }}>{subject}</span>
-    ),
+    render: subject => <span className="cell-text">{subject}</span>,
     filters: [
       {
         text: 'Needs',
@@ -133,14 +131,9 @@ export const columns = [
     dataIndex: 'status',
     key: 'status',
     render: status => (
-      <div
-        style={{
-          display: 'flex',
-          gap: '0.4rem',
-        }}
-      >
+      <div className="status-container">
         {statusIcon[status]}
-        <span style={{ textTransform: 'capitalize' }}>{status}</span>
+        <span className="cell-text">{status}</span>
       </div>
     ),
     filters: [

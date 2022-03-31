@@ -15,6 +15,7 @@ import {
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
+import '../styles/Notes.css';
 
 const NotesTable = ({ userProfile }) => {
   const [data, setData] = useState([]);
@@ -153,7 +154,7 @@ const NotesTable = ({ userProfile }) => {
                 ></Comment>
               </>
             </Card>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className="note-menu-btns">
               <Space wrap>
                 <Dropdown.Button overlay={menu} onClick={handleDropDownClick}>
                   Mark Note As
