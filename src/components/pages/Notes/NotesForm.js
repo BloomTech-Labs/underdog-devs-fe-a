@@ -9,7 +9,14 @@ import {
   Button,
   Input,
 } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+
+import {
+  DownOutlined,
+  UserSwitchOutlined,
+  HourglassOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
+
 import './Notes.css';
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
@@ -44,13 +51,13 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" icon={<UserOutlined />}>
+      <Menu.Item key="1" icon={<TeamOutlined />}>
         Needs / resource request
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
+      <Menu.Item key="2" icon={<UserSwitchOutlined />}>
         Changing Mentors
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
+      <Menu.Item key="3" icon={<HourglassOutlined />}>
         Time sensitive needs
       </Menu.Item>
     </Menu>
@@ -65,7 +72,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         footer={null}
       >
         <div className="notes-column-container">
-          <label htmlFor="">Content Type</label>
+          <label htmlFor="">Subject</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
               {cType()} <DownOutlined />
@@ -117,10 +124,10 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
 
           <div className="notes-button-rows">
             <Button block={true} size="large">
-              Save as draft
+              Save draft
             </Button>
             <Button type="primary" block={true} size="large">
-              Create
+              Submit
             </Button>
           </div>
         </div>
