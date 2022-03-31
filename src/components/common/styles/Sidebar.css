@@ -3,3 +3,11 @@
   align-items: center;
   justify-content: space-between;
 }
+.hidden {
+  display: none;
+}
+
+.minimize {
+  text-align: right;
+  padding-right: 5%;
+}

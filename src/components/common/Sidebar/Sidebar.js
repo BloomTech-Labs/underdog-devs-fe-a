@@ -19,6 +19,8 @@ import {
   CalendarOutlined,
   UserOutlined,
   FormOutlined,
+  CaretLeftFilled,
+  CaretRightFilled,
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
@@ -28,6 +30,7 @@ const { SubMenu } = Menu;
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
   const [collapsed, setCollapsed] = useState(false);
+  const [minimized, setMinimized] = useState(false);
   const [modal, setModal] = useState(false);
   const { authService } = useOktaAuth();
   const { push } = useHistory();
@@ -37,6 +40,12 @@ const Sidebar = ({ children, userProfile }) => {
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
+  };
+
+  const onMinimize = minimized => {
+    const sidebarController = document.getElementById('sidebar');
+    sidebarController.classList.toggle('hidden');
+    setMinimized(!minimized);
   };
 
   const openModal = () => setModal(true);
@@ -61,8 +70,16 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        id="sidebar"
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+      >
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
+          <div className="minimize" onClick={() => onMinimize(minimized)}>
+            <CaretLeftFilled />
+          </div>
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
             <Menu.Item key="/calendar" onClick={handleMenuClick}>
               Calendar
