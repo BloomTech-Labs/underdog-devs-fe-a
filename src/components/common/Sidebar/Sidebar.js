@@ -42,9 +42,11 @@ const Sidebar = ({ children, userProfile }) => {
     setCollapsed(collapsed);
   };
 
-  const onMinimize = minimized => {
+  const minimizeToggle = minimized => {
     const sidebarController = document.getElementById('sidebar');
     sidebarController.classList.toggle('hidden');
+    const caretRight = document.getElementsByClassName('maximize')[0];
+    caretRight.classList.toggle('hidden');
     setMinimized(!minimized);
   };
 
@@ -70,6 +72,12 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      <div
+        className="maximize hidden"
+        onClick={() => minimizeToggle(minimized)}
+      >
+        <CaretRightFilled />
+      </div>
       <Sider
         id="sidebar"
         collapsible
@@ -77,7 +85,7 @@ const Sidebar = ({ children, userProfile }) => {
         onCollapse={onCollapse}
       >
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
-          <div className="minimize" onClick={() => onMinimize(minimized)}>
+          <div className="minimize" onClick={() => minimizeToggle(minimized)}>
             <CaretLeftFilled />
           </div>
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
