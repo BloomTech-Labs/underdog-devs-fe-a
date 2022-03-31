@@ -32,12 +32,16 @@
   }
 .ant-radio {
   background-color: #ffff00!important;
-  padding: 4%!important;
+  padding: 3%!important;
 }
-
+.ant-radio-inner {
+  border: solid 1px #000000!important;
+}
 .ant-checkbox{
   background-color: #ffff00!important;
   padding: 1%!important;
 }
-
+.ant-checkbox-inner{
+  border: solid 1px #000000!important;
+}
 
