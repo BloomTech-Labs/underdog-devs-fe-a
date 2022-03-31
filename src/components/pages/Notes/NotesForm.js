@@ -66,10 +66,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         onCancel={() => setDisplayModal(false)}
         footer={null}
       >
-        <div
-          className="column"
-          style={{ display: 'flex', flexDirection: 'column' }}
-        >
+        <div className="notes-column-container">
           <label htmlFor="">Content Type</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
@@ -83,21 +80,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             maxLength="280"
             onChange={e => setCount(e.target.value.length)}
           />
-          <p style={{ marginTop: '1%' }}>{count}/280 Characters</p>
+          <p className="margin-top-1">{count}/280 Characters</p>
           <br />
         </div>
-        <div
-          className="outer-column"
-          style={{ display: 'flex', flexDirection: 'column' }}
-        >
-          <div
-            className="row1"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <div
-              className="radio"
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
+        <div className="notes-column-container">
+          <div className="notes-input-rows">
+            <div className="radio notes-column-container">
               <label htmlFor="">Priority</label>
               <Radio.Group onChange={RonChange} value={toggle}>
                 <Space direction="vertical">
@@ -129,10 +117,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           </div>
           <br />
 
-          <div
-            className="row2"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
+          <div className="notes-button-rows">
             <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
               Save as draft
             </Button>
