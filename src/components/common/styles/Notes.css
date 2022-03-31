@@ -1,0 +1,24 @@
+.flag {
+  display: flex;
+  justify-content: center;
+  width: 45%;
+  border-radius: 20px;
+  padding: 2px 1em;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+  opacity: 0.8;
+  color: #000;
+}
+
+.priority-low {
+  background-color: #6bcb77;
+}
+
+.priority-medium {
+  background-color: #ffd93d;
+}
+
+.priority-urgent {
+  background-color: #ff6b6b;
+}

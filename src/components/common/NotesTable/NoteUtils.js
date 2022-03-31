@@ -5,45 +5,7 @@ import * as HiIcons from 'react-icons/hi';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io5';
 import * as MdIcons from 'react-icons/md';
-
-// Flag Styling
-export const Flag = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 45%;
-  border-radius: 20px;
-  padding: 2px 1em;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: capitalize;
-  opacity: 0.8;
-  color: #000;
-`;
-
-// Flag colors
-export const subjectColor = {
-  needs: '#EBD671',
-  'job search': '#6FB2D2',
-  other: '#E5DCC3',
-};
-
-export const visibilityColor = {
-  mentor: '#1BAE9F',
-  admin: '#D3455B',
-};
-
-export const priorityColor = {
-  urgent: '#FF6B6B',
-  medium: '#FFD93D',
-  low: '#6BCB77',
-};
-
-export const statusColor = {
-  'in progress': '#2D88D9',
-  draft: '#E8833B',
-  replied: '#9964C4',
-  resolved: '#48C73A',
-};
+import '../styles/Notes.css';
 
 // Flag Icons
 const statusIcon = {
@@ -135,9 +97,7 @@ export const columns = [
     key: 'priority',
 
     render: priority => (
-      <Flag style={{ backgroundColor: priorityColor[priority] }}>
-        {priority}
-      </Flag>
+      <div className={`flag priority-${priority}`}>{priority}</div>
     ),
     filters: [
       {
