@@ -4,6 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import * as HiIcons from 'react-icons/hi';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io5';
+import * as MdIcons from 'react-icons/md';
 
 // Flag Styling
 export const Flag = styled.div`
@@ -46,9 +47,9 @@ export const statusColor = {
 
 // Flag Icons
 const statusIcon = {
-  'in progress': <HiIcons.HiOutlineDotsCircleHorizontal size={25} />,
-  resolved: <FaIcons.FaRegCheckCircle size={25} />,
-  replied: <IoIcons.IoChatbubbleEllipsesOutline size={25} />,
+  'in progress': <MdIcons.MdTimelapse size={25} />,
+  resolved: <MdIcons.MdCheckCircle size={25} />,
+  replied: <FaIcons.FaCommentDots size={25} />,
 };
 
 // Table Columns
