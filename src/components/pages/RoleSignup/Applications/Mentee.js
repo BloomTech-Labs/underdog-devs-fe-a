@@ -183,8 +183,10 @@ const Mentee = () => {
                       onChange={handleChange}
                       style={{ width: '250', display: 'flex' }}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Your Country'}>No</Radio>
+                      <div className="hope">
+                        <Radio value={'USA'}>Yes</Radio>
+                        <Radio value={'Your Country'}>No</Radio>
+                      </div>
                     </Radio.Group>
                   </Form.Item>
                 </Col>

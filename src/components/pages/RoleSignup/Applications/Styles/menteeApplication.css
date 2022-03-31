@@ -30,3 +30,14 @@
       padding: 0;
     }
   }
+.ant-radio {
+  background-color: #ffff00!important;
+  padding: 4%!important;
+}
+
+.ant-checkbox{
+  background-color: #ffff00!important;
+  padding: 1%!important;
+}
+
+
