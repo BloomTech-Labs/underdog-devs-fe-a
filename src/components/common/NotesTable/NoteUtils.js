@@ -47,7 +47,7 @@ export const statusColor = {
 
 // Flag Icons
 const statusIcon = {
-  'in progress': <MdIcons.MdTimelapse size={25} />,
+  'in progress': <MdIcons.MdTimelapse size={25} color="#00B0FF" />,
   resolved: <MdIcons.MdCheckCircle size={25} />,
   replied: <FaIcons.FaCommentDots size={25} />,
 };
