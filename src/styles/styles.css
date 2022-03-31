@@ -79,3 +79,7 @@ div.row2 .createBtn:hover {
 div.row2 .darkCreateBtn {
     background-color: #1A4E7F;
 }
+
+.hidden {
+    display: none;
+}
