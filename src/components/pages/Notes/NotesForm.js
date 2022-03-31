@@ -19,7 +19,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   const [toggle, setToggle] = useState(1);
   const [content, setContent] = useState(0);
 
-  const theme = localStorage.getItem('theme');
   const handleMenuClick = e => {
     setContent(e.key);
   };
@@ -118,12 +117,10 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <br />
 
           <div className="notes-button-rows">
-            <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
+            <Button block={true} size="large">
               Save as draft
             </Button>
-            <Button
-              className={`modalBtn createBtn ${theme ? theme : ''}CreateBtn`}
-            >
+            <Button type="primary" block={true} size="large">
               Create
             </Button>
           </div>
