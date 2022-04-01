@@ -150,6 +150,10 @@ export const columns = [
         text: 'Replied',
         value: 'replied',
       },
+      {
+        text: 'Not Submitted',
+        value: 'not submitted',
+      },
     ],
     onFilter: (value, record) => record.status === value,
   },
