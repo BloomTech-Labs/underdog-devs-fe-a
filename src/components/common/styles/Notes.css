@@ -11,6 +11,10 @@
   color: #000;
 }
 
+.darkFlag {
+  color: #000;
+}
+
 .cell-text {
   text-transform: capitalize;
 }
@@ -41,4 +45,8 @@
 
 .created-by-filter-menu {
   padding: 0.5em;
+}
+
+span.badge-container {
+  width: 25px;
 }

@@ -1,6 +1,5 @@
-import { Button, Input, Space } from 'antd';
+import { Badge, Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import '../styles/Notes.css';
 
@@ -8,8 +7,12 @@ import '../styles/Notes.css';
 const statusIcon = {
   'in progress': <MdIcons.MdTimelapse size={25} color="#00B0FF" />,
   resolved: <MdIcons.MdCheckCircle size={25} color="#00C853" />,
-  replied: <FaIcons.FaCommentDots size={25} color="#BBBBBB" />,
-  draft: <MdIcons.MdCloudUpload size={25} color="#FA8C16" />,
+  replied: (
+    <span className="badge-container">
+      <Badge count={1} offset={[2, 0]} />
+    </span>
+  ),
+  'not submitted': <MdIcons.MdErrorOutline size={25} color="#FA8C16" />,
 };
 
 // Table Columns
