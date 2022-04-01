@@ -14,7 +14,7 @@ import {
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-
+import { useLocation } from 'react-router-dom';
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   <>
@@ -38,17 +38,19 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
 const NotesTable = ({ userProfile }) => {
   console.log(userProfile);
   const [data, setData] = useState([]);
+  let result;
   // edit users own comment states
   const [editing, setEditing] = useState(false);
   const [editNote, setEditNote] = useState({ key: '', note: '' });
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
-
+  const location = useLocation();
+  console.log(location.pathname);
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
+      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
       .then(res => {
         console.log(res.data);
         setData(res.data);
@@ -57,7 +59,11 @@ const NotesTable = ({ userProfile }) => {
         console.log(err);
       });
   }, []);
-
+  if (location.pathname === '/mynotes') {
+    result = data.filter(x => x.profile_id === profile_id);
+  } else {
+    result = data;
+  }
   // click handlers
   const handleMenuClick = e => console.log('click', e);
   const handleDropDownClick = e => console.log('click', e);
@@ -98,7 +104,7 @@ const NotesTable = ({ userProfile }) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={result}
       expandable={{
         expandedRowRender: record => (
           <>

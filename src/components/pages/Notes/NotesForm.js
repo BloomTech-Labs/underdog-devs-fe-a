@@ -32,7 +32,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     console.log('checked = ', checkedValues);
   };
 
-  const cType = () => {
+  const Subject = () => {
     if (content === '1') {
       return 'Needs / resource request';
     } else if (content === '2') {
@@ -70,10 +70,10 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           className="column"
           style={{ display: 'flex', flexDirection: 'column' }}
         >
-          <label htmlFor="">Content Type</label>
+          <label htmlFor="">Subject</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              {cType()} <DownOutlined />
+              {Subject()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />
@@ -106,25 +106,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
                   <Radio value={3}>Low</Radio>
                 </Space>
               </Radio.Group>
-            </div>
-
-            <div className="check">
-              <label htmlFor="">Who can see</label>
-              <br />
-              <Checkbox.Group onChange={ConChange} style={{ marginTop: '2%' }}>
-                <Checkbox value={1} style={{ display: 'flex' }}>
-                  {' '}
-                  Admin
-                </Checkbox>
-                <br />
-                <Checkbox value={2} style={{ display: 'flex' }}>
-                  Moderator
-                </Checkbox>
-                <br />
-                <Checkbox value={3} style={{ display: 'flex' }}>
-                  Mentor
-                </Checkbox>
-              </Checkbox.Group>
             </div>
           </div>
           <br />
