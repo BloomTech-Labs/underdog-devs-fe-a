@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  Menu,
-  Space,
-  Radio,
-  Checkbox,
-  Dropdown,
-  Button,
-  Input,
-} from 'antd';
+import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
 
 import {
   DownOutlined,
@@ -31,10 +22,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
 
   const RonChange = e => {
     setToggle(e.target.value);
-  };
-
-  const ConChange = checkedValues => {
-    console.log('checked = ', checkedValues);
   };
 
   const cType = () => {
