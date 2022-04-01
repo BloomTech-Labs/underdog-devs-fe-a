@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Radio, Modal, TreeSelect, Layout } from 'antd';
+import { Form, Input, Button, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-
-// Not showing actual initial values in table ( logged in users info )
 
 function EditProfile({ userInfo }) {
   const [form] = Form.useForm();
@@ -15,16 +13,12 @@ function EditProfile({ userInfo }) {
 
   const handleCancel = () => setModalOpen(false);
 
-  useEffect(() => {
-    console.log('form', form);
-  }, []);
-
   const onCreate = values => {
-    //  setModalOpen(false);
+    setModalOpen(false);
     axiosWithAuth()
       .put('/profile', values)
       .then(res => {
-        console.log('data', res.data);
+        form.setFieldsValue(values);
       })
       .catch(err => {
         console.log(err);
@@ -41,25 +35,6 @@ function EditProfile({ userInfo }) {
       .catch(err => {
         console.log(err);
       });
-  };
-
-  const handleSubmit = async data => {
-    try {
-      console.log('data', data);
-    } catch (err) {
-      console.log('err', err);
-    }
-    // e.preventDefault();
-    // setModalOpen(false);
-    // axiosWithAuth()
-    //   .put('/profile', form)
-    //   .then(res => {
-    //     console.log('data', res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    // clearForm(e);
   };
 
   //// Styling
@@ -113,7 +88,6 @@ function EditProfile({ userInfo }) {
         <Form
           form={form}
           name="basic"
-          onFinish={handleSubmit}
           initialValues={userInfo}
           labelCol={{
             span: 8,
@@ -186,7 +160,7 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          {/* <Form.Item
+          <Form.Item
             label="Tech Stack"
             name="tech_stack"
             initialValue={form.tech_stack}
@@ -198,23 +172,6 @@ function EditProfile({ userInfo }) {
             ]}
           >
             <TreeSelect {...treeProps} />
-          </Form.Item> */}
-
-          <Form.Item
-            label="Commitment"
-            name="commitment"
-            labelCol={{
-              span: 13,
-            }}
-            wrapperCol={{
-              span: 9,
-            }}
-          >
-            <Radio.Group name="commitment" defaultValue={form.commitment}>
-              <Radio value="1:1 Mentoring">1:1 Mentoring</Radio>
-              <Radio value="Pair Programming">Pair Programming</Radio>
-              <Radio value="Neither">Neither</Radio>
-            </Radio.Group>
           </Form.Item>
         </Form>
       </Modal>
