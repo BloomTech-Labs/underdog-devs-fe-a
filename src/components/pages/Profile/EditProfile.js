@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Modal, TreeSelect } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ function EditProfile({ userInfo }) {
         console.log(err);
       });
   };
-
+  // Required for activating the AntD forms through the modal
   const approved = () => {
     form
       .validateFields()
@@ -99,7 +99,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="First Name"
             name="first_name"
-            initialValue={form.first_name}
             rules={[
               {
                 required: true,
@@ -113,7 +112,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Last Name"
             name="last_name"
-            initialValue={form.last_name}
             rules={[
               {
                 required: true,
@@ -127,7 +125,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
-            initialValue={form.email}
             rules={[
               {
                 required: true,
@@ -141,7 +138,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={form.location}
             rules={[
               {
                 required: true,
@@ -152,18 +148,13 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Company/Position"
-            name="company"
-            initialValue={form.company}
-          >
+          <Form.Item label="Company/Position" name="company">
             <Input />
           </Form.Item>
 
           <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={form.tech_stack}
             rules={[
               {
                 required: true,
