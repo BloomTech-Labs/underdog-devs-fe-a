@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import VAMData from './VAMData';
+import VAMC from './VAMC';
 
 const ViewAllMeetings = () => {
   const [meetingData, setMeetingData] = useState([]);
@@ -16,7 +17,8 @@ const ViewAllMeetings = () => {
 
   return (
     <div>
-      <VAMData meetingData={meetingData} />{' '}
+      <VAMData meetingData={meetingData} />
+      <VAMC meetingData={meetingData} />
     </div>
   );
 };
