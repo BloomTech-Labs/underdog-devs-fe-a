@@ -75,7 +75,10 @@ div.row2 .createBtn:hover {
     background-color: #D9E9F7;
 }
 
-
 div.row2 .darkCreateBtn {
     background-color: #1A4E7F;
+}
+
+.hidden {
+    display: none;
 }
