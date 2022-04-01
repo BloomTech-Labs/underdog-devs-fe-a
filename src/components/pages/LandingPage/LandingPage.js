@@ -78,6 +78,7 @@ function LandingPage() {
             recidivism and reentry on prisonpolicy.org/recidivism the ultimate
             guide on prisoninsight.com
           </p>
+          <button className="learn">Learn more</button>
         </div>
         <div className="right2">
           <h3 className="subHead2">Unemployment and Poverty</h3>
@@ -96,10 +97,9 @@ function LandingPage() {
             poverty state capital and recidivism among women offenders on
             ojp.gov
           </p>
-        </div>
-        <div className="buttons2">
-          <button className="learn">Learn more</button>
-          <button className="learn2">Learn More</button>
+          <div className="rightButton">
+            <button className="learn2">Learn More</button>
+          </div>
         </div>
       </div>
       <div className="landInfo3">

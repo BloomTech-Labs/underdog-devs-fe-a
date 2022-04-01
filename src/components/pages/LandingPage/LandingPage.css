@@ -1,7 +1,10 @@
+* {
+  box-sizing: border-box;
+}
 /*Section 1*/
 .landInfo1 {
   display: flex;
-  height: 550px;
+  padding-bottom: 5%;
 }
 .head1 {
   padding-bottom: 10px;
@@ -31,8 +34,8 @@
 .landInfo2 {
   background-color: #e5f1f1;
   display: flex;
-  height: 600px;
   flex-wrap: wrap;
+  padding-bottom: 5%;
 }
 .head2 {
   background: #e5f1f1;
@@ -48,21 +51,17 @@
 .left2 {
   background-color: #e5f1f1;
   width: 50%;
-  padding: 0 5% 0 5%;
+  padding: 0 5% 0% 5%;
 }
 .right2 {
   background-color: #e5f1f1;
   width: 50%;
   padding: 0 5% 0 5%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
-.learn {
-  height: 40px;
-  width: 130px;
-  background-color: white;
-  border: 1px solid #003d71;
-  color: #003d71;
-  border-radius: 5px;
-}
+.learn,
 .learn2 {
   height: 40px;
   width: 130px;
@@ -71,19 +70,14 @@
   color: #003d71;
   border-radius: 5px;
 }
-.buttons2 {
-  padding: 2% 0 5% 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #e5f1f1;
+.rightButton {
+  margin-top: auto;
 }
 
 /*Section 3*/
 .landInfo3 {
   display: flex;
-  height: 600px;
-  padding-top: 17%;
+  padding-top: 5%;
   margin-bottom: 5%;
 }
 .subHead3 {
@@ -107,7 +101,6 @@
 .landInfo4 {
   background-color: #e5f1f1;
   display: flex;
-  height: 550px;
   padding: 5% 0 5% 0;
 }
 .subHead4 {
@@ -141,7 +134,7 @@
   justify-content: space-evenly;
   width: 35%;
   margin: 0 auto;
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }
 
 @media screen and (max-width: 320px) {
@@ -208,7 +201,7 @@
     font-weight: 700;
   }
   .left2 {
-    padding: 60px 10% 100px 10%;
+    padding: 5% 10% 5% 10%;
   }
   .subHead2 {
     font-size: 2.1rem;
@@ -270,83 +263,65 @@
   .landInfo1,
   .landInfo2,
   .landInfo3,
-  .landInfo4 {
+  .landInfo4,
+  .landSocial {
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    height: auto;
+    padding-top: 2%;
+  }
+  .left1,
+  .right1,
+  .left2,
+  .right2,
+  .left3,
+  .right3,
+  .left4,
+  .right4 {
+    padding: 3% 10% 3% 10%;
+    width: 100%;
   }
   .img1,
   .img3,
   .img4 {
-    width: 80%;
-    margin: 20px 10% 0 10%;
+    width: 95%;
+    margin: 0 auto;
     height: auto;
   }
-  .left1,
-  .right1 {
-    width: 100%;
-  }
-  .left2,
-  .right2 {
-    width: 100%;
-  }
-  .left3,
-  .right3 {
-    width: 100%;
-  }
-  .left4,
-  .right4 {
-    width: 100%;
-  }
-  .landInfo1 {
-    display: flex;
-    height: 800px;
-  }
   .head1 {
-    padding: 50px 0 10px 0;
+    margin: 0 auto;
+    padding: 5% 0 5% 0;
+    line-height: normal;
     font-size: 2.5rem;
     font-weight: 500;
     color: #003d71;
     text-align: center;
   }
-  .left1 {
-    padding: 0 10% 0 10%;
+  .right1,
+  .right2,
+  .right4 {
+    order: -1;
   }
   .text1 {
     font-size: 1rem;
     font-weight: 400;
   }
-  .landInfo2 {
-    display: flex;
-    height: 600px;
-    padding-top: 0;
-  }
   .head2 {
-    font-size: 2.6rem;
+    line-height: normal;
+    font-size: 2.2rem;
     font-weight: 700;
-    padding: 0 0 0 10%;
+    padding: 5% 5% 5% 10%;
   }
-  .subHead2 {
-    font-size: 2.6rem;
-    font-weight: 700;
-  }
-  .left2 {
-    padding: 60px 10% 100px 10%;
-  }
-  .subHead2 {
+  .subHead2,
+  .subHead3,
+  .subHead4
+  .subHeadSocial {
+    line-height: normal;
     font-size: 2.1rem;
+    font-weight: 700;
   }
-  .right2 {
-    padding: 0 10% 0 10%;
-  }
-  .learn {
-    height: 40px;
-    width: 130px;
-    background-color: white;
-    border: 1px solid #003d71;
-    color: #003d71;
-    border-radius: 5px;
-    margin-top: 0px;
-  }
+  .learn,
   .learn2 {
     height: 40px;
     width: 130px;
@@ -356,35 +331,8 @@
     border-radius: 5px;
     margin-top: 0px;
   }
-  .landInfo3 {
-    display: flex;
-    height: 600px;
-    padding-top: 800px;
-  }
-  .subHead3 {
-    font-size: 2.2rem;
-    font-weight: 700;
-  }
-  .left3 {
-    padding: 100px 0 0 0;
-  }
-  .right3 {
-    padding: 0 10% 0 10%;
-  }
-  .landInfo4 {
-    display: flex;
-    height: 600px;
-    padding-top: 600px;
-    padding: 700 0 0 0;
-  }
-  .subHead4 {
-    font-size: 2.2rem;
-    font-weight: 700;
-  }
-  .left4 {
-    padding: 100px 10% 0 10%;
-  }
-  .right4 {
-    padding: 0 0 100px 0;
+  .iconRow {
+    margin: 0 auto;
+    width: 95%;
   }
 }
