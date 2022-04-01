@@ -4,46 +4,46 @@ import { Calendar, Modal, Badge, Button } from 'antd';
 
 const initialValues = [
   {
-    date: '15/03/2022',
+    date: '15/04/2022',
     type: 'warning',
-    content: 'This is warning event.',
-    details: 'Test information 1',
+    first_name: 'This is warning event.',
+    last_name: 'Test information 1',
   },
   {
-    date: '15/03/2022',
+    date: '15/04/2022',
     type: 'success',
-    content: 'This is usual event.',
-    details: 'Test information 2',
+    first_name: 'This is usual event.',
+    last_name: 'Test information 2',
   },
   {
-    date: '16/03/2022',
+    date: '16/04/2022',
     type: 'error',
-    content: 'This is error event 1.',
-    details: 'Test information 3',
+    first_name: 'This is error event 1.',
+    last_name: 'Test information 3',
   },
   {
-    date: '16/03/2022',
+    date: '16/04/2022',
     type: 'error',
-    content: 'This is error event 2.',
-    details: 'Test information 4',
+    first_name: 'This is error event 2.',
+    last_name: 'Test information 4',
   },
   {
-    date: '16/03/2022',
+    date: '16/04/2022',
     type: 'error',
-    content: 'This is error event 3.',
-    details: 'Test information 5',
+    first_name: 'This is error event 3.',
+    last_name: 'Test information 5',
   },
   {
     date: '12/04/2022',
     type: 'success',
-    content: 'This is usual event1.',
-    details: 'Test information 6',
+    first_name: 'This is usual event1.',
+    last_name: 'Test information 6',
   },
   {
     date: '12/04/2022',
     type: 'success',
-    content: 'This is usual event2.',
-    details: 'Test information 7',
+    first_name: 'This is usual event2.',
+    last_name: 'Test information 7',
   },
 ];
 
@@ -88,10 +88,10 @@ function VAMC() {
     return (
       <ul className="events">
         {listData.map(item => (
-          <span key={item.content}>
+          <span key={item.first_name}>
             <Badge
               status={item.type}
-              text={item.content}
+              text={item.first_name}
               onClick={() => showModal(item)}
             />
             <br />
@@ -131,11 +131,13 @@ function VAMC() {
         onCancel={handleCancel}
       >
         <p>
-          {event ? `Event Name: ${event.content}` : 'Something went wrong.'}
+          {event ? `Event Name: ${event.first_name}` : 'Something went wrong.'}
         </p>
         <p>{event ? `Time: ${event.time}` : 'Something went wrong.'}</p>
         <p>
-          {event ? `Event Details: ${event.details}` : 'Something went wrong.'}
+          {event
+            ? `Event Details: ${event.last_name}`
+            : 'Something went wrong.'}
         </p>
       </Modal>
     </>

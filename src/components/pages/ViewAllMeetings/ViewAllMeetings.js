@@ -10,6 +10,7 @@ const ViewAllMeetings = () => {
     axiosWithAuth()
       .get('/meetings')
       .then(response => {
+        console.log(response.data);
         setMeetingData(response.data);
       })
       .catch(err => console.error(err));
