@@ -226,15 +226,12 @@ const Sidebar = ({ children, userProfile }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-          style={{ horizontalAlign: 'middle' }}
-        >
+        <Sider className="site-layout-background">
           {React.createElement(collapsed ? RightOutlined : LeftOutlined, {
             className: 'trigger',
             onClick: toggle,
           })}
-        </Header>
+        </Sider>
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>{children}</Content>
         </Content>
