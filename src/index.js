@@ -19,9 +19,8 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
-import AppError from './components/pages/RoleSignup/Applications/AppError';
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
-
 
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -30,6 +29,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
+import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
@@ -181,6 +181,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1]}
           component={MentorMenteeMatching}
+        />
+
+        <PrivateRoute
+          path="/reviews"
+          redirect="/dashboard"
+          allowRoles={[1]}
+          component={Reviews}
         />
 
         <Route component={NotFoundPage} />

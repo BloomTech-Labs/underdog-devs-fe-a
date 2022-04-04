@@ -173,6 +173,9 @@ const Sidebar = ({ children, userProfile }) => {
               >
                 View All Meetings
               </Menu.Item>
+              <Menu.Item key="/reviews" onClick={handleMenuClick}>
+                View Reviews
+              </Menu.Item>
             </>
           ) : (
             <></>
