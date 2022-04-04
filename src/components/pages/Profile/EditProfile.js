@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Modal, TreeSelect } from 'antd';
+import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
@@ -19,9 +19,12 @@ function EditProfile({ userInfo }) {
       .put('/profile', values)
       .then(res => {
         form.setFieldsValue(values);
+        message.success('Your profile has been updated!');
       })
       .catch(err => {
-        console.log(err);
+        message.error(
+          "Sorry, we couldn't update your profile at this time. Please try again later!"
+        );
       });
   };
   // Required for activating the AntD forms through the modal
