@@ -55,7 +55,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
   return (
     <>
       <Layout className="layout">
-        <Header>
+        <Header className="menuBar">
           <div className="logoDiv">
             <Link to="/dashboard">
               <img

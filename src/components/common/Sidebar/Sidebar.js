@@ -7,6 +7,8 @@ import '../styles/Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Modal, Menu, Switch as Toggle } from 'antd';
 import {
+  RightOutlined,
+  LeftOutlined,
   DashboardOutlined,
   BookOutlined,
   ContainerOutlined,
@@ -22,7 +24,7 @@ import {
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
-const { Content, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {
@@ -35,8 +37,8 @@ const Sidebar = ({ children, userProfile }) => {
 
   const [theme, toggleTheme] = useTheme();
 
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed);
+  const toggle = () => {
+    setCollapsed(!collapsed);
   };
 
   const openModal = () => setModal(true);
@@ -63,11 +65,10 @@ const Sidebar = ({ children, userProfile }) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
         id="sidebar"
+        trigger={null}
+        breakpoint="lg"
         collapsible
         collapsed={collapsed}
-        onCollapse={onCollapse}
-        breakpoint="lg"
-        collapsedWidth="0"
       >
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
@@ -225,6 +226,15 @@ const Sidebar = ({ children, userProfile }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
+        <Header
+          className="site-layout-background"
+          style={{ horizontalAlign: 'middle' }}
+        >
+          {React.createElement(collapsed ? RightOutlined : LeftOutlined, {
+            className: 'trigger',
+            onClick: toggle,
+          })}
+        </Header>
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>{children}</Content>
         </Content>
