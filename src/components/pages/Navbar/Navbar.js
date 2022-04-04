@@ -68,11 +68,10 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
             </Link>
             {Object.keys(user).length && (
               <>
-                <label for="logout" className="hidden">
-                  Logout
-                </label>
+                <div className="userInfo-and-profilePic"></div>
+              
                 <Dropdown
-                  name="logout"
+               
                   overlay={menu}
                   placement="bottomLeft"
                   arrow
