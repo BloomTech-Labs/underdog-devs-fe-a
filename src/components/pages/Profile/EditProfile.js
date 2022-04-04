@@ -174,6 +174,7 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     userInfo: state.user.userProfile,
   };
