@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {

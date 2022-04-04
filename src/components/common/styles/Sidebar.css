@@ -4,7 +4,7 @@
   justify-content: space-between;
 }
 
-.site-layout-background {
+.site-layout .site-layout-background {
   height: 5%;
   margin-top: 20%;
   display: flex;
