@@ -4,7 +4,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
@@ -41,13 +41,24 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     return <NavBarLanding />;
   }
 
-  const menu = (
-    <Menu key="navMenu">
+  const accountMenu = (
+    <Menu key="navAccountMenu">
       <Menu.Item key="navProfile" icon={<UserOutlined />}>
         <Link to="/profile">Profile Settings</Link>
       </Menu.Item>
       <Menu.Item key="navLogout" onClick={openModal}>
         Log Out
+      </Menu.Item>
+    </Menu>
+  );
+
+  const memosMenu = (
+    <Menu key="memosMenu">
+      <Menu.Item key="sendMemos" icon={<FormOutlined />}>
+        <Link to="/notes">Send Memos</Link>
+      </Menu.Item>
+      <Menu.Item key="viewMemos" >
+         View Memos
       </Menu.Item>
     </Menu>
   );
@@ -68,27 +79,33 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
             </Link>
             {Object.keys(user).length && (
               <>
-                <div className="userInfo-and-profilePic"></div>
-              
-                <Dropdown
-               
-                  overlay={menu}
-                  placement="bottomLeft"
-                  arrow
-                >
-                  <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
+                <div className="userInfo-and-profilePic">
+                  <Dropdown
+                    overlay={menu}
+                    placement="bottomLeft"
+                    arrow
+                  >
+                    <div className="username">Welcome {user.first_name}</div>
+                  </Dropdown>
+                  <Dropdown
+                    overlay={accountMenu}
+                    placement="bottomLeft"
+                    arrow
+                  >
+                    <div className="userInfo-and-profilePic">
+                      <div className="userInfo">
+                        <div className="username">Welcome {user.first_name}</div>
+                      </div>
+                      <div className="profilePic">
+                        <Avatar
+                          size={50}
+                          icon={<UserOutlined />}
+                          src={profilePic}
+                        />
+                      </div>
                     </div>
-                    <div className="profilePic">
-                      <Avatar
-                        size={50}
-                        icon={<UserOutlined />}
-                        src={profilePic}
-                      />
-                    </div>
-                  </div>
-                </Dropdown>
+                  </Dropdown>
+                </div>
               </>
             )}
           </div>
