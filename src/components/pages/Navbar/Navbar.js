@@ -55,10 +55,10 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
   const memosMenu = (
     <Menu key="memosMenu">
       <Menu.Item key="sendMemos" icon={<FormOutlined />}>
-        <Link to="/notes">Send Memos</Link>
+        <Link key="sendMemosLink" to="/notes">Send Memos</Link>
       </Menu.Item>
       <Menu.Item key="viewMemos" >
-         View Memos
+        <Link key="viewMemosLink" to="/notes">View Memos</Link>
       </Menu.Item>
     </Menu>
   );
@@ -85,7 +85,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                     placement="bottomLeft"
                     arrow
                   >
-                    <div className="username">Welcome {user.first_name}</div>
+                    <Link key="memosLinkNav" to="/notes">Memos</Link>
                   </Dropdown>
                   <Dropdown
                     overlay={accountMenu}
