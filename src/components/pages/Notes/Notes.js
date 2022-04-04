@@ -11,33 +11,17 @@ const Notes = props => {
   };
 
   const filterByUser = () => {
-    console.log('wow', props);
+    // filter by user
   };
 
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h2>Notes</h2>
-        <Button
-          className="add-note-button"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '1em 0.5em',
-          }}
-          onClick={filterByUser}
-        >
+        <Button className="add-note-button" onClick={filterByUser}>
           My Notes
         </Button>
-        <Button
-          className="add-note-button"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '1em 0.5em',
-          }}
-          onClick={showModal}
-        >
+        <Button className="add-note-button" onClick={showModal}>
           <PlusCircleOutlined />
           Add Note
         </Button>
