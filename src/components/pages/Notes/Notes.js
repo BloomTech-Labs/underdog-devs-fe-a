@@ -11,7 +11,7 @@ const Notes = props => {
   };
 
   const filterByUser = () => {
-    console.log('wow', props);
+    // filter by user
   };
 
   return (
