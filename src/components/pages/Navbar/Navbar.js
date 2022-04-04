@@ -55,10 +55,14 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
   const memosMenu = (
     <Menu key="memosMenu">
       <Menu.Item key="sendMemos" icon={<FormOutlined />}>
-        <Link key="sendMemosLink" to="/notes">Send Memos</Link>
+        <Link key="sendMemosLink" to="/notes">
+          Send Memos
+        </Link>
       </Menu.Item>
-      <Menu.Item key="viewMemos" >
-        <Link key="viewMemosLink" to="/notes">View Memos</Link>
+      <Menu.Item key="viewMemos">
+        <Link key="viewMemosLink" to="/notes">
+          View Memos
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -80,28 +84,24 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
             {Object.keys(user).length && (
               <>
                 <div className="userInfo-and-profilePic">
-                  <Dropdown
-                    overlay={menu}
-                    placement="bottomLeft"
-                    arrow
-                  >
-                    <Link key="memosLinkNav" to="/notes">Memos</Link>
+                  <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
+                    <a key="memosLinkNav" to="/notes">
+                      Memos
+                    </a>
                   </Dropdown>
-                  <Dropdown
-                    overlay={accountMenu}
-                    placement="bottomLeft"
-                    arrow
-                  >
+                  <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
                     <div className="userInfo-and-profilePic">
-                      <div className="userInfo">
-                        <div className="username">Welcome {user.first_name}</div>
-                      </div>
                       <div className="profilePic">
                         <Avatar
                           size={50}
                           icon={<UserOutlined />}
                           src={profilePic}
                         />
+                      </div>
+                      <div className="userInfo">
+                        <div className="username">
+                          Welcome {user.first_name}
+                        </div>
                       </div>
                     </div>
                   </Dropdown>
