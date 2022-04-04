@@ -73,25 +73,10 @@ const Notes = props => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h2>Notes</h2>
-        <Button
-          className="my-note-button"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '1em 0.5em',
-          }}
-        >
-          <a href="mynotes">My Notes</a>
+        <Button className="add-note-button">
+          <a href="/mynotes">My Notes</a>
         </Button>
-        <Button
-          className="add-note-button"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '1em 0.5em',
-          }}
-          onClick={showModal}
-        >
+        <Button className="add-note-button" onClick={showModal}>
           <PlusCircleOutlined />
           Add Note
         </Button>

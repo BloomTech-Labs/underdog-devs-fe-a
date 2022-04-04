@@ -15,6 +15,7 @@ import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import '../styles/Notes.css';
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   <>
@@ -158,7 +159,7 @@ const NotesTable = ({ userProfile }) => {
                 ></Comment>
               </>
             </Card>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className="note-menu-btns">
               <Space wrap>
                 <Dropdown.Button overlay={menu} onClick={handleDropDownClick}>
                   Mark Note As
