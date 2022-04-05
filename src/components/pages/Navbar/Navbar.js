@@ -85,9 +85,9 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               <>
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
-                    <a key="memosLinkNav" to="/notes">
+                    <Link key="memosLinkNav" to="/notes">
                       Memos
-                    </a>
+                    </Link>
                   </Dropdown>
                   <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
                     <div className="userInfo-and-profilePic">
