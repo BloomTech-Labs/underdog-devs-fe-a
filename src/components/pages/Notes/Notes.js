@@ -17,13 +17,13 @@ const Notes = props => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h2>Notes</h2>
+        <h2>Memos</h2>
         <Button className="add-note-button" onClick={filterByUser}>
-          My Notes
+          My Memos
         </Button>
         <Button className="add-note-button" onClick={showModal}>
           <PlusCircleOutlined />
-          Add Note
+          Send Memo
         </Button>
         <NotesForm
           displayModal={displayModal}
