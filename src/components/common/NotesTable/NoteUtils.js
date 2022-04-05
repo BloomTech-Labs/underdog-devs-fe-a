@@ -204,7 +204,7 @@ export const columns = [
         value: 'low',
       },
     ],
-    onFilter: (value, record) => record.priority === value,
+    onFilter: (value, record) => record.level === value,
   },
   {
     title: 'Date',
