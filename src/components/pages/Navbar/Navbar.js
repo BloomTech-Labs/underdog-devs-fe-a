@@ -82,31 +82,27 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               />
             </Link>
             {Object.keys(user).length && (
-              <>
-                <div className="userInfo-and-profilePic">
-                  <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
-                    <Link key="memosLinkNav" to="/notes">
-                      Memos
-                    </Link>
-                  </Dropdown>
-                  <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
-                    <div className="userInfo-and-profilePic">
-                      <div className="profilePic">
-                        <Avatar
-                          size={50}
-                          icon={<UserOutlined />}
-                          src={profilePic}
-                        />
-                      </div>
-                      <div className="userInfo">
-                        <div className="username">
-                          Welcome {user.first_name}
-                        </div>
-                      </div>
+              <div className="userInfo-and-profilePic">
+                <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
+                  <Link key="memosLinkNav" to="/notes">
+                    Memos
+                  </Link>
+                </Dropdown>
+                <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
+                  <div className="userInfo-and-profilePic">
+                    <div className="profilePic">
+                      <Avatar
+                        size={50}
+                        icon={<UserOutlined />}
+                        src={profilePic}
+                      />
                     </div>
-                  </Dropdown>
-                </div>
-              </>
+                    <div className="userInfo">
+                      <div className="username">Welcome {user.first_name}</div>
+                    </div>
+                  </div>
+                </Dropdown>
+              </div>
             )}
           </div>
         </Header>
