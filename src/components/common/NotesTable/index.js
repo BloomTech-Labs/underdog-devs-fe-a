@@ -37,7 +37,6 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
 );
 
 const NotesTable = ({ userProfile }) => {
-  console.log(userProfile);
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states
@@ -47,13 +46,11 @@ const NotesTable = ({ userProfile }) => {
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
   const location = useLocation();
-  console.log(location.pathname);
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
       .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
       .then(res => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch(err => {
@@ -77,7 +74,6 @@ const NotesTable = ({ userProfile }) => {
     axiosWithAuth()
       .put('dummydata', { note: editNote.note })
       .then(res => {
-        console.log(res);
         setEditing(false);
         setSubmitting(false);
       })
