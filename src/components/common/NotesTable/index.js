@@ -9,12 +9,12 @@ import {
   Dropdown,
   Menu,
   Form,
-  List,
   Input,
 } from 'antd';
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
+import '../styles/Notes.css';
 
 const NotesTable = ({ userProfile }) => {
   const [data, setData] = useState([]);
@@ -31,7 +31,6 @@ const NotesTable = ({ userProfile }) => {
     axiosWithAuth()
       .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
       .then(res => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch(err => {
@@ -40,8 +39,14 @@ const NotesTable = ({ userProfile }) => {
   }, []);
 
   // click handlers
-  const handleMenuClick = e => console.log('click', e);
-  const handleDropDownClick = e => console.log('click', e);
+  const handleMenuClick = e => {
+    // menu click handler
+  };
+
+  const handleDropDownClick = e => {
+    // dropdown click handler
+  };
+
   const toggle = (key, note) => {
     //editing note is currently for all comments
     setEditing(!editing);
@@ -52,7 +57,6 @@ const NotesTable = ({ userProfile }) => {
     axiosWithAuth()
       .put('dummydata', { note: editNote.note })
       .then(res => {
-        console.log(res);
         setEditing(false);
         setSubmitting(false);
       })
@@ -153,7 +157,7 @@ const NotesTable = ({ userProfile }) => {
                 ></Comment>
               </>
             </Card>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className="note-menu-btns">
               <Space wrap>
                 <Dropdown.Button overlay={menu} onClick={handleDropDownClick}>
                   Mark Note As
