@@ -55,44 +55,31 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
   return (
     <>
       <Layout className="layout">
-        <Header>
-          <div className="logoDiv">
-            <Link to="/dashboard">
-              <img
-                src={logo}
-                alt="underdog devs logo"
-                height="68"
-                style={{ marginLeft: '1vw' }}
-                role="button"
-              />
-            </Link>
-            {Object.keys(user).length && (
-              <>
-                <label for="logout" className="logout hidden">
-                  Logout
-                </label>
-                <Dropdown
-                  name="logout"
-                  overlay={menu}
-                  placement="bottomLeft"
-                  arrow
-                >
-                  <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
-                    </div>
-                    <div className="profilePic">
-                      <Avatar
-                        size={50}
-                        icon={<UserOutlined />}
-                        src={profilePic}
-                      />
-                    </div>
-                  </div>
-                </Dropdown>
-              </>
-            )}
-          </div>
+        <Header className="logoDiv">
+          <Link to="/dashboard">
+            <img
+              src={logo}
+              alt="underdog devs logo"
+              height="68"
+              style={{ marginLeft: '1vw' }}
+              role="button"
+            />
+          </Link>
+          {Object.keys(user).length && (
+            <div className="userInfo-and-profilePic">
+              <Dropdown placement="bottomLeft" arrow>
+                <>
+                  <Avatar
+                    className="profilePic"
+                    size={50}
+                    icon={<UserOutlined />}
+                    src={profilePic}
+                  />
+                  Welcome {user.first_name}
+                </>
+              </Dropdown>
+            </div>
+          )}
         </Header>
       </Layout>
       <Modal
