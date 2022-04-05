@@ -4,6 +4,39 @@
   height: 100%;
 }
 
+.userInfo-and-profilePic {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5vw;
+  color: white;
+}
+
+.username {
+  display: flex;
+  height: 3vh;
+  align-items: center;
+}
+
+.userRole {
+  display: flex;
+  height: 1vh;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
 .profilePic {
   padding: 0vh 1vw;
+}
+
+.logout {
+  color: white;
 }
