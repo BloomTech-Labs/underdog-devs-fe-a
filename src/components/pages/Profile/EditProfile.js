@@ -36,7 +36,9 @@ function EditProfile({ userInfo }) {
         onCreate(values);
       })
       .catch(err => {
-        console.log(err);
+        message.error(
+          'Sorry, an unknown error has occurred. Please try again!'
+        );
       });
   };
 
@@ -174,7 +176,6 @@ function EditProfile({ userInfo }) {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     userInfo: state.user.userProfile,
   };
