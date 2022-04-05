@@ -21,7 +21,7 @@ const Notes = props => {
         <Button className="add-note-button" onClick={filterByUser}>
           My Memos
         </Button>
-        <Button className="add-note-button" onClick={showModal}>
+        <Button className="add-note-button" onClick={showModal} type="primary">
           <PlusCircleOutlined />
           Send Memo
         </Button>
