@@ -50,7 +50,7 @@ const UserManagement = () => {
   useEffect(() => {
     const getAccounts = () => {
       axiosWithAuth()
-        .get('/profiles')
+        .get('/profile')
         .then(res => {
           setAccounts(
             res.data.map(row => ({
