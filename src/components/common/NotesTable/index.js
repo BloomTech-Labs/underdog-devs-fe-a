@@ -27,6 +27,7 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
         loading={submitting}
         onClick={onSubmit}
         type="primary"
+        style={{}}
       >
         Save edit
       </Button>
@@ -49,9 +50,9 @@ const NotesTable = ({ userProfile, accounts }) => {
   useEffect(() => {
     axiosWithAuth()
       .get(
-        location.pathname === '/notes'
-          ? '/notes'
-          : `/notes/mentees/${accounts.key}`
+        location.pathname === '/users'
+          ? `/notes/mentees/${accounts.key}`
+          : '/notes'
       )
       .then(res => {
         console.log(res);
@@ -88,15 +89,17 @@ const NotesTable = ({ userProfile, accounts }) => {
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
-      .put('/notes', { content: editNote.content })
+      .put(`/notes/${editNote.note_id}`, { content: editNote.content })
       .then(res => {
         console.log(res.data);
+
         setEditing(false);
         setSubmitting(false);
       })
       .catch(err => {
         console.log(err);
       });
+    window.location.reload();
   };
   const handleChange = e => {
     setEditNote({ ...editNote, content: e.target.value });
@@ -148,17 +151,23 @@ const NotesTable = ({ userProfile, accounts }) => {
                       </Button>
                     ),
                   ]}
-                  author={record.createdBy}
+                  author={
+                    profile_id === record.mentor_id
+                      ? record.mentor_id
+                      : record.mentee_id
+                  }
                   avatar={
                     <Avatar
                       src="https://joeschmoe.io/api/v1/random"
-                      alt={record.createdBy}
+                      alt={record.createdBy} //currently no backend column for this
                     />
                   }
                   content={
                     // populating edit text box with previous value
                     <>
-                      {editing && profile_id === record.note_id ? (
+                      {editing &&
+                      (profile_id === record.mentor_id ||
+                        profile_id === record.mentee_id) ? (
                         <Editor
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
