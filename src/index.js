@@ -33,7 +33,7 @@ import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
-import MenteeAddReview from './components/pages/AddReviews/MentorAddReview';
+import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
@@ -194,7 +194,7 @@ function App() {
           path="/addMenteeReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
-          component={MenteeAddReview}
+          component={MentorAddReview}
         />
 
         <Route component={NotFoundPage} />
