@@ -21,7 +21,7 @@ const formItemLayout = {
 
 const MenteeAddReview = () => {
   const [formValues, setFormValues] = useState({
-    Mentee_name: '',
+    mentor_name: '',
     review: '',
   });
 
@@ -59,8 +59,8 @@ const MenteeAddReview = () => {
       </Form.Item>
 
       <Form.Item
-        name="mentee_review"
-        label="Mentee Review"
+        name="mentor_review"
+        label="Mentor Review"
         value={formValues.mentor_review}
         onChange={handleChange}
         rules={[{ required: true, message: 'Please input a mentor review' }]}

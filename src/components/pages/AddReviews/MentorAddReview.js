@@ -19,7 +19,7 @@ const formItemLayout = {
   },
 };
 
-const MenteeAddReview = () => {
+const MentorAddReview = () => {
   const [formValues, setFormValues] = useState({
     Mentee_name: '',
     review: '',
@@ -75,4 +75,4 @@ const MenteeAddReview = () => {
   );
 };
 
-export default MenteeAddReview;
+export default MentorAddReview;

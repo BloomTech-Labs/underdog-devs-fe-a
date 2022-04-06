@@ -93,6 +93,9 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/resources" onClick={handleMenuClick}>
                 Access Resources
               </Menu.Item>
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
+              </Menu.Item>
             </>
           )}
           {isUserMentor() ? (
@@ -181,6 +184,9 @@ const Sidebar = ({ children, userProfile }) => {
               </Menu.Item>
               <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
                 Add Mentee Review
+              </Menu.Item>
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
               </Menu.Item>
             </>
           ) : (
