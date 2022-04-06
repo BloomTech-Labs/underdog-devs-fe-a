@@ -1,44 +1,18 @@
-import styled from 'styled-components';
-import { Button, Input, Space } from 'antd';
+import { Badge, Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import * as MdIcons from 'react-icons/md';
+import '../styles/Notes.css';
 
-// Flag Styling
-export const Flag = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 45%;
-  border-radius: 20px;
-  padding: 2px 1em;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: capitalize;
-  opacity: 0.8;
-  color: #000;
-`;
-
-// Flag colors
-export const subjectColor = {
-  needs: '#EBD671',
-  'job search': '#6FB2D2',
-  other: '#E5DCC3',
-};
-
-export const visibilityColor = {
-  mentor: '#1BAE9F',
-  admin: '#D3455B',
-};
-
-export const priorityColor = {
-  urgent: '#FF6B6B',
-  medium: '#FFD93D',
-  low: '#6BCB77',
-};
-
-export const statusColor = {
-  'in progress': '#2D88D9',
-  draft: '#E8833B',
-  replied: '#9964C4',
-  resolved: '#48C73A',
+// Flag Icons
+const statusIcon = {
+  'in progress': <MdIcons.MdTimelapse size={25} color="#00B0FF" />,
+  resolved: <MdIcons.MdCheckCircle size={25} color="#00C853" />,
+  replied: (
+    <span className="badge-container">
+      <Badge count={1} offset={[2, 0]} />
+    </span>
+  ),
+  'not submitted': <MdIcons.MdErrorOutline size={25} color="#FA8C16" />,
 };
 
 // Table Columns
@@ -54,7 +28,7 @@ export const columns = [
       clearFilters,
       name,
     }) => (
-      <div style={{ padding: 8 }}>
+      <div className="created-by-filter-menu">
         <Input
           autoFocus
           placeholder="Search by user"
@@ -99,9 +73,7 @@ export const columns = [
     title: 'Subject',
     dataIndex: 'subject',
     key: 'subject',
-    render: subject => (
-      <Flag style={{ backgroundColor: subjectColor[subject] }}>{subject}</Flag>
-    ),
+    render: subject => <span className="cell-text">{subject}</span>,
     filters: [
       {
         text: 'Needs',
@@ -119,24 +91,12 @@ export const columns = [
     onFilter: (value, record) => record.subject === value,
   },
   {
-    title: 'Visibility',
-    dataIndex: 'visibility',
-    key: 'visibility',
-    render: visibility => (
-      <Flag style={{ backgroundColor: visibilityColor[visibility] }}>
-        {visibility}
-      </Flag>
-    ),
-  },
-  {
     title: 'Priority',
     dataIndex: 'priority',
     key: 'priority',
 
     render: priority => (
-      <Flag style={{ backgroundColor: priorityColor[priority] }}>
-        {priority}
-      </Flag>
+      <div className={`flag priority-${priority}`}>{priority}</div>
     ),
     filters: [
       {
@@ -172,7 +132,10 @@ export const columns = [
     dataIndex: 'status',
     key: 'status',
     render: status => (
-      <Flag style={{ backgroundColor: statusColor[status] }}>{status}</Flag>
+      <div className="status-container">
+        {statusIcon[status]}
+        <span className="cell-text">{status}</span>
+      </div>
     ),
     filters: [
       {
@@ -186,6 +149,10 @@ export const columns = [
       {
         text: 'Replied',
         value: 'replied',
+      },
+      {
+        text: 'Not Submitted',
+        value: 'not submitted',
       },
     ],
     onFilter: (value, record) => record.status === value,
