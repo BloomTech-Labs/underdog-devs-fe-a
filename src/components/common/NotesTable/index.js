@@ -63,8 +63,14 @@ const NotesTable = ({ userProfile }) => {
     result = data;
   }
   // click handlers
-  const handleMenuClick = e => console.log('click', e);
-  const handleDropDownClick = e => console.log('click', e);
+  const handleMenuClick = e => {
+    // menu click handler
+  };
+
+  const handleDropDownClick = e => {
+    // dropdown click handler
+  };
+
   const toggle = (key, note) => {
     setEditing(!editing);
     setEditNote({ key: key, note: note });
