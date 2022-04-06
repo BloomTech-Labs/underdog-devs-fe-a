@@ -6,7 +6,7 @@ import UserManagement from '../../pages/UserManagement/UserManagement';
 import Attendance from '../../pages/Attendance/attendance';
 import Dashboard from '../../pages/Dashboard/Dashboard';
 import { Profile } from '../../pages/Profile';
-
+import Reviews from '../../pages/Reviews/MentorReviews';
 import { ManageResources } from '../../pages/ManageResources/ManageResources';
 
 // These components are being exported to Sidebar.js, from there they are being dynamically rendered based on what role the user is
@@ -47,6 +47,7 @@ const AdminComponents = {
   9: <Profile />,
   10: <div>Do we need Account settings?</div>,
   11: <Attendance />,
+  12: <Reviews />,
 };
 
 export { AdminComponents, MentorComponents, MenteeComponents };
