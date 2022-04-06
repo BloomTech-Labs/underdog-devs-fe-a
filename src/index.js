@@ -34,6 +34,7 @@ import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MentorAddReview';
+import MentorAddReview from './components/pages/AddReviews/MenteeAddReview';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
