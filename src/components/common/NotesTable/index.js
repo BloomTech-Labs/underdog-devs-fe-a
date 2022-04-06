@@ -36,27 +36,35 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   </>
 );
 
-const NotesTable = ({ userProfile }) => {
-  console.log(userProfile);
+const NotesTable = ({ userProfile, accounts }) => {
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states
   const [editing, setEditing] = useState(false);
-  const [editNote, setEditNote] = useState({ key: '', note: '' });
+  const [editNote, setEditNote] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
   const location = useLocation();
-  console.log(location.pathname);
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
+      .get('http://localhost:8080/notes')
       .then(res => {
-        setData(res.data);
+        console.log(res);
+        setData(
+          res.data.map(obj => {
+            let created = new Date(obj.created_at);
+            return {
+              ...obj,
+              date: created.toDateString(),
+              time: created.toLocaleTimeString(),
+            };
+          })
+        );
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
       });
   }, []);
   if (location.pathname === '/mynotes') {
@@ -65,23 +73,18 @@ const NotesTable = ({ userProfile }) => {
     result = data;
   }
   // click handlers
-  const handleMenuClick = e => {
-    // menu click handler
-  };
-
-  const handleDropDownClick = e => {
-    // dropdown click handler
-  };
-
-  const toggle = (key, note) => {
+  const handleMenuClick = e => console.log('click', e);
+  const handleDropDownClick = e => console.log('click', e);
+  const toggle = (key, content) => {
     setEditing(!editing);
-    setEditNote({ key: key, note: note });
+    setEditNote({ key: key, content: content });
   };
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
-      .put('dummydata', { note: editNote.note })
+      .put('dummydata', { content: editNote.content })
       .then(res => {
+        console.log(res.data);
         setEditing(false);
         setSubmitting(false);
       })
@@ -90,7 +93,7 @@ const NotesTable = ({ userProfile }) => {
       });
   };
   const handleChange = e => {
-    setEditNote({ ...editNote, note: e.target.value });
+    setEditNote({ ...editNote, content: e.target.value });
   };
   const handleCancel = () => {
     setEditing(!editing);
@@ -122,7 +125,7 @@ const NotesTable = ({ userProfile }) => {
                       <Button
                         type="primary"
                         size="middle"
-                        onClick={() => toggle(record.key, record.note)}
+                        onClick={() => toggle(record.key, record.content)}
                         style={{ display: editing ? 'none' : 'inline' }}
                       >
                         Edit
@@ -153,10 +156,10 @@ const NotesTable = ({ userProfile }) => {
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
                           onCancel={handleCancel}
-                          value={editNote.note}
+                          value={editNote.content}
                         />
                       ) : (
-                        <>{record.note}</>
+                        <>{record.content}</>
                       )}
                     </>
                   }
