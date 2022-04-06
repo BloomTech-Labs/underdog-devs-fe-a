@@ -51,3 +51,7 @@
   border: solid 1px #000000!important;
 }
 
+::placeholder{
+  color: #737373!important;
+}
+
