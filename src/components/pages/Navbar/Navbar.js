@@ -28,16 +28,15 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     localStorage.removeItem('token');
     authService.logout();
   };
-
   useEffect(() => {
     axiosWithAuth()
-      .get('/profile/current_user_profile/')
+      .get(`/profile/current_user_profile/`)
       .then(user => {
         setUser(user.data);
       });
   }, []);
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <NavBarLanding />;
   }
 
