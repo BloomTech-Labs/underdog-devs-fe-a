@@ -19,9 +19,8 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
-import AppError from './components/pages/RoleSignup/Applications/AppError';
+// import AppError from './components/pages/RoleSignup/Applications/AppError';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
-
 
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -33,6 +32,7 @@ import MentorMenteeMatching from './components/pages/MentorMenteeMatching/Mentor
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
+import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -80,7 +80,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        <Route path="/apply/success" component={AppSuccess} />
+        {/* <Route path="/apply/success" component={AppSuccess} /> */}
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -181,6 +181,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1]}
           component={MentorMenteeMatching}
+        />
+
+        <PrivateRoute
+          path="/applications"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={PendingApplications}
         />
 
         <Route component={NotFoundPage} />
