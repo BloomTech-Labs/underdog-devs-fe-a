@@ -18,9 +18,9 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import MyNotes from './components/pages/Notes/MyNotes';
 
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 
 import Navbar from './components/pages/Navbar/Navbar';

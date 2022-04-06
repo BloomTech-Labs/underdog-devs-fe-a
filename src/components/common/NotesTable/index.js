@@ -53,7 +53,6 @@ const NotesTable = ({ userProfile }) => {
     axiosWithAuth()
       .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
       .then(res => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch(err => {
@@ -66,8 +65,14 @@ const NotesTable = ({ userProfile }) => {
     result = data;
   }
   // click handlers
-  const handleMenuClick = e => console.log('click', e);
-  const handleDropDownClick = e => console.log('click', e);
+  const handleMenuClick = e => {
+    // menu click handler
+  };
+
+  const handleDropDownClick = e => {
+    // dropdown click handler
+  };
+
   const toggle = (key, note) => {
     setEditing(!editing);
     setEditNote({ key: key, note: note });
@@ -77,7 +82,6 @@ const NotesTable = ({ userProfile }) => {
     axiosWithAuth()
       .put('dummydata', { note: editNote.note })
       .then(res => {
-        console.log(res);
         setEditing(false);
         setSubmitting(false);
       })

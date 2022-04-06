@@ -91,17 +91,17 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                   </Dropdown>
                   <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
                     <div className="userInfo-and-profilePic">
-                      <div className="userInfo">
-                        <div className="username">
-                          Welcome {user.first_name}
-                        </div>
-                      </div>
                       <div className="profilePic">
                         <Avatar
                           size={50}
                           icon={<UserOutlined />}
                           src={profilePic}
                         />
+                      </div>
+                      <div className="userInfo">
+                        <div className="username">
+                          Welcome {user.first_name}
+                        </div>
                       </div>
                     </div>
                   </Dropdown>
