@@ -7,6 +7,8 @@ import '../styles/Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Modal, Menu, Switch as Toggle } from 'antd';
 import {
+  RightOutlined,
+  LeftOutlined,
   DashboardOutlined,
   BookOutlined,
   ContainerOutlined,
@@ -35,8 +37,8 @@ const Sidebar = ({ children, userProfile }) => {
 
   const [theme, toggleTheme] = useTheme();
 
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed);
+  const toggle = () => {
+    setCollapsed(!collapsed);
   };
 
   const openModal = () => setModal(true);
@@ -61,7 +63,13 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        id="sidebar"
+        trigger={null}
+        breakpoint="lg"
+        collapsible
+        collapsed={collapsed}
+      >
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
             <Menu.Item key="/calendar" onClick={handleMenuClick}>
@@ -221,6 +229,12 @@ const Sidebar = ({ children, userProfile }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
+        <Sider className="site-layout-background">
+          {React.createElement(collapsed ? RightOutlined : LeftOutlined, {
+            className: 'trigger',
+            onClick: toggle,
+          })}
+        </Sider>
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>{children}</Content>
         </Content>
