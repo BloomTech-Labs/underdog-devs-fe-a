@@ -50,8 +50,8 @@ const NotesTable = ({ userProfile, accounts }) => {
     axiosWithAuth()
       .get(
         location.pathname === '/notes'
-          ? 'http://localhost:8080/notes' // for testing purposes
-          : `http://localhost:8080/notes/mentees/${accounts.key}`
+          ? '/notes'
+          : `/notes/mentees/${accounts.key}`
       )
       .then(res => {
         console.log(res);
@@ -60,6 +60,7 @@ const NotesTable = ({ userProfile, accounts }) => {
             let created = new Date(obj.created_at);
             return {
               ...obj,
+              key: obj.note_id,
               date: created.toDateString(),
               time: created.toLocaleTimeString(),
             };
@@ -71,21 +72,23 @@ const NotesTable = ({ userProfile, accounts }) => {
       });
   }, []);
   if (location.pathname === '/mynotes') {
-    result = data.filter(x => x.profile_id === profile_id);
+    result = data.filter(
+      x => x.mentor_id === profile_id || x.mentee_id === profile_id
+    );
   } else {
     result = data;
   }
   // click handlers
   const handleMenuClick = e => console.log('click', e);
   const handleDropDownClick = e => console.log('click', e);
-  const toggle = (key, content) => {
+  const toggle = (note_id, content) => {
     setEditing(!editing);
-    setEditNote({ key: key, content: content });
+    setEditNote({ note_id: note_id, content: content });
   };
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
-      .put('dummydata', { content: editNote.content })
+      .put('/notes', { content: editNote.content })
       .then(res => {
         console.log(res.data);
         setEditing(false);
@@ -124,11 +127,12 @@ const NotesTable = ({ userProfile, accounts }) => {
                 <Comment
                   actions={[
                     // edit button
-                    profile_id === record.profile_id ? (
+                    profile_id === record.mentor_id ||
+                    profile_id === record.mentee_id ? (
                       <Button
                         type="primary"
                         size="middle"
-                        onClick={() => toggle(record.key, record.content)}
+                        onClick={() => toggle(record.note_id, record.content)}
                         style={{ display: editing ? 'none' : 'inline' }}
                       >
                         Edit
@@ -154,7 +158,7 @@ const NotesTable = ({ userProfile, accounts }) => {
                   content={
                     // populating edit text box with previous value
                     <>
-                      {editing && profile_id === record.profile_id ? (
+                      {editing && profile_id === record.note_id ? (
                         <Editor
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
