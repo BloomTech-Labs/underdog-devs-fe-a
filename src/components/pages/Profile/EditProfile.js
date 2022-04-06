@@ -42,13 +42,29 @@ function EditProfile({ userInfo }) {
       });
   };
 
-  //// Styling
   const buttonStyle = {
-    backgroundColor: '#003D71',
-    color: '#ffffff',
+    alignItems: 'center',
+    appearance: 'none',
+    border: 0,
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    lineHeight: 1,
+    listStyle: 'none',
+    overflow: 'hidden',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    position: 'relative',
+    textAlign: 'left',
+    textDecoration: 'none',
+    transition: 'box-shadow .15s,transform .15s',
+    userSelect: 'none',
+    touchAction: 'manipulation',
+    whiteSpace: 'nowrap',
+    willChange: 'box-shadow,transform',
+    fontSize: '1.125rem',
   };
-
-  //// Dropdown Data
 
   const treeData = [
     {
@@ -79,7 +95,7 @@ function EditProfile({ userInfo }) {
 
   return (
     <>
-      <Button style={buttonStyle} onClick={showModal}>
+      <Button type={'primary'} style={buttonStyle} onClick={showModal}>
         Edit
       </Button>
       <Modal
