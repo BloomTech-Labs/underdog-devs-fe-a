@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import {
   DownOutlined,
@@ -13,20 +14,20 @@ import './Notes.css';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const initialValues = {
-  content: '',
+  created_by: '',
   content_type: '',
-  level: '',
-  created_at: '',
-  mentee_id: '',
-  mentor_id: '',
-  note_id: 0,
   status: '',
-  update_at: '',
+  content: '',
+  level: '',
   visible_to_admin: true,
   visible_to_mentor: true,
+  visible_to_mentee: false,
+  mentor_id: '',
+  mentee_id: '',
 };
 
-const NotesForm = ({ displayModal, setDisplayModal }) => {
+const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
+  const { profile_id, first_name, role_id } = userProfile;
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
@@ -42,7 +43,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         push('/mynotes');
       })
       .catch(err => {
-        console.error(err);
+        console.error(err.message);
       });
   };
 
@@ -50,15 +51,17 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     setSubjectType(e.key);
   };
 
-  const handleRadio = e => {
-    setToggle(e.target.value);
-  };
+  // const handleRadio = e => {
+  //   setToggle(e.target.value);
+  // };
 
   const onChange = e => {
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
     });
+    setCount(e.target.value.length);
+    setToggle(e.target.value);
   };
 
   const Subject = () => {
@@ -73,6 +76,26 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     }
   };
 
+  const submitMemo = () => {
+    const newMemo = {
+      created_by: '00ultx74kMUmEW8054x6',
+      content_type: 'type a',
+      status: 'in progress',
+      content: 'expect some text here',
+      level: 'low',
+      visible_to_admin: true,
+      visible_to_mentor: true,
+      visible_to_mentee: false,
+      mentor_id: '00ultx74kMUmEW8054x6',
+      mentee_id: '00ultwqjtqt4VCcS24x6',
+    };
+    postNewMemo(newMemo);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    submitMemo();
+  };
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1" icon={<TeamOutlined />}>
@@ -85,12 +108,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         Time sensitive needs
       </Menu.Item>
     </Menu>
-
-    // const submitMemo = () => {
-    //   const newMemo = {
-    //     content:
-    //   }
-    // }
   );
   return (
     displayModal && (
@@ -103,7 +120,13 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
       >
         <div className="notes-column-container">
           <label htmlFor="">Subject</label>
-          <Dropdown overlay={menu} style={{ width: '40%' }}>
+          <Dropdown
+            name="content_type"
+            onChange={onChange}
+            value={Subject()}
+            overlay={menu}
+            style={{ width: '40%' }}
+          >
             <Button>
               {Subject()} <DownOutlined />
             </Button>
@@ -114,9 +137,8 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             rows={4}
             name="content"
             value={formValues.content}
-            onChange={onChange}
             maxLength="280"
-            onChange={e => setCount(e.target.value.length)}
+            onChange={onChange}
           />
           <p className="margin-top-1">{count}/280 Characters</p>
           <br />
@@ -125,7 +147,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <div className="notes-input-rows">
             <div className="radio notes-column-container">
               <label htmlFor="">Priority</label>
-              <Radio.Group onChange={handleRadio} value={toggle}>
+              <Radio.Group name="level" onChange={onChange} value={toggle}>
                 <Space direction="vertical">
                   <Radio value={1}>Urgent</Radio>
                   <Radio value={2}>Medium</Radio>
@@ -140,7 +162,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             <Button block={true} size="large">
               Save draft
             </Button>
-            <Button type="primary" block={true} size="large">
+            <Button onClick={onSubmit} type="primary" block={true} size="large">
               Submit
             </Button>
           </div>
@@ -150,4 +172,8 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   );
 };
 
-export default NotesForm;
+const mapStateToProps = state => {
+  return { userProfile: state.user.userProfile };
+};
+
+export default connect(mapStateToProps)(NotesForm);
