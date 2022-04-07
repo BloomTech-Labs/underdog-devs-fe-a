@@ -76,7 +76,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                 src={logo}
                 alt="underdog devs logo"
                 height="68"
-                className="logoImg"
+                style={{ marginLeft: '1vw' }}
                 role="button"
               />
             </Link>
