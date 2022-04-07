@@ -15,7 +15,6 @@ function EditProfile({ userInfo, setUserProfile }) {
   const handleCancel = () => setModalOpen(false);
 
   const onCreate = values => {
-    console.log(values);
     setModalOpen(false);
     axiosWithAuth()
       .put('/profile', values)
