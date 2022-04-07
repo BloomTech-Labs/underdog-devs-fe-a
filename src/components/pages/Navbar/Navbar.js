@@ -4,7 +4,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
@@ -28,21 +28,20 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     localStorage.removeItem('token');
     authService.logout();
   };
-
   useEffect(() => {
     axiosWithAuth()
-      .get('/profile/current_user_profile/')
+      .get(`/profile/current_user_profile/`)
       .then(user => {
         setUser(user.data);
       });
-  }, []);
+  }, [isAuthenticated]);
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <NavBarLanding />;
   }
 
-  const menu = (
-    <Menu key="navMenu">
+  const accountMenu = (
+    <Menu key="navAccountMenu">
       <Menu.Item key="navProfile" icon={<UserOutlined />}>
         <Link to="/profile">Profile Settings</Link>
       </Menu.Item>
@@ -52,10 +51,25 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     </Menu>
   );
 
+  const memosMenu = (
+    <Menu key="memosMenu">
+      <Menu.Item key="sendMemos" icon={<FormOutlined />}>
+        <Link key="sendMemosLink" to="/notes">
+          Send Memos
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="viewMemos">
+        <Link key="viewMemosLink" to="/notes">
+          View Memos
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <>
       <Layout className="layout">
-        <Header>
+        <Header className="menuBar">
           <div className="logoDiv">
             <Link to="/dashboard">
               <img
@@ -67,20 +81,14 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
               />
             </Link>
             {Object.keys(user).length && (
-              <>
-                <label for="logout" className="hidden">
-                  Logout
-                </label>
-                <Dropdown
-                  name="logout"
-                  overlay={menu}
-                  placement="bottomLeft"
-                  arrow
-                >
+              <div className="userInfo-and-profilePic">
+                <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
+                  <Link key="memosLinkNav" to="/notes">
+                    Memos
+                  </Link>
+                </Dropdown>
+                <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
                   <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
-                    </div>
                     <div className="profilePic">
                       <Avatar
                         size={50}
@@ -88,9 +96,12 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                         src={profilePic}
                       />
                     </div>
+                    <div className="userInfo">
+                      <div className="username">Welcome {user.first_name}</div>
+                    </div>
                   </div>
                 </Dropdown>
-              </>
+              </div>
             )}
           </div>
         </Header>

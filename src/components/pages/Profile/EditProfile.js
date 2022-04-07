@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Radio, Modal, TreeSelect } from 'antd';
+import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
-import useForms from '../../../hooks/useForms';
-
-const initialValues = {
-  first_name: 'Hal',
-  last_name: 'Jordan',
-  email: 'greenguy123@gmail.com',
-  location: 'Earth',
-  company: 'Bloom Tech, SWE',
-  tech_stack: 'React',
-  commitment: 'Pair Programming',
-};
-// Not showing actual initial values in table ( logged in users info )
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 function EditProfile({ userInfo }) {
-  const [formValues, handleChange, clearForm] = useForms(initialValues);
+  const [form] = Form.useForm();
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -24,19 +13,58 @@ function EditProfile({ userInfo }) {
 
   const handleCancel = () => setModalOpen(false);
 
-  const handleSubmit = e => {
+  const onCreate = values => {
     setModalOpen(false);
-    console.log(formValues);
-    clearForm(e);
+    axiosWithAuth()
+      .put('/profile', values)
+      .then(res => {
+        form.setFieldsValue(values);
+        message.success('Your profile has been updated!');
+      })
+      .catch(err => {
+        message.error(
+          "Sorry, we couldn't update your profile at this time. Please try again later!"
+        );
+      });
+  };
+  // Required for activating the AntD forms through the modal
+  const approved = () => {
+    form
+      .validateFields()
+      .then(values => {
+        form.resetFields();
+        onCreate(values);
+      })
+      .catch(err => {
+        message.error(
+          'Sorry, an unknown error has occurred. Please try again!'
+        );
+      });
   };
 
-  //// Styling
   const buttonStyle = {
-    backgroundColor: '#003D71',
-    color: '#ffffff',
+    alignItems: 'center',
+    appearance: 'none',
+    border: 0,
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    lineHeight: 1,
+    listStyle: 'none',
+    overflow: 'hidden',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    position: 'relative',
+    textAlign: 'left',
+    textDecoration: 'none',
+    transition: 'box-shadow .15s,transform .15s',
+    userSelect: 'none',
+    touchAction: 'manipulation',
+    whiteSpace: 'nowrap',
+    willChange: 'box-shadow,transform',
+    fontSize: '1.125rem',
   };
-
-  //// Dropdown Data
 
   const treeData = [
     {
@@ -67,19 +95,21 @@ function EditProfile({ userInfo }) {
 
   return (
     <>
-      <Button style={buttonStyle} onClick={showModal}>
+      <Button type={'primary'} style={buttonStyle} onClick={showModal}>
         Edit
       </Button>
       <Modal
         visible={ModalOpen}
         onCancel={handleCancel}
-        onOk={handleSubmit}
+        onOk={approved}
         title="Update Information:"
         okText="Update"
         className="modalStyle"
       >
         <Form
+          form={form}
           name="basic"
+          initialValues={userInfo}
           labelCol={{
             span: 8,
           }}
@@ -89,9 +119,7 @@ function EditProfile({ userInfo }) {
         >
           <Form.Item
             label="First Name"
-            name="firstName"
-            initialValue={formValues.first_name}
-            onChange={handleChange}
+            name="first_name"
             rules={[
               {
                 required: true,
@@ -104,9 +132,7 @@ function EditProfile({ userInfo }) {
 
           <Form.Item
             label="Last Name"
-            name="lastName"
-            initialValue={formValues.last_name}
-            onChange={handleChange}
+            name="last_name"
             rules={[
               {
                 required: true,
@@ -120,8 +146,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Email"
             name="email"
-            initialValue={formValues.email}
-            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -135,8 +159,6 @@ function EditProfile({ userInfo }) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={formValues.location}
-            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -147,20 +169,13 @@ function EditProfile({ userInfo }) {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Company/Position"
-            name="company"
-            initialValue={formValues.company}
-            onChange={handleChange}
-          >
+          <Form.Item label="Company/Position" name="company">
             <Input />
           </Form.Item>
 
           <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={formValues.tech_stack}
-            onChange={handleChange}
             rules={[
               {
                 required: true,
@@ -170,29 +185,6 @@ function EditProfile({ userInfo }) {
           >
             <TreeSelect {...treeProps} />
           </Form.Item>
-
-          <Form.Item
-            label="Commitment"
-            name="commitment"
-            labelCol={{
-              span: 13,
-            }}
-            wrapperCol={{
-              span: 9,
-            }}
-          >
-            <Radio.Group name="commitment" defaultValue={formValues.commitment}>
-              <Radio value="1:1 Mentoring" onClick={handleChange}>
-                1:1 Mentoring
-              </Radio>
-              <Radio value="Pair Programming" onClick={handleChange}>
-                Pair Programming
-              </Radio>
-              <Radio value="Neither" onClick={handleChange}>
-                Neither
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
         </Form>
       </Modal>
     </>
@@ -201,7 +193,7 @@ function EditProfile({ userInfo }) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.userInfo, // userProfile?
+    userInfo: state.user.userProfile,
   };
 };
 
