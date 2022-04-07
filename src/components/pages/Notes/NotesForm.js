@@ -24,7 +24,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     setToggle(e.target.value);
   };
 
-  const cType = () => {
+  const Subject = () => {
     if (content === '1') {
       return 'Needs / resource request';
     } else if (content === '2') {
@@ -32,7 +32,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     } else if (content === '3') {
       return 'Time sensitive needs';
     } else {
-      return 'Select note type ';
+      return 'Select subject ';
     }
   };
 
@@ -52,7 +52,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   return (
     displayModal && (
       <Modal
-        title="Create a new note"
+        title="Create a new memo"
         visible={displayModal}
         onOk={() => setDisplayModal(false)}
         onCancel={() => setDisplayModal(false)}
@@ -62,7 +62,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <label htmlFor="">Subject</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              {cType()} <DownOutlined />
+              {Subject()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />

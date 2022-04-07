@@ -12,24 +12,32 @@ const createAntStylesheet = () => {
   document.head.appendChild(antStylesheet);
 };
 
+const checkMode = () => {
+  const theme = localStorage.getItem('theme');
+  if (theme === null) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      localStorage.setItem('theme', 'dark');
+      return 'dark';
+    } else {
+      localStorage.setItem('theme', 'light');
+      return 'light';
+    }
+  }
+};
+
 export default function useTheme() {
-  const darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useLocalStorage(
-    'theme',
-    darkTheme ? 'dark' : 'light'
-  );
-  const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-
+  const [theme, setTheme] = useLocalStorage('theme', checkMode());
+  const toggle = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
   useEffect(() => {
-    setTheme(darkTheme ? 'dark' : 'light');
-    document.head.querySelector('#antd-stylesheet') || createAntStylesheet();
-  }, []); //eslint-disable-line
-
-  useEffect(
-    function setAntStylesheetTheme() {
-      document.head.querySelector('#antd-stylesheet').href = stylesheets[theme];
-    },
-    [theme]
-  );
-  return [theme, toggleTheme];
+    createAntStylesheet();
+    const antStylesheet = document.getElementById('antd-stylesheet');
+    antStylesheet.href = stylesheets[theme];
+  }, [theme]);
+  return [theme, toggle];
 }

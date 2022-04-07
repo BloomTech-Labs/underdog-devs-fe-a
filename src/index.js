@@ -18,6 +18,8 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+import MyNotes from './components/pages/Notes/MyNotes';
 
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
@@ -81,7 +83,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        <Route path="/apply/success" component={AppSuccess} />
+        {/* <Route path="/apply/success" component={AppSuccess} /> */}
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -101,8 +103,15 @@ function App() {
         <PrivateRoute
           path="/notesform"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 3, 4]}
           component={NotesForm}
+        />
+
+        <PrivateRoute
+          path="/mynotes"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={MyNotes}
         />
 
         <PrivateRoute
