@@ -34,7 +34,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
       .then(user => {
         setUser(user.data);
       });
-  }, []);
+  }, [isAuthenticated]);
 
   if (!user) {
     return <NavBarLanding />;
