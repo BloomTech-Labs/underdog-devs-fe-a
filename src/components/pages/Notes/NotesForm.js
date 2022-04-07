@@ -24,7 +24,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     setToggle(e.target.value);
   };
 
-  const cType = () => {
+  const Subject = () => {
     if (content === '1') {
       return 'Needs / resource request';
     } else if (content === '2') {
@@ -62,7 +62,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <label htmlFor="">Subject</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              {cType()} <DownOutlined />
+              {Subject()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />

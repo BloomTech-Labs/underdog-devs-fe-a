@@ -18,6 +18,8 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+import MyNotes from './components/pages/Notes/MyNotes';
 
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
@@ -29,6 +31,7 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
+import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
@@ -79,7 +82,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        <Route path="/apply/success" component={AppSuccess} />
+        {/* <Route path="/apply/success" component={AppSuccess} /> */}
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -99,8 +102,15 @@ function App() {
         <PrivateRoute
           path="/notesform"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 3, 4]}
           component={NotesForm}
+        />
+
+        <PrivateRoute
+          path="/mynotes"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={MyNotes}
         />
 
         <PrivateRoute
@@ -180,6 +190,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1]}
           component={MentorMenteeMatching}
+        />
+
+        <PrivateRoute
+          path="/reviews"
+          redirect="/dashboard"
+          allowRoles={[1]}
+          component={Reviews}
         />
 
         <Route component={NotFoundPage} />
