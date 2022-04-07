@@ -18,6 +18,7 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+
 import MyNotes from './components/pages/Notes/MyNotes';
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
@@ -32,6 +33,7 @@ import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
+import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -189,6 +191,13 @@ function App() {
           component={MentorMenteeMatching}
         />
 
+        <PrivateRoute
+          path="/applications"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={PendingApplications}
+        />
+            
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"
