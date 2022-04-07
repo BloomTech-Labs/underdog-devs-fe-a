@@ -9,10 +9,11 @@ import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile }) => {
+const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const { authService } = useOktaAuth();
@@ -33,6 +34,7 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
       .get(`/profile/current_user_profile/`)
       .then(user => {
         setUser(user.data);
+        getProfile(user.data.profile_id);
       });
   }, [isAuthenticated]);
 
@@ -97,7 +99,9 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                       />
                     </div>
                     <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
+                      <div className="username">
+                        Welcome {userProfile.first_name}
+                      </div>
                     </div>
                   </div>
                 </Dropdown>
@@ -120,9 +124,11 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
 };
 
 const mapStateToProps = state => {
+  console.log('state', state);
   return {
     isAuthenticated: localStorage.getItem('token'),
+    userProfile: state.user.userProfile,
   };
 };
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { getProfile })(Navbar);

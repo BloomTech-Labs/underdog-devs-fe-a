@@ -3,8 +3,9 @@ import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { setUserProfile } from '../../../state/actions/userProfile/setUserProfile';
 
-function EditProfile({ userInfo }) {
+function EditProfile({ userInfo, setUserProfile }) {
   const [form] = Form.useForm();
 
   const [ModalOpen, setModalOpen] = useState(false);
@@ -14,11 +15,13 @@ function EditProfile({ userInfo }) {
   const handleCancel = () => setModalOpen(false);
 
   const onCreate = values => {
+    console.log(values);
     setModalOpen(false);
     axiosWithAuth()
       .put('/profile', values)
       .then(res => {
         form.setFieldsValue(values);
+        setUserProfile(res.data.updated_profile);
         message.success('Your profile has been updated!');
       })
       .catch(err => {
@@ -197,4 +200,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps, { setUserProfile })(EditProfile);
