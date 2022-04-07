@@ -72,32 +72,8 @@ const NotesTable = ({ userProfile, accounts }) => {
       .catch(err => {
         console.log(err.message);
       });
-  }, []);
-  async function getIt() {
-    await axiosWithAuth()
-      .get(
-        location.pathname === '/users'
-          ? `/notes/mentees/${accounts.key}`
-          : '/notes'
-      )
-      .then(res => {
-        console.log(res);
-        setData(
-          res.data.map(obj => {
-            let created = new Date(obj.created_at);
-            return {
-              ...obj,
-              key: obj.note_id,
-              date: created.toDateString(),
-              time: created.toLocaleTimeString(),
-            };
-          })
-        );
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-  }
+  }, [editing]);
+
   if (location.pathname === '/mynotes') {
     result = data.filter(
       x => x.mentor_id === profile_id || x.mentee_id === profile_id
@@ -125,7 +101,6 @@ const NotesTable = ({ userProfile, accounts }) => {
       .catch(err => {
         console.log(err);
       });
-    getIt();
   };
   const handleChange = e => {
     setEditNote({ ...editNote, content: e.target.value });
