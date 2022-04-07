@@ -63,13 +63,7 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        id="sidebar"
-        trigger={null}
-        breakpoint="lg"
-        collapsible
-        collapsed={collapsed}
-      >
+      <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
             <Menu.Item key="/calendar" onClick={handleMenuClick}>
@@ -229,12 +223,6 @@ const Sidebar = ({ children, userProfile }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Sider className="site-layout-background">
-          {React.createElement(collapsed ? RightOutlined : LeftOutlined, {
-            className: 'trigger',
-            onClick: toggle,
-          })}
-        </Sider>
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>{children}</Content>
         </Content>
