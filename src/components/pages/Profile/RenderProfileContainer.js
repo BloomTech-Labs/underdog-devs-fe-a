@@ -66,6 +66,21 @@ const RenderProfileContainer = props => {
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
               {userData.bio || 'Profile bio will go here.'}
             </Card>
+            <Card type="inner" title="Full Name" extra={<EditOutlined />}>
+              {userData.full_name || 'Full Name will go here.'}
+            </Card>
+            <Card type="inner" title="Email" extra={<EditOutlined />}>
+              {userData.email || 'Email will go here.'}
+            </Card>
+            <Card type="inner" title="Location" extra={<EditOutlined />}>
+              {userData.location || 'Location will go here.'}
+            </Card>
+            <Card type="inner" title="Company" extra={<EditOutlined />}>
+              {userData.company || 'Company/Position will go here.'}
+            </Card>
+            <Card type="inner" title="Commitment" extra={<EditOutlined />}>
+              {'Commitment will go here.'}
+            </Card>
             <Card
               style={{ marginTop: 16 }}
               type="inner"

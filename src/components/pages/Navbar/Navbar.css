@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.logoImg {
+  margin-left: 1vw;
+}
+
 .userInfo-and-profilePic {
   display: flex;
   height: 100%;
