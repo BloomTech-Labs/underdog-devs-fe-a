@@ -76,7 +76,7 @@ const Mentor = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/apply">
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
