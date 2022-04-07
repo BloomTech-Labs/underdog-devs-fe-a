@@ -1,0 +1,52 @@
+.flag {
+  display: flex;
+  justify-content: center;
+  width: 45%;
+  border-radius: 20px;
+  padding: 2px 1em;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+  opacity: 0.8;
+  color: #000;
+}
+
+.darkFlag {
+  color: #000;
+}
+
+.cell-text {
+  text-transform: capitalize;
+}
+
+/* Priority Column */
+.priority-low {
+  background-color: #6bcb77;
+}
+
+.priority-medium {
+  background-color: #ffd93d;
+}
+
+.priority-urgent {
+  background-color: #ff6b6b;
+}
+
+/* Status Column */
+.status-container {
+  display: flex;
+  gap: 0.5em;
+}
+
+.note-menu-btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.created-by-filter-menu {
+  padding: 0.5em;
+}
+
+span.badge-container {
+  width: 25px;
+}

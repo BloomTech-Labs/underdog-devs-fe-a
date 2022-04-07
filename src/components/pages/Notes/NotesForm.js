@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
+import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
+
 import {
-  Modal,
-  Menu,
-  Space,
-  Radio,
-  Checkbox,
-  message,
-  Dropdown,
-  Button,
-  Input,
-} from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+  DownOutlined,
+  UserSwitchOutlined,
+  HourglassOutlined,
+  TeamOutlined,
+} from '@ant-design/icons';
+
 import './Notes.css';
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
@@ -19,7 +16,6 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   const [toggle, setToggle] = useState(1);
   const [content, setContent] = useState(0);
 
-  const theme = localStorage.getItem('theme');
   const handleMenuClick = e => {
     setContent(e.key);
   };
@@ -28,31 +24,27 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
     setToggle(e.target.value);
   };
 
-  const ConChange = checkedValues => {
-    console.log('checked = ', checkedValues);
-  };
-
-  const cType = () => {
+  const Subject = () => {
     if (content === '1') {
       return 'Needs / resource request';
     } else if (content === '2') {
-      return 'Changing Mentors';
+      return 'Changing mentors';
     } else if (content === '3') {
       return 'Time sensitive needs';
     } else {
-      return 'Select note type ';
+      return 'Select subject ';
     }
   };
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" icon={<UserOutlined />}>
+      <Menu.Item key="1" icon={<TeamOutlined />}>
         Needs / resource request
       </Menu.Item>
-      <Menu.Item key="2" icon={<UserOutlined />}>
-        Changing Mentors
+      <Menu.Item key="2" icon={<UserSwitchOutlined />}>
+        Changing mentors
       </Menu.Item>
-      <Menu.Item key="3" icon={<UserOutlined />}>
+      <Menu.Item key="3" icon={<HourglassOutlined />}>
         Time sensitive needs
       </Menu.Item>
     </Menu>
@@ -60,20 +52,17 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
   return (
     displayModal && (
       <Modal
-        title="Create a new note"
+        title="Create a new memo"
         visible={displayModal}
         onOk={() => setDisplayModal(false)}
         onCancel={() => setDisplayModal(false)}
         footer={null}
       >
-        <div
-          className="column"
-          style={{ display: 'flex', flexDirection: 'column' }}
-        >
-          <label htmlFor="">Content Type</label>
+        <div className="notes-column-container">
+          <label htmlFor="">Subject</label>
           <Dropdown overlay={menu} style={{ width: '40%' }}>
             <Button>
-              {cType()} <DownOutlined />
+              {Subject()} <DownOutlined />
             </Button>
           </Dropdown>
           <br />
@@ -83,21 +72,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
             maxLength="280"
             onChange={e => setCount(e.target.value.length)}
           />
-          <p style={{ marginTop: '1%' }}>{count}/280 Characters</p>
+          <p className="margin-top-1">{count}/280 Characters</p>
           <br />
         </div>
-        <div
-          className="outer-column"
-          style={{ display: 'flex', flexDirection: 'column' }}
-        >
-          <div
-            className="row1"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <div
-              className="radio"
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
+        <div className="notes-column-container">
+          <div className="notes-input-rows">
+            <div className="radio notes-column-container">
               <label htmlFor="">Priority</label>
               <Radio.Group onChange={RonChange} value={toggle}>
                 <Space direction="vertical">
@@ -107,39 +87,15 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
                 </Space>
               </Radio.Group>
             </div>
-
-            <div className="check">
-              <label htmlFor="">Who can see</label>
-              <br />
-              <Checkbox.Group onChange={ConChange} style={{ marginTop: '2%' }}>
-                <Checkbox value={1} style={{ display: 'flex' }}>
-                  {' '}
-                  Admin
-                </Checkbox>
-                <br />
-                <Checkbox value={2} style={{ display: 'flex' }}>
-                  Moderator
-                </Checkbox>
-                <br />
-                <Checkbox value={3} style={{ display: 'flex' }}>
-                  Mentor
-                </Checkbox>
-              </Checkbox.Group>
-            </div>
           </div>
           <br />
 
-          <div
-            className="row2"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Button className={`modalBtn saveBtn ${theme ? theme : ''}SaveBtn`}>
-              Save as draft
+          <div className="notes-button-rows">
+            <Button block={true} size="large">
+              Save draft
             </Button>
-            <Button
-              className={`modalBtn createBtn ${theme ? theme : ''}CreateBtn`}
-            >
-              Create
+            <Button type="primary" block={true} size="large">
+              Submit
             </Button>
           </div>
         </div>
