@@ -7,8 +7,6 @@ import '../styles/Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Modal, Menu, Switch as Toggle } from 'antd';
 import {
-  RightOutlined,
-  LeftOutlined,
   DashboardOutlined,
   BookOutlined,
   ContainerOutlined,
@@ -29,17 +27,12 @@ const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
-  const [collapsed, setCollapsed] = useState(false);
   const [modal, setModal] = useState(false);
   const { authService } = useOktaAuth();
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
-
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
 
   const openModal = () => setModal(true);
 
