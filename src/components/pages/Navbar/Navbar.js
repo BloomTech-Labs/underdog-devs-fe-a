@@ -4,7 +4,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
@@ -40,13 +40,28 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     return <NavBarLanding />;
   }
 
-  const menu = (
-    <Menu key="navMenu">
+  const accountMenu = (
+    <Menu key="navAccountMenu">
       <Menu.Item key="navProfile" icon={<UserOutlined />}>
         <Link to="/profile">Profile Settings</Link>
       </Menu.Item>
       <Menu.Item key="navLogout" onClick={openModal}>
         Log Out
+      </Menu.Item>
+    </Menu>
+  );
+
+  const memosMenu = (
+    <Menu key="memosMenu">
+      <Menu.Item key="sendMemos" icon={<FormOutlined />}>
+        <Link key="sendMemosLink" to="/notes">
+          Send Memos
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="viewMemos">
+        <Link key="viewMemosLink" to="/notes">
+          View Memos
+        </Link>
       </Menu.Item>
     </Menu>
   );
@@ -61,25 +76,19 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                 src={logo}
                 alt="underdog devs logo"
                 height="68"
-                style={{ marginLeft: '1vw' }}
+                className="logoImg"
                 role="button"
               />
             </Link>
             {Object.keys(user).length && (
-              <>
-                <label for="logout" className="hidden">
-                  Logout
-                </label>
-                <Dropdown
-                  name="logout"
-                  overlay={menu}
-                  placement="bottomLeft"
-                  arrow
-                >
+              <div className="userInfo-and-profilePic">
+                <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
+                  <Link key="memosLinkNav" to="/notes">
+                    Memos
+                  </Link>
+                </Dropdown>
+                <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
                   <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
-                    </div>
                     <div className="profilePic">
                       <Avatar
                         size={50}
@@ -87,9 +96,12 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
                         src={profilePic}
                       />
                     </div>
+                    <div className="userInfo">
+                      <div className="username">Welcome {user.first_name}</div>
+                    </div>
                   </div>
                 </Dropdown>
-              </>
+              </div>
             )}
           </div>
         </Header>
