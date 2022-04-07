@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
+import { useHistory } from 'react-router-dom';
 
 import {
   DownOutlined,
@@ -9,27 +10,63 @@ import {
 } from '@ant-design/icons';
 
 import './Notes.css';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+
+const initialValues = {
+  content: '',
+  content_type: '',
+  level: '',
+  created_at: '',
+  mentee_id: '',
+  mentor_id: '',
+  note_id: 0,
+  status: '',
+  update_at: '',
+  visible_to_admin: true,
+  visible_to_mentor: true,
+};
 
 const NotesForm = ({ displayModal, setDisplayModal }) => {
   const { TextArea } = Input;
+  const { push } = useHistory();
   const [count, setCount] = useState(0);
   const [toggle, setToggle] = useState(1);
-  const [content, setContent] = useState(0);
+  const [subjectType, setSubjectType] = useState(0);
+  const [formValues, setFormValues] = useState(initialValues);
 
-  const handleMenuClick = e => {
-    setContent(e.key);
+  const postNewMemo = newMemo => {
+    axiosWithAuth()
+      .post('/notes', newMemo)
+      .then(res => {
+        console.log(res);
+        push('/mynotes');
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
-  const RonChange = e => {
+  const handleMenuClick = e => {
+    setSubjectType(e.key);
+  };
+
+  const handleRadio = e => {
     setToggle(e.target.value);
   };
 
+  const onChange = e => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const Subject = () => {
-    if (content === '1') {
+    if (subjectType === '1') {
       return 'Needs / resource request';
-    } else if (content === '2') {
+    } else if (subjectType === '2') {
       return 'Changing mentors';
-    } else if (content === '3') {
+    } else if (subjectType === '3') {
       return 'Time sensitive needs';
     } else {
       return 'Select subject ';
@@ -48,6 +85,12 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
         Time sensitive needs
       </Menu.Item>
     </Menu>
+
+    // const submitMemo = () => {
+    //   const newMemo = {
+    //     content:
+    //   }
+    // }
   );
   return (
     displayModal && (
@@ -69,6 +112,9 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <label htmlFor="">Content</label>
           <TextArea
             rows={4}
+            name="content"
+            value={formValues.content}
+            onChange={onChange}
             maxLength="280"
             onChange={e => setCount(e.target.value.length)}
           />
@@ -79,7 +125,7 @@ const NotesForm = ({ displayModal, setDisplayModal }) => {
           <div className="notes-input-rows">
             <div className="radio notes-column-container">
               <label htmlFor="">Priority</label>
-              <Radio.Group onChange={RonChange} value={toggle}>
+              <Radio.Group onChange={handleRadio} value={toggle}>
                 <Space direction="vertical">
                   <Radio value={1}>Urgent</Radio>
                   <Radio value={2}>Medium</Radio>
