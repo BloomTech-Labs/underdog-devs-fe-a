@@ -72,6 +72,31 @@ const NotesTable = ({ userProfile, accounts }) => {
         console.log(err.message);
       });
   }, []);
+  async function getIt() {
+    await axiosWithAuth()
+      .get(
+        location.pathname === '/users'
+          ? `/notes/mentees/${accounts.key}`
+          : '/notes'
+      )
+      .then(res => {
+        console.log(res);
+        setData(
+          res.data.map(obj => {
+            let created = new Date(obj.created_at);
+            return {
+              ...obj,
+              key: obj.note_id,
+              date: created.toDateString(),
+              time: created.toLocaleTimeString(),
+            };
+          })
+        );
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
+  }
   if (location.pathname === '/mynotes') {
     result = data.filter(
       x => x.mentor_id === profile_id || x.mentee_id === profile_id
@@ -91,15 +116,15 @@ const NotesTable = ({ userProfile, accounts }) => {
     axiosWithAuth()
       .put(`/notes/${editNote.note_id}`, { content: editNote.content })
       .then(res => {
+        // currently the edit component reorders the seed data when updating a memo
         console.log(res.data);
-
         setEditing(false);
         setSubmitting(false);
       })
       .catch(err => {
         console.log(err);
       });
-    window.location.reload();
+    getIt();
   };
   const handleChange = e => {
     setEditNote({ ...editNote, content: e.target.value });
@@ -121,7 +146,7 @@ const NotesTable = ({ userProfile, accounts }) => {
   return (
     <Table
       columns={columns}
-      dataSource={result}
+      dataSource={[...result]}
       expandable={{
         expandedRowRender: record => (
           <>
