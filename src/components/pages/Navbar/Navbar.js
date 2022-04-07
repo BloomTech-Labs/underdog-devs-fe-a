@@ -124,7 +124,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
 };
 
 const mapStateToProps = state => {
-  console.log('state', state);
   return {
     isAuthenticated: localStorage.getItem('token'),
     userProfile: state.user.userProfile,
