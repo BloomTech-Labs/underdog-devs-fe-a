@@ -1,45 +1,55 @@
-.modalStyle .ant-btn-primary /*For Edit Profile Button*/{
-    background-color: #003D71;
+.modalStyle .ant-btn-primary /*For Edit Profile Button*/ {
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Farfetch Basis', 'Helvetica Neue', Arial, sans-serif;
+  /* font-size: 16px; */
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.modalStyle .ant-modal-header /*For Edit Profile Button*/{
-    background-color:#003D71;
+.modalStyle .ant-modal-header /*For Edit Profile Button*/ {
+  background-color: #003d71;
 }
 
-.modalStyle .ant-modal-title /*For Edit Profile Button*/{
-    color: white;
+.modalStyle .ant-modal-title /*For Edit Profile Button*/ {
+  color: white;
 }
-.modalStyle p{
-    margin:0%;
+.modalStyle p {
+  margin: 0%;
 }
-.modalStyle ul{
-    margin:0%;
-    padding-left: 0%;
+.modalStyle ul {
+  margin: 0%;
+  padding-left: 0%;
 }
-.modalStyle li{
-    margin-left: 5%;
+.modalStyle li {
+  margin-left: 5%;
 }
 .cEQGvI /*Navbar background color*/ {
-    background-color:#003D71;
+  background-color: #003d71;
 }
 
-a.sc-dkPtRN /*Navlinks  color*/{
-    color: #fff;
+a.sc-dkPtRN /*Navlinks  color*/ {
+  color: #fff;
 }
 
 a.sc-dkPtRN:hover /*Login/Sign up buttons color*/ {
-    color: black;
+  color: black;
 }
 
-a.sc-gKclnd.cxVpss /*Login/Sign up Button background color*/{
-    background-color: #003d71
+a.sc-gKclnd.cxVpss /*Login/Sign up Button background color*/ {
+  background-color: #003d71;
 }
 
-
-div.ant-card-head  {
-    color: #003D71;
+div.ant-card-head {
+  color: #003d71;
 }
-.notesField{
-    display: flex;
-    flex-direction: column;
+.notesField {
+  display: flex;
+  flex-direction: column;
 }
