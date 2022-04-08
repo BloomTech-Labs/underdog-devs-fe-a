@@ -242,7 +242,32 @@ export const RenderResourceManagement = () => {
         >
           <TextArea />
         </Form.Item>
-        <Form.Item style={{ alignSelf: 'center' }}>
+        <Form.Item
+          style={{
+            alignSelf: 'center',
+
+            backgroundColor: 'initial',
+            backgroundImage: 'linear-gradient(-180deg, #FF7E31, #E62C03)',
+            borderRadius: '6px',
+            boxShadow: 'rgba(0, 0, 0, 0.1) 0 2px 4px',
+            cursor: 'pointer',
+            display: 'inline-block',
+            fontFamily:
+              'Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif',
+            height: '40px',
+            lineHeight: '40px',
+            overflow: 'hidden',
+            padding: '0 20px',
+            pointerEvents: 'auto',
+            position: 'relative',
+            textAlign: 'center',
+            touchAction: 'manipulation',
+            verticalalign: 'top',
+            whiteSpace: 'nowrap',
+            zIndex: '9',
+            transition: 'box-shadow .2s',
+          }}
+        >
           <Button onClick={handleResourceSubmit}>Submit request</Button>
         </Form.Item>
       </Form>
