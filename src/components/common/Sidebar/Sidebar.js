@@ -27,17 +27,12 @@ const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
-  const [collapsed, setCollapsed] = useState(false);
   const [modal, setModal] = useState(false);
   const { authService } = useOktaAuth();
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
-
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed);
-  };
 
   const openModal = () => setModal(true);
 
@@ -61,7 +56,7 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
             <Menu.Item key="/calendar" onClick={handleMenuClick}>
@@ -153,7 +148,7 @@ const Sidebar = ({ children, userProfile }) => {
                 icon={<FormOutlined />}
                 onClick={handleMenuClick}
               >
-                Notes
+                Memos
               </Menu.Item>
               <Menu.Item
                 key="/attendance"

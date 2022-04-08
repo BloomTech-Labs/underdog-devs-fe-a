@@ -19,9 +19,9 @@ import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 
+import MyNotes from './components/pages/Notes/MyNotes';
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
-
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { Profile } from './components/pages/Profile';
@@ -34,6 +34,7 @@ import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
+import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
@@ -80,7 +81,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        <Route path="/apply/success" component={AppSuccess} />
+        {/* <Route path="/apply/success" component={AppSuccess} /> */}
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
@@ -100,8 +101,15 @@ function App() {
         <PrivateRoute
           path="/notesform"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 3, 4]}
           component={NotesForm}
+        />
+
+        <PrivateRoute
+          path="/mynotes"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4]}
+          component={MyNotes}
         />
 
         <PrivateRoute
@@ -183,6 +191,13 @@ function App() {
           component={MentorMenteeMatching}
         />
 
+        <PrivateRoute
+          path="/applications"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={PendingApplications}
+        />
+            
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"

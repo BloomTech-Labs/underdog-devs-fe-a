@@ -1,53 +1,38 @@
-.menteeApplication{
-    padding:2vh 6vw;
-    justify-content: center;
-  }
-
-  .applicationForm{
-    border-radius:'4px';
-    border:solid 1px rgba(128, 128, 128, 0.342)
-  }
-
-  .menteeTitle{
-    border-bottom:solid 1px rgba(128, 128, 128, 0.342); 
-    background-color:#003D71;
-    text-align:center;
-    color:#FFF !important;
-    padding:1vh;
-  }
-
-  .locationUS {
-      display: flex;
-      flex-direction: column;
-  }
-
-  #menteeSubmitButton{
-    background-color: #003D71;
-    color: #FFF;
-    margin-bottom: 2vh;
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .menteeApplication {
-      padding: 0;
-    }
-  }
-
-.ant-radio {
-  background-color: #ffff00!important;
-  padding: 3%!important;
+.menteeApplication {
+  padding: 2vh 6vw;
+  justify-content: center;
 }
 
-.ant-radio-inner {
-  border: solid 1px #000000!important;
+.applicationForm {
+  border-radius: '4px';
+  border: solid 1px rgba(128, 128, 128, 0.342);
 }
 
-.ant-checkbox{
-  background-color: #ffff00!important;
-  padding: 1%!important;
+.menteeTitle {
+  border-bottom: solid 1px rgba(128, 128, 128, 0.342);
+  background-color: #003d71;
+  text-align: center;
+  color: #fff !important;
+  padding: 1vh;
 }
 
-.ant-checkbox-inner{
-  border: solid 1px #000000!important;
+.locationUS {
+  display: flex;
+  flex-direction: column;
 }
 
+#menteeSubmitButton {
+  background-color: #003d71;
+  color: #fff;
+  margin-bottom: 2vh;
+}
+
+@media only screen and (max-width: 600px) {
+  .menteeApplication {
+    padding: 0;
+  }
+}
+
+::placeholder{
+  color: #737373!important;
+}

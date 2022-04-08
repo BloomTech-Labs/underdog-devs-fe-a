@@ -14,22 +14,42 @@ import {
 import { columns } from './NoteUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import '../styles/Notes.css';
+// edit comment ant framework
+const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
+  <>
+    <Form.Item>
+      <Input.TextArea rows={4} onChange={onChange} defaultValue={value} />
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
+        Save edit
+      </Button>
+      <Button onClick={onCancel}>Cancel</Button>
+    </Form.Item>
+  </>
+);
 
 const NotesTable = ({ userProfile }) => {
   const [data, setData] = useState([]);
+  let result;
   // edit users own comment states
   const [editing, setEditing] = useState(false);
   const [editNote, setEditNote] = useState({ key: '', note: '' });
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
-  const { TextArea } = Input;
-
+  const location = useLocation();
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/cc34de61-aaf5-4725-b0c9-6d67efa3aff3')
+      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
       .then(res => {
         setData(res.data);
       })
@@ -37,7 +57,11 @@ const NotesTable = ({ userProfile }) => {
         console.log(err);
       });
   }, []);
-
+  if (location.pathname === '/mynotes') {
+    result = data.filter(x => x.profile_id === profile_id);
+  } else {
+    result = data;
+  }
   // click handlers
   const handleMenuClick = e => {
     // menu click handler
@@ -48,7 +72,6 @@ const NotesTable = ({ userProfile }) => {
   };
 
   const toggle = (key, note) => {
-    //editing note is currently for all comments
     setEditing(!editing);
     setEditNote({ key: key, note: note });
   };
@@ -81,30 +104,10 @@ const NotesTable = ({ userProfile }) => {
     </Menu>
   );
 
-  // edit comment ant framework
-  const Editor = ({ onChange, onSubmit, submitting, value }) => (
-    <>
-      <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          htmlType="submit"
-          loading={submitting}
-          onClick={onSubmit}
-          type="primary"
-        >
-          Save edit
-        </Button>
-        <Button onClick={handleCancel}>Cancel</Button>
-      </Form.Item>
-    </>
-  );
-
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={result}
       expandable={{
         expandedRowRender: record => (
           <>
@@ -143,10 +146,11 @@ const NotesTable = ({ userProfile }) => {
                   content={
                     // populating edit text box with previous value
                     <>
-                      {editing ? (
+                      {editing && profile_id === record.profile_id ? (
                         <Editor
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
+                          onCancel={handleCancel}
                           value={editNote.note}
                         />
                       ) : (

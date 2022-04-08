@@ -3,3 +3,22 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.hidden {
+  display: none;
+}
+
+.site-layout .site-layout-background {
+  height: 5%;
+  margin-top: 20%;
+  display: flex;
+  padding-top: 1%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  width: 2% !important;
+  flex: 0 !important;
+  max-width: auto !important;
+  min-width: auto !important;
+}
