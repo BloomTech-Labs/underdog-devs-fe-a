@@ -105,9 +105,6 @@ const Sidebar = ({ children, userProfile }) => {
               >
                 Manage Resources
               </Menu.Item>
-              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
-                Add Mentee Review
-              </Menu.Item>
             </>
           ) : isUserAdmin() ? (
             <>
@@ -176,9 +173,6 @@ const Sidebar = ({ children, userProfile }) => {
               </Menu.Item>
               <Menu.Item key="/reviews" onClick={handleMenuClick}>
                 View Reviews
-              </Menu.Item>
-              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
-                Add Mentee Review
               </Menu.Item>
               <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
                 Add Mentor Review
