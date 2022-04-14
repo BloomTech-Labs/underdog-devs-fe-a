@@ -69,8 +69,9 @@ const ApplicationModal = ({
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          setCurrentApplication(res.data);
-          setNotesValue(res.data);
+          console.log(res);
+          setCurrentApplication(res.data[0]);
+          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
