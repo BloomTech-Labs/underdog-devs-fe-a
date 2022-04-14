@@ -94,18 +94,20 @@ const ApplicationModal = ({
         </Modal>
       ) : (
         <Modal
-          title="Application"
+          title="Application Summary"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
-          className="modalStyle"
-          // footer={null}
-          footer={
+          // className="modalStyle"
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return to Pending Applications
+            </Button>,
             <Button key="submit" type="primary">
               Approved
-            </Button>
-          }
+            </Button>,
+          ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
