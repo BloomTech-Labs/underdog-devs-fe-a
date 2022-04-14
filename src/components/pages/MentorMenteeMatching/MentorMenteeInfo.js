@@ -6,7 +6,7 @@ const MentorMenteeInfo = () => {
   const fakeData = [
     {
       information: {
-        email: 'random@gmail.com',
+        email: 'hi@gmail.com',
         phone: '123-123-123',
         random: 'random',
       },
