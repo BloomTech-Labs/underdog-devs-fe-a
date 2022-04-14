@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 
@@ -71,7 +71,7 @@ const ApplicationModal = ({
         .then(res => {
           console.log(res);
           setCurrentApplication(res.data[0]);
-          setNotesValue(res.data[0]);
+          setNotesValue(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -100,7 +100,12 @@ const ApplicationModal = ({
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          footer={null}
+          // footer={null}
+          footer={
+            <Button key="submit" type="primary">
+              Approved
+            </Button>
+          }
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
@@ -220,11 +225,8 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-              <button
-                className="note-button-color"
-                onClick={displayForm}
-                hidden={!hideForm}
-              >
+
+              <button onClick={displayForm} hidden={!hideForm}>
                 Edit Notes
               </button>
             </div>
@@ -239,8 +241,11 @@ const ApplicationModal = ({
               onChange={handleChange}
               className="applicationNotes"
             />
-            <button className="note-button-color">Save Notes</button>
+            <button>Save Notes</button>
           </form>
+          {/* <button className="approve-button-color">
+                Approve Application
+          </button> */}
         </Modal>
       )}
     </>
