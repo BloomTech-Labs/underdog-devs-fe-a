@@ -2,55 +2,40 @@ import React from 'react';
 import { Card } from 'antd';
 import MentorsCard from './MentorsCard';
 
-const MentorMenteeInfo = () => {
-  const fakeData = [
-    {
-      information: {
-        email: 'hi@gmail.com',
-        phone: '123-123-123',
-        random: 'random',
-      },
-      Mentors: {
-        first: 'Jimmy Bold',
-        second: 'Sacha Cruz',
-        third: 'George Reece',
-      },
-      Mentor_Info: {
-        first: {
-          email: 'random@gmail.com',
-          phone: '123-123-123',
-          random: 'random',
-        },
-      },
-    },
-  ];
+const MentorMenteeInfo = props => {
+  const { dataSource, id } = props;
 
   return (
     <>
-      {fakeData.map((data, index) => (
-        <div
-          key={index}
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-          }}
-        >
-          <Card title="Information" style={{ width: '30%' }}>
-            <p>{data.information.email}</p>
-            <p>{data.information.phone}</p>
-            <p>{data.information.random}</p>
-          </Card>
+      {dataSource.map(data => {
+        if (data.key === id) {
+          return (
+            <div
+              key={data.key}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+              }}
+            >
+              <Card title="Information" style={{ width: '30%' }}>
+                <p>{`Email: ${data.email}`}</p>
+                <p>{`Location: ${data.location}`}</p>
+                <p>{`Company: ${data.company}`}</p>
+              </Card>
 
-          <MentorsCard data={data} />
+              <MentorsCard data={data} />
 
-          <Card title="Mentor Information" style={{ width: '30%' }}>
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
-        </div>
-      ))}
+              <Card title="Mentor Information" style={{ width: '30%' }}>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+              </Card>
+            </div>
+          );
+        }
+        return <></>;
+      })}
     </>
   );
 };

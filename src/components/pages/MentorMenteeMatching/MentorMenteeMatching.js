@@ -34,6 +34,7 @@ const MentorMenteeMatching = () => {
 
   const data = [];
 
+  // adds commas in-between the programming languages
   const splitTechStack = obj => {
     let string = '';
     for (let i = 0; i < obj.tech_stack.length; i++) {
@@ -53,6 +54,9 @@ const MentorMenteeMatching = () => {
       stack: splitTechStack(p),
       description: 'Description goes here',
       tags: p.matched ? 'Matched' : 'Unmatched',
+      email: p.email,
+      location: p.location,
+      company: p.company,
     };
     data.push(profile);
   });
@@ -65,7 +69,7 @@ const MentorMenteeMatching = () => {
         expandable={{
           expandedRowRender: record => (
             <div style={{ margin: 0 }}>
-              <MentorMenteeInfo />
+              <MentorMenteeInfo dataSource={data} id={record.key} />
             </div>
           ),
           rowExpandable: record => record.name !== 'Not Expandable',
