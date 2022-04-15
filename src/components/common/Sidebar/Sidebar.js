@@ -146,13 +146,6 @@ const Sidebar = ({ children, userProfile }) => {
                 icon={<FormOutlined />}
                 onClick={handleMenuClick}
               >
-                Memos
-              </Menu.Item>
-              <Menu.Item
-                key="/attendance"
-                icon={<ProjectOutlined />}
-                onClick={handleMenuClick}
-              >
                 Attendance
               </Menu.Item>
               <Menu.Item
