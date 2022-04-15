@@ -69,7 +69,11 @@ const MentorMenteeMatching = () => {
         expandable={{
           expandedRowRender: record => (
             <div style={{ margin: 0 }}>
-              <MentorMenteeInfo dataSource={data} id={record.key} />
+              <MentorMenteeInfo
+                dataSource={data}
+                id={record.key}
+                key={record.key}
+              />
             </div>
           ),
           rowExpandable: record => record.name !== 'Not Expandable',
