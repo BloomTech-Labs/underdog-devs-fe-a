@@ -38,3 +38,10 @@
 .logout {
   color: white;
 }
+
+.memo-icon {
+  padding: 0.5vw;
+}
+.memos {
+  padding-right: 3vw;
+}

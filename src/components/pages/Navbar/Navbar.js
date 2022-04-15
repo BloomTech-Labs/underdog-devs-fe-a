@@ -51,21 +51,6 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     </Menu>
   );
 
-  const memosMenu = (
-    <Menu key="memosMenu">
-      <Menu.Item key="sendMemos" icon={<FormOutlined />}>
-        <Link key="sendMemosLink" to="/notes">
-          Send Memos
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="viewMemos">
-        <Link key="viewMemosLink" to="/notes">
-          View Memos
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <>
       <Layout className="layout">
@@ -82,22 +67,34 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
             </Link>
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
-                <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
-                  <Link key="memosLinkNav" to="/notes">
-                    Memos
-                  </Link>
-                </Dropdown>
-                <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
+                <Link
+                  key="memosLinkNav"
+                  to="/notes"
+                  style={{ color: '#FFF' }}
+                  className="memos"
+                >
+                  <FormOutlined className="memo-icon" />
+                  Memos
+                </Link>
+                <Dropdown overlay={accountMenu} placement="bottom" arrow>
                   <div className="userInfo-and-profilePic">
                     <div className="profilePic">
                       <Avatar
                         size={50}
                         icon={<UserOutlined />}
                         src={profilePic}
+                        alt="Account settings"
                       />
                     </div>
                     <div className="userInfo">
-                      <div className="username">Welcome {user.first_name}</div>
+                      <div
+                        className="username"
+                        // eslint-disable-next-line jsx-a11y/aria-role
+                        role="text"
+                        aria-label="Account settings"
+                      >
+                        Welcome {user.first_name}
+                      </div>
                     </div>
                   </div>
                 </Dropdown>

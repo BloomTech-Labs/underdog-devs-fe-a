@@ -19,6 +19,7 @@ import {
   CalendarOutlined,
   UserOutlined,
   FormOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
@@ -175,21 +176,6 @@ const Sidebar = ({ children, userProfile }) => {
           ) : (
             <></>
           )}
-          <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
-            <Menu.Item key="/profile" onClick={handleMenuClick}>
-              <Link to="/profile">Profile Settings</Link>
-            </Menu.Item>
-            <Menu.Item key="10" onClick={openModal}>
-              Log Out
-            </Menu.Item>
-          </SubMenu>
-          <Modal
-            visible={modal}
-            onCancel={cancelOpen}
-            onOk={handleLogout}
-            title="Are you sure you want to logout now?"
-            className="modalStyle"
-          />
           {isUserAdmin() === false && (
             <>
               <Menu.Item
