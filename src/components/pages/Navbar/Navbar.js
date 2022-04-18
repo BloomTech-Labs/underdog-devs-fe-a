@@ -95,7 +95,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                         role="text"
                         aria-label="Account settings"
                       >
-                        Welcome {user.first_name}
                         <div className="username">
                           Welcome {userProfile.first_name}
                         </div>
