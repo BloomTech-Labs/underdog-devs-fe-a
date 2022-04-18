@@ -69,7 +69,6 @@ const ApplicationModal = ({
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          console.log(res);
           setCurrentApplication(res.data[1]);
           setNotesValue(res.data);
         })
@@ -99,10 +98,9 @@ const ApplicationModal = ({
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
-          // className="modalStyle"
           footer={[
             <Button key="back" onClick={handleCancel}>
-              Return to Pending Applications
+              Return to Previous
             </Button>,
             <Button key="submit" type="primary">
               Approved
@@ -119,7 +117,6 @@ const ApplicationModal = ({
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
               </p>
-
               <p>
                 <b>Experience Level:</b> {currentApplication.experience_level}
               </p>
@@ -231,7 +228,6 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-
               <button onClick={displayForm} hidden={!hideForm}>
                 Edit Notes
               </button>
@@ -249,9 +245,6 @@ const ApplicationModal = ({
             />
             <button>Save Notes</button>
           </form>
-          {/* <button className="approve-button-color">
-                Approve Application
-          </button> */}
         </Modal>
       )}
     </>
