@@ -40,8 +40,12 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import PrivateRoute from './components/common/PrivateRoute';
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const store = createStore(
   rootReducer,
@@ -52,7 +56,13 @@ ReactDOM.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <Auth0Provider
+          domain={domain}
+          clientId={clientId}
+          redirectUri={window.location.origin}
+        >
+          <App />
+        </Auth0Provider>
       </Provider>
     </React.StrictMode>
   </Router>,
@@ -197,7 +207,7 @@ function App() {
           allowRoles={[1, 2]}
           component={PendingApplications}
         />
-            
+
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"
