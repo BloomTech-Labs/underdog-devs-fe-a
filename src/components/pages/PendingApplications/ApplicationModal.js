@@ -70,7 +70,7 @@ const ApplicationModal = ({
         .get(`/application/profileId/${profileId}`)
         .then(res => {
           console.log(res);
-          setCurrentApplication(res.data[0]);
+          setCurrentApplication(res.data[1]);
           setNotesValue(res.data);
         })
         .catch(err => {
@@ -94,7 +94,7 @@ const ApplicationModal = ({
         </Modal>
       ) : (
         <Modal
-          title="Application Summary"
+          title="Review Application"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -123,18 +123,20 @@ const ApplicationModal = ({
               <p>
                 <b>Experience Level:</b> {currentApplication.experience_level}
               </p>
-              <ul>
+              <p>
                 <b>Membership Criteria:</b>
-                {currentApplication.formerly_incarcerated === true ? (
-                  <li>Formerly Incarcerated</li>
-                ) : null}
-                {currentApplication.low_income === true ? (
-                  <li>Low Income</li>
-                ) : null}
-                {currentApplication.underrepresented_group === true ? (
-                  <li>Belongs to underrepresented group</li>
-                ) : null}
-              </ul>
+                <ul>
+                  {currentApplication.formerly_incarcerated === true ? (
+                    <li>Formerly Incarcerated</li>
+                  ) : null}
+                  {currentApplication.low_income === true ? (
+                    <li>Low Income</li>
+                  ) : null}
+                  {currentApplication.underrepresented_group === true ? (
+                    <li>Belongs to underrepresented group</li>
+                  ) : null}
+                </ul>
+              </p>
               <p>
                 {' '}
                 <b>Convictions:</b>{' '}
@@ -144,18 +146,20 @@ const ApplicationModal = ({
                     : 'none'
                 }`}
               </p>
-              <ul>
+              <p>
                 <b>Applicant needs help with:</b>{' '}
-                {currentApplication.industry_knowledge === true ? (
-                  <li>Industry Knowledge</li>
-                ) : null}
-                {currentApplication.pair_programming === true ? (
-                  <li>Pair Programming</li>
-                ) : null}
-                {currentApplication.job_help === true ? (
-                  <li>Job Help</li>
-                ) : null}
-              </ul>
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </p>
               <p>
                 <b>Subject most interested in:</b> {currentApplication.subject}
               </p>
@@ -198,8 +202,8 @@ const ApplicationModal = ({
                 <b>Experience Level:</b> {currentApplication.experience_level}
               </p>
               <p>
+                <b>Applicant wants to focus on:</b>{' '}
                 <ul>
-                  <b>Applicant wants to focus on:</b>{' '}
                   {currentApplication.industry_knowledge === true ? (
                     <li>Industry Knowledge</li>
                   ) : null}
