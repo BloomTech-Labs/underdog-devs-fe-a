@@ -21,6 +21,22 @@ const initialState = {
   errors: [
     /* TODO: implement a way to track errors */
   ],
+  mentor: {
+    first_name: '',
+    last_name: '',
+    email: '',
+    city: '',
+    state: '',
+    country: '',
+    current_company: '',
+    current_position: '',
+    subject: '',
+    experience_level: '',
+    job_help: false,
+    industry_knowledge: false,
+    pair_programming: false,
+    other_info: '',
+  },
 };
 
 const userReducer = (state = initialState, action) => {
