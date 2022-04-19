@@ -17,7 +17,7 @@ export const postNewMentorAccount = newAccount => {
       });
       // history.push('/apply/success');
     } catch (err) {
-      dispatch({ type: MENTOR_ADD_FAILURE, payload: err });
+      dispatch({ type: MENTOR_ADD_FAILURE, payload: { mentorError: err } });
     }
   };
 };

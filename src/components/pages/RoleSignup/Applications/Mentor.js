@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMentorAccount } from '../../../../state/actions/mentor';
@@ -50,7 +50,7 @@ const Mentor = ({ error, successPage }) => {
   const [formValues, handleChange] = useForms(initialFormValues);
   // const [error, setError] = useState('');
 
-  // const history = useHistory();
+  const history = useHistory();
 
   // const postNewAccount = async newAccount => {
   //   try {
@@ -63,6 +63,14 @@ const Mentor = ({ error, successPage }) => {
   //     setError(err);
   //   }
   // };
+
+  useEffect(() => {
+    if (successPage) {
+      history.pushState(successPage);
+    } else if (error) {
+      console.error(error);
+    }
+  }, [successPage, error, history]);
 
   const formSubmit = () => {
     const newAccount = formValues;
@@ -462,7 +470,7 @@ const Mentor = ({ error, successPage }) => {
 
 const mapStateToProps = state => {
   return {
-    error: state.errors,
+    error: state.errors.mentorError,
     successPage: state.mentor.successPage,
   };
 };

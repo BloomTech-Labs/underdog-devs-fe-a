@@ -20,7 +20,7 @@ const initialState = {
   },
   errors: {
     /* TODO: implement a way to track errors */
-    error: '',
+    mentorError: '',
   },
   mentor: {
     successPage: '',
@@ -53,11 +53,17 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         mentor: action.payload,
+        errors: {
+          mentorError: '',
+        },
       };
     case ACTIONS.MENTOR_ADD_FAILURE:
       return {
         ...state,
-        error: action.payload,
+        errors: action.payload,
+        mentor: {
+          successPage: '',
+        },
       };
     default:
       return state;
