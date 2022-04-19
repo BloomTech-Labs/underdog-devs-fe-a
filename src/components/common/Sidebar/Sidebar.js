@@ -88,6 +88,9 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/resources" onClick={handleMenuClick}>
                 Access Resources
               </Menu.Item>
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
+              </Menu.Item>
             </>
           )}
           {isUserMentor() ? (
@@ -101,9 +104,6 @@ const Sidebar = ({ children, userProfile }) => {
                 onClick={handleMenuClick}
               >
                 Manage Resources
-              </Menu.Item>
-              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
-                Add Mentee Review
               </Menu.Item>
             </>
           ) : isUserAdmin() ? (
@@ -174,8 +174,8 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/reviews" onClick={handleMenuClick}>
                 View Reviews
               </Menu.Item>
-              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
-                Add Mentee Review
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
               </Menu.Item>
             </>
           ) : (
