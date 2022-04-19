@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import '../../common/styles/Resources.css';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const { TextArea } = Input;
 

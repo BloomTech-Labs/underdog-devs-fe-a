@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+/* 
+All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
+*/
+import React, { useState /*, useEffect*/ } from 'react';
 import 'antd/dist/antd.css';
-import { Calendar, Modal, Badge, Button } from 'antd';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { Calendar, Modal, Badge /*, Button*/ } from 'antd';
+// import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const initialValues = [
   {
@@ -63,12 +66,12 @@ const initialValues = [
 ];
 
 function VAMC(props) {
-  const { meetingData } = props;
+  // const { meetingData } = props;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isScheduleModalVisible, setIsScheduleModalVisible] = useState(false);
+  // const [isScheduleModalVisible, setIsScheduleModalVisible] = useState(false);
   const [event, setEvent] = useState(null);
-  const [eventsArr, setEventsArr] = useState(initialValues);
+  const [eventsArr /*, setEventsArr*/] = useState(initialValues);
 
   // useEffect(() => {
   //   axiosWithAuth()
@@ -92,9 +95,9 @@ function VAMC(props) {
     setIsModalVisible(false);
   };
 
-  const showScheduleModal = () => {
-    setIsScheduleModalVisible(true);
-  };
+  // const showScheduleModal = () => {
+  //   setIsScheduleModalVisible(true);
+  // };
 
   function getListData(value, events) {
     let listData = [];
