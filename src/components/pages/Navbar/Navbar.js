@@ -9,10 +9,11 @@ import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile }) => {
+const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const { authService } = useOktaAuth();
@@ -28,16 +29,16 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
     localStorage.removeItem('token');
     authService.logout();
   };
-
   useEffect(() => {
     axiosWithAuth()
-      .get('/profile/current_user_profile/')
+      .get(`/profile/current_user_profile/`)
       .then(user => {
         setUser(user.data);
+        getProfile(user.data.profile_id);
       });
-  }, []);
+  }, [isAuthenticated]);
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <NavBarLanding />;
   }
 
@@ -70,43 +71,41 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
   return (
     <>
       <Layout className="layout">
-        <Header>
+        <Header className="menuBar">
           <div className="logoDiv">
             <Link to="/dashboard">
               <img
                 src={logo}
                 alt="underdog devs logo"
                 height="68"
-                className="logoImg"
+                style={{ marginLeft: '1vw' }}
                 role="button"
               />
             </Link>
             {Object.keys(user).length && (
-              <>
-                <div className="userInfo-and-profilePic">
-                  <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
-                    <Link key="memosLinkNav" to="/notes">
-                      Memos
-                    </Link>
-                  </Dropdown>
-                  <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
-                    <div className="userInfo-and-profilePic">
-                      <div className="profilePic">
-                        <Avatar
-                          size={50}
-                          icon={<UserOutlined />}
-                          src={profilePic}
-                        />
-                      </div>
-                      <div className="userInfo">
-                        <div className="username">
-                          Welcome {user.first_name}
-                        </div>
+              <div className="userInfo-and-profilePic">
+                <Dropdown overlay={memosMenu} placement="bottomLeft" arrow>
+                  <Link key="memosLinkNav" to="/notes">
+                    Memos
+                  </Link>
+                </Dropdown>
+                <Dropdown overlay={accountMenu} placement="bottomLeft" arrow>
+                  <div className="userInfo-and-profilePic">
+                    <div className="profilePic">
+                      <Avatar
+                        size={50}
+                        icon={<UserOutlined />}
+                        src={profilePic}
+                      />
+                    </div>
+                    <div className="userInfo">
+                      <div className="username">
+                        Welcome {userProfile.first_name}
                       </div>
                     </div>
-                  </Dropdown>
-                </div>
-              </>
+                  </div>
+                </Dropdown>
+              </div>
             )}
           </div>
         </Header>
@@ -127,7 +126,8 @@ const Navbar = ({ isAuthenticated, userProfile }) => {
 const mapStateToProps = state => {
   return {
     isAuthenticated: localStorage.getItem('token'),
+    userProfile: state.user.userProfile,
   };
 };
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { getProfile })(Navbar);
