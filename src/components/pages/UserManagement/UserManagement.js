@@ -86,7 +86,7 @@ const UserManagement = () => {
         columns={columns}
         dataSource={accounts}
         expandable={{
-          expandedRowRender: record => <NotesTable />,
+          expandedRowRender: record => <NotesTable accounts={record} />,
         }}
       />
     </>
