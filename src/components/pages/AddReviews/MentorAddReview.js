@@ -1,8 +1,11 @@
+/* 
+All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
+*/
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import '../../common/styles/Resources.css';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
-import useForms from '../../../hooks/useForms';
+// import axiosWithAuth from '../../../utils/axiosWithAuth';
+// import useForms from '../../../hooks/useForms';
 
 const { TextArea } = Input;
 
