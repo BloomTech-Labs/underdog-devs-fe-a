@@ -18,8 +18,8 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import MyNotes from './components/pages/Notes/MyNotes';
+
 import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
@@ -197,7 +197,7 @@ function App() {
           allowRoles={[1, 2]}
           component={PendingApplications}
         />
-            
+
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"
