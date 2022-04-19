@@ -18,24 +18,12 @@ const initialState = {
     // set to true when API call starts, set to false when API call concludes
     isFetching: false,
   },
-  errors: [
+  errors: {
     /* TODO: implement a way to track errors */
-  ],
+    error: '',
+  },
   mentor: {
-    first_name: '',
-    last_name: '',
-    email: '',
-    city: '',
-    state: '',
-    country: '',
-    current_company: '',
-    current_position: '',
-    subject: '',
-    experience_level: '',
-    job_help: false,
-    industry_knowledge: false,
-    pair_programming: false,
-    other_info: '',
+    successPage: '',
   },
 };
 
@@ -60,6 +48,16 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userProfile: action.payload, // do not persist previous state.userProfile
+      };
+    case ACTIONS.MENTOR_ADD_SUCCESS:
+      return {
+        ...state,
+        mentor: action.payload,
+      };
+    case ACTIONS.MENTOR_ADD_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

@@ -11,7 +11,10 @@ export const postNewMentorAccount = newAccount => {
         newAccount
       );
 
-      dispatch({ type: MENTOR_ADD_SUCCESS, payload: newAccount });
+      dispatch({
+        type: MENTOR_ADD_SUCCESS,
+        payload: { successPage: '/apply/success' },
+      });
       // history.push('/apply/success');
     } catch (err) {
       dispatch({ type: MENTOR_ADD_FAILURE, payload: err });

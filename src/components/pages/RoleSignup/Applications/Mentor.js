@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { postNewMentorAccount } from '../../../../state/actions/mentor';
 import axios from 'axios';
 import useForms from '../../../../hooks/useForms';
 import {
@@ -44,27 +46,28 @@ const initialFormValues = {
   other_info: '',
 };
 
-const Mentor = () => {
+const Mentor = ({ error, successPage }) => {
   const [formValues, handleChange] = useForms(initialFormValues);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
-  const history = useHistory();
+  // const history = useHistory();
 
-  const postNewAccount = async newAccount => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URI}/application/new/mentor`,
-        newAccount
-      );
-      history.push('/apply/success');
-    } catch (err) {
-      setError(err);
-    }
-  };
+  // const postNewAccount = async newAccount => {
+  //   try {
+  //     await axios.post(
+  //       `${process.env.REACT_APP_API_URI}/application/new/mentor`,
+  //       newAccount
+  //     );
+  //     history.push('/apply/success');
+  //   } catch (err) {
+  //     setError(err);
+  //   }
+  // };
 
   const formSubmit = () => {
     const newAccount = formValues;
-    postNewAccount(newAccount);
+    postNewMentorAccount(newAccount);
+    // postNewAccount(newAccount);
   };
 
   return (
@@ -457,4 +460,11 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+const mapStateToProps = state => {
+  return {
+    error: state.errors,
+    successPage: state.mentor.successPage,
+  };
+};
+
+export default connect(mapStateToProps)(Mentor);
