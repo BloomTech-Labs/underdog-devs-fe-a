@@ -1,11 +1,6 @@
-/* 
-All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
-*/
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import '../../common/styles/Resources.css';
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
-// import useForms from '../../../hooks/useForms';
 
 const { TextArea } = Input;
 
@@ -24,7 +19,7 @@ const formItemLayout = {
 
 const MentorAddReview = () => {
   const [formValues, setFormValues] = useState({
-    Mentee_name: '',
+    mentor_name: '',
     review: '',
   });
 
@@ -52,21 +47,21 @@ const MentorAddReview = () => {
         Please fill out a review
       </p>
       <Form.Item
-        name="mentee_name"
-        label="Mentee Name"
-        value={formValues.mentee_name}
+        name="mentor_name"
+        label="Mentor Name"
+        value={formValues.mentor_name}
         onChange={handleChange}
-        rules={[{ required: true, message: 'Please input a mentee name' }]}
+        rules={[{ required: true, message: 'Please input a mentor name' }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="mentee_review"
-        label="Mentee Review"
-        value={formValues.mentee_review}
+        name="mentor_review"
+        label="Mentor Review"
+        value={formValues.mentor_review}
         onChange={handleChange}
-        rules={[{ required: true, message: 'Please input a mentee review' }]}
+        rules={[{ required: true, message: 'Please input a mentor review' }]}
       >
         <TextArea />
       </Form.Item>
