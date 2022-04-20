@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMentorAccount } from '../../../../state/actions/mentor';
-import axios from 'axios';
 import useForms from '../../../../hooks/useForms';
 import {
   Form,
@@ -27,13 +26,10 @@ import {
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
-import { setUserProfile } from '../../../../state/actions/userProfile/setUserProfile';
 const { Title } = Typography;
 const { Option } = Select;
 
 const Mentor = ({ dispatch, error, successPage, profile_id }) => {
-  //console.log(profile_id);
-  //const [userProfile, setUserProfile] = useState();
   const initialFormValues = {
     profile_id: '',
     first_name: '',
@@ -54,34 +50,12 @@ const Mentor = ({ dispatch, error, successPage, profile_id }) => {
 
   const [formValues, handleChange, _, setFormValues] =
     useForms(initialFormValues);
-  // const [error, setError] = useState('');
-  //console.log(userProfile?.profile_id);
-  console.log(formValues);
-  console.log('SUCCESS PAGE: ', successPage);
-
   const history = useHistory();
-
-  // console.log(successPage);
-  // console.log(error);
-
-  // const postNewAccount = async newAccount => {
-  //   try {
-  //     await axios.post(
-  //       `${process.env.REACT_APP_API_URI}/application/new/mentor`,
-  //       newAccount
-  //     );
-  //     history.push('/apply/success');
-  //   } catch (err) {
-  //     setError(err);
-  //   }
-  // };
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/profile/current_user_profile`)
       .then(res => {
-        //setUserProfile(res.data);
-        //console.log(res.data.profile_id);
         setFormValues({ ...formValues, profile_id: res.data.profile_id });
       })
       .catch(err => {
@@ -89,7 +63,6 @@ const Mentor = ({ dispatch, error, successPage, profile_id }) => {
       });
 
     if (successPage) {
-      console.log('SUCCESS PAGE', successPage);
       history.pushState(successPage);
     } else if (error) {
       console.error(error);
@@ -97,12 +70,7 @@ const Mentor = ({ dispatch, error, successPage, profile_id }) => {
   }, [successPage, error]);
 
   const formSubmit = () => {
-    //const newAccount = formValues;
-    //console.log('FORM: ', formValues);
-    // postNewMentorAccount(newAccount);
     dispatch(postNewMentorAccount(formValues));
-    //console.log('CLICKED');
-    // postNewAccount(newAccount);
   };
 
   return (
