@@ -22,10 +22,6 @@ export default function useForms(initialValues) {
       name = e.target.name;
       value = e.target.value;
     }
-    // console.log(e.currentTarget);
-    //console.log(e.target.type);
-    console.log(name);
-    console.log(value);
     setFormValues({ ...formValues, [name]: value });
   };
 
@@ -34,5 +30,5 @@ export default function useForms(initialValues) {
     setFormValues(initialValues);
   };
 
-  return [formValues, handleChange, clearForm];
+  return [formValues, handleChange, clearForm, setFormValues];
 }

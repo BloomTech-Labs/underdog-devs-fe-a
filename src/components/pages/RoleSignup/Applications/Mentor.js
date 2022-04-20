@@ -26,31 +26,43 @@ import {
 
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import { setUserProfile } from '../../../../state/actions/userProfile/setUserProfile';
 const { Title } = Typography;
 const { Option } = Select;
 
-const initialFormValues = {
-  first_name: '',
-  last_name: '',
-  email: '',
-  city: '',
-  state: '',
-  country: '',
-  current_company: '',
-  current_position: '',
-  subject: '',
-  experience_level: '',
-  job_help: false,
-  industry_knowledge: false,
-  pair_programming: false,
-  other_info: '',
-};
+const Mentor = ({ dispatch, error, successPage, profile_id }) => {
+  //console.log(profile_id);
+  //const [userProfile, setUserProfile] = useState();
+  const initialFormValues = {
+    profile_id: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    city: '',
+    state: '',
+    country: '',
+    current_company: '',
+    current_position: '',
+    subject: '',
+    experience_level: '',
+    job_help: false,
+    industry_knowledge: false,
+    pair_programming: false,
+    other_info: '',
+  };
 
-const Mentor = ({ error, successPage }) => {
-  const [formValues, handleChange] = useForms(initialFormValues);
+  const [formValues, handleChange, _, setFormValues] =
+    useForms(initialFormValues);
   // const [error, setError] = useState('');
+  //console.log(userProfile?.profile_id);
+  console.log(formValues);
+  console.log('SUCCESS PAGE: ', successPage);
 
   const history = useHistory();
+
+  // console.log(successPage);
+  // console.log(error);
 
   // const postNewAccount = async newAccount => {
   //   try {
@@ -65,19 +77,31 @@ const Mentor = ({ error, successPage }) => {
   // };
 
   useEffect(() => {
+    axiosWithAuth()
+      .get(`/profile/current_user_profile`)
+      .then(res => {
+        //setUserProfile(res.data);
+        //console.log(res.data.profile_id);
+        setFormValues({ ...formValues, profile_id: res.data.profile_id });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
     if (successPage) {
+      console.log('SUCCESS PAGE', successPage);
       history.pushState(successPage);
     } else if (error) {
       console.error(error);
     }
-  }, [successPage, error, history]);
+  }, [successPage, error]);
 
   const formSubmit = () => {
-    const newAccount = formValues;
-    console.log('FORM: ', formValues);
+    //const newAccount = formValues;
+    //console.log('FORM: ', formValues);
     // postNewMentorAccount(newAccount);
-    postNewMentorAccount(formValues);
-    console.log('CLICKED');
+    dispatch(postNewMentorAccount(formValues));
+    //console.log('CLICKED');
     // postNewAccount(newAccount);
   };
 
@@ -323,7 +347,7 @@ const Mentor = ({ error, successPage }) => {
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="tech_stack"
+                    name="subject"
                     rules={[
                       {
                         required: true,
@@ -333,7 +357,7 @@ const Mentor = ({ error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'tech_stack')}
+                      onChange={e => handleChange(e, 'select', 'subject')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="career">Career Development</Option>
@@ -475,6 +499,7 @@ const mapStateToProps = state => {
   return {
     error: state.user.errors.mentorError,
     successPage: state.user.mentor.successPage,
+    profile_id: state.user.auth.profile_id,
   };
 };
 
