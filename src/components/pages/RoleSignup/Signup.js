@@ -37,8 +37,8 @@ const Signup = () => {
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTEE program" />
@@ -55,7 +55,7 @@ const Signup = () => {
               />
 
               <Link to="/apply/mentee">
-                <Button className="button" type="primary" block>
+                <Button className="button" type="primary" size="large" block>
                   MENTEE
                 </Button>
               </Link>
@@ -78,8 +78,8 @@ const Signup = () => {
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTOR program" />
@@ -96,7 +96,7 @@ const Signup = () => {
               />
 
               <Link to="/apply/mentor">
-                <Button className="button" type="primary" block>
+                <Button className="button" type="primary" size="large" block>
                   MENTOR
                 </Button>
               </Link>
