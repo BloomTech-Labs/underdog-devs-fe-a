@@ -8,7 +8,7 @@
   min-width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 2%;
+  margin-top: .5%;
   padding: 3vh;
 }
 
@@ -19,12 +19,17 @@
 }
 
 .card-img {
-  width: 300px;
+  max-height: 500px;
+  max-width: 90%;
 }
 
 .title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
+}
+
+.description {
+  font-size: 22px;
 }
 
 .divider {
