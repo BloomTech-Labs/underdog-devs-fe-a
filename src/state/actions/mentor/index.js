@@ -10,7 +10,7 @@ export const postNewMentorAccount = newAccount => {
         `${process.env.REACT_APP_API_URI}/application/new/mentor`,
         newAccount
       );
-
+      console.log(newAccount);
       dispatch({
         type: MENTOR_ADD_SUCCESS,
         payload: { successPage: '/apply/success' },

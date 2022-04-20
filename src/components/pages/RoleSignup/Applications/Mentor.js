@@ -74,7 +74,10 @@ const Mentor = ({ error, successPage }) => {
 
   const formSubmit = () => {
     const newAccount = formValues;
-    postNewMentorAccount(newAccount);
+    console.log('FORM: ', formValues);
+    // postNewMentorAccount(newAccount);
+    postNewMentorAccount(formValues);
+    console.log('CLICKED');
     // postNewAccount(newAccount);
   };
 
@@ -470,8 +473,8 @@ const Mentor = ({ error, successPage }) => {
 
 const mapStateToProps = state => {
   return {
-    error: state.errors.mentorError,
-    successPage: state.mentor.successPage,
+    error: state.user.errors.mentorError,
+    successPage: state.user.mentor.successPage,
   };
 };
 
