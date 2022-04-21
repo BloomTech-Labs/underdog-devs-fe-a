@@ -3,7 +3,6 @@ import useForms from '../../../../hooks/useForms';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
-import axios from 'axios';
 import {
   Form,
   Input,
@@ -53,9 +52,6 @@ const initialFormValues = {
 const Mentee = ({ dispatch, error, successPage }) => {
   const [formValues, handleChange, _, setFormValues] =
     useForms(initialFormValues);
-  // const [error, setError] = useState('');
-  console.log(formValues);
-
   const history = useHistory();
 
   useEffect(() => {
@@ -75,21 +71,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
     }
   }, [successPage, error]);
 
-  // const postNewAccount = async newAccount => {
-  //   try {
-  //     await axios.post(
-  //       `${process.env.REACT_APP_API_URI}/application/new/mentee`,
-  //       newAccount
-  //     );
-  //     history.push('/apply/success');
-  //   } catch (err) {
-  //     setError(err);
-  //   }
-  // };
-
   const formSubmit = () => {
-    //const newAccount = formValues;
-    //postNewAccount(newAccount);
     dispatch(postNewMenteeAccount(formValues));
   };
 
