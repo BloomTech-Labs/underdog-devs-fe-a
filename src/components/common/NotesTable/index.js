@@ -45,6 +45,8 @@ const NotesTable = ({ userProfile, accounts }) => {
   const [editing, setEditing] = useState(false);
   const [editNote, setEditNote] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
+  // reply on comment popup state
+  const [replyPopup, setReplypopup] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
   const location = useLocation();
@@ -149,9 +151,11 @@ const NotesTable = ({ userProfile, accounts }) => {
                         key="comment-nested-reply-to"
                         type="primary"
                         size="middle"
+                        onClick={() => setReplypopup(true)}
                       >
-                        <ReplyInput trigger={true}>
-                          <h1>My Popup</h1>
+                        <ReplyInput trigger={replyPopup} close={setReplypopup}>
+                          <h1>Reply to comment</h1>
+                          <p>W.I.P</p>
                         </ReplyInput>
                         Reply
                       </Button>
