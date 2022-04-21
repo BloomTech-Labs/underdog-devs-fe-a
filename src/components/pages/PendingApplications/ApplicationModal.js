@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal } from 'antd';
+import { Modal, Button, Popconfirm } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 
@@ -39,6 +39,14 @@ const ApplicationModal = ({
     setHideForm(true);
   };
 
+  // const handleApprove = () => {
+  //post request to db mentee intake - need to change the validateStatus from pending to approved - need to double-check that it is approved
+  //post request also has to access the mentor_intake db validateStatus to update from pending to approved.
+  //Once the button pull request has been approved, we can add the onclick functionality to Kim's button.
+  // };
+
+  const handleReject = () => {};
+
   const displayForm = () => {
     setHideForm(false);
   };
@@ -69,7 +77,7 @@ const ApplicationModal = ({
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          setCurrentApplication(res.data);
+          setCurrentApplication(res.data[0]);
           setNotesValue(res.data);
         })
         .catch(err => {
@@ -99,7 +107,16 @@ const ApplicationModal = ({
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          footer={null}
+          footer={
+            <Popconfirm
+              title="Are you sure you want to reject?"
+              onConfirm={handleReject}
+            >
+              <Button key="submit" danger>
+                Reject
+              </Button>
+            </Popconfirm>
+          }
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (

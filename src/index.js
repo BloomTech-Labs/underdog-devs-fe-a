@@ -33,7 +33,7 @@ import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
-import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
+// import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -197,7 +197,7 @@ function App() {
           allowRoles={[1, 2]}
           component={PendingApplications}
         />
-            
+
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"
@@ -205,12 +205,12 @@ function App() {
           component={Reviews}
         />
 
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/addMenteeReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
-        />
+        /> */}
 
         <Route component={NotFoundPage} />
       </Switch>
