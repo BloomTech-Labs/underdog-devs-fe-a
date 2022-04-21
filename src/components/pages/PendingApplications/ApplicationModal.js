@@ -39,12 +39,6 @@ const ApplicationModal = ({
     setHideForm(true);
   };
 
-  // const handleApprove = () => {
-  //post request to db mentee intake - need to change the validateStatus from pending to approved - need to double-check that it is approved
-  //post request also has to access the mentor_intake db validateStatus to update from pending to approved.
-  //Once the button pull request has been approved, we can add the onclick functionality to the approve button.
-  // };
-
   const handleReject = () => {
     //need to add a post request to the mentee_intake and mentor_intake database to update the validateStatus from pending to rejected.
   };
