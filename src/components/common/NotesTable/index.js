@@ -16,6 +16,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import '../styles/Notes.css';
+import ReplyInput from './AddReply/Reply';
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   <>
@@ -88,6 +89,7 @@ const NotesTable = ({ userProfile, accounts }) => {
     setEditing(!editing);
     setEditNote({ note_id: note_id, content: content });
   };
+
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
@@ -148,6 +150,9 @@ const NotesTable = ({ userProfile, accounts }) => {
                         type="primary"
                         size="middle"
                       >
+                        <ReplyInput trigger={true}>
+                          <h1>My Popup</h1>
+                        </ReplyInput>
                         Reply
                       </Button>
                     ),
