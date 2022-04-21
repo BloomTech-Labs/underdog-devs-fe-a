@@ -1,12 +1,14 @@
 import React from 'react';
 import './Reply.css';
 
-const ReplyInput = props => {
+function ReplyInput(props) {
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={() => props.close(false)}>
-          Close
+        <h1>Test</h1>
+        <p>test</p>
+        <button className="close-btn" onClick={() => props.setTrigger(false)}>
+          <h1>close</h1>
         </button>
         {props.children}
       </div>
@@ -14,6 +16,6 @@ const ReplyInput = props => {
   ) : (
     ''
   );
-};
+}
 
 export default ReplyInput;

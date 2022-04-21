@@ -151,13 +151,13 @@ const NotesTable = ({ userProfile, accounts }) => {
                         key="comment-nested-reply-to"
                         type="primary"
                         size="middle"
-                        onClick={() => setReplypopup(true)}
+                        onClick={() => setReplypopup(!replyPopup)}
                       >
-                        <ReplyInput trigger={replyPopup} close={setReplypopup}>
-                          <h1>Reply to comment</h1>
-                          <p>W.I.P</p>
-                        </ReplyInput>
                         Reply
+                        <ReplyInput
+                          trigger={replyPopup}
+                          setTrigger={setReplypopup}
+                        />
                       </Button>
                     ),
                   ]}
