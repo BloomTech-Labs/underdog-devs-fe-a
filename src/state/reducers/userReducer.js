@@ -21,8 +21,12 @@ const initialState = {
   errors: {
     /* TODO: implement a way to track errors */
     mentorError: '',
+    menteeError: '',
   },
   mentor: {
+    successPage: '',
+  },
+  mentee: {
     successPage: '',
   },
 };
@@ -54,6 +58,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         mentor: action.payload,
         errors: {
+          ...state,
           mentorError: '',
         },
       };
@@ -62,6 +67,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         errors: action.payload,
         mentor: {
+          ...state,
           successPage: '',
         },
       };

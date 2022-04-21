@@ -29,25 +29,25 @@ import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
 
-const Mentor = ({ dispatch, error, successPage, profile_id }) => {
-  const initialFormValues = {
-    profile_id: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    city: '',
-    state: '',
-    country: '',
-    current_company: '',
-    current_position: '',
-    subject: '',
-    experience_level: '',
-    job_help: false,
-    industry_knowledge: false,
-    pair_programming: false,
-    other_info: '',
-  };
+const initialFormValues = {
+  profile_id: '',
+  first_name: '',
+  last_name: '',
+  email: '',
+  city: '',
+  state: '',
+  country: '',
+  current_company: '',
+  current_position: '',
+  subject: '',
+  experience_level: '',
+  job_help: false,
+  industry_knowledge: false,
+  pair_programming: false,
+  other_info: '',
+};
 
+const Mentor = ({ dispatch, error, successPage }) => {
   const [formValues, handleChange, _, setFormValues] =
     useForms(initialFormValues);
   const history = useHistory();
@@ -467,7 +467,6 @@ const mapStateToProps = state => {
   return {
     error: state.user.errors.mentorError,
     successPage: state.user.mentor.successPage,
-    profile_id: state.user.auth.profile_id,
   };
 };
 
