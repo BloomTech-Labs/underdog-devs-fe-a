@@ -48,8 +48,7 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, _, setFormValues] =
-    useForms(initialFormValues);
+  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
     } else if (error) {
       console.error(error);
     }
-  }, [successPage, error]);
+  }, [successPage, error, history]);
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));

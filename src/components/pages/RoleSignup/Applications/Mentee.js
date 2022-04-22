@@ -50,7 +50,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, _, setFormValues] =
+  const [formValues, handleChange, , setFormValues] =
     useForms(initialFormValues);
   const history = useHistory();
 
@@ -64,12 +64,14 @@ const Mentee = ({ dispatch, error, successPage }) => {
         console.error(err);
       });
 
+    console.log('USE EFFECT: ', formValues);
+
     if (successPage) {
       history.pushState(successPage);
     } else if (error) {
       console.error(error);
     }
-  }, [successPage, error]);
+  }, [successPage, error, history]);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
