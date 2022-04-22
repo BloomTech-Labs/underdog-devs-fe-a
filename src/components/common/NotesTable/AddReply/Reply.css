@@ -1,3 +1,4 @@
+
 .popup {
     position: fixed;
     top: 0;
@@ -11,19 +12,36 @@
     overflow: hidden;
     z-index: 100;
 }
-
 .popup-inner {
     position: relative;
     padding: 32px;
     width: 100%;
     max-width: 640px;
-    background-color: black;
+    background-color: rgb(65, 65, 80);
     color: white;
 }
-
 .popup-inner .close-btn {
     position: absolute;
     top: 16px;
     right: 16px;
-    color: black;
+    background-color: rgba(43, 114, 190, 0.509);
+}
+
+.popup-inner h1 {
+    color: white;
+}
+
+.close-btn h1{
+    color: white;
+}
+
+.submit {
+    margin-top: 2%;
+    background-color: rgba(43, 114, 190, 0.509);
+    padding: 1%;
+}
+
+input {
+    width: 60%;
+    background-color: rgb(166, 167, 169);
 }

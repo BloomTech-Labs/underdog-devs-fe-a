@@ -91,7 +91,6 @@ const NotesTable = ({ userProfile, accounts }) => {
     setEditing(!editing);
     setEditNote({ note_id: note_id, content: content });
   };
-
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
@@ -113,7 +112,9 @@ const NotesTable = ({ userProfile, accounts }) => {
     setEditing(!editing);
     if (submitting) setSubmitting(!submitting);
   };
-
+  const showPopup = () => {
+    setReplypopup(true);
+  };
   // Dropdown menu items
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -151,15 +152,15 @@ const NotesTable = ({ userProfile, accounts }) => {
                         key="comment-nested-reply-to"
                         type="primary"
                         size="middle"
-                        onClick={() => setReplypopup(!replyPopup)}
+                        onClick={showPopup}
                       >
                         Reply
-                        <ReplyInput
-                          trigger={replyPopup}
-                          setTrigger={setReplypopup}
-                        />
                       </Button>
                     ),
+                    <ReplyInput
+                      trigger={replyPopup}
+                      setTrigger={setReplypopup}
+                    />,
                   ]}
                   author={
                     profile_id === record.mentor_id
