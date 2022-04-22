@@ -180,7 +180,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     // added this line of code here because i was getting a window.alert() error, saying it wasn't implemented
     window.alert = () => {};
 
-    // testing for Schedule Interview comp to render
+    //testing for Schedule Interview comp to render
     const scheduleInterview = await screen.findByText(/Schedule Interview/i);
     userEvent.click(scheduleInterview);
 
