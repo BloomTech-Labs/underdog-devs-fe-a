@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { DatePicker, TimePicker, Select, Space, Row, Col } from 'antd';
-import { SolutionOutlined } from '@ant-design/icons';
-import { Popconfirm, message, Menu } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const { Option } = Select;
-
-function PickerWithType({ type, onChange }) {
-  if (type === 'time') return <TimePicker onChange={onChange} />;
-  if (type === 'date') return <DatePicker onChange={onChange} />;
-  return <DatePicker picker={type} onChange={onChange} />;
-}
 
 const SwitchablePicker = () => {
   //   const [create, setCreate] = useState(initialValues);
@@ -18,9 +11,10 @@ const SwitchablePicker = () => {
     console.log(`selected ${value}`);
   };
   const [type, setType] = useState('time');
+
   return (
     <Row>
-      <Col md={15} xs={24} offset={1}>
+      <Col md={15} xs={24} offset={3}>
         <Space
           style={{
             display: 'flex',
@@ -30,26 +24,48 @@ const SwitchablePicker = () => {
             margin: '0rem 1rem 1rem 1.5rem',
           }}
         >
-          <Select
-            defaultValue="Select Mentor"
-            style={{ width: 150 }}
-            onChange={handleChange}
+          <Form.Item>
+            <Select
+              defaultValue="Select Mentor"
+              style={{ width: 150 }}
+              onChange={handleChange}
+            >
+              <Option value="Mentor1">Jack</Option>
+              <Option value="Mentor2">Lucy</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            label="Date"
+            name="date"
+            rules={[
+              {
+                required: true,
+                message: 'Please select a date for this meeting!',
+              },
+            ]}
           >
-            <Option value="Mentor1">Jack</Option>
-            <Option value="Mentor2">Lucy</Option>
-          </Select>
-          <Select
-            value={type}
-            onChange={setType}
-            rules={{
-              required: true,
-              Message: 'Time is required upon scheduling!',
-            }}
+            <DatePicker />
+          </Form.Item>
+          <Form.Item
+            label="Time"
+            name="time"
+            rules={[
+              {
+                required: true,
+                message: 'Please select a time for this meeting!',
+              },
+            ]}
           >
-            <Option value="time">Time</Option>
-            <Option value="date">Date</Option>
-          </Select>
-          <PickerWithType type={type} onChange={value => console.log(value)} />
+            <TimePicker use12Hours format="h:mm A" minuteStep={15} />
+          </Form.Item>
+          <Form.Item label="Details" name="details">
+            <Input
+              style={{
+                height: 150,
+                width: 200,
+              }}
+            />
+          </Form.Item>
         </Space>
       </Col>
     </Row>

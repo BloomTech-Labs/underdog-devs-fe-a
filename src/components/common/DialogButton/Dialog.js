@@ -3,6 +3,7 @@ import Draggable from 'react-draggable';
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import SwitchablePicker from './ScheduleButton';
+import { notification } from 'antd';
 
 class Dialog extends React.Component {
   state = {
@@ -12,6 +13,13 @@ class Dialog extends React.Component {
   };
 
   draggleRef = React.createRef();
+
+  openNotification = () => {
+    notification.open({
+      message: 'Success!',
+      description: 'You have successfully scheduled your meeting!',
+    });
+  };
 
   showModal = () => {
     this.setState({
@@ -24,6 +32,7 @@ class Dialog extends React.Component {
     this.setState({
       visible: false,
     });
+    this.openNotification(true);
   };
 
   handleCancel = e => {
@@ -82,6 +91,7 @@ class Dialog extends React.Component {
               Schedule A Meeting
             </div>
           }
+          okText={'Submit'}
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
