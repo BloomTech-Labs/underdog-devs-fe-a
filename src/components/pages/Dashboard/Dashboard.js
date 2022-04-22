@@ -9,8 +9,8 @@ const columns = [
     dataIndex: 'ticketID',
     filters: [
       {
-        text: 'Joe',
-        value: 'Joe',
+        text: 'Example',
+        value: 'Example',
       },
       {
         text: 'Jim',
@@ -60,33 +60,6 @@ const columns = [
     sorter: (a, b) => a.dateSubmitted < b.dateSubmitted,
   },
 ];
-
-// const data = [
-//   {
-//     key: '1',
-//     ticketID: '1234',
-//     ticketType: 'Application',
-//     dateSubmitted: '1/21/2022',
-//   },
-//   {
-//     key: '2',
-//     ticketID: '1233',
-//     ticketType: 'Resource Request',
-//     dateSubmitted: '1/20/2022',
-//   },
-//   {
-//     key: '3',
-//     ticketID: '1223',
-//     ticketType: 'Escalation',
-//     dateSubmitted: '1/19/2022',
-//   },
-//   {
-//     key: '4',
-//     ticketID: '1200',
-//     ticketType: 'Application',
-//     dateSubmitted: '1/10/2022',
-//   },
-// ];
 
 function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
