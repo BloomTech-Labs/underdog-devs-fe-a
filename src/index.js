@@ -36,6 +36,7 @@ import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 // import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+import ScheduleMeeting from './components/common/ScheduleMeeting';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -169,7 +170,7 @@ function App() {
           path="/meetings/schedule"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => <div>"Schedule Meeting" Component goes here</div>}
+          component={ScheduleMeeting}
         />
 
         <PrivateRoute

@@ -185,9 +185,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     userEvent.click(scheduleInterview);
 
     await waitFor(() => {
-      const scheduleInterviewComponent = screen.findByText(
-        /"Schedule Interview" Component goes here/i
-      );
+      const scheduleInterviewComponent = screen.findByText(/ScheduleMeeting/i);
       expect(scheduleInterviewComponent).toBeTruthy();
     });
 

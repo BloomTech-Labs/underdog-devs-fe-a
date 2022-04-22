@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { DatePicker, TimePicker, Select, Space, Row, Col } from 'antd';
+import { SolutionOutlined } from '@ant-design/icons';
+import { Popconfirm, message, Menu } from 'antd';
 
 const { Option } = Select;
 
@@ -10,7 +12,7 @@ function PickerWithType({ type, onChange }) {
   return <DatePicker picker={type} onChange={onChange} />;
 }
 
-function SwitchablePicker() {
+const SwitchablePicker = () => {
   //   const [create, setCreate] = useState(initialValues);
   const handleChange = value => {
     console.log(`selected ${value}`);
@@ -52,6 +54,6 @@ function SwitchablePicker() {
       </Col>
     </Row>
   );
-}
+};
 
-export default <SwitchablePicker />;
+export default () => <SwitchablePicker />;
