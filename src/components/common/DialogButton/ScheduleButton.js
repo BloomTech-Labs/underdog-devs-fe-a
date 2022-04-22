@@ -6,11 +6,9 @@ import { Form, Input, Button } from 'antd';
 const { Option } = Select;
 
 const SwitchablePicker = () => {
-  //   const [create, setCreate] = useState(initialValues);
   const handleChange = value => {
     console.log(`selected ${value}`);
   };
-  const [type, setType] = useState('time');
 
   return (
     <Row>
