@@ -53,3 +53,5 @@ function SwitchablePicker() {
     </Row>
   );
 }
+
+export default <SwitchablePicker />;
