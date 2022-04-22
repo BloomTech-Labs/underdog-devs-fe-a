@@ -39,10 +39,6 @@ const ApplicationModal = ({
     setHideForm(true);
   };
 
-  const handleReject = () => {
-    //need to add a post request to the mentee_intake and mentor_intake database to update the validateStatus from pending to rejected.
-  };
-
   const displayForm = () => {
     setHideForm(false);
   };
@@ -106,7 +102,6 @@ const ApplicationModal = ({
           footer={
             <Popconfirm
               title="Are you sure you want to reject?"
-              onConfirm={handleReject}
             >
               <Button key="submit" danger>
                 Reject
