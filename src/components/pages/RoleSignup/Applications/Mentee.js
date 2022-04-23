@@ -98,7 +98,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
         <Col span={24} className="applicationForm">
           <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
             <Title className="menteeTitle" level={3}>
-              Mentee Application
+              Mentee Intake Form
             </Title>
             <Col span={18} offset={3}>
               <Title level={5} style={{ paddingTop: '2%' }}>
