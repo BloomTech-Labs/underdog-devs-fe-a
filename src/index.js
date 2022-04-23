@@ -222,7 +222,7 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
-        />
+        /> 
 
         <PrivateRoute
           path="/addMenteeReview"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Popconfirm } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 
@@ -69,7 +69,7 @@ const ApplicationModal = ({
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          setCurrentApplication(res.data[1]);
+          setCurrentApplication(res.data[0]);
           setNotesValue(res.data);
         })
         .catch(err => {
@@ -98,6 +98,7 @@ const ApplicationModal = ({
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
+          className="modalStyle"
           footer={[
             <Button key="back" onClick={handleCancel}>
               Return to Previous
@@ -105,6 +106,13 @@ const ApplicationModal = ({
             <Button key="submit" type="primary">
               Approved
             </Button>,
+            <Popconfirm
+              title="Are you sure you want to reject?"
+            >
+              <Button key="submit" danger>
+                Reject
+              </Button>
+            </Popconfirm>
           ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
