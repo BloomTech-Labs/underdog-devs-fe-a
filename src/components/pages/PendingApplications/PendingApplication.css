@@ -14,7 +14,7 @@
   border: none;
   color: white;
   padding: 0.5rem;
-
+  margin-top: 0.5rem;
   background-color: initial;
   background-image: linear-gradient(-180deg, #00d775, #00bd68);
   border-radius: 5px;
@@ -43,6 +43,10 @@
 }
 
 #menteeModel p {
-  padding: 0%;
-  color: darkgreen;
+ padding: 0%;
+ color: darkgreen;
+}
+
+.modalStyle .close {
+  color: white;
 }
