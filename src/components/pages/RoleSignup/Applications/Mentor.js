@@ -86,7 +86,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
-            <span>Mentor Application</span>
+            <span>Mentor Intake Form</span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
