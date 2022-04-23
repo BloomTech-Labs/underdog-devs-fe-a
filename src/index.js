@@ -18,9 +18,9 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import MyNotes from './components/pages/Notes/MyNotes';
-import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+
+// import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -33,15 +33,21 @@ import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
+import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import PrivateRoute from './components/common/PrivateRoute';
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const store = createStore(
   rootReducer,
@@ -52,7 +58,13 @@ ReactDOM.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <Auth0Provider
+          domain={domain}
+          clientId={clientId}
+          redirectUri={window.location.origin}
+        >
+          <App />
+        </Auth0Provider>
       </Provider>
     </React.StrictMode>
   </Router>,
@@ -206,11 +218,18 @@ function App() {
         />
 
         <PrivateRoute
-          path="/addMenteeReview"
+          path="/addMentorReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
         /> 
+
+        <PrivateRoute
+          path="/addMenteeReview"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={MenteeAddReview}
+        />
 
         <Route component={NotFoundPage} />
       </Switch>

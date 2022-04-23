@@ -28,6 +28,7 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
         loading={submitting}
         onClick={onSubmit}
         type="primary"
+        style={{}}
       >
         Save edit
       </Button>
@@ -36,12 +37,12 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   </>
 );
 
-const NotesTable = ({ userProfile }) => {
+const NotesTable = ({ userProfile, accounts }) => {
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states
   const [editing, setEditing] = useState(false);
-  const [editNote, setEditNote] = useState({ key: '', note: '' });
+  const [editNote, setEditNote] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
@@ -49,37 +50,51 @@ const NotesTable = ({ userProfile }) => {
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()
-      .get('https://mocki.io/v1/2b5cfd79-fe47-42b3-afa0-86848854394b')
+      .get(
+        location.pathname === '/notes' || '/mynotes'
+          ? '/notes'
+          : `/notes/mentees/${accounts.key}`
+      )
       .then(res => {
-        setData(res.data);
+        console.log(res);
+        setData(
+          res.data.map(obj => {
+            let created = new Date(obj.created_at);
+            return {
+              ...obj,
+              key: obj.note_id,
+              date: created.toDateString(),
+              time: created.toLocaleTimeString(),
+            };
+          })
+        );
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.message);
       });
-  }, []);
+  }, [editing]);
+
   if (location.pathname === '/mynotes') {
-    result = data.filter(x => x.profile_id === profile_id);
+    result = data.filter(
+      x => x.mentor_id === profile_id || x.mentee_id === profile_id
+    );
   } else {
     result = data;
   }
   // click handlers
-  const handleMenuClick = e => {
-    // menu click handler
-  };
-
-  const handleDropDownClick = e => {
-    // dropdown click handler
-  };
-
-  const toggle = (key, note) => {
+  const handleMenuClick = e => console.log('click', e);
+  const handleDropDownClick = e => console.log('click', e);
+  const toggle = (note_id, content) => {
     setEditing(!editing);
-    setEditNote({ key: key, note: note });
+    setEditNote({ note_id: note_id, content: content });
   };
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
-      .put('dummydata', { note: editNote.note })
+      .put(`/notes/${editNote.note_id}`, { content: editNote.content })
       .then(res => {
+        // currently the edit component reorders the seed data when updating a memo
+        console.log(res.data);
         setEditing(false);
         setSubmitting(false);
       })
@@ -88,7 +103,7 @@ const NotesTable = ({ userProfile }) => {
       });
   };
   const handleChange = e => {
-    setEditNote({ ...editNote, note: e.target.value });
+    setEditNote({ ...editNote, content: e.target.value });
   };
   const handleCancel = () => {
     setEditing(!editing);
@@ -107,7 +122,7 @@ const NotesTable = ({ userProfile }) => {
   return (
     <Table
       columns={columns}
-      dataSource={result}
+      dataSource={[...result]}
       expandable={{
         expandedRowRender: record => (
           <>
@@ -116,11 +131,12 @@ const NotesTable = ({ userProfile }) => {
                 <Comment
                   actions={[
                     // edit button
-                    profile_id === record.profile_id ? (
+                    profile_id === record.mentor_id ||
+                    profile_id === record.mentee_id ? (
                       <Button
                         type="primary"
                         size="middle"
-                        onClick={() => toggle(record.key, record.note)}
+                        onClick={() => toggle(record.note_id, record.content)}
                         style={{ display: editing ? 'none' : 'inline' }}
                       >
                         Edit
@@ -136,25 +152,31 @@ const NotesTable = ({ userProfile }) => {
                       </Button>
                     ),
                   ]}
-                  author={record.createdBy}
+                  author={
+                    profile_id === record.mentor_id
+                      ? record.mentor_id
+                      : record.mentee_id
+                  }
                   avatar={
                     <Avatar
                       src="https://joeschmoe.io/api/v1/random"
-                      alt={record.createdBy}
+                      alt={record.createdBy} //currently no backend column for this
                     />
                   }
                   content={
                     // populating edit text box with previous value
                     <>
-                      {editing && profile_id === record.profile_id ? (
+                      {editing &&
+                      (profile_id === record.mentor_id ||
+                        profile_id === record.mentee_id) ? (
                         <Editor
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
                           onCancel={handleCancel}
-                          value={editNote.note}
+                          value={editNote.content}
                         />
                       ) : (
-                        <>{record.note}</>
+                        <>{record.content}</>
                       )}
                     </>
                   }

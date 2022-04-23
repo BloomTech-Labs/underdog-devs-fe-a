@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { postNewMentorAccount } from '../../../../state/actions/mentor';
 import useForms from '../../../../hooks/useForms';
 import {
   Form,
@@ -24,10 +25,12 @@ import {
 
 import './Styles/mentorApplication.css';
 import { states } from '../../../common/constants';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
+  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -44,27 +47,29 @@ const initialFormValues = {
   other_info: '',
 };
 
-const Mentor = () => {
-  const [formValues, handleChange] = useForms(initialFormValues);
-  const [error, setError] = useState('');
-
+const Mentor = ({ dispatch, error, successPage }) => {
+  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
 
-  const postNewAccount = async newAccount => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URI}/application/new/mentor`,
-        newAccount
-      );
-      history.push('/apply/success');
-    } catch (err) {
-      setError(err);
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/profile/current_user_profile`)
+      .then(res => {
+        setFormValues({ ...formValues, profile_id: res.data.profile_id });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    if (successPage) {
+      history.pushState(successPage);
+    } else if (error) {
+      console.error(error);
     }
-  };
+  }, [successPage, error, history]);
 
   const formSubmit = () => {
-    const newAccount = formValues;
-    postNewAccount(newAccount);
+    dispatch(postNewMentorAccount(formValues));
   };
 
   return (
@@ -309,7 +314,7 @@ const Mentor = () => {
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="tech_stack"
+                    name="subject"
                     rules={[
                       {
                         required: true,
@@ -319,7 +324,7 @@ const Mentor = () => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'tech_stack')}
+                      onChange={e => handleChange(e, 'select', 'subject')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="career">Career Development</Option>
@@ -457,4 +462,11 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+const mapStateToProps = state => {
+  return {
+    error: state.user.errors.mentorError,
+    successPage: state.user.mentor.successPage,
+  };
+};
+
+export default connect(mapStateToProps)(Mentor);

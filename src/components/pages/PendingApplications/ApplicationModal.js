@@ -93,13 +93,19 @@ const ApplicationModal = ({
         </Modal>
       ) : (
         <Modal
-          title="Application"
+          title="Review Application"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          footer={
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return to Previous
+            </Button>,
+            <Button key="submit" type="primary">
+              Approved
+            </Button>,
             <Popconfirm
               title="Are you sure you want to reject?"
             >
@@ -107,7 +113,7 @@ const ApplicationModal = ({
                 Reject
               </Button>
             </Popconfirm>
-          }
+          ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
@@ -119,22 +125,23 @@ const ApplicationModal = ({
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
               </p>
-
               <p>
                 <b>Experience Level:</b> {currentApplication.experience_level}
               </p>
-              <ul>
+              <p>
                 <b>Membership Criteria:</b>
-                {currentApplication.formerly_incarcerated === true ? (
-                  <li>Formerly Incarcerated</li>
-                ) : null}
-                {currentApplication.low_income === true ? (
-                  <li>Low Income</li>
-                ) : null}
-                {currentApplication.underrepresented_group === true ? (
-                  <li>Belongs to underrepresented group</li>
-                ) : null}
-              </ul>
+                <ul>
+                  {currentApplication.formerly_incarcerated === true ? (
+                    <li>Formerly Incarcerated</li>
+                  ) : null}
+                  {currentApplication.low_income === true ? (
+                    <li>Low Income</li>
+                  ) : null}
+                  {currentApplication.underrepresented_group === true ? (
+                    <li>Belongs to underrepresented group</li>
+                  ) : null}
+                </ul>
+              </p>
               <p>
                 {' '}
                 <b>Convictions:</b>{' '}
@@ -144,18 +151,20 @@ const ApplicationModal = ({
                     : 'none'
                 }`}
               </p>
-              <ul>
+              <p>
                 <b>Applicant needs help with:</b>{' '}
-                {currentApplication.industry_knowledge === true ? (
-                  <li>Industry Knowledge</li>
-                ) : null}
-                {currentApplication.pair_programming === true ? (
-                  <li>Pair Programming</li>
-                ) : null}
-                {currentApplication.job_help === true ? (
-                  <li>Job Help</li>
-                ) : null}
-              </ul>
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </p>
               <p>
                 <b>Subject most interested in:</b> {currentApplication.subject}
               </p>
@@ -198,8 +207,8 @@ const ApplicationModal = ({
                 <b>Experience Level:</b> {currentApplication.experience_level}
               </p>
               <p>
+                <b>Applicant wants to focus on:</b>{' '}
                 <ul>
-                  <b>Applicant wants to focus on:</b>{' '}
                   {currentApplication.industry_knowledge === true ? (
                     <li>Industry Knowledge</li>
                   ) : null}
@@ -227,11 +236,7 @@ const ApplicationModal = ({
               <p>
                 <b>Notes:</b> {currentApplication.application_notes}
               </p>
-              <button
-                className="note-button-color"
-                onClick={displayForm}
-                hidden={!hideForm}
-              >
+              <button onClick={displayForm} hidden={!hideForm}>
                 Edit Notes
               </button>
             </div>
@@ -246,7 +251,7 @@ const ApplicationModal = ({
               onChange={handleChange}
               className="applicationNotes"
             />
-            <button className="note-button-color">Save Notes</button>
+            <button>Save Notes</button>
           </form>
         </Modal>
       )}
