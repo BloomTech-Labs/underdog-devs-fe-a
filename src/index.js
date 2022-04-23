@@ -18,9 +18,9 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-
 import MyNotes from './components/pages/Notes/MyNotes';
-import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+
+// import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -33,8 +33,10 @@ import Reviews from './components/pages/Reviews/MentorReviews';
 import Notes from './components/pages/Notes/Notes';
 import NotesForm from './components/pages/Notes/NotesForm';
 import Attendance from './components/pages/Attendance/attendance';
+import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
@@ -216,10 +218,17 @@ function App() {
         />
 
         <PrivateRoute
-          path="/addMenteeReview"
+          path="/addMentorReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
+        />
+
+        <PrivateRoute
+          path="/addMenteeReview"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={MenteeAddReview}
         />
 
         <Route component={NotFoundPage} />
