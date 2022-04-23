@@ -277,7 +277,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       title: 'If none apply, leave blank',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="your_hope"
+                    name="criteria"
                     rules={[
                       {
                         required: true,
