@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import useForms from '../../../../hooks/useForms';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
   Form,
   Input,
@@ -24,9 +25,9 @@ import {
 
 import { states } from '../../../common/constants';
 import './Styles/menteeApplication.css';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
-
 const { Option } = Select;
 
 const initialFormValues = {
@@ -40,7 +41,7 @@ const initialFormValues = {
   low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  subject: '',
+  subject: 'not collecting this from intake form',
   experience_level: '',
   job_help: false,
   industry_knowledge: false,
@@ -48,27 +49,32 @@ const initialFormValues = {
   other_info: '',
 };
 
-const Mentee = () => {
-  const [formValues, handleChange] = useForms(initialFormValues);
-  const [error, setError] = useState('');
-
+const Mentee = ({ dispatch, error, successPage }) => {
+  const [formValues, handleChange, , setFormValues] =
+    useForms(initialFormValues);
   const history = useHistory();
 
-  const postNewAccount = async newAccount => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URI}/application/new/mentee`,
-        newAccount
-      );
-      history.push('/apply/success');
-    } catch (err) {
-      setError(err);
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/profile/current_user_profile`)
+      .then(res => {
+        setFormValues({ ...formValues, profile_id: res.data.profile_id });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    console.log('USE EFFECT: ', formValues);
+
+    if (successPage) {
+      history.pushState(successPage);
+    } else if (error) {
+      console.error(error);
     }
-  };
+  }, [successPage, error, history]);
 
   const formSubmit = () => {
-    const newAccount = formValues;
-    postNewAccount(newAccount);
+    dispatch(postNewMenteeAccount(formValues));
   };
 
   return (
@@ -491,4 +497,11 @@ const Mentee = () => {
   );
 };
 
-export default Mentee;
+const mapStateToProps = state => {
+  return {
+    error: state.user.errors.menteeError,
+    successPage: state.user.mentee.successPage,
+  };
+};
+
+export default connect(mapStateToProps)(Mentee);
