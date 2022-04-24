@@ -23,7 +23,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states } from '../../../common/constants';
+import { USstates } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
@@ -254,7 +254,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
-                          {states.map(state => (
+                          {USstates.map(state => (
                             <Option key={state} value={state}>
                               {' '}
                               {state}{' '}

@@ -24,8 +24,10 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states } from '../../../common/constants';
+
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import { USstates } from '../../../common/constants';
+
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -250,7 +252,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
-                          {states.map(state => (
+                          {USstates.map(state => (
                             <Option key={state} value={state}>
                               {' '}
                               {state}{' '}

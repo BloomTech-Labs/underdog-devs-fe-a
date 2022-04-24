@@ -1,4 +1,4 @@
-const states = [
+const USstates = [
   'Alabama',
   'Alaska',
   'Arizona',
@@ -50,4 +50,4 @@ const states = [
   'Wyoming',
 ];
 
-export default states;
+export default USstates;
