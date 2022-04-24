@@ -1,4 +1,4 @@
-import states from './states';
+import USstates from './states';
 import countries from './countries';
 
-export { states, countries };
+export { USstates, countries };
