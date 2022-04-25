@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal, Button, Popconfirm, List, Divider } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
+import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -11,7 +11,7 @@ const ApplicationModal = ({
   displayModal,
 }) => {
   const notes = { application_notes: '' };
-
+  const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState({});
   const [notesValue, setNotesValue] = useState(notes);
   const [hideForm, setHideForm] = useState(true);
@@ -182,13 +182,19 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
-
               <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
+                <Button
+                  onClick={displayForm}
+                  hidden={!hideForm}
+                  block
+                  size="small"
+                  type="dashed"
+                  style={{ background: '#d9d9d9', borderColor: '#1890ff' }}
+                >
+                  Edit Notes
+                </Button>
               </List.Item>
-              <button onClick={displayForm} hidden={!hideForm}>
-                Edit Notes
-              </button>
             </List>
           ) : (
             <List size="small" bordered>
@@ -235,28 +241,43 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
-
               <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
               </List.Item>
-              <button onClick={displayForm} hidden={!hideForm}>
+              <Button
+                onClick={displayForm}
+                hidden={!hideForm}
+                block
+                size="small"
+                type="dashed"
+                style={{ background: '#d9d9d9', borderColor: '#1890ff' }}
+              >
                 Edit Notes
-              </button>
+              </Button>
             </List>
           )}
 
-          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
-            <textarea
+          <Form className="notesField" hidden={hideForm}>
+            <Form.Item
               id="application_notes"
               type="text"
               name="application_notes"
-              placeholder="Write Notes Here"
               value={notesValue.application_notes}
               onChange={handleChange}
               className="applicationNotes"
-            />
-            <button>Save Notes</button>
-          </form>
+            >
+              <TextArea autosize placeholder="Edit notes here..." />
+              <Button
+                onClick={addNote}
+                type="dashed"
+                block
+                size="small"
+                style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
+              >
+                Save
+              </Button>
+            </Form.Item>
+          </Form>
         </Modal>
       )}
     </>
