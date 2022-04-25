@@ -3,7 +3,6 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
-
 const ApplicationModal = ({
   profileId,
   setProfileId,
@@ -120,6 +119,9 @@ const ApplicationModal = ({
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
               </List.Item>
               <List.Item>
@@ -170,9 +172,6 @@ const ApplicationModal = ({
                 <b>Subject most interested in:</b> {currentApplication.subject}
               </List.Item>
               <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
-              </List.Item>
-              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
               </List.Item>
               <List.Item>
@@ -198,6 +197,9 @@ const ApplicationModal = ({
             </List>
           ) : (
             <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
               <List.Item>
                 <b>Email:</b> {currentApplication.email}
               </List.Item>
@@ -227,9 +229,6 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </List.Item>
-              <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
               </List.Item>
               <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
