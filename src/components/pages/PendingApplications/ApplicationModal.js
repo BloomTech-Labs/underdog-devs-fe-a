@@ -103,16 +103,14 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Button key="submit" type="primary">
-              Approved
-            </Button>,
-            <Popconfirm
-              title="Are you sure you want to reject?"
-            >
+            <Popconfirm title="Are you sure you want to reject?">
               <Button key="submit" danger>
                 Reject
               </Button>
-            </Popconfirm>
+            </Popconfirm>,
+            <Button key="submit" type="primary">
+              Approved
+            </Button>,
           ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
