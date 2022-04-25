@@ -107,8 +107,9 @@ function VAMC(props) {
       if (e.meeting_start_date === dateValue) {
         listData.push(e);
       }
+      return listData || [];
     });
-    return listData || [];
+    // return listData || [];
   }
 
   function dateCellRender(value) {

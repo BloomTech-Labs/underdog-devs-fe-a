@@ -106,13 +106,11 @@ const ApplicationModal = ({
             <Button key="submit" type="primary">
               Approved
             </Button>,
-            <Popconfirm
-              title="Are you sure you want to reject?"
-            >
+            <Popconfirm title="Are you sure you want to reject?">
               <Button key="submit" danger>
                 Reject
               </Button>
-            </Popconfirm>
+            </Popconfirm>,
           ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
@@ -251,7 +249,7 @@ const ApplicationModal = ({
               onChange={handleChange}
               className="applicationNotes"
             />
-            <button>Save Notes</button>
+            <button onClick={addNote}>Save Notes</button>
           </form>
         </Modal>
       )}
