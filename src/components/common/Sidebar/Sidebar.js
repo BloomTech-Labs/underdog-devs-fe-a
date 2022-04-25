@@ -148,7 +148,7 @@ const Sidebar = ({ children, userProfile }) => {
                 Manage Users
               </Menu.Item>
               <Menu.Item
-                key="/notes"
+                key="/attendance"
                 icon={<FormOutlined />}
                 onClick={handleMenuClick}
               >
