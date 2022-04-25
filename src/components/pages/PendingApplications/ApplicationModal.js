@@ -108,9 +108,11 @@ const ApplicationModal = ({
                 Reject
               </Button>
             </Popconfirm>,
-            <Button key="submit" type="primary">
-              Approved
-            </Button>,
+            <Popconfirm title="Are you sure you want to approve?">
+              <Button key="submit" type="primary">
+                Approved
+              </Button>
+            </Popconfirm>,
           ]}
         >
           <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
@@ -180,6 +182,7 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
+
               <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
               </List.Item>
@@ -232,6 +235,7 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
+
               <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
               </List.Item>
