@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal, Button, Popconfirm } from 'antd';
+import { Modal, Button, Popconfirm, List, Divider } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 
@@ -113,20 +113,21 @@ const ApplicationModal = ({
             </Button>,
           ]}
         >
-          <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
+          <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
+
           {currentApplication.role_name === 'mentee' ? (
-            <div>
-              <p>
+            <List size="small" bordered>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Membership Criteria:</b>
                 <ul>
                   {currentApplication.formerly_incarcerated === true ? (
@@ -139,8 +140,8 @@ const ApplicationModal = ({
                     <li>Belongs to underrepresented group</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 {' '}
                 <b>Convictions:</b>{' '}
                 {`${
@@ -148,8 +149,8 @@ const ApplicationModal = ({
                     ? currentApplication.list_convictions
                     : 'none'
                 }`}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Applicant needs help with:</b>{' '}
                 <ul>
                   {currentApplication.industry_knowledge === true ? (
@@ -162,49 +163,49 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Subject most interested in:</b> {currentApplication.subject}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
-              </p>
+              </List.Item>
               <button onClick={displayForm} hidden={!hideForm}>
                 Edit Notes
               </button>
-            </div>
+            </List>
           ) : (
-            <div>
-              <p>
+            <List size="small" bordered>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Current Employer:</b> {currentApplication.current_comp}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Applicant wants to focus on:</b>{' '}
                 <ul>
                   {currentApplication.industry_knowledge === true ? (
@@ -217,28 +218,29 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
-              </p>
+              </List.Item>
               <button onClick={displayForm} hidden={!hideForm}>
                 Edit Notes
               </button>
-            </div>
+            </List>
           )}
+
           <form className="notesField" onSubmit={addNote} hidden={hideForm}>
             <textarea
               id="application_notes"
