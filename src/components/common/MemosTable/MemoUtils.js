@@ -1,7 +1,7 @@
 import { Badge, Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import * as MdIcons from 'react-icons/md';
-import '../styles/Notes.css';
+import '../styles/Memos.css';
 
 // Flag Icons
 const statusIcon = {

@@ -11,11 +11,11 @@ import {
   Form,
   Input,
 } from 'antd';
-import { columns } from './NoteUtils';
+import { columns } from './MemoUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import '../styles/Notes.css';
+import '../styles/Memos.css';
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   <>
@@ -37,12 +37,12 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   </>
 );
 
-const NotesTable = ({ userProfile, accounts }) => {
+const MemosTable = ({ userProfile, accounts }) => {
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states
   const [editing, setEditing] = useState(false);
-  const [editNote, setEditNote] = useState({ key: '', content: '' });
+  const [editMemo, setEditMemo] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
@@ -51,7 +51,7 @@ const NotesTable = ({ userProfile, accounts }) => {
   useEffect(() => {
     axiosWithAuth()
       .get(
-        location.pathname === '/notes' || '/mynotes'
+        location.pathname === '/memos' || '/mymemos'
           ? '/notes'
           : `/notes/mentees/${accounts.key}`
       )
@@ -74,7 +74,7 @@ const NotesTable = ({ userProfile, accounts }) => {
       });
   }, [editing]);
 
-  if (location.pathname === '/mynotes') {
+  if (location.pathname === '/mymemos') {
     result = data.filter(
       x => x.mentor_id === profile_id || x.mentee_id === profile_id
     );
@@ -86,12 +86,12 @@ const NotesTable = ({ userProfile, accounts }) => {
   const handleDropDownClick = e => console.log('click', e);
   const toggle = (note_id, content) => {
     setEditing(!editing);
-    setEditNote({ note_id: note_id, content: content });
+    setEditMemo({ note_id: note_id, content: content });
   };
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
     axiosWithAuth()
-      .put(`/notes/${editNote.note_id}`, { content: editNote.content })
+      .put(`/notes/${editMemo.note_id}`, { content: editMemo.content })
       .then(res => {
         // currently the edit component reorders the seed data when updating a memo
         console.log(res.data);
@@ -103,7 +103,7 @@ const NotesTable = ({ userProfile, accounts }) => {
       });
   };
   const handleChange = e => {
-    setEditNote({ ...editNote, content: e.target.value });
+    setEditMemo({ ...editMemo, content: e.target.value });
   };
   const handleCancel = () => {
     setEditing(!editing);
@@ -173,7 +173,7 @@ const NotesTable = ({ userProfile, accounts }) => {
                           onChange={handleChange}
                           onSubmit={handleSaveButton}
                           onCancel={handleCancel}
-                          value={editNote.content}
+                          value={editMemo.content}
                         />
                       ) : (
                         <>{record.content}</>
@@ -183,10 +183,10 @@ const NotesTable = ({ userProfile, accounts }) => {
                 ></Comment>
               </>
             </Card>
-            <div className="note-menu-btns">
+            <div className="memo-menu-btns">
               <Space wrap>
                 <Dropdown.Button overlay={menu} onClick={handleDropDownClick}>
-                  Mark Note As
+                  Mark Memo As
                 </Dropdown.Button>
               </Space>
             </div>
@@ -201,4 +201,4 @@ const mapStateToProps = state => {
   return { userProfile: state.user.userProfile };
 };
 
-export default connect(mapStateToProps)(NotesTable);
+export default connect(mapStateToProps)(MemosTable);

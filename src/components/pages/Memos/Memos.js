@@ -4,8 +4,8 @@ All of the commented out code on this page is to remove the 'no-unused-vars' war
 import React, { /*useEffect,*/ useState } from 'react';
 import { /*Input,*/ Button /*Table, Space*/ } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import NotesForm from './NotesForm';
-import NotesTable from '../../common/NotesTable';
+import MemosForm from './MemosForm';
+import MemosTable from '../../common/MemosTable';
 // import { SearchOutlined } from '@ant-design/icons';
 // import axiosWithAuth from '../../../utils/axiosWithAuth';
 
@@ -76,19 +76,19 @@ const Memos = props => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h2>Memos</h2>
-        <Button className="add-note-button">
-          <a href="/mynotes">My Memos</a>
+        <Button className="add-memo-button">
+          <a href="/mymemos">My Memos</a>
         </Button>
-        <Button className="add-note-button" onClick={showModal} type="primary">
+        <Button className="add-memo-button" onClick={showModal} type="primary">
           <PlusCircleOutlined />
           Send Memo
         </Button>
-        <NotesForm
+        <MemosForm
           displayModal={displayModal}
           setDisplayModal={setDisplayModal}
         />
       </div>
-      <NotesTable />
+      <MemosTable />
     </>
   );
 };
