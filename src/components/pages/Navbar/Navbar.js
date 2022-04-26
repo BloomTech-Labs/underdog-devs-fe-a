@@ -72,7 +72,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
               <div className="userInfo-and-profilePic">
                 <Link
                   key="memosLinkNav"
-                  to="/notes"
+                  to="/memos"
                   style={{ color: '#FFF' }}
                   className="memos"
                 >
