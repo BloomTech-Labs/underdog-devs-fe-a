@@ -68,16 +68,6 @@ export default function FooterLanding() {
                 ]}
               />
             </div>
-            {/* <div className="footer__col5">
-              <NavBtn>
-                <NavBtnLink to={`/login`} key="login">
-                  Login
-                </NavBtnLink>
-                <NavBtnLink to={`/signup`} key="signup">
-                  Signup
-                </NavBtnLink>
-              </NavBtn>
-            </div> */}
           </div>
         </FooterStyle>
       </Footer>
