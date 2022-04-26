@@ -64,7 +64,7 @@ import NotesTable from '../../common/NotesTable';
 //   },
 // ];
 
-const Notes = props => {
+const Memos = props => {
   const [displayModal, setDisplayModal] = useState(false);
   // const [accounts, setAccounts] = useState([]);
 
@@ -93,4 +93,4 @@ const Notes = props => {
   );
 };
 
-export default Notes;
+export default Memos;
