@@ -66,6 +66,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
     } else if (error) {
       console.error(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successPage, error, history]);
 
   const formSubmit = () => {

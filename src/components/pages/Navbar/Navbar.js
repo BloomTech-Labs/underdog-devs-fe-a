@@ -36,6 +36,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
         setUser(user.data);
         getProfile(user.data.profile_id);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   if (!user) {
