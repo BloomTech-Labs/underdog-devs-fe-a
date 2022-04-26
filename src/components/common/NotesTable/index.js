@@ -72,6 +72,7 @@ const NotesTable = ({ userProfile, accounts }) => {
       .catch(err => {
         console.log(err.message);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
 
   if (location.pathname === '/mynotes') {

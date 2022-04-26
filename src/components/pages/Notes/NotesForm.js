@@ -1,3 +1,4 @@
+/* all commented out code is to remove the no-unused-vars warning from console */
 import React, { useState } from 'react';
 import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +28,7 @@ const initialValues = {
 };
 
 const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
-  const { profile_id, first_name, role_id } = userProfile;
+  /* const { profile_id, first_name, role_id } = userProfile; */
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
