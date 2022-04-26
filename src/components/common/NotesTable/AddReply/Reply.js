@@ -34,7 +34,7 @@ function ReplyInput(props) {
           Submit
         </button>
         <button className="close-btn" onClick={() => props.setTrigger(false)}>
-          <h1>close</h1>
+          <span>&#x2715;</span>
         </button>
         {props.children}
       </div>
