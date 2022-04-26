@@ -1,13 +1,11 @@
 import React from 'react';
-import { NavBtn, NavBtnLink } from '../../NavBarLanding/NavBarStyle';
+import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 
 function SignupButton() {
   return (
-    <NavBtn>
-      <NavBtnLink to={`/signup`} key="signup">
-        Signup
-      </NavBtnLink>
-    </NavBtn>
+    <NavBtnLink to={`/signup`} key="signup">
+      Signup
+    </NavBtnLink>
   );
 }
 
