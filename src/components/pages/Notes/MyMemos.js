@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import NotesTable from '../../common/./NotesTable';
+import NotesTable from '../../common/NotesTable';
 import NotesForm from './NotesForm';
 const MyNotes = () => {
   const [displayModal, setDisplayModal] = useState(false);
