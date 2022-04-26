@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import NotesTable from '../../common/NotesTable';
 import NotesForm from './NotesForm';
-const MyNotes = () => {
+const MyMemos = () => {
   const [displayModal, setDisplayModal] = useState(false);
 
   const showModal = () => {
@@ -31,4 +31,4 @@ const MyNotes = () => {
   );
 };
 
-export default MyNotes;
+export default MyMemos;
