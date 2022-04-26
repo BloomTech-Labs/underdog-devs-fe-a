@@ -3,6 +3,7 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
+
 const ApplicationModal = ({
   profileId,
   setProfileId,
@@ -41,12 +42,14 @@ const ApplicationModal = ({
   const displayForm = () => {
     setHideForm(false);
   };
+
   const handleChange = e => {
     setNotesValue({
       ...notesValue,
       [e.target.name]: e.target.value,
     });
   };
+
   const addNote = e => {
     axiosWithAuth()
       .put(
@@ -69,7 +72,7 @@ const ApplicationModal = ({
         .get(`/application/profileId/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
-          setNotesValue(res.data);
+          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
@@ -102,20 +105,15 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Popconfirm title="Are you sure you want to reject?">
-              <Button key="submit" danger>
-                Reject
-              </Button>
+            <Popconfirm key="reject" title="Are you sure you want to reject?">
+              <Button danger>Reject</Button>
             </Popconfirm>,
-            <Popconfirm title="Are you sure you want to approve?">
-              <Button key="submit" type="primary">
-                Approved
-              </Button>
+            <Popconfirm key="approve" title="Are you sure you want to approve?">
+              <Button type="primary">Approved</Button>
             </Popconfirm>,
           ]}
         >
           <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
-
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>
@@ -189,7 +187,7 @@ const ApplicationModal = ({
                   block
                   size="small"
                   type="dashed"
-                  style={{ background: '#d9d9d9', borderColor: '#1890ff' }}
+                  style={{ background: 'white', borderColor: '#1890ff' }}
                 >
                   Edit Notes
                 </Button>
@@ -249,27 +247,24 @@ const ApplicationModal = ({
                 block
                 size="small"
                 type="dashed"
-                style={{ background: '#d9d9d9', borderColor: '#1890ff' }}
+                style={{ background: 'white', borderColor: '#1890ff' }}
               >
                 Edit Notes
               </Button>
             </List>
           )}
-
           <Form className="notesField" hidden={hideForm}>
             <Form.Item
               id="application_notes"
               type="text"
-              name="application_notes"
               value={notesValue.application_notes}
               onChange={handleChange}
               className="applicationNotes"
             >
-              <TextArea autosize placeholder="Edit notes here..." />
+              <TextArea autosize="true" placeholder="Edit notes here..." />
               <Button
                 onClick={addNote}
                 type="dashed"
-                block
                 size="small"
                 style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
               >
