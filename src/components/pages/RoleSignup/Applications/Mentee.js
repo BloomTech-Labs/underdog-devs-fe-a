@@ -42,7 +42,7 @@ const initialFormValues = {
   low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  subject: 'not collecting this from intake form',
+  subject: '',
   experience_level: '',
   job_help: false,
   industry_knowledge: false,
@@ -51,7 +51,8 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
+  const [formValues, setFormValues, handleChange, handleSelect] =
+    useForms(initialFormValues);
   const history = useHistory();
 
   useEffect(() => {
@@ -69,7 +70,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
     } else if (error) {
       console.error(error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successPage, error, history]);
 
   const formSubmit = () => {
@@ -217,7 +217,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         <Select
                           showSearch
                           placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
+                          onChange={v => {
+                            handleSelect({ name: 'subject', value: v });
+                          }}
                         >
                           {USstates.map(state => (
                             <Option key={state} value={state}>
@@ -277,21 +279,21 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="formerly_incarcerated"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Formerly incarcerated
                       </Checkbox>
                       <Checkbox
                         value="low_income"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         From a lower socioeconomic background
                       </Checkbox>
                       <Checkbox
                         value="underrepresented_group"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         From an underrepresented group
@@ -342,7 +344,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'tech_stack')}
+                      onChange={v => {
+                        handleSelect({ name: 'subject', value: v });
+                      }}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="career">Career Development</Option>
@@ -407,21 +411,21 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="job_help"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Job Search Help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Learn more about the tech industry
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleChange}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Pair Programming / Coding Practice
