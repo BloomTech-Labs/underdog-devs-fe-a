@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
@@ -25,7 +24,6 @@ import {
 
 import { USstates, countries } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -50,29 +48,13 @@ const initialFormValues = {
   other_info: '',
 };
 
-const Mentee = ({ dispatch, error, successPage }) => {
-  // The change handlers relevant to this form's input fields are destructured here.
-  // See `/src/hooks/useForms.js` for the needed arguments for each input type's handler.
-  const { formValues, setFormValues, handlers } = useForms(initialFormValues);
+const Mentee = ({ dispatch, error }) => {
+  // The change handlers relevant to this form's input fields are destructured
+  // here.
+  // See `/src/hooks/useForms.js` for the details on each input
+  // type's handler.
+  const { formValues, handlers } = useForms(initialFormValues);
   const { handleChange, handleSelect, handleCheckbox, handleRadio } = handlers;
-  const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-  }, [successPage, error, history]);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -346,8 +328,10 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      // The Select component passes a value rather than an event object.
-                      // This field's key name in state must be included as the "name" property in the parameter object.
+                      // The Select component passes a value rather than an
+                      // event object.
+                      // This field's key name in state must be included as the
+                      // "name" property in the parameter object.
                       onChange={v => {
                         handleSelect({ name: 'subject', value: v });
                       }}
@@ -489,7 +473,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
 const mapStateToProps = state => {
   return {
     error: state.user.errors.menteeError,
-    successPage: state.user.mentee.successPage,
   };
 };
 
