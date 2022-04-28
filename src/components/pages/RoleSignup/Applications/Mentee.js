@@ -50,8 +50,10 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
+  // The change handlers relevant to this form's input fields are destructured here.
+  // See `/src/hooks/useForms.js` for the needed arguments for each input type's handler.
   const { formValues, setFormValues, handlers } = useForms(initialFormValues);
-  const { handleChange, handleSelect, handleCheckbox } = handlers;
+  const { handleChange, handleSelect, handleCheckbox, handleRadio } = handlers;
   const history = useHistory();
 
   useEffect(() => {
@@ -362,6 +364,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
+                      // The Select component passes a value rather than an event object.
+                      // This field's key name in state must be included as the "name" property in the parameter object.
                       onChange={v => {
                         handleSelect({ name: 'subject', value: v });
                       }}
@@ -393,7 +397,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Radio.Group
                       name="experience_level"
-                      onChange={handleChange}
+                      onChange={handleRadio}
                       value={formValues.experience_level}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
