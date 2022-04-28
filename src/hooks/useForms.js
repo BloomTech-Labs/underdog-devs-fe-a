@@ -25,10 +25,5 @@ export default function useForms(initialValues) {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const clearForm = e => {
-    e.preventDefault();
-    setFormValues(initialValues);
-  };
-
-  return [formValues, handleChange, clearForm, setFormValues];
+  return [formValues, handleChange, setFormValues];
 }
