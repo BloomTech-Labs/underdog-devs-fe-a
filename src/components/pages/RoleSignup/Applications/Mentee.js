@@ -50,8 +50,8 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, setFormValues, handleChange, handleSelect] =
-    useForms(initialFormValues);
+  const { formValues, setFormValues, handlers } = useForms(initialFormValues);
+  const { handleChange, handleSelect, handleCheckbox } = handlers;
   const history = useHistory();
 
   useEffect(() => {
@@ -297,21 +297,21 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="formerly_incarcerated"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Formerly incarcerated
                       </Checkbox>
                       <Checkbox
                         value="low_income"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         From a lower socioeconomic background
                       </Checkbox>
                       <Checkbox
                         value="underrepresented_group"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         From an underrepresented group
@@ -429,21 +429,21 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="job_help"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Job Search Help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Learn more about the tech industry
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
-                        onChange={handleChange}
+                        onChange={handleCheckbox}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Pair Programming / Coding Practice
