@@ -218,7 +218,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           showSearch
                           placeholder="- Select -"
                           onChange={v => {
-                            handleSelect({ name: 'subject', value: v });
+                            handleSelect({ name: 'state', value: v });
                           }}
                         >
                           {USstates.map(state => (
