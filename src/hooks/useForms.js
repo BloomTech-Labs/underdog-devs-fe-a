@@ -20,15 +20,17 @@ export default function useForms(initialValues) {
   };
 
   // Ant Design's "Select" component does not return an event object,
-  // it returns only a value as a simple-type variable, such as a string, number or boolean.
+  // it returns only a value as a simple-type variable, such as a string,
+  // number or boolean.
   // The name and value in the formValues state are passed in as an argument
   // in the function call in the onChange attribute on the Select component.
   const handleSelect = ({ name, value }) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  // The change handlers are returned in an object,
-  // to be destructured in the Form according to the input type used in the form.
+  // The change handlers are returned in an object, to be destructured as
+  // needed in the Form,  according to the input type used in the form.
+
   const handlers = {
     handleChange,
     handleRadio,
