@@ -14,7 +14,9 @@ export default function useForms(initialValues) {
   };
 
   const handleCheckbox = e => {
+    setFormValues({ ...formValues, [e.target.value]: e.target.checked });
     console.log('handleCheckbox arg: ', e);
+    console.log('formValues: ', formValues);
   };
 
   const handleSelect = ({ name, value }) => {
