@@ -52,8 +52,9 @@ const Mentee = ({ dispatch, error }) => {
   // here.
   // See `/src/hooks/useForms.js` for the details on each input
   // type's handler.
-  const { formValues, handlers } = useForms(initialFormValues);
-  const { handleChange, handleSelect, handleCheckbox, handleRadio } = handlers;
+  const { formValues, changeHandlers } = useForms(initialFormValues);
+  const { handleText, handleSelect, handleCheckbox, handleRadio } =
+    changeHandlers;
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -100,7 +101,7 @@ const Mentee = ({ dispatch, error }) => {
                       },
                     ]}
                     value={formValues.first_name}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your First Name" />
@@ -119,7 +120,7 @@ const Mentee = ({ dispatch, error }) => {
                       },
                     ]}
                     value={formValues.last_name}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your Last Name" />
@@ -142,7 +143,7 @@ const Mentee = ({ dispatch, error }) => {
                       },
                     ]}
                     value={formValues.email}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter Valid Email" />
@@ -168,7 +169,7 @@ const Mentee = ({ dispatch, error }) => {
                     <Radio.Group
                       name="country"
                       value={formValues.country}
-                      onChange={handleChange}
+                      onChange={handleText}
                       style={{ width: '250', display: 'flex' }}
                     >
                       <Radio value={'USA'}>Yes</Radio>
@@ -192,7 +193,7 @@ const Mentee = ({ dispatch, error }) => {
                         },
                       ]}
                       value={formValues.country}
-                      onChange={handleChange}
+                      onChange={handleText}
                       style={{ margin: '0 1rem 1rem 0' }}
                     >
                       <Input placeholder="Your Country" />
@@ -216,7 +217,7 @@ const Mentee = ({ dispatch, error }) => {
                           },
                         ]}
                         value={formValues.city}
-                        onChange={handleChange}
+                        onChange={handleText}
                         style={{ margin: '0 1rem .5rem 0' }}
                       >
                         <Input placeholder="Your City" />
@@ -317,7 +318,7 @@ const Mentee = ({ dispatch, error }) => {
                     type="text"
                     name="list_convictions"
                     value={formValues.list_convictions}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
@@ -453,7 +454,7 @@ const Mentee = ({ dispatch, error }) => {
                     type="text"
                     name="other_info"
                     value={formValues.other_info}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
