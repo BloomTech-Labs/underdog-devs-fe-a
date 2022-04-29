@@ -49,26 +49,13 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
-  const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error]);
+  // The change handlers relevant to this form's input fields are destructured
+  // here.
+  // See `/src/hooks/useForms.js` for the details on each input
+  // type's handler.
+  const { formValues, changeHandlers } = useForms(initialFormValues);
+  const { handleText, handleSelect, handleCheckbox, handleRadio } =
+    changeHandlers;
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
@@ -115,7 +102,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                     value={formValues.first_name}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '1.5rem 1.5rem .5rem 0' }}
                   >
                     <Input placeholder="Your First Name" />
@@ -134,7 +121,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                     value={formValues.last_name}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your Last Name" />
@@ -153,7 +140,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                     value={formValues.email}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '0.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter Valid Email" />
@@ -176,10 +163,17 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Select
-                      showSearch
-                      placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'country')}
+                    <Radio.Group
+                      name="country"
+                      onChange={handleRadio}
+                      value={formValues.country}
+                      style={{ width: '250', display: 'flex' }}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Country is required.',
+                        },
+                      ]}
                     >
                       {countries.map(country => (
                         <Option key={country} value={country}>
@@ -194,8 +188,47 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
+                {formValues.country === 'United States' && (
+                  <div className="locationUS">
+                    <Form.Item
+                      label="Country"
+                      type="text"
+                      name="country"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Country is required!',
+                        },
+                      ]}
+                      value={formValues.country}
+                      onChange={handleText}
+                    >
+                      <Input placeholder="Your Country" />
+                    </Form.Item>
+                  )}
+                </Col>
+              </Row>
+
+              <Row>
+                <Col md={15} xs={24} offset={1}>
+                  {formValues.country === 'USA' && (
                     <div className="locationUS">
+                      <Form.Item
+                        label="City"
+                        type="text"
+                        name="city"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'City is required!',
+                          },
+                        ]}
+                        value={formValues.city}
+                        onChange={handleText}
+                        style={{ margin: '0 1rem .5rem 0' }}
+                      >
+                        <Input placeholder="Your City" />
+                      </Form.Item>
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
@@ -210,7 +243,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         <Select
                           showSearch
                           placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
+                          onChange={v => {
+                            handleSelect({ name: 'state', value: v });
+                          }}
                         >
                           {USstates.map(state => (
                             <Option key={state} value={state}>
@@ -251,7 +286,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '.5rem 1rem .5rem' }}
                     rules={[
                       {
@@ -269,7 +304,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '.5rem 1rem .5rem' }}
                     rules={[
                       {
@@ -303,7 +338,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'subject')}
+                      onChange={v => {
+                        handleSelect({ name: 'subject', value: v });
+                      }}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="career">Career Development</Option>
@@ -332,7 +369,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   >
                     <Radio.Group
                       name="experience_level"
-                      onChange={handleChange}
+                      onChange={handleRadio}
                       value={formValues.experience_level}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
@@ -369,21 +406,21 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="job_help"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={e => handleCheckbox(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Job Search Help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={e => handleCheckbox(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Tech Industry Coaching
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={e => handleCheckbox(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Pair Programming / Coding Practice
@@ -405,7 +442,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     type="text"
                     name="other_info"
                     value={formValues.other_info}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
