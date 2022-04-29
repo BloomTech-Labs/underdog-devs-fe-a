@@ -12,7 +12,6 @@ import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
-import LogoutButton from './NavbarFeatures/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
@@ -111,7 +110,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
             <div className="header_buttons">
               <LoginButton />
               <SignupButton />
-              <LogoutButton />
             </div>
             )
           </div>

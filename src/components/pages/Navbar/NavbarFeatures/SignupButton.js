@@ -5,9 +5,18 @@ import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 function SignupButton() {
   const { loginWithRedirect } = useAuth0();
 
-  const signUp = () => loginWithRedirect({ screen_hint: 'signup' });
-
-  return <NavBtnLink onClick={signUp}>Signup</NavBtnLink>;
+  return (
+    <NavBtnLink
+      className="btn btn-primary btn-block"
+      onClick={() =>
+        loginWithRedirect({
+          screen_hint: 'signup',
+        })
+      }
+    >
+      Signup
+    </NavBtnLink>
+  );
 }
 
 export default SignupButton;
