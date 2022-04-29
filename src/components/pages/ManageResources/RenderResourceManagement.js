@@ -180,9 +180,14 @@ export const RenderResourceManagement = () => {
   const [activeTabKey, setActiveTabKey] = useState('request');
   const [resources, setResources] = useState([]);
   const { lg } = useBreakpoint();
-  const [formValues, handleChange, clearForm] = useForms(
+  // The change handlers relevant to this form's input fields are destructured
+  // here.
+  // See `/src/hooks/useForms.js` for the details on each input
+  // type's handler.
+  const { formValues, changeHandlers, clearForm } = useForms(
     initialResourceFormValues
   );
+  const { handleText } = changeHandlers;
 
   useEffect(() => {
     axiosWithAuth()
@@ -211,7 +216,7 @@ export const RenderResourceManagement = () => {
           name="resource_name"
           label="Resource Name"
           value={formValues.resource_name}
-          onChange={handleChange}
+          onChange={handleText}
           rules={[{ required: true, message: 'Please input a resource name' }]}
         >
           <Input />
@@ -220,7 +225,7 @@ export const RenderResourceManagement = () => {
           name="category"
           label="Category"
           value={formValues.category}
-          onChange={handleChange}
+          onChange={handleText}
           rules={[{ required: true, message: 'Please input a category name' }]}
         >
           <Input></Input>
@@ -229,7 +234,7 @@ export const RenderResourceManagement = () => {
           name="pertains_to"
           label="Pertains to"
           value={formValues.pertaians_to}
-          onChange={handleChange}
+          onChange={handleText}
           rules={[{ required: true, message: 'Please input a mentee name' }]}
         >
           <Input />
@@ -238,7 +243,7 @@ export const RenderResourceManagement = () => {
           name=""
           label="Message"
           value={formValues.message}
-          onChange={handleChange}
+          onChange={handleText}
         >
           <TextArea />
         </Form.Item>
