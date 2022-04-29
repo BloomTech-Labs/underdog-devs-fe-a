@@ -4,9 +4,9 @@ export default function useForms(initialValues) {
   const [formValues, setFormValues] = useState(initialValues);
 
   // Different change handlers are required for each input type
-  // because each type has its information in different fields in the event.
+  // because each type has its information in different fields in the event object.
 
-  const handleChange = e => {
+  const handleText = e => {
     setFormValues({ ...formValues, [e.target.id]: e.target.value });
   };
 
@@ -29,12 +29,12 @@ export default function useForms(initialValues) {
 
   // The change handlers are returned in an object, to be destructured as
   // needed in the Form, according to the input type used in the form.
-  const handlers = {
-    handleChange,
+  const changeHandlers = {
+    handleText,
     handleRadio,
     handleCheckbox,
     handleSelect,
   };
 
-  return { formValues, setFormValues, handlers };
+  return { formValues, setFormValues, changeHandlers };
 }
