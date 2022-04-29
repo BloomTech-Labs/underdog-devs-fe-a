@@ -36,5 +36,10 @@ export default function useForms(initialValues) {
     handleSelect,
   };
 
-  return { formValues, changeHandlers };
+  const clearForm = e => {
+    e.preventDefault();
+    setFormValues(initialValues);
+  };
+
+  return { formValues, changeHandlers, clearForm };
 }
