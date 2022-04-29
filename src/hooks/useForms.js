@@ -36,5 +36,5 @@ export default function useForms(initialValues) {
     handleSelect,
   };
 
-  return { formValues, setFormValues, changeHandlers };
+  return { formValues, changeHandlers };
 }
