@@ -11,8 +11,7 @@ export default function useForms(initialValues) {
   };
 
   const handleRadio = e => {
-    console.log('handleRadio arg: ', e);
-    console.log('formValues: ', formValues);
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
   const handleCheckbox = e => {
@@ -29,8 +28,7 @@ export default function useForms(initialValues) {
   };
 
   // The change handlers are returned in an object, to be destructured as
-  // needed in the Form,  according to the input type used in the form.
-
+  // needed in the Form, according to the input type used in the form.
   const handlers = {
     handleChange,
     handleRadio,
