@@ -1,19 +1,103 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal } from 'antd';
+import { Modal, Button, Popconfirm } from 'antd';
 import '../../../styles/styles.css';
+import './PendingApplication.css';
 
-const ApplicationModal = props => {
-  const [currentApplication, setCurrentApplication] = useState([]);
-  const { profileId, setProfileId, displayModal, setDisplayModal } = props;
+const ApplicationModal = ({
+  profileId,
+  setProfileId,
+  setDisplayModal,
+  displayModal,
+}) => {
+  const notes = { application_notes: '' };
+
+  const [currentApplication, setCurrentApplication] = useState({});
+  const [notesValue, setNotesValue] = useState(notes);
+  const [hideForm, setHideForm] = useState(true);
+
+  const updateModal = () => {
+    axiosWithAuth()
+      .get(`/application/profileId/${profileId}`)
+      .then(res => {
+        setCurrentApplication(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   const handleOk = () => {
     setDisplayModal(false);
+    setDisplayModal(true);
   };
 
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
+    setNotesValue(notes);
+    setHideForm(true);
+  };
+
+  const displayForm = () => {
+    setHideForm(false);
+  };
+  const handleChange = e => {
+    setNotesValue({
+      ...notesValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addNote = e => {
+    axiosWithAuth()
+      .put(
+        `/application/update-notes/${currentApplication.application_id}`,
+        notesValue
+      )
+      .then(res => {
+        updateModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    e.preventDefault();
+    setHideForm(true);
+  };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
+   */
+
+  const approveApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({ ...res.data, approved: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
+   */
+
+  const rejectApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({
+          ...res.data,
+          validateStatus: 'rejected',
+          approved: false,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -21,7 +105,8 @@ const ApplicationModal = props => {
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          setCurrentApplication(res.data);
+          setCurrentApplication(res.data[0]);
+          setNotesValue(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -44,92 +129,175 @@ const ApplicationModal = props => {
         </Modal>
       ) : (
         <Modal
-          title="Application"
+          title="Review Application"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          footer={null}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return to Previous
+            </Button>,
+            /**
+             * Author: Khaleel Musleh
+             * @param {onSubmit={approveApplication}} e Added an onSubmit Handler once the admin presses the approve button.
+             */
+            <Button key="submit" type="primary" onSubmit={approveApplication}>
+              Approve
+            </Button>,
+            <Popconfirm
+              /**
+               * Author: Khaleel Musleh
+               * @param {onSubmit={rejectApplication}} e Added an onSubmit Handler once the admin presses the reject button.
+               */
+
+              title="Are you sure you want to reject?"
+            >
+              <Button key="submit" onSubmit={rejectApplication} danger>
+                Reject
+              </Button>
+            </Popconfirm>,
+          ]}
         >
           <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
           {currentApplication.role_name === 'mentee' ? (
             <div>
-              email: {currentApplication.email}
-              <br></br>
-              Location: {currentApplication.city}, {currentApplication.state}{' '}
-              {currentApplication.country}
-              <br></br>
-              Convictions:{' '}
-              {`${
-                currentApplication.formerly_incarcerated === true
-                  ? currentApplication.list_convictions
-                  : 'none'
-              }`}
-              <br></br>
-              Experience Level: {currentApplication.experience_level}
-              {`${currentApplication.low_income === true ? 'Low Income' : ''}`}
-              {`${
-                currentApplication.underrepresented_group === true
-                  ? 'Belongs to Underrepresented group'
-                  : ''
-              }`}
-              <br></br>
-              Applicant needs help with:{' '}
-              {`${
-                currentApplication.industry_knowledge === true
-                  ? 'Industry Knowledge,'
-                  : ''
-              } ${currentApplication.job_help === true ? 'Job Help,' : ''} ${
-                currentApplication.pair_programming === true
-                  ? ' Pair Programming'
-                  : ''
-              }`}
-              <br></br>
-              Subject most interested in: {currentApplication.subject}
-              <br></br>
-              Role: {currentApplication.role_name}
-              <br></br>
-              Other information: {currentApplication.other_info}
-              <br></br>
-              Submission Date: {currentApplication.created_at.slice(0, 10)}
-              <br></br>
-              Application Status: {currentApplication.validateStatus}
+              <p>
+                <b>Email:</b> {currentApplication.email}
+              </p>
+              <p>
+                <b>Location:</b> {currentApplication.city},{' '}
+                {currentApplication.state} {currentApplication.country}
+              </p>
+              <p>
+                <b>Experience Level:</b> {currentApplication.experience_level}
+              </p>
+              <p>
+                <b>Membership Criteria:</b>
+                <ul>
+                  {currentApplication.formerly_incarcerated === true ? (
+                    <li>Formerly Incarcerated</li>
+                  ) : null}
+                  {currentApplication.low_income === true ? (
+                    <li>Low Income</li>
+                  ) : null}
+                  {currentApplication.underrepresented_group === true ? (
+                    <li>Belongs to underrepresented group</li>
+                  ) : null}
+                </ul>
+              </p>
+              <p>
+                {' '}
+                <b>Convictions:</b>{' '}
+                {`${
+                  currentApplication.formerly_incarcerated === true
+                    ? currentApplication.list_convictions
+                    : 'none'
+                }`}
+              </p>
+              <p>
+                <b>Applicant needs help with:</b>{' '}
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </p>
+              <p>
+                <b>Subject most interested in:</b> {currentApplication.subject}
+              </p>
+              <p>
+                <b>Role:</b> {currentApplication.role_name}
+              </p>
+              <p>
+                <b>Other information:</b> {currentApplication.other_info}
+              </p>
+              <p>
+                <b>Submission Date:</b>{' '}
+                {currentApplication.created_at.slice(0, 10)}
+              </p>
+              <p>
+                <b>Application Status:</b> {currentApplication.validateStatus}
+              </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button onClick={displayForm} hidden={!hideForm}>
+                Edit Notes
+              </button>
             </div>
           ) : (
             <div>
-              <b>Email:</b> {currentApplication.email}
-              <br></br>
-              <b>Location:</b> {currentApplication.city},{' '}
-              {currentApplication.state} {currentApplication.country}
-              <br></br>
-              <b>Current Employer:</b> {currentApplication.current_comp}
-              <br></br>
-              <b>Tech Stack:</b> {currentApplication.tech_stack}
-              <br></br>
-              <b>Experience Level:</b> {currentApplication.experience_level}
-              <br></br>
-              <b>Applicant wants to focus on:</b>{' '}
-              {`${
-                currentApplication.industry_knowledge === true
-                  ? 'Industry Knowledge,'
-                  : ''
-              } ${currentApplication.job_help === true ? 'Job Help,' : ''} ${
-                currentApplication.pair_programming === true
-                  ? ' Pair Programming'
-                  : ''
-              }`}
-              <br></br>
-              <b>Role:</b> {currentApplication.role_name}
-              <br></br>
-              <b>Other information:</b> {currentApplication.other_info}
-              <br></br>
-              <b>Submission Date:</b>{' '}
-              {currentApplication.created_at.slice(0, 10)}
-              <br></br>
-              <b>Application Status:</b> {currentApplication.validateStatus}
+              <p>
+                <b>Email:</b> {currentApplication.email}
+              </p>
+              <p>
+                <b>Location:</b> {currentApplication.city},{' '}
+                {currentApplication.state} {currentApplication.country}
+              </p>
+              <p>
+                <b>Current Employer:</b> {currentApplication.current_comp}
+              </p>
+              <p>
+                <b>Tech Stack:</b> {currentApplication.tech_stack}
+              </p>
+              <p>
+                <b>Experience Level:</b> {currentApplication.experience_level}
+              </p>
+              <p>
+                <b>Applicant wants to focus on:</b>{' '}
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </p>
+              <p>
+                <b>Role:</b> {currentApplication.role_name}
+              </p>
+              <p>
+                <b>Other information:</b> {currentApplication.other_info}
+              </p>
+              <p>
+                <b>Submission Date:</b>{' '}
+                {currentApplication.created_at.slice(0, 10)}
+              </p>
+              <p>
+                <b>Application Status:</b> {currentApplication.validateStatus}
+              </p>
+              <p>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </p>
+              <button onClick={displayForm} hidden={!hideForm}>
+                Edit Notes
+              </button>
             </div>
           )}
+          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
+            <textarea
+              id="application_notes"
+              type="text"
+              name="application_notes"
+              placeholder="Write Notes Here"
+              value={notesValue.application_notes}
+              onChange={handleChange}
+              className="applicationNotes"
+            />
+            <button>Save Notes</button>
+          </form>
         </Modal>
       )}
     </>
