@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states } from '../../../common/constants';
+import { states, countries } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
@@ -55,6 +55,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
     axiosWithAuth()
       .get(`/profile/current_user_profile`)
       .then(res => {
+        console.log(res.data.profile_id);
         setFormValues({ ...formValues, profile_id: res.data.profile_id });
       })
       .catch(err => {
@@ -68,6 +69,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successPage, error, history]);
+
+  console.log(formValues);
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
@@ -165,76 +168,35 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
-                    label="Are you located in the U.S.?"
-                    name="location"
+                    label="Country"
+                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
+                    name="country"
                     rules={[
                       {
                         required: true,
-                        message: 'Location is required.',
+                        message: 'Country is required!',
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="country"
-                      onChange={handleChange}
-                      value={formValues.country}
-                      style={{ width: '250', display: 'flex' }}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required.',
-                        },
-                      ]}
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'country')}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
+                      {countries.map(country => (
+                        <Option key={country} value={country}>
+                          {' '}
+                          {country}{' '}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
-                    <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleChange}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'USA' && (
+                  {formValues.country === 'United States' && (
                     <div className="locationUS">
-                      <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required!',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
@@ -260,6 +222,22 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       </Form.Item>
                     </div>
                   )}
+                  <Form.Item
+                    label="City"
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem .5rem 0' }}
+                  >
+                    <Input placeholder="Your City" />
+                  </Form.Item>
                 </Col>
               </Row>
 
