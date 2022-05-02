@@ -46,6 +46,11 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  google_search: false,
+  friend_or_family: false,
+  current_udd: false,
+  other_ref: false,
+  other_ref_txt: '',
   other_info: '',
 };
 
@@ -462,6 +467,80 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     type="text"
                     name="other_info"
                     value={formValues.other_info}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem 1rem 1.5rem' }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </Col>
+
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you find out about Underdog Devs?"
+                    tooltip={{
+                      title: 'Select all that apply',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="referred_by"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a referral',
+                      },
+                    ]}
+                  >
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0 1rem 1rem 1.5rem',
+                      }}
+                    >
+                      <Checkbox
+                        value="google_search"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Google search
+                      </Checkbox>
+                      <Checkbox
+                        value="friend_or_family"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Friend/family member
+                      </Checkbox>
+                      <Checkbox
+                        value="current_udd"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Current Underdog Dev (please specify below)
+                      </Checkbox>
+                      <Checkbox
+                        value="other_ref"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Other (please specify below)
+                      </Checkbox>
+                    </Checkbox.Group>
+                  </Form.Item>
+                </Col>
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="Please specify here:"
+                    tooltip={{
+                      title: 'Include other referral(s) here',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
+                  <Form.Item
+                    type="text"
+                    name="other_ref_txt"
+                    value={formValues.other_ref_txt}
                     onChange={handleChange}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
