@@ -44,6 +44,7 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  referred_by: '',
   other_info: '',
 };
 
@@ -413,7 +414,38 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you hear about Underdog Devs?"
+                    tooltip={{
+                      title: 'Please choose one',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="referred_by"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a referral',
+                      },
+                    ]}
+                  >
+                    <Radio.Group
+                      name="referred_by"
+                      onChange={handleChange}
+                      value={formValues.referred_by}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Radio value={'friend_or_family'}>Friend/Family</Radio>
+                      <Radio value={'coworker'}>Co-worker</Radio>
+                      <Radio value={'facebook'}>Facebook</Radio>
+                      <Radio value={'twitter'}>Twitter</Radio>
+                      <Radio value={'youtube'}>Youtube</Radio>
+                      <Radio value={'radio_or_podcast'}>Radio/Podcast</Radio>
+                      <Radio value={'linkedin'}>LinkedIn</Radio>
+                      <Radio value={'reddit'}>Reddit</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"

@@ -46,11 +46,6 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  social_media: false,
-  online_forum: false,
-  coworker: false,
-  other_ref: false,
-  other_ref_txt: '',
   other_info: '',
 };
 
@@ -453,79 +448,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="How did you find out about Underdog Devs?"
-                    tooltip={{
-                      title: 'Select all that apply',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="referred_by"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select a referral',
-                      },
-                    ]}
-                  >
-                    <Checkbox.Group
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-evenly',
-                        flexFlow: 'column',
-                        width: 350,
-                        margin: '0 1rem 1rem 1.5rem',
-                      }}
-                    >
-                      <Checkbox
-                        value="social_media"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Social media (such as twitter or facebook)
-                      </Checkbox>
-                      <Checkbox
-                        value="online_forum"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        An online forum (such as reddit)
-                      </Checkbox>
-                      <Checkbox
-                        value="coworker"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Coworker/friend from work
-                      </Checkbox>
-                      <Checkbox
-                        value="other_ref"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Other (please specify below)
-                      </Checkbox>
-                    </Checkbox.Group>
-                  </Form.Item>
-                </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="Please specify here:"
-                    tooltip={{
-                      title: 'Include other referral(s) here',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                  ></Form.Item>
-                  <Form.Item
-                    type="text"
-                    name="other_ref_txt"
-                    value={formValues.other_ref_txt}
-                    onChange={handleChange}
-                    style={{ margin: '0 1rem 1rem 1.5rem' }}
-                  >
-                    <Input.TextArea placeholder="Your answer" />
-                  </Form.Item>
-                </Col>
+
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"
