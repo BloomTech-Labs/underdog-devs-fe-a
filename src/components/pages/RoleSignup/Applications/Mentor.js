@@ -429,21 +429,20 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="referred_by"
-                      onChange={handleChange}
-                      value={formValues.referred_by}
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'referred_by')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Radio value={'friend_or_family'}>Friend/Family</Radio>
-                      <Radio value={'coworker'}>Co-worker</Radio>
-                      <Radio value={'facebook'}>Facebook</Radio>
-                      <Radio value={'twitter'}>Twitter</Radio>
-                      <Radio value={'youtube'}>Youtube</Radio>
-                      <Radio value={'radio_or_podcast'}>Radio/Podcast</Radio>
-                      <Radio value={'linkedin'}>LinkedIn</Radio>
-                      <Radio value={'reddit'}>Reddit</Radio>
-                    </Radio.Group>
+                      <Option value="friend_or_family">Friend/Family</Option>
+                      <Option value="coworker">Co-worker</Option>
+                      <Option value="facebook">Facebook</Option>
+                      <Option value="twitter">Twitter</Option>
+                      <Option value="youtube">Youtube</Option>
+                      <Option value="radio_or_podcast">Radio/Podcast</Option>
+                      <Option value="linkedin">LinkedIn</Option>
+                      <Option value="reddit">Reddit</Option>
+                    </Select>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
