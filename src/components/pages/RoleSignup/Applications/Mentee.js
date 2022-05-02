@@ -46,12 +46,14 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  heard_about: '',
   other_info: '',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, , setFormValues] =
-    useForms(initialFormValues);
+  const [formValues, handleChange, , setFormValues] = useForms(
+    initialFormValues
+  );
   const history = useHistory();
 
   useEffect(() => {
@@ -448,7 +450,37 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you hear about Underdog Devs?"
+                    tooltip={{
+                      title: 'Select where you heard about Underdog Devs',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="heard_about"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select an answer.',
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'heard_about')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Option value="friend_family">Friend/Family</Option>
+                      <Option value="coworker">Co-Worker</Option>
+                      <Option value="facebook">Facebook</Option>
+                      <Option value="twitter">Twitter</Option>
+                      <Option value="youtube">YouTube</Option>
+                      <Option value="radio_podcast">Radio/Podcast</Option>
+                      <Option value="linkedin">LinkedIn</Option>
+                      <Option value="reddit">Reddit</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"
