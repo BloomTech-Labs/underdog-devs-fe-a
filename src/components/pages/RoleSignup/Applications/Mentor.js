@@ -44,6 +44,7 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  commitment: '',
   referred_by: '',
   other_info: '',
 };
@@ -414,6 +415,40 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
+                <Col md={22} xs={24}>
+                  <p>
+                    Mentor commitments range from general mentoring and
+                    answering questions the mentees have in Slack, <br></br>
+                    being paired with a mentee for weekly 1:1 meetings, and pair
+                    programming for an hour a week with mentees in Project
+                    Underdog.
+                  </p>
+                  <Form.Item
+                    label=" Are you able to commit to one or more of these?"
+                    tooltip={{
+                      title: 'Choose One',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="commitment"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Commitment is required.',
+                      },
+                    ]}
+                  >
+                    <Radio.Group
+                      name="commitment"
+                      onChange={handleChange}
+                      value={formValues.commitment}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Radio value={'yes'}>Yes</Radio>
+                      <Radio value={'no'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
+
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="How did you hear about Underdog Devs?"
