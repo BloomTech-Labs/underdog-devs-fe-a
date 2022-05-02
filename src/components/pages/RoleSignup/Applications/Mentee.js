@@ -345,8 +345,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="Which best describes the tech path you are working towards
-                    or are interested in?"
+                    label="What subject do you want to get mentored in?"
                     tooltip={{
                       title: 'Select the title that best reflects your goals',
                       icon: <InfoCircleOutlined />,
@@ -364,7 +363,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Option value="career">Career Development</Option>
+                      <Option value="datascience">Data Science</Option>
                       <Option value="frontend">Frontend Development</Option>
                       <Option value="backend">Backend Development</Option>
                       <Option value="design">Design UI/UX</Option>
@@ -375,7 +374,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="What is your level of experience?"
+                    label="What is your level of experience in said subject?"
                     tooltip={{
                       title: 'Choose your current skill level',
                       icon: <InfoCircleOutlined />,
@@ -394,9 +393,15 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       value={formValues.experience_level}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Radio value={'beginner'}>Beginner</Radio>
-                      <Radio value={'intermediate'}>Intermediate</Radio>
-                      <Radio value={'expert'}>Expert</Radio>
+                      <Radio value={'beginner'}>
+                        I've never coded (Beginner)
+                      </Radio>
+                      <Radio value={'intermediate'}>
+                        I know for loops and if statements (Intermediate)
+                      </Radio>
+                      <Radio value={'advanced'}>
+                        I can make a basic app (Advanced)
+                      </Radio>
                     </Radio.Group>
                   </Form.Item>
                 </Col>
