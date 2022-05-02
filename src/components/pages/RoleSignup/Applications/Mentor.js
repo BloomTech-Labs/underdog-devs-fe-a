@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMentorAccount } from '../../../../state/actions/mentor';
@@ -49,14 +49,15 @@ const initialFormValues = {
 
 const Mentor = ({ dispatch, error, successPage }) => {
   const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
+  const [profileId, setProfileId] = useState('');
   const history = useHistory();
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/profile/current_user_profile`)
       .then(res => {
-        console.log(res.data.profile_id);
         setFormValues({ ...formValues, profile_id: res.data.profile_id });
+        setProfileId(res.data.profile_id);
       })
       .catch(err => {
         console.error(err);
@@ -68,8 +69,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
       console.error(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
+  }, [successPage, error]);
 
+  console.log(profileId);
   console.log(formValues);
 
   const formSubmit = () => {

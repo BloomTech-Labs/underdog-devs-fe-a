@@ -29,5 +29,5 @@ export default function useForms(initialValues) {
     setFormValues(initialValues);
   };
 
-  return [formValues, handleChange, clearForm, setFormValues];
+  return [formValues, handleChange, setFormValues, clearForm];
 }
