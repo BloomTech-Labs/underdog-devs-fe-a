@@ -176,6 +176,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     ]}
                   >
                     <Select
+                      showSearch
                       placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'country')}
                     >
@@ -206,6 +207,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         ]}
                       >
                         <Select
+                          showSearch
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >

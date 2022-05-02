@@ -184,6 +184,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                   >
                     <Select
+                      showSearch
                       placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'country')}
                     >
@@ -214,6 +215,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         ]}
                       >
                         <Select
+                          showSearch
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
