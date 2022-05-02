@@ -453,27 +453,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="Anything else you want us to know?"
-                    tooltip={{
-                      title:
-                        'Include any relevant info that you think may be helpful',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                  ></Form.Item>
-                  <Form.Item
-                    type="text"
-                    name="other_info"
-                    value={formValues.other_info}
-                    onChange={handleChange}
-                    style={{ margin: '0 1rem 1rem 1.5rem' }}
-                  >
-                    <Input.TextArea placeholder="Your answer" />
-                  </Form.Item>
-                </Col>
-
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="How did you find out about Underdog Devs?"
@@ -541,6 +520,25 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     type="text"
                     name="other_ref_txt"
                     value={formValues.other_ref_txt}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem 1rem 1.5rem' }}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
+                  </Form.Item>
+                </Col>
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="Anything else you want us to know?"
+                    tooltip={{
+                      title:
+                        'Include any relevant info that you think may be helpful',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                  ></Form.Item>
+                  <Form.Item
+                    type="text"
+                    name="other_info"
+                    value={formValues.other_info}
                     onChange={handleChange}
                     style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
