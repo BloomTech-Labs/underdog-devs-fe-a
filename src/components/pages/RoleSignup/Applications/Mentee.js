@@ -46,9 +46,9 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  google_search: false,
-  friend_or_family: false,
-  current_udd: false,
+  social_media: false,
+  online_forum: false,
+  coworker: false,
   other_ref: false,
   other_ref_txt: '',
   other_info: '',
@@ -478,25 +478,25 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       }}
                     >
                       <Checkbox
-                        value="google_search"
+                        value="social_media"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Google search
+                        Social media (such as twitter or facebook)
                       </Checkbox>
                       <Checkbox
-                        value="friend_or_family"
+                        value="online_forum"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Friend/family member
+                        An online forum (such as reddit)
                       </Checkbox>
                       <Checkbox
-                        value="current_udd"
+                        value="coworker"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Current Underdog Dev (please specify below)
+                        Coworker/friend from work
                       </Checkbox>
                       <Checkbox
                         value="other_ref"
