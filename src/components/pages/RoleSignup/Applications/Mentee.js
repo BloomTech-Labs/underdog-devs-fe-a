@@ -51,7 +51,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, , setFormValues] = useForms(
+  const [formValues, handleChange, setFormValues] = useForms(
     initialFormValues
   );
   const history = useHistory();
