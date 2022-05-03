@@ -1,35 +1,34 @@
 ## Description
 
-Frontend
-
-Added event handler to the approve button that makes a [PUT] call to the backend when an admin approves an application.
-
-Added the handleReject function with functionality to [PUT] call to the mentee_intake and mentor_intake database to update the validateStatus from pending to rejected.
-
-Added a onSubmit={rejectApplication} for rejecting an application on the reject button and an onSubmit={approveApplication} for approving an application on approve button.
+___Add your PR description here, deleting this example___
 
 #### Video Link
 
-[Loom Video](https://www.loom.com/share/648ac3034888426f8c79ec5abc1463b6)
+[Loom Video](Add your loom video link here)
 
 #### Trello Link
 
+___Paste your trello card link here, deleting this example___
 
-<blockquote class="trello-card"><a href="https://trello.com/c/SvN4johy/130-as-an-administrator-i-can-approve-or-reject-an-application-from-a-mentee-or-mentor-so-that-i-can-get-approved-users-onboarded
-">Build: Added PUT call to backend for approving and rejecting applications of Mentee_Intake and Mentor_Intake while updating the status of approve and validateStatus.</a></blockquote>
+(Example below):
+
+<blockquote class="trello-card"><a href="https:&#x2F;&#x2F;trello.com&#x2F;c&#x2F;JfipwNkb&#x2F;265-fix-refactor-sidebar-to-have-icons-representing-each-element-in-the-sidebar">Fix: Refactor sidebar to have icons representing each element in the sidebar</a></blockquote>
 
 ## Type of change
 
-- [x] New feature (non-breaking change which adds Application approval or rejection on applicationmodel.js)
+___Please delete options that are not relevant.___
+
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] This change requires a documentation update
 
 ## Checklist:
 
-- [x] My code follows the style guidelines of this project
-- [x] I have performed a self-review of my own code
-- [x] I have removed unnecessary comments/console logs from my code
-- [x] My changes generate no new warnings
-- [x] I have checked my code and corrected any misspellings
-- [x] No duplicate code left within changed files
-- [x] Size of pull request kept to a minimum
-- [x] Pull request description clearly describes changes made & motivations for said changes
-
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have removed unnecessary comments/console logs from my code
+- [ ] My changes generate no new warnings
+- [ ] I have checked my code and corrected any misspellings
+- [ ] No duplicate code left within changed files
+- [ ] Size of pull request kept to a minimum
+- [ ] Pull request description clearly describes changes made & motivations for said changes
