@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 import { Table, Button } from 'antd';
-import NotesTable from '../../common/NotesTable';
+import MemosTable from '../../common/MemosTable';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
@@ -85,7 +85,7 @@ const UserManagement = () => {
                 ? 'mentee'
                 : 'pending',
             email: row.email,
-            notes: 'this is a note',
+            notes: 'this is a memo',
           }))
         );
       })
@@ -106,7 +106,7 @@ const UserManagement = () => {
         columns={columns}
         dataSource={accounts}
         expandable={{
-          expandedRowRender: record => <NotesTable accounts={record} />,
+          expandedRowRender: record => <MemosTable accounts={record} />,
         }}
       />
     </>
