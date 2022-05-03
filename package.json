@@ -92,6 +92,7 @@
     "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^5.0.0",
     "prompts": "^2.3.2",
-    "yaml": "^1.10.0"
+    "yaml": "^1.10.0",
+    "react-error-overlay": "6.0.9"
   }
 }
