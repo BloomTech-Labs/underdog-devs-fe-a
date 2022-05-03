@@ -190,47 +190,6 @@ const Mentee = ({ dispatch, error }) => {
                   {formValues.country === 'United States' && (
                     <div className="locationUS">
                       <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleText}
-                      style={{ margin: '0 1rem 1rem 0' }}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
-                  </div>
-                  )}
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required.',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleText}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
-                      <Form.Item
                         label="State"
                         type="text"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
