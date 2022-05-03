@@ -181,30 +181,31 @@ const Mentor = ({ dispatch, error, successPage }) => {
                           {country}{' '}
                         </Option>
                       ))}
-                    </Select>
+                    </Radio.Group>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                {formValues.country === 'United States' && (
-                  <div className="locationUS">
-                    <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleText}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
+                  {formValues.country === 'United States' && (
+                    <div className="locationUS">
+                      <Form.Item
+                        label="Country"
+                        type="text"
+                        name="country"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Country is required!',
+                          },
+                        ]}
+                        value={formValues.country}
+                        onChange={handleText}
+                      >
+                        <Input placeholder="Your Country" />
+                      </Form.Item>
+                    </div>
                   )}
                 </Col>
               </Row>
@@ -268,7 +269,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                     value={formValues.city}
-                    onChange={handleChange}
+                    onChange={handleText}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your City" />
