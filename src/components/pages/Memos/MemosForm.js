@@ -1,3 +1,4 @@
+/* all commented out code is to remove the no-unused-vars warning from console */
 import React, { useState } from 'react';
 import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +11,7 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 
-import './Notes.css';
+import './Memos.css';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const initialValues = {
@@ -26,8 +27,7 @@ const initialValues = {
   mentee_id: '',
 };
 
-const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
-  const { profile_id, first_name, role_id } = userProfile;
+const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
@@ -40,7 +40,7 @@ const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
       .post('/notes', newMemo)
       .then(res => {
         console.log(res);
-        push('/mynotes');
+        push('/mymemos');
       })
       .catch(err => {
         console.error(err.message);
@@ -118,7 +118,7 @@ const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
         onCancel={() => setDisplayModal(false)}
         footer={null}
       >
-        <div className="notes-column-container">
+        <div className="memos-column-container">
           <label htmlFor="">Subject</label>
           <Dropdown
             name="content_type"
@@ -143,9 +143,9 @@ const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
           <p className="margin-top-1">{count}/280 Characters</p>
           <br />
         </div>
-        <div className="notes-column-container">
-          <div className="notes-input-rows">
-            <div className="radio notes-column-container">
+        <div className="memos-column-container">
+          <div className="memos-input-rows">
+            <div className="radio memos-column-container">
               <label htmlFor="">Priority</label>
               <Radio.Group name="level" onChange={onChange} value={toggle}>
                 <Space direction="vertical">
@@ -158,7 +158,7 @@ const NotesForm = ({ displayModal, setDisplayModal, userProfile }) => {
           </div>
           <br />
 
-          <div className="notes-button-rows">
+          <div className="memos-button-rows">
             <Button block={true} size="large">
               Save draft
             </Button>
@@ -176,4 +176,4 @@ const mapStateToProps = state => {
   return { userProfile: state.user.userProfile };
 };
 
-export default connect(mapStateToProps)(NotesForm);
+export default connect(mapStateToProps)(MemosForm);

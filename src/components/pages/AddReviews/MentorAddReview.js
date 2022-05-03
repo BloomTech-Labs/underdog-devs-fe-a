@@ -17,9 +17,9 @@ const formItemLayout = {
   },
 };
 
-const MenteeAddReview = () => {
+const MentorAddReview = () => {
   const [formValues, setFormValues] = useState({
-    mentor_name: '',
+    mentee_name: '',
     review: '',
   });
 
@@ -47,21 +47,21 @@ const MenteeAddReview = () => {
         Please fill out a review
       </p>
       <Form.Item
-        name="mentor_name"
-        label="Mentor Name"
-        value={formValues.mentor_name}
+        name="mentee_name"
+        label="Mentee Name"
+        value={formValues.mentee_name}
         onChange={handleChange}
-        rules={[{ required: true, message: 'Please input a mentor name' }]}
+        rules={[{ required: true, message: 'Please input a mentee name' }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="mentor_review"
-        label="Mentor Review"
-        value={formValues.mentor_review}
+        name="mentee_review"
+        label="Mentee Review"
+        value={formValues.mentee_review}
         onChange={handleChange}
-        rules={[{ required: true, message: 'Please input a mentor review' }]}
+        rules={[{ required: true, message: 'Please input a mentee review' }]}
       >
         <TextArea />
       </Form.Item>
@@ -73,4 +73,4 @@ const MenteeAddReview = () => {
   );
 };
 
-export default MenteeAddReview;
+export default MentorAddReview;
