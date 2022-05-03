@@ -215,13 +215,6 @@ function App() {
           component={Reviews}
         />
 
-        {/* <PrivateRoute
-          path="/addMentorReview"
-          redirect="/dashboard"
-          allowRoles={[1, 2]}
-          component={MentorAddReview}
-        /> */}
-
         <PrivateRoute
           path="/addMenteeReview"
           redirect="/dashboard"
