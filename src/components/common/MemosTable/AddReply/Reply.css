@@ -29,6 +29,8 @@
 
 .popup-inner h1 {
     color: white;
+    display: flex;
+    justify-content: center;
 }
 
 .close-btn h1{
@@ -37,11 +39,14 @@
 
 .submit {
     margin-top: 2%;
+    margin-left: 46%;
     background-color: rgba(43, 114, 190, 0.509);
     padding: 1%;
+    
 }
 
-input {
+input, label {
     width: 60%;
     background-color: rgb(166, 167, 169);
+    margin-left: 11%;
 }
