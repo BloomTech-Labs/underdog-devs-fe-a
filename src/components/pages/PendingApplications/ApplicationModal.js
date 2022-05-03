@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal, Button, Popconfirm } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
+import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -11,7 +11,7 @@ const ApplicationModal = ({
   displayModal,
 }) => {
   const notes = { application_notes: '' };
-
+  const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState({});
   const [notesValue, setNotesValue] = useState(notes);
   const [hideForm, setHideForm] = useState(true);
@@ -42,12 +42,14 @@ const ApplicationModal = ({
   const displayForm = () => {
     setHideForm(false);
   };
+
   const handleChange = e => {
     setNotesValue({
       ...notesValue,
       [e.target.name]: e.target.value,
     });
   };
+
   const addNote = e => {
     axiosWithAuth()
       .put(
@@ -70,7 +72,7 @@ const ApplicationModal = ({
         .get(`/application/profileId/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
-          setNotesValue(res.data);
+          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
@@ -103,30 +105,31 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Button key="submit" type="primary">
-              Approved
-            </Button>,
-            <Popconfirm title="Are you sure you want to reject?">
-              <Button key="submit" danger>
-                Reject
-              </Button>
+            <Popconfirm key="reject" title="Are you sure you want to reject?">
+              <Button danger>Reject</Button>
+            </Popconfirm>,
+            <Popconfirm key="approve" title="Are you sure you want to approve?">
+              <Button type="primary">Approved</Button>
             </Popconfirm>,
           ]}
         >
-          <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
+          <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
           {currentApplication.role_name === 'mentee' ? (
-            <div>
-              <p>
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Membership Criteria:</b>
                 <ul>
                   {currentApplication.formerly_incarcerated === true ? (
@@ -139,8 +142,8 @@ const ApplicationModal = ({
                     <li>Belongs to underrepresented group</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 {' '}
                 <b>Convictions:</b>{' '}
                 {`${
@@ -148,8 +151,8 @@ const ApplicationModal = ({
                     ? currentApplication.list_convictions
                     : 'none'
                 }`}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Applicant needs help with:</b>{' '}
                 <ul>
                   {currentApplication.industry_knowledge === true ? (
@@ -162,49 +165,56 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Subject most interested in:</b> {currentApplication.subject}
-              </p>
-              <p>
-                <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
-              </p>
-              <button onClick={displayForm} hidden={!hideForm}>
-                Edit Notes
-              </button>
-            </div>
+                <Button
+                  onClick={displayForm}
+                  hidden={!hideForm}
+                  block
+                  size="small"
+                  type="dashed"
+                  style={{ background: 'white', borderColor: '#1890ff' }}
+                >
+                  Edit Notes
+                </Button>
+              </List.Item>
+            </List>
           ) : (
-            <div>
-              <p>
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Current Employer:</b> {currentApplication.current_comp}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Applicant wants to focus on:</b>{' '}
                 <ul>
                   {currentApplication.industry_knowledge === true ? (
@@ -217,40 +227,51 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
-                <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
-              </p>
-              <button onClick={displayForm} hidden={!hideForm}>
+              </List.Item>
+              <Button
+                onClick={displayForm}
+                hidden={!hideForm}
+                block
+                size="small"
+                type="dashed"
+                style={{ background: 'white', borderColor: '#1890ff' }}
+              >
                 Edit Notes
-              </button>
-            </div>
+              </Button>
+            </List>
           )}
-          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
-            <textarea
+          <Form className="notesField" hidden={hideForm}>
+            <Form.Item
               id="application_notes"
               type="text"
-              name="application_notes"
-              placeholder="Write Notes Here"
               value={notesValue.application_notes}
               onChange={handleChange}
               className="applicationNotes"
-            />
-            <button onClick={addNote}>Save Notes</button>
-          </form>
+            >
+              <TextArea autosize="true" placeholder="Edit notes here..." />
+              <Button
+                onClick={addNote}
+                type="dashed"
+                size="small"
+                style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
+              >
+                Save
+              </Button>
+            </Form.Item>
+          </Form>
         </Modal>
       )}
     </>
