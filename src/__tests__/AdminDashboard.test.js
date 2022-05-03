@@ -181,12 +181,14 @@ test('Home Container no longer exists, this entire test needs to be revisited/re
 // const account = await screen.findByText(/Account/i);
 // userEvent.click(account);
 
-// // added this line of code here because i was getting a window.alert() error, saying it wasn't implemented
-// window.alert = () => {};
+    //testing for Schedule Interview comp to render
+    const scheduleInterview = await screen.findByText(/Schedule Interview/i);
+    userEvent.click(scheduleInterview);
 
-// // testing for Schedule Interview comp to render
-// const scheduleInterview = await screen.findByText(/Schedule Interview/i);
-// userEvent.click(scheduleInterview);
+    await waitFor(() => {
+      const scheduleInterviewComponent = screen.findByText(/ScheduleMeeting/i);
+      expect(scheduleInterviewComponent).toBeTruthy();
+    });
 
 // await waitFor(() => {
 //   const scheduleInterviewComponent = screen.findByText(
