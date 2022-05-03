@@ -43,6 +43,7 @@ const initialFormValues = {
   formerly_incarcerated: false,
   list_convictions: '',
   subject: 'not collecting this from intake form',
+  tech_stack: '',
   experience_level: '',
   job_help: false,
   industry_knowledge: false,
