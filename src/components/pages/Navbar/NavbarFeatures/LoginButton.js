@@ -1,10 +1,15 @@
 import React from 'react';
-import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 import { useAuth0 } from '@auth0/auth0-react';
+import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 
 function LoginButton() {
+  const { loginWithRedirect } = useAuth0();
+
   return (
-    <NavBtnLink to={`/login`} key="login">
+    <NavBtnLink
+      className="btn btn-primary btn-block"
+      onClick={() => loginWithRedirect()}
+    >
       Login
     </NavBtnLink>
   );
