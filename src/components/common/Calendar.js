@@ -64,12 +64,14 @@ function monthCellRender(value) {
 
 const CalendarFeature = () => {
   return (
-    <div className="calendar">
-      <Calendar
-        dateCellRender={dateCellRender}
-        monthCellRender={monthCellRender}
-      />
-    </div>
+    <>
+      <div className="calendar">
+        <Calendar
+          dateCellRender={dateCellRender}
+          monthCellRender={monthCellRender}
+        />
+      </div>
+    </>
   );
 };
 export default CalendarFeature;

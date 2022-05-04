@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states } from '../../../common/constants';
+import { states, countries } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
@@ -67,7 +67,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
       console.error(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
+  }, [successPage, error]);
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
@@ -165,76 +165,36 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
-                    label="Are you located in the U.S.?"
-                    name="location"
+                    label="Country"
+                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
+                    name="country"
                     rules={[
                       {
                         required: true,
-                        message: 'Location is required.',
+                        message: 'Country is required!',
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="country"
-                      onChange={handleChange}
-                      value={formValues.country}
-                      style={{ width: '250', display: 'flex' }}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required.',
-                        },
-                      ]}
+                    <Select
+                      showSearch
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'country')}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
+                      {countries.map(country => (
+                        <Option key={country} value={country}>
+                          {' '}
+                          {country}{' '}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
-                    <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleChange}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'USA' && (
+                  {formValues.country === 'United States' && (
                     <div className="locationUS">
-                      <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required!',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
@@ -247,6 +207,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         ]}
                       >
                         <Select
+                          showSearch
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
@@ -260,6 +221,22 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       </Form.Item>
                     </div>
                   )}
+                  <Form.Item
+                    label="City"
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem .5rem 0' }}
+                  >
+                    <Input placeholder="Your City" />
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -310,7 +287,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="Which best describes your tech stack?"
+                    label="What areas are you wanting to provide mentorship in?"
                     tooltip={{
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
@@ -323,45 +300,65 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Select
-                      placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'subject')}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0rem 1rem 1rem 1.5rem',
+                      }}
                     >
-                      <Option value="career">Career Development</Option>
-                      <Option value="frontend">Frontend Development</Option>
-                      <Option value="backend">Backend Development</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="IOS">IOS Development</Option>
-                      <Option value="android">Android Development</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="What is your level of experience?"
-                    tooltip={{
-                      title: 'Choose your current skill level',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="experience_level"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Experience is required.',
-                      },
-                    ]}
-                  >
-                    <Radio.Group
-                      name="experience_level"
-                      onChange={handleChange}
-                      value={formValues.experience_level}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                    >
-                      <Radio value={'beginner'}>Beginner</Radio>
-                      <Radio value={'intermediate'}>Intermediate</Radio>
-                      <Radio value={'expert'}>Expert</Radio>
-                    </Radio.Group>
+                      <Checkbox
+                        value="Career Development"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Career Development
+                      </Checkbox>
+                      <Checkbox
+                        value="Frontend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Frontend
+                      </Checkbox>
+                      <Checkbox
+                        value="Backend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Backend
+                      </Checkbox>
+                      <Checkbox
+                        value="Design UI/UX"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Design UI/UX
+                      </Checkbox>
+                      <Checkbox
+                        value="iOS"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        iOS
+                      </Checkbox>
+                      <Checkbox
+                        value="Android"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Android
+                      </Checkbox>
+                      <Checkbox
+                        value="Data Science"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Data Science
+                      </Checkbox>
+                    </Checkbox.Group>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>

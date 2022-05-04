@@ -34,8 +34,9 @@ import Memos from './components/pages/Memos/Memos';
 import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
-import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
+// import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+import ScheduleMeeting from './components/common/ScheduleMeeting';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 
 import { createStore, applyMiddleware } from 'redux';
@@ -178,7 +179,7 @@ function App() {
           path="/meetings/schedule"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => <div>"Schedule Meeting" Component goes here</div>}
+          component={ScheduleMeeting}
         />
 
         <PrivateRoute
@@ -216,12 +217,12 @@ function App() {
           component={Reviews}
         />
 
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/addMentorReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
-        />
+        /> */}
 
         <PrivateRoute
           path="/addMenteeReview"
