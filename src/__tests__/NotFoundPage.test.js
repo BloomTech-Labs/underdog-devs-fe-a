@@ -10,7 +10,7 @@ describe('Loading Common Component', () => {
         <NotFoundPage />
       </Router>
     );
-    const h1 = getByText(/404 page not found/i);
+    const h1 = getByText(/404 page not found X/i);
     expect(h1.textContent).toBe('404 Page Not Found');
   });
 });

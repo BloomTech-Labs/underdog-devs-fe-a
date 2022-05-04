@@ -16,6 +16,7 @@ const YAML = require('yaml');
  * Alter the index.js file
  * Remove code climate from ci.yml
  */
+
 (async () => {
   console.log(kleur.bold().cyan('Preparing Labs Scaffold for BW projects'));
 
