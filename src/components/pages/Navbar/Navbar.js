@@ -19,8 +19,8 @@ const { Header } = Layout;
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { authService } = useOktaAuth();
   const [modal, setModal] = useState(false);
+  const { logout } = useAuth0();
 
   const openModal = () => setModal(true);
 
@@ -29,8 +29,8 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
-    localStorage.removeItem('token');
-    authService.logout();
+    localStorage.removeItem('AuthToken');
+    logout({ returnTo: window.location.origin });
   };
   useEffect(() => {
     axiosWithAuth()
@@ -71,7 +71,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 role="button"
               />
             </Link>
-
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
                 <Link
@@ -109,7 +108,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Dropdown>
               </div>
             )}
-
             {!isAuthenticated && (
               <div className="header_buttons">
                 <LoginButton />
