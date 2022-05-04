@@ -181,14 +181,14 @@ test('Home Container no longer exists, this entire test needs to be revisited/re
 // const account = await screen.findByText(/Account/i);
 // userEvent.click(account);
 
-    //testing for Schedule Interview comp to render
-    const scheduleInterview = await screen.findByText(/Schedule Interview/i);
-    userEvent.click(scheduleInterview);
+//testing for Schedule Interview comp to render
+// const scheduleInterview = await screen.findByText(/Schedule Interview/i);
+// userEvent.click(scheduleInterview);
 
-    await waitFor(() => {
-      const scheduleInterviewComponent = screen.findByText(/ScheduleMeeting/i);
-      expect(scheduleInterviewComponent).toBeTruthy();
-    });
+// await waitFor(() => {
+//   const scheduleInterviewComponent = screen.findByText(/ScheduleMeeting/i);
+//   expect(scheduleInterviewComponent).toBeTruthy();
+// });
 
 // await waitFor(() => {
 //   const scheduleInterviewComponent = screen.findByText(
