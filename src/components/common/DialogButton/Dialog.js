@@ -92,15 +92,15 @@ class Dialog extends React.Component {
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          // modalRender={modal => (
-          //   <Draggable
-          //     disabled={disabled}
-          //     bounds={bounds}
-          //     onStart={(event, uiData) => this.onStart(event, uiData)}
-          //   >
-          //     <div ref={this.draggleRef}>{modal}</div>
-          //   </Draggable>
-          // )}
+          modalRender={modal => (
+            <Draggable
+              disabled={disabled}
+              bounds={bounds}
+              onStart={(event, uiData) => this.onStart(event, uiData)}
+            >
+              <div ref={this.draggleRef}>{modal}</div>
+            </Draggable>
+          )}
         >
           <SwitchablePicker />
         </Modal>
