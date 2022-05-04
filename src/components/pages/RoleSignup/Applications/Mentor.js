@@ -44,6 +44,8 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  commitment: '',
+  referred_by: '',
   other_info: '',
 };
 
@@ -410,7 +412,71 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
+                <Col md={22} xs={24}>
+                  <p>
+                    Mentor commitments range from general mentoring and
+                    answering questions the mentees have in Slack, <br></br>
+                    being paired with a mentee for weekly 1:1 meetings, and pair
+                    programming for an hour a week with mentees in Project
+                    Underdog.
+                  </p>
+                  <Form.Item
+                    label=" Are you able to commit to one or more of these?"
+                    tooltip={{
+                      title: 'Choose One',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="commitment"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Commitment is required.',
+                      },
+                    ]}
+                  >
+                    <Radio.Group
+                      name="commitment"
+                      onChange={handleChange}
+                      value={formValues.commitment}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Radio value={'yes'}>Yes</Radio>
+                      <Radio value={'no'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
 
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you hear about Underdog Devs?"
+                    tooltip={{
+                      title: 'Please choose one',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="referred_by"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a referral',
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'referred_by')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Option value="friend_or_family">Friend/Family</Option>
+                      <Option value="coworker">Co-worker</Option>
+                      <Option value="facebook">Facebook</Option>
+                      <Option value="twitter">Twitter</Option>
+                      <Option value="youtube">Youtube</Option>
+                      <Option value="radio_or_podcast">Radio/Podcast</Option>
+                      <Option value="linkedin">LinkedIn</Option>
+                      <Option value="reddit">Reddit</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"
