@@ -39,6 +39,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
         setUser(user.data);
         getProfile(user.data.profile_id);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   if (!user) {
@@ -74,7 +75,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
               <div className="userInfo-and-profilePic">
                 <Link
                   key="memosLinkNav"
-                  to="/notes"
+                  to="/memos"
                   style={{ color: '#FFF' }}
                   className="memos"
                 >
@@ -107,11 +108,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Dropdown>
               </div>
             )}
-            <div className="header_buttons">
-              <LoginButton />
-              <SignupButton />
-            </div>
-            )
+            {!isAuthenticated && (
+              <div className="header_buttons">
+                <LoginButton />
+                <SignupButton />
+              </div>
+            )}
           </div>
         </Header>
       </Layout>

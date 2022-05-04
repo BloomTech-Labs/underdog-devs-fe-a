@@ -23,7 +23,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states } from '../../../common/constants';
+import { states, countries } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
@@ -31,6 +31,7 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
+  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -50,8 +51,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, , setFormValues] =
-    useForms(initialFormValues);
+  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
 
   useEffect(() => {
@@ -64,13 +64,12 @@ const Mentee = ({ dispatch, error, successPage }) => {
         console.error(err);
       });
 
-    console.log('USE EFFECT: ', formValues);
-
     if (successPage) {
       history.pushState(successPage);
     } else if (error) {
       console.error(error);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successPage, error, history]);
 
   const formSubmit = () => {
@@ -174,83 +173,49 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
-                    label="Are you located in the US?"
+                    label="Country"
+                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
                     name="country"
                     rules={[
                       {
                         required: true,
-                        message: 'Please select whether you live in the US.',
+                        message: 'Country is required!',
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="country"
-                      value={formValues.country}
-                      onChange={handleChange}
-                      style={{ width: '250', display: 'flex' }}
+                    <Select
+                      showSearch
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'country')}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Your Country'}>No</Radio>
-                    </Radio.Group>
+                      {countries.map(country => (
+                        <Option key={country} value={country}>
+                          {' '}
+                          {country}{' '}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
-                    <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleChange}
-                      style={{ margin: '0 1rem 1rem 0' }}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'USA' && (
+                  {formValues.country === 'United States' && (
                     <div className="locationUS">
                       <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required.',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
-                      <Form.Item
                         label="State"
-                        name="state"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
+                        name="state"
                         rules={[
                           {
                             required: true,
-                            message: 'State is required.',
+                            message: 'State is required!',
                           },
                         ]}
                       >
                         <Select
+                          showSearch
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
@@ -264,6 +229,22 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       </Form.Item>
                     </div>
                   )}
+                  <Form.Item
+                    label="City"
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem .5rem 0' }}
+                  >
+                    <Input placeholder="Your City" />
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -277,7 +258,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       title: 'If none apply, leave blank',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="your_hope"
+                    name="criteria-for-membership"
                     rules={[
                       {
                         required: true,
