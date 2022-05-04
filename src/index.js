@@ -18,7 +18,7 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-import MyNotes from './components/pages/Notes/MyNotes';
+import MyMemos from './components/pages/Memos/MyMemos';
 
 // import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
@@ -30,12 +30,13 @@ import UserManagement from './components/pages/UserManagement/UserManagement';
 import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
-import Notes from './components/pages/Notes/Notes';
-import NotesForm from './components/pages/Notes/NotesForm';
+import Memos from './components/pages/Memos/Memos';
+import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
-import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
+// import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+import ScheduleMeeting from './components/common/ScheduleMeeting';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -105,24 +106,24 @@ function App() {
         />
 
         <PrivateRoute
-          path="/notes"
+          path="/memos"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={Notes}
+          component={Memos}
         />
 
         <PrivateRoute
-          path="/notesform"
+          path="/memosform"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={NotesForm}
+          component={MemosForm}
         />
 
         <PrivateRoute
-          path="/mynotes"
+          path="/mymemos"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={MyNotes}
+          component={MyMemos}
         />
 
         <PrivateRoute
@@ -180,7 +181,7 @@ function App() {
           path="/meetings/schedule"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => <div>"Schedule Meeting" Component goes here</div>}
+          component={ScheduleMeeting}
         />
 
         <PrivateRoute
@@ -218,12 +219,12 @@ function App() {
           component={Reviews}
         />
 
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/addMentorReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
-        />
+        /> */}
 
         <PrivateRoute
           path="/addMenteeReview"

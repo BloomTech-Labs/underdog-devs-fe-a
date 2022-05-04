@@ -3,17 +3,17 @@
   margin-left: 0px;
 }
 
-.notes-column-container {
+.memos-column-container {
   display: flex;
   flex-direction: column;
 }
 
-.notes-input-rows {
+.memos-input-rows {
   display: flex;
   justify-content: space-between;
 }
 
-.notes-button-rows {
+.memos-button-rows {
   display: flex;
   gap: 1em;
 }
@@ -22,7 +22,7 @@
   margin-top: 1%;
 }
 
-.add-note-button {
+.add-memo-button {
   display: flex;
   align-items: center;
   padding: 1em 0.5em;

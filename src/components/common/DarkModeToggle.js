@@ -40,7 +40,7 @@ export const getTheme = () => {
 //sets the theme, gets the theme from the stylesheets object and sets the href equal to that
 export const setTheme = theme => {
   localStorage.setItem('theme', theme);
-  // asssigns the href in getStylesheetLink function to the corrisponding theme in the stylesheets object
+  // asssigns the href in getStylesheetLink function to the corresponding theme in the stylesheets object
   getStylesheetLink().href = stylesheets[theme];
 };
 
