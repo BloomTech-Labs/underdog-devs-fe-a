@@ -9,20 +9,20 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="breadcrumbs">
+      <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
         </Breadcrumb>
-      </div>
+      </Row>
 
       <Row className="row">
-        <Col sm={3} md={2} lg={1} className="col1">
+        <Col className="col1">
           <Card
             className="card1"
             hoverable
@@ -31,14 +31,14 @@ const Signup = () => {
                 alt="example"
                 className="card-img"
                 src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                style={{ height: '100%' }}
+                // style={{ height: '100%' }}
               />
             }
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTEE program" />
@@ -51,11 +51,11 @@ const Signup = () => {
               <Divider
                 className="divider"
                 type="vertical"
-                style={{ height: 100 }}
+                // style={{ height: 100 }}
               />
 
-              <Link to="/menteeapplication">
-                <Button className="button" type="primary" block>
+              <Link to="/apply/mentee">
+                <Button className="button" type="primary" size="large" block>
                   MENTEE
                 </Button>
               </Link>
@@ -63,7 +63,7 @@ const Signup = () => {
           </Card>
         </Col>
 
-        <Col sm={3} md={2} lg={1} className="col2">
+        <Col className="col2">
           <Card
             hoverable
             className="card2"
@@ -72,14 +72,14 @@ const Signup = () => {
                 alt="example"
                 className="card-img"
                 src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                style={{ height: '100%' }}
+                // style={{ height: '100%' }}
               />
             }
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTOR program" />
@@ -92,11 +92,11 @@ const Signup = () => {
               <Divider
                 className="divider"
                 type="vertical"
-                style={{ height: 100 }}
+                // style={{ height: 100 }}
               />
 
-              <Link to="/mentorapplication">
-                <Button className="button" type="primary" block>
+              <Link to="/apply/mentor">
+                <Button className="button" type="primary" size="large" block>
                   MENTOR
                 </Button>
               </Link>

@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import EditProfile from '../Profile/EditProfile';
 
 // import '../Dashboard/Admin/index.css';
-import { Layout, Menu, Breadcrumb, Row, Col, Typography, Card } from 'antd';
+import { Row, Col, Typography, Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import {
   TwitterOutlined,
   LinkedinOutlined,
-  FacebookOutlined,
+  GithubOutlined,
 } from '@ant-design/icons';
 
-import {
-  AppstoreOutlined,
-  LaptopOutlined,
-  LineChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  CalendarOutlined,
-  FormOutlined,
-} from '@ant-design/icons';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 
-const { SubMenu } = Menu;
 const { Title } = Typography;
 const { Meta } = Card;
 
@@ -32,7 +21,7 @@ const RenderProfileContainer = props => {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/profiles/current_user_profile`)
+      .get(`/profile/current_user_profile`)
       .then(resp => {
         setUserData(resp.data);
       })
@@ -44,7 +33,7 @@ const RenderProfileContainer = props => {
   return (
     <div>
       <Row style={{ height: '100vh' }}>
-        <Col span={6} style={{ padding: '3%' }}>
+        <Col span={6} style={{ padding: '1.8%' }}>
           <Card
             style={{ padding: '2%' }}
             cover={
@@ -61,21 +50,36 @@ const RenderProfileContainer = props => {
             <Typography>{userData.email}</Typography>
           </Card>
           <Card
-            style={{ width: 300, marginTop: 16 }}
+            style={{ width: 257, marginTop: 16 }}
             actions={[
               <TwitterOutlined />,
               <LinkedinOutlined />,
-              <FacebookOutlined />,
+              <GithubOutlined />,
             ]}
           >
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={18}>
+        <Col span={17}>
           <Title level={1}>{userData.name}</Title>
-          <Card title="My Profile">
+          <Card title="My Profile" extra={<EditProfile />}>
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
               {userData.bio || 'Profile bio will go here.'}
+            </Card>
+            <Card type="inner" title="Full Name" extra={<EditOutlined />}>
+              {userData.full_name || 'Full Name will go here.'}
+            </Card>
+            <Card type="inner" title="Email" extra={<EditOutlined />}>
+              {userData.email || 'Email will go here.'}
+            </Card>
+            <Card type="inner" title="Location" extra={<EditOutlined />}>
+              {userData.location || 'Location will go here.'}
+            </Card>
+            <Card type="inner" title="Company" extra={<EditOutlined />}>
+              {userData.company || 'Company/Position will go here.'}
+            </Card>
+            <Card type="inner" title="Commitment" extra={<EditOutlined />}>
+              {'Commitment will go here.'}
             </Card>
             <Card
               style={{ marginTop: 16 }}
@@ -101,7 +105,6 @@ const RenderProfileContainer = props => {
               {userData.topics || 'Topics will go here.'}
             </Card>
           </Card>
-          <EditProfile />
         </Col>
       </Row>
     </div>

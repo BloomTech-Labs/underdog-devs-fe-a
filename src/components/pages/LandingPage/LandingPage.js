@@ -1,9 +1,15 @@
 import React from 'react';
+import {
+  GithubOutlined,
+  TwitterOutlined,
+  InstagramOutlined,
+  YoutubeOutlined,
+  LinkedinOutlined,
+} from '@ant-design/icons';
 import './LandingPage.css';
 import pointAtScreen from './resources/pointatscreen.jpg';
 import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
 import guyAtComputer from './resources/guyatcomputer.jpg';
-import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import FooterLanding from '../FooterLanding/FooterLanding';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.
@@ -13,7 +19,6 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 function LandingPage() {
   return (
     <>
-      {/* <NavBarLanding /> */}
       <div className="landInfo1">
         <div className="left1">
           <h2 className="head1">UNDERDOG DEVS</h2>
@@ -23,7 +28,7 @@ function LandingPage() {
             disadvantaged background.
           </p>
           <p className="text1">
-            We are creating opportunities in tech for people who might no
+            We are creating opportunities in tech for people who might not
             otherwise get an opportunity.
           </p>
           <p className="text1">We were founded in September of 2020.</p>
@@ -81,16 +86,20 @@ function LandingPage() {
             Employment has long been recognized as having a negative
             correclation with crime (Uggen, 1999; Uggen et al., 2005)
             <br />
+            <br />
             employment recidivism on ebpsociety.org
             <br />
             Researchers also have found that unemployment is associated with
             reduced recidivism(Skardhamar & Telle, 2012). The strongest
             predictor for recidivism: poverty + unemployment.
             <br />
+            <br />
             poverty state capital and recidivism among women offenders on
             ojp.gov
           </p>
-          <button className="learn2">Learn More</button>
+          <div className="rightButton">
+            <button className="learn2">Learn More</button>
+          </div>
         </div>
       </div>
       <div className="landInfo3">
@@ -130,6 +139,16 @@ function LandingPage() {
             src={guyAtComputer}
             alt="Man working on a computer"
           ></img>
+        </div>
+      </div>
+      <div className="landSocial">
+        <h3 className="subHeadSocial">Follow Us On Social Media</h3>
+        <div className="iconRow">
+          <GithubOutlined style={{ fontSize: '25px' }} />
+          <TwitterOutlined style={{ fontSize: '25px' }} />
+          <InstagramOutlined style={{ fontSize: '25px' }} />
+          <YoutubeOutlined style={{ fontSize: '25px' }} />
+          <LinkedinOutlined style={{ fontSize: '25px' }} />
         </div>
       </div>
       <FooterLanding />

@@ -1,0 +1,29 @@
+.ant-radio-inner::after {
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.memos-column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.memos-input-rows {
+  display: flex;
+  justify-content: space-between;
+}
+
+.memos-button-rows {
+  display: flex;
+  gap: 1em;
+}
+
+.margin-top-1 {
+  margin-top: 1%;
+}
+
+.add-memo-button {
+  display: flex;
+  align-items: center;
+  padding: 1em 0.5em;
+}

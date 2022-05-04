@@ -3,6 +3,7 @@ import { Form, Input, Button, Card, Table, Grid } from 'antd';
 import '../../common/styles/Resources.css';
 import { SearchOutlined } from '@ant-design/icons';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useForms from '../../../hooks/useForms';
 
 const { TextArea } = Input;
 const { useBreakpoint } = Grid;
@@ -178,8 +179,10 @@ const initialResourceFormValues = {
 export const RenderResourceManagement = () => {
   const [activeTabKey, setActiveTabKey] = useState('request');
   const [resources, setResources] = useState([]);
-  const [formValues, setFormValues] = useState(initialResourceFormValues);
   const { lg } = useBreakpoint();
+  const [formValues, handleChange, clearForm] = useForms(
+    initialResourceFormValues
+  );
 
   useEffect(() => {
     axiosWithAuth()
@@ -192,15 +195,7 @@ export const RenderResourceManagement = () => {
 
   //Need to add axios post to resource tickets once the BE end point accepts the correct ticket shape
   const handleResourceSubmit = e => {
-    e.preventDefault();
-  };
-
-  const onChange = event => {
-    const { name, value } = event.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    clearForm(e);
   };
 
   const contentList = {
@@ -216,7 +211,7 @@ export const RenderResourceManagement = () => {
           name="resource_name"
           label="Resource Name"
           value={formValues.resource_name}
-          onChange={onChange}
+          onChange={handleChange}
           rules={[{ required: true, message: 'Please input a resource name' }]}
         >
           <Input />
@@ -225,7 +220,7 @@ export const RenderResourceManagement = () => {
           name="category"
           label="Category"
           value={formValues.category}
-          onChange={onChange}
+          onChange={handleChange}
           rules={[{ required: true, message: 'Please input a category name' }]}
         >
           <Input></Input>
@@ -234,7 +229,7 @@ export const RenderResourceManagement = () => {
           name="pertains_to"
           label="Pertains to"
           value={formValues.pertaians_to}
-          onChange={onChange}
+          onChange={handleChange}
           rules={[{ required: true, message: 'Please input a mentee name' }]}
         >
           <Input />
@@ -243,7 +238,7 @@ export const RenderResourceManagement = () => {
           name=""
           label="Message"
           value={formValues.message}
-          onChange={onChange}
+          onChange={handleChange}
         >
           <TextArea />
         </Form.Item>

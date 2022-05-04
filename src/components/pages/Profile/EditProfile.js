@@ -1,61 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Modal,
-  Typography,
-  message,
-  TreeSelect,
-} from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
+import { connect } from 'react-redux';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { setUserProfile } from '../../../state/actions/userProfile/setUserProfile';
 
-function EditProfile(props) {
-  // Grab initial values from profile component
-  const initialValues = {
-    first_name: 'Hal',
-    last_name: 'Jordan',
-    email: 'greenguy123@gmail.com',
-    location: 'Earth',
-    company: 'Bloom Tech, SWE',
-    tech_stack: 'React',
-    commitment: 'Pair Programming',
-  };
+function EditProfile({ userInfo, setUserProfile }) {
+  const [form] = Form.useForm();
 
   const [ModalOpen, setModalOpen] = useState(false);
-  const [radio, setRadio] = useState(initialValues);
 
-  //// Event Handlers
+  const showModal = () => setModalOpen(true);
 
-  const showModal = () => {
-    setModalOpen(true);
-  };
+  const handleCancel = () => setModalOpen(false);
 
-  const handleCancel = () => {
+  const onCreate = values => {
     setModalOpen(false);
+    axiosWithAuth()
+      .put('/profile', values)
+      .then(res => {
+        form.setFieldsValue(values);
+        setUserProfile(res.data.updated_profile);
+        message.success('Your profile has been updated!');
+      })
+      .catch(err => {
+        message.error(
+          "Sorry, we couldn't update your profile at this time. Please try again later!"
+        );
+      });
+  };
+  // Required for activating the AntD forms through the modal
+  const approved = () => {
+    form
+      .validateFields()
+      .then(values => {
+        form.resetFields();
+        onCreate(values);
+      })
+      .catch(err => {
+        message.error(
+          'Sorry, an unknown error has occurred. Please try again!'
+        );
+      });
   };
 
-  const handleOk = () => {
-    setModalOpen(false);
-  };
-
-  const handleRadio = event => {
-    setRadio(event.target.value);
-  };
-
-  ////
-
-  //// Styling
   const buttonStyle = {
-    backgroundColor: '#003D71',
-    color: '#ffffff',
+    alignItems: 'center',
+    appearance: 'none',
+    border: 0,
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    lineHeight: 1,
+    listStyle: 'none',
+    overflow: 'hidden',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    position: 'relative',
+    textAlign: 'left',
+    textDecoration: 'none',
+    transition: 'box-shadow .15s,transform .15s',
+    userSelect: 'none',
+    touchAction: 'manipulation',
+    whiteSpace: 'nowrap',
+    willChange: 'box-shadow,transform',
+    fontSize: '1.125rem',
   };
-
-  ////
-
-  //// Dropdown Data
-  const { SHOW_PARENT } = TreeSelect;
 
   const treeData = [
     {
@@ -86,19 +97,21 @@ function EditProfile(props) {
 
   return (
     <>
-      <Button style={buttonStyle} onClick={showModal}>
+      <Button type={'primary'} style={buttonStyle} onClick={showModal}>
         Edit
       </Button>
       <Modal
         visible={ModalOpen}
         onCancel={handleCancel}
-        onOk={handleOk}
+        onOk={approved}
         title="Update Information:"
         okText="Update"
         className="modalStyle"
       >
         <Form
+          form={form}
           name="basic"
+          initialValues={userInfo}
           labelCol={{
             span: 8,
           }}
@@ -108,8 +121,7 @@ function EditProfile(props) {
         >
           <Form.Item
             label="First Name"
-            name="firstName"
-            initialValue={initialValues.first_name}
+            name="first_name"
             rules={[
               {
                 required: true,
@@ -122,8 +134,7 @@ function EditProfile(props) {
 
           <Form.Item
             label="Last Name"
-            name="lastName"
-            initialValue={initialValues.last_name}
+            name="last_name"
             rules={[
               {
                 required: true,
@@ -135,9 +146,21 @@ function EditProfile(props) {
           </Form.Item>
 
           <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Password Required!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Email"
             name="email"
-            initialValue={initialValues.email}
             rules={[
               {
                 required: true,
@@ -151,7 +174,6 @@ function EditProfile(props) {
           <Form.Item
             label="Location"
             name="location"
-            initialValue={initialValues.location}
             rules={[
               {
                 required: true,
@@ -162,18 +184,13 @@ function EditProfile(props) {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="Company/Position"
-            name="company"
-            initialValue={initialValues.company}
-          >
+          <Form.Item label="Company/Position" name="company">
             <Input />
           </Form.Item>
 
           <Form.Item
             label="Tech Stack"
             name="tech_stack"
-            initialValue={initialValues.tech_stack}
             rules={[
               {
                 required: true,
@@ -183,35 +200,16 @@ function EditProfile(props) {
           >
             <TreeSelect {...treeProps} />
           </Form.Item>
-
-          <Form.Item
-            label="Commitment"
-            name="commitment"
-            labelCol={{
-              span: 13,
-            }}
-            wrapperCol={{
-              span: 9,
-            }}
-          >
-            <Radio.Group
-              name="commitment"
-              defaultValue={initialValues.commitment}
-            >
-              <Radio value="1:1 Mentoring" onClick={handleRadio}>
-                1:1 Mentoring
-              </Radio>
-              <Radio value="Pair Programming" onClick={handleRadio}>
-                Pair Programming
-              </Radio>
-              <Radio value="Neither" onClick={handleRadio}>
-                Neither
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
         </Form>
       </Modal>
     </>
   );
 }
-export default EditProfile;
+
+const mapStateToProps = state => {
+  return {
+    userInfo: state.user.userProfile,
+  };
+};
+
+export default connect(mapStateToProps, { setUserProfile })(EditProfile);
