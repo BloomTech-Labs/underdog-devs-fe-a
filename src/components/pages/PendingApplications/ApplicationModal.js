@@ -144,20 +144,11 @@ const ApplicationModal = ({
             <Popconfirm 
               title="Are you sure you want to approve?"
             >
-            /**
-             * Author: Khaleel Musleh
-             * @param {onConfirm={approveApplication}} e Added an onConfirm Handler once the admin presses the approve button.
-             */
             <Button key="submit" type="primary" onConfirm={approveApplication}>
               Approve
             </Button>
             </Popconfirm>,
             <Popconfirm
-              /**
-               * Author: Khaleel Musleh
-               * @param {onConfirm={rejectApplication}} e Added an onConfirm Handler once the admin presses the reject button.
-               */
-
               title="Are you sure you want to reject?"
             >
               <Button key="submit" onConfirm={rejectApplication} danger>
