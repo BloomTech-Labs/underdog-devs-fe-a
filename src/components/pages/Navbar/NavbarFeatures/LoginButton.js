@@ -12,7 +12,6 @@ function LoginButton() {
           audience: 'underdog-identifier',
           scope: 'openid profile email',
         });
-        console.log(token);
         localStorage.setItem('AuthToken', token);
       } catch (e) {
         console.log(e.message);
