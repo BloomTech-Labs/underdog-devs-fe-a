@@ -27,19 +27,9 @@ export default function useForms(initialValues) {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  // The change handlers are returned in an object, to be destructured as
-  // needed in the Form, according to the input type used in the form.
-  const changeHandlers = {
-    handleText,
-    handleRadio,
-    handleCheckbox,
-    handleSelect,
-  };
-
-  const clearForm = e => {
-    e.preventDefault();
+  const clearForm = () => {
     setFormValues(initialValues);
   };
 
-  return { formValues, changeHandlers, clearForm };
+  return [formValues, handleChange, setFormValues, clearForm];
 }

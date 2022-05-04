@@ -1,4 +1,4 @@
-// This file collects all constants in `/src/components/common/constants` for export
-import USstates from './USstates';
+import states from './states';
+import countries from './countries';
 
-export { USstates };
+export { states, countries };

@@ -17,3 +17,8 @@
 .notes-month section {
   font-size: 28px;
 }
+.DialogBox {
+  display: flex;
+  margin-top: 2%;
+  justify-content: center;
+}

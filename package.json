@@ -21,6 +21,7 @@
     "rc-field-form": "^1.22.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "^4.4.4",
     "react-icons": "^4.3.1",
     "react-plotly.js": "^2.4.0",
     "react-redux": "^7.2.6",
@@ -91,6 +92,7 @@
     "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^5.0.0",
     "prompts": "^2.3.2",
-    "yaml": "^1.10.0"
+    "yaml": "^1.10.0",
+    "react-error-overlay": "6.0.9"
   }
 }
