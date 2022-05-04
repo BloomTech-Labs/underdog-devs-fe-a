@@ -66,6 +66,42 @@ const ApplicationModal = ({
     setHideForm(true);
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
+   */
+
+  const approveApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({ ...res.data, approved: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
+   */
+
+  const rejectApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({
+          ...res.data,
+          validateStatus: 'rejected',
+          approved: false,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     const getCurrentApp = () => {
       axiosWithAuth()
@@ -105,11 +141,19 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Popconfirm key="reject" title="Are you sure you want to reject?">
-              <Button danger>Reject</Button>
+            <Popconfirm 
+              title="Are you sure you want to approve?"
+            >
+            <Button key="submit" type="primary" onConfirm={approveApplication}>
+              Approve
+            </Button>
             </Popconfirm>,
-            <Popconfirm key="approve" title="Are you sure you want to approve?">
-              <Button type="primary">Approved</Button>
+            <Popconfirm
+              title="Are you sure you want to reject?"
+            >
+              <Button key="submit" onConfirm={rejectApplication} danger>
+                Reject
+              </Button>
             </Popconfirm>,
           ]}
         >

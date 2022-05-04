@@ -71,7 +71,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 role="button"
               />
             </Link>
-
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
                 <Link
@@ -109,7 +108,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Dropdown>
               </div>
             )}
-
             {!isAuthenticated && (
               <div className="header_buttons">
                 <LoginButton />
