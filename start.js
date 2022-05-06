@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const { spawn } = require("child_process");
 const { Buffer } = require("buffer");
  
