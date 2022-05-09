@@ -8,6 +8,9 @@ import Dashboard from '../../pages/Dashboard/Dashboard';
 import { Profile } from '../../pages/Profile';
 import Reviews from '../../pages/Reviews/MentorReviews';
 import { ManageResources } from '../../pages/ManageResources/ManageResources';
+import MenteeAddReview from '../../pages/AddReviews/MenteeAddReview';
+import MentorAddReview from '../../pages/AddReviews/MentorAddReview';
+import ScheduleMeeting from '../ScheduleMeeting';
 
 // These components are being exported to Sidebar.js, from there they are being dynamically rendered based on what role the user is
 const MenteeComponents = {
@@ -20,6 +23,7 @@ const MenteeComponents = {
   9: <div>Do we need Account settings?</div>,
   11: <div>Do we need Donate?</div>,
   12: <div>"Support" Component goes here</div>,
+  13: <MenteeAddReview />,
 };
 
 const MentorComponents = {
@@ -32,12 +36,13 @@ const MentorComponents = {
   9: <div>Do we need Account settings?</div>,
   11: <div>Do we need Donate?</div>,
   12: <div>"Support" Component goes here</div>,
+  13: <MentorAddReview />,
 };
 
 const AdminComponents = {
   0: <Dashboard />,
   1: <CalendarFeature />,
-  2: <div>"Schedule Interview" Component goes here</div>,
+  2: <ScheduleMeeting />,
   3: <ManageResources />,
   4: <PendingApplications />,
   5: <MentorMenteeMatching />,

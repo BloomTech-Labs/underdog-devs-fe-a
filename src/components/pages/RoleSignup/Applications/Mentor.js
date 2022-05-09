@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { postNewMentorAccount } from '../../../../state/actions/mentor';
 import useForms from '../../../../hooks/useForms';
 import {
   Form,
@@ -23,11 +24,13 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states } from '../../../common/constants';
+import { states, countries } from '../../../common/constants';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
+  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -41,30 +44,35 @@ const initialFormValues = {
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  commitment: '',
+  referred_by: '',
   other_info: '',
 };
 
-const Mentor = () => {
-  const [formValues, handleChange] = useForms(initialFormValues);
-  const [error, setError] = useState('');
-
+const Mentor = ({ dispatch, error, successPage }) => {
+  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
 
-  const postNewAccount = async newAccount => {
-    try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URI}/application/new/mentor`,
-        newAccount
-      );
-      history.push('/apply/success');
-    } catch (err) {
-      setError(err);
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/profile/current_user_profile`)
+      .then(res => {
+        setFormValues({ ...formValues, profile_id: res.data.profile_id });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    if (successPage) {
+      history.pushState(successPage);
+    } else if (error) {
+      console.error(error);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [successPage, error]);
 
   const formSubmit = () => {
-    const newAccount = formValues;
-    postNewAccount(newAccount);
+    dispatch(postNewMentorAccount(formValues));
   };
 
   return (
@@ -76,7 +84,7 @@ const Mentor = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/apply">
             <IdcardOutlined />
-            <span>Signup</span>
+            <span>Apply</span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
             <ReconciliationOutlined />
@@ -159,76 +167,36 @@ const Mentor = () => {
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
-                    label="Are you located in the U.S.?"
-                    name="location"
+                    label="Country"
+                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
+                    name="country"
                     rules={[
                       {
                         required: true,
-                        message: 'Location is required.',
+                        message: 'Country is required!',
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="country"
-                      onChange={handleChange}
-                      value={formValues.country}
-                      style={{ width: '250', display: 'flex' }}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required.',
-                        },
-                      ]}
+                    <Select
+                      showSearch
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'country')}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Other'}>No</Radio>
-                    </Radio.Group>
+                      {countries.map(country => (
+                        <Option key={country} value={country}>
+                          {' '}
+                          {country}{' '}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
-                    <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Country is required!',
-                        },
-                      ]}
-                      value={formValues.country}
-                      onChange={handleChange}
-                    >
-                      <Input placeholder="Your Country" />
-                    </Form.Item>
-                  )}
-                </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'USA' && (
+                  {formValues.country === 'United States' && (
                     <div className="locationUS">
-                      <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required!',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
                       <Form.Item
                         label="State"
                         style={{ margin: '.5rem 1rem 1rem 0' }}
@@ -241,6 +209,7 @@ const Mentor = () => {
                         ]}
                       >
                         <Select
+                          showSearch
                           placeholder="- Select -"
                           onChange={e => handleChange(e, 'select', 'state')}
                         >
@@ -254,6 +223,22 @@ const Mentor = () => {
                       </Form.Item>
                     </div>
                   )}
+                  <Form.Item
+                    label="City"
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem .5rem 0' }}
+                  >
+                    <Input placeholder="Your City" />
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -304,12 +289,12 @@ const Mentor = () => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="Which best describes your tech stack?"
+                    label="What areas are you wanting to provide mentorship in?"
                     tooltip={{
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="tech_stack"
+                    name="subject"
                     rules={[
                       {
                         required: true,
@@ -317,45 +302,65 @@ const Mentor = () => {
                       },
                     ]}
                   >
-                    <Select
-                      placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'tech_stack')}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0rem 1rem 1rem 1.5rem',
+                      }}
                     >
-                      <Option value="career">Career Development</Option>
-                      <Option value="frontend">Frontend Development</Option>
-                      <Option value="backend">Backend Development</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="IOS">IOS Development</Option>
-                      <Option value="android">Android Development</Option>
-                    </Select>
-                  </Form.Item>
-                </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="What is your level of experience?"
-                    tooltip={{
-                      title: 'Choose your current skill level',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="experience_level"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Experience is required.',
-                      },
-                    ]}
-                  >
-                    <Radio.Group
-                      name="experience_level"
-                      onChange={handleChange}
-                      value={formValues.experience_level}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                    >
-                      <Radio value={'beginner'}>Beginner</Radio>
-                      <Radio value={'intermediate'}>Intermediate</Radio>
-                      <Radio value={'expert'}>Expert</Radio>
-                    </Radio.Group>
+                      <Checkbox
+                        value="Career Development"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Career Development
+                      </Checkbox>
+                      <Checkbox
+                        value="Frontend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Frontend
+                      </Checkbox>
+                      <Checkbox
+                        value="Backend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Backend
+                      </Checkbox>
+                      <Checkbox
+                        value="Design UI/UX"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Design UI/UX
+                      </Checkbox>
+                      <Checkbox
+                        value="iOS"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        iOS
+                      </Checkbox>
+                      <Checkbox
+                        value="Android"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Android
+                      </Checkbox>
+                      <Checkbox
+                        value="Data Science"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Data Science
+                      </Checkbox>
+                    </Checkbox.Group>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
@@ -407,7 +412,71 @@ const Mentor = () => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
+                <Col md={22} xs={24}>
+                  <p>
+                    Mentor commitments range from general mentoring and
+                    answering questions the mentees have in Slack, <br></br>
+                    being paired with a mentee for weekly 1:1 meetings, and pair
+                    programming for an hour a week with mentees in Project
+                    Underdog.
+                  </p>
+                  <Form.Item
+                    label=" Are you able to commit to one or more of these?"
+                    tooltip={{
+                      title: 'Choose One',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="commitment"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Commitment is required.',
+                      },
+                    ]}
+                  >
+                    <Radio.Group
+                      name="commitment"
+                      onChange={handleChange}
+                      value={formValues.commitment}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Radio value={'yes'}>Yes</Radio>
+                      <Radio value={'no'}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
+                </Col>
 
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you hear about Underdog Devs?"
+                    tooltip={{
+                      title: 'Please choose one',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="referred_by"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select a referral',
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'referred_by')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Option value="friend_or_family">Friend/Family</Option>
+                      <Option value="coworker">Co-worker</Option>
+                      <Option value="facebook">Facebook</Option>
+                      <Option value="twitter">Twitter</Option>
+                      <Option value="youtube">Youtube</Option>
+                      <Option value="radio_or_podcast">Radio/Podcast</Option>
+                      <Option value="linkedin">LinkedIn</Option>
+                      <Option value="reddit">Reddit</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"
@@ -457,4 +526,11 @@ const Mentor = () => {
   );
 };
 
-export default Mentor;
+const mapStateToProps = state => {
+  return {
+    error: state.user.errors.mentorError,
+    successPage: state.user.mentor.successPage,
+  };
+};
+
+export default connect(mapStateToProps)(Mentor);

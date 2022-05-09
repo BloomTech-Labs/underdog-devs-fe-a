@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+/* 
+All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
+*/
+import React /*, { useState }*/ from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
+// import { useOktaAuth } from '@okta/okta-react';
 import 'antd/dist/antd.css';
 import '../styles/Sidebar.css';
-import { Link, useLocation } from 'react-router-dom';
-import { Layout, Modal, Menu, Switch as Toggle } from 'antd';
+import { /*Link,*/ useLocation } from 'react-router-dom';
+import { Layout, /*Modal,*/ Menu, Switch as Toggle } from 'antd';
 import {
-  RightOutlined,
-  LeftOutlined,
   DashboardOutlined,
   BookOutlined,
   ContainerOutlined,
@@ -19,8 +20,9 @@ import {
   QuestionCircleOutlined,
   BulbOutlined,
   CalendarOutlined,
-  UserOutlined,
+  /*UserOutlined,*/
   FormOutlined,
+  /*LogoutOutlined,*/
 } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 
@@ -29,28 +31,23 @@ const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
-  const [collapsed, setCollapsed] = useState(false);
-  const [modal, setModal] = useState(false);
-  const { authService } = useOktaAuth();
+  // const [modal, setModal] = useState(false);
+  // const { authService } = useOktaAuth();
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
 
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
+  // const openModal = () => setModal(true);
 
-  const openModal = () => setModal(true);
+  // const cancelOpen = () => setModal(false);
 
-  const cancelOpen = () => setModal(false);
-
-  const handleLogout = () => {
-    setModal(false);
-    localStorage.removeItem('role_id');
-    localStorage.removeItem('token');
-    authService.logout();
-  };
+  // const handleLogout = () => {
+  //   setModal(false);
+  //   localStorage.removeItem('role_id');
+  //   localStorage.removeItem('token');
+  //   authService.logout();
+  // };
 
   const handleMenuClick = menu => {
     push(menu.key);
@@ -63,13 +60,7 @@ const Sidebar = ({ children, userProfile }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        id="sidebar"
-        trigger={null}
-        breakpoint="lg"
-        collapsible
-        collapsed={collapsed}
-      >
+      <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
             <Menu.Item key="/calendar" onClick={handleMenuClick}>
@@ -100,6 +91,9 @@ const Sidebar = ({ children, userProfile }) => {
               </Menu.Item>
               <Menu.Item key="/resources" onClick={handleMenuClick}>
                 Access Resources
+              </Menu.Item>
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
               </Menu.Item>
             </>
           )}
@@ -154,15 +148,8 @@ const Sidebar = ({ children, userProfile }) => {
                 Manage Users
               </Menu.Item>
               <Menu.Item
-                key="/notes"
-                icon={<FormOutlined />}
-                onClick={handleMenuClick}
-              >
-                Memos
-              </Menu.Item>
-              <Menu.Item
                 key="/attendance"
-                icon={<ProjectOutlined />}
+                icon={<FormOutlined />}
                 onClick={handleMenuClick}
               >
                 Attendance
@@ -184,25 +171,13 @@ const Sidebar = ({ children, userProfile }) => {
               <Menu.Item key="/reviews" onClick={handleMenuClick}>
                 View Reviews
               </Menu.Item>
+              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
+                Add Mentor Review
+              </Menu.Item>
             </>
           ) : (
             <></>
           )}
-          <SubMenu key="sub4" icon={<UserOutlined />} title="Account">
-            <Menu.Item key="/profile" onClick={handleMenuClick}>
-              <Link to="/profile">Profile Settings</Link>
-            </Menu.Item>
-            <Menu.Item key="10" onClick={openModal}>
-              Log Out
-            </Menu.Item>
-          </SubMenu>
-          <Modal
-            visible={modal}
-            onCancel={cancelOpen}
-            onOk={handleLogout}
-            title="Are you sure you want to logout now?"
-            className="modalStyle"
-          />
           {isUserAdmin() === false && (
             <>
               <Menu.Item
@@ -229,12 +204,6 @@ const Sidebar = ({ children, userProfile }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Sider className="site-layout-background">
-          {React.createElement(collapsed ? RightOutlined : LeftOutlined, {
-            className: 'trigger',
-            onClick: toggle,
-          })}
-        </Sider>
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>{children}</Content>
         </Content>

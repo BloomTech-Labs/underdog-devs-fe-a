@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import NotesTable from '../../common/./NotesTable';
-import NotesForm from './NotesForm';
-const MyNotes = () => {
+import MemosTable from '../../common/MemosTable';
+import MemosForm from './MemosForm';
+const MyMemos = () => {
   const [displayModal, setDisplayModal] = useState(false);
 
   const showModal = () => {
@@ -13,22 +13,22 @@ const MyNotes = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h2>My Notes</h2>
-        <Button className="add-note-button">
-          <a href="/notes">Notes</a>
+        <h2>My Memos</h2>
+        <Button className="add-memo-button">
+          <a href="/mynotes">Memos</a>
         </Button>
-        <Button className="add-note-button" onClick={showModal}>
+        <Button className="add-memo-button" onClick={showModal} type="primary">
           <PlusCircleOutlined />
-          Add Note
+          Send Memo
         </Button>
-        <NotesForm
+        <MemosForm
           displayModal={displayModal}
           setDisplayModal={setDisplayModal}
         />
       </div>
-      <NotesTable />
+      <MemosTable />
     </>
   );
 };
 
-export default MyNotes;
+export default MyMemos;

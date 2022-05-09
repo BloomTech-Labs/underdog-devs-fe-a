@@ -3,8 +3,9 @@ import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { setUserProfile } from '../../../state/actions/userProfile/setUserProfile';
 
-function EditProfile({ userInfo }) {
+function EditProfile({ userInfo, setUserProfile }) {
   const [form] = Form.useForm();
 
   const [ModalOpen, setModalOpen] = useState(false);
@@ -19,6 +20,7 @@ function EditProfile({ userInfo }) {
       .put('/profile', values)
       .then(res => {
         form.setFieldsValue(values);
+        setUserProfile(res.data.updated_profile);
         message.success('Your profile has been updated!');
       })
       .catch(err => {
@@ -144,6 +146,19 @@ function EditProfile({ userInfo }) {
           </Form.Item>
 
           <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Password Required!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Email"
             name="email"
             rules={[
@@ -197,4 +212,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps, { setUserProfile })(EditProfile);

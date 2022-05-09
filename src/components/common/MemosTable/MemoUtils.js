@@ -1,7 +1,7 @@
 import { Badge, Button, Input, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import * as MdIcons from 'react-icons/md';
-import '../styles/Notes.css';
+import '../styles/Memos.css';
 
 // Flag Icons
 const statusIcon = {
@@ -18,9 +18,61 @@ const statusIcon = {
 // Table Columns
 export const columns = [
   {
-    title: 'Created By',
-    dataIndex: 'createdBy',
-    key: 'createdBy',
+    title: 'Mentor',
+    dataIndex: 'mentor_id',
+    key: 'mentor_id',
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      name,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          autoFocus
+          placeholder="Search by user"
+          value={selectedKeys[0]}
+          onChange={e => {
+            setSelectedKeys(e.target.value ? [e.target.value] : []);
+            confirm({ closeDropdown: false });
+          }}
+          onPressEnter={() => {
+            confirm();
+          }}
+          onBlur={() => {
+            confirm();
+          }}
+          style={{ marginBottom: 8, display: 'block' }}
+        />
+        <Space>
+          <Button
+            onClick={() => confirm()}
+            type="primary"
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters()}
+            type="danger"
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    onFilter: (value, record) =>
+      record.createdBy.toLowerCase().includes(value.toLowerCase()),
+  },
+  {
+    title: 'Mentee',
+    dataIndex: 'mentee_id',
+    key: 'mentor_id',
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -71,7 +123,7 @@ export const columns = [
   },
   {
     title: 'Subject',
-    dataIndex: 'subject',
+    dataIndex: 'content_type',
     key: 'subject',
     render: subject => <span className="cell-text">{subject}</span>,
     filters: [
@@ -92,7 +144,7 @@ export const columns = [
   },
   {
     title: 'Priority',
-    dataIndex: 'priority',
+    dataIndex: 'level',
     key: 'priority',
 
     render: priority => (
@@ -112,15 +164,15 @@ export const columns = [
         value: 'low',
       },
     ],
-    onFilter: (value, record) => record.priority === value,
+    onFilter: (value, record) => record.level === value,
   },
   {
     title: 'Date',
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
-    sortDirections: ['ascend', 'descend'],
-    sorter: (a, b) => new Date(b.date) - new Date(a.date),
+    sortDirections: ['descend', 'ascend'],
+    sorter: (a, b) => new Date(a.date) - new Date(b.date),
   },
   {
     title: 'Time',

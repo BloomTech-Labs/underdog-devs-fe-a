@@ -12,6 +12,12 @@ export default function useForms(initialValues) {
     } else if (type === 'checkbox') {
       name = e.target.value;
       value = e.target.checked;
+    } else if (type === 'radio') {
+      name = e.target.name;
+      value = e.target.value;
+    } else if (e.target.type === 'text') {
+      name = e.target.id;
+      value = e.target.value;
     } else {
       name = e.target.name;
       value = e.target.value;
@@ -19,10 +25,9 @@ export default function useForms(initialValues) {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const clearForm = e => {
-    e.preventDefault();
+  const clearForm = () => {
     setFormValues(initialValues);
   };
 
-  return [formValues, handleChange, clearForm];
+  return [formValues, handleChange, setFormValues, clearForm];
 }

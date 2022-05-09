@@ -1,10 +1,15 @@
 import React from 'react';
+import './MeetingInfo.css';
 
 const MeetingInfo = props => {
   const { info } = props;
 
+  console.log(props);
+
   return (
     <div>
+      <p>First Name: {info.first_name}</p>
+      <p>Last Name: {info.last_name}</p>
       <p>{info.meeting_id}</p>
       <p>{info.created_at}</p>
       <p>{info.updated_at}</p>
