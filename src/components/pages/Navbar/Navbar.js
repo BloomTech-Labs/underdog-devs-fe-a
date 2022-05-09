@@ -10,6 +10,9 @@ import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import LoginButton from './NavbarFeatures/LoginButton';
+import SignupButton from './NavbarFeatures/SignupButton';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
 
@@ -36,6 +39,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
         setUser(user.data);
         getProfile(user.data.profile_id);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   if (!user) {
@@ -67,11 +71,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 role="button"
               />
             </Link>
+
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
                 <Link
                   key="memosLinkNav"
-                  to="/notes"
+                  to="/memos"
                   style={{ color: '#FFF' }}
                   className="memos"
                 >
@@ -102,6 +107,13 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                     </div>
                   </div>
                 </Dropdown>
+              </div>
+            )}
+
+            {isAuthenticated && (
+              <div className="header_buttons">
+                <LoginButton />
+                <SignupButton />
               </div>
             )}
           </div>
