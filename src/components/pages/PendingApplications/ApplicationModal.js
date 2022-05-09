@@ -141,16 +141,16 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Popconfirm 
-              title="Are you sure you want to approve?"
-            >
-            <Button key="submit" type="primary" onConfirm={approveApplication}>
-              Approve
-            </Button>
+            <Popconfirm title="Are you sure you want to approve?">
+              <Button
+                key="submit"
+                type="primary"
+                onConfirm={approveApplication}
+              >
+                Approve
+              </Button>
             </Popconfirm>,
-            <Popconfirm
-              title="Are you sure you want to reject?"
-            >
+            <Popconfirm title="Are you sure you want to reject?">
               <Button key="submit" onConfirm={rejectApplication} danger>
                 Reject
               </Button>
