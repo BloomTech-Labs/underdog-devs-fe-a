@@ -15,6 +15,7 @@ import { columns } from './MemoUtils';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
@@ -44,6 +45,8 @@ const MemosTable = ({ userProfile, accounts }) => {
   const [editing, setEditing] = useState(false);
   const [editMemo, setEditMemo] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
+  // reply on comment popup state
+  const [replyPopup, setReplypopup] = useState(false);
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
   const location = useLocation();
@@ -110,7 +113,9 @@ const MemosTable = ({ userProfile, accounts }) => {
     setEditing(!editing);
     if (submitting) setSubmitting(!submitting);
   };
-
+  const showPopup = () => {
+    setReplypopup(true);
+  };
   // Dropdown menu items
   const menu = (
     <Menu onClick={handleMenuClick}>
@@ -148,10 +153,15 @@ const MemosTable = ({ userProfile, accounts }) => {
                         key="comment-nested-reply-to"
                         type="primary"
                         size="middle"
+                        onClick={showPopup}
                       >
                         Reply
                       </Button>
                     ),
+                    <ReplyInput
+                      trigger={replyPopup}
+                      setTrigger={setReplypopup}
+                    />,
                   ]}
                   author={
                     profile_id === record.mentor_id

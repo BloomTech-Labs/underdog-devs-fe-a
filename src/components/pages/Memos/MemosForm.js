@@ -28,6 +28,7 @@ const initialValues = {
 };
 
 const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
+  const { profile_id, first_name, role_id } = userProfile;
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
