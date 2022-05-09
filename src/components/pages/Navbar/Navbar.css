@@ -45,3 +45,44 @@
 .memos {
   padding-right: 3vw;
 }
+
+/* Button Text */
+.btn {
+  font-size: 14px;
+  color: #fff;
+  background: #256ce1;
+  text-decoration: none;
+  text-align: center;
+  align-items: center;
+
+  /* Button Style */
+  padding: 5px;
+  margin: 0;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  line-height: 10px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  margin-left: 24px;
+  width: 6%;
+}
+/* Button Hover */
+.btn:hover {
+  transition: all 0.2s ease-in-out;
+  background: #fff;
+  color: #010606;
+}
+
+/* Signup Button */
+.btn-signup {
+  position: absolute;
+  right: 200px;
+  top: 20px;
+}
+/* Login Button */
+.btn-login {
+  position: absolute;
+  right: 300px;
+  top: 20px;
+}
