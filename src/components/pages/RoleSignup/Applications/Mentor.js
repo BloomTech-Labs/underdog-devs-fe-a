@@ -40,7 +40,7 @@ const initialFormValues = {
   current_company: '',
   current_position: '',
   subject: '',
-  experience_level: '',
+  experience_level: '', //redundant?
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
