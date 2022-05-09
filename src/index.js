@@ -36,6 +36,7 @@ import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 // import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import ScheduleMeeting from './components/common/ScheduleMeeting';
+import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -171,9 +172,7 @@ function App() {
           path="/support"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => (
-            <div>"View Support Requests" Component goes here</div>
-          )}
+          component={SupportRequests}
         />
 
         <PrivateRoute
