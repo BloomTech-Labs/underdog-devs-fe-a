@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
 import './Reply.css';
+import styled from 'styled-components';
+import { device } from '../../Size&Devices';
 
 const initialValues = {
   content: '',
@@ -14,6 +16,19 @@ function ReplyInput(props) {
       ...formValues,
       [e.target.name]: e.target.value,
     });
+
+    styled.div`
+      @media ${device.laptop} {
+        max-width: 800px;
+      }
+
+      @media ${device.mobileM} {
+      }
+
+      @media ${device.desktop} {
+        max-width: 1400px;
+      }
+    `;
   };
 
   return props.trigger ? (
