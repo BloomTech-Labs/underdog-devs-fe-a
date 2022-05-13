@@ -12,6 +12,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
+import LogoutButton from './NavbarFeatures/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
@@ -19,8 +20,8 @@ const { Header } = Layout;
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { authService } = useOktaAuth();
   const [modal, setModal] = useState(false);
+  const { logout } = useAuth0();
 
   const openModal = () => setModal(true);
 
@@ -29,8 +30,8 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
-    localStorage.removeItem('token');
-    authService.logout();
+    localStorage.removeItem('AuthToken');
+    logout({ returnTo: window.location.origin });
   };
   useEffect(() => {
     axiosWithAuth()
@@ -109,11 +110,14 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Dropdown>
               </div>
             )}
-            <div className="header_buttons">
-              <LoginButton />
-              <SignupButton />
-            </div>
-            )
+            {!isAuthenticated && (
+              <div className="header_buttons">
+                <LoginButton />
+                <SignupButton />
+                <LogoutButton />
+              </div>
+            )}
+            {/* temporary logout button until private route is finished and when we can logout from dashboard */}
           </div>
         </Header>
       </Layout>
