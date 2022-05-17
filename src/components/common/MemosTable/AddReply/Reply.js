@@ -46,7 +46,7 @@ function ReplyInput(props) {
         </>
         <br />
         <button className="submit" onClick={() => console.log('submit')}>
-          Submit
+          Reply
         </button>
         <button className="close-btn" onClick={() => props.setTrigger(false)}>
           <span>&#x2715;</span>

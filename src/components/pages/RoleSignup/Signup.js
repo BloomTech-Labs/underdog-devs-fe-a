@@ -31,14 +31,14 @@ const Signup = () => {
                 alt="example"
                 className="card-img"
                 src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                style={{ height: '100%' }}
+                // style={{ height: '100%' }}
               />
             }
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTEE program" />
@@ -51,11 +51,11 @@ const Signup = () => {
               <Divider
                 className="divider"
                 type="vertical"
-                style={{ height: 100 }}
+                // style={{ height: 100 }}
               />
 
               <Link to="/apply/mentee">
-                <Button className="button" type="primary" block>
+                <Button className="button" type="primary" size="large" block>
                   MENTEE
                 </Button>
               </Link>
@@ -63,7 +63,7 @@ const Signup = () => {
           </Card>
         </Col>
 
-        <Col span={18} className="col2">
+        <Col className="col2">
           <Card
             hoverable
             className="card2"
@@ -72,14 +72,14 @@ const Signup = () => {
                 alt="example"
                 className="card-img"
                 src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                style={{ height: '100%' }}
+                // style={{ height: '100%' }}
               />
             }
           >
             <Space
               className="outer-space-container"
-              direction="horizontal"
-              align="center"
+              direction="vertical"
+              align="baseline"
             >
               <Space direction="vertical">
                 <Meta className="title" description="Join our MENTOR program" />
@@ -92,11 +92,11 @@ const Signup = () => {
               <Divider
                 className="divider"
                 type="vertical"
-                style={{ height: 100 }}
+                // style={{ height: 100 }}
               />
 
               <Link to="/apply/mentor">
-                <Button className="button" type="primary" block>
+                <Button className="button" type="primary" size="large" block>
                   MENTOR
                 </Button>
               </Link>

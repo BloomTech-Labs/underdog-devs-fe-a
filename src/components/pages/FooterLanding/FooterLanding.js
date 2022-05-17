@@ -3,7 +3,6 @@ import logo from '../Navbar/ud_logo2.png';
 import { FooterStyle } from './FooterStyle';
 import FooterCol from './FooterCol';
 import { Layout } from 'antd';
-import { NavBtn, NavBtnLink } from '../NavBarLanding/NavBarStyle';
 
 const { Footer } = Layout;
 
@@ -67,16 +66,6 @@ export default function FooterLanding() {
                   },
                 ]}
               />
-            </div>
-            <div className="footer__col5">
-              <NavBtn>
-                <NavBtnLink to={`/login`} key="login">
-                  Login
-                </NavBtnLink>
-                <NavBtnLink to={`/signup`} key="signup">
-                  Signup
-                </NavBtnLink>
-              </NavBtn>
             </div>
           </div>
         </FooterStyle>

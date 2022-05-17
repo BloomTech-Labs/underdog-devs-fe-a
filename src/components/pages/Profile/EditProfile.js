@@ -146,6 +146,19 @@ function EditProfile({ userInfo, setUserProfile }) {
           </Form.Item>
 
           <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Password Required!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Email"
             name="email"
             rules={[
