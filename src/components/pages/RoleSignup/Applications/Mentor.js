@@ -53,24 +53,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
   const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
-
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };
