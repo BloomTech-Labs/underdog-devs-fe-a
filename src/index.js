@@ -91,7 +91,7 @@ function App() {
 
       <Switch>
         <Redirect path="/" to="/dashboard" exact component={Dashboard} />
-        <Route path="/landingpage" component={LandingPage} />
+        <Route path="/landing" component={Landing} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
