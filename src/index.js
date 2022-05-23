@@ -46,6 +46,7 @@ import thunk from 'redux-thunk';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 import PrivateRoute from './components/common/PrivateRoute';
+import LandingPage from './components/pages/LandingPage/LandingPage';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -90,7 +91,7 @@ function App() {
 
       <Switch>
         <Redirect path="/" to="/dashboard" exact component={Dashboard} />
-        <Route path="/landing" component={Landing} />
+        <Route path="/landingpage" component={LandingPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />

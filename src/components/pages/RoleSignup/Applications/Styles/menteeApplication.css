@@ -36,3 +36,10 @@
 ::placeholder{
   color: #737373!important;
 }
+
+label {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  background-color: white;
+}
