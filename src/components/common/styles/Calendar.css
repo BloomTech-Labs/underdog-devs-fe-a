@@ -22,3 +22,8 @@
   margin-top: 2%;
   justify-content: center;
 }
+.description {
+  background-color: white;
+  color: black;
+  height: 150px;
+}

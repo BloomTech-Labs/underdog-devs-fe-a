@@ -1,6 +1,6 @@
-import { Modal, Button, Switch } from 'antd';
+import { Modal, Button } from 'antd';
 import Draggable from 'react-draggable';
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import SwitchablePicker from './ScheduleButton';
 import { notification } from 'antd';
