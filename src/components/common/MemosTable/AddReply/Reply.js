@@ -31,7 +31,6 @@ function ReplyInput(props) {
           />
         </>
         <br />
-        {/* <button className="submit" onClick={() => props.setTrigger(false)}> */}
         <Button
           type="primary"
           className="submit"
