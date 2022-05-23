@@ -17,7 +17,7 @@
     padding: 32px;
     width: 100%;
     max-width: 640px;
-    background-color: rgb(65, 65, 80);
+    background-color: rgb(61, 61, 68);
     color: white;
 }
 .popup-inner .close-btn {
@@ -31,6 +31,7 @@
     color: white;
     display: flex;
     justify-content: center;
+    font-size: 1.5rem;
 }
 
 .close-btn h1{
@@ -47,6 +48,6 @@
 
 input, label {
     width: 60%;
-    background-color: rgb(166, 167, 169);
+    background-color: rgb(245, 245, 245);
     margin-left: 11%;
 }
