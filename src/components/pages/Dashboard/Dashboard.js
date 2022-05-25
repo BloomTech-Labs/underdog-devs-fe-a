@@ -81,31 +81,33 @@ const Dashboard = props => {
   }, []);
 
   const data = [];
-
+  const escaTickets = tickets.filter(x => x.ticket_status == 'approved');
   // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {
-      key: t.resource_ticket_id,
-      ticketID: t.resource_ticket_id,
-      message: t.message,
+      key: t.ticket_id,
+      ticketID: t.ticket_id,
+      message: t.ticket_subject,
       dateSubmitted: t.created_at.substring(0, 10),
     };
     data.push(ticketDetails);
   });
-
   return (
     <div className="dashboard-container">
       <h2>Tickets Dashboard</h2>
       <div className="dashboard-statistics">
         <Row gutter={16}>
           <Col span={5}>
-            <Statistic title="Escalation Tickets" value={3} />
+            <Statistic title="Escalation Tickets" value={escaTickets.length} />
           </Col>
           <Col span={5}>
-            <Statistic title="Application Tickets" value={25} />
+            <Statistic
+              title="Application Tickets"
+              value={tickets.length - escaTickets.length}
+            />
           </Col>
           <Col span={5}>
-            <Statistic title="Resource Tickets" value={7} />
+            <Statistic title="Resource Tickets" value={tickets.length} />
           </Col>
         </Row>
       </div>
