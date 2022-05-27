@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
@@ -302,65 +302,19 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Checkbox.Group
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-evenly',
-                        flexFlow: 'column',
-                        width: 350,
-                        margin: '0rem 1rem 1rem 1.5rem',
-                      }}
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'tech_stack')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Checkbox
-                        value="Career Development"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Career Development
-                      </Checkbox>
-                      <Checkbox
-                        value="Frontend"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Frontend
-                      </Checkbox>
-                      <Checkbox
-                        value="Backend"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Backend
-                      </Checkbox>
-                      <Checkbox
-                        value="Design UI/UX"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Design UI/UX
-                      </Checkbox>
-                      <Checkbox
-                        value="iOS"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        iOS
-                      </Checkbox>
-                      <Checkbox
-                        value="Android"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Android
-                      </Checkbox>
-                      <Checkbox
-                        value="Data Science"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Data Science
-                      </Checkbox>
-                    </Checkbox.Group>
+                      {tech_stack.map(tech_stack => {
+                        return (
+                          <Option value={`${tech_stack.value}`}>
+                            {tech_stack.label}
+                          </Option>
+                        );
+                      })}
+                    </Select>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
