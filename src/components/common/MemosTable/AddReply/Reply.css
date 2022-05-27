@@ -17,8 +17,8 @@
     padding: 32px;
     width: 100%;
     max-width: 640px;
-    background-color: rgb(65, 65, 80);
-    color: white;
+    background-color: rgb(61, 61, 68);
+    color: rgb(54, 50, 50);
 }
 .popup-inner .close-btn {
     position: absolute;
@@ -31,6 +31,7 @@
     color: white;
     display: flex;
     justify-content: center;
+    font-size: 1.5rem;
 }
 
 .close-btn h1{
@@ -42,11 +43,30 @@
     margin-left: 46%;
     background-color: rgba(43, 114, 190, 0.509);
     padding: 1%;
+    border: 0;
     
 }
+.submit:hover {
+    transform: translateY(3px);
+    transition-duration: .2s, 1s;
+  }
+
 
 input, label {
+   
     width: 60%;
-    background-color: rgb(166, 167, 169);
+    background-color: rgb(245, 245, 245);
     margin-left: 11%;
 }
+
+
+@media only screen and (max-width: 990px) {
+    .popup-inner {
+        width: 55%;
+        transition:all 1s ease;
+    }
+
+    .close-btn h1{
+        overflow: hidden;
+    }
+  }
