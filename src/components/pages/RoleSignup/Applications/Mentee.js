@@ -203,34 +203,33 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
