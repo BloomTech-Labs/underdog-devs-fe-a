@@ -302,19 +302,65 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Select
-                      placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'tech_stack')}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    <Checkbox.Group
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        flexFlow: 'column',
+                        width: 350,
+                        margin: '0rem 1rem 1rem 1.5rem',
+                      }}
                     >
-                      {tech_stack.map(tech_stack => {
-                        return (
-                          <Option value={`${tech_stack.value}`}>
-                            {tech_stack.label}
-                          </Option>
-                        );
-                      })}
-                    </Select>
+                      <Checkbox
+                        value="Career Development"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Career Development
+                      </Checkbox>
+                      <Checkbox
+                        value="Frontend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Frontend
+                      </Checkbox>
+                      <Checkbox
+                        value="Backend"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Backend
+                      </Checkbox>
+                      <Checkbox
+                        value="Design UI/UX"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Design UI/UX
+                      </Checkbox>
+                      <Checkbox
+                        value="iOS"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        iOS
+                      </Checkbox>
+                      <Checkbox
+                        value="Android"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Android
+                      </Checkbox>
+                      <Checkbox
+                        value="Data Science"
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        Data Science
+                      </Checkbox>
+                    </Checkbox.Group>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
