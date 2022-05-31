@@ -44,7 +44,6 @@ const initialFormValues = {
   list_convictions: '',
   subject: 'not collecting this from intake form',
   tech_stack: '',
-  experience_level: '',
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
@@ -354,39 +353,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="What is your level of experience in said subject?"
-                    tooltip={{
-                      title: 'Choose your current skill level',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="experience_level"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select an experience level.',
-                      },
-                    ]}
-                  >
-                    <Radio.Group
-                      name="experience_level"
-                      onChange={handleChange}
-                      value={formValues.experience_level}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                    >
-                      <Radio value={'beginner'}>
-                        I've never coded (Beginner)
-                      </Radio>
-                      <Radio value={'intermediate'}>
-                        I know for loops and if statements (Intermediate)
-                      </Radio>
-                      <Radio value={'advanced'}>
-                        I can make a basic app (Advanced)
-                      </Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                </Col>
+                <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What are you hoping to gain from the community?"
@@ -463,6 +430,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="radio_podcast">Radio/Podcast</Option>
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
