@@ -81,7 +81,7 @@ const Dashboard = props => {
   }, []);
 
   const data = [];
-  const escaTickets = tickets.filter(x => x.ticket_status == 'approved');
+  const escaTickets = tickets.filter(x => x.ticket_status === 'approved');
   // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {
