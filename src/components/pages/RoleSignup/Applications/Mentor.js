@@ -474,6 +474,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       <Option value="radio_or_podcast">Radio/Podcast</Option>
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
