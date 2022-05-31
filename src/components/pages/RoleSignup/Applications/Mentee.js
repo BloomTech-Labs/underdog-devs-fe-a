@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
@@ -25,7 +24,6 @@ import {
 
 import { states, countries } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -53,8 +51,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
-  const history = useHistory();
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
