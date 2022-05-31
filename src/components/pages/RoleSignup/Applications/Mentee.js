@@ -108,7 +108,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -121,13 +121,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -140,7 +140,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -163,7 +163,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -202,34 +202,33 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
@@ -244,7 +243,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your City" />
+                    <Input placeholder="Your city" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -384,7 +383,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
@@ -398,7 +397,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>

@@ -101,12 +101,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
             </Title>
             <Col span={18} offset={3}>
               <Title level={5} style={{ paddingTop: '2%' }}>
-                Fill out your user Information
+                Fill out your user information
               </Title>
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -119,13 +119,13 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1.5rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -138,7 +138,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -157,7 +157,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -195,34 +195,33 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
@@ -237,7 +236,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your City" />
+                    <Input placeholder="City" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -248,7 +247,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 <Col md={22} xs={24}></Col>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Current Company"
+                    label="Current company"
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
@@ -266,7 +265,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Current Position"
+                    label="Current position"
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
@@ -393,21 +392,21 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Tech Industry Coaching
+                        Tech industry coaching
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
@@ -423,7 +422,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   <Form.Item
                     label=" Are you able to commit to one or more of these?"
                     tooltip={{
-                      title: 'Choose One',
+                      title: 'Choose one',
                       icon: <InfoCircleOutlined />,
                     }}
                     name="commitment"
