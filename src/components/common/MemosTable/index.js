@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
-import Item from 'antd/lib/list/Item';
 
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory({
