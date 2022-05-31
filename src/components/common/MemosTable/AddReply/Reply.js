@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
 import './Reply.css';
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 
 const initialValues = {
   content: '',
