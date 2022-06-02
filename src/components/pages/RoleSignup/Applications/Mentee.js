@@ -22,7 +22,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 
 const { Title } = Typography;
@@ -323,12 +323,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Option value="frontend">Frontend</Option>
-                      <Option value="backend">Backend</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="iOS">iOS</Option>
-                      <Option value="android">Android</Option>
-                      <Option value="datascience">Data Science</Option>
+                      {tech_stack.map(tech_stack => {
+                        return (
+                          <Option value={`${tech_stack.value}`}>
+                            {tech_stack.label}
+                          </Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
                 </Col>

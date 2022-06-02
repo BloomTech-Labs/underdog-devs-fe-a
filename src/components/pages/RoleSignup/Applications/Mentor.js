@@ -24,7 +24,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
