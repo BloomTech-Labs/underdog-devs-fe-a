@@ -40,7 +40,7 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
     axiosWithAuth()
       .post('/notes', newMemo)
       .then(res => {
-        console.log(res);
+        console.log('notes', res);
         push('/mymemos');
       })
       .catch(err => {

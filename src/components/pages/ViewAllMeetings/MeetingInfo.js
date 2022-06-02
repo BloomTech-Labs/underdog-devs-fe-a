@@ -4,7 +4,7 @@ import './MeetingInfo.css';
 const MeetingInfo = props => {
   const { info } = props;
 
-  console.log(props);
+  console.log('info', props);
 
   return (
     <div>

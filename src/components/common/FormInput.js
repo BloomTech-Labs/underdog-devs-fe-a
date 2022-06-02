@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FormInput = props => {
+  console.log('FormInput:', props);
   return (
     <>
-      <label htmlFor={props.labelId}>{props.labelId}</label>
+      <label htmlFor={props.labelId}>#{props.labelId}</label>
       <input
         type="text"
         id={props.labelId}
