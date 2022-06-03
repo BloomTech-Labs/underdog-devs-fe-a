@@ -12,7 +12,6 @@ import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
-import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
 

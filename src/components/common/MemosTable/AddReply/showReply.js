@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 function ShowReply(props) {
-  const { a, note_id } = props;
+  const { note_id } = props;
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -16,8 +16,6 @@ function ShowReply(props) {
     getComments();
   }, []);
 
-  console.log('props.note_id', note_id);
-  console.log('comments =', comments);
   return (
     <div>
       <hr />
@@ -29,13 +27,6 @@ function ShowReply(props) {
       ))}
     </div>
   );
-  // return 1 ? (
-  //   <div className="popup">
-  //     YYYYY
-  //   </div>
-  // ) : (
-  //   ''
-  // );
 }
 
 export default ShowReply;

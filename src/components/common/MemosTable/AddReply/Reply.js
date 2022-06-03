@@ -21,7 +21,7 @@ function ReplyInput(props) {
       <div className="popup-inner">
         <h1>Add a comment:</h1>
         <>
-          <label>{props.k}</label>
+          <label htmlFor={props.labelId}>{props.labelId}</label>
           <FormInput
             name="content"
             type="text"

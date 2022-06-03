@@ -125,14 +125,12 @@ const MemosTable = ({ userProfile, accounts }) => {
 
   const handleChange = e => {
     setEditMemo({ ...editMemo, content: e.target.value });
-    console.log('editMemo ', editMemo);
   };
   const handleCancel = () => {
     setEditing(!editing);
     if (submitting) setSubmitting(!submitting);
   };
-  const showPopup = key => {
-    console.log('!!!!!!!', profile_id);
+  const showPopup = () => {
     setReplypopup(true);
   };
   // Dropdown menu items
@@ -143,11 +141,6 @@ const MemosTable = ({ userProfile, accounts }) => {
       <Menu.Item key="3">3rd menu item</Menu.Item>
     </Menu>
   );
-  const handleReplyButtom = id => {
-    console.log('!!!!!!!', id);
-  };
-  console.log('SaveBotton editMemo data === ', data);
-  const a = [1, 2];
   return (
     <Table
       columns={columns}
@@ -183,24 +176,17 @@ const MemosTable = ({ userProfile, accounts }) => {
                       </>
                     ) : (
                       // reply button may be out the door
-                      <div>
-                        {
-                          // console.log("record",)
-                          // console.log("record",record)
-                          //
-                        }
-                        <Button
-                          type="primary"
-                          size="middle"
-                          onClick={showPopup}
-                        >
-                          Reply
-                        </Button>
-                      </div>
+                      <Button
+                        key="comment-nested-reply-to"
+                        type="primary"
+                        size="middle"
+                        onClick={showPopup}
+                      >
+                        Reply
+                      </Button>
                     ),
                     <ReplyInput
                       trigger={replyPopup}
-                      k={record.note_id}
                       setTrigger={setReplypopup}
                     />,
                   ]}
@@ -229,9 +215,9 @@ const MemosTable = ({ userProfile, accounts }) => {
                         />
                       ) : (
                         <>
-                          <div>{record.content}####</div>
+                          <div>{record.content}</div>
                           <br />
-                          <ShowReply a={a} note_id={record.note_id} />
+                          <ShowReply note_id={record.note_id} />
                         </>
                       )}
                     </>
@@ -254,7 +240,6 @@ const MemosTable = ({ userProfile, accounts }) => {
 };
 
 const mapStateToProps = state => {
-  console.log('Memos : ', state);
   return { userProfile: state.user.userProfile };
 };
 
