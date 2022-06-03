@@ -1,19 +1,11 @@
 import React from 'react';
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import Dashboard from '../components/pages/Dashboard/Dashboard';
-import createTestStore from '../__mocks__/CreateTestStore';
-import { Provider } from 'react-redux';
-import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
-import Sidebar from '../components/common/Sidebar/Sidebar.js';
-
-//TODO: Getting a warning error on the tests with overlapping act() calls
+import { LoadingComponent } from '../components/common';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 afterEach(cleanup);
-// creating store variable
-let store;
-// creating a mock useOktaAuth, needed this so we can log in
+
 jest.mock('@auth0/auth0-react', () => ({
   useAuth0: () => {
     return {
@@ -34,43 +26,122 @@ jest.mock('@auth0/auth0-react', () => ({
     };
   },
 }));
-// // creating a mock action
-jest.mock('../state/actions/index', () => ({
-  getUserProfile: jest.fn(() => {
-    return {
-      type: 'USER_PROFILE',
-      payload: {
-        sub: '00ultx74kMUmEW8054x6',
-        name: 'Test003 User',
-        email: 'llama003@maildrop.cc',
-        preferred_username: 'llama003@maildrop.cc',
-        role: 2,
-      },
-    };
-  }),
-}));
+// test to see if the dashboard renders
 
-describe('Dashboard /> test suite for mentee role', () => {
-  beforeEach(() => {
-    store = createTestStore();
+describe('Test', () => {
+  beforeAll(() => {
+    window.matchMedia =
+      window.matchMedia ||
+      function () {
+        return {
+          matches: false,
+          addListener: function () {},
+          removeListener: function () {},
+        };
+      };
   });
-  test('renders Dashboard', () => {
-    render(
-      <Provider store={store}>
-        <Dashboard
-          LoadingComponent={() => <SkeletonLoadingComponent />}
-          Sidebar={() => <Sidebar />}
-        />
-      </Provider>
+  test('Dashboard renders', async () => {
+    const { getByText } = render(
+      <Router>
+        <Dashboard />
+      </Router>
     );
+    await waitFor(() => getByText('Dashboard'));
+    expect(getByText('Dashboard')).toBeInTheDocument();
+  });
+  // test to see if the dashboard renders the loading component
+  test('Dashboard renders loading component', async () => {
+    const { getByText } = render(
+      <Router>
+        <Dashboard
+          LoadingComponent={() => <LoadingComponent message="Loading..." />}
+        />
+      </Router>
+    );
+    await waitFor(() => getByText('Loading...'));
+    expect(getByText('Loading...')).toBeInTheDocument();
   });
 });
 
-// test('Home Container no longer exists, this entire test needs to be revisited/refactored or deleted. It was originally for the Admin Dashbaord', () => {
-//   console.log('Revisit this test');
+// describe('<Dashboard /> testing suite', () => {
+//   test('mounts a page', async () => {
+//      render(
+//       <Router>
+//         <Dashboard
+//           LoadingComponent={() => (
+//             <LoadingComponent message="...fetching profile" />
+//           )}
+//         />
+//       </Router>
+//     );
+//     let loader = document.getByText(/...fetching profile/i);
+//     expect(loader).toBeInTheDocument();
+
+//     await waitFor(async () => {
+//       await document.findByText(/hi sara/i);
+//     });
+//     loader = document.queryByText(/...fetching profile/i);
+//     expect(loader).toBeNull();
+//   });
 // });
 
-// describe('<Dashboard /> test suite for mentee role', () => {
+// import React from 'react';
+// import { render, cleanup, screen, waitFor } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
+// import { act } from 'react-dom/test-utils';
+// import Dashboard from '../components/pages/Dashboard/Dashboard';
+// import createTestStore from '../__mocks__/CreateTestStore';
+// import { Provider } from 'react-redux';
+// import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
+// import Sidebar from '../components/common/Sidebar/Sidebar.js';
+
+// //TODO: Getting a warning error on the tests with overlapping act() calls
+
+// afterEach(cleanup);
+// // creating store variable
+// let store;
+// // creating a mock useOktaAuth, needed this so we can log in
+// jest.mock('@auth0/auth0-react', () => ({
+//   useAuth0: () => {
+//     return {
+//       authState: {
+//         isAuthenticated: true,
+//       },
+//       authService: {
+//         getUser: jest.fn(() => {
+//           return Promise.resolve({
+//             sub: '00ultx74kMUmEW8054x6',
+//             name: 'Test003 User',
+//             email: 'llama003@maildrop.cc',
+//             preferred_username: 'llama003@maildrop.cc',
+//             role: 2,
+//           });
+//         }),
+//       },
+//     };
+//   },
+// }));
+// // // creating a mock action
+// jest.mock('../state/actions/index', () => ({
+//   getUserProfile: jest.fn(() => {
+//     return {
+//       type: 'USER_PROFILE',
+//       payload: {
+//         sub: '00ultx74kMUmEW8054x6',
+//         name: 'Test003 User',
+//         email: 'llama003@maildrop.cc',
+//         preferred_username: 'llama003@maildrop.cc',
+//         role: 2,
+//       },
+//     };
+//   }),
+// }));
+
+// // test('Home Container no longer exists, this entire test needs to be revisited/refactored or deleted. It was originally for the Admin Dashbaord', () => {
+// //   console.log('Revisit this test');
+// // });
+
+// // describe('<Dashboard /> test suite for mentee role', () => {
 //   beforeAll(() => {
 //     // have to use this because we were having problems with matchMedia, this fixed it.
 //     Object.defineProperty(window, 'matchMedia', {
@@ -97,23 +168,22 @@ describe('Dashboard /> test suite for mentee role', () => {
 //     // just have to fix the first expect to say the opposite of what you put
 //     localStorage.setItem('theme', 'dark');
 //   });
-// });
-
-// test('it renders Mentor Dashboard and Sidebar if role_id is 2', async () => {
-//   act(() => {
-//     render(
-//       <Provider store={store}>
-//         <Dashboard
-//           LoadingComponent={() => <SkeletonLoadingComponent />}
-//           Sidebar={() => <Sidebar />}
-//         />
-//       </Provider>
-//     );
+//   test('it renders Mentor Dashboard and Sidebar if role_id is 2', async () => {
+//     act(() => {
+//       render(
+//         <Provider store={store}>
+//           <Dashboard
+//             LoadingComponent={() => <SkeletonLoadingComponent />}
+//             Sidebar={() => <Sidebar />}
+//           />
+//         </Provider>
+//       );
+//     });
+//     const schedule = await screen.findByText(/Schedule/i);
+//     expect(schedule).toBeTruthy();
 //   });
-//   const schedule = await screen.findByText(/Schedule/i);
-//   expect(schedule).toBeTruthy();
 // });
-
+// });
 // test('it renders Calendar component', async () => {
 //   await waitFor(() => {
 //     const calendar = document.getElementsByClassName('calendar');
