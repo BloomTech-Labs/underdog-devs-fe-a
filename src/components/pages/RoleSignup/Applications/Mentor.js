@@ -47,16 +47,16 @@ const initialFormValues = {
   commitment: '',
   referred_by: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
   const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
   const history = useHistory();
-
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };
-
+  console.log(formValues);
   return (
     <div>
       <Row style={{ padding: '3vh' }}>
