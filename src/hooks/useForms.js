@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { tech_stack } from '../components/common/constants';
 
 export default function useForms(initialValues) {
   const [formValues, setFormValues] = useState(initialValues);
@@ -10,9 +9,6 @@ export default function useForms(initialValues) {
     if (type === 'select') {
       name = targetName;
       value = e;
-    } else if (type === 'checkbox') {
-      name = tech_stack;
-      name.push(value);
     } else if (type === 'radio') {
       name = e.target.name;
       value = e.target.value;
@@ -26,9 +22,21 @@ export default function useForms(initialValues) {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const handleTechStack = e => {
+    const { value } = e.target;
+    let arr = [...formValues.tech_stack, value];
+    setFormValues({ ...formValues, tech_stack: arr });
+  };
+
   const clearForm = () => {
     setFormValues(initialValues);
   };
 
-  return [formValues, handleChange, clearForm, setFormValues];
+  return {
+    formValues,
+    handleChange,
+    clearForm,
+    setFormValues,
+    handleTechStack,
+  };
 }

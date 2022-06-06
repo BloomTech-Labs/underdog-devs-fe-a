@@ -49,7 +49,8 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
+  const { formValues, handleChange, setFormValues, handleTechStack } =
+    useForms(initialFormValues);
   const history = useHistory();
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
@@ -292,9 +293,11 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="Career Development"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
+                        {/* set checked equal to if it's in the tech_stack array
+                      only can submit each value once */}
                         Career Development
                       </Checkbox>
                       <Checkbox
