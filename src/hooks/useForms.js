@@ -24,7 +24,12 @@ export default function useForms(initialValues) {
 
   const handleTechStack = e => {
     const { value } = e.target;
-    let arr = [...formValues.tech_stack, value];
+    let arr = [...formValues.tech_stack];
+    if (e.target.checked) {
+      arr = [...formValues.tech_stack, value];
+    } else {
+      arr = formValues.tech_stack.filter(e => e !== value);
+    }
     setFormValues({ ...formValues, tech_stack: arr });
   };
 

@@ -302,42 +302,42 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       </Checkbox>
                       <Checkbox
                         value="Frontend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Frontend
                       </Checkbox>
                       <Checkbox
                         value="Backend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Backend
                       </Checkbox>
                       <Checkbox
                         value="Design UI/UX"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Design UI/UX
                       </Checkbox>
                       <Checkbox
                         value="iOS"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         iOS
                       </Checkbox>
                       <Checkbox
                         value="Android"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Android
                       </Checkbox>
                       <Checkbox
                         value="Data Science"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Data Science
