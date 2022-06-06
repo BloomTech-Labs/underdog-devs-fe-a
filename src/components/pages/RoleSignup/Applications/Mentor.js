@@ -30,7 +30,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -39,12 +38,11 @@ const initialFormValues = {
   country: '',
   current_company: '',
   current_position: '',
-  subject: '',
-  experience_level: '', //redundant?
+  tech_stack: [],
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  commitment: '',
+  commitment: false,
   referred_by: '',
   other_info: '',
   validate_status: 'pending',
@@ -275,7 +273,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="subject"
+                    name="tech_stack"
                     rules={[
                       {
                         required: true,
