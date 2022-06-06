@@ -296,8 +296,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        {/* set checked equal to if it's in the tech_stack array
-                      only can submit each value once */}
                         Career Development
                       </Checkbox>
                       <Checkbox
@@ -519,3 +517,14 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Mentor);
+
+// const handleTechStack = e => {
+//   const { value } = e.target;
+//   let arr = [...formValues.tech_stack];
+//   if (e.target.checked) {
+//     arr = [...formValues.tech_stack, value];
+//   } else {
+//     arr = formValues.tech_stack.filter(e => e !== value);
+//   }
+//   setFormValues({ ...formValues, tech_stack: arr });
+// };
