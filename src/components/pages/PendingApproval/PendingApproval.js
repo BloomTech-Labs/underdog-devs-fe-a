@@ -24,18 +24,26 @@ const PendingApproval = props => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <Menu theme="dark" mode="inline">
-          <Menu.Item key="10" onClick={handleLogout}>
-            Log Out
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="13" icon={<BulbOutlined />}>
-            <div id="darkmode">
-              Darkmode
-              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
-            </div>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          theme="dark"
+          mode="inline"
+          onClick={handleLogout}
+          items={[
+            {
+              key: '10',
+              label: 'Log Out',
+            },
+            {
+              key: '13',
+              label: 'Darkmode',
+              icon: <BulbOutlined />,
+            },
+          ]}
+        />
+        {/* might need to rearrange the div, Toggle and Menu once the page is being used */}
+        <div id="darkmode">
+          <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
+        </div>
       </Sider>
       <Layout className="site-layout">
         <Content style={{ margin: '2vh 1vw' }}>
