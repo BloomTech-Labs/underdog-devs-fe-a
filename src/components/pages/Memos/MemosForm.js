@@ -98,17 +98,6 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
     submitMemo();
   };
   const menu = (
-    // <Menu onClick={handleMenuClick}>
-    //   <Menu.Item key="1" icon={<TeamOutlined />}>
-    //     Needs / resource request
-    //   </Menu.Item>
-    //   <Menu.Item key="2" icon={<UserSwitchOutlined />}>
-    //     Changing mentors
-    //   </Menu.Item>
-    //   <Menu.Item key="3" icon={<HourglassOutlined />}>
-    //     Time sensitive needs
-    //   </Menu.Item>
-    // </Menu>
     <Menu
       onClick={handleMenuClick}
       items={[
