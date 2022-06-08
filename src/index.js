@@ -69,8 +69,7 @@ root.render(
         </Auth0Provider>
       </Provider>
     </React.StrictMode>
-  </Router>,
-  document.getElementById('root')
+  </Router>
 );
 
 function App() {
