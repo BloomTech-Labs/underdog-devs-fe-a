@@ -1,7 +1,6 @@
 /* 
 All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
 */
-import { BulbOutlined } from '@ant-design/icons';
 import { Layout, Menu, Switch as Toggle } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useMemo } from 'react';

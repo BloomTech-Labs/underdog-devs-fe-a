@@ -103,7 +103,7 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
       items={[
         {
           key: '1',
-          label: 'Needs / resource request',
+          label: 'Needs / Resource request',
           icon: <TeamOutlined />,
         },
         {
