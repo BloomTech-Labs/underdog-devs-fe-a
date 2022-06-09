@@ -1,8 +1,100 @@
+import React from 'react';
+import { render, cleanup, waitFor } from '@testing-library/react';
+import Dashboard from '../components/pages/Dashboard/Dashboard';
+import { LoadingComponent } from '../components/common';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+afterEach(cleanup);
+
+jest.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => {
+    return {
+      authState: {
+        isAuthenticated: true,
+      },
+      authService: {
+        getUser: jest.fn(() => {
+          return Promise.resolve({
+            sub: '00ultx74kMUmEW8054x6',
+            name: 'Test003 User',
+            email: 'llama003@maildrop.cc',
+            preferred_username: 'llama003@maildrop.cc',
+            role: 2,
+          });
+        }),
+      },
+    };
+  },
+}));
+// test to see if the dashboard renders
+
+describe('Test', () => {
+  beforeAll(() => {
+    window.matchMedia =
+      window.matchMedia ||
+      function () {
+        return {
+          matches: false,
+          addListener: function () {},
+          removeListener: function () {},
+        };
+      };
+  });
+
+  test('Sanity Check', () => {
+    console.log('foo bar');
+  });
+
+  //   test('Dashboard renders', async () => {
+  //     const { getByText } = render(
+  //       <Router>
+  //         <Dashboard />
+  //       </Router>
+  //     );
+  //     await waitFor(() => getByText('Dashboard'));
+  //     expect(getByText('Dashboard')).toBeInTheDocument();
+  //   });
+  //   // test to see if the dashboard renders the loading component
+  //   test('Dashboard renders loading component', async () => {
+  //     const { getByText } = render(
+  //       <Router>
+  //         <Dashboard
+  //           LoadingComponent={() => <LoadingComponent message="Loading..." />}
+  //         />
+  //       </Router>
+  //     );
+  //     await waitFor(() => getByText('Loading...'));
+  //     expect(getByText('Loading...')).toBeInTheDocument();
+  //   });
+});
+
+// describe('<Dashboard /> testing suite', () => {
+//   test('mounts a page', async () => {
+//      render(
+//       <Router>
+//         <Dashboard
+//           LoadingComponent={() => (
+//             <LoadingComponent message="...fetching profile" />
+//           )}
+//         />
+//       </Router>
+//     );
+//     let loader = document.getByText(/...fetching profile/i);
+//     expect(loader).toBeInTheDocument();
+
+//     await waitFor(async () => {
+//       await document.findByText(/hi sara/i);
+//     });
+//     loader = document.queryByText(/...fetching profile/i);
+//     expect(loader).toBeNull();
+//   });
+// });
+
 // import React from 'react';
 // import { render, cleanup, screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import { act } from 'react-dom/test-utils';
-// import HomeContainer from '../components/pages/Home/HomeContainer';
+// import Dashboard from '../components/pages/Dashboard/Dashboard';
 // import createTestStore from '../__mocks__/CreateTestStore';
 // import { Provider } from 'react-redux';
 // import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
@@ -14,8 +106,8 @@
 // // creating store variable
 // let store;
 // // creating a mock useOktaAuth, needed this so we can log in
-// jest.mock('@okta/okta-react', () => ({
-//   useOktaAuth: () => {
+// jest.mock('@auth0/auth0-react', () => ({
+//   useAuth0: () => {
 //     return {
 //       authState: {
 //         isAuthenticated: true,
@@ -34,7 +126,7 @@
 //     };
 //   },
 // }));
-// // creating a mock action
+// // // creating a mock action
 // jest.mock('../state/actions/index', () => ({
 //   getUserProfile: jest.fn(() => {
 //     return {
@@ -50,11 +142,11 @@
 //   }),
 // }));
 
-test('Home Container no longer exists, this entire test needs to be revisited/refactored or deleted. It was originally for the Admin Dashbaord', () => {
-  console.log('Revisit this test');
-});
+// // test('Home Container no longer exists, this entire test needs to be revisited/refactored or deleted. It was originally for the Admin Dashbaord', () => {
+// //   console.log('Revisit this test');
+// // });
 
-// describe('<HomeContainer /> test suite for mentee role', () => {
+// // describe('<Dashboard /> test suite for mentee role', () => {
 //   beforeAll(() => {
 //     // have to use this because we were having problems with matchMedia, this fixed it.
 //     Object.defineProperty(window, 'matchMedia', {
@@ -71,27 +163,31 @@ test('Home Container no longer exists, this entire test needs to be revisited/re
 //       })),
 //     });
 //   });
+
 //   beforeEach(() => {
 //     localStorage.clear();
 //     // creating a mock redux store
+
 //     store = createTestStore();
 //     // setting the theme default theme to dark here, if you change it to light here, it will break the darkmode test
 //     // just have to fix the first expect to say the opposite of what you put
 //     localStorage.setItem('theme', 'dark');
 //   });
-// test('it renders Mentor Dashboard and Sidebar if role_id is 2', async () => {
-//   act(() => {
-//     render(
-//       <Provider store={store}>
-//         <HomeContainer
-//           LoadingComponent={() => <SkeletonLoadingComponent />}
-//           Sidebar={() => <Sidebar />}
-//         />
-//       </Provider>
-//     );
+//   test('it renders Mentor Dashboard and Sidebar if role_id is 2', async () => {
+//     act(() => {
+//       render(
+//         <Provider store={store}>
+//           <Dashboard
+//             LoadingComponent={() => <SkeletonLoadingComponent />}
+//             Sidebar={() => <Sidebar />}
+//           />
+//         </Provider>
+//       );
+//     });
+//     const schedule = await screen.findByText(/Schedule/i);
+//     expect(schedule).toBeTruthy();
 //   });
-//   const schedule = await screen.findByText(/Schedule/i);
-//   expect(schedule).toBeTruthy();
+// });
 // });
 // test('it renders Calendar component', async () => {
 //   await waitFor(() => {
