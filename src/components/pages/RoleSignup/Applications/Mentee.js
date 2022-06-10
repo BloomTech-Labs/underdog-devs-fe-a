@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
@@ -23,14 +22,14 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
+  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -42,36 +41,16 @@ const initialFormValues = {
   formerly_incarcerated: false,
   list_convictions: '',
   subject: 'not collecting this from intake form',
-  experience_level: '',
+  tech_stack: '',
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
+  heard_about: '',
   other_info: '',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, , setFormValues] = useForms(
-    initialFormValues
-  );
-  const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -108,7 +87,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -121,13 +100,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -140,7 +119,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -163,7 +142,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -174,97 +153,77 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
-                    label="Are you located in the US?"
+                    label="Country"
+                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
                     name="country"
                     rules={[
                       {
                         required: true,
-                        message: 'Please select whether you live in the US.',
+                        message: 'Country is required!',
                       },
                     ]}
                   >
-                    <Radio.Group
-                      name="country"
-                      value={formValues.country}
-                      onChange={handleChange}
-                      style={{ width: '250', display: 'flex' }}
+                    <Select
+                      showSearch
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'country')}
                     >
-                      <Radio value={'USA'}>Yes</Radio>
-                      <Radio value={'Your Country'}>No</Radio>
-                    </Radio.Group>
+                      {countries.map(country => (
+                        <Option key={country} value={country}>
+                          {' '}
+                          {country}{' '}
+                        </Option>
+                      ))}
+                    </Select>
                   </Form.Item>
                 </Col>
               </Row>
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country !== 'USA' && formValues.country !== '' && (
+                  <div className="locationUS">
                     <Form.Item
-                      label="Country"
-                      type="text"
-                      name="country"
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
                       rules={[
                         {
                           required: true,
-                          message: 'Country is required!',
+                          message: 'State is required!',
                         },
                       ]}
-                      value={formValues.country}
-                      onChange={handleChange}
-                      style={{ margin: '0 1rem 1rem 0' }}
                     >
-                      <Input placeholder="Your Country" />
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
+                      >
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
                     </Form.Item>
-                  )}
-                </Col>
-              </Row>
+                  </div>
 
-              <Row>
-                <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'USA' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="City"
-                        type="text"
-                        name="city"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'City is required.',
-                          },
-                        ]}
-                        value={formValues.city}
-                        onChange={handleChange}
-                        style={{ margin: '0 1rem .5rem 0' }}
-                      >
-                        <Input placeholder="Your City" />
-                      </Form.Item>
-                      <Form.Item
-                        label="State"
-                        name="state"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required.',
-                          },
-                        ]}
-                      >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                  <Form.Item
+                    label="City"
+                    type="text"
+                    name="city"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'City is required!',
+                      },
+                    ]}
+                    value={formValues.city}
+                    onChange={handleChange}
+                    style={{ margin: '0 1rem .5rem 0' }}
+                  >
+                    <Input placeholder="Your city" />
+                  </Form.Item>
                 </Col>
               </Row>
 
@@ -278,7 +237,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       title: 'If none apply, leave blank',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="your_hope"
+                    name="criteria-for-membership"
                     rules={[
                       {
                         required: true,
@@ -346,8 +305,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="Which best describes the tech path you are working towards
-                    or are interested in?"
+                    label="What subject do you want to get mentored in?"
                     tooltip={{
                       title: 'Select the title that best reflects your goals',
                       icon: <InfoCircleOutlined />,
@@ -365,42 +323,17 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Option value="career">Career Development</Option>
-                      <Option value="frontend">Frontend Development</Option>
-                      <Option value="backend">Backend Development</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="iOS">iOS Development</Option>
-                      <Option value="android">Android Development</Option>
+                      {tech_stack.map(tech_stack => {
+                        return (
+                          <Option value={`${tech_stack.value}`}>
+                            {tech_stack.label}
+                          </Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
-                    label="What is your level of experience?"
-                    tooltip={{
-                      title: 'Choose your current skill level',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="experience_level"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select an experience level.',
-                      },
-                    ]}
-                  >
-                    <Radio.Group
-                      name="experience_level"
-                      onChange={handleChange}
-                      value={formValues.experience_level}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                    >
-                      <Radio value={'beginner'}>Beginner</Radio>
-                      <Radio value={'intermediate'}>Intermediate</Radio>
-                      <Radio value={'expert'}>Expert</Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                </Col>
+                <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What are you hoping to gain from the community?"
@@ -430,7 +363,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
@@ -444,12 +377,45 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-
+                <Col md={22} xs={24}>
+                  <Form.Item
+                    label="How did you hear about Underdog Devs?"
+                    tooltip={{
+                      title: 'Select where you heard about Underdog Devs',
+                      icon: <InfoCircleOutlined />,
+                    }}
+                    name="heard_about"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please select an answer.',
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="- Select -"
+                      onChange={e => handleChange(e, 'select', 'heard_about')}
+                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                    >
+                      <Option value="friend_family">Friend/Family</Option>
+                      <Option value="coworker">Co-Worker</Option>
+                      <Option value="facebook">Facebook</Option>
+                      <Option value="twitter">Twitter</Option>
+                      <Option value="youtube">YouTube</Option>
+                      <Option value="radio_podcast">Radio/Podcast</Option>
+                      <Option value="linkedin">LinkedIn</Option>
+                      <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"

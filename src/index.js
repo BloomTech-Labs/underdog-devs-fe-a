@@ -33,7 +33,10 @@ import Memos from './components/pages/Memos/Memos';
 import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
+// import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+import ScheduleMeeting from './components/common/ScheduleMeeting';
+import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -72,6 +75,7 @@ ReactDOM.render(
 function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
+  // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
   const history = useHistory();
 
   const authHandler = () => {
@@ -168,16 +172,14 @@ function App() {
           path="/support"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => (
-            <div>"View Support Requests" Component goes here</div>
-          )}
+          component={SupportRequests}
         />
 
         <PrivateRoute
           path="/meetings/schedule"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => <div>"Schedule Meeting" Component goes here</div>}
+          component={ScheduleMeeting}
         />
 
         <PrivateRoute
@@ -214,6 +216,13 @@ function App() {
           allowRoles={[1]}
           component={Reviews}
         />
+
+        {/* <PrivateRoute
+          path="/addMentorReview"
+          redirect="/dashboard"
+          allowRoles={[1, 2]}
+          component={MentorAddReview}
+        /> */}
 
         <PrivateRoute
           path="/addMenteeReview"

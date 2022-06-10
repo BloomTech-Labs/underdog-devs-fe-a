@@ -109,8 +109,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Dropdown>
               </div>
             )}
-
-            {isAuthenticated && (
+            {!isAuthenticated && (
               <div className="header_buttons">
                 <LoginButton />
                 <SignupButton />
