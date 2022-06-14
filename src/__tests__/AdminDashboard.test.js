@@ -1,21 +1,13 @@
 import React from 'react';
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
-import HomeContainer from '../components/pages/Home/HomeContainer';
-import createTestStore from '../__mocks__/CreateTestStore';
-import { Provider } from 'react-redux';
-import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
-import Sidebar from '../components/common/Sidebar/Sidebar.js';
-
-//TODO: Getting a warning error on the tests with overlapping act() calls
+import { render, cleanup, waitFor } from '@testing-library/react';
+import Dashboard from '../components/pages/Dashboard/Dashboard';
+import { LoadingComponent } from '../components/common';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 afterEach(cleanup);
-// creating store variable
-let store;
-// creating a mock useOktaAuth, needed this so we can log in
-jest.mock('@okta/okta-react', () => ({
-  useOktaAuth: () => {
+
+jest.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => {
     return {
       authState: {
         isAuthenticated: true,
@@ -34,24 +26,11 @@ jest.mock('@okta/okta-react', () => ({
     };
   },
 }));
-// creating a mock action
-jest.mock('../state/actions/index', () => ({
-  getUserProfile: jest.fn(() => {
-    return {
-      type: 'USER_PROFILE',
-      payload: {
-        sub: '00ultx74kMUmEW8054x6',
-        name: 'Test003 User',
-        email: 'llama003@maildrop.cc',
-        preferred_username: 'llama003@maildrop.cc',
-        role: 2,
-      },
-    };
-  }),
-}));
+// test to see if the dashboard renders
 
-describe('<HomeContainer /> test suite for mentee role', () => {
+describe('Test', () => {
   beforeAll(() => {
+ScheduleDialog
     // have to use this because we were having problems with matchMedia, this fixed it.
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
@@ -251,34 +230,19 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       'rc-menu-uuid-51147-1-sub4-popup'
     );
     expect(findAccountDropdown);
+=======
+    window.matchMedia =
+      window.matchMedia ||
+      function () {
+        return {
+          matches: false,
+          addListener: function () {},
+          removeListener: function () {},
+        };
+      };
+main
   });
 
-  test('Tests darkmode functionallity for user role', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <HomeContainer
-            LoadingComponent={() => <SkeletonLoadingComponent />}
-          />
-        </Provider>
-      );
-    });
-    const darkModeToggleBtn = await screen.findByRole('switch');
-    const darkModeToggleBtnClass = document.getElementsByClassName(
-      'ant-switch ant-switch-small ant-switch-checked'
-    );
-    expect(darkModeToggleBtn).toBeInTheDocument();
-    expect(darkModeToggleBtnClass).toBeTruthy();
-    expect(localStorage.theme).toBe('dark');
-
-    userEvent.click(darkModeToggleBtn);
-
-    await waitFor(() => {
-      const darkModeToggleBtnClass = document.getElementsByClassName(
-        'ant-switch ant-switch-small ant-switch'
-      );
-      expect(darkModeToggleBtnClass).toBeTruthy();
-      expect(localStorage.theme).toBe('light');
-    });
+  test('Sanity Check', () => {
+    console.log('foo bar');
   });
-});

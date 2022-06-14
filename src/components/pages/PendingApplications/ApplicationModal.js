@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Modal } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
+import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -11,7 +11,7 @@ const ApplicationModal = ({
   displayModal,
 }) => {
   const notes = { application_notes: '' };
-
+  const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState({});
   const [notesValue, setNotesValue] = useState(notes);
   const [hideForm, setHideForm] = useState(true);
@@ -42,12 +42,14 @@ const ApplicationModal = ({
   const displayForm = () => {
     setHideForm(false);
   };
+
   const handleChange = e => {
     setNotesValue({
       ...notesValue,
       [e.target.name]: e.target.value,
     });
   };
+
   const addNote = e => {
     axiosWithAuth()
       .put(
@@ -64,13 +66,49 @@ const ApplicationModal = ({
     setHideForm(true);
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
+   */
+
+  const approveApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({ ...res.data, approved: true });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
+   */
+
+  const rejectApplication = e => {
+    axiosWithAuth()
+      .put(`/application/update-role/${currentApplication.role_id}`)
+      .then(res => {
+        setCurrentApplication({
+          ...res.data,
+          validateStatus: 'rejected',
+          approved: false,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     const getCurrentApp = () => {
       axiosWithAuth()
         .get(`/application/profileId/${profileId}`)
         .then(res => {
-          setCurrentApplication(res.data);
-          setNotesValue(res.data);
+          setCurrentApplication(res.data[0]);
+          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
@@ -93,41 +131,63 @@ const ApplicationModal = ({
         </Modal>
       ) : (
         <Modal
-          title="Application"
+          title="Review Application"
           visible={displayModal}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
           className="modalStyle"
-          footer={null}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Return to Previous
+            </Button>,
+            <Popconfirm title="Are you sure you want to approve?">
+              <Button
+                key="submit"
+                type="primary"
+                onConfirm={approveApplication}
+              >
+                Approve
+              </Button>
+            </Popconfirm>,
+            <Popconfirm title="Are you sure you want to reject?">
+              <Button key="submit" onConfirm={rejectApplication} danger>
+                Reject
+              </Button>
+            </Popconfirm>,
+          ]}
         >
-          <h3>{`${currentApplication.first_name} ${currentApplication.last_name}`}</h3>
+          <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
           {currentApplication.role_name === 'mentee' ? (
-            <div>
-              <p>
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
+              <List.Item>
                 <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Location:</b> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
-              </p>
-
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <ul>
+              </List.Item>
+              <List.Item>
                 <b>Membership Criteria:</b>
-                {currentApplication.formerly_incarcerated === true ? (
-                  <li>Formerly Incarcerated</li>
-                ) : null}
-                {currentApplication.low_income === true ? (
-                  <li>Low Income</li>
-                ) : null}
-                {currentApplication.underrepresented_group === true ? (
-                  <li>Belongs to underrepresented group</li>
-                ) : null}
-              </ul>
-              <p>
+                <ul>
+                  {currentApplication.formerly_incarcerated === true ? (
+                    <li>Formerly Incarcerated</li>
+                  ) : null}
+                  {currentApplication.low_income === true ? (
+                    <li>Low Income</li>
+                  ) : null}
+                  {currentApplication.underrepresented_group === true ? (
+                    <li>Belongs to underrepresented group</li>
+                  ) : null}
+                </ul>
+              </List.Item>
+              <List.Item>
                 {' '}
                 <b>Convictions:</b>{' '}
                 {`${
@@ -135,63 +195,10 @@ const ApplicationModal = ({
                     ? currentApplication.list_convictions
                     : 'none'
                 }`}
-              </p>
-              <ul>
+              </List.Item>
+              <List.Item>
                 <b>Applicant needs help with:</b>{' '}
-                {currentApplication.industry_knowledge === true ? (
-                  <li>Industry Knowledge</li>
-                ) : null}
-                {currentApplication.pair_programming === true ? (
-                  <li>Pair Programming</li>
-                ) : null}
-                {currentApplication.job_help === true ? (
-                  <li>Job Help</li>
-                ) : null}
-              </ul>
-              <p>
-                <b>Subject most interested in:</b> {currentApplication.subject}
-              </p>
-              <p>
-                <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
-                <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
-                <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
-                <b>Notes:</b> {currentApplication.application_notes}
-              </p>
-              <button onClick={displayForm} hidden={!hideForm}>
-                Edit Notes
-              </button>
-            </div>
-          ) : (
-            <div>
-              <p>
-                <b>Email:</b> {currentApplication.email}
-              </p>
-              <p>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
-              </p>
-              <p>
-                <b>Current Employer:</b> {currentApplication.current_comp}
-              </p>
-              <p>
-                <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </p>
-              <p>
-                <b>Experience Level:</b> {currentApplication.experience_level}
-              </p>
-              <p>
                 <ul>
-                  <b>Applicant wants to focus on:</b>{' '}
                   {currentApplication.industry_knowledge === true ? (
                     <li>Industry Knowledge</li>
                   ) : null}
@@ -202,44 +209,113 @@ const ApplicationModal = ({
                     <li>Job Help</li>
                   ) : null}
                 </ul>
-              </p>
-              <p>
-                <b>Role:</b> {currentApplication.role_name}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
+                <b>Subject most interested in:</b> {currentApplication.subject}
+              </List.Item>
+              <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
-              </p>
-              <p>
+              </List.Item>
+              <List.Item>
                 <b>Notes:</b> {currentApplication.application_notes}
-              </p>
-              <button
-                className="note-button-color"
+                <Button
+                  onClick={displayForm}
+                  hidden={!hideForm}
+                  block
+                  size="small"
+                  type="dashed"
+                  style={{ background: 'white', borderColor: '#1890ff' }}
+                >
+                  Edit Notes
+                </Button>
+              </List.Item>
+            </List>
+          ) : (
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b> {currentApplication.role_name}
+              </List.Item>
+              <List.Item>
+                <b>Email:</b> {currentApplication.email}
+              </List.Item>
+              <List.Item>
+                <b>Location:</b> {currentApplication.city},{' '}
+                {currentApplication.state} {currentApplication.country}
+              </List.Item>
+              <List.Item>
+                <b>Current Employer:</b> {currentApplication.current_comp}
+              </List.Item>
+              <List.Item>
+                <b>Tech Stack:</b> {currentApplication.tech_stack}
+              </List.Item>
+              <List.Item>
+                <b>Experience Level:</b> {currentApplication.experience_level}
+              </List.Item>
+              <List.Item>
+                <b>Applicant wants to focus on:</b>{' '}
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </List.Item>
+              <List.Item>
+                <b>Other information:</b> {currentApplication.other_info}
+              </List.Item>
+              <List.Item>
+                <b>Submission Date:</b>{' '}
+                {currentApplication.created_at.slice(0, 10)}
+              </List.Item>
+              <List.Item>
+                <b>Application Status:</b> {currentApplication.validateStatus}
+              </List.Item>
+              <List.Item>
+                <b>Notes:</b> {currentApplication.application_notes}
+              </List.Item>
+              <Button
                 onClick={displayForm}
                 hidden={!hideForm}
+                block
+                size="small"
+                type="dashed"
+                style={{ background: 'white', borderColor: '#1890ff' }}
               >
                 Edit Notes
-              </button>
-            </div>
+              </Button>
+            </List>
           )}
-          <form className="notesField" onSubmit={addNote} hidden={hideForm}>
-            <textarea
+          <Form className="notesField" hidden={hideForm}>
+            <Form.Item
               id="application_notes"
               type="text"
-              name="application_notes"
-              placeholder="Write Notes Here"
               value={notesValue.application_notes}
               onChange={handleChange}
               className="applicationNotes"
-            />
-            <button className="note-button-color">Save Notes</button>
-          </form>
+            >
+              <TextArea autosize="true" placeholder="Edit notes here..." />
+              <Button
+                onClick={addNote}
+                type="dashed"
+                size="small"
+                style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
+              >
+                Save
+              </Button>
+            </Form.Item>
+          </Form>
         </Modal>
       )}
     </>

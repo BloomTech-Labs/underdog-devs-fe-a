@@ -1,3 +1,4 @@
+ScheduleDialog
 import React from 'react';
 import { render, cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -209,4 +210,8 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       expect(localStorage.theme).toBe('light');
     });
   });
+
+test('Home Container no longer exists, this entire test needs to be revisited/refactored or deleted. It was originally for the Mentee Dashboard Test', () => {
+  console.log('Revisit this test');
+main
 });

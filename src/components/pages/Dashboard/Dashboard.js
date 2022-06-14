@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Statistic, Row, Col, Table } from 'antd';
 // TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
 
@@ -8,8 +9,8 @@ const columns = [
     dataIndex: 'ticketID',
     filters: [
       {
-        text: 'Joe',
-        value: 'Joe',
+        text: 'Example',
+        value: 'Example',
       },
       {
         text: 'Jim',
@@ -37,8 +38,8 @@ const columns = [
     sortDirections: ['descend'],
   },
   {
-    title: 'Ticket Type',
-    dataIndex: 'ticketType',
+    title: 'Message',
+    dataIndex: 'message',
     filters: [
       {
         text: 'London',
@@ -60,52 +61,53 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    ticketID: '1234',
-    ticketType: 'Application',
-    dateSubmitted: '1/21/2022',
-  },
-  {
-    key: '2',
-    ticketID: '1233',
-    ticketType: 'Resource Request',
-    dateSubmitted: '1/20/2022',
-  },
-  {
-    key: '3',
-    ticketID: '1223',
-    ticketType: 'Escalation',
-    dateSubmitted: '1/19/2022',
-  },
-  {
-    key: '4',
-    ticketID: '1200',
-    ticketType: 'Application',
-    dateSubmitted: '1/10/2022',
-  },
-];
-
 function onChange(pagination, filters, sorter, extra) {
   console.log('params', pagination, filters, sorter, extra);
 }
 
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
 const Dashboard = props => {
+  const [tickets, setTickets] = useState([]);
+
+  useEffect(() => {
+    const getTickets = () => {
+      axiosWithAuth()
+        .get('/resource-tickets')
+        .then(res => {
+          setTickets(res.data);
+        });
+    };
+    getTickets();
+  }, []);
+
+  const data = [];
+  const escaTickets = tickets.filter(x => x.ticket_status === 'approved');
+  // eslint-disable-next-line array-callback-return
+  tickets.map(t => {
+    const ticketDetails = {
+      key: t.ticket_id,
+      ticketID: t.ticket_id,
+      message: t.ticket_subject,
+      dateSubmitted: t.created_at.substring(0, 10),
+    };
+    data.push(ticketDetails);
+  });
   return (
     <div className="dashboard-container">
       <h2>Tickets Dashboard</h2>
       <div className="dashboard-statistics">
         <Row gutter={16}>
           <Col span={5}>
-            <Statistic title="Escalation Tickets" value={3} />
+            <Statistic title="Escalation Tickets" value={escaTickets.length} />
           </Col>
           <Col span={5}>
-            <Statistic title="Application Tickets" value={25} />
+            <Statistic
+              title="Application Tickets"
+              value={tickets.length - escaTickets.length}
+            />
           </Col>
           <Col span={5}>
-            <Statistic title="Resource Tickets" value={7} />
+            <Statistic title="Resource Tickets" value={tickets.length} />
           </Col>
         </Row>
       </div>

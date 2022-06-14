@@ -66,12 +66,12 @@ export const NavBtn = styled.div`
   }
 `;
 
-export const NavBtnLink = styled(Link)`
+export const NavBtnLink = styled.button`
   align-items: center;
   text-align: center;
   border-radius: 4px;
   background: #256ce1;
-  padding: 10px 22px;
+  padding: 0px 22px;
   color: #fff;
   outline: none;
   border: none;

@@ -32,9 +32,9 @@ export const options = data => {
   return (
     <>
       <Option value="Assign Mentor">Assign Mentor</Option>
-      <Option value={data.Mentors.first}>{data.Mentors.first}</Option>
-      <Option value={data.Mentors.second}>{data.Mentors.second}</Option>
-      <Option value={data.Mentors.third}>{data.Mentors.third}</Option>
+      <Option value={data.first}>{data.first}</Option>
+      <Option value={data.second}>{data.second}</Option>
+      <Option value={data.third}>{data.third}</Option>
     </>
   );
 };

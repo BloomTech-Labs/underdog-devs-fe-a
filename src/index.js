@@ -18,9 +18,8 @@ import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
-import MyNotes from './components/pages/Notes/MyNotes';
+import MyMemos from './components/pages/Memos/MyMemos';
 
-// import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -29,21 +28,26 @@ import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
-import Notes from './components/pages/Notes/Notes';
-import NotesForm from './components/pages/Notes/NotesForm';
+import Memos from './components/pages/Memos/Memos';
+import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 // import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import ScheduleMeeting from './components/common/ScheduleMeeting';
+import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import PrivateRoute from './components/common/PrivateRoute';
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const store = createStore(
   rootReducer,
@@ -54,7 +58,13 @@ ReactDOM.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <Auth0Provider
+          domain={domain}
+          clientId={clientId}
+          redirectUri={window.location.origin}
+        >
+          <App />
+        </Auth0Provider>
       </Provider>
     </React.StrictMode>
   </Router>,
@@ -64,6 +74,7 @@ ReactDOM.render(
 function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
+  // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
   const history = useHistory();
 
   const authHandler = () => {
@@ -94,24 +105,24 @@ function App() {
         />
 
         <PrivateRoute
-          path="/notes"
+          path="/memos"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={Notes}
+          component={Memos}
         />
 
         <PrivateRoute
-          path="/notesform"
+          path="/memosform"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={NotesForm}
+          component={MemosForm}
         />
 
         <PrivateRoute
-          path="/mynotes"
+          path="/mymemos"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={MyNotes}
+          component={MyMemos}
         />
 
         <PrivateRoute
@@ -160,9 +171,7 @@ function App() {
           path="/support"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
-          component={() => (
-            <div>"View Support Requests" Component goes here</div>
-          )}
+          component={SupportRequests}
         />
 
         <PrivateRoute
