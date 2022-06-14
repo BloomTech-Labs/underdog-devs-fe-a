@@ -24,13 +24,12 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
 const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -39,42 +38,25 @@ const initialFormValues = {
   country: '',
   current_company: '',
   current_position: '',
-  subject: '',
-  experience_level: '',
+  tech_stack: [],
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  commitment: '',
+  commitment: false,
   referred_by: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
+  const { formValues, handleChange, setFormValues, handleTechStack } = useForms(
+    initialFormValues
+  );
   const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
-
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };
-
+  console.log(formValues);
   return (
     <div>
       <Row style={{ padding: '3vh' }}>
@@ -101,12 +83,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
             </Title>
             <Col span={18} offset={3}>
               <Title level={5} style={{ paddingTop: '2%' }}>
-                Fill out your user Information
+                Fill out your user information
               </Title>
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -119,13 +101,13 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1.5rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -138,7 +120,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -157,7 +139,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -195,34 +177,33 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
@@ -237,7 +218,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your City" />
+                    <Input placeholder="City" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -248,7 +229,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 <Col md={22} xs={24}></Col>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Current Company"
+                    label="Current company"
                     type="text"
                     name="current_company"
                     value={formValues.current_company}
@@ -266,7 +247,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Current Position"
+                    label="Current position"
                     type="text"
                     name="current_position"
                     value={formValues.current_position}
@@ -294,7 +275,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="subject"
+                    name="tech_stack"
                     rules={[
                       {
                         required: true,
@@ -313,49 +294,49 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="Career Development"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Career Development
                       </Checkbox>
                       <Checkbox
                         value="Frontend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Frontend
                       </Checkbox>
                       <Checkbox
                         value="Backend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Backend
                       </Checkbox>
                       <Checkbox
                         value="Design UI/UX"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Design UI/UX
                       </Checkbox>
                       <Checkbox
                         value="iOS"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         iOS
                       </Checkbox>
                       <Checkbox
                         value="Android"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Android
                       </Checkbox>
                       <Checkbox
                         value="Data Science"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Data Science
@@ -393,21 +374,21 @@ const Mentor = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
                       <Checkbox
                         value="industry_knowledge"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Tech Industry Coaching
+                        Tech industry coaching
                       </Checkbox>
                       <Checkbox
                         value="pair_programming"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
@@ -423,7 +404,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   <Form.Item
                     label=" Are you able to commit to one or more of these?"
                     tooltip={{
-                      title: 'Choose One',
+                      title: 'Choose one',
                       icon: <InfoCircleOutlined />,
                     }}
                     name="commitment"
@@ -474,6 +455,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       <Option value="radio_or_podcast">Radio/Podcast</Option>
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -534,3 +518,14 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Mentor);
+
+// const handleTechStack = e => {
+//   const { value } = e.target;
+//   let arr = [...formValues.tech_stack];
+//   if (e.target.checked) {
+//     arr = [...formValues.tech_stack, value];
+//   } else {
+//     arr = formValues.tech_stack.filter(e => e !== value);
+//   }
+//   setFormValues({ ...formValues, tech_stack: arr });
+// };

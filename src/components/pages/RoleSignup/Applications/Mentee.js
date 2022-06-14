@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
@@ -23,9 +22,8 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -50,26 +48,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
-  const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
+  const [formValues, handleChange] = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -106,7 +85,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -119,13 +98,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -138,7 +117,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -161,7 +140,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -200,34 +179,33 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
@@ -242,7 +220,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your City" />
+                    <Input placeholder="Your city" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -343,16 +321,17 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Option value="frontend">Frontend</Option>
-                      <Option value="backend">Backend</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="iOS">iOS</Option>
-                      <Option value="android">Android</Option>
-                      <Option value="datascience">Data Science</Option>
+                      {tech_stack.map(tech_stack => {
+                        return (
+                          <Option value={`${tech_stack.value}`}>
+                            {tech_stack.label}
+                          </Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
                 </Col>
-
+                <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
                     label="What are you hoping to gain from the community?"
@@ -382,7 +361,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
 
                       <Checkbox
@@ -390,7 +369,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
@@ -423,6 +402,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="radio_podcast">Radio/Podcast</Option>
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
