@@ -87,22 +87,7 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const schedule = await screen.findByText(/Schedule/i);
     expect(schedule).toBeTruthy();
   });
-  test('it renders Calendar component', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <HomeContainer
-            LoadingComponent={() => <SkeletonLoadingComponent />}
-            Sidebar={() => <Sidebar />}
-          />
-        </Provider>
-      );
-    });
-    await waitFor(() => {
-      const calendar = document.getElementsByClassName('calendar');
-      expect(calendar).toBeTruthy();
-    });
-  });
+
   test('Sidebar dropdown menu displays proper menus on click', async () => {
     act(() => {
       render(
@@ -119,7 +104,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
 
-    const calendar = await screen.findByText(/Calendar/i);
     const profileSettings = await screen.findByText(/Profile Settings/i);
     const accountSettings = await screen.findByText(/Account Settings/i);
     const logout = await screen.findByText(/Log Out/i);
@@ -143,7 +127,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       expect(accountSettingsComponent).toBeTruthy();
     });
 
-    expect(calendar).toBeTruthy();
     expect(profileSettings).toBeTruthy();
     expect(accountSettings).toBeTruthy();
     expect(logout).toBeTruthy();

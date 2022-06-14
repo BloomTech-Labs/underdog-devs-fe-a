@@ -1,112 +1,167 @@
-import { Modal, Button } from 'antd';
-import Draggable from 'react-draggable';
-import React from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import SwitchablePicker from './ScheduleButton';
-import { notification } from 'antd';
+import { Calendar, Modal, Badge, Button } from 'antd';
+import ScheduleModal from './ScheduleButton';
+import '../styles/Calendar.css';
 
-class Dialog extends React.Component {
-  state = {
-    visible: false,
-    disabled: true,
-    bounds: { left: 0, top: 0, bottom: 0, right: 0 },
+const initialValues = [
+  {
+    date: '15/03/2022',
+    type: 'warning',
+    content: 'This is warning event.',
+    details: 'Test information 1',
+  },
+  {
+    date: '15/03/2022',
+    type: 'success',
+    content: 'This is usual event.',
+    details: 'Test information 2',
+  },
+  {
+    date: '16/03/2022',
+    type: 'error',
+    content: 'This is error event 1.',
+    details: 'Test information 3',
+  },
+  {
+    date: '16/03/2022',
+    type: 'error',
+    content: 'This is error event 2.',
+    details: 'Test information 4',
+  },
+  {
+    date: '16/03/2022',
+    type: 'error',
+    content: 'This is error event 3.',
+    details: 'Test information 5',
+  },
+  {
+    date: '12/04/2022',
+    type: 'success',
+    content: 'This is usual event1.',
+    details: 'Test information 6',
+  },
+  {
+    date: '12/04/2022',
+    type: 'success',
+    content: 'This is usual event2.',
+    details: 'Test information 7',
+  },
+];
+
+function ScheduleEvent() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isScheduleModalVisible, setIsScheduleModalVisible] = useState(false);
+  const [meetings, setMeeting] = useState(null);
+  const [meetingsArr, setMeetingsArr] = useState(initialValues);
+
+  const showModal = value => {
+    setMeeting(value);
+    setIsModalVisible(true);
   };
 
-  draggleRef = React.createRef();
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
 
-  openNotification = () => {
-    notification.open({
-      message: 'Success!',
-      description: 'You have successfully scheduled your meeting!',
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const showScheduleModal = () => {
+    setIsScheduleModalVisible(true);
+  };
+
+  function getListData(value, meetings) {
+    let listData = [];
+    let dateValue = value.format('DD/MM/YYYY');
+
+    meetings.map(e => {
+      if (e.date === dateValue) {
+        listData.push(e);
+      }
     });
-  };
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
+    return listData || [];
+  }
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-    this.openNotification(true);
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
-
-  onStart = (event, uiData) => {
-    const { clientWidth, clientHeight } = window.document.documentElement;
-    const targetRect = this.draggleRef.current?.getBoundingClientRect();
-    if (!targetRect) {
-      return;
-    }
-    this.setState({
-      bounds: {
-        left: -targetRect.left + uiData.x,
-        right: clientWidth - (targetRect.right - uiData.x),
-        top: -targetRect.top + uiData.y,
-        bottom: clientHeight - (targetRect.bottom - uiData.y),
-      },
-    });
-  };
-
-  render() {
-    const { bounds, disabled, visible } = this.state;
+  function dateCellRender(value) {
+    const listData = getListData(value, meetingsArr);
     return (
-      <>
-        <Button onClick={this.showModal}>Click to Schedule A Meeting</Button>
-        <Modal
-          title={
-            <div
-              style={{
-                width: '100%',
-                cursor: 'move',
-              }}
-              onMouseOver={() => {
-                if (disabled) {
-                  this.setState({
-                    disabled: false,
-                  });
-                }
-              }}
-              onMouseOut={() => {
-                this.setState({
-                  disabled: true,
-                });
-              }}
-              onFocus={() => {}}
-              onBlur={() => {}}
-            >
-              Schedule A Meeting
-            </div>
-          }
-          okText={'Submit'}
-          visible={visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          modalRender={modal => (
-            <Draggable
-              disabled={disabled}
-              bounds={bounds}
-              onStart={(event, uiData) => this.onStart(event, uiData)}
-            >
-              <div ref={this.draggleRef}>{modal}</div>
-            </Draggable>
-          )}
-        >
-          <SwitchablePicker />
-        </Modal>
-      </>
+      <ul className="events">
+        {listData.map(item => (
+          <span key={item.content}>
+            <Badge
+              status={item.type}
+              text={item.content}
+              onClick={() => showModal(item)}
+            />
+            <br />
+          </span>
+        ))}
+      </ul>
     );
   }
+
+  function getMonthData(value) {
+    if (value.month() === 3) {
+      return 'Something';
+    }
+  }
+
+  function monthCellRender(value) {
+    const num = getMonthData(value);
+    return num ? (
+      <div className="notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
+  }
+
+  return (
+    <div
+      style={{
+        display: 'block',
+        padding: 30,
+      }}
+    >
+      <Calendar
+        fullscreen={true}
+        dateCellRender={dateCellRender}
+        monthCellRender={monthCellRender}
+      />
+      <Button className="DialogBox" onClick={() => showScheduleModal()}>
+        Schedule a Meeting
+      </Button>
+      <Modal
+        title="Event Info"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>
+          {meetings
+            ? `Meeting Name: ${meetings.content}`
+            : 'Something went wrong.'}
+        </p>
+        <p>{meetings ? `Time: ${meetings.time}` : 'Something went wrong.'}</p>
+        <p>
+          {meetings
+            ? `Meeting Details: ${meetings.details}`
+            : 'Something went wrong.'}
+        </p>
+      </Modal>
+      <ScheduleModal
+        isModalVisible={isScheduleModalVisible}
+        setIsModalVisible={setIsScheduleModalVisible}
+        meetingsArr={meetingsArr}
+        setMeetingsArr={setMeetingsArr}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
+    </div>
+  );
 }
 
-export default Dialog;
+export default ScheduleEvent;

@@ -63,9 +63,6 @@ const Sidebar = ({ children, userProfile }) => {
       <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>
         <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
           <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
-            <Menu.Item key="/calendar" onClick={handleMenuClick}>
-              Calendar
-            </Menu.Item>
             {isUserMentee() && (
               <Menu.Item key="/meetings" onClick={handleMenuClick}>
                 Upcoming Meetings

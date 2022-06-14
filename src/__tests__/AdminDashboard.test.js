@@ -111,7 +111,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
     const account = await screen.findByText(/Account/i);
     userEvent.click(account);
 
-    const calendar = await screen.findByText(/Calendar/i);
     const scheduleInterview = await screen.findByText(/Schedule Interview/i);
 
     const manageResources = await screen.findByText(/Manage Resources/i);
@@ -147,7 +146,6 @@ describe('<HomeContainer /> test suite for mentee role', () => {
       expect(accountSettingsComponent).toBeTruthy();
     });
 
-    expect(calendar).toBeTruthy();
     expect(scheduleInterview).toBeTruthy();
     expect(manageResources).toBeTruthy();
     expect(PendingApplications).toBeTruthy();
