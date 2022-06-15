@@ -30,7 +30,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -39,24 +38,24 @@ const initialFormValues = {
   country: '',
   current_company: '',
   current_position: '',
-  subject: '',
-  experience_level: '', //redundant?
+  tech_stack: [],
   job_help: false,
   industry_knowledge: false,
   pair_programming: false,
-  commitment: '',
+  commitment: false,
   referred_by: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
+  const { formValues, handleChange, setFormValues, handleTechStack } =
+    useForms(initialFormValues);
   const history = useHistory();
-
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };
-
+  console.log(formValues);
   return (
     <div>
       <Row style={{ padding: '3vh' }}>
@@ -275,7 +274,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       title: 'What development role have you trained for?',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="subject"
+                    name="tech_stack"
                     rules={[
                       {
                         required: true,
@@ -294,49 +293,49 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     >
                       <Checkbox
                         value="Career Development"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Career Development
                       </Checkbox>
                       <Checkbox
                         value="Frontend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Frontend
                       </Checkbox>
                       <Checkbox
                         value="Backend"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Backend
                       </Checkbox>
                       <Checkbox
                         value="Design UI/UX"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Design UI/UX
                       </Checkbox>
                       <Checkbox
                         value="iOS"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         iOS
                       </Checkbox>
                       <Checkbox
                         value="Android"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Android
                       </Checkbox>
                       <Checkbox
                         value="Data Science"
-                        onChange={e => handleChange(e, 'checkbox')}
+                        onChange={handleTechStack}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         Data Science
@@ -518,3 +517,14 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Mentor);
+
+// const handleTechStack = e => {
+//   const { value } = e.target;
+//   let arr = [...formValues.tech_stack];
+//   if (e.target.checked) {
+//     arr = [...formValues.tech_stack, value];
+//   } else {
+//     arr = formValues.tech_stack.filter(e => e !== value);
+//   }
+//   setFormValues({ ...formValues, tech_stack: arr });
+// };
