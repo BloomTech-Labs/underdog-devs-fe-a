@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   Button,
-  Radio,
   Breadcrumb,
   Select,
   Checkbox,
@@ -29,7 +28,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -45,10 +43,11 @@ const initialFormValues = {
   pair_programming: false,
   heard_about: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange] = useForms(initialFormValues);
+  const { formValues, handleChange } = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -403,7 +402,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
                       <Option value="fromMentee">Mentee</Option>
-                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="fromMentor">Mentor</Option>
                       <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
