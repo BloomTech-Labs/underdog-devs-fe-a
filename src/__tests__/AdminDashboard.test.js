@@ -1,8 +1,4 @@
-import React from 'react';
-import { render, cleanup, waitFor } from '@testing-library/react';
-import Dashboard from '../components/pages/Dashboard/Dashboard';
-import { LoadingComponent } from '../components/common';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 
@@ -32,11 +28,11 @@ describe('Test', () => {
   beforeAll(() => {
     window.matchMedia =
       window.matchMedia ||
-      function () {
+      function() {
         return {
           matches: false,
-          addListener: function () {},
-          removeListener: function () {},
+          addListener: function() {},
+          removeListener: function() {},
         };
       };
   });
