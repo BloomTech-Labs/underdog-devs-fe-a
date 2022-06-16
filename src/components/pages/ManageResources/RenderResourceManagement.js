@@ -258,6 +258,7 @@ export const RenderResourceManagement = () => {
     <div>
       {lg ? (
         <Card
+          key="{requestResources}"
           tabList={tabList}
           activeTabKey={activeTabKey}
           onTabChange={key => {
@@ -276,6 +277,7 @@ export const RenderResourceManagement = () => {
         </Card>
       ) : (
         <Card
+          key="{assingedResources}"
           tabList={tabList}
           activeTabKey={activeTabKey}
           onTabChange={key => {
