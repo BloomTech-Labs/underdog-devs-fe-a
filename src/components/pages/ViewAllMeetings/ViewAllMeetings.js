@@ -36,6 +36,7 @@ const ViewAllMeetings = () => {
         setMeetingData(switchProp(response.data));
       })
       .catch(err => console.error(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

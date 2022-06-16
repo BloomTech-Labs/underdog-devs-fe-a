@@ -21,7 +21,6 @@ const PrivateRoute = ({
   const { push } = useHistory();
   const { authState, authService } = useOktaAuth();
   const [loading, setLoading] = useState(true); // hiding contents
-
   useEffect(() => {
     if (Object.keys(userProfile).length === 0) {
       if (profile_id === null) {

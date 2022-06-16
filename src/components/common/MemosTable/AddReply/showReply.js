@@ -16,8 +16,9 @@ function ShowReply(props) {
         });
     };
     getComments();
-  }, []);
+  }, [note_id]);
   const data = [];
+  // eslint-disable-next-line array-callback-return
   comments.map(t => {
     const ticketDetails = {
       actions: [<span key="comment-list-reply-to-0">Reply to</span>],

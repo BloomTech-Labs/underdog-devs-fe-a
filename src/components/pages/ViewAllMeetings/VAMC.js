@@ -1,11 +1,11 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import { Calendar, Modal, Badge, Button } from 'antd';
+import { Calendar, Modal, Badge } from 'antd';
 
 function VAMC(props) {
   const { meetingData } = props;
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isScheduleModalVisible, setIsScheduleModalVisible] = useState(false);
   const [event, setEvent] = useState(null);
 
   const showModal = value => {
@@ -19,10 +19,6 @@ function VAMC(props) {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-  };
-
-  const showScheduleModal = () => {
-    setIsScheduleModalVisible(true);
   };
 
   function getListData(value, events) {

@@ -1,42 +1,50 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
 import './Reply.css';
 
-const initialValues = {
-  content: '',
-};
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory({
+  forceRefresh: true,
+});
 
 function ReplyInput(props) {
-  const [formValues, setFormValues] = useState(initialValues);
+  const { note_id } = props;
+  const [formValues, setFormValues] = useState({ comment_text: '' });
 
-  const onChange = e => {
+  const handleChange = e => {
     setFormValues({
       ...formValues,
-      [e.target.name]: e.target.value,
+      comment_text: e.target.value,
     });
+  };
+
+  const handleSumbitButton = () => {
+    axiosWithAuth()
+      .post(`/notes/${note_id}/comments`, formValues)
+      .then(res => {
+        props.setTrigger(false);
+        history.push('/memos');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <h1>Add a comment:</h1>
-        <>
-          <label htmlFor={props.labelId}>{props.labelId}</label>
+        <h1>Add a comment {props.key}:</h1>
+        <div>
           <FormInput
-            name="content"
-            type="text"
-            onChange={onChange}
-            placeholder="insert comment here"
+            onChange={handleChange}
+            onSubmit={handleSumbitButton}
+            value={formValues.content}
           />
-        </>
-        <br />
-        <button className="submit" onClick={() => console.log('submit')}>
-          Submit
-        </button>
+        </div>
         <button className="close-btn" onClick={() => props.setTrigger(false)}>
           <span>&#x2715;</span>
         </button>
-        {props.children}
       </div>
     </div>
   ) : (

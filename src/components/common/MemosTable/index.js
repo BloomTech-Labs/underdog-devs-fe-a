@@ -186,6 +186,7 @@ const MemosTable = ({ userProfile, accounts }) => {
                       </Button>
                     ),
                     <ReplyInput
+                      note_id={record.note_id}
                       trigger={replyPopup}
                       setTrigger={setReplypopup}
                     />,
@@ -216,10 +217,10 @@ const MemosTable = ({ userProfile, accounts }) => {
                       ) : (
                         <>
                           <div>{record.content}</div>
-                          <br />
-                          <ShowReply note_id={record.note_id} />
                         </>
                       )}
+                      <ShowReply note_id={record.note_id} />
+                      <hr />
                     </>
                   }
                 ></Comment>
