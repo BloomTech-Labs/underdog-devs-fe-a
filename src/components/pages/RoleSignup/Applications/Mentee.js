@@ -320,9 +320,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      {tech_stack.map(tech_stack => {
+                      {tech_stack.map((tech_stack, index) => {
                         return (
-                          <Option value={`${tech_stack.value}`}>
+                          <Option value={`${tech_stack.value}`} key={index}>
                             {tech_stack.label}
                           </Option>
                         );
