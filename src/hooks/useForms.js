@@ -25,9 +25,26 @@ export default function useForms(initialValues) {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const handleTechStack = e => {
+    const { value } = e.target;
+    let arr = [...formValues.tech_stack];
+    if (e.target.checked) {
+      arr = [...formValues.tech_stack, value];
+    } else {
+      arr = formValues.tech_stack.filter(e => e !== value);
+    }
+    setFormValues({ ...formValues, tech_stack: arr });
+  };
+
   const clearForm = () => {
     setFormValues(initialValues);
   };
 
-  return [formValues, handleChange, clearForm, setFormValues];
+  return {
+    formValues,
+    handleChange,
+    clearForm,
+    setFormValues,
+    handleTechStack,
+  };
 }
