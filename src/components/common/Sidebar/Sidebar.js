@@ -1,7 +1,7 @@
 /* 
 All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
 */
-import React /*, { useState }*/ from 'react';
+import { React, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import { useOktaAuth } from '@okta/okta-react';
@@ -37,7 +37,6 @@ const Sidebar = ({ children, userProfile }) => {
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
-
   // const openModal = () => setModal(true);
 
   // const cancelOpen = () => setModal(false);
@@ -94,6 +93,9 @@ const Sidebar = ({ children, userProfile }) => {
               </Menu.Item>
               <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
                 Add Mentor Review
+              </Menu.Item>
+              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
+                Add Mentee Review
               </Menu.Item>
             </>
           )}
@@ -173,6 +175,9 @@ const Sidebar = ({ children, userProfile }) => {
               </Menu.Item>
               <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
                 Add Mentor Review
+              </Menu.Item>
+              <Menu.Item key="/addMenteeReview" onClick={handleMenuClick}>
+                Add Mentee Review
               </Menu.Item>
             </>
           ) : (
