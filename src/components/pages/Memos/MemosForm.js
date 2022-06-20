@@ -9,6 +9,7 @@ import {
   UserSwitchOutlined,
   HourglassOutlined,
   TeamOutlined,
+  BulbFilled,
 } from '@ant-design/icons';
 
 import './Memos.css';
