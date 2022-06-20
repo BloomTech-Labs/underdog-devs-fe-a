@@ -50,7 +50,7 @@ const initialFormValues = {
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange] = useForms(initialFormValues);
+  const { formValues, handleChange } = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
