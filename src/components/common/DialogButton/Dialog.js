@@ -1,4 +1,3 @@
-ScheduleDialog
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Calendar, Modal, Badge, Button } from 'antd';
@@ -81,6 +80,7 @@ function ScheduleEvent() {
       if (e.date === dateValue) {
         listData.push(e);
       }
+      return e.error;
     });
 
     return listData || [];
