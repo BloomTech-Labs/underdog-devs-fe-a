@@ -62,7 +62,7 @@ const columns = [
 ];
 
 function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
+  // console.log('params', pagination, filters, sorter, extra);
 }
 
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
