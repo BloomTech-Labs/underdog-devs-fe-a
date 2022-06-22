@@ -18,7 +18,7 @@ const LoginContainer = () => {
         },
         // there is more we can do to handle some errors here.
       },
-      features: { registration: true },
+      features: { registration: true, showPasswordToggleOnSignInPage: true },
       // turning this feature on allows your widget to use Okta for user registration
       logo: 'path-to-your-logo',
       // add your custom logo to your signing/register widget here.
