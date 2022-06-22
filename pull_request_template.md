@@ -6,9 +6,13 @@ Updated LoginContainer where use can toggle password and see what they typed.
 
 https://www.loom.com/share/fea1f29fbb6b478c853a666da0b0dfd9
 
-#### Trello Link
+#### Jira Link
 
-No trello card just saw there was no option to see the password and added it 🤷
+___Paste your Jira ticket link here, deleting this example___
+
+(Example below):
+
+[Jira Ticket Here](https://bloomtechlabs.atlassian.net/browse/BL-272?atlOrigin=eyJpIjoiNTA1OTkzYWYxNDc1NGZmN2JkZDg3MzNhYTcxODAyMGQiLCJwIjoiaiJ9)
 
 ## Type of change
 

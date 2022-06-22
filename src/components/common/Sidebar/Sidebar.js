@@ -1,33 +1,21 @@
 /* 
 All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
 */
-import React /*, { useState }*/ from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-// import { useOktaAuth } from '@okta/okta-react';
+import { Layout, Menu, Switch as Toggle } from 'antd';
 import 'antd/dist/antd.css';
-import '../styles/Sidebar.css';
-import { /*Link,*/ useLocation } from 'react-router-dom';
-import { Layout, /*Modal,*/ Menu, Switch as Toggle } from 'antd';
-import {
-  DashboardOutlined,
-  BookOutlined,
-  ContainerOutlined,
-  ContactsOutlined,
-  UsergroupAddOutlined,
-  ProjectOutlined,
-  CarryOutOutlined,
-  QuestionCircleOutlined,
-  BulbOutlined,
-  CalendarOutlined,
-  /*UserOutlined,*/
-  FormOutlined,
-  /*LogoutOutlined,*/
-} from '@ant-design/icons';
+import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import useTheme from '../../../hooks/useTheme';
-
+import '../styles/Sidebar.css';
+import {
+  adminLinks,
+  bottomSharedLinks,
+  menteeLinks,
+  mentorLinks,
+  sharedLinks,
+} from './SidebarLinks.utils';
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
@@ -50,158 +38,49 @@ const Sidebar = ({ children, userProfile }) => {
   // };
 
   const handleMenuClick = menu => {
+    if (menu.key === 'darkmode') {
+      toggleTheme();
+      return;
+    }
     push(menu.key);
   };
 
   // This is determining which role is currently in session, implemented further in ternary statements in the return clause
-  const isUserMentee = () => role_id === 4;
-  const isUserMentor = () => role_id === 3;
-  const isUserAdmin = () => role_id <= 2;
+  // const isUserMentee = useMemo(() => role_id === 4, [role_id]);
+  const isUserMentor = useMemo(() => role_id === 3, [role_id]);
+  const isUserAdmin = useMemo(() => role_id <= 2, [role_id]);
+
+  const linksToDisplay = useMemo(() => {
+    // create sidebar link array
+    let sidebarLinks = [];
+    // check roles
+    if (isUserAdmin) {
+      sidebarLinks = [...sharedLinks, ...adminLinks];
+    } else if (isUserMentor) {
+      sidebarLinks = [...sharedLinks, ...mentorLinks];
+    } else {
+      // we assume the user is a mentee
+      sharedLinks[0].children.pop();
+      sharedLinks[0].children.push({
+        key: '/meetings',
+        label: 'Meetings',
+      });
+      sidebarLinks = [...sharedLinks, ...menteeLinks];
+    }
+
+    return [...sidebarLinks, ...bottomSharedLinks];
+  }, [isUserAdmin, isUserMentor]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>
-        <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline">
-          <SubMenu key="sub1" icon={<CalendarOutlined />} title="Schedule">
-            <Menu.Item key="/calendar" onClick={handleMenuClick}>
-              Calendar
-            </Menu.Item>
-            {isUserMentee() && (
-              <Menu.Item key="/meetings" onClick={handleMenuClick}>
-                Upcoming Meetings
-              </Menu.Item>
-            )}
-            {isUserMentor() && (
-              <>
-                <Menu.Item key="/meetings/schedule" onClick={handleMenuClick}>
-                  Schedule Meeting
-                </Menu.Item>
-              </>
-            )}
-            {isUserAdmin() && (
-              <Menu.Item key="/meetings/schedule" onClick={handleMenuClick}>
-                Schedule Interview
-              </Menu.Item>
-            )}
-          </SubMenu>
-          {isUserMentee() && (
-            <>
-              <Menu.Item key="/assignments" onClick={handleMenuClick}>
-                My Assignments
-              </Menu.Item>
-              <Menu.Item key="/resources" onClick={handleMenuClick}>
-                Access Resources
-              </Menu.Item>
-              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
-                Add Mentor Review
-              </Menu.Item>
-            </>
-          )}
-          {isUserMentor() ? (
-            <>
-              <Menu.Item key="/mentees" onClick={handleMenuClick}>
-                My Mentees
-              </Menu.Item>
-              <Menu.Item
-                key="/resources"
-                icon={<BookOutlined />}
-                onClick={handleMenuClick}
-              >
-                Manage Resources
-              </Menu.Item>
-            </>
-          ) : isUserAdmin() ? (
-            <>
-              <Menu.Item
-                key="/dashboard"
-                icon={<DashboardOutlined />}
-                onClick={handleMenuClick}
-              >
-                Dashboard
-              </Menu.Item>
-              <Menu.Item
-                key="/resources"
-                icon={<BookOutlined />}
-                onClick={handleMenuClick}
-              >
-                Manage Resources
-              </Menu.Item>
-              <Menu.Item
-                key="/applications"
-                icon={<ContainerOutlined />}
-                onClick={handleMenuClick}
-              >
-                Pending Applications
-              </Menu.Item>
-              <Menu.Item
-                key="/matching"
-                icon={<UsergroupAddOutlined />}
-                onClick={handleMenuClick}
-              >
-                Matching
-              </Menu.Item>
-              <Menu.Item
-                key="/users"
-                icon={<ContactsOutlined />}
-                onClick={handleMenuClick}
-              >
-                Manage Users
-              </Menu.Item>
-              <Menu.Item
-                key="/attendance"
-                icon={<FormOutlined />}
-                onClick={handleMenuClick}
-              >
-                Attendance
-              </Menu.Item>
-              <Menu.Item
-                key="/support"
-                icon={<ProjectOutlined />}
-                onClick={handleMenuClick}
-              >
-                View Support Requests
-              </Menu.Item>
-              <Menu.Item
-                key="/meetings"
-                icon={<CarryOutOutlined />}
-                onClick={handleMenuClick}
-              >
-                View All Meetings
-              </Menu.Item>
-              <Menu.Item key="/reviews" onClick={handleMenuClick}>
-                View Reviews
-              </Menu.Item>
-              <Menu.Item key="/addMentorReview" onClick={handleMenuClick}>
-                Add Mentor Review
-              </Menu.Item>
-            </>
-          ) : (
-            <></>
-          )}
-          {isUserAdmin() === false && (
-            <>
-              <Menu.Item
-                key="/support"
-                icon={<QuestionCircleOutlined />}
-                onClick={handleMenuClick}
-              >
-                Support
-              </Menu.Item>
-            </>
-          )}
-          <Menu.Divider />
-          <Menu.Item key="14" icon={<BulbOutlined />}>
-            <div id="darkmode">
-              Darkmode
-              <Toggle
-                size="small"
-                id="darkModeToggle"
-                onClick={toggleTheme}
-                checked={theme === 'dark' ? true : false}
-              />
-            </div>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={[pathname]}
+          mode="inline"
+          items={linksToDisplay}
+          onClick={handleMenuClick}
+        />
       </Sider>
       <Layout className="site-layout">
         <Content style={{ margin: '2vh 1vw' }}>
