@@ -70,13 +70,13 @@ export const mentorLinks = [
 ];
 
 export const adminLinks = [
-  { key: '/dashboard', label: 'dashboard', icon: <DashboardOutlined /> },
-  { key: '/resources', label: 'resources', icon: <BookOutlined /> },
-  { key: '/applications', label: 'applications', icon: <ContainerOutlined /> },
-  { key: '/matching', label: 'matching', icon: <UsergroupAddOutlined /> },
-  { key: '/users', label: 'users', icon: <ContactsOutlined /> },
-  { key: '/attendance', label: 'attendance', icon: <FormOutlined /> },
-  { key: '/meetings', label: 'meetings', icon: <CarryOutOutlined /> },
-  { key: '/reviews', label: 'reviews' },
-  { key: '/addMentorReview', label: 'addMentorReview' },
+  { key: '/dashboard', label: 'Dashboard', icon: <DashboardOutlined /> },
+  { key: '/resources', label: 'Resources', icon: <BookOutlined /> },
+  { key: '/applications', label: 'Applications', icon: <ContainerOutlined /> },
+  { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
+  { key: '/users', label: 'Users', icon: <ContactsOutlined /> },
+  { key: '/attendance', label: 'Attendance', icon: <FormOutlined /> },
+  { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/reviews', label: 'Reviews' },
+  { key: '/addMentorReview', label: 'Add Mentor Review' },
 ];
