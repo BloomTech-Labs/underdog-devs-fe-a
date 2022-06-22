@@ -180,7 +180,7 @@ export const RenderResourceManagement = () => {
   const [activeTabKey, setActiveTabKey] = useState('request');
   const [resources, setResources] = useState([]);
   const { lg } = useBreakpoint();
-  const [formValues, handleChange, clearForm] = useForms(
+  const { formValues, handleChange, clearForm } = useForms(
     initialResourceFormValues
   );
 
@@ -258,6 +258,7 @@ export const RenderResourceManagement = () => {
     <div>
       {lg ? (
         <Card
+          key="{requestResources}"
           tabList={tabList}
           activeTabKey={activeTabKey}
           onTabChange={key => {
@@ -276,6 +277,7 @@ export const RenderResourceManagement = () => {
         </Card>
       ) : (
         <Card
+          key="{assingedResources}"
           tabList={tabList}
           activeTabKey={activeTabKey}
           onTabChange={key => {
