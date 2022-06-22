@@ -26,7 +26,6 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
-import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
 import Memos from './components/pages/Memos/Memos';
@@ -187,13 +186,6 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
           component={ViewAllMeetings}
-        />
-
-        <PrivateRoute
-          path="/calendar"
-          redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
-          component={Calendar}
         />
 
         <PrivateRoute

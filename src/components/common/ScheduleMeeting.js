@@ -1,4 +1,7 @@
 import React from 'react';
+
+import ScheduleEvent from './DialogButton/Dialog';
+
 import CalendarFeature from './Calendar';
 // import SwitchablePicker from './DialogButton/ScheduleButton';
 
@@ -7,6 +10,10 @@ import CalendarFeature from './Calendar';
 const ScheduleMeeting = () => {
   return (
     <>
+      <div className="DialogBox">
+        <ScheduleEvent />
+      </div>
+
       <CalendarFeature />
       {/* <div className="DialogBox">
         <SwitchablePicker />

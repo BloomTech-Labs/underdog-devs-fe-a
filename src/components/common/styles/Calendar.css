@@ -18,9 +18,8 @@
   font-size: 28px;
 }
 .DialogBox {
-  display: flex;
   margin-top: 2%;
-  justify-content: center;
+  text-align: center;
 }
 .description {
   background-color: white;
