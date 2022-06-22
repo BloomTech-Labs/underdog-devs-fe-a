@@ -5,8 +5,9 @@ import moment from 'moment';
 
 function ShowReply(props) {
   const { note_id } = props;
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
 
+  const { setComments, comments } = props;
   useEffect(() => {
     const getComments = () => {
       axiosWithAuth()

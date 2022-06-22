@@ -11,7 +11,9 @@ const history = createBrowserHistory({
 function ReplyInput(props) {
   const { note_id } = props;
   const [formValues, setFormValues] = useState({ comment_text: '' });
+  // const [comments, setComments] = useState({ comment_text: '' });
 
+  const { setComments, comments } = props;
   const handleChange = e => {
     setFormValues({
       ...formValues,
@@ -24,7 +26,7 @@ function ReplyInput(props) {
       .post(`/notes/${note_id}/comments`, formValues)
       .then(res => {
         props.setTrigger(false);
-        history.push('/memos');
+        setComments([...comments, { comment_text: formValues.comment_text }]);
       })
       .catch(err => {
         console.log(err);
