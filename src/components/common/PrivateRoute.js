@@ -19,24 +19,26 @@ const PrivateRoute = ({
   ...rest
 }) => {
   const { push } = useHistory();
-  const { authState, authService } = useOktaAuth();
+  const { authState, oktaAuth } = useOktaAuth();
   const [loading, setLoading] = useState(true); // hiding contents
 
   useEffect(() => {
     if (Object.keys(userProfile).length === 0) {
       if (profile_id === null) {
-        if (authState.isPending || authState.isAuthenticated) {
-          dispatch(authenticateUser(authState, authService));
+        if (authState !== null) {
+          if (authState.isAuthenticated !== false) {
+            dispatch(authenticateUser(authState, oktaAuth));
+          } else {
+            push(redirect);
+          }
         } else {
-          push(redirect);
+          dispatch(getProfile(profile_id));
         }
+      } else if (allowRoles.includes(userProfile.role_id)) {
+        setLoading(false);
       } else {
-        dispatch(getProfile(profile_id));
+        push(redirect);
       }
-    } else if (allowRoles.includes(userProfile.role_id)) {
-      setLoading(false);
-    } else {
-      push(redirect);
     }
   }, [
     isAuthenticated,
@@ -45,7 +47,7 @@ const PrivateRoute = ({
     allowRoles,
     redirect,
     dispatch,
-    authService,
+    oktaAuth,
     authState,
     push,
   ]);

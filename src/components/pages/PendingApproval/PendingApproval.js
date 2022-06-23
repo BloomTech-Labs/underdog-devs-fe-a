@@ -20,7 +20,7 @@ const menuItems = [
 ];
 
 const PendingApproval = props => {
-  const { authService, userInfo } = props;
+  const { oktaAuth, userInfo } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [toggleTheme] = useTheme();
 
@@ -29,7 +29,7 @@ const PendingApproval = props => {
   };
 
   const handleLogout = checked => {
-    authService.logout();
+    oktaAuth.logout();
     localStorage.removeItem('role_id');
   };
 

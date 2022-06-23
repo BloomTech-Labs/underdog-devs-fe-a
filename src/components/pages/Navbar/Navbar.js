@@ -19,7 +19,7 @@ const { Header } = Layout;
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { authService } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const [modal, setModal] = useState(false);
   const { push } = useHistory();
   const openModal = () => setModal(true);
@@ -29,7 +29,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
     setModal(false);
     localStorage.removeItem('role_id');
     localStorage.removeItem('token');
-    authService.logout();
+    oktaAuth.logout();
   };
   useEffect(() => {
     axiosWithAuth()
