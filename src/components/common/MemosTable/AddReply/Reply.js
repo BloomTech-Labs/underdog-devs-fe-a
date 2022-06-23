@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
 import './Reply.css';
+import { Button } from 'antd';
 
 const initialValues = {
   content: '',
@@ -19,7 +20,7 @@ function ReplyInput(props) {
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <h1>Add a comment:</h1>
+        <h1>Send reply</h1>
         <>
           <label htmlFor={props.labelId}>{props.labelId}</label>
           <FormInput
@@ -32,12 +33,16 @@ function ReplyInput(props) {
           />
         </>
         <br />
-        <button className="submit" onClick={() => console.log('submit')}>
-          Submit
-        </button>
-        <button className="close-btn" onClick={() => props.setTrigger(false)}>
+        <Button
+          type="primary"
+          className="submit"
+          onClick={() => props.setTrigger(false)}
+        >
+          Send
+        </Button>
+        <Button className="close-btn" onClick={() => props.setTrigger(false)}>
           <span>&#x2715;</span>
-        </button>
+        </Button>
         {props.children}
       </div>
     </div>

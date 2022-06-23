@@ -8,6 +8,14 @@ Fixes # (issue)
 
 Please paste a link here of a quick loom video walking through what you did in your PR .
 
+#### Jira Link
+
+___Paste your Jira ticket link here, deleting this example___
+
+(Example below):
+
+[Jira Ticket Here](https://bloomtechlabs.atlassian.net/browse/BL-272?atlOrigin=eyJpIjoiNTA1OTkzYWYxNDc1NGZmN2JkZDg3MzNhYTcxODAyMGQiLCJwIjoiaiJ9)
+
 ## Type of change
 
 Please delete options that are not relevant.
