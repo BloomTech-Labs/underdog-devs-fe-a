@@ -88,7 +88,7 @@ const Dashboard = props => {
       key: t.ticket_id,
       ticketID: t.ticket_id,
       message: t.ticket_subject,
-      dateSubmitted: t.created_at.substring(0, 10),
+      // dateSubmitted: t.created_at.substring(0, 10),
     };
     data.push(ticketDetails);
   });

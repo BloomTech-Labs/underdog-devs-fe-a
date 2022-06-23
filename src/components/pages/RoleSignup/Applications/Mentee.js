@@ -6,7 +6,6 @@ import {
   Form,
   Input,
   Button,
-  Radio,
   Breadcrumb,
   Select,
   Checkbox,
@@ -29,7 +28,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -40,13 +38,12 @@ const initialFormValues = {
   low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  subject: 'not collecting this from intake form',
   tech_stack: '',
   job_help: false,
-  industry_knowledge: false,
   pair_programming: false,
   heard_about: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
@@ -323,9 +320,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      {tech_stack.map(tech_stack => {
+                      {tech_stack.map((tech_stack, index) => {
                         return (
-                          <Option value={`${tech_stack.value}`}>
+                          <Option value={`${tech_stack.value}`} key={index}>
                             {tech_stack.label}
                           </Option>
                         );
@@ -365,13 +362,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       >
                         Job search help
                       </Checkbox>
-                      <Checkbox
-                        value="industry_knowledge"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Learn more about the tech industry
-                      </Checkbox>
+
                       <Checkbox
                         value="pair_programming"
                         onChange={e => handleChange(e, 'checkbox')}
@@ -411,7 +402,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
                       <Option value="fromMentee">Mentee</Option>
-                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="fromMentor">Mentor</Option>
                       <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
