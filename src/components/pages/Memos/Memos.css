@@ -27,3 +27,13 @@
   align-items: center;
   padding: 1em 0.5em;
 }
+
+
+.ant-radio-checked .ant-radio-inner{
+  border-color: #1990FF !important ;
+}
+
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: #1990FF !important ;
+}
