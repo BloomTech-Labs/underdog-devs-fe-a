@@ -4,17 +4,17 @@ import { setFetchError } from '../errors/setFetchError';
 import { setProfileId } from './setProfileId';
 import { setIsAuthenticated } from './setIsAuthenticated';
 
-export const authenticateUser = (authState, authService) => dispatch => {
-  if (authState.isAuthenticated) {
+export const authenticateUser = (authState, oktaAuth) => dispatch => {
+  if (oktaAuth.isAuthenticated) {
     dispatch(setFetchStart());
-    authService
+    oktaAuth
       .getUser()
       .then(parsedJWT => {
         const profile_id = parsedJWT.sub; // sub = profile_id from Okta JWT
         dispatch(setProfileId(profile_id));
         dispatch(setIsAuthenticated(true));
 
-        localStorage.setItem('token', authState.idToken);
+        localStorage.setItem('token', authState.idToken.idToken);
       })
       .catch(error => {
         dispatch(setFetchError(error));
