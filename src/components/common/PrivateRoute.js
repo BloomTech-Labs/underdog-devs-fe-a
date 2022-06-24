@@ -25,20 +25,18 @@ const PrivateRoute = ({
   useEffect(() => {
     if (Object.keys(userProfile).length === 0) {
       if (profile_id === null) {
-        if (authState !== null) {
-          if (authState.isAuthenticated !== false) {
-            dispatch(authenticateUser(authState, oktaAuth));
-          } else {
-            push(redirect);
-          }
+        if (authState !== null && authState.isAuthenticated) {
+          dispatch(authenticateUser(authState, oktaAuth));
         } else {
-          dispatch(getProfile(profile_id));
+          push(redirect);
         }
-      } else if (allowRoles.includes(userProfile.role_id)) {
-        setLoading(false);
       } else {
-        push(redirect);
+        dispatch(getProfile(profile_id));
       }
+    } else if (allowRoles.includes(userProfile.role_id)) {
+      setLoading(false);
+    } else {
+      push(redirect);
     }
   }, [
     isAuthenticated,

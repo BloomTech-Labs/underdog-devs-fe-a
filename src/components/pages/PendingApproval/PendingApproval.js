@@ -29,7 +29,7 @@ const PendingApproval = props => {
   };
 
   const handleLogout = checked => {
-    oktaAuth.logout();
+    oktaAuth.signOut();
     localStorage.removeItem('role_id');
   };
 

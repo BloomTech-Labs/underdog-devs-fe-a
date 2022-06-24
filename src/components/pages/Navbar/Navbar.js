@@ -29,7 +29,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
     setModal(false);
     localStorage.removeItem('role_id');
     localStorage.removeItem('token');
-    oktaAuth.logout();
+    oktaAuth.signOut();
   };
   useEffect(() => {
     axiosWithAuth()
