@@ -24,6 +24,8 @@ function ReplyInput(props) {
         <>
           <label htmlFor={props.labelId}>{props.labelId}</label>
           <FormInput
+            style={{ color: 'black' }}
+            className="inputArea"
             name="content"
             type="text"
             onChange={onChange}
