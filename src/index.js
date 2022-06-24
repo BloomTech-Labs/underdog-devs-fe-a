@@ -8,6 +8,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Security, LoginCallback } from '@okta/okta-react';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import 'antd/dist/antd.less';
 
@@ -78,14 +79,28 @@ function App() {
   // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
   const history = useHistory();
 
+  const oktaAuth = new OktaAuth(config);
+
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
     // It'll automatically check if userToken is available and push back to login if not :)
-    history.push('/login');
+    const previousAuthState = oktaAuth.authStateManager.getPreviousAuthState();
+    if (!previousAuthState || !previousAuthState.isAuthenticated) {
+      // App initialization stage
+      history.push('/login');
+    }
+  };
+
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
 
   return (
-    <Security {...config} onAuthRequired={authHandler}>
+    <Security
+      oktaAuth={oktaAuth}
+      restoreOriginalUri={restoreOriginalUri}
+      onAuthRequired={authHandler}
+    >
       <Navbar />
 
       <Switch>
