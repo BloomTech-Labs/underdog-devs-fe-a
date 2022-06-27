@@ -85,7 +85,10 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <Title level={5} style={{ paddingTop: '2%' }}>
                 Fill out your user information
               </Title>
-              <Row style={{ padding: '0 0 3% 3%' }}>
+              <Row
+                className="application_wrapper"
+                style={{ padding: '0 0 3% 3%' }}
+              >
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="First name"
@@ -268,8 +271,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <hr />
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
+                <Col className="test" md={22} xs={24}>
                   <Form.Item
+                    className="mentorshipArea"
                     label="What areas are you wanting to provide mentorship in?"
                     tooltip={{
                       title: 'What development role have you trained for?',
@@ -346,6 +350,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="mentorContribution"
                     label="How else can you contribute in the progression of our
                     mentees?"
                     tooltip={{

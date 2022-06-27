@@ -229,6 +229,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeCriteria"
                     label="Which criteria represents you for membership? (Select all that apply)"
                     tooltip={{
                       title: 'If none apply, leave blank',
@@ -278,6 +279,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeConvictions"
                     label="Please list your convictions if comfortable"
                     tooltip={{
                       title:
@@ -302,6 +304,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeSubject"
                     label="What subject do you want to get mentored in?"
                     tooltip={{
                       title: 'Select the title that best reflects your goals',
@@ -333,6 +336,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeHope"
                     label="What are you hoping to gain from the community?"
                     tooltip={{
                       title: 'Select all that apply',
@@ -375,6 +379,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeHow"
                     label="How did you hear about Underdog Devs?"
                     tooltip={{
                       title: 'Select where you heard about Underdog Devs',
@@ -409,6 +414,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeAnything"
                     label="Anything else you want us to know?"
                     tooltip={{
                       title:

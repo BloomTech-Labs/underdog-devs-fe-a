@@ -33,6 +33,15 @@
   }
 }
 
-::placeholder{
-  color: #737373!important;
+::placeholder {
+  color: #737373 !important;
+}
+
+.menteeCriteria,
+.menteeHope,
+.menteeSubject,
+.menteeConvictions{
+  display: flex !important;
+  justify-content: center;
+  flex-direction: column !important;
 }
