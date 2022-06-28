@@ -138,5 +138,29 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(ticketTypeAmounts[2].textContent).not.toBeNaN();
   });
 
+  test('all necessary columns within table are rendered', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Dashboard />
+        </Provider>
+      );
+    });
+
+    const ticketID = await screen.findByText(/Ticket ID/i);
+    const message = await screen.findByText(/Message/i);
+    const dateSubmitted = await screen.findByText(/Date Submitted/i);
+
+    expect(ticketID).toBeTruthy();
+    expect(ticketID).toBeInTheDocument();
+    expect(ticketID).toBeVisible();
+    expect(message).toBeTruthy();
+    expect(message).toBeInTheDocument();
+    expect(message).toBeVisible();
+    expect(dateSubmitted).toBeTruthy();
+    expect(dateSubmitted).toBeInTheDocument();
+    expect(dateSubmitted).toBeVisible();
+  });
+
   test('Tests darkmode functionallity for user role', async () => {});
 });
