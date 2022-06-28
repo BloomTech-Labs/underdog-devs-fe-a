@@ -82,5 +82,19 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(dashboardTitle).toBeVisible();
   });
 
+  test('it renders the dashboard and its container class', () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Dashboard />
+        </Provider>
+      );
+    });
+    const dashboardContainer = document.getElementsByClassName(
+      'dashboard-container'
+    );
+    expect(dashboardContainer).toBeTruthy();
+  });
+
   test('Tests darkmode functionallity for user role', async () => {});
 });
