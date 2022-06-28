@@ -162,5 +162,14 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(dateSubmitted).toBeVisible();
   });
 
-  test('Tests darkmode functionallity for user role', async () => {});
+  test('Asserts that the selected mode is dark', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Dashboard />
+        </Provider>
+      );
+    });
+    expect(localStorage.theme).toBe('dark');
+  });
 });
