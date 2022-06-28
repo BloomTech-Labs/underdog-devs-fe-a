@@ -96,5 +96,29 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(dashboardContainer).toBeTruthy();
   });
 
+  test('it renders all necessary tickets', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Dashboard />
+        </Provider>
+      );
+    });
+
+    const escalationTickets = await screen.findByText(/Escalation Tickets/i);
+    const applicationTickets = await screen.findByText(/Application Tickets/i);
+    const resourceTickets = await screen.findByText(/Resource Tickets/i);
+
+    expect(escalationTickets).toBeTruthy();
+    expect(escalationTickets).toBeInTheDocument();
+    expect(escalationTickets).toBeVisible();
+    expect(applicationTickets).toBeTruthy();
+    expect(applicationTickets).toBeInTheDocument();
+    expect(applicationTickets).toBeVisible();
+    expect(resourceTickets).toBeTruthy();
+    expect(resourceTickets).toBeInTheDocument();
+    expect(resourceTickets).toBeVisible();
+  });
+
   test('Tests darkmode functionallity for user role', async () => {});
 });
