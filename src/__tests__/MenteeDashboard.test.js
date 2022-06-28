@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, cleanup, screen, waitFor } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
-import SkeletonLoadingComponent from '../components/common/SkeletonLoading';
-import Sidebar from '../components/common/Sidebar/Sidebar.js';
+import Dashboard from '../components/pages/Dashboard/Dashboard';
 
 afterEach(cleanup);
 // creating store variable
@@ -47,6 +46,18 @@ jest.mock('../state/actions/index', () => ({
   }),
 }));
 
+//Fixes error of "Cannot read proprties of  undefined (addListener)"
+
+window.matchMedia =
+  window.matchMedia ||
+  function() {
+    return {
+      matches: false,
+      addListener: function() {},
+      removeListener: function() {},
+    };
+  };
+
 describe('Mentee Dashboard test suite for mentee user role', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -61,15 +72,14 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     act(() => {
       render(
         <Provider store={store}>
-          {/* <HomeContainer
-            LoadingComponent={() => <SkeletonLoadingComponent />}
-            Sidebar={() => <Sidebar />}
-          /> */}
+          <Dashboard />
         </Provider>
       );
     });
-    const schedule = await screen.findByText(/Schedule/i);
-    expect(schedule).toBeTruthy();
+    const dashboardTitle = await screen.findByText(/Tickets Dashboard/i);
+    expect(dashboardTitle).toBeTruthy();
+    expect(dashboardTitle).toBeInTheDocument();
+    expect(dashboardTitle).toBeVisible();
   });
 
   test('Tests darkmode functionallity for user role', async () => {});
