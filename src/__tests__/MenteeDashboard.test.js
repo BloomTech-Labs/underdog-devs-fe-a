@@ -172,4 +172,14 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     });
     expect(localStorage.theme).toBe('dark');
   });
+
+  test('Checking that the table renders', () => {
+    render(
+      <Provider store={store}>
+        <Dashboard />
+      </Provider>
+    );
+    const table = document.getElementsByClassName('ant-table-container');
+    expect(table).toBeTruthy();
+  });
 });
