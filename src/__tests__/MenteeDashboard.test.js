@@ -120,5 +120,23 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(resourceTickets).toBeVisible();
   });
 
+  test('the amounts associated with each ticket type are all there and a value', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Dashboard />
+        </Provider>
+      );
+    });
+
+    const ticketTypeAmounts = document.getElementsByClassName(
+      'ant-statistic-content-value-int'
+    );
+    expect(ticketTypeAmounts).toHaveLength(3);
+    expect(ticketTypeAmounts[0].textContent).not.toBeNaN();
+    expect(ticketTypeAmounts[1].textContent).not.toBeNaN();
+    expect(ticketTypeAmounts[2].textContent).not.toBeNaN();
+  });
+
   test('Tests darkmode functionallity for user role', async () => {});
 });
