@@ -209,7 +209,7 @@ export const RenderResourceManagement = () => {
         </p>
         <Form.Item
           name="resource_name"
-          label="Resource Name"
+          label="Resource"
           value={formValues.resource_name}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a resource name' }]}

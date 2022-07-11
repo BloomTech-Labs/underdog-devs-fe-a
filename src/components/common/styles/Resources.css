@@ -28,3 +28,18 @@
   justify-content: space-between;
   padding: 4% 0;
 }
+
+[title="Resource Name"] {
+  color: black !important;
+}
+
+[title="Category"] {
+  color: black !important;
+}
+[title="Pertains to"] {
+  color: black !important;
+}
+[title="Message"] {
+  color: black !important;
+}
+
