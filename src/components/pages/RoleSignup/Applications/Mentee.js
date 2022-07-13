@@ -28,7 +28,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -39,17 +38,16 @@ const initialFormValues = {
   low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  subject: 'not collecting this from intake form',
   tech_stack: '',
   job_help: false,
-  industry_knowledge: false,
   pair_programming: false,
   heard_about: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange] = useForms(initialFormValues);
+  const { formValues, handleChange } = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -231,6 +229,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeCriteria"
                     label="Which criteria represents you for membership? (Select all that apply)"
                     tooltip={{
                       title: 'If none apply, leave blank',
@@ -280,6 +279,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeConvictions"
                     label="Please list your convictions if comfortable"
                     tooltip={{
                       title:
@@ -304,6 +304,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeSubject"
                     label="What subject do you want to get mentored in?"
                     tooltip={{
                       title: 'Select the title that best reflects your goals',
@@ -322,9 +323,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      {tech_stack.map(tech_stack => {
+                      {tech_stack.map((tech_stack, index) => {
                         return (
-                          <Option value={`${tech_stack.value}`}>
+                          <Option value={`${tech_stack.value}`} key={index}>
                             {tech_stack.label}
                           </Option>
                         );
@@ -335,6 +336,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeHope"
                     label="What are you hoping to gain from the community?"
                     tooltip={{
                       title: 'Select all that apply',
@@ -364,13 +366,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       >
                         Job search help
                       </Checkbox>
-                      <Checkbox
-                        value="industry_knowledge"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Learn more about the tech industry
-                      </Checkbox>
+
                       <Checkbox
                         value="pair_programming"
                         onChange={e => handleChange(e, 'checkbox')}
@@ -383,6 +379,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeHow"
                     label="How did you hear about Underdog Devs?"
                     tooltip={{
                       title: 'Select where you heard about Underdog Devs',
@@ -410,13 +407,14 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
                       <Option value="fromMentee">Mentee</Option>
-                      <Option value="fromMentee">Mentor</Option>
+                      <Option value="fromMentor">Mentor</Option>
                       <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeAnything"
                     label="Anything else you want us to know?"
                     tooltip={{
                       title:

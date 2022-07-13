@@ -43,10 +43,16 @@
 }
 
 #menteeModel p {
- padding: 0%;
- color: darkgreen;
+  padding: 0%;
+  color: darkgreen;
 }
 
 .modalStyle .close {
   color: white;
+}
+
+@media (max-width: 750px) {
+  .ant-table-tbody>tr>td {
+    display: flex;
+  }
 }

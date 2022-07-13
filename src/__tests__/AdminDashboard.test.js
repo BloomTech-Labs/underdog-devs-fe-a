@@ -28,11 +28,11 @@ describe('Test', () => {
   beforeAll(() => {
     window.matchMedia =
       window.matchMedia ||
-      function() {
+      function () {
         return {
           matches: false,
-          addListener: function() {},
-          removeListener: function() {},
+          addListener: function () {},
+          removeListener: function () {},
         };
       };
   });

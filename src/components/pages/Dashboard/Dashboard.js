@@ -62,7 +62,7 @@ const columns = [
 ];
 
 function onChange(pagination, filters, sorter, extra) {
-  console.log('params', pagination, filters, sorter, extra);
+  // console.log('params', pagination, filters, sorter, extra);
 }
 
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
@@ -74,14 +74,20 @@ const Dashboard = props => {
       axiosWithAuth()
         .get('/resource-tickets')
         .then(res => {
-          setTickets(res.data);
+          if (res.data.message === null) {
+            setTickets(res.data);
+          }
         });
     };
     getTickets();
   }, []);
 
   const data = [];
-  const escaTickets = tickets.filter(x => x.ticket_status === 'approved');
+  let escaTickets = [];
+  if (tickets !== []) {
+    escaTickets = tickets.filter(x => x.ticket_status === 'approved');
+  }
+  console.log('escaTickets', escaTickets);
   // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {

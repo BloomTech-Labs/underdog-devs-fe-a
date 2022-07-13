@@ -7,35 +7,49 @@ import useTheme from '../../../hooks/useTheme';
 
 const { Content, Sider } = Layout;
 
+const menuItems = [
+  {
+    key: 'darkmode',
+    label: 'Darkmode',
+    icon: <BulbOutlined />,
+  },
+  {
+    key: 'logout',
+    label: 'Log Out',
+  },
+];
+
 const PendingApproval = props => {
-  const { authService, userInfo } = props;
+  const { oktaAuth, userInfo } = props;
   const [collapsed, setCollapsed] = useState(false);
-  const toggleTheme = useTheme();
+  const [toggleTheme] = useTheme();
 
   const onCollapse = collapsed => {
     setCollapsed(collapsed);
   };
 
   const handleLogout = checked => {
-    authService.logout();
+    oktaAuth.signOut();
     localStorage.removeItem('role_id');
+  };
+
+  const handleMenuClick = menu => {
+    if (menu.key === 'darkmode') {
+      toggleTheme();
+      return;
+    }
+    handleLogout();
   };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-        <Menu theme="dark" mode="inline">
-          <Menu.Item key="10" onClick={handleLogout}>
-            Log Out
-          </Menu.Item>
-          <Menu.Divider />
-          <Menu.Item key="13" icon={<BulbOutlined />}>
-            <div id="darkmode">
-              Darkmode
-              <Toggle size="small" id="darkModeToggle" onClick={toggleTheme} />
-            </div>
-          </Menu.Item>
-        </Menu>
+        <Menu
+          theme="dark"
+          mode="inline"
+          onClick={handleMenuClick}
+          items={menuItems}
+        />
       </Sider>
       <Layout className="site-layout">
         <Content style={{ margin: '2vh 1vw' }}>

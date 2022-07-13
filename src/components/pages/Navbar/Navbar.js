@@ -7,7 +7,7 @@ import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
@@ -18,18 +18,17 @@ const { Header } = Layout;
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { authService } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const [modal, setModal] = useState(false);
-
+  const { push } = useHistory();
   const openModal = () => setModal(true);
-
   const cancelOpen = () => setModal(false);
 
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
     localStorage.removeItem('token');
-    authService.logout();
+    oktaAuth.signOut();
   };
   useEffect(() => {
     axiosWithAuth()
@@ -45,16 +44,27 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
     return <NavBarLanding />;
   }
 
-  const accountMenu = (
-    <Menu key="navAccountMenu">
-      <Menu.Item key="navProfile" icon={<UserOutlined />}>
-        <Link to="/profile">Profile Settings</Link>
-      </Menu.Item>
-      <Menu.Item key="navLogout" onClick={openModal}>
-        Log Out
-      </Menu.Item>
-    </Menu>
-  );
+  const menuItems = [
+    {
+      key: '/profile',
+      icon: <UserOutlined />,
+      label: 'Profile Settings',
+    },
+    {
+      key: 'navLogout',
+      label: 'Log Out',
+    },
+  ];
+
+  const handleMenuClick = menu => {
+    if (menu.key === 'navLogout') {
+      openModal();
+      return;
+    }
+    push(menu.key);
+  };
+
+  const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
   return (
     <>

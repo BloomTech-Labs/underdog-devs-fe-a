@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+.ant-switch-checked {
+  background-color: #BFBFBF !important;
+}
+
 .hidden {
   display: none;
 }
@@ -22,3 +26,4 @@
   max-width: auto !important;
   min-width: auto !important;
 }
+

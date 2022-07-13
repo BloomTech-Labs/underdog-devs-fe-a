@@ -41,9 +41,14 @@ function ReplyInput(props) {
         <>
           <label htmlFor={props.labelId}>{props.labelId}</label>
           <FormInput
+            style={{ color: 'black' }}
+            className="inputArea"
+            name="content"
+            type="text"
             onChange={handleChange}
             onSubmit={handleSumbitButton}
             value={formValues.content}
+            placeholder="insert comment here"
           />
         </>
         <br />

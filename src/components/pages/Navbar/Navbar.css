@@ -4,6 +4,7 @@
   height: 100%;
 }
 
+
 .logoImg {
   margin-left: 1vw;
 }
@@ -29,6 +30,7 @@
   display: flex;
   height: 3vh;
   align-items: center;
+  cursor: pointer;
 }
 
 .profilePic {
@@ -45,3 +47,44 @@
 .memos {
   padding-right: 3vw;
 }
+
+
+
+@media (max-width: 750px) {
+  .logoDiv {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  .userInfo-and-profilePic {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    width: 100%;
+    font-size: 1em;
+
+  }
+  .memos {
+    display: flex;
+    flex-direction: row;
+    padding: none;
+  }
+  .memo-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+  }
+  .menuBar {
+    display: flex !important;
+    width: 90% !important;
+  }
+  .layout {
+    width: 100vw !important;
+    padding: none !important;
+  }
+  .ant-layout-header {
+    padding: 0% !important;
+    display: flex !important;
+    justify-content: space-evenly !important;
+  }
+} 
