@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
 import { postNewMentorAccount } from '../../../../state/actions/mentor';
 import useForms from '../../../../hooks/useForms';
@@ -24,8 +23,7 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
-import { states, countries, tech_stack } from '../../../common/constants';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import { states, countries } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -49,10 +47,10 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const { formValues, handleChange, setFormValues, handleTechStack } =
-    useForms(initialFormValues);
+  const { formValues, handleChange, handleTechStack } = useForms(
+    initialFormValues
+  );
 
-  const history = useHistory();
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };

@@ -1,24 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Button, Form, Input } from 'antd';
 
-const FormInput = props => {
-  return (
-    <>
-      <label htmlFor={props.labelId}>{props.labelId}</label>
-      <input
-        type="text"
-        id={props.labelId}
-        name={props.name}
-        placeholder={props.placeholder}
-      />
-    </>
-  );
-};
+// const FormInput = props => {
+const FormInput = ({ onChange, onSubmit, submitting, onCancel, value }) => (
+  <>
+    <Form.Item>
+      <Input.TextArea rows={4} onChange={onChange} defaultValue={value} />
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+        style={{}}
+      >
+        Submit
+      </Button>
+      {/* <Button onClick={onCancel}>Cancel</Button> */}
+    </Form.Item>
+  </>
+);
 
 export default FormInput;
 
-FormInput.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  labelId: PropTypes.string.isRequired,
-};
+// FormInput.propTypes = {
+//   placeholder: PropTypes.string.isRequired,
+//   // name: PropTypes.string.isRequired,
+//   labelId: PropTypes.string.isRequired,
+//   value: PropTypes.string,
+//   handleInput: PropTypes.func,
+// };

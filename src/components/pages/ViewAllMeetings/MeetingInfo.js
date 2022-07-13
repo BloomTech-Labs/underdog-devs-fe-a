@@ -4,8 +4,6 @@ import './MeetingInfo.css';
 const MeetingInfo = props => {
   const { info } = props;
 
-  console.log(props);
-
   return (
     <div>
       <p>First Name: {info.first_name}</p>

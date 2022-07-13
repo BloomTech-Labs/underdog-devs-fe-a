@@ -1,8 +1,4 @@
-import React from 'react';
-import { render, cleanup, waitFor } from '@testing-library/react';
-import Dashboard from '../components/pages/Dashboard/Dashboard';
-import { LoadingComponent } from '../components/common';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 

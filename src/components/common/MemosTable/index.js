@@ -18,6 +18,8 @@ import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
 
+import ShowReply from './AddReply/showReply';
+
 import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory({
   forceRefresh: true,
@@ -51,6 +53,7 @@ const MemosTable = ({ userProfile, accounts }) => {
   const [editing, setEditing] = useState(false);
   const [editMemo, setEditMemo] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [comments, setComments] = useState([]);
   // reply on comment popup state
   const [replyPopup, setReplypopup] = useState(false);
   // Get profile_id of logged in user
@@ -196,8 +199,11 @@ const MemosTable = ({ userProfile, accounts }) => {
                       </Button>
                     ),
                     <ReplyInput
+                      note_id={record.note_id}
                       trigger={replyPopup}
                       setTrigger={setReplypopup}
+                      setComments={setComments}
+                      comments={comments}
                     />,
                   ]}
                   author={
@@ -224,8 +230,16 @@ const MemosTable = ({ userProfile, accounts }) => {
                           value={editMemo.content}
                         />
                       ) : (
-                        <>{record.content}</>
+                        <>
+                          <div>{record.content}</div>
+                        </>
                       )}
+                      <ShowReply
+                        note_id={record.note_id}
+                        setComments={setComments}
+                        comments={comments}
+                      />
+                      <hr />
                     </>
                   }
                 ></Comment>

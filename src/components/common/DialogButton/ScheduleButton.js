@@ -1,9 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { DatePicker, TimePicker, Select, Space, Row, Col } from 'antd';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import '../styles/Calendar.css';
-import getTokenBeforeClosingBracket from 'eslint-plugin-react/lib/util/getTokenBeforeClosingBracket';
 
 const { Option } = Select;
 
@@ -74,4 +73,5 @@ const SwitchablePicker = () => {
   );
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => <SwitchablePicker />;
