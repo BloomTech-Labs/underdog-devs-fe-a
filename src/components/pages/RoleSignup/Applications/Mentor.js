@@ -22,7 +22,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import './Styles/mentorApplication.css';
+// import './Styles/mentorApplication.css';
 import { states, countries } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
@@ -47,14 +47,16 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error, successPage }) => {
-  const { formValues, handleChange, handleTechStack } = useForms(
-    initialFormValues
-  );
+  const { formValues, handleChange, handleTechStack } =
+    useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
   };
   console.log(formValues);
+
+  const [form] = Form.useForm();
+
   return (
     <div>
       <Row style={{ padding: '3vh' }}>
@@ -72,14 +74,20 @@ const Mentor = ({ dispatch, error, successPage }) => {
           </Breadcrumb.Item>
         </Breadcrumb>
       </Row>
-
       <Row className="mentorApplication">
         <Col span={24} className="applicationForm">
-          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
-            <Title className="mentorTitle" level={3}>
-              Mentor Application
-            </Title>
-            <Col span={18} offset={3}>
+          <Form
+            form={form}
+            onFinish={formSubmit}
+            layout="vertical"
+            labelCol={{ span: 20 }}
+            wrapperCol={{ span: 10 }}
+            autoComplete="off"
+            size="large"
+            requiredMark="required"
+          >
+            <Title className="mentorTitle">Mentor Application</Title>
+            <Col>
               <Title level={5} style={{ paddingTop: '2%' }}>
                 Fill out your user information
               </Title>
@@ -87,6 +95,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 className="application_wrapper"
                 style={{ padding: '0 0 3% 3%' }}
               >
+                {/*First name*/}
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="First name"
@@ -100,12 +109,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.first_name}
                     onChange={handleChange}
-                    style={{ margin: '1.5rem 1.5rem .5rem 0' }}
+                    // style={{ margin: '1.5rem 1.5rem .5rem 0' }}
                   >
                     <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
-
+                {/*Last name*/}
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Last name"
@@ -119,12 +128,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.last_name}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem 0' }}
+                    // style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
-
+                {/*Email*/}
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Email"
@@ -138,20 +147,16 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    style={{ margin: '0.5rem 1rem 1rem 0' }}
+                    // style={{ margin: '0.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
-
-                <Col
-                  span={14}
-                  offset={0}
-                  style={{ display: 'flex', justifyItems: 'left' }}
-                >
+                {/*Country*/}
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Country"
-                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
+                    // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                     name="country"
                     rules={[
                       {
@@ -174,14 +179,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Select>
                   </Form.Item>
                 </Col>
-              </Row>
-
-              <Row>
-                <Col md={15} xs={24} offset={1}>
+                {/*State & State*/}
+                <Col md={20} xs={24}>
                   <div className="locationUS">
                     <Form.Item
                       label="State"
-                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      // style={{ margin: '.5rem 1rem 1rem 0' }}
                       name="state"
                       rules={[
                         {
@@ -217,7 +220,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.city}
                     onChange={handleChange}
-                    style={{ margin: '0 1rem .5rem 0' }}
+                    // style={{ margin: '0 1rem .5rem 0' }}
                   >
                     <Input placeholder="City" />
                   </Form.Item>
@@ -227,7 +230,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <hr />
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}></Col>
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Current company"
@@ -235,7 +237,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     name="current_company"
                     value={formValues.current_company}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem' }}
+                    // style={{ margin: '.5rem 1rem .5rem' }}
                     rules={[
                       {
                         required: true,
@@ -253,7 +255,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     name="current_position"
                     value={formValues.current_position}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem' }}
+                    // style={{ margin: '.5rem 1rem .5rem' }}
                     rules={[
                       {
                         required: true,
@@ -269,9 +271,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <hr />
 
               <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col className="test" md={22} xs={24}>
+                <Col className="mentorshipArea" md={20} xs={24}>
                   <Form.Item
-                    className="mentorshipArea"
                     label="What areas are you wanting to provide mentorship in?"
                     tooltip={{
                       title: 'What development role have you trained for?',
