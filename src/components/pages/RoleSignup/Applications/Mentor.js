@@ -13,6 +13,7 @@ import {
   Row,
   Col,
   Typography,
+  Divider,
 } from 'antd';
 
 import {
@@ -22,7 +23,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-// import './Styles/mentorApplication.css';
+import './Styles/mentorApplication.css';
 import { states, countries } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
@@ -56,10 +57,23 @@ const Mentor = ({ dispatch, error, successPage }) => {
   console.log(formValues);
 
   const [form] = Form.useForm();
+  const optionsArray = [
+    { name: 'friend_or_family', value: 'Friend/Family' },
+    { name: 'coworker', value: 'Co-Worker' },
+    { name: 'facebook', value: 'Facebook' },
+    { name: 'twitter', value: 'Twitter' },
+    { name: 'youtube', value: 'YouTube' },
+    { name: 'radio_or_podcast', value: 'Radio/Podcast' },
+    { name: 'linkedin', value: 'LinkedIn' },
+    { name: 'reddit', value: 'Reddit' },
+    { name: 'fromMentee', value: 'Mentee' },
+    { name: 'fromMentor', value: 'Mentor' },
+    { name: 'abstain', value: 'Do not wish to share' },
+  ];
 
   return (
-    <div>
-      <Row style={{ padding: '3vh' }}>
+    <div className="container">
+      <Row>
         <Breadcrumb>
           <Breadcrumb.Item href="/login">
             <LoginOutlined />
@@ -75,7 +89,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
         </Breadcrumb>
       </Row>
       <Row className="mentorApplication">
-        <Col span={24} className="applicationForm">
+        <Col className="applicationForm">
           <Form
             form={form}
             onFinish={formSubmit}
@@ -91,10 +105,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <Title level={5} style={{ paddingTop: '2%' }}>
                 Fill out your user information
               </Title>
-              <Row
-                className="application_wrapper"
-                style={{ padding: '0 0 3% 3%' }}
-              >
+              <Row className="application_wrapper">
                 {/*First name*/}
                 <Col md={20} xs={24}>
                   <Form.Item
@@ -227,9 +238,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
               </Row>
 
-              <hr />
+              <Divider />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
+              <Row className="application_wrapper">
                 <Col md={20} xs={24}>
                   <Form.Item
                     label="Current company"
@@ -268,9 +279,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
               </Row>
 
-              <hr />
+              <Divider />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
+              <Row className="application_wrapper">
                 <Col className="mentorshipArea" md={20} xs={24}>
                   <Form.Item
                     label="What areas are you wanting to provide mentorship in?"
@@ -286,15 +297,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       },
                     ]}
                   >
-                    <Checkbox.Group
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-evenly',
-                        flexFlow: 'column',
-                        width: 350,
-                        margin: '0rem 1rem 1rem 1.5rem',
-                      }}
-                    >
+                    <Checkbox.Group>
                       <Checkbox
                         value="Career Development"
                         onChange={handleTechStack}
@@ -347,7 +350,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="mentorContribution"
                     label="How else can you contribute in the progression of our
@@ -367,10 +370,11 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     <Checkbox.Group
                       style={{
                         display: 'flex',
-                        justifyContent: 'space-evenly',
+                        justifyContent: 'center',
                         flexFlow: 'column',
-                        width: 350,
-                        margin: '0 1rem 1rem 1.5rem',
+                        width: 'auto',
+                        gap: '.5rem',
+                        paddingLeft: '1rem',
                       }}
                     >
                       <Checkbox
@@ -397,15 +401,18 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
-                  <p>
+                <Divider />
+                <Col md={20} xs={24}>
+                  <em>
                     Mentor commitments range from general mentoring and
                     answering questions the mentees have in Slack, <br></br>
                     being paired with a mentee for weekly 1:1 meetings, and pair
                     programming for an hour a week with mentees in Project
                     Underdog.
-                  </p>
+                  </em>
+
                   <Form.Item
+                    style={{ paddingTop: '2rem' }}
                     label=" Are you able to commit to one or more of these?"
                     tooltip={{
                       title: 'Choose one',
@@ -423,15 +430,32 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       name="commitment"
                       onChange={handleChange}
                       value={formValues.commitment}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexFlow: 'column',
+                        width: 'auto',
+                        gap: '.5rem',
+                        paddingLeft: '1rem',
+                      }}
                     >
-                      <Radio value={'yes'}>Yes</Radio>
-                      <Radio value={'no'}>No</Radio>
+                      <Radio
+                        style={{ margin: '.2rem', width: '100%' }}
+                        value={'yes'}
+                      >
+                        Yes
+                      </Radio>
+                      <Radio
+                        style={{ margin: '.2rem', width: '100%' }}
+                        value={'no'}
+                      >
+                        No
+                      </Radio>
                     </Radio.Group>
                   </Form.Item>
                 </Col>
 
-                <Col md={22} xs={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="How did you hear about Underdog Devs?"
                     tooltip={{
@@ -449,23 +473,23 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     <Select
                       placeholder="- Select -"
                       onChange={e => handleChange(e, 'select', 'referred_by')}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexFlow: 'column',
+                        width: 'auto',
+                        gap: '.5rem',
+                        paddingLeft: '1rem',
+                      }}
                     >
-                      <Option value="friend_or_family">Friend/Family</Option>
-                      <Option value="coworker">Co-worker</Option>
-                      <Option value="facebook">Facebook</Option>
-                      <Option value="twitter">Twitter</Option>
-                      <Option value="youtube">Youtube</Option>
-                      <Option value="radio_or_podcast">Radio/Podcast</Option>
-                      <Option value="linkedin">LinkedIn</Option>
-                      <Option value="reddit">Reddit</Option>
-                      <Option value="fromMentee">Mentee</Option>
-                      <Option value="fromMentee">Mentor</Option>
-                      <Option value="abstain">Do not wish to share</Option>
+                      {optionsArray.map(object => (
+                        <Option value={object.name}>{object.value}</Option>
+                      ))}
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}>
+
+                <Col md={20} xs={24}>
                   <Form.Item
                     label="Anything else you want us to know?"
                     tooltip={{
@@ -486,7 +510,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Col>
               </Row>
             </Col>
-            <Col style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <Col md={20} xs={24}>
               <Button htmlType="submit" id="mentorSubmitButton" size="large">
                 {' '}
                 Submit{' '}
@@ -522,14 +547,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(Mentor);
-
-// const handleTechStack = e => {
-//   const { value } = e.target;
-//   let arr = [...formValues.tech_stack];
-//   if (e.target.checked) {
-//     arr = [...formValues.tech_stack, value];
-//   } else {
-//     arr = formValues.tech_stack.filter(e => e !== value);
-//   }
-//   setFormValues({ ...formValues, tech_stack: arr });
-// };
