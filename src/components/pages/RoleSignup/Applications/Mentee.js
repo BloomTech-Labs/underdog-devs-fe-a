@@ -73,16 +73,20 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
       <Row className="menteeApplication">
         <Col span={24} className="applicationForm">
-          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
+          <Form
+            layout="vertical"
+            onFinish={formSubmit}
+            style={{ borderRadius: '30px' }}
+          >
             <Title className="menteeTitle" level={3}>
               Mentee Application
             </Title>
-            <Col span={18} offset={3}>
+            <Col span={18} offset={1}>
               <Title level={5} style={{ paddingTop: '2%' }}>
                 Please fill out your user information
               </Title>
-              <Row style={{ padding: '0 0 3% 3%' }}>
-                <Col md={20} xs={24}>
+              <Row style={{ padding: '', alignItems: 'left' }}>
+                <Col md={15} xs={24} span={18} offset={1}>
                   <Form.Item
                     label="First name"
                     type="text"
@@ -95,13 +99,12 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.first_name}
                     onChange={handleChange}
-                    style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
-                <Col md={20} xs={24}>
+                <Col md={20} xs={24} span={18} offset={1}>
                   <Form.Item
                     label="Last name"
                     type="text"
@@ -114,13 +117,12 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.last_name}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
-                <Col md={20} xs={24}>
+                <Col md={20} xs={24} span={18} offset={1}>
                   <Form.Item
                     label="Email"
                     type="email"
@@ -137,7 +139,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem 1rem 0' }}
+                    style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Enter a valid email" />
                   </Form.Item>
@@ -145,8 +147,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
                 <Col span={24}></Col>
                 <Col
-                  span={14}
-                  offset={0}
+                  span={18}
+                  offset={1}
                   style={{ display: 'flex', justifyItems: 'left' }}
                 >
                   <Form.Item
