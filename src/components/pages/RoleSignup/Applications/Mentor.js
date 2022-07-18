@@ -516,7 +516,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   name="other_info"
                   value={formValues.other_info}
                   onChange={handleChange}
-                  // style={{ margin: '0 1rem 1rem 1.5rem' }}
                 >
                   <Input.TextArea placeholder="Your answer" />
                 </Form.Item>
