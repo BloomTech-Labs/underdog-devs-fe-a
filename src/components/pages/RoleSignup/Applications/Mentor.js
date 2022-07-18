@@ -94,8 +94,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
           form={form}
           onFinish={formSubmit}
           layout="vertical"
-          labelCol={{ span: 20 }}
-          wrapperCol={{ span: 10 }}
           autoComplete="off"
           size="large"
           requiredMark="required"
@@ -104,14 +102,15 @@ const Mentor = ({ dispatch, error, successPage }) => {
           <Title className="mentorTitle">Mentor Application</Title>
 
           {/*Main application form*/}
-          <Col className="col-container">
+          <Col className="main-col-container">
             <Title level={4}>Fill out your user information</Title>
 
             {/*Personal info*/}
-            <Row>
+            <Row className="row-container">
               {/*First name*/}
-              <Col md={20} xs={24}>
+              <Col>
                 <Form.Item
+                  className="form-group"
                   label="First name"
                   type="text"
                   name="first_name"
@@ -128,8 +127,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
               {/*Last name*/}
-              <Col md={20} xs={24}>
+              <Col>
                 <Form.Item
+                  className="form-group"
                   label="Last name"
                   type="text"
                   name="last_name"
@@ -147,8 +147,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
               {/*Email*/}
-              <Col md={20} xs={24}>
+              <Col>
                 <Form.Item
+                  className="form-group"
                   label="Email"
                   type="email"
                   name="email"
@@ -165,9 +166,12 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   <Input placeholder="Enter a valid email" />
                 </Form.Item>
               </Col>
+
+              <Divider />
               {/*Country*/}
-              <Col md={20} xs={24}>
+              <Col md={15}>
                 <Form.Item
+                  className="form-group"
                   label="Country"
                   // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                   name="country"
@@ -193,9 +197,10 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
               {/*State & State*/}
-              <Col md={20} xs={24}>
+              <Col md={15}>
                 <div className="locationUS">
                   <Form.Item
+                    className="form-group"
                     label="State"
                     // style={{ margin: '.5rem 1rem 1rem 0' }}
                     name="state"
@@ -222,6 +227,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </div>
 
                 <Form.Item
+                  className="form-group"
                   label="City"
                   type="text"
                   name="city"
@@ -245,8 +251,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
             {/*Work*/}
             <Row className="row-container">
               {/*Company*/}
-              <Col md={20} xs={24}>
+              <Col>
                 <Form.Item
+                  className="form-group"
                   label="Current company"
                   type="text"
                   name="current_company"
@@ -263,8 +270,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
               {/*Position*/}
-              <Col md={20} xs={24}>
+              <Col>
                 <Form.Item
+                  className="form-group"
                   label="Current position"
                   type="text"
                   name="current_position"
@@ -284,9 +292,11 @@ const Mentor = ({ dispatch, error, successPage }) => {
             </Row>
 
             {/*CheckBoxes*/}
-            <Row>
-              <Col className="mentorshipArea" md={20} xs={24}>
+            <Row className="row-container">
+              <Divider />
+              <Col className="mentorshipArea" md={20}>
                 <Form.Item
+                  className="form-group"
                   label="What areas are you wanting to provide mentorship in?"
                   tooltip={{
                     title: 'What development role have you trained for?',
@@ -361,10 +371,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   </Checkbox.Group>
                 </Form.Item>
               </Col>
-
-              <Col md={20} xs={24}>
+              <Col md={20}>
                 <Form.Item
-                  className="mentorContribution"
+                  className="form-group"
                   label="How else can you contribute in the progression of our
                 mentees?"
                   tooltip={{
@@ -413,7 +422,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
               <Divider />
-              <Col md={20} xs={24}>
+              <Col md={20}>
                 <div className="em">
                   <em>
                     Mentor commitments range from general mentoring and
@@ -425,6 +434,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </div>
 
                 <Form.Item
+                  className="form-group"
                   style={{ paddingTop: '2rem' }}
                   label=" Are you able to commit to one or more of these?"
                   tooltip={{
@@ -440,6 +450,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   ]}
                 >
                   <Radio.Group
+                    className="form-group"
                     name="commitment"
                     onChange={handleChange}
                     value={formValues.commitment}
@@ -468,8 +479,9 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 </Form.Item>
               </Col>
 
-              <Col md={20} xs={24}>
+              <Col md={20}>
                 <Form.Item
+                  className="form-group"
                   label="How did you hear about Underdog Devs?"
                   tooltip={{
                     title: 'Please choose one',
@@ -504,14 +516,14 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
               <Col md={20}>
                 <Form.Item
+                  className="form-group"
                   label="Anything else you want us to know?"
+                  labelCol={{ flex: 1 }}
                   tooltip={{
                     title:
                       'Include any relevant info that you think may be helpful',
                     icon: <InfoCircleOutlined />,
                   }}
-                ></Form.Item>
-                <Form.Item
                   type="text"
                   name="other_info"
                   value={formValues.other_info}
@@ -525,12 +537,10 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
           <Divider />
           {/*button*/}
-          <Col>
-            <Button htmlType="submit" id="mentorSubmitButton" size="large">
-              {' '}
-              Submit{' '}
-            </Button>
-          </Col>
+          <Button htmlType="submit" id="mentorSubmitButton" size="large">
+            {' '}
+            Submit{' '}
+          </Button>
 
           {/*Error message*/}
           <Col
