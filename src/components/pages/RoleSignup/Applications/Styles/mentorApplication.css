@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-#main-container{
+/* #main-container{
   margin: 2rem;
   width: 75%;
   border: 1px #002f5d solid;
@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 13px;
-}
+} */
 
 .mentorTitle{
   background-color: #003D71;
