@@ -1,6 +1,7 @@
 .container{
   display: flex;
   justify-content: center;
+  letter-spacing: 1px;
 }
 
 #main-container{
@@ -23,17 +24,28 @@
   padding: 2rem;
 }
 
-.col-container{
+.main-col-container{
   padding: 2rem;
-
+}
+.row-container{
+  display: flex;
+  gap: 2rem;
 }
 .em{
   display: flex;
   width: 50%;
 }
-
+.form-group{
+  display: flex;
+  gap: 20px;
+}
 @media only screen and (max-width: 600px) {
-  .mentorApplication {
-    padding: 0;
+  .main-col-container{
+    padding: 1rem;
+  }
+  .form-group{
+
+    display: flex;
+    gap: 2rem;
   }
 }
