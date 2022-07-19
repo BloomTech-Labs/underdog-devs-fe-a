@@ -1,7 +1,7 @@
-/* .menteeApplication {
+.menteeApplication {
   padding: 2vh 6vw;
   justify-content: center;
-} */
+}
 
 .applicationForm {
   border-radius: 4px;
@@ -37,10 +37,13 @@
   margin-bottom: 2vh;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 575px) {
   .menteeApplication {
     padding: 0;
   }
+  .ant-form-large .ant-form-item-label > label {
+    height: 80px;
+}
 }
 
 ::placeholder {
