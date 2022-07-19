@@ -1,7 +1,14 @@
 .menteeApplication {
+  display: flex; 
   padding: 2vh 6vw;
   justify-content: center;
 }
+/* 
+.container-main{
+  display: flex;
+  padding-left: 6vw;
+  
+} */
 
 .applicationForm {
   border-radius: 4px;
@@ -16,7 +23,7 @@
   padding: 1vh;
 }
 
-#form-container{
+#container-main{
   margin: 2rem;
   width: 75%;
   border: 1px #002f5d solid;
@@ -26,10 +33,7 @@
   border-radius: 13px;
 }
 
-.locationUS {
-  display: flex;
-  flex-direction: column;
-}
+
 
 #menteeSubmitButton {
   background-color: #003d71;
@@ -37,24 +41,60 @@
   margin-bottom: 2vh;
 }
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 600px) {
   .menteeApplication {
     padding: 0;
   }
-  .ant-form-large .ant-form-item-label > label {
-    height: 80px;
-}
 }
 
 ::placeholder {
 
 }
 
-.menteeCriteria,
-.menteeHope,
-.menteeSubject,
-.menteeConvictions{
-  display: flex !important;
-  justify-content: center;
-  flex-direction: column !important;
+
+/* #main-container{
+  margin: 2rem;
+  width: 75%;
+  border: 1px #002f5d solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 13px;
+} */
+
+.mentorTitle{
+  background-color: #003D71;
+  color: #ffffff !important;
+  text-align: center;
+  width: 100%;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 2rem;
+}
+
+.main-col-container{
+  padding: 1rem;
+}
+.row-container{
+  display: flex;
+  
+}
+.row-container1{
+  display: flex;
+  gap: 1rem; 
+}
+
+.form-group{
+  display: flex;
+  
+}
+@media only screen and (max-width: 600px) {
+  .main-col-container{
+    padding: 1rem;
+  }
+  .form-group{
+
+    display: flex;
+    gap: 2rem;
+  }
 }
