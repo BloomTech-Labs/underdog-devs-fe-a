@@ -310,8 +310,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           'Include any relevant info that you think may be helpful',
                         icon: <InfoCircleOutlined />,
                       }}
-                    ></Form.Item>
-                    <Form.Item
                       type="text"
                       name="list_convictions"
                       value={formValues.list_convictions}
@@ -446,13 +444,11 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           'Include any relevant info that you think may be helpful',
                         icon: <InfoCircleOutlined />,
                       }}
-                    ></Form.Item>
-                    <Form.Item
                       type="text"
                       name="other_info"
                       value={formValues.other_info}
                       onChange={handleChange}
-                      // style={{ margin: '0 1rem 1rem 1.5rem' }}
+                      style={{ margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Input.TextArea placeholder="Your answer" />
                     </Form.Item>
