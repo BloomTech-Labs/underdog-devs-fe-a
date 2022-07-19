@@ -236,8 +236,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <hr />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
+              <Row>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeCriteria"
                     label="Which criteria represents you for membership? (Select all that apply)"
@@ -302,7 +302,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     name="list_convictions"
                     value={formValues.list_convictions}
                     onChange={handleChange}
-                    style={{ margin: '0 1rem .5rem 1.5rem' }}
+                    // style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
@@ -311,8 +311,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <hr />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
+              <Row>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeSubject"
                     label="What subject do you want to get mentored in?"
@@ -343,8 +343,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}></Col>
-                <Col md={22} xs={24}>
+
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeHope"
                     label="What are you hoping to gain from the community?"
@@ -363,7 +363,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     <Checkbox.Group
                       style={{
                         display: 'flex',
-                        justifyContent: 'space-evenly',
+
                         flexFlow: 'column',
                         width: 350,
                         margin: '0 1rem 1rem 1.5rem',
