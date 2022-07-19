@@ -77,11 +77,11 @@ const Mentee = ({ dispatch, error, successPage }) => {
             <Form
               layout="vertical"
               onFinish={formSubmit}
-              labelCol={{ span: 20 }}
-              wrapperCol={{ span: 10 }}
+              // labelCol={{ span: 20 }}
+              // wrapperCol={{ span: 10 }}
               labelWrap
               autoComplete="off"
-              size="large"
+              size="medium"
               requiredMark="required"
               id="main-container"
             >
