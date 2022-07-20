@@ -39,6 +39,12 @@
   display: flex;
   gap: 20px;
 }
+
+/*CHECK TEST.CSS for more details of the commented label:*/
+/*label{*/
+/*  background-color: transparent;*/
+/*}*/
+
 @media only screen and (max-width: 600px) {
   .main-col-container{
     padding: 1rem;
