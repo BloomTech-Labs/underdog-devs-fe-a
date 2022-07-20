@@ -37,7 +37,7 @@ const initialFormValues = {
   underrepresented_group: false,
   low_income: false,
   formerly_incarcerated: false,
-  list_convictions: '',
+  convictions: '',
   tech_stack: '',
   job_help: false,
   pair_programming: false,
@@ -289,8 +289,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   ></Form.Item>
                   <Form.Item
                     type="text"
-                    name="list_convictions"
-                    value={formValues.list_convictions}
+                    name="convictions"
+                    value={formValues.convictions}
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
