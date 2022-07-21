@@ -71,7 +71,7 @@ const ApplicationModal = ({
    * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
    */
 
-  const approveApplication = e => {
+  const approveApplication = () => {
     axiosWithAuth()
       .put(`/application/update-role/${currentApplication.role_id}`)
       .then(res => {
@@ -105,7 +105,7 @@ const ApplicationModal = ({
   useEffect(() => {
     const getCurrentApp = () => {
       axiosWithAuth()
-        .get(`/application/profileId/${profileId}`)
+        .get(`/application/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
           setNotesValue(res.data[0]);
