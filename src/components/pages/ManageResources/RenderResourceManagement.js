@@ -241,7 +241,9 @@ export const RenderResourceManagement = () => {
         <Form.Item
           name="pertains_to"
           label={
-            <label style={{ color: 'black', padding: '0rem' }}>Pertains</label>
+            <label style={{ color: 'black', padding: '0rem' }}>
+              Pertains to
+            </label>
           }
           value={formValues.pertaians_to}
           onChange={handleChange}
