@@ -24,6 +24,8 @@ import {
 } from '@ant-design/icons';
 
 import './Styles/mentorApplication.css';
+import './Styles/test.css';
+
 import { states, countries } from '../../../common/constants';
 const { Title } = Typography;
 const { Option } = Select;
@@ -69,6 +71,20 @@ const Mentor = ({ dispatch, error, successPage }) => {
     { name: 'fromMentee', value: 'Mentee' },
     { name: 'fromMentor', value: 'Mentor' },
     { name: 'abstain', value: 'Do not wish to share' },
+  ];
+  const mentorshipArray = [
+    { name: 'career_development', value: 'Career Development' },
+    { name: 'frontend', value: 'Frontend' },
+    { name: 'backend', value: 'Backend' },
+    { name: 'design', value: 'Design UI/UX' },
+    { name: 'ios', value: 'iOS' },
+    { name: 'android', value: 'Android' },
+    { name: 'data_science', value: 'Data Science' },
+  ];
+  const contributionArray = [
+    { name: 'job_help', value: 'Job Search Help' },
+    { name: 'industry_knowledge', value: 'Industry Knowledge' },
+    { name: 'pair_programming', value: 'Pair Programming' },
   ];
 
   return (
@@ -287,6 +303,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
             <Row>
               <Col className="mentorshipArea" md={20} xs={24}>
                 <Form.Item
+                  size="medium"
+                  className="form-group"
                   label="What areas are you wanting to provide mentorship in?"
                   tooltip={{
                     title: 'What development role have you trained for?',
@@ -309,55 +327,15 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       paddingLeft: '1rem',
                     }}
                   >
-                    <Checkbox
-                      value="Career Development"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Career Development
-                    </Checkbox>
-                    <Checkbox
-                      value="Frontend"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Frontend
-                    </Checkbox>
-                    <Checkbox
-                      value="Backend"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Backend
-                    </Checkbox>
-                    <Checkbox
-                      value="Design UI/UX"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Design UI/UX
-                    </Checkbox>
-                    <Checkbox
-                      value="iOS"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      iOS
-                    </Checkbox>
-                    <Checkbox
-                      value="Android"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Android
-                    </Checkbox>
-                    <Checkbox
-                      value="Data Science"
-                      onChange={handleTechStack}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Data Science
-                    </Checkbox>
+                    {mentorshipArray.map(checkbox => (
+                      <Checkbox
+                        value={checkbox.value}
+                        onValueChange={handleTechStack}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        {checkbox.value}
+                      </Checkbox>
+                    ))}
                   </Checkbox.Group>
                 </Form.Item>
               </Col>
@@ -388,27 +366,15 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       paddingLeft: '1rem',
                     }}
                   >
-                    <Checkbox
-                      value="job_help"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Job search help
-                    </Checkbox>
-                    <Checkbox
-                      value="industry_knowledge"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Tech industry coaching
-                    </Checkbox>
-                    <Checkbox
-                      value="pair_programming"
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      Pair programming / Coding practice
-                    </Checkbox>
+                    {contributionArray.map(area => (
+                      <Checkbox
+                        value={area.value}
+                        onValueChange={handleTechStack}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        {area.value}
+                      </Checkbox>
+                    ))}
                   </Checkbox.Group>
                 </Form.Item>
               </Col>

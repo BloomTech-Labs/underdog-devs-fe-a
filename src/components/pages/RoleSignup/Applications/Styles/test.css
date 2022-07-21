@@ -1,0 +1,8 @@
+label{
+    background-color: transparent;
+}
+
+/*
+TODO: Find why putting this in mentorApplication.css does not work
+        Why does it work on a separate file?
+*/

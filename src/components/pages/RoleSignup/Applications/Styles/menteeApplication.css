@@ -73,7 +73,7 @@
 }
 
 .main-col-container{
-  padding: 1rem;
+  padding: 0rem;
 }
 .row-container{
   display: flex;
@@ -95,6 +95,6 @@
   .form-group{
 
     display: flex;
-    gap: 2rem;
+    gap: 0rem;
   }
 }

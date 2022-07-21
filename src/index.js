@@ -169,13 +169,6 @@ function App() {
           component={ManageResources}
         />
 
-        {/* <PrivateRoute
-          path="/resources"
-          redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
-          component={ManageResources}
-        /> */}
-
         <PrivateRoute
           path="/attendance"
           redirect="/dashboard"

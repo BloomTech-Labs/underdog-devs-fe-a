@@ -108,6 +108,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       ]}
                       value={formValues.first_name}
                       onChange={handleChange}
+                      style={{ margin: '.5rem 1rem .5rem 0', gap: '0rem' }}
                     >
                       <Input placeholder="First name" />
                     </Form.Item>
@@ -128,6 +129,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       ]}
                       value={formValues.last_name}
                       onChange={handleChange}
+                      style={{ margin: '.5rem 1rem .5rem 0rem', gap: '0rem' }}
                     >
                       <Input placeholder="Last name" />
                     </Form.Item>
@@ -152,7 +154,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       ]}
                       value={formValues.email}
                       onChange={handleChange}
-                      // style={{ margin: '.5rem 1rem .5rem 0' }}
+                      style={{ margin: '.5rem 1rem .5rem 0rem' }}
                     >
                       <Input placeholder="Enter a valid email" />
                     </Form.Item>
@@ -164,7 +166,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       className="form-group"
                       labelCol={{ span: 10 }}
                       wrapperCol={{ span: 10 }}
-                      style={{ margin: '0 1rem .5rem 0', gap: '1rem' }}
+                      style={{ margin: '0 1rem .5rem 0', gap: '0rem' }}
                       // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                       name="country"
                       rules={[
@@ -200,7 +202,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         name="state"
                         labelCol={{ span: 10 }}
                         wrapperCol={{ span: 10 }}
-                        style={{ margin: '0 1rem .5rem 0', gap: '1rem' }}
+                        style={{ margin: '0 1rem .5rem 0', gap: '0rem' }}
                         rules={[
                           {
                             required: true,
@@ -418,7 +420,10 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Select
                         placeholder="- Select -"
                         onChange={e => handleChange(e, 'select', 'heard_about')}
-                        style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
+                        style={{
+                          width: 250,
+                          margin: '0rem 1rem 0.5rem 1.5rem',
+                        }}
                       >
                         <Option value="friend_family">Friend/Family</Option>
                         <Option value="coworker">Co-Worker</Option>
