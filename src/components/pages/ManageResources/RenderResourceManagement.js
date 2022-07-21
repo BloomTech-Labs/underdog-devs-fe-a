@@ -150,10 +150,16 @@ const formItemLayout = {
     sm: {
       span: 6,
     },
+    md: {
+      span: 8,
+    },
   },
   wrapperCol: {
     sm: {
-      span: 16,
+      span: 15,
+    },
+    md: {
+      span: 25,
     },
   },
 };
@@ -209,7 +215,12 @@ export const RenderResourceManagement = () => {
         </p>
         <Form.Item
           name="resource_name"
-          label="Resource"
+          labelWrap
+          label={
+            <label style={{ color: 'black', paddingLeft: '0rem' }}>
+              Resource
+            </label>
+          }
           value={formValues.resource_name}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a resource name' }]}
@@ -217,17 +228,21 @@ export const RenderResourceManagement = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="category"
-          label="Category"
-          value={formValues.category}
+          name="pertains_to"
+          label={
+            <label style={{ color: 'black', padding: '0rem' }}>Category</label>
+          }
+          value={formValues.pertaians_to}
           onChange={handleChange}
-          rules={[{ required: true, message: 'Please input a category name' }]}
+          rules={[{ required: true, message: 'Please input a mentee name' }]}
         >
-          <Input></Input>
+          <Input />
         </Form.Item>
         <Form.Item
           name="pertains_to"
-          label="Pertains to"
+          label={
+            <label style={{ color: 'black', padding: '0rem' }}>Pertains</label>
+          }
           value={formValues.pertaians_to}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a mentee name' }]}
@@ -236,7 +251,9 @@ export const RenderResourceManagement = () => {
         </Form.Item>
         <Form.Item
           name=""
-          label="Message"
+          label={
+            <label style={{ color: 'black', padding: '0rem' }}>Message</label>
+          }
           value={formValues.message}
           onChange={handleChange}
         >

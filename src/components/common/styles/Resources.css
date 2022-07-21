@@ -29,17 +29,6 @@
   padding: 4% 0;
 }
 
-[title="Resource"] {
-  color: black !important;
+.ant-form-item-label label {
+  font-size: 16px;
 }
-
-[title="Category"] {
-  color: black !important;
-}
-[title="Pertains to"] {
-  color: black !important;
-}
-[title="Message"] {
-  color: black !important;
-}
-
