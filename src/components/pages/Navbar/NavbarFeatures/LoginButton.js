@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useAuth0 } from '@auth0/auth0-react';
-import '../../Navbar/Navbar.css';
+import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 
 function LoginButton() {
   const { loginWithRedirect, getAccessTokenSilently } = useAuth0();
@@ -22,12 +22,12 @@ function LoginButton() {
   }, [getAccessTokenSilently]);
 
   return (
-    <button
-      className="btn btn-primary btn-login"
+    <NavBtnLink
+      className="btn btn-primary btn-block"
       onClick={() => loginWithRedirect()}
     >
       Login
-    </button>
+    </NavBtnLink>
   );
 }
 

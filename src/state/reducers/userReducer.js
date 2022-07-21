@@ -36,7 +36,7 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_FETCH_START:
       return { ...state, lifecycle: { ...state.lifecycle, isFetching: true } };
     case ACTIONS.SET_FETCH_ERROR:
-      return { ...state, errors: [action.payload, ...state.errors] };
+      return { ...state, errors: [action.payload, state.errors] };
     case ACTIONS.SET_FETCH_END:
       return { ...state, lifecycle: { ...state.lifecycle, isFetching: false } };
     case ACTIONS.SET_PROFILE_ID:

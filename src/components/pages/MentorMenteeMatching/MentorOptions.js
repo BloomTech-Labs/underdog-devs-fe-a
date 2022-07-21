@@ -11,7 +11,7 @@ export const select = (edit, setMentors, mentors, data, name, nameVal) => {
             onChange={value => setMentors({ ...mentors, [nameVal]: value })}
             showSearch
             style={{ width: '100%' }}
-            optionFilterProp="children"
+            optionFilterProp="items"
             value={name || 'Assign Mentor'}
           >
             {options(data)}

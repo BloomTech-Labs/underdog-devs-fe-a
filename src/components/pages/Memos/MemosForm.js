@@ -9,6 +9,7 @@ import {
   UserSwitchOutlined,
   HourglassOutlined,
   TeamOutlined,
+  BulbFilled,
 } from '@ant-design/icons';
 
 import './Memos.css';
@@ -28,7 +29,6 @@ const initialValues = {
 };
 
 const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
-  const { profile_id, first_name, role_id } = userProfile;
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
@@ -40,7 +40,6 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
     axiosWithAuth()
       .post('/notes', newMemo)
       .then(res => {
-        console.log(res);
         push('/mymemos');
       })
       .catch(err => {
@@ -98,17 +97,26 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
     submitMemo();
   };
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1" icon={<TeamOutlined />}>
-        Needs / resource request
-      </Menu.Item>
-      <Menu.Item key="2" icon={<UserSwitchOutlined />}>
-        Changing mentors
-      </Menu.Item>
-      <Menu.Item key="3" icon={<HourglassOutlined />}>
-        Time sensitive needs
-      </Menu.Item>
-    </Menu>
+    <Menu
+      onClick={handleMenuClick}
+      items={[
+        {
+          key: '1',
+          label: 'Needs / Resource request',
+          icon: <TeamOutlined />,
+        },
+        {
+          key: '2',
+          label: 'Changing mentors',
+          icon: <UserSwitchOutlined />,
+        },
+        {
+          key: '3',
+          label: 'Time sensitive needs',
+          icon: <HourglassOutlined />,
+        },
+      ]}
+    />
   );
   return (
     displayModal && (

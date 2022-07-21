@@ -17,6 +17,14 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
+
+import ShowReply from './AddReply/showReply';
+
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory({
+  forceRefresh: true,
+});
+
 // edit comment ant framework
 const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
   <>
@@ -45,6 +53,7 @@ const MemosTable = ({ userProfile, accounts }) => {
   const [editing, setEditing] = useState(false);
   const [editMemo, setEditMemo] = useState({ key: '', content: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [comments, setComments] = useState([]);
   // reply on comment popup state
   const [replyPopup, setReplypopup] = useState(false);
   // Get profile_id of logged in user
@@ -59,7 +68,6 @@ const MemosTable = ({ userProfile, accounts }) => {
           : `/notes/mentees/${accounts.key}`
       )
       .then(res => {
-        console.log(res);
         setData(
           res.data.map(obj => {
             let created = new Date(obj.created_at);
@@ -98,7 +106,6 @@ const MemosTable = ({ userProfile, accounts }) => {
       .put(`/notes/${editMemo.note_id}`, { content: editMemo.content })
       .then(res => {
         // currently the edit component reorders the seed data when updating a memo
-        console.log(res.data);
         setEditing(false);
         setSubmitting(false);
       })
@@ -106,6 +113,17 @@ const MemosTable = ({ userProfile, accounts }) => {
         console.log(err);
       });
   };
+  const handleDeleteButton = note_id => {
+    axiosWithAuth()
+      .delete(`/notes/${note_id}`)
+      .then(res => {
+        history.push('/memos');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const handleChange = e => {
     setEditMemo({ ...editMemo, content: e.target.value });
   };
@@ -118,13 +136,24 @@ const MemosTable = ({ userProfile, accounts }) => {
   };
   // Dropdown menu items
   const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Resolved</Menu.Item>
-      <Menu.Item key="2">2nd menu item</Menu.Item>
-      <Menu.Item key="3">3rd menu item</Menu.Item>
-    </Menu>
+    <Menu
+      onClick={handleMenuClick}
+      items={[
+        {
+          key: '1',
+          label: 'Resolved',
+        },
+        {
+          key: '2',
+          label: '2nd menu item',
+        },
+        {
+          key: '3',
+          label: '3rd menu item',
+        },
+      ]}
+    />
   );
-
   return (
     <Table
       columns={columns}
@@ -139,14 +168,25 @@ const MemosTable = ({ userProfile, accounts }) => {
                     // edit button
                     profile_id === record.mentor_id ||
                     profile_id === record.mentee_id ? (
-                      <Button
-                        type="primary"
-                        size="middle"
-                        onClick={() => toggle(record.note_id, record.content)}
-                        style={{ display: editing ? 'none' : 'inline' }}
-                      >
-                        Edit
-                      </Button>
+                      <>
+                        <Button
+                          type="primary"
+                          size="middle"
+                          onClick={() => toggle(record.note_id, record.content)}
+                          style={{ display: editing ? 'none' : 'inline' }}
+                        >
+                          Edit
+                        </Button>
+
+                        <Button
+                          type="primary"
+                          size="middle"
+                          onClick={() => handleDeleteButton(record.note_id)}
+                          // style={{ display: editing ? 'none' : 'inline' }}
+                        >
+                          Delete
+                        </Button>
+                      </>
                     ) : (
                       // reply button may be out the door
                       <Button
@@ -159,8 +199,11 @@ const MemosTable = ({ userProfile, accounts }) => {
                       </Button>
                     ),
                     <ReplyInput
+                      note_id={record.note_id}
                       trigger={replyPopup}
                       setTrigger={setReplypopup}
+                      setComments={setComments}
+                      comments={comments}
                     />,
                   ]}
                   author={
@@ -187,8 +230,16 @@ const MemosTable = ({ userProfile, accounts }) => {
                           value={editMemo.content}
                         />
                       ) : (
-                        <>{record.content}</>
+                        <>
+                          <div>{record.content}</div>
+                        </>
                       )}
+                      <ShowReply
+                        note_id={record.note_id}
+                        setComments={setComments}
+                        comments={comments}
+                      />
+                      <hr />
                     </>
                   }
                 ></Comment>

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import {
   BrowserRouter as Router,
   Route,
@@ -8,6 +8,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Security, LoginCallback } from '@okta/okta-react';
+import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import 'antd/dist/antd.less';
 
@@ -33,7 +34,7 @@ import Memos from './components/pages/Memos/Memos';
 import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
-// import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
+import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import ScheduleMeeting from './components/common/ScheduleMeeting';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
@@ -56,7 +57,8 @@ const store = createStore(
   applyMiddleware(thunk, promiseMiddleware)
 );
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
@@ -65,8 +67,7 @@ ReactDOM.render(
         </Auth0ProviderWithHistory>
       </Provider>
     </React.StrictMode>
-  </Router>,
-  document.getElementById('root')
+  </Router>
 );
 
 function App() {
@@ -75,14 +76,28 @@ function App() {
   // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
   const history = useHistory();
 
+  const oktaAuth = new OktaAuth(config);
+
   const authHandler = () => {
     // We pass this to our <Security /> component that wraps our routes.
     // It'll automatically check if userToken is available and push back to login if not :)
-    history.push('/login');
+    const previousAuthState = oktaAuth.authStateManager.getPreviousAuthState();
+    if (!previousAuthState || !previousAuthState.isAuthenticated) {
+      // App initialization stage
+      history.push('/login');
+    }
+  };
+
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
 
   return (
-    <Security {...config} onAuthRequired={authHandler}>
+    <Security
+      oktaAuth={oktaAuth}
+      restoreOriginalUri={restoreOriginalUri}
+      onAuthRequired={authHandler}
+    >
       <Navbar />
 
       <Switch>
@@ -214,12 +229,12 @@ function App() {
           component={Reviews}
         />
 
-        {/* <PrivateRoute
+        <PrivateRoute
           path="/addMentorReview"
           redirect="/dashboard"
           allowRoles={[1, 2]}
           component={MentorAddReview}
-        /> */}
+        />
 
         <PrivateRoute
           path="/addMenteeReview"

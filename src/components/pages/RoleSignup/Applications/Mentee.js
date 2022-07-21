@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useForms from '../../../../hooks/useForms';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
 import {
   Form,
   Input,
   Button,
-  Radio,
   Breadcrumb,
   Select,
   Checkbox,
@@ -23,15 +21,13 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 
-import { states, countries } from '../../../common/constants';
+import { states, countries, tech_stack } from '../../../common/constants';
 import './Styles/menteeApplication.css';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
 
 const { Title } = Typography;
 const { Option } = Select;
 
 const initialFormValues = {
-  profile_id: '',
   first_name: '',
   last_name: '',
   email: '',
@@ -42,37 +38,16 @@ const initialFormValues = {
   low_income: false,
   formerly_incarcerated: false,
   list_convictions: '',
-  subject: 'not collecting this from intake form',
   tech_stack: '',
-  experience_level: '',
   job_help: false,
-  industry_knowledge: false,
   pair_programming: false,
   heard_about: '',
   other_info: '',
+  validate_status: 'pending',
 };
 
 const Mentee = ({ dispatch, error, successPage }) => {
-  const [formValues, handleChange, setFormValues] = useForms(initialFormValues);
-  const history = useHistory();
-
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile`)
-      .then(res => {
-        setFormValues({ ...formValues, profile_id: res.data.profile_id });
-      })
-      .catch(err => {
-        console.error(err);
-      });
-
-    if (successPage) {
-      history.pushState(successPage);
-    } else if (error) {
-      console.error(error);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successPage, error, history]);
+  const { formValues, handleChange } = useForms(initialFormValues);
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
@@ -109,7 +84,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '0 0 3% 3%' }}>
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="First Name"
+                    label="First name"
                     type="text"
                     name="first_name"
                     rules={[
@@ -122,13 +97,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your First Name" />
+                    <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
                 <Col md={20} xs={24}>
                   <Form.Item
-                    label="Last Name"
+                    label="Last name"
                     type="text"
                     name="last_name"
                     rules={[
@@ -141,7 +116,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your Last Name" />
+                    <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
@@ -164,7 +139,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
-                    <Input placeholder="Enter Valid Email" />
+                    <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
@@ -203,34 +178,33 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <Row>
                 <Col md={15} xs={24} offset={1}>
-                  {formValues.country === 'United States' && (
-                    <div className="locationUS">
-                      <Form.Item
-                        label="State"
-                        style={{ margin: '.5rem 1rem 1rem 0' }}
-                        name="state"
-                        rules={[
-                          {
-                            required: true,
-                            message: 'State is required!',
-                          },
-                        ]}
+                  <div className="locationUS">
+                    <Form.Item
+                      label="State"
+                      style={{ margin: '.5rem 1rem 1rem 0' }}
+                      name="state"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'State is required!',
+                        },
+                      ]}
+                    >
+                      <Select
+                        showSearch
+                        placeholder="- Select -"
+                        onChange={e => handleChange(e, 'select', 'state')}
                       >
-                        <Select
-                          showSearch
-                          placeholder="- Select -"
-                          onChange={e => handleChange(e, 'select', 'state')}
-                        >
-                          {states.map(state => (
-                            <Option key={state} value={state}>
-                              {' '}
-                              {state}{' '}
-                            </Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </div>
-                  )}
+                        {states.map(state => (
+                          <Option key={state} value={state}>
+                            {' '}
+                            {state}{' '}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+
                   <Form.Item
                     label="City"
                     type="text"
@@ -245,7 +219,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     onChange={handleChange}
                     style={{ margin: '0 1rem .5rem 0' }}
                   >
-                    <Input placeholder="Your City" />
+                    <Input placeholder="Your city" />
                   </Form.Item>
                 </Col>
               </Row>
@@ -255,6 +229,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeCriteria"
                     label="Which criteria represents you for membership? (Select all that apply)"
                     tooltip={{
                       title: 'If none apply, leave blank',
@@ -304,6 +279,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeConvictions"
                     label="Please list your convictions if comfortable"
                     tooltip={{
                       title:
@@ -328,6 +304,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
               <Row style={{ padding: '3% 0 3% 3%' }}>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeSubject"
                     label="What subject do you want to get mentored in?"
                     tooltip={{
                       title: 'Select the title that best reflects your goals',
@@ -346,50 +323,20 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       onChange={e => handleChange(e, 'select', 'tech_stack')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Option value="frontend">Frontend</Option>
-                      <Option value="backend">Backend</Option>
-                      <Option value="design">Design UI/UX</Option>
-                      <Option value="iOS">iOS</Option>
-                      <Option value="android">Android</Option>
-                      <Option value="datascience">Data Science</Option>
+                      {tech_stack.map((tech_stack, index) => {
+                        return (
+                          <Option value={`${tech_stack.value}`} key={index}>
+                            {tech_stack.label}
+                          </Option>
+                        );
+                      })}
                     </Select>
                   </Form.Item>
                 </Col>
+                <Col md={22} xs={24}></Col>
                 <Col md={22} xs={24}>
                   <Form.Item
-                    label="What is your level of experience in said subject?"
-                    tooltip={{
-                      title: 'Choose your current skill level',
-                      icon: <InfoCircleOutlined />,
-                    }}
-                    name="experience_level"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select an experience level.',
-                      },
-                    ]}
-                  >
-                    <Radio.Group
-                      name="experience_level"
-                      onChange={handleChange}
-                      value={formValues.experience_level}
-                      style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
-                    >
-                      <Radio value={'beginner'}>
-                        I've never coded (Beginner)
-                      </Radio>
-                      <Radio value={'intermediate'}>
-                        I know for loops and if statements (Intermediate)
-                      </Radio>
-                      <Radio value={'advanced'}>
-                        I can make a basic app (Advanced)
-                      </Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                </Col>
-                <Col md={22} xs={24}>
-                  <Form.Item
+                    className="menteeHope"
                     label="What are you hoping to gain from the community?"
                     tooltip={{
                       title: 'Select all that apply',
@@ -417,27 +364,22 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Job Search Help
+                        Job search help
                       </Checkbox>
-                      <Checkbox
-                        value="industry_knowledge"
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        Learn more about the tech industry
-                      </Checkbox>
+
                       <Checkbox
                         value="pair_programming"
                         onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
-                        Pair Programming / Coding Practice
+                        Pair programming / Coding practice
                       </Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeHow"
                     label="How did you hear about Underdog Devs?"
                     tooltip={{
                       title: 'Select where you heard about Underdog Devs',
@@ -464,11 +406,15 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Option value="radio_podcast">Radio/Podcast</Option>
                       <Option value="linkedin">LinkedIn</Option>
                       <Option value="reddit">Reddit</Option>
+                      <Option value="fromMentee">Mentee</Option>
+                      <Option value="fromMentor">Mentor</Option>
+                      <Option value="abstain">Do not wish to share</Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col md={22} xs={24}>
                   <Form.Item
+                    className="menteeAnything"
                     label="Anything else you want us to know?"
                     tooltip={{
                       title:

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import { DatePicker, TimePicker, Select, Space, Row, Col } from 'antd';
-import { Form, Input, Button } from 'antd';
+import { Form } from 'antd';
+import '../styles/Calendar.css';
 
 const { Option } = Select;
 
@@ -25,7 +26,9 @@ const SwitchablePicker = () => {
           <Form.Item>
             <Select
               defaultValue="Select Mentor"
-              style={{ width: 150 }}
+              style={{
+                width: 150,
+              }}
               onChange={handleChange}
             >
               <Option value="Mentor1">Jack</Option>
@@ -57,9 +60,9 @@ const SwitchablePicker = () => {
             <TimePicker use12Hours format="h:mm A" minuteStep={15} />
           </Form.Item>
           <Form.Item label="Details" name="details">
-            <Input
+            <textArea
+              class="description"
               style={{
-                height: 150,
                 width: 200,
               }}
             />
@@ -70,4 +73,5 @@ const SwitchablePicker = () => {
   );
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => <SwitchablePicker />;

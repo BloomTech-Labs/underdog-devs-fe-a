@@ -1,41 +1,67 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
+import axiosWithAuth from '../../../../utils/axiosWithAuth';
 import './Reply.css';
+import { Button } from 'antd';
 
-const initialValues = {
-  content: '',
-};
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory({
+  forceRefresh: true,
+});
 
 function ReplyInput(props) {
-  const [formValues, setFormValues] = useState(initialValues);
+  const { note_id } = props;
+  const [formValues, setFormValues] = useState({ comment_text: '' });
+  // const [comments, setComments] = useState({ comment_text: '' });
 
-  const onChange = e => {
+  const { setComments, comments } = props;
+  const handleChange = e => {
     setFormValues({
       ...formValues,
-      [e.target.name]: e.target.value,
+      comment_text: e.target.value,
     });
+  };
+
+  const handleSumbitButton = () => {
+    axiosWithAuth()
+      .post(`/notes/${note_id}/comments`, formValues)
+      .then(res => {
+        props.setTrigger(false);
+        setComments([...comments, { comment_text: formValues.comment_text }]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return props.trigger ? (
     <div className="popup">
       <div className="popup-inner">
-        <h1>Add a comment:</h1>
+        <h1>Send reply</h1>
         <>
           <label htmlFor={props.labelId}>{props.labelId}</label>
           <FormInput
+            style={{ color: 'black' }}
+            className="inputArea"
             name="content"
             type="text"
-            onChange={onChange}
+            onChange={handleChange}
+            onSubmit={handleSumbitButton}
+            value={formValues.content}
             placeholder="insert comment here"
           />
         </>
         <br />
-        <button className="submit" onClick={() => console.log('submit')}>
-          Submit
-        </button>
-        <button className="close-btn" onClick={() => props.setTrigger(false)}>
+        <Button
+          type="primary"
+          className="submit"
+          onClick={() => props.setTrigger(false)}
+        >
+          Send
+        </Button>
+        <Button className="close-btn" onClick={() => props.setTrigger(false)}>
           <span>&#x2715;</span>
-        </button>
+        </Button>
         {props.children}
       </div>
     </div>
