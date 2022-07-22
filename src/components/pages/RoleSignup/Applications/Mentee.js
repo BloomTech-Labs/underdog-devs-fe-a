@@ -77,8 +77,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
             <Form
               layout="vertical"
               onFinish={formSubmit}
-              // labelCol={{ span: 20 }}
-              // wrapperCol={{ span: 10 }}
               labelWrap
               autoComplete="off"
               size="medium"
@@ -167,7 +165,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       labelCol={{ span: 10 }}
                       wrapperCol={{ span: 10 }}
                       style={{ margin: '0 1rem .5rem 0', gap: '0rem' }}
-                      // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                       name="country"
                       rules={[
                         {
@@ -198,7 +195,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       <Form.Item
                         label="State"
                         className="form-group"
-                        // style={{ margin: '.5rem 1rem 1rem 0' }}
                         name="state"
                         labelCol={{ span: 10 }}
                         wrapperCol={{ span: 10 }}
@@ -250,8 +246,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   <Divider />
                   <Col sm={10} md={20}>
                     <Form.Item
-                      // className="menteeCriteria"
-
                       className="form-group"
                       label="Which criteria represents you for membership? 
                     (Select all that apply)"
