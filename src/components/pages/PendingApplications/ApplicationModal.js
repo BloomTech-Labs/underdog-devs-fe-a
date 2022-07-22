@@ -70,8 +70,12 @@ const ApplicationModal = ({
    * Author: Khaleel Musleh
    * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
    */
-
-  const approveApplication = () => {
+  /**
+   * Author: Christwide Oscar
+   * @param {onConfirm} e was not create for the application approve and reject buttons. I changes the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
+   */
+  const approveApplication = e => {
+    console.log('Approve Working');
     axiosWithAuth()
       .put(`/application/update-role/${currentApplication.role_id}`)
       .then(res => {
@@ -88,6 +92,7 @@ const ApplicationModal = ({
    */
 
   const rejectApplication = e => {
+    console.log('Reject Working');
     axiosWithAuth()
       .put(`/application/update-role/${currentApplication.role_id}`)
       .then(res => {
@@ -142,16 +147,12 @@ const ApplicationModal = ({
               Return to Previous
             </Button>,
             <Popconfirm title="Are you sure you want to approve?">
-              <Button
-                key="submit"
-                type="primary"
-                onConfirm={approveApplication}
-              >
+              <Button key="submit" type="primary" onClick={approveApplication}>
                 Approve
               </Button>
             </Popconfirm>,
             <Popconfirm title="Are you sure you want to reject?">
-              <Button key="submit" onConfirm={rejectApplication} danger>
+              <Button key="submit" onClick={rejectApplication} danger>
                 Reject
               </Button>
             </Popconfirm>,
