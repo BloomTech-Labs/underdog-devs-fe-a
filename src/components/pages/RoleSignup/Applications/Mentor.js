@@ -157,7 +157,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   ]}
                   value={formValues.last_name}
                   onChange={handleChange}
-                  // style={{ margin: '.5rem 1rem .5rem 0' }}
                 >
                   <Input placeholder="Last name" />
                 </Form.Item>
@@ -176,7 +175,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   ]}
                   value={formValues.email}
                   onChange={handleChange}
-                  // style={{ margin: '0.5rem 1rem 1rem 0' }}
                 >
                   <Input placeholder="Enter a valid email" />
                 </Form.Item>
@@ -185,7 +183,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
               <Col md={20} xs={24}>
                 <Form.Item
                   label="Country"
-                  // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                   name="country"
                   rules={[
                     {
@@ -213,7 +210,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 <div className="locationUS">
                   <Form.Item
                     label="State"
-                    // style={{ margin: '.5rem 1rem 1rem 0' }}
                     name="state"
                     rules={[
                       {
@@ -249,7 +245,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   ]}
                   value={formValues.city}
                   onChange={handleChange}
-                  // style={{ margin: '0 1rem .5rem 0' }}
                 >
                   <Input placeholder="City" />
                 </Form.Item>
@@ -286,7 +281,6 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   name="current_position"
                   value={formValues.current_position}
                   onChange={handleChange}
-                  // style={{ margin: '.5rem 1rem .5rem' }}
                   rules={[
                     {
                       required: true,
