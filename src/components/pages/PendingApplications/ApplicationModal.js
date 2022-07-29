@@ -72,7 +72,7 @@ const ApplicationModal = ({
    */
   /**
    * Author: Christwide Oscar
-   * @param {onConfirm} e was not create for the application approve and reject buttons. I changes the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
+   * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
   const approveApplication = e => {
     console.log('Approve Working', currentApplication);
