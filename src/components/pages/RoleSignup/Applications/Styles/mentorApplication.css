@@ -1,10 +1,10 @@
-.container{
+.container {
   display: flex;
   justify-content: center;
 }
 
-.mentorTitle{
-  background-color: #003D71;
+.mentorTitle {
+  background-color: #003d71;
   color: #ffffff !important;
   text-align: center;
   width: 100%;
@@ -13,11 +13,10 @@
   padding: 2rem;
 }
 
-.col-container{
+.col-container {
   padding: 2rem;
-
 }
-.em{
+.em {
   display: flex;
   width: 50%;
 }
