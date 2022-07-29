@@ -267,7 +267,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           flexFlow: 'column',
                           width: 'auto',
                           gap: '.5rem',
-                          // margin: '0rem 1rem 1rem 1.5rem',
+
                           paddingLeft: '1rem',
                         }}
                       >
@@ -298,7 +298,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
                   <Col md={20}>
                     <Form.Item
-                      // className="menteeConvictions"
                       className="form-group"
                       label="Please list your convictions if comfortable"
                       tooltip={{
