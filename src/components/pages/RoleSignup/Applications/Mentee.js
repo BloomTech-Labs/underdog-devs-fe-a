@@ -287,13 +287,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item
-                    // type="text"
-                    // name="convictions"
-                    // value={formValues.convictions}
-                    // onChange={handleChange}
-                    style={{ margin: '0 1rem .5rem 1.5rem' }}
-                  >
+                  <Form.Item style={{ margin: '0 1rem .5rem 1.5rem' }}>
                     <Input.TextArea
                       type="text"
                       name="convictions"
@@ -428,19 +422,12 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item
-                    // type="text"
-                    // name="other_info"
-                    // value={formValues.other_info}
-                    // onChange={handleChange}
-                    style={{ margin: '0 1rem 1rem 1.5rem' }}
-                  >
+                  <Form.Item style={{ margin: '0 1rem 1rem 1.5rem' }}>
                     <Input.TextArea
                       type="text"
                       name="other_info"
                       value={formValues.other_info}
                       onChange={handleChange}
-                      // onChange={() => console.log(e.target.value)}
                       placeholder="Your answer"
                     />
                   </Form.Item>
