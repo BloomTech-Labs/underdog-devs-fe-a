@@ -8,7 +8,6 @@ import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
@@ -63,7 +62,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
       openModal();
       return;
     }
-    push(menu.key);
+    // push(menu.key);
   };
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
