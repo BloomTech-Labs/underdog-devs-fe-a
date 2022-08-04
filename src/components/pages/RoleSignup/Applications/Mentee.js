@@ -73,17 +73,27 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
       <Row className="menteeApplication">
         <Col span={24} className="applicationForm">
-          <Form onFinish={formSubmit} style={{ borderRadius: '30px' }}>
+          <Form
+            layout="vertical"
+            onFinish={formSubmit}
+            labelCol={{ span: 20 }}
+            wrapperCol={{ span: 10 }}
+            autoComplete="off"
+            size="large"
+            requiredMark="required"
+            id="main-container"
+          >
             <Title className="menteeTitle" level={3}>
               Mentee Application
             </Title>
-            <Col span={18} offset={3}>
+            <Col span={18} offset={1}>
               <Title level={5} style={{ paddingTop: '2%' }}>
                 Please fill out your user information
               </Title>
-              <Row style={{ padding: '0 0 3% 3%' }}>
-                <Col md={20} xs={24}>
+              <Row style={{ padding: '', alignItems: 'left' }}>
+                <Col md={15} xs={24} span={18} offset={1}>
                   <Form.Item
+                    labelCol={{ span: 10 }}
                     label="First name"
                     type="text"
                     name="first_name"
@@ -95,17 +105,17 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.first_name}
                     onChange={handleChange}
-                    style={{ margin: '1.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="First name" />
                   </Form.Item>
                 </Col>
 
-                <Col md={20} xs={24}>
+                <Col md={20} xs={24} span={18} offset={1}>
                   <Form.Item
                     label="Last name"
                     type="text"
                     name="last_name"
+                    labelCol={{ span: 8 }}
                     rules={[
                       {
                         required: true,
@@ -114,17 +124,17 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.last_name}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Last name" />
                   </Form.Item>
                 </Col>
 
-                <Col md={20} xs={24}>
+                <Col md={20} xs={24} span={18} offset={1}>
                   <Form.Item
                     label="Email"
                     type="email"
                     name="email"
+                    labelCol={{ span: 8 }}
                     rules={[
                       {
                         type: 'email',
@@ -137,21 +147,16 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    style={{ margin: '.5rem 1rem 1rem 0' }}
                   >
                     <Input placeholder="Enter a valid email" />
                   </Form.Item>
                 </Col>
 
-                <Col span={24}></Col>
-                <Col
-                  span={14}
-                  offset={0}
-                  style={{ display: 'flex', justifyItems: 'left' }}
-                >
+                <Col span={18} offset={1}>
                   <Form.Item
                     label="Country"
-                    style={{ margin: '.5rem 1rem 0.5rem 0' }}
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 10 }}
                     name="country"
                     rules={[
                       {
@@ -181,8 +186,9 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   <div className="locationUS">
                     <Form.Item
                       label="State"
-                      style={{ margin: '.5rem 1rem 1rem 0' }}
                       name="state"
+                      labelCol={{ span: 10 }}
+                      wrapperCol={{ span: 10 }}
                       rules={[
                         {
                           required: true,
@@ -209,6 +215,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     label="City"
                     type="text"
                     name="city"
+                    labelCol={{ span: 10 }}
                     rules={[
                       {
                         required: true,
@@ -217,7 +224,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.city}
                     onChange={handleChange}
-                    style={{ margin: '0 1rem .5rem 0' }}
+                    // style={{ margin: '0 1rem .5rem 0' }}
                   >
                     <Input placeholder="Your city" />
                   </Form.Item>
@@ -226,8 +233,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
               <hr />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
+              <Row>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeCriteria"
                     label="Which criteria represents you for membership? (Select all that apply)"
@@ -277,7 +284,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   </Form.Item>
                 </Col>
 
-                <Col md={22} xs={24}>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeConvictions"
                     label="Please list your convictions if comfortable"
@@ -287,22 +294,21 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item style={{ margin: '0 1rem .5rem 1.5rem' }}>
-                    <Input.TextArea
-                      type="text"
-                      name="convictions"
-                      value={formValues.convictions}
-                      onChange={handleChange}
-                      placeholder="Your answer"
-                    />
+                  <Form.Item
+                    type="text"
+                    name="list_convictions"
+                    value={formValues.list_convictions}
+                    onChange={handleChange}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
                 </Col>
               </Row>
 
               <hr />
 
-              <Row style={{ padding: '3% 0 3% 3%' }}>
-                <Col md={22} xs={24}>
+              <Row>
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeSubject"
                     label="What subject do you want to get mentored in?"
@@ -333,8 +339,8 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     </Select>
                   </Form.Item>
                 </Col>
-                <Col md={22} xs={24}></Col>
-                <Col md={22} xs={24}>
+
+                <Col md={20} xs={24}>
                   <Form.Item
                     className="menteeHope"
                     label="What are you hoping to gain from the community?"
@@ -353,7 +359,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     <Checkbox.Group
                       style={{
                         display: 'flex',
-                        justifyContent: 'space-evenly',
+
                         flexFlow: 'column',
                         width: 350,
                         margin: '0 1rem 1rem 1.5rem',
@@ -422,14 +428,13 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item style={{ margin: '0 1rem 1rem 1.5rem' }}>
-                    <Input.TextArea
-                      type="text"
-                      name="other_info"
-                      value={formValues.other_info}
-                      onChange={handleChange}
-                      placeholder="Your answer"
-                    />
+                  <Form.Item
+                    type="text"
+                    name="other_info"
+                    value={formValues.other_info}
+                    onChange={handleChange}
+                  >
+                    <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
                 </Col>
               </Row>
