@@ -37,11 +37,11 @@ const initialFormValues = {
   underrepresented_group: false,
   low_income: false,
   formerly_incarcerated: false,
-  list_convictions: '',
+  convictions: '',
   tech_stack: '',
   job_help: false,
   pair_programming: false,
-  heard_about: '',
+  referred_by: '',
   other_info: '',
   validate_status: 'pending',
 };
@@ -287,14 +287,14 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item
-                    type="text"
-                    name="list_convictions"
-                    value={formValues.list_convictions}
-                    onChange={handleChange}
-                    style={{ margin: '0 1rem .5rem 1.5rem' }}
-                  >
-                    <Input.TextArea placeholder="Your answer" />
+                  <Form.Item style={{ margin: '0 1rem .5rem 1.5rem' }}>
+                    <Input.TextArea
+                      type="text"
+                      name="convictions"
+                      value={formValues.convictions}
+                      onChange={handleChange}
+                      placeholder="Your answer"
+                    />
                   </Form.Item>
                 </Col>
               </Row>
@@ -385,7 +385,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       title: 'Select where you heard about Underdog Devs',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="heard_about"
+                    name="referred_by"
                     rules={[
                       {
                         required: true,
@@ -395,7 +395,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'heard_about')}
+                      onChange={e => handleChange(e, 'select', 'referred_by')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="friend_family">Friend/Family</Option>
@@ -422,14 +422,14 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       icon: <InfoCircleOutlined />,
                     }}
                   ></Form.Item>
-                  <Form.Item
-                    type="text"
-                    name="other_info"
-                    value={formValues.other_info}
-                    onChange={handleChange}
-                    style={{ margin: '0 1rem 1rem 1.5rem' }}
-                  >
-                    <Input.TextArea placeholder="Your answer" />
+                  <Form.Item style={{ margin: '0 1rem 1rem 1.5rem' }}>
+                    <Input.TextArea
+                      type="text"
+                      name="other_info"
+                      value={formValues.other_info}
+                      onChange={handleChange}
+                      placeholder="Your answer"
+                    />
                   </Form.Item>
                 </Col>
               </Row>
