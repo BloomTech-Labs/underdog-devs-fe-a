@@ -147,7 +147,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     ]}
                     value={formValues.email}
                     onChange={handleChange}
-                    // style={{ margin: '.5rem 1rem .5rem 0' }}
                   >
                     <Input placeholder="Enter a valid email" />
                   </Form.Item>
@@ -158,7 +157,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     label="Country"
                     labelCol={{ span: 10 }}
                     wrapperCol={{ span: 10 }}
-                    // style={{ margin: '.5rem 1rem 0.5rem 0' }}
                     name="country"
                     rules={[
                       {
@@ -188,7 +186,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   <div className="locationUS">
                     <Form.Item
                       label="State"
-                      // style={{ margin: '.5rem 1rem 1rem 0' }}
                       name="state"
                       labelCol={{ span: 10 }}
                       wrapperCol={{ span: 10 }}
@@ -302,7 +299,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     name="list_convictions"
                     value={formValues.list_convictions}
                     onChange={handleChange}
-                    // style={{ margin: '0 1rem .5rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
@@ -437,7 +433,6 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     name="other_info"
                     value={formValues.other_info}
                     onChange={handleChange}
-                    // style={{ margin: '0 1rem 1rem 1.5rem' }}
                   >
                     <Input.TextArea placeholder="Your answer" />
                   </Form.Item>
