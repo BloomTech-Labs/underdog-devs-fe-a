@@ -37,11 +37,11 @@ const initialFormValues = {
   underrepresented_group: false,
   low_income: false,
   formerly_incarcerated: false,
-  list_convictions: '',
+  convictions: '',
   tech_stack: '',
   job_help: false,
   pair_programming: false,
-  heard_about: '',
+  referred_by: '',
   other_info: '',
   validate_status: 'pending',
 };
@@ -391,7 +391,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                       title: 'Select where you heard about Underdog Devs',
                       icon: <InfoCircleOutlined />,
                     }}
-                    name="heard_about"
+                    name="referred_by"
                     rules={[
                       {
                         required: true,
@@ -401,7 +401,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                   >
                     <Select
                       placeholder="- Select -"
-                      onChange={e => handleChange(e, 'select', 'heard_about')}
+                      onChange={e => handleChange(e, 'select', 'referred_by')}
                       style={{ width: 250, margin: '0 1rem 1rem 1.5rem' }}
                     >
                       <Option value="friend_family">Friend/Family</Option>

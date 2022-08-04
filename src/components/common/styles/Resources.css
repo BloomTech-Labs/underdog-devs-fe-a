@@ -28,3 +28,7 @@
   justify-content: space-between;
   padding: 4% 0;
 }
+
+.ant-form-item-label label {
+  font-size: 16px;
+}
