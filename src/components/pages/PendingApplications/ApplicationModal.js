@@ -171,9 +171,6 @@ const ApplicationModal = ({
                 {currentApplication.state} {currentApplication.country}
               </List.Item>
               <List.Item>
-                <b>Experience Level:</b> {currentApplication.experience_level}
-              </List.Item>
-              <List.Item>
                 <b>Membership Criteria:</b>
                 <ul>
                   {currentApplication.formerly_incarcerated === true ? (
@@ -254,9 +251,6 @@ const ApplicationModal = ({
               </List.Item>
               <List.Item>
                 <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </List.Item>
-              <List.Item>
-                <b>Experience Level:</b> {currentApplication.experience_level}
               </List.Item>
               <List.Item>
                 <b>Applicant wants to focus on:</b>{' '}
