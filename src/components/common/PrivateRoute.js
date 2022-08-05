@@ -35,6 +35,7 @@ const PrivateRoute = ({
     dispatch,
     push,
   ]);
+  // remove after build complete. currently logging to assist auth0 implementation.
   console.log(profile_id);
 
   return loading ? (
