@@ -45,9 +45,6 @@ import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
-// const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-// const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
