@@ -8,7 +8,7 @@ import RenderProfileListPage from './RenderProfileListPage';
 
 // Here is an example of using our reusable List component to display some list data to the UI.
 const ProfileList = () => {
-  //Variable is created as place-holder. Function destroyed while removing Okta
+  // Variable is created as place-holder. Function destroyed while removing Okta
   const authState = null;
   return (
     <List
