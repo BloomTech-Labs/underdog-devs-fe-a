@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
-import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
+import { Modal, Button, List, Divider, Form, Input } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -75,7 +75,6 @@ const ApplicationModal = ({
    * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
   const approveApplication = e => {
-    console.log('Approve Working', currentApplication);
     axiosWithAuth()
       .put(`/application/approve/${currentApplication.application_id}`)
       .then(res => {
@@ -92,7 +91,6 @@ const ApplicationModal = ({
    */
 
   const rejectApplication = e => {
-    console.log('Reject Working');
     axiosWithAuth()
       .put(`/application/update-role/${currentApplication.role_id}`)
       .then(res => {
