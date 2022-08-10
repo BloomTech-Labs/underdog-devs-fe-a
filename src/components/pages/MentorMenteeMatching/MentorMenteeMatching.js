@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import MentorMenteeInfo from './MentorMenteeInfo';
-import { Table, Tag } from 'antd';
+import { Table, Tag, Button } from 'antd';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
@@ -29,6 +29,16 @@ const MentorMenteeMatching = () => {
       ),
     },
     { title: 'Stack', dataIndex: 'stack', key: 'stack' },
+    {
+      title: '',
+      dataIndex: 'assignMentor',
+      key: 'assignMentor',
+      render: () => (
+        <Button size="large" type="primary">
+          Assign Mentor
+        </Button>
+      ),
+    },
   ];
 
   const data = [];
