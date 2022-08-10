@@ -61,7 +61,7 @@ const MenteeAddReview = () => {
         <TextArea size="large" />
       </Form.Item>
 
-      <Form.Item style={{ textAlign: 'center' }}>
+      <Form.Item style={{  textAlign: 'center' }}>
         <Button onClick={handleSubmit}>Submit review</Button>
       </Form.Item>
     </Card>
