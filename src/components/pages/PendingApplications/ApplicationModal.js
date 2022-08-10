@@ -119,6 +119,10 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
+  /*
+  *Author: Melody McClure
+  The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
+  */
 
   return (
     <>
