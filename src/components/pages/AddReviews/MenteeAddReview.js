@@ -58,7 +58,7 @@ const MenteeAddReview = () => {
         onChange={handleChange}
         rules={[{ required: true, message: 'Please input a mentor review' }]}
       >
-        <TextArea size="large" />
+        <TextArea />
       </Form.Item>
 
       <Form.Item style={{ textAlign: 'center' }}>
