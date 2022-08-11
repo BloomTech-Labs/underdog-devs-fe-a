@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import MentorMenteeInfo from './MentorMenteeInfo';
 import { Table, Tag, Button, Modal } from 'antd';
 import MatchingModal from './MatchingModal';
 
