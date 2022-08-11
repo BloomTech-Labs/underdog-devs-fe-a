@@ -74,19 +74,12 @@ function App() {
       <Navbar />
 
       <Switch>
-        <Redirect path="/" to="/dashboard" exact component={Dashboard} />
+        <PrivateRoute path="/" exact component={Dashboard} />
         <Route path="/landing" component={Landing} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         {/* <Route path="/apply/success" component={AppSuccess} /> */}
-
-        <PrivateRoute
-          path="/dashboard"
-          redirect="/login"
-          allowRoles={[1, 2, 3, 4]}
-          component={Dashboard}
-        />
 
         <PrivateRoute
           path="/memos"
@@ -136,13 +129,6 @@ function App() {
           allowRoles={[1, 2, 3, 4]}
           component={ManageResources}
         />
-
-        {/* <PrivateRoute
-          path="/resources"
-          redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
-          component={ManageResources}
-        /> */}
 
         <PrivateRoute
           path="/attendance"
