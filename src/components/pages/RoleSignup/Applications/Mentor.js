@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { postNewMentorAccount } from '../../../../state/actions/mentor';
 import useForms from '../../../../hooks/useForms';
+import { useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -52,9 +53,11 @@ const initialFormValues = {
 const Mentor = ({ dispatch, error, successPage }) => {
   const { formValues, handleChange, handleTechStack } =
     useForms(initialFormValues);
+  const { push } = useHistory();
 
   const formSubmit = () => {
     dispatch(postNewMentorAccount(formValues));
+    push('/apply/success');
   };
   console.log(formValues);
 
