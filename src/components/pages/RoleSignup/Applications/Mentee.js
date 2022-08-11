@@ -38,11 +38,11 @@ const initialFormValues = {
   underrepresented_group: false,
   low_income: false,
   formerly_incarcerated: false,
-  list_convictions: '',
+  convictions: '',
   tech_stack: '',
   job_help: false,
   pair_programming: false,
-  heard_about: '',
+  referred_by: '',
   other_info: '',
   validate_status: 'pending',
 };
