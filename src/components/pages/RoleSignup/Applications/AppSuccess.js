@@ -48,6 +48,9 @@ const AppSuccess = ({ isAuthenticated, userProfile, getProfile }) => {
               Your application was successfully submitted! Someone at Underdog
               Devs will contact you shortly in regards to your application
               approval.
+              {
+                // Potential other text: “Your application has been received, keep an eye on your email, as we'll email you when your application has been approved.”
+              }
             </Typography>
           </Col>
           {/* <Link to="/login">
