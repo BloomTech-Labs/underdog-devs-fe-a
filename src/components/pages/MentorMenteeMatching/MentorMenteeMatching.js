@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-import { Table, Tag, Button, Modal } from 'antd';
+import { Table, Tag, Button } from 'antd';
 import MatchingModal from './MatchingModal';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modal, setModal] = useState({ show: false, data: null });
 
   useEffect(() => {
     const getAssignments = () => {
@@ -18,12 +18,12 @@ const MentorMenteeMatching = () => {
     getAssignments();
   }, []);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModal = mentee => {
+    setModal({ show: true, data: mentee });
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+    setModal({ show: false, data: null });
   };
 
   const columns = [
@@ -40,10 +40,10 @@ const MentorMenteeMatching = () => {
     { title: 'Stack', dataIndex: 'stack', key: 'stack' },
     {
       title: '',
-      dataIndex: 'assignMentor',
-      key: 'assignMentor',
-      render: () => (
-        <Button size="large" type="primary" onClick={showModal}>
+      dataIndex: 'name',
+      key: 'assignButton',
+      render: (text, record) => (
+        <Button size="large" type="primary" onClick={() => showModal(record)}>
           Assign Mentor
         </Button>
       ),
@@ -83,10 +83,7 @@ const MentorMenteeMatching = () => {
     <>
       <h2>Matching</h2>
       <Table columns={columns} dataSource={data} />
-      <MatchingModal
-        isModalVisible={isModalVisible}
-        handleCancel={handleCancel}
-      />
+      <MatchingModal handleCancel={handleCancel} modal={modal} />
     </>
   );
 };
