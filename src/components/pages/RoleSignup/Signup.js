@@ -48,15 +48,9 @@ const Signup = () => {
                 />
               </Space>
 
-              <Divider
-                className="divider"
-                type="vertical"
-                // style={{ height: 100 }}
-              />
-
               <Link to="/apply/mentee">
                 <Button className="button" type="primary" size="large" block>
-                  MENTEE
+                  Apply as a Mentee
                 </Button>
               </Link>
             </Space>
@@ -89,15 +83,9 @@ const Signup = () => {
                 />
               </Space>
 
-              <Divider
-                className="divider"
-                type="vertical"
-                // style={{ height: 100 }}
-              />
-
               <Link to="/apply/mentor">
                 <Button className="button" type="primary" size="large" block>
-                  MENTOR
+                  Apply as a Mentor
                 </Button>
               </Link>
             </Space>

@@ -32,7 +32,7 @@
 
 .card-img {
   max-height: 450px;
-  max-width: 90%;
+  max-width: 100%;
 }
 
 .title {
@@ -72,28 +72,14 @@
     width: 100%;
   }
 
-  .divider {
-    margin: 2.5em;
-  }
 }
 
 @media only screen and (max-width: 554px) {
-  .title {
-    font-size: 13px;
-    font-weight: bolder;
-  }
   .card1,
   .card2 {
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
   }
-
-  .description {
-    font-size: 10px;
-  }
-
-  .divider {
-    margin: 1em;
-  }
+  
 }

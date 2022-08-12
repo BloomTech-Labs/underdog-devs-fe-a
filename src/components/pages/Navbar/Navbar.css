@@ -76,7 +76,7 @@
   }
   .menuBar {
     display: flex !important;
-    width: 90% !important;
+    width: 100% !important;
   }
   .layout {
     width: 100vw !important;
