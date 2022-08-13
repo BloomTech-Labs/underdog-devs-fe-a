@@ -1,7 +1,7 @@
 import React from 'react';
 import './Styles/signup.css';
 import { Link } from 'react-router-dom';
-import { Card, Button, Row, Col, Divider, Space, Breadcrumb } from 'antd';
+import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
 
 const Signup = () => {
