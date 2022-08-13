@@ -39,17 +39,17 @@
   font-size: 30px;
   font-weight: bold;
   display: flex;
-  align-content: center;
+  justify-content: center;
 }
 
 .description {
   font-size: 22px;
-  
+  display: flex;
+  align-items: center;
 }
 
 
 .ant-btn.ant-btn-primary.ant-btn-block.button {
-
     background-color: #003d71;
 }
 
@@ -66,10 +66,9 @@
   .description {
     font-size: 1.2rem;
   }
-
 }
 
-@media only screen and (min-width: 1080px) {
+@media only screen and (min-width: 1024px) {
   .card1, 
   .card2 {
     max-width: 100%;
@@ -80,19 +79,14 @@
   }
 
   .description {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 
-  .title {
+  .col1,
+  .col2 {
     display: flex;
-    justify-content: center;
+    align-content: space-between;
   }
-
-.col1 {
-  display: flex;
-  align-content: space-between;
-}
-
 }
 
 @media only screen and (max-width: 880px) {
@@ -105,12 +99,23 @@
   .card2 {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
 
   .card-img {
-    width: 100%;
+    max-width: 100%;
+    align-self: center;
   }
 
+  .description {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .card-img {
+    padding-top: 0%;
+  }
 }
 
 @media only screen and (max-width: 554px) {
@@ -120,11 +125,14 @@
     flex-wrap: wrap;
     width: 100vw;
   }
-  
 }
 
 @media only screen and (max-width: 428px) {
   .description {
-    font-size: 20px;
+    font-size: 1.1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
   }
 }
