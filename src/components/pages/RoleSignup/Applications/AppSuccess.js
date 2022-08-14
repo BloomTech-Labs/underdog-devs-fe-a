@@ -26,7 +26,7 @@ const AppSuccess = ({ isAuthenticated, getProfile }) => {
         <Col span={24} align="middle">
           <Typography>
             Your application has been received, keep an eye on your email, as
-            we'll email you when your application has been approved.
+            we'll email you if your application has been approved.
           </Typography>
         </Col>
         <Link to="/landing">
