@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Modal, Row, Col } from 'antd';
+import MentorTable from './MentorTable';
 
 const MatchingModal = props => {
   const { modal, handleCancel } = props;
@@ -23,6 +24,7 @@ const MatchingModal = props => {
           <p>{modal.data?.stack}</p>
         </Col>
       </Row>
+      <MentorTable />
     </Modal>
   );
 };
