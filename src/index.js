@@ -117,13 +117,6 @@ function App() {
         <Route path="/implicit/callback" component={LoginCallback} />
 
         <PrivateRoute
-          path="/apply/success"
-          // redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
-          component={AppSuccess}
-        />
-
-        <PrivateRoute
           path="/dashboard"
           redirect="/login"
           allowRoles={[1, 2, 3, 4]}
