@@ -75,8 +75,12 @@ const ApplicationModal = ({
    * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
   const approveApplication = e => {
+    console.log(currentApplication);
     axiosWithAuth()
-      .put(`/application/approve/${currentApplication.application_id}`)
+      .post(`/application/approve/${currentApplication.profile_id}`, {
+        profile_id: currentApplication.profile_id,
+        low_income: currentApplication.low_income,
+      })
       .then(res => {
         setCurrentApplication({ ...res.data, approved: true });
       })
@@ -92,13 +96,12 @@ const ApplicationModal = ({
 
   const rejectApplication = e => {
     axiosWithAuth()
-      .put(`/application/update-role/${currentApplication.role_id}`)
+      .post(`/application/reject/${currentApplication.profile_id}`, {
+        profile_id: currentApplication.profile_id,
+        low_income: currentApplication.low_income,
+      })
       .then(res => {
-        setCurrentApplication({
-          ...res.data,
-          validateStatus: 'rejected',
-          approved: false,
-        });
+        setCurrentApplication({ ...res.data, approved: false });
       })
       .catch(err => {
         console.log(err);
