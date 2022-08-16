@@ -308,13 +308,15 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           'Include any relevant info that you think may be helpful',
                         icon: <InfoCircleOutlined />,
                       }}
-                      type="text"
-                      name="list_convictions"
-                      value={formValues.list_convictions}
-                      onChange={handleChange}
                       style={{ margin: '0 1rem .5rem 1.5rem' }}
                     >
-                      <Input.TextArea placeholder="Your answer" />
+                      <Input.TextArea
+                        type="text"
+                        name="convictions"
+                        value={formValues.convictions}
+                        onChange={handleChange}
+                        placeholder="Your answer"
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -405,7 +407,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                         title: 'Select where you heard about Underdog Devs',
                         icon: <InfoCircleOutlined />,
                       }}
-                      name="heard_about"
+                      name="referred_by"
                       rules={[
                         {
                           required: true,
@@ -415,7 +417,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
                     >
                       <Select
                         placeholder="- Select -"
-                        onChange={e => handleChange(e, 'select', 'heard_about')}
+                        onChange={e => handleChange(e, 'select', 'referred_by')}
                         style={{
                           width: 250,
                           margin: '0rem 1rem 0.5rem 1.5rem',
@@ -445,13 +447,15 @@ const Mentee = ({ dispatch, error, successPage }) => {
                           'Include any relevant info that you think may be helpful',
                         icon: <InfoCircleOutlined />,
                       }}
-                      type="text"
-                      name="other_info"
-                      value={formValues.other_info}
-                      onChange={handleChange}
                       style={{ margin: '0 1rem 1rem 1.5rem' }}
                     >
-                      <Input.TextArea placeholder="Your answer" />
+                      <Input.TextArea
+                        type="text"
+                        name="other_info"
+                        value={formValues.other_info}
+                        onChange={handleChange}
+                        placeholder="Your answer"
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
