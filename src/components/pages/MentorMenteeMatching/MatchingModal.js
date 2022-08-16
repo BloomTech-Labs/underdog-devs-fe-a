@@ -12,6 +12,7 @@ const MatchingModal = props => {
       width={'80vw'}
       visible={modal.show}
       onCancel={handleCancel}
+      maskClosable={false}
     >
       <Row>
         <Col span={8}>
