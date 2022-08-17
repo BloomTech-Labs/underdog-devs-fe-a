@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Col, Row, Typography, Button } from 'antd';
+import React from 'react';
+import { Col, Row, Typography } from 'antd';
 import { NavItems, NavBtn, NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getProfile } from '../../../../state/actions/userProfile/getProfile';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
+
 const { Title } = Typography;
 
-const AppSuccess = ({ isAuthenticated, getProfile }) => {
+export default function AppSuccess() {
   let history = useHistory();
   const handleHomeClick = () => {
     history.push('/landing');
   };
 
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile/`)
-      .then(user => {
-        setUser(user.data);
-        getProfile(user.data.profile_id);
-      });
-  }, [isAuthenticated]);
-
   return (
     <>
       <Row align="center" gutter={[16, 16]} style={{ marginTop: '5vh' }}>
         <Col span={24} align="middle">
-          <Title level={2}>Thank you {user.first_name}!</Title>
+          <Title level={2}>Thank you!</Title>
         </Col>
         <Col span={24} align="middle">
           <Typography>
@@ -43,13 +31,4 @@ const AppSuccess = ({ isAuthenticated, getProfile }) => {
       </Row>
     </>
   );
-};
-
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: localStorage.getItem('token'),
-    userProfile: state.user.userProfile,
-  };
-};
-
-export default connect(mapStateToProps, { getProfile })(AppSuccess);
+}
