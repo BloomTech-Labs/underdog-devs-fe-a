@@ -55,7 +55,7 @@ const PendingApplications = () => {
   useEffect(() => {
     const getPendingApps = () => {
       axiosWithAuth()
-        .get('/application')
+        .post('/application')
         .then(res => {
           setApplications(
             res.data.map(row => ({

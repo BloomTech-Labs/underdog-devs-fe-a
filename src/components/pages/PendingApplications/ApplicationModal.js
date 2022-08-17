@@ -18,7 +18,7 @@ const ApplicationModal = ({
 
   const updateModal = () => {
     axiosWithAuth()
-      .get(`/application/profileId/${profileId}`)
+      .post(`/application/profileId/${profileId}`)
       .then(res => {
         setCurrentApplication(res.data);
       })
@@ -111,7 +111,7 @@ const ApplicationModal = ({
   useEffect(() => {
     const getCurrentApp = () => {
       axiosWithAuth()
-        .get(`/application/${profileId}`)
+        .post(`/application/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
           setNotesValue(res.data[0]);
@@ -215,10 +215,10 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
               </List.Item>
-              <List.Item>
+              {/* <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
+              </List.Item> */}
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
@@ -271,10 +271,10 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Other information:</b> {currentApplication.other_info}
               </List.Item>
-              <List.Item>
+              {/* <List.Item>
                 <b>Submission Date:</b>{' '}
                 {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
+              </List.Item> */}
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
