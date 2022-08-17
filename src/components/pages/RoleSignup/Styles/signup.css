@@ -31,69 +31,108 @@
 }
 
 .card-img {
-  max-height: 450px;
-  max-width: 90%;
+  max-height: 70vh;
+  max-width: 100%;
 }
 
 .title {
   font-size: 30px;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
 }
 
 .description {
   font-size: 22px;
-}
-
-.divider {
-  margin: 4em;
+  display: flex;
+  align-items: center;
 }
 
 
 .ant-btn.ant-btn-primary.ant-btn-block.button {
-
     background-color: #003d71;
+}
+
+@media only screen and (min-width: 1440px) {
+  .card1, 
+  .card2 {
+    max-width: 100%;
+  }
+
+  .card-img {
+    padding: 25px;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .card1, 
+  .card2 {
+    max-width: 100%;
+  }
+
+  .card-img {
+    padding-left: 30px;
+  }
+
+  .description {
+    font-size: 1.6rem;
+  }
+
+  .col1,
+  .col2 {
+    display: flex;
+    align-content: space-between;
+  }
 }
 
 @media only screen and (max-width: 880px) {
   .col1,
   .col2 {
     display: flex;
-    
   }
 
   .card1,
   .card2 {
     display: flex;
     flex-wrap: wrap;
-    width: 75vw;
+    justify-content: space-around;
   }
 
   .card-img {
-    width: 100%;
+    max-width: 100%;
+    align-self: center;
   }
 
-  .divider {
-    margin: 2.5em;
+  .description {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .card-img {
+    padding-top: 0%;
   }
 }
 
 @media only screen and (max-width: 554px) {
-  .title {
-    font-size: 13px;
-    font-weight: bolder;
-  }
   .card1,
   .card2 {
     display: flex;
     flex-wrap: wrap;
     width: 100vw;
   }
+}
 
+@media only screen and (max-width: 428px) {
   .description {
-    font-size: 10px;
+    font-size: 1.1rem;
   }
 
-  .divider {
-    margin: 1em;
+  .title {
+    font-size: 1.5rem;
   }
 }

@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Card } from 'antd';
 import '../../common/styles/Resources.css';
 
 const { TextArea } = Input;
-
-const formItemLayout = {
-  labelCol: {
-    sm: {
-      span: 6,
-    },
-  },
-  wrapperCol: {
-    sm: {
-      span: 16,
-    },
-  },
-};
 
 const MenteeAddReview = () => {
   const [formValues, setFormValues] = useState({
@@ -39,16 +26,23 @@ const MenteeAddReview = () => {
   };
 
   return (
-    <Form
-      {...formItemLayout}
-      style={{ display: 'flex', flexDirection: 'column' }}
+    <Card
+      title="Please fill out a review"
+      style={{
+        width: '40rem',
+        margin: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      headStyle={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
     >
-      <p style={{ fontWeight: 'bold', paddingLeft: '1.3rem' }}>
-        Please fill out a review
-      </p>
       <Form.Item
         name="mentor_name"
         label="Mentor Name"
+        labelCol={{ span: 8 }}
         value={formValues.mentor_name}
         onChange={handleChange}
         rules={[{ required: true, message: 'Please input a mentor name' }]}
@@ -59,6 +53,7 @@ const MenteeAddReview = () => {
       <Form.Item
         name="mentor_review"
         label="Mentor Review"
+        labelCol={{ span: 8 }}
         value={formValues.mentor_review}
         onChange={handleChange}
         rules={[{ required: true, message: 'Please input a mentor review' }]}
@@ -66,10 +61,10 @@ const MenteeAddReview = () => {
         <TextArea />
       </Form.Item>
 
-      <Form.Item style={{ alignSelf: 'center' }}>
+      <Form.Item style={{ textAlign: 'center' }}>
         <Button onClick={handleSubmit}>Submit review</Button>
       </Form.Item>
-    </Form>
+    </Card>
   );
 };
 
