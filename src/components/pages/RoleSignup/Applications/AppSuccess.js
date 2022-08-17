@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row, Typography, Button } from 'antd';
+import { NavItems, NavBtn, NavBtnLink } from '../../NavBarLanding/NavBarStyle';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getProfile } from '../../../../state/actions/userProfile/getProfile';
 import axiosWithAuth from '../../../../utils/axiosWithAuth';
-import { Link } from 'react-router-dom';
 const { Title } = Typography;
 
 const AppSuccess = ({ isAuthenticated, getProfile }) => {
+  let history = useHistory();
+  const handleHomeClick = () => {
+    history.push('/landing');
+  };
+
   const [user, setUser] = useState({});
   useEffect(() => {
     axiosWithAuth()
@@ -29,9 +35,11 @@ const AppSuccess = ({ isAuthenticated, getProfile }) => {
             we'll email you if your application has been approved.
           </Typography>
         </Col>
-        <Link to="/landing">
-          <Button className="button">Home</Button>
-        </Link>
+        <NavItems>
+          <NavBtn>
+            <NavBtnLink onClick={handleHomeClick}>Home</NavBtnLink>
+          </NavBtn>
+        </NavItems>
       </Row>
     </>
   );
