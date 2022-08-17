@@ -110,11 +110,18 @@ const ApplicationModal = ({
 
   useEffect(() => {
     const getCurrentApp = () => {
+      const pendingApplicants = [];
       axiosWithAuth()
-        .post(`/application/${profileId}`)
+        .post(`/application`)
         .then(res => {
-          setCurrentApplication(res.data[0]);
-          setNotesValue(res.data[0]);
+          res.data.filter(applicants => {
+            if (applicants.validate_status === 'pending') {
+              pendingApplicants.push(applicants);
+            }
+          });
+          console.log('pendingApplicants ', pendingApplicants);
+          // setCurrentApplication(res.data[0]);
+          // setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
@@ -122,6 +129,19 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
+  //   const getCurrentApp = () => {
+  //     axiosWithAuth()
+  //       .post(`/application/${profileId}`)
+  //       .then(res => {
+  //         setCurrentApplication(res.data[0]);
+  //         setNotesValue(res.data[0]);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   };
+  //   getCurrentApp();
+  // }, [profileId]);
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
