@@ -114,12 +114,13 @@ const ApplicationModal = ({
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          res.data.filter(applicants => {
-            if (applicants.validate_status === 'pending') {
-              pendingApplicants.push(applicants);
-            }
-          });
-          console.log('pendingApplicants ', pendingApplicants);
+          console.log(res.data)
+          // res.data.filter(applicants => {
+          //   if (applicants.validate_status === 'pending') {
+          //     pendingApplicants.push(applicants);
+          //   }
+          // });
+          // console.log('pendingApplicants ', pendingApplicants);
           // setCurrentApplication(res.data[0]);
           // setNotesValue(res.data[0]);
         })
