@@ -66,12 +66,16 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
+  const reloadLogo = () => {
+    isAuthenticated ? push('/') : document.location.reload();
+  };
+
   return (
     <>
       <Layout className="layout">
         <Header className="menuBar">
           <div className="logoDiv">
-            <Link to="/dashboard">
+            <div onClick={reloadLogo}>
               <img
                 src={logo}
                 alt="underdog devs logo"
@@ -79,7 +83,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 style={{ marginLeft: '1vw' }}
                 role="button"
               />
-            </Link>
+            </div>
 
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">

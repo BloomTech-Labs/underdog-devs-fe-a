@@ -4,6 +4,9 @@
   height: 100%;
 }
 
+.logoDiv img {
+  cursor: pointer;
+}
 
 .logoImg {
   margin-left: 1vw;
