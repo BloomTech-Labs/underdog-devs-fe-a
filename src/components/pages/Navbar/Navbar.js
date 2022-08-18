@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined, FormOutlined } from '@ant-design/icons';
-import { Dropdown, Layout, Menu, Modal } from 'antd';
+import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
+import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
@@ -20,6 +21,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
+  const [toggleStatus, setToggleStatus] = useState(true);
   const { logout } = useAuth0();
 
   const openModal = () => setModal(true);
@@ -67,7 +69,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
     // push(menu.key);
   };
 
+  const handleToggleChange = checked => {
+    !checked ? setToggleStatus(false) : setToggleStatus(true);
+  };
+
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
+  const isMentor = user.role_id === 3;
 
   const reloadLogo = () => {
     isAuthenticated ? history.push('/') : document.location.reload();
@@ -87,7 +94,24 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 role="button"
               />
             </div>
-
+            {isMentor && (
+              <Popover
+                title={`Status: ${
+                  toggleStatus ? 'Accepting' : 'Not Accepting'
+                }`}
+                content={<MentorPopover />}
+                placement="bottom"
+              >
+                <section className="mentorStatus">
+                  <Switch defaultChecked onChange={handleToggleChange} />
+                  <span className="toggleText">
+                    {toggleStatus
+                      ? 'Open to new mentees'
+                      : 'Closed to new mentees'}
+                  </span>
+                </section>
+              </Popover>
+            )}
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
                 <Link
