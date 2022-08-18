@@ -113,9 +113,9 @@ const ApplicationModal = ({
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          res.data.users.map(applicants => {
+          res.data.users.filter(applicants => {
             if (applicants.validate_status === 'pending') {
-              console.log(applicants);
+              console.log(applicants[0]);
               return applicants;
             }
           });
