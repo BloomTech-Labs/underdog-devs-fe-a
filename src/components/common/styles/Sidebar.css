@@ -4,9 +4,12 @@
   justify-content: space-between;
 }
 
-.ant-switch-checked {
+/* This switch style, which does not appear to be in use, was overriding
+styling in the navbar. It is left here in case styling does need to use this
+class, in which case a fix can be made. */
+/* .ant-switch-checked {
   background-color: #BFBFBF !important;
-}
+} */
 
 .hidden {
   display: none;
