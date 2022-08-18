@@ -20,7 +20,6 @@ const menuItems = [
 ];
 
 const PendingApproval = props => {
-  const { oktaAuth, userInfo } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [toggleTheme] = useTheme();
 
@@ -28,8 +27,8 @@ const PendingApproval = props => {
     setCollapsed(collapsed);
   };
 
+  //TODO: implement Auth0 for signout if needed. It may be unnecessary if Navbar serves it already.
   const handleLogout = checked => {
-    oktaAuth.signOut();
     localStorage.removeItem('role_id');
   };
 
@@ -55,8 +54,8 @@ const PendingApproval = props => {
         <Content style={{ margin: '2vh 1vw' }}>
           <Content>
             <div>
-              Hey {userInfo.name}, currently your application is still pending.
-              Please check back again soon!
+              Hey John Doe, currently your application is still pending. Please
+              check back again soon!
             </div>
           </Content>
         </Content>

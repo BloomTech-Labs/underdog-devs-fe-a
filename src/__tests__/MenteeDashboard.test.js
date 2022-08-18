@@ -9,27 +9,6 @@ import Dashboard from '../components/pages/Dashboard/Dashboard';
 afterEach(cleanup);
 // creating store variable
 let store;
-// creating a mock useOktaAuth, needed this so we can log in
-jest.mock('@okta/okta-react', () => ({
-  useOktaAuth: () => {
-    return {
-      authState: {
-        isAuthenticated: true,
-      },
-      authService: {
-        getUser: jest.fn(() => {
-          return Promise.resolve({
-            sub: '00u13oned0U8XP8Mb4x7',
-            name: 'Test008 User',
-            email: 'llama008@maildrop.cc',
-            preferred_username: 'llama008@maildrop.cc',
-            role: 4,
-          });
-        }),
-      },
-    };
-  },
-}));
 // creating a mock action
 jest.mock('../state/actions/index', () => ({
   getUserProfile: jest.fn(() => {
@@ -50,11 +29,11 @@ jest.mock('../state/actions/index', () => ({
 
 window.matchMedia =
   window.matchMedia ||
-  function() {
+  function () {
     return {
       matches: false,
-      addListener: function() {},
-      removeListener: function() {},
+      addListener: function () {},
+      removeListener: function () {},
     };
   };
 
