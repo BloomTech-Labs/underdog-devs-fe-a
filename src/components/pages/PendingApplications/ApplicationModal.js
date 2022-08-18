@@ -110,19 +110,17 @@ const ApplicationModal = ({
 
   useEffect(() => {
     const getCurrentApp = () => {
-      const pendingApplicants = [];
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          console.log(res.data)
-          // res.data.filter(applicants => {
-          //   if (applicants.validate_status === 'pending') {
-          //     pendingApplicants.push(applicants);
-          //   }
-          // });
-          // console.log('pendingApplicants ', pendingApplicants);
-          // setCurrentApplication(res.data[0]);
-          // setNotesValue(res.data[0]);
+          res.data.users.map(applicants => {
+            if (applicants.validate_status === 'pending') {
+              console.log(applicants);
+              return applicants;
+            }
+          });
+          setCurrentApplication(res.data.users[0]);
+          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);

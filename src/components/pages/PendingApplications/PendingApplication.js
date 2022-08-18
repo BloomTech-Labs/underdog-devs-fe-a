@@ -58,7 +58,7 @@ const PendingApplications = () => {
         .post('/application')
         .then(res => {
           setApplications(
-            res.data.map(row => ({
+            res.data.users.map(row => ({
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
               role: (
@@ -67,11 +67,11 @@ const PendingApplications = () => {
                 </Tag>
               ),
               date:
-                Date(row.created_at.slice).slice(0, 3) +
+                Date(row.created_at).slice(0, 3) +
                 '. ' +
-                Date(row.created_at.slice).slice(4, 9) +
+                Date(row.created_at).slice(4, 9) +
                 ', ' +
-                Date(row.created_at.slice).slice(10, 16),
+                Date(row.created_at).slice(10, 16),
               button: (
                 <Button
                   style={{
