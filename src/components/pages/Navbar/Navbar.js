@@ -8,27 +8,30 @@ import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import SignupButton from './NavbarFeatures/SignupButton';
+import LogoutButton from './NavbarFeatures/LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { oktaAuth } = useOktaAuth();
   const [modal, setModal] = useState(false);
-  const { push } = useHistory();
+  const { logout } = useAuth0();
+
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
+
+  const history = useHistory();
 
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
-    localStorage.removeItem('token');
-    oktaAuth.signOut();
+    localStorage.removeItem('AuthToken');
+    logout({ returnTo: window.location.origin });
   };
   useEffect(() => {
     axiosWithAuth()
@@ -61,17 +64,21 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
       openModal();
       return;
     }
-    push(menu.key);
+    // push(menu.key);
   };
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
+
+  const reloadLogo = () => {
+    isAuthenticated ? history.push('/') : document.location.reload();
+  };
 
   return (
     <>
       <Layout className="layout">
         <Header className="menuBar">
           <div className="logoDiv">
-            <Link to="/dashboard">
+            <div onClick={reloadLogo}>
               <img
                 src={logo}
                 alt="underdog devs logo"
@@ -79,7 +86,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 style={{ marginLeft: '1vw' }}
                 role="button"
               />
-            </Link>
+            </div>
 
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
@@ -122,8 +129,10 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
               <div className="header_buttons">
                 <LoginButton />
                 <SignupButton />
+                <LogoutButton />
               </div>
             )}
+            {/* temporary logout button until private route is finished and when we can logout from dashboard */}
           </div>
         </Header>
       </Layout>

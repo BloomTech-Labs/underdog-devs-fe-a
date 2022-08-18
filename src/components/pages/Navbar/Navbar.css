@@ -4,6 +4,9 @@
   height: 100%;
 }
 
+.logoDiv img {
+  cursor: pointer;
+}
 
 .logoImg {
   margin-left: 1vw;
@@ -76,7 +79,7 @@
   }
   .menuBar {
     display: flex !important;
-    width: 90% !important;
+    width: 100% !important;
   }
   .layout {
     width: 100vw !important;

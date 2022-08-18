@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
-import { Modal, Button, Popconfirm, List, Divider, Form, Input } from 'antd';
+import { Modal, Button, List, Divider, Form, Input } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -70,10 +70,17 @@ const ApplicationModal = ({
    * Author: Khaleel Musleh
    * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
    */
-
+  /**
+   * Author: Christwide Oscar
+   * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
+   */
   const approveApplication = e => {
+    console.log(currentApplication);
     axiosWithAuth()
-      .put(`/application/update-role/${currentApplication.role_id}`)
+      .post(`/application/approve/${currentApplication.profile_id}`, {
+        profile_id: currentApplication.profile_id,
+        low_income: currentApplication.low_income,
+      })
       .then(res => {
         setCurrentApplication({ ...res.data, approved: true });
       })
@@ -89,13 +96,12 @@ const ApplicationModal = ({
 
   const rejectApplication = e => {
     axiosWithAuth()
-      .put(`/application/update-role/${currentApplication.role_id}`)
+      .post(`/application/reject/${currentApplication.profile_id}`, {
+        profile_id: currentApplication.profile_id,
+        low_income: currentApplication.low_income,
+      })
       .then(res => {
-        setCurrentApplication({
-          ...res.data,
-          validateStatus: 'rejected',
-          approved: false,
-        });
+        setCurrentApplication({ ...res.data, approved: false });
       })
       .catch(err => {
         console.log(err);
@@ -105,7 +111,7 @@ const ApplicationModal = ({
   useEffect(() => {
     const getCurrentApp = () => {
       axiosWithAuth()
-        .get(`/application/profileId/${profileId}`)
+        .get(`/application/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
           setNotesValue(res.data[0]);
@@ -116,6 +122,10 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
+  /*
+  *Author: Melody McClure
+  The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
+  */
 
   return (
     <>
@@ -141,20 +151,12 @@ const ApplicationModal = ({
             <Button key="back" onClick={handleCancel}>
               Return to Previous
             </Button>,
-            <Popconfirm title="Are you sure you want to approve?">
-              <Button
-                key="submit"
-                type="primary"
-                onConfirm={approveApplication}
-              >
-                Approve
-              </Button>
-            </Popconfirm>,
-            <Popconfirm title="Are you sure you want to reject?">
-              <Button key="submit" onConfirm={rejectApplication} danger>
-                Reject
-              </Button>
-            </Popconfirm>,
+            <Button key="submitA" type="primary" onClick={approveApplication}>
+              Approve
+            </Button>,
+            <Button key="submitR" onClick={rejectApplication} danger>
+              Reject
+            </Button>,
           ]}
         >
           <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>

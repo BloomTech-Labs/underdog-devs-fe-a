@@ -2,8 +2,7 @@ import * as ACTIONS from '../actions/index';
 
 const initialState = {
   auth: {
-    // Okta will save a JWT in local storage
-    // use the Okta library to decipher that JWT and get the user_id
+    //Previously utilized Okta to enable authenticateUser to set these slices of state.
     isAuthenticated: false,
     profile_id: null,
   },
