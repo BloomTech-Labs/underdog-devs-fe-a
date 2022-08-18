@@ -25,6 +25,8 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
 
+  const history = useHistory();
+
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
@@ -67,12 +69,16 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
+  const reloadLogo = () => {
+    isAuthenticated ? history.push('/') : document.location.reload();
+  };
+
   return (
     <>
       <Layout className="layout">
         <Header className="menuBar">
           <div className="logoDiv">
-            <Link to="/dashboard">
+            <div onClick={reloadLogo}>
               <img
                 src={logo}
                 alt="underdog devs logo"
@@ -80,7 +86,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 style={{ marginLeft: '1vw' }}
                 role="button"
               />
-            </Link>
+            </div>
 
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
