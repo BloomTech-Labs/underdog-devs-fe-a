@@ -93,7 +93,7 @@ You can find the deployed project at [Underdogdevs](https://a.underdogdevs.dev/l
 3. Run: `npm install` to download all dependencies.
 4. Run: `npm start` to start your local development server.
 
-> When using Okta for authentication, the app will need to run locally on port 3000.
+> When using Auth0 for authentication, the app will need to run locally on port 3000.
 
 ### Key Features
 

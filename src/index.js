@@ -7,15 +7,11 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { Security, LoginCallback } from '@okta/okta-react';
-import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
-import { LoginPage } from './components/pages/Login';
-import { config } from './utils/oktaConfig';
 import Signup from './components/pages/RoleSignup/Signup';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
@@ -44,12 +40,10 @@ import { Provider } from 'react-redux';
 import rootReducer from './state/reducers';
 import promiseMiddleware from 'redux-promise';
 import thunk from 'redux-thunk';
-import { Auth0Provider } from '@auth0/auth0-react';
+import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
+// import { Auth0Provider } from '@auth0/auth0-react';
 
 import PrivateRoute from './components/common/PrivateRoute';
-
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 const store = createStore(
   rootReducer,
@@ -61,13 +55,9 @@ root.render(
   <Router>
     <React.StrictMode>
       <Provider store={store}>
-        <Auth0Provider
-          domain={domain}
-          clientId={clientId}
-          redirectUri={window.location.origin}
-        >
+        <Auth0ProviderWithHistory>
           <App />
-        </Auth0Provider>
+        </Auth0ProviderWithHistory>
       </Provider>
     </React.StrictMode>
   </Router>
@@ -79,46 +69,17 @@ function App() {
   // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
   const history = useHistory();
 
-  const oktaAuth = new OktaAuth(config);
-
-  const authHandler = () => {
-    // We pass this to our <Security /> component that wraps our routes.
-    // It'll automatically check if userToken is available and push back to login if not :)
-    const previousAuthState = oktaAuth.authStateManager.getPreviousAuthState();
-    if (!previousAuthState || !previousAuthState.isAuthenticated) {
-      // App initialization stage
-      history.push('/login');
-    }
-  };
-
-  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
-    history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
-  };
-
   return (
-    <Security
-      oktaAuth={oktaAuth}
-      restoreOriginalUri={restoreOriginalUri}
-      onAuthRequired={authHandler}
-    >
+    <>
       <Navbar />
 
       <Switch>
-        <Redirect path="/" to="/dashboard" exact component={Dashboard} />
+        <PrivateRoute path="/" exact component={Dashboard} />
         <Route path="/landing" component={Landing} />
-        <Route path="/login" component={LoginPage} />
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         {/* <Route path="/apply/success" component={AppSuccess} /> */}
-        <Route path="/implicit/callback" component={LoginCallback} />
-
-        <PrivateRoute
-          path="/dashboard"
-          redirect="/login"
-          allowRoles={[1, 2, 3, 4]}
-          component={Dashboard}
-        />
 
         <PrivateRoute
           path="/memos"
@@ -241,6 +202,6 @@ function App() {
 
         <Route component={NotFoundPage} />
       </Switch>
-    </Security>
+    </>
   );
 }
