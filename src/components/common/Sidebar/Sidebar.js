@@ -2,7 +2,7 @@
 All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
 */
 import React, { useMemo } from 'react';
-import { Layout, Menu, Switch as Toggle } from 'antd';
+import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
