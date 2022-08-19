@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 
+import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { NavBtnLink } from '../../NavBarLanding/NavBarStyle';
 
 function SignupButton() {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+  const { push } = useHistory();
 
   return (
     !isAuthenticated && (
       <NavBtnLink
         className="btn btn-primary btn-block"
-        onClick={() =>
-          loginWithRedirect({
-            screen_hint: 'signup',
-          })
-        }
+        onClick={() => push('/apply')}
       >
         Signup
       </NavBtnLink>
