@@ -115,7 +115,7 @@ const ApplicationModal = ({
         .then(res => {
           res.data.users.filter(applicants => {
             if (applicants.validate_status === 'pending') {
-              console.log(applicants[0]);
+              // console.log(applicants[0]);
               return applicants;
             }
           });
