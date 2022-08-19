@@ -103,7 +103,11 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 placement="bottom"
               >
                 <section className="mentorStatus">
-                  <Switch defaultChecked onChange={handleToggleChange} />
+                  <Switch
+                    defaultChecked
+                    onChange={handleToggleChange}
+                    id="mentorSwitch"
+                  />
                   <span className="toggleText">
                     {toggleStatus
                       ? 'Open to new mentees'
