@@ -45,6 +45,12 @@ import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
+import PendingApproval from './components/pages/PendingApproval/PendingApproval';
+import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
@@ -79,7 +85,7 @@ function App() {
         <Route path="/apply" exact component={Signup} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
-        {/* <Route path="/apply/success" component={AppSuccess} /> */}
+        <Route path="/apply/success" component={AppSuccess} />
 
         <PrivateRoute
           path="/memos"

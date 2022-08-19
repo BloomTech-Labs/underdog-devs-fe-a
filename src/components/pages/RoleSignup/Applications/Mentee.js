@@ -2,6 +2,7 @@ import React from 'react';
 import useForms from '../../../../hooks/useForms';
 import { connect } from 'react-redux';
 import { postNewMenteeAccount } from '../../../../state/actions/mentee';
+import { useHistory } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -49,9 +50,11 @@ const initialFormValues = {
 
 const Mentee = ({ dispatch, error, successPage }) => {
   const { formValues, handleChange } = useForms(initialFormValues);
+  const { push } = useHistory();
 
   const formSubmit = () => {
     dispatch(postNewMenteeAccount(formValues));
+    push('/apply/success');
   };
 
   return (
