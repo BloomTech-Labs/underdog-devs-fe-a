@@ -52,6 +52,9 @@
 }
 
 /* Mentor nav styles */
+#mentorSwitch {
+  background-color: #73d13d;
+}
 
 .mentorStatus {
   height: 100%;
@@ -61,10 +64,6 @@
   justify-content: right;
   align-items: center;
   margin-right: 1%;
-}
-
-.ant-switch-checked {
-  background-color: #73d13d !important;
 }
 
 .toggleText {
