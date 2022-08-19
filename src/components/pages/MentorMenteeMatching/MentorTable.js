@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Table } from 'antd';
+import './MentorTable.css';
 
 const columns = [
   {
@@ -63,7 +64,12 @@ const MentorTable = () => {
   return (
     <div>
       {/* checkbox has a bug to where the bottome of the box looks odd */}
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      <Table
+        rowSelection={rowSelection}
+        columns={columns}
+        dataSource={data}
+        className="assignMentorTable"
+      />
     </div>
   );
 };
