@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
 import { Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import { select } from './MentorOptions';
 
-const MentorsCard = ({ data }) => {
+import { Selected } from './MentorOptions';
+
+const MentorsCard = ({ data, match }) => {
   const [edit, setEdit] = useState(false);
 
-  const [mentors, setMentors] = useState({
-    first: '',
-    second: '',
-    third: '',
-  });
+  const [mentors, setMentors] = useState();
 
-  const rest = [edit, setMentors, mentors, data];
+  const rest = [edit, setMentors, data, mentors];
 
-  const key = Object.keys(mentors);
+  const key = Object.keys(data);
 
   return (
     <>
       <Card
-        title="Mentors"
+        title="Match"
         style={{
           width: '30%',
         }}
         extra={
-          !mentors.first && !mentors.second && !mentors.third ? (
+          !match ? (
             ''
           ) : edit ? (
             <p
@@ -44,12 +41,18 @@ const MentorsCard = ({ data }) => {
           )
         }
       >
-        <div>{select(...rest, mentors.first, key[0])}</div>
+        {/**
+         * Owner: Khaleel Musleh
+         * Props Being Passed:
+         * Props: Selected{...rest} from MentorMenteeMatching to MentorMenteeInfo to MentorsCard
+         */}
+
+        <div>{Selected(...rest)}</div>
         <div style={{ marginTop: '17px' }}>
-          {select(...rest, mentors.second, key[1])}
+          {Selected(...rest, data[1], key[1])}
         </div>
         <div style={{ marginTop: '17px' }}>
-          {select(...rest, mentors.third, key[2])}
+          {Selected(...rest, data[2], key[2])}
         </div>
       </Card>
     </>

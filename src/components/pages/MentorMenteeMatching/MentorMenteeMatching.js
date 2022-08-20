@@ -49,17 +49,22 @@ const MentorMenteeMatching = () => {
     const profile = {
       key: p.profile_id,
       name: `${p.first_name} ${p.last_name}`,
-      contact: p.email,
+      email: p.email,
       stack: splitTechStack(p),
       description: 'Description goes here',
       tags: p.matched ? 'Matched' : 'Unmatched',
-      email: p.email,
+      stack: p.tech_stack,
       location: p.location,
       company: p.company,
     };
     data.push(profile);
   });
 
+  /**
+   * Owner: Khaleel Musleh
+   * Props Being Passed:
+   * Props: dataSource={data} to MentorMenteeInfo
+   */
   return (
     <>
       <h2>Matching</h2>
