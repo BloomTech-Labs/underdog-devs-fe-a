@@ -192,7 +192,7 @@ const ApplicationModal = ({
                 <b>Convictions:</b>{' '}
                 {`${
                   currentApplication.formerly_incarcerated === true
-                    ? currentApplication.list_convictions
+                    ? currentApplication.convictions
                     : 'none'
                 }`}
               </List.Item>
