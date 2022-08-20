@@ -49,7 +49,7 @@ const MentorMenteeMatching = () => {
     const profile = {
       key: p.profile_id,
       name: `${p.first_name} ${p.last_name}`,
-      email: p.email,
+      contact: p.email,
       stack: splitTechStack(p),
       description: 'Description goes here',
       tags: p.matched ? 'Matched' : 'Unmatched',

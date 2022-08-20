@@ -20,7 +20,7 @@ const MentorMenteeInfo = props => {
               }}
             >
               <Card title="Information" style={{ width: '30%' }}>
-                <p>{`Email: ${data.email}`}</p>
+                <p>{`Email: ${data.contact}`}</p>
                 <p>{`Location: ${data.location}`}</p>
                 <p>{`Company: ${data.company}`}</p>
               </Card>
