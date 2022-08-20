@@ -113,14 +113,15 @@ const ApplicationModal = ({
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          res.data.users.filter(applicants => {
-            if (applicants.validate_status === 'pending') {
-              // console.log(applicants[0]);
-              return applicants;
+          // console.log("RES: ", res);
+          res.data.users.forEach((applicant, index) => {
+            if (applicant['profile_id'] === profileId) {
+              // console.log(applicant);
+              applicant.role_name = 'mentee';
+              setCurrentApplication(applicant);
+              setNotesValue(applicant);
             }
           });
-          setCurrentApplication(res.data.users[0]);
-          setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);

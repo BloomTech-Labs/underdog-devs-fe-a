@@ -58,42 +58,49 @@ const PendingApplications = () => {
         .post('/application')
         .then(res => {
           setApplications(
-            res.data.users.map(row => ({
-              key: row.profile_id,
-              name: row.first_name + ' ' + row.last_name,
-              role: (
-                <Tag color={row.role_name === 'mentor' ? 'blue' : 'orange'}>
-                  {row.role_name}
-                </Tag>
-              ),
-              date:
-                Date(row.created_at).slice(0, 3) +
-                '. ' +
-                Date(row.created_at).slice(4, 9) +
-                ', ' +
-                Date(row.created_at).slice(10, 16),
-              button: (
-                <Button
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
-                    borderRadius: '.5rem',
-                    boxSizing: 'border-box',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    fontSize: '16px',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    touchAction: 'manipulation',
-                  }}
-                  type="primary"
-                  id={row.profile_id}
-                  onClick={() => showModal(row.profile_id)}
-                >
-                  Review Application
-                </Button>
-              ),
-            }))
+            res.data.users.map(
+              row => (
+                row.hasOwnProperty('accepting_new_mentees')
+                  ? (row.role_name = 'mentor')
+                  : (row.role_name = 'mentee'),
+                {
+                  key: row.profile_id,
+                  name: row.first_name + ' ' + row.last_name,
+                  role: (
+                    <Tag color={row.role_name === 'mentor' ? 'blue' : 'orange'}>
+                      {row.role_name}
+                    </Tag>
+                  ),
+                  date:
+                    Date(row.created_at).slice(0, 3) +
+                    '. ' +
+                    Date(row.created_at).slice(4, 9) +
+                    ', ' +
+                    Date(row.created_at).slice(10, 16),
+                  button: (
+                    <Button
+                      style={{
+                        backgroundImage:
+                          'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
+                        borderRadius: '.5rem',
+                        boxSizing: 'border-box',
+                        color: '#FFFFFF',
+                        display: 'flex',
+                        fontSize: '16px',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        touchAction: 'manipulation',
+                      }}
+                      type="primary"
+                      id={row.profile_id}
+                      onClick={() => showModal(row.profile_id)}
+                    >
+                      Review Application
+                    </Button>
+                  ),
+                }
+              )
+            )
           );
         })
         .catch(err => {
