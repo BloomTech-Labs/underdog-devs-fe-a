@@ -327,7 +327,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     {mentorshipArray.map(checkbox => (
                       <Checkbox
                         value={checkbox.value}
-                        onValueChange={handleTechStack}
+                        onChange={e => handleTechStack(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         {checkbox.value}
