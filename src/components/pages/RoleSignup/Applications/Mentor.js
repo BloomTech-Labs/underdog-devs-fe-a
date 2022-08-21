@@ -89,6 +89,10 @@ const Mentor = ({ dispatch, error, successPage }) => {
     { name: 'industry_knowledge', value: 'Industry Knowledge' },
     { name: 'pair_programming', value: 'Pair Programming' },
   ];
+  const commitmentArray = [
+    { name: true, value: 'Yes' },
+    { name: false, value: 'No' },
+  ];
 
   return (
     <>
@@ -404,7 +408,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 >
                   <Radio.Group
                     name="commitment"
-                    onChange={handleChange}
+                    onChange={e => handleChange(e, 'radio')}
                     value={formValues.commitment}
                     style={{
                       display: 'flex',
@@ -415,15 +419,20 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       paddingLeft: '1rem',
                     }}
                   >
+                    {/* {commitmentArray.map(object => (
+                      <Radio 
+                      style={{ margin: '.2rem', width: '100%' }}
+                      value={object.name}>{object.value}</Radio>
+                    ))} */}
                     <Radio
                       style={{ margin: '.2rem', width: '100%' }}
-                      value={true}
+                      value={'yes'}
                     >
                       Yes
                     </Radio>
                     <Radio
                       style={{ margin: '.2rem', width: '100%' }}
-                      value={false}
+                      value={'no'}
                     >
                       No
                     </Radio>
