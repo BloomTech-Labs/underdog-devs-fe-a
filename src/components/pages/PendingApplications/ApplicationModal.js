@@ -116,8 +116,10 @@ const ApplicationModal = ({
           // console.log("RES: ", res);
           res.data.users.forEach((applicant, index) => {
             if (applicant['profile_id'] === profileId) {
-              // console.log(applicant);
-              applicant.role_name = 'mentee';
+              console.log('applicant: ', applicant);
+              applicant.hasOwnProperty('accepting_new_mentees')
+                ? (applicant.role_name = 'mentor')
+                : (applicant.role_name = 'mentee');
               setCurrentApplication(applicant);
               setNotesValue(applicant);
             }
