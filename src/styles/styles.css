@@ -17,19 +17,19 @@
 .modalStyle p{
     margin:0%;
 }
-.modalStyle ul{
-    margin:0%;
-    padding-left: 0%;
+.modalStyleMentee .modalStyleMentor ul{
+  margin:0%;
+  padding-left: 0%;
 }
-.modalStyle li{
-    margin-left: 5%;
+.modalStyleMentee .modalStyleMentor li{
+  margin-left: 5%;
 }
 .cEQGvI /*Navbar background color*/ {
-    background-color:#003D71;
+  background-color:#003D71;
 }
 
 a.sc-dkPtRN /*Navlinks  color*/{
-    color: #fff;
+  color: #fff;
 }
 
 a.sc-dkPtRN:hover /*Login/Apply buttons color*/ {
@@ -41,19 +41,19 @@ a.sc-gKclnd.cxVpss /*Login/Apply Button background color*/{
 }
 
 div.ant-card-head {
-    color: #4285F3;
+  color: #4285F3;
 }
 .notesField{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 div.row2 .modalBtn {
-    min-width: 45%;
+  min-width: 45%;
 }
 
 div.row2 .modalBtn:hover {
-    color: #165996;
+  color: #165996;
 }
 
 div.row2 .modalBtn:visited {

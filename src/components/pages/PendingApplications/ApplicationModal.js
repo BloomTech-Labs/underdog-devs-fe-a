@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
-import { Modal, Button, List, Divider, Form, Input } from 'antd';
+import { Modal, Button, List, Divider, Form, Input, Tag } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -116,10 +116,12 @@ const ApplicationModal = ({
           // console.log("RES: ", res);
           res.data.users.forEach((applicant, index) => {
             if (applicant['profile_id'] === profileId) {
-              console.log('applicant: ', applicant);
+              // console.log('applicant: ', applicant);
               applicant.hasOwnProperty('accepting_new_mentees')
                 ? (applicant.role_name = 'mentor')
                 : (applicant.role_name = 'mentee');
+              console.log(applicant);
+              console.log('tech_stack: ', applicant.tech_stack);
               setCurrentApplication(applicant);
               setNotesValue(applicant);
             }
@@ -168,7 +170,11 @@ const ApplicationModal = ({
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
-          className="modalStyle"
+          className={
+            currentApplication.role_name === 'mentor'
+              ? 'modalStyleMentor'
+              : 'modalStyleMentee'
+          }
           footer={[
             <Button key="back" onClick={handleCancel}>
               Return to Previous
@@ -181,7 +187,39 @@ const ApplicationModal = ({
             </Button>,
           ]}
         >
-          <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
+          <div className="profile-intro">
+            <div className="image-container">
+              <img
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                alt="I can do this if I work hard enough and practice my coding skills"
+              />
+            </div>
+            <div className="profile-intro-description">
+              <h2>
+                {currentApplication.first_name} {currentApplication.last_name}
+              </h2>
+              <div className="interests">
+                <div>
+                  <h4>Interested in:</h4>
+                </div>
+                {currentApplication.hasOwnProperty('accepting_new_mentees') ? (
+                  <div className="tags-container">
+                    {currentApplication.tech_stack.map(subject => {
+                      return (
+                        <div className="mentor-tag">
+                          <Tag color={'green'}>{subject}</Tag>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mentee-tag">
+                    <Tag color={'green'}>{currentApplication.tech_stack}</Tag>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>
