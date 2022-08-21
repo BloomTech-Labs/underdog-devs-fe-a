@@ -365,8 +365,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   >
                     {contributionArray.map(area => (
                       <Checkbox
-                        value={area.value}
-                        onValueChange={handleTechStack}
+                        value={area.name}
+                        onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         {area.value}
@@ -417,13 +417,13 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   >
                     <Radio
                       style={{ margin: '.2rem', width: '100%' }}
-                      value={'yes'}
+                      value={true}
                     >
                       Yes
                     </Radio>
                     <Radio
                       style={{ margin: '.2rem', width: '100%' }}
-                      value={'no'}
+                      value={false}
                     >
                       No
                     </Radio>
@@ -474,14 +474,13 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     icon: <InfoCircleOutlined />,
                   }}
                 ></Form.Item>
-                <Form.Item
+                <Input.TextArea
                   type="text"
                   name="other_info"
                   value={formValues.other_info}
                   onChange={handleChange}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
+                  placeholder="Your answer"
+                />
               </Col>
             </Row>
           </Col>
