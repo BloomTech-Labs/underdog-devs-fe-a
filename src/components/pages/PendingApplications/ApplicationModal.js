@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
-import { Modal, Button, List, Divider, Form, Input, Tag } from 'antd';
+import { Modal, Button, List, Form, Input, Tag } from 'antd';
 
 const ApplicationModal = ({
   profileId,
@@ -163,8 +163,8 @@ const ApplicationModal = ({
               : 'modalStyleMentee'
           }
           footer={[
-            <Button key="back" onClick={handleCancel}>
-              Return to Previous
+            <Button key="edit-notes" onClick={displayForm} hidden={!hideForm}>
+              Edit Notes
             </Button>,
             <Button key="submitA" type="primary" onClick={approveApplication}>
               Approve
@@ -185,7 +185,7 @@ const ApplicationModal = ({
               <h2>
                 {currentApplication.first_name} {currentApplication.last_name}
               </h2>
-              <div className="interests">
+              <div className="preferences">
                 <div>
                   {currentApplication.hasOwnProperty(
                     'accepting_new_mentees'
@@ -199,7 +199,7 @@ const ApplicationModal = ({
                   <div className="tags-container">
                     {currentApplication.tech_stack.map(subject => {
                       return (
-                        <div className="mentor-tag">
+                        <div className="mentor-tag" key={subject}>
                           <Tag color={'green'}>{subject}</Tag>
                         </div>
                       );
@@ -270,7 +270,6 @@ const ApplicationModal = ({
                     : 'none'
                 }`} */}
               </List.Item>
-
               <List.Item className="list-item">
                 <p className="list-item-column">Applicant needs help with:</p>
                 <div className="list-item-column">
@@ -293,25 +292,17 @@ const ApplicationModal = ({
                   )}
                 </div>
               </List.Item>
-
               <List.Item className="list-item">
                 <p className="list-item-column">Other information:</p>
-                <div className="list-item-column">
+                <p className="list-item-column">
                   {currentApplication.other_info}
-                </div>
+                </p>
               </List.Item>
               <List.Item>
-                <p>Notes:</p> {currentApplication.application_notes}
-                <Button
-                  onClick={displayForm}
-                  hidden={!hideForm}
-                  block
-                  size="small"
-                  type="dashed"
-                  style={{ background: 'white', borderColor: '#1890ff' }}
-                >
-                  Edit Notes
-                </Button>
+                <p className="list-item-column">Notes:</p>
+                <p className="list-item-column">
+                  {currentApplication.application_notes}
+                </p>
               </List.Item>
             </List>
           ) : (
@@ -349,10 +340,6 @@ const ApplicationModal = ({
               <List.Item>
                 <p>Other information:</p> {currentApplication.other_info}
               </List.Item>
-              {/* <List.Item>
-                <p>Submission Date:</p>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item> */}
               <List.Item>
                 <p>Application Status:</p> {currentApplication.validateStatus}
               </List.Item>
@@ -382,7 +369,6 @@ const ApplicationModal = ({
               <TextArea autosize="true" placeholder="Edit notes here..." />
               <Button
                 onClick={addNote}
-                type="dashed"
                 size="small"
                 style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
               >
