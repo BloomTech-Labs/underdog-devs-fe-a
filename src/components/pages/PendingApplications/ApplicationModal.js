@@ -121,7 +121,6 @@ const ApplicationModal = ({
                 ? (applicant.role_name = 'mentor')
                 : (applicant.role_name = 'mentee');
               console.log(applicant);
-              console.log('tech_stack: ', applicant.tech_stack);
               setCurrentApplication(applicant);
               setNotesValue(applicant);
             }
@@ -133,19 +132,7 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
-  //   const getCurrentApp = () => {
-  //     axiosWithAuth()
-  //       .post(`/application/${profileId}`)
-  //       .then(res => {
-  //         setCurrentApplication(res.data[0]);
-  //         setNotesValue(res.data[0]);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   getCurrentApp();
-  // }, [profileId]);
+
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
@@ -221,16 +208,32 @@ const ApplicationModal = ({
             </div>
           </div>
           {currentApplication.role_name === 'mentee' ? (
-            <List size="small" bordered>
-              <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
+            <List size="small">
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Role</p>
+                </div>
+                <div className="list-item-column">
+                  <p>{currentApplication.role_name}</p>
+                </div>
               </List.Item>
-              <List.Item>
-                <b>Email:</b> {currentApplication.email}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Email:</p>
+                </div>
+                <div className="list-item-column">
+                  <p>{currentApplication.email}</p>
+                </div>
               </List.Item>
-              <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Location:</p>
+                </div>
+                <div className="list-item-column">
+                  <p>
+                    {currentApplication.state} {currentApplication.country}
+                  </p>
+                </div>
               </List.Item>
               <List.Item>
                 <b>Membership Criteria:</b>
@@ -253,37 +256,31 @@ const ApplicationModal = ({
                   currentApplication.formerly_incarcerated === true
                     ? currentApplication.convictions
                     : 'none'
-                }`}
+                }`} */}
+              </List.Item>
+
+              <List.Item className="list-item">
+                <p className="list-item-column">Applicant needs help with:</p>
+                <div className="list-item-column">
+                  <ul>
+                    {currentApplication.industry_knowledge === true ? (
+                      <li>Industry Knowledge</li>
+                    ) : null}
+                    {currentApplication.pair_programming === true ? (
+                      <li>Pair Programming</li>
+                    ) : null}
+                    {currentApplication.job_help === true ? (
+                      <li>Job Help</li>
+                    ) : null}
+                  </ul>
+                </div>
+              </List.Item>
+
+              <List.Item className="list-item">
+                <p>Other information:</p> {currentApplication.other_info}
               </List.Item>
               <List.Item>
-                <b>Applicant needs help with:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <b>Subject most interested in:</b> {currentApplication.subject}
-              </List.Item>
-              <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
-              </List.Item>
-              {/* <List.Item>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item> */}
-              <List.Item>
-                <b>Application Status:</b> {currentApplication.validateStatus}
-              </List.Item>
-              <List.Item>
-                <b>Notes:</b> {currentApplication.application_notes}
+                <p>Notes:</p> {currentApplication.application_notes}
                 <Button
                   onClick={displayForm}
                   hidden={!hideForm}
@@ -297,22 +294,22 @@ const ApplicationModal = ({
               </List.Item>
             </List>
           ) : (
-            <List size="small" bordered>
+            <List size="small">
               <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
+                <p>Role:</p> {currentApplication.role_name}
               </List.Item>
               <List.Item>
-                <b>Email:</b> {currentApplication.email}
+                <p>Email:</p> {currentApplication.email}
               </List.Item>
               <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
+                <p>Location:</p> {currentApplication.city},{' '}
                 {currentApplication.state} {currentApplication.country}
               </List.Item>
               <List.Item>
-                <b>Current Employer:</b> {currentApplication.current_comp}
+                <p>Current Employer:</p> {currentApplication.current_comp}
               </List.Item>
               <List.Item>
-                <b>Tech Stack:</b> {currentApplication.tech_stack}
+                <>Tech Stack:</> {currentApplication.tech_stack}
               </List.Item>
               <List.Item>
                 <b>Applicant wants to focus on:</b>{' '}
@@ -329,17 +326,17 @@ const ApplicationModal = ({
                 </ul>
               </List.Item>
               <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
+                <p>Other information:</p> {currentApplication.other_info}
               </List.Item>
               {/* <List.Item>
-                <b>Submission Date:</b>{' '}
+                <p>Submission Date:</p>{' '}
                 {currentApplication.created_at.slice(0, 10)}
               </List.Item> */}
               <List.Item>
-                <b>Application Status:</b> {currentApplication.validateStatus}
+                <p>Application Status:</p> {currentApplication.validateStatus}
               </List.Item>
               <List.Item>
-                <b>Notes:</b> {currentApplication.application_notes}
+                <p>Notes:</p> {currentApplication.application_notes}
               </List.Item>
               <Button
                 onClick={displayForm}
