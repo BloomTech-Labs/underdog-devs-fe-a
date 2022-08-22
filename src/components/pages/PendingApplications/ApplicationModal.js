@@ -187,7 +187,13 @@ const ApplicationModal = ({
               </h2>
               <div className="interests">
                 <div>
-                  <h4>Interested in:</h4>
+                  {currentApplication.hasOwnProperty(
+                    'accepting_new_mentees'
+                  ) === true ? (
+                    <p>Can mentor in</p>
+                  ) : (
+                    <p>Interested in</p>
+                  )}
                 </div>
                 {currentApplication.hasOwnProperty('accepting_new_mentees') ? (
                   <div className="tags-container">
@@ -214,7 +220,13 @@ const ApplicationModal = ({
                   <p>Role</p>
                 </div>
                 <div className="list-item-column">
-                  <p>{currentApplication.role_name}</p>
+                  <p>
+                    {currentApplication.role_name[0].toUpperCase() +
+                      currentApplication.role_name.substring(
+                        1,
+                        currentApplication.role_name.length
+                      )}
+                  </p>
                 </div>
               </List.Item>
               <List.Item className="list-item">
@@ -262,22 +274,31 @@ const ApplicationModal = ({
               <List.Item className="list-item">
                 <p className="list-item-column">Applicant needs help with:</p>
                 <div className="list-item-column">
-                  <ul>
-                    {currentApplication.industry_knowledge === true ? (
-                      <li>Industry Knowledge</li>
-                    ) : null}
-                    {currentApplication.pair_programming === true ? (
-                      <li>Pair Programming</li>
-                    ) : null}
-                    {currentApplication.job_help === true ? (
-                      <li>Job Help</li>
-                    ) : null}
-                  </ul>
+                  {currentApplication.industry_knowledge === true ||
+                  currentApplication.pair_programming === true ||
+                  currentApplication.job_help === true ? (
+                    <ul>
+                      {currentApplication.industry_knowledge === true ? (
+                        <li>Industry Knowledge</li>
+                      ) : null}
+                      {currentApplication.pair_programming === true ? (
+                        <li>Pair Programming</li>
+                      ) : null}
+                      {currentApplication.job_help === true ? (
+                        <li>Job Help</li>
+                      ) : null}
+                    </ul>
+                  ) : (
+                    <p>None</p>
+                  )}
                 </div>
               </List.Item>
 
               <List.Item className="list-item">
-                <p>Other information:</p> {currentApplication.other_info}
+                <p className="list-item-column">Other information:</p>
+                <div className="list-item-column">
+                  {currentApplication.other_info}
+                </div>
               </List.Item>
               <List.Item>
                 <p>Notes:</p> {currentApplication.application_notes}

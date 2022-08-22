@@ -57,6 +57,7 @@ const PendingApplications = () => {
       axiosWithAuth()
         .post('/application')
         .then(res => {
+          console.log(res.data.users);
           setApplications(
             res.data.users.map(
               row => (
