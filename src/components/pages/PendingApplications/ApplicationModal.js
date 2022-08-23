@@ -3,6 +3,8 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, List, Form, Input, Tag } from 'antd';
+import MenteeModal from './MenteeModal';
+import MentorModal from './MentorModal';
 
 const ApplicationModal = ({
   profileId,
@@ -158,9 +160,9 @@ const ApplicationModal = ({
           onCancel={handleCancel}
           afterClose={handleCancel}
           className={
-            currentApplication.role_name === 'mentor'
-              ? 'modalStyleMentor'
-              : 'modalStyleMentee'
+            currentApplication.role_name === 'mentee'
+              ? 'modalStyleMentee'
+              : 'modalStyleMentor'
           }
           footer={[
             <Button key="edit-notes" onClick={displayForm} hidden={!hideForm}>
@@ -174,216 +176,10 @@ const ApplicationModal = ({
             </Button>,
           ]}
         >
-          <div className="profile-intro">
-            <div className="image-container">
-              <img
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                alt="I can do this if I work hard enough and practice my coding skills"
-              />
-            </div>
-            <div className="profile-intro-description">
-              <h2>
-                {currentApplication.first_name} {currentApplication.last_name}
-              </h2>
-              <div className="preferences">
-                <div>
-                  {currentApplication.hasOwnProperty(
-                    'accepting_new_mentees'
-                  ) === true ? (
-                    <p>Can mentor in</p>
-                  ) : (
-                    <p>Interested in</p>
-                  )}
-                </div>
-                {currentApplication.hasOwnProperty('accepting_new_mentees') ? (
-                  <div className="tags-container">
-                    {currentApplication.tech_stack.map(subject => {
-                      return (
-                        <div className="mentor-tag" key={subject}>
-                          <Tag color={'green'}>{subject}</Tag>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="mentee-tag">
-                    <Tag color={'green'}>{currentApplication.tech_stack}</Tag>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
           {currentApplication.role_name === 'mentee' ? (
-            <List size="small">
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Role</p>
-                </div>
-                <div className="list-item-column">
-                  <p>
-                    {currentApplication.role_name[0].toUpperCase() +
-                      currentApplication.role_name.substring(
-                        1,
-                        currentApplication.role_name.length
-                      )}
-                  </p>
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Email:</p>
-                </div>
-                <div className="list-item-column">
-                  <p>{currentApplication.email}</p>
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Location:</p>
-                </div>
-                <div className="list-item-column">
-                  <p>
-                    {currentApplication.state} {currentApplication.country}
-                  </p>
-                </div>
-              </List.Item>
-              <List.Item>
-                <b>Membership Criteria:</b>
-                <ul>
-                  {currentApplication.formerly_incarcerated === true ? (
-                    <li>Formerly Incarcerated</li>
-                  ) : null}
-                  {currentApplication.low_income === true ? (
-                    <li>Low Income</li>
-                  ) : null}
-                  {currentApplication.underrepresented_group === true ? (
-                    <li>Belongs to underrepresented group</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                {' '}
-                <b>Convictions:</b>{' '}
-                {`${
-                  currentApplication.formerly_incarcerated === true
-                    ? currentApplication.convictions
-                    : 'none'
-                }`} */}
-              </List.Item>
-              <List.Item className="list-item">
-                <p className="list-item-column">Applicant needs help with:</p>
-                <div className="list-item-column">
-                  {currentApplication.industry_knowledge === true ||
-                  currentApplication.pair_programming === true ||
-                  currentApplication.job_help === true ? (
-                    <ul>
-                      {currentApplication.industry_knowledge === true ? (
-                        <li>Industry Knowledge</li>
-                      ) : null}
-                      {currentApplication.pair_programming === true ? (
-                        <li>Pair Programming</li>
-                      ) : null}
-                      {currentApplication.job_help === true ? (
-                        <li>Job Help</li>
-                      ) : null}
-                    </ul>
-                  ) : (
-                    <p>Not available</p>
-                  )}
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <p className="list-item-column">Other information:</p>
-                <p className="list-item-column">
-                  {currentApplication.other_info}
-                </p>
-              </List.Item>
-              <List.Item>
-                <p className="list-item-column">Notes:</p>
-                <p className="list-item-column">
-                  {currentApplication.application_notes}
-                </p>
-              </List.Item>
-            </List>
+            <MenteeModal applicant={currentApplication} />
           ) : (
-            <List size="small">
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Role</p>
-                </div>
-                <div className="list-item-column">
-                  <p>
-                    {currentApplication.role_name[0].toUpperCase() +
-                      currentApplication.role_name.substring(
-                        1,
-                        currentApplication.role_name.length
-                      )}
-                  </p>
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Email:</p>
-                </div>
-                <div className="list-item-column">
-                  <p>{currentApplication.email}</p>
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Location:</p>
-                </div>
-                <div className="list-item-column">
-                  <p>
-                    {currentApplication.state} {currentApplication.country}
-                  </p>
-                </div>
-              </List.Item>
-              <List.Item className="list-item">
-                <div className="list-item-column">
-                  <p>Current Role:</p>
-                </div>
-                <div className="list-item-column">
-                  <p>
-                    {currentApplication.current_position} {' at '}{' '}
-                    {currentApplication.current_company}
-                  </p>
-                </div>
-              </List.Item>
-              <List.Item>
-                <>Tech Stack:</> {currentApplication.tech_stack}
-              </List.Item>
-              <List.Item>
-                <b>Applicant wants to focus on:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <p>Other information:</p> {currentApplication.other_info}
-              </List.Item>
-              <List.Item>
-                <p>Notes:</p> {currentApplication.application_notes}
-              </List.Item>
-              <Button
-                onClick={displayForm}
-                hidden={!hideForm}
-                block
-                size="small"
-                type="dashed"
-                style={{ background: 'white', borderColor: '#1890ff' }}
-              >
-                Edit Notes
-              </Button>
-            </List>
+            <MentorModal applicant={currentApplication} />
           )}
           <Form className="notesField" hidden={hideForm}>
             <Form.Item
