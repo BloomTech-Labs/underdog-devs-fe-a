@@ -408,7 +408,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 >
                   <Radio.Group
                     name="commitment"
-                    onChange={handleChange}
+                    onChange={e => handleChange(e, 'checkbox')}
                     value={formValues.commitment}
                     style={{
                       display: 'flex',
