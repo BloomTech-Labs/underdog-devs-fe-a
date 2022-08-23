@@ -21,7 +21,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
-  const [toggleStatus, setToggleStatus] = useState(true);
+  const [toggleStatus, setToggleStatus] = useState();
   const { logout } = useAuth0();
 
   const openModal = () => setModal(true);
@@ -44,6 +44,21 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+
+  const profile_id = user.profile_id;
+  const isMentor = user.role_id === 3;
+
+  // Determines the initial state of the Mentor toggle switch
+  useEffect(() => {
+    axiosWithAuth()
+      .post(`/profile/mentor-information`, { profile_id })
+      .then(res => {
+        const availability = res.data[0].availability;
+        setToggleStatus(availability);
+      })
+      .catch(err => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) {
     return <NavBarLanding />;
@@ -70,11 +85,30 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   };
 
   const handleToggleChange = checked => {
-    !checked ? setToggleStatus(false) : setToggleStatus(true);
+    if (!checked) {
+      axiosWithAuth()
+        .post(`/profile/availability/${profile_id}`, {
+          accepting_new_mentees: false,
+        })
+        .then(res => {
+          setToggleStatus(false);
+        })
+        .catch(err => console.log(err));
+    }
+
+    if (checked) {
+      axiosWithAuth()
+        .post(`/profile/availability/${profile_id}`, {
+          accepting_new_mentees: true,
+        })
+        .then(res => {
+          setToggleStatus(true);
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
-  const isMentor = user.role_id === 3;
 
   const reloadLogo = () => {
     isAuthenticated ? history.push('/') : document.location.reload();
@@ -104,15 +138,11 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
               >
                 <section className="mentorStatus">
                   <Switch
-                    defaultChecked
+                    checked={toggleStatus}
                     onChange={handleToggleChange}
                     id="mentorSwitch"
                   />
-                  <span className="toggleText">
-                    {toggleStatus
-                      ? 'Open to new mentees'
-                      : 'Closed to new mentees'}
-                  </span>
+                  <span className="toggleText">New Mentees</span>
                 </section>
               </Popover>
             )}
