@@ -288,7 +288,7 @@ const ApplicationModal = ({
                       ) : null}
                     </ul>
                   ) : (
-                    <p>None</p>
+                    <p>Not available</p>
                   )}
                 </div>
               </List.Item>
@@ -307,18 +307,48 @@ const ApplicationModal = ({
             </List>
           ) : (
             <List size="small">
-              <List.Item>
-                <p>Role:</p> {currentApplication.role_name}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Role</p>
+                </div>
+                <div className="list-item-column">
+                  <p>
+                    {currentApplication.role_name[0].toUpperCase() +
+                      currentApplication.role_name.substring(
+                        1,
+                        currentApplication.role_name.length
+                      )}
+                  </p>
+                </div>
               </List.Item>
-              <List.Item>
-                <p>Email:</p> {currentApplication.email}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Email:</p>
+                </div>
+                <div className="list-item-column">
+                  <p>{currentApplication.email}</p>
+                </div>
               </List.Item>
-              <List.Item>
-                <p>Location:</p> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Location:</p>
+                </div>
+                <div className="list-item-column">
+                  <p>
+                    {currentApplication.state} {currentApplication.country}
+                  </p>
+                </div>
               </List.Item>
-              <List.Item>
-                <p>Current Employer:</p> {currentApplication.current_comp}
+              <List.Item className="list-item">
+                <div className="list-item-column">
+                  <p>Current Role:</p>
+                </div>
+                <div className="list-item-column">
+                  <p>
+                    {currentApplication.current_position} {' at '}{' '}
+                    {currentApplication.current_company}
+                  </p>
+                </div>
               </List.Item>
               <List.Item>
                 <>Tech Stack:</> {currentApplication.tech_stack}
