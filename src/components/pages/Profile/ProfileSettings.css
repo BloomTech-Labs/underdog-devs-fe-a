@@ -1,0 +1,102 @@
+                    
+                    /* Profile Settings Mobile */
+@media only screen and (max-width: 725px) {
+    .ant-layout.ant-layout-has-sider > section {
+        padding: 2%;
+    }
+    /* profile container */
+    .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-6 > div:nth-child(1) > div.ant-card-cover {
+        margin: 5%;
+    }
+    article {
+        text-align: center;
+    }
+    /* socials box */
+    .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-6 > div:nth-child(2) > div > div {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    /* edit icon */
+    .ant-card-meta-description > span > svg{
+        font-size: 1.2rem;
+    }
+    /* twitter icon */
+    .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-6 > div:nth-child(2) > ul > li:nth-child(1) > span > span {
+        font-size: 1.5rem;
+    }
+    /* linkedin icon */ 
+    .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-6 > div:nth-child(2) > ul > li:nth-child(2) > span > span {
+        font-size: 1.5rem;
+    }
+    /* github icon */
+    .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-6 > div:nth-child(2) > ul > li:nth-child(3) > span > span {
+        font-size: 1.5rem;
+    }
+    /* my profile container */
+    .ant-layout.ant-layout-has-sider .ant-col.ant-col-17.ant-col-xs-24.ant-col-sm-24.ant-col-md-18.ant-col-lg-16.ant-col-xl-18 > div {
+        margin: 2%;
+    }
+  }
+
+                    /* PROFILE FORM */
+/* MOBILE */
+@media screen and (min-width: 320px) and (max-width: 413px) {
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        margin: 10%;
+        position: relative;
+        bottom: 50px;
+        left: 0;
+    }
+}
+/* IPHONE XR */
+@media screen and (min-width: 414px) and (max-width: 539px) {
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        margin: 10%;
+        position: relative;
+        bottom: 50px;
+        left: 10px;
+    }
+}
+/* TABLET */
+@media screen and (min-width: 600px) and (max-width: 912px) {
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        width: 500px;
+        margin: 0;
+        left: 10%;
+    }
+}
+/* DESKTOP */
+@media screen and (min-width: 1024px) and (max-width: 1400px) {
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        width: 500px;
+        margin: 0;
+        left: 10%;
+    }
+}
+/* Galaxy S8+ */  
+@media screen and (min-width: 360px) and (max-width: 365px){
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        position: relative;
+        width: 275px;
+        bottom: 40px;
+    }
+}
+/* Galaxy Fold */  
+@media screen and (min-width: 280px) and (max-width: 300px){
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        position: relative;
+        width: 250px;
+        left: -13%;
+        bottom: 50px;
+    }
+}
+/* Surface Duo */
+@media screen and (min-width: 540px) and (max-width: 599px) {
+    body > div:nth-child(7) > div > div.ant-modal-wrap > div > div.ant-modal-content{
+        width: 400px;
+        bottom: 30px;
+        margin: 0;
+        left: 15%;
+    }
+}

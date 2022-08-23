@@ -7,8 +7,13 @@
 }
 
 .modalStyle .ant-modal-title /*For Edit Profile Button*/{
-    color: white;
+    color: rgb(255, 255, 255, 0.85);
 }
+
+.ant-modal-content .ant-modal-header {
+    background-color: #003D71;
+}
+
 .modalStyle p{
     margin:0%;
 }
@@ -54,3 +59,20 @@ div.row2 .modalBtn:hover {
 div.row2 .modalBtn:visited {
     color: black;
 }
+/* memos submit button */
+.memos-button-rows .ant-btn-primary {
+    background-color: #003d71;
+}
+
+.ant-modal-title {
+    color: rgb(255, 255, 255, 0.85) !important;
+}
+
+.ant-modal-close-x {
+    color: rgb(255, 255, 255, 0.85);
+}
+
+
+
+
+

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import EditProfile from '../Profile/EditProfile';
 
+import './ProfileSettings.css';
 // import '../Dashboard/Admin/index.css';
 import { Row, Col, Typography, Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
@@ -31,11 +32,10 @@ const RenderProfileContainer = props => {
   }, []);
 
   return (
-    <div>
-      <Row style={{ height: '100vh' }}>
-        <Col span={6} style={{ padding: '1.8%' }}>
+    <div className="profilecontainer">
+      <Row>
+        <Col span={17} md={6} xs={24} sm={24} xl={6} style={{ padding: '2%' }}>
           <Card
-            style={{ padding: '2%' }}
             cover={
               <img
                 alt="profile owner"
@@ -50,7 +50,7 @@ const RenderProfileContainer = props => {
             <Typography>{userData.email}</Typography>
           </Card>
           <Card
-            style={{ width: 257, marginTop: 16 }}
+            style={{ marginTop: 16 }}
             actions={[
               <TwitterOutlined />,
               <LinkedinOutlined />,
@@ -60,25 +60,54 @@ const RenderProfileContainer = props => {
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={17}>
+        <Col span={17} xl={18} md={18} xs={24} sm={24} lg={16}>
           <Title level={1}>{userData.name}</Title>
-          <Card title="My Profile" extra={<EditProfile />}>
+          <Card
+            headStyle={{ color: 'rgb(255, 255, 255, 0.85)' }}
+            title="My Profile"
+            extra={<EditProfile />}
+          >
             <Card type="inner" title="Bio" extra={<EditOutlined />}>
               {userData.bio || 'Profile bio will go here.'}
             </Card>
-            <Card type="inner" title="Full Name" extra={<EditOutlined />}>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="Full Name"
+              extra={<EditOutlined />}
+            >
               {userData.full_name || 'Full Name will go here.'}
             </Card>
-            <Card type="inner" title="Email" extra={<EditOutlined />}>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="Email"
+              extra={<EditOutlined />}
+            >
               {userData.email || 'Email will go here.'}
             </Card>
-            <Card type="inner" title="Location" extra={<EditOutlined />}>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="Location"
+              extra={<EditOutlined />}
+            >
               {userData.location || 'Location will go here.'}
             </Card>
-            <Card type="inner" title="Company" extra={<EditOutlined />}>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="Company"
+              extra={<EditOutlined />}
+            >
               {userData.company || 'Company/Position will go here.'}
             </Card>
-            <Card type="inner" title="Commitment" extra={<EditOutlined />}>
+            <Card
+              style={{ marginTop: 16 }}
+              type="inner"
+              title="Commitment"
+              extra={<EditOutlined />}
+            >
               {'Commitment will go here.'}
             </Card>
             <Card

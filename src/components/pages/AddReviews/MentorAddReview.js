@@ -29,7 +29,7 @@ const MentorAddReview = () => {
     <Card
       title="Please fill out a review"
       style={{
-        width: '40rem',
+        width: 'auto',
         margin: 'auto',
         display: 'flex',
         flexDirection: 'column',
@@ -37,6 +37,7 @@ const MentorAddReview = () => {
       headStyle={{
         display: 'flex',
         justifyContent: 'center',
+        color: 'rgb(255, 255, 255, 0.85)',
       }}
     >
       <Form.Item
