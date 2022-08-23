@@ -1,4 +1,4 @@
-import { Modal, Button, List, Form, Input, Tag } from 'antd';
+import { List, Tag } from 'antd';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 

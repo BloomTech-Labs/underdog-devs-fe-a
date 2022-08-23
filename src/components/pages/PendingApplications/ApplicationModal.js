@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
-import { Modal, Button, List, Form, Input, Tag } from 'antd';
+import { Modal, Button, Form, Input } from 'antd';
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
 
@@ -115,7 +115,7 @@ const ApplicationModal = ({
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          // console.log("RES: ", res);
+          // console.log("res: ", res);
           res.data.users.forEach((applicant, index) => {
             if (applicant['profile_id'] === profileId) {
               // console.log('applicant: ', applicant);
