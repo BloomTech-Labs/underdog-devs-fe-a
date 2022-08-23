@@ -408,7 +408,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 >
                   <Radio.Group
                     name="commitment"
-                    onChange={e => handleChange(e, 'radio')}
+                    onChange={handleChange}
                     value={formValues.commitment}
                     style={{
                       display: 'flex',
@@ -419,23 +419,14 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       paddingLeft: '1rem',
                     }}
                   >
-                    {/* {commitmentArray.map(object => (
-                      <Radio 
-                      style={{ margin: '.2rem', width: '100%' }}
-                      value={object.name}>{object.value}</Radio>
-                    ))} */}
-                    <Radio
-                      style={{ margin: '.2rem', width: '100%' }}
-                      value={'yes'}
-                    >
-                      Yes
-                    </Radio>
-                    <Radio
-                      style={{ margin: '.2rem', width: '100%' }}
-                      value={'no'}
-                    >
-                      No
-                    </Radio>
+                    {commitmentArray.map(object => (
+                      <Radio
+                        style={{ margin: '.2rem', width: '100%' }}
+                        value={object.name}
+                      >
+                        {object.value}
+                      </Radio>
+                    ))}
                   </Radio.Group>
                 </Form.Item>
               </Col>
