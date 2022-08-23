@@ -371,9 +371,6 @@ const ApplicationModal = ({
                 <p>Other information:</p> {currentApplication.other_info}
               </List.Item>
               <List.Item>
-                <p>Application Status:</p> {currentApplication.validateStatus}
-              </List.Item>
-              <List.Item>
                 <p>Notes:</p> {currentApplication.application_notes}
               </List.Item>
               <Button
