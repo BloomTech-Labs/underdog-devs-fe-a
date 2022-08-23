@@ -9,8 +9,9 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.name - b.name,
+    onFilter: (value, record) => record.name.indexOf(value) === 0,
+    sorter: (a, b) => a.name.length - b.name.length,
+    sortDirections: ['descend'],
   },
   {
     title: 'Role',
@@ -29,7 +30,7 @@ const columns = [
     onFilter: (value, record) => record.role.includes(value),
   },
   {
-    title: 'Date',
+    title: 'Date Submitted',
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
@@ -41,6 +42,10 @@ const columns = [
     key: 'button',
   },
 ];
+
+const onChange = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra);
+};
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -71,12 +76,7 @@ const PendingApplications = () => {
                       {row.role_name}
                     </Tag>
                   ),
-                  date:
-                    Date(row.created_at).slice(0, 3) +
-                    '. ' +
-                    Date(row.created_at).slice(4, 9) +
-                    ', ' +
-                    Date(row.created_at).slice(10, 16),
+                  date: Date(row.updated_at).slice(0, 15),
                   button: (
                     <Button
                       style={{
@@ -111,14 +111,15 @@ const PendingApplications = () => {
   }, []);
   return (
     <>
-      <h2>Pending Applications</h2>
+      <h2>Applications</h2>
       <ApplicationModal
         displayModal={displayModal}
         setDisplayModal={setDisplayModal}
         profileId={profileId}
         setProfileId={setProfileId}
       />
-      <Table columns={columns} dataSource={applications} />
+      <Table columns={columns} dataSource={applications} onChange={onChange} />;
+      {/* <Table columns={columns} dataSource={applications} /> */}
     </>
   );
 };
