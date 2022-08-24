@@ -51,7 +51,25 @@
   padding-right: 3vw;
 }
 
+/* Mentor nav styles */
+#mentorSwitch {
+  background-color: #73d13d;
+}
 
+.mentorStatus {
+  height: 100%;
+  width: 18%;
+  margin-left: auto;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-right: 1%;
+}
+
+.toggleText {
+  color: white;
+  margin-left: 3%;
+}
 
 @media (max-width: 750px) {
   .logoDiv {
@@ -65,7 +83,6 @@
     justify-content: space-evenly !important;
     width: 100%;
     font-size: 1em;
-
   }
   .memos {
     display: flex;
@@ -90,4 +107,4 @@
     display: flex !important;
     justify-content: space-evenly !important;
   }
-} 
+}
