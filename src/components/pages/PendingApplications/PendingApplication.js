@@ -4,14 +4,14 @@ import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 
+// Author Charles M Johnson lines(7 - 69). These lines the application table functionallity, filtering, and sorting by alphabetical order. Tan;e renders on line 154 8/24/2022
 const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    sorter: (a, b) => a.name < b.name,
-    defaultSortOrder: 'ascend',
-    sortDirections: ['descend'],
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    sortDirections: ['descend', 'ascend'],
   },
   {
     title: 'Role',
@@ -56,8 +56,6 @@ const columns = [
       },
     ],
     onFilter: (value, record) => record.status.props.children === value,
-    // defaultSortOrder: 'descend',
-    // sorter: (a, b) => a.status - b.status,
   },
   {
     title: 'Application',
