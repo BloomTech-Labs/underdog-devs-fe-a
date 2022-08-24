@@ -21,7 +21,7 @@ export const Selected = (edit, setMentor, mentor, data, name, nameVal) => {
   const { Option } = Select;
   /**
    * Owner: Khaleel Musleh
-   * GET mentors based on the mentor_id found in the mentor props, it passes all the ID's into the GET function below and gets the mentors of each user seperately.
+   * GET mentors based on the mentor_id found in the mentor props, it passes all the ID's into the GET function below and gets the mentors of each user separately.
    * setMentor gets the data of the mentor information then its passed below to selection
    */
   useEffect(() => {
@@ -48,7 +48,7 @@ export const Selected = (edit, setMentor, mentor, data, name, nameVal) => {
            */}
           <Select
             showSearch
-            style={{ width: 200 }}
+            style={{ width: '100%' }}
             placeholder="Assign a Mentor"
             optionFilterProp="children"
             onChange={onChange}
@@ -60,8 +60,8 @@ export const Selected = (edit, setMentor, mentor, data, name, nameVal) => {
           >
             {/**
              * Owner: Khaleel Musleh
-             * Selection below gets a list from the GET api call above, then it iterates on each one then pussing an Option element with the first name,
-             * last name as values as well as seperate keys obrained from the index of the Array.
+             * Selection below gets a list from the GET api call above, then it iterates on each one then pushing an Option element with the first name,
+             * last name as values as well as separate keys obtained from the index of the Array.
              * All <Option> elements are pushed to the selections variable
              */}
 
@@ -78,7 +78,6 @@ export const Selected = (edit, setMentor, mentor, data, name, nameVal) => {
 
             <>{selections}</>
           </Select>
-          ,
         </div>
       ) : (
         <div style={{ width: '80%' }}>
