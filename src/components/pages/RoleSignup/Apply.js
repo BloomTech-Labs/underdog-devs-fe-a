@@ -1,10 +1,10 @@
 import React from 'react';
-import './Styles/signup.css';
+import './Styles/apply.css';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
 
-const Signup = () => {
+const Apply = () => {
   const { Meta } = Card;
 
   return (
@@ -96,4 +96,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Apply;

@@ -10,7 +10,7 @@ import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
-import SignupButton from './NavbarFeatures/SignupButton';
+import ApplyButton from './NavbarFeatures/ApplyButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -186,7 +186,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
             {!isAuthenticated && (
               <div className="header_buttons">
                 <LoginButton />
-                <SignupButton />
+                <ApplyButton />
                 <LogoutButton />
               </div>
             )}

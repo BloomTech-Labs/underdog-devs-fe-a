@@ -12,7 +12,7 @@ import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
-import Signup from './components/pages/RoleSignup/Signup';
+import Apply from './components/pages/RoleSignup/Apply';
 import Mentee from './components/pages/RoleSignup/Applications/Mentee';
 import Mentor from './components/pages/RoleSignup/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
@@ -82,7 +82,7 @@ function App() {
       <Switch>
         <PrivateRoute path="/" exact component={Dashboard} />
         <Route path="/landing" component={Landing} />
-        <Route path="/apply" exact component={Signup} />
+        <Route path="/apply" exact component={Apply} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
