@@ -4,7 +4,19 @@ import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 
-// Author Charles M Johnson lines(7 - 69). These lines the application table functionallity, filtering, and sorting by alphabetical order. Tan;e renders on line 154 8/24/2022
+// Author Charles M Johnson lines(7 - 69). These lines the application table functionallity, filtering, and sorting by alphabetical order. Tae renders on line 154 8/24/2022
+const statusFilter = (value, record) => {
+  if (Array.isArray(value)) {
+    return (
+      record.status.props.children === value[0] ||
+      record.status.props.children === value[1] ||
+      record.status.props.children === value[2]
+    );
+  } else {
+    return record.status.props.children === value;
+  }
+};
+
 const columns = [
   {
     title: 'Name',
@@ -54,8 +66,15 @@ const columns = [
         text: 'rejected',
         value: 'rejected',
       },
+      {
+        text: 'show all',
+        value: ['pending', 'approved', 'rejected'],
+      },
     ],
-    onFilter: (value, record) => record.status.props.children === value,
+    defaultFilteredValue: ['pending'],
+    onFilter: (value, record) => statusFilter(value, record),
+    // defaultSortOrder: 'descend',
+    // sorter: (a, b) => a.status - b.status,
   },
   {
     title: 'Application',
