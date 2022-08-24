@@ -21,7 +21,7 @@ const MenteeModal = ({ applicant }) => {
               <p>Interested in: </p>
             </div>
             <div className="mentee-tag">
-              <Tag color={'green'}>{applicant.tech_stack}</Tag>
+              <Tag color={'purple'}>{applicant.tech_stack}</Tag>
             </div>
           </div>
         </div>

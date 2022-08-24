@@ -4,7 +4,7 @@ import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 
-// Author Charles M Johnson lines(7 - 69). These lines the application table functionallity, filtering, and sorting by alphabetical order. Tae renders on line 154 8/24/2022
+// Filter by status
 const statusFilter = (value, record) => {
   if (Array.isArray(value)) {
     return (
@@ -18,6 +18,7 @@ const statusFilter = (value, record) => {
 };
 
 const columns = [
+  // Names sorting by alphabetical order
   {
     title: 'Name',
     dataIndex: 'name',
@@ -26,6 +27,7 @@ const columns = [
     sortDirections: ['descend', 'ascend'],
   },
   {
+    // Add in functionality for filter button for roles
     title: 'Role',
     dataIndex: 'role',
     key: 'role',
@@ -41,13 +43,19 @@ const columns = [
     ],
     onFilter: (value, record) => record.role.props.children === value,
   },
+
+  // Date data from DS needs to be updated
   {
     title: 'Date Submitted',
 
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
-    sorter: (a, b) => a.date - b.date,
+    // sorter: (a, b, sortOrder) => {
+    //   console.log("a: ", a);
+    //   console.log("b: ", b);
+    //   console.log("sortOrder: ",  sortOrder)
+    // }
   },
   {
     title: 'Status',
@@ -73,8 +81,6 @@ const columns = [
     ],
     defaultFilteredValue: ['pending'],
     onFilter: (value, record) => statusFilter(value, record),
-    // defaultSortOrder: 'descend',
-    // sorter: (a, b) => a.status - b.status,
   },
   {
     title: 'Application',
@@ -83,6 +89,7 @@ const columns = [
   },
 ];
 
+// Displays shape of table data
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
@@ -102,7 +109,7 @@ const PendingApplications = () => {
       axiosWithAuth()
         .post('/application')
         .then(res => {
-          console.log(res);
+          console.log('RES: ', res);
           res.data.users.forEach(row => {
             row.hasOwnProperty('accepting_new_mentees')
               ? (row.role_name = 'mentor')
@@ -113,23 +120,19 @@ const PendingApplications = () => {
               key: row.profile_id,
               name: row.first_name + ' ' + row.last_name,
               role: (
-                <Tag color={row.role_name === 'mentor' ? 'blue' : 'orange'}>
+                <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
                   {row.role_name}
                 </Tag>
               ),
-              date:
-                Date(row.created_at).slice(0, 3) +
-                '. ' +
-                Date(row.created_at).slice(4, 9) +
-                ', ' +
-                Date(row.created_at).slice(10, 16),
+              // hard-coded "Date Submitted" field values because DS field for date does not exist.
+              date: Date(row.updated_at).slice(0, 15),
               status: (
                 <Tag
                   color={
                     row.validate_status === 'approved'
                       ? 'green'
                       : row.validate_status === 'pending'
-                      ? 'purple'
+                      ? 'orange'
                       : 'red'
                   }
                 >
