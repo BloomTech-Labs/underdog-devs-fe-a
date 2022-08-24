@@ -9,8 +9,8 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    onFilter: (value, record) => record.name.indexOf(value) === 0,
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: (a, b) => a.name < b.name,
+    defaultSortOrder: 'ascend',
     sortDirections: ['descend'],
   },
   {
@@ -27,10 +27,11 @@ const columns = [
         value: 'mentee',
       },
     ],
-    onFilter: (value, record) => record.role.includes(value),
+    onFilter: (value, record) => record.role.props.children === value,
   },
   {
     title: 'Date Submitted',
+
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
@@ -40,8 +41,23 @@ const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.status - b.status,
+    filters: [
+      {
+        text: 'pending',
+        value: 'pending',
+      },
+      {
+        text: 'approved',
+        value: 'approved',
+      },
+      {
+        text: 'rejected',
+        value: 'rejected',
+      },
+    ],
+    onFilter: (value, record) => record.status.props.children === value,
+    // defaultSortOrder: 'descend',
+    // sorter: (a, b) => a.status - b.status,
   },
   {
     title: 'Application',
