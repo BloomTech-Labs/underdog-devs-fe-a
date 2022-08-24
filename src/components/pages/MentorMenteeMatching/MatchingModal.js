@@ -2,9 +2,19 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { Modal, Row, Col } from 'antd';
 import MentorTable from './MentorTable';
+import LoadingComponent from '../../common/LoadingComponent';
+import { Spin } from 'antd';
 
 const MatchingModal = props => {
-  const { modal, handleCancel } = props;
+  const { modal, handleCancel, handleSave, selectedMentors } = props;
+  const [selectedMentorKeys, setSelectedMentorKeys] = selectedMentors;
+
+  const saveChanges = (menteeId, selectedMentorKeys) => {
+    console.log('saving: ', menteeId, selectedMentorKeys);
+    handleSave(menteeId, selectedMentorKeys);
+  };
+
+  console.log('modal: ', modal);
 
   return (
     <Modal
@@ -12,6 +22,8 @@ const MatchingModal = props => {
       width={'80vw'}
       visible={modal.show}
       onCancel={handleCancel}
+      onOk={() => handleSave(modal.data.key, selectedMentorKeys)}
+      okText={'Save Changes'}
       maskClosable={false}
     >
       <Row>
@@ -25,7 +37,10 @@ const MatchingModal = props => {
           <p>{modal.data?.stack}</p>
         </Col>
       </Row>
-      <MentorTable />
+      <MentorTable
+        selectedMentors={selectedMentors}
+        selectedMentee={modal.data}
+      />
     </Modal>
   );
 };

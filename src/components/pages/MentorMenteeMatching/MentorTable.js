@@ -52,18 +52,17 @@ const data = [
   },
 ];
 
-const MentorTable = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+const MentorTable = props => {
+  const [selectedMentorKeys, setSelectedMentorKeys] = props.selectedMentors;
 
   const rowSelection = {
-    selectedRowKeys,
-    onChange: newSelectedKeys => setSelectedRowKeys(newSelectedKeys),
+    selectedRowKeys: selectedMentorKeys,
+    onChange: newSelectedKeys => setSelectedMentorKeys(newSelectedKeys),
     hideSelectAll: true,
   };
 
   return (
     <div>
-      {/* checkbox has a bug to where the bottome of the box looks odd */}
       <Table
         rowSelection={rowSelection}
         columns={columns}
