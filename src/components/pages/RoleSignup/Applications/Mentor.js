@@ -89,6 +89,10 @@ const Mentor = ({ dispatch, error, successPage }) => {
     { name: 'industry_knowledge', value: 'Industry Knowledge' },
     { name: 'pair_programming', value: 'Pair Programming' },
   ];
+  const commitmentArray = [
+    { name: true, value: 'Yes' },
+    { name: false, value: 'No' },
+  ];
 
   return (
     <>
@@ -327,7 +331,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     {mentorshipArray.map(checkbox => (
                       <Checkbox
                         value={checkbox.value}
-                        onValueChange={handleTechStack}
+                        onChange={e => handleTechStack(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         {checkbox.value}
@@ -365,8 +369,8 @@ const Mentor = ({ dispatch, error, successPage }) => {
                   >
                     {contributionArray.map(area => (
                       <Checkbox
-                        value={area.value}
-                        onValueChange={handleTechStack}
+                        value={area.name}
+                        onChange={e => handleChange(e, 'checkbox')}
                         style={{ margin: '.2rem', width: '100%' }}
                       >
                         {area.value}
@@ -404,7 +408,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
                 >
                   <Radio.Group
                     name="commitment"
-                    onChange={handleChange}
+                    onChange={e => handleChange(e, 'checkbox')}
                     value={formValues.commitment}
                     style={{
                       display: 'flex',
@@ -415,18 +419,14 @@ const Mentor = ({ dispatch, error, successPage }) => {
                       paddingLeft: '1rem',
                     }}
                   >
-                    <Radio
-                      style={{ margin: '.2rem', width: '100%' }}
-                      value={'yes'}
-                    >
-                      Yes
-                    </Radio>
-                    <Radio
-                      style={{ margin: '.2rem', width: '100%' }}
-                      value={'no'}
-                    >
-                      No
-                    </Radio>
+                    {commitmentArray.map(object => (
+                      <Radio
+                        style={{ margin: '.2rem', width: '100%' }}
+                        value={object.name}
+                      >
+                        {object.value}
+                      </Radio>
+                    ))}
                   </Radio.Group>
                 </Form.Item>
               </Col>
@@ -474,14 +474,13 @@ const Mentor = ({ dispatch, error, successPage }) => {
                     icon: <InfoCircleOutlined />,
                   }}
                 ></Form.Item>
-                <Form.Item
+                <Input.TextArea
                   type="text"
                   name="other_info"
                   value={formValues.other_info}
                   onChange={handleChange}
-                >
-                  <Input.TextArea placeholder="Your answer" />
-                </Form.Item>
+                  placeholder="Your answer"
+                />
               </Col>
             </Row>
           </Col>
