@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import React from 'react';
 import { Modal, Row, Col } from 'antd';
 import MentorTable from './MentorTable';
-import LoadingComponent from '../../common/LoadingComponent';
-import { Spin } from 'antd';
 
 const MatchingModal = props => {
   const { modal, handleCancel, handleSave, selectedMentors } = props;
   const [selectedMentorKeys, setSelectedMentorKeys] = selectedMentors;
-
-  const saveChanges = (menteeId, selectedMentorKeys) => {
-    handleSave(menteeId, selectedMentorKeys);
-  };
 
   return (
     <Modal
