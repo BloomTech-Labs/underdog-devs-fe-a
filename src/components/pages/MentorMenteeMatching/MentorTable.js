@@ -25,6 +25,8 @@ const columns = [
     dataIndex: 'numMentees',
   },
 ];
+
+// This data will be imported by the BE in the future
 const data = [
   {
     key: '1',

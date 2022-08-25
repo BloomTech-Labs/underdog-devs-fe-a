@@ -10,11 +10,8 @@ const MatchingModal = props => {
   const [selectedMentorKeys, setSelectedMentorKeys] = selectedMentors;
 
   const saveChanges = (menteeId, selectedMentorKeys) => {
-    console.log('saving: ', menteeId, selectedMentorKeys);
     handleSave(menteeId, selectedMentorKeys);
   };
-
-  console.log('modal: ', modal);
 
   return (
     <Modal

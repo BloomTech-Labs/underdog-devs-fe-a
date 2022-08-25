@@ -25,7 +25,6 @@ const MentorMenteeMatching = () => {
   const showModal = mentee => {
     setModal({ show: true, data: mentee });
     setSelectedMentorKeys(mentee.matchedMentors);
-    console.log('mentee: ', mentee);
   };
 
   const handleCancel = () => {
@@ -37,27 +36,26 @@ const MentorMenteeMatching = () => {
     // 2. If save successful, update slice of state to reflect changes
     // 3. If unsuccessful, exit modal without saving state
 
-    console.log('menteeId: ', menteeId);
     if (menteeId) {
-      const test = assignments.filter(mentee => mentee.key === menteeId)[0];
-      console.log(test, menteeId, selectedMentorKeys, assignments);
+      const tempAssignments = assignments;
+      tempAssignments.filter(
+        mentee => mentee.key === menteeId
+      )[0].matchedMentors = selectedMentorKeys;
 
-      // setAssignments([
-      //   ...assignments,
-      //   assignments.filter(mentee => mentee.key === menteeId)[0].matchedMentors = selectedMentorKeys
-      // ]);
+      setAssignments(tempAssignments);
     }
 
     resetModal();
   };
 
+  // I wasn't sure if this 'data mapping' was necessary so I kept it in for now
   const conformData = data => {
     return data.map(p => {
       return {
         key: p.profile_id,
         name: `${p.first_name} ${p.last_name}`,
         contact: p.email,
-        stack: splitTechStack(p),
+        stack: splitTechStack(p.tech_stack),
         description: 'Description goes here',
         tags: p.matched ? 'Matched' : 'Unmatched',
         email: p.email,
@@ -93,14 +91,8 @@ const MentorMenteeMatching = () => {
   ];
 
   // adds commas in-between the programming languages
-  const splitTechStack = obj => {
-    let string = '';
-    for (let i = 0; i < obj.tech_stack.length; i++) {
-      if (i === obj.tech_stack.length - 1) {
-        string += `${obj.tech_stack[i]}`;
-      } else string += `${obj.tech_stack[i]}, `;
-    }
-    return string;
+  const splitTechStack = techStackArray => {
+    return techStackArray.join(', ');
   };
 
   return (
