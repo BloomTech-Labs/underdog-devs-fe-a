@@ -12,9 +12,9 @@ import 'antd/dist/antd.less';
 
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
-import Apply from './components/pages/RoleSignup/Apply';
-import Mentee from './components/pages/RoleSignup/Applications/Mentee';
-import Mentor from './components/pages/RoleSignup/Applications/Mentor';
+import Apply from './components/pages/RoleApply/Apply';
+import Mentee from './components/pages/RoleApply/Applications/Mentee';
+import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
 
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
@@ -46,7 +46,7 @@ import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import PendingApproval from './components/pages/PendingApproval/PendingApproval';
-import AppSuccess from './components/pages/RoleSignup/Applications/AppSuccess';
+import AppSuccess from './components/pages/RoleApply/Applications/AppSuccess';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
