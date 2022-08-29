@@ -1,132 +1,34 @@
-.modalStyle .ant-btn-primary, .modalStyleMentee .ant-btn-primary /*For Edit Profile Button*/ {
-  background-color: #003d71;
+.modalStyle .ant-btn-primary /*For Edit Profile Button*/{
+  background-color: #003D71;
 }
 
-.modalStyle .ant-modal-header /*For Edit Profile Button*/ {
-  background-color: #003d71;
+.modalStyle .ant-modal-header /*For Edit Profile Button*/{
+  background-color:#003D71;
 }
 
-.modalStyleMentee .ant-modal-header {
-  background-color: #7cb305;
-}
-
-.modalStyleMentee .ant-modal-title {
-  color: white;
-  display: flex;
-  justify-content: center;
-  font-size: 1.5rem;
-}
-
-.modalStyle .ant-modal-title /*For Edit Profile Button*/ {
+.modalStyle .ant-modal-title /*For Edit Profile Button*/{
   color: rgb(255, 255, 255, 0.85);
 }
 
-.modalStyleMentor .ant-btn-primary {
-  background-color: #003d71;
-}
-
 .ant-modal-content .ant-modal-header {
-  background-color: #003d71;
+  background-color: #003D71;
 }
 
-.modalStyleMentor .ant-modal-header {
-  background-color: #2f54eb;
+.modalStyle p{
+  margin:0%;
 }
-
-.modalStyleMentor .ant-modal-title {
-  color: white;
-  display: flex;
-  justify-content: center;
-  font-size: 1.5rem;
-}
-
-.modalStyleMentee .profile-info {
-  display: flex;
-  justify-content: space-between;
-}
-
-.image-container {
-  padding-left: 30px;
-  margin-bottom: 5px;
-}
-
-img {
-  border-radius: 200px;
-  width: 80px;
-}
-
-.profile-intro {
-  display: flex;
-  justify-content: space-around;
-  font-size: 0.75rem;
-}
-
-.profile-intro-description {
-  margin-right: 6rem;
-  padding-left: 40px;
-}
-
-.preferences {
-  display: flex;
-}
-
-.tags-container {
-  margin-left: 5px;
-}
-
-.modalStyle p {
-  margin: 0%;
-}
-.modalStyle ul {
-  margin: 0%;
+.modalStyle ul{
+  margin:0%;
   padding-left: 0%;
 }
-.modalStyle li {
+.modalStyle li{
   margin-left: 5%;
 }
-
-.mentee-tag {
-  margin-left: 5px;
-}
-
-.mentor-tag {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-}
-
-.list-item {
-  /* border: 1px solid red; */
-  display: flex;
-  justify-content: center;
-}
-
-.list-item-column {
-  display: flex;
-  width: 50%;
-  height: 100%;
-  margin-top: 10px;
-}
-
-.modalStyleMentee p,
-.modalStyleMentor p {
-  margin: 0%;
-}
-.modalStyleMentee ul,
-.modalStyleMentor ul {
-  margin: 0%;
-  padding-left: 0%;
-}
-.modalStyleMentee li,
-.modalStyleMentor li {
-  margin-left: 5%;
-}
-
 .cEQGvI /*Navbar background color*/ {
-  background-color: #003d71;
+  background-color:#003D71;
 }
 
-a.sc-dkPtRN /*Navlinks  color*/ {
+a.sc-dkPtRN /*Navlinks  color*/{
   color: #fff;
 }
 
@@ -134,14 +36,14 @@ a.sc-dkPtRN:hover /*Login/Apply buttons color*/ {
   color: black;
 }
 
-a.sc-gKclnd.cxVpss /*Login/Apply Button background color*/ {
-  background-color: #003d71;
+a.sc-gKclnd.cxVpss /*Login/Apply Button background color*/{
+  background-color: #003d71
 }
 
 div.ant-card-head {
-  color: #4285f3;
+  color: #4285F3;
 }
-.notesField {
+.notesField{
   display: flex;
   flex-direction: column;
 }
@@ -169,3 +71,13 @@ div.row2 .modalBtn:visited {
 .ant-modal-close-x {
   color: rgb(255, 255, 255, 0.85);
 }
+
+
+
+
+
+
+
+
+
+
