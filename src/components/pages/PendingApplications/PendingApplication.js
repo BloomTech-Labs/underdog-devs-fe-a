@@ -96,12 +96,12 @@ const columns = [
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
 
   const showModal = profile_id => {
     setProfileId(profile_id);
-    setDisplayModal(true);
+    setModalIsVisible(true);
   };
 
   useEffect(() => {
@@ -172,8 +172,8 @@ const PendingApplications = () => {
     <>
       <h2>Applications</h2>
       <ApplicationModal
-        displayModal={displayModal}
-        setDisplayModal={setDisplayModal}
+        displayModal={modalIsVisible}
+        setDisplayModal={setModalIsVisible}
         profileId={profileId}
         setProfileId={setProfileId}
       />
