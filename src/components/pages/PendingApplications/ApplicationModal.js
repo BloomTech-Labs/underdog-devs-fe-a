@@ -122,14 +122,13 @@ const ApplicationModal = ({
               applicant.hasOwnProperty('accepting_new_mentees')
                 ? (applicant.role_name = 'mentor')
                 : (applicant.role_name = 'mentee');
-              console.log(applicant);
               setCurrentApplication(applicant);
               setNotesValue(applicant);
             }
           });
         })
         .catch(err => {
-          console.log(err);
+          console.log(err); // A better way to handle errors for FE is a WIP
         });
     };
     getCurrentApp();

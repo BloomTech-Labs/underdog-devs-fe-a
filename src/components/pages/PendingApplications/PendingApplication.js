@@ -89,10 +89,10 @@ const columns = [
   },
 ];
 
-// Displays shape of table data
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
+// Displays shape of table data if needed, add to Table component
+// const onChange = (pagination, filters, sorter, extra) => {
+//   console.log('params', pagination, filters, sorter, extra);
+// };
 
 const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
@@ -109,7 +109,6 @@ const PendingApplications = () => {
       axiosWithAuth()
         .post('/application')
         .then(res => {
-          console.log('RES: ', res);
           res.data.users.forEach(row => {
             row.hasOwnProperty('accepting_new_mentees')
               ? (row.role_name = 'mentor')
@@ -178,8 +177,7 @@ const PendingApplications = () => {
         profileId={profileId}
         setProfileId={setProfileId}
       />
-      <Table columns={columns} dataSource={applications} onChange={onChange} />;
-      {/* <Table columns={columns} dataSource={applications} /> */}
+      <Table columns={columns} dataSource={applications} />;
     </>
   );
 };
