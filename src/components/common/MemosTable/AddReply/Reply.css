@@ -52,8 +52,7 @@
   }
 
 
-input, label {
-   
+.popup input, .popup label {
     width: 60%;
     background-color: rgb(245, 245, 245);
     margin-left: 11%;
