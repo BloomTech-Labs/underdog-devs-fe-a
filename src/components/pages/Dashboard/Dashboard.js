@@ -14,7 +14,6 @@ const Dashboard = () => {
     axiosWithAuth()
       .get('/profile/current_user_profile/')
       .then(res => {
-        console.log(res.data.role_id);
         setRole(
           res.data.role_id === 1
             ? 'Super Admin'
