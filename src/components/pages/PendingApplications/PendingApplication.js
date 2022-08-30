@@ -108,7 +108,6 @@ const PendingApplications = () => {
       axiosWithAuth()
         .post('/application')
         .then(res => {
-          console.log(res);
           res.data.users.forEach(row => {
             row.hasOwnProperty('accepting_new_mentees')
               ? (row.role_name = 'mentor')
