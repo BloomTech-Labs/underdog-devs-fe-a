@@ -2,7 +2,7 @@
 All of the commented out code on this page is to remove the 'no-unused-vars' warnings in the console
 */
 import React, { useMemo } from 'react';
-import { Layout, Menu, Switch as Toggle } from 'antd';
+import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -20,7 +20,6 @@ const { Content, Sider } = Layout;
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
   // const [modal, setModal] = useState(false);
-  // const { authService } = useOktaAuth();
   const { push } = useHistory();
   const { pathname } = useLocation();
 
@@ -28,13 +27,6 @@ const Sidebar = ({ children, userProfile }) => {
   // const openModal = () => setModal(true);
 
   // const cancelOpen = () => setModal(false);
-
-  // const handleLogout = () => {
-  //   setModal(false);
-  //   localStorage.removeItem('role_id');
-  //   localStorage.removeItem('token');
-  //   authService.logout();
-  // };
 
   const handleMenuClick = menu => {
     if (menu.key === 'darkmode') {

@@ -216,11 +216,7 @@ export const RenderResourceManagement = () => {
         <Form.Item
           name="resource_name"
           labelWrap
-          label={
-            <label style={{ color: 'black', paddingLeft: '0rem' }}>
-              Resource
-            </label>
-          }
+          label={<label style={{ paddingLeft: '0rem' }}>Resource</label>}
           value={formValues.resource_name}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a resource name' }]}
@@ -229,9 +225,7 @@ export const RenderResourceManagement = () => {
         </Form.Item>
         <Form.Item
           name="pertains_to"
-          label={
-            <label style={{ color: 'black', padding: '0rem' }}>Category</label>
-          }
+          label={<label style={{ padding: '0rem' }}>Category</label>}
           value={formValues.pertaians_to}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a mentee name' }]}
@@ -240,11 +234,7 @@ export const RenderResourceManagement = () => {
         </Form.Item>
         <Form.Item
           name="pertains_to"
-          label={
-            <label style={{ color: 'black', padding: '0rem' }}>
-              Pertains to
-            </label>
-          }
+          label={<label style={{ padding: '0rem' }}>Pertains to</label>}
           value={formValues.pertaians_to}
           onChange={handleChange}
           rules={[{ required: true, message: 'Please input a mentee name' }]}
@@ -253,9 +243,7 @@ export const RenderResourceManagement = () => {
         </Form.Item>
         <Form.Item
           name=""
-          label={
-            <label style={{ color: 'black', padding: '0rem' }}>Message</label>
-          }
+          label={<label style={{ padding: '.6rem' }}>Message</label>}
           value={formValues.message}
           onChange={handleChange}
         >

@@ -1,10 +1,10 @@
 import React from 'react';
-import './Styles/signup.css';
+import './Styles/apply.css';
 import { Link } from 'react-router-dom';
-import { Card, Button, Row, Col, Divider, Space, Breadcrumb } from 'antd';
+import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
 
-const Signup = () => {
+const Apply = () => {
   const { Meta } = Card;
 
   return (
@@ -48,15 +48,9 @@ const Signup = () => {
                 />
               </Space>
 
-              <Divider
-                className="divider"
-                type="vertical"
-                // style={{ height: 100 }}
-              />
-
               <Link to="/apply/mentee">
                 <Button className="button" type="primary" size="large" block>
-                  MENTEE
+                  Apply as a Mentee
                 </Button>
               </Link>
             </Space>
@@ -89,15 +83,9 @@ const Signup = () => {
                 />
               </Space>
 
-              <Divider
-                className="divider"
-                type="vertical"
-                // style={{ height: 100 }}
-              />
-
               <Link to="/apply/mentor">
                 <Button className="button" type="primary" size="large" block>
-                  MENTOR
+                  Apply as a Mentor
                 </Button>
               </Link>
             </Space>
@@ -108,4 +96,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Apply;

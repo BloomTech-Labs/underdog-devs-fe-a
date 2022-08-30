@@ -5,30 +5,35 @@ import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined, FormOutlined } from '@ant-design/icons';
-import { Dropdown, Layout, Menu, Modal } from 'antd';
+import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
-import SignupButton from './NavbarFeatures/SignupButton';
+import ApplyButton from './NavbarFeatures/ApplyButton';
+import LogoutButton from './NavbarFeatures/LogoutButton';
+import MentorPopover from './NavbarFeatures/MentorPopover';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
-  const { oktaAuth } = useOktaAuth();
   const [modal, setModal] = useState(false);
-  const { push } = useHistory();
+  const [toggleStatus, setToggleStatus] = useState(false);
+  const { logout } = useAuth0();
+
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
+
+  const history = useHistory();
 
   const handleLogout = () => {
     setModal(false);
     localStorage.removeItem('role_id');
-    localStorage.removeItem('token');
-    oktaAuth.signOut();
+    localStorage.removeItem('AuthToken');
+    logout({ returnTo: window.location.origin });
   };
   useEffect(() => {
     axiosWithAuth()
@@ -39,6 +44,21 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
+
+  const profile_id = user.profile_id;
+  const isMentor = user.role_id === 3;
+
+  // Determines the initial state of the Mentor toggle switch
+  useEffect(() => {
+    axiosWithAuth()
+      .post(`/profile/mentor-information`, { profile_id })
+      .then(res => {
+        const availability = res.data[0].availability;
+        setToggleStatus(availability);
+      })
+      .catch(err => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) {
     return <NavBarLanding />;
@@ -61,17 +81,45 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
       openModal();
       return;
     }
-    push(menu.key);
+    // push(menu.key);
+  };
+
+  const handleToggleChange = checked => {
+    if (!checked) {
+      axiosWithAuth()
+        .post(`/profile/availability/${profile_id}`, {
+          accepting_new_mentees: false,
+        })
+        .then(res => {
+          setToggleStatus(false);
+        })
+        .catch(err => console.log(err));
+    }
+
+    if (checked) {
+      axiosWithAuth()
+        .post(`/profile/availability/${profile_id}`, {
+          accepting_new_mentees: true,
+        })
+        .then(res => {
+          setToggleStatus(true);
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
+
+  const reloadLogo = () => {
+    isAuthenticated ? history.push('/') : document.location.reload();
+  };
 
   return (
     <>
       <Layout className="layout">
         <Header className="menuBar">
           <div className="logoDiv">
-            <Link to="/dashboard">
+            <div onClick={reloadLogo}>
               <img
                 src={logo}
                 alt="underdog devs logo"
@@ -79,8 +127,25 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 style={{ marginLeft: '1vw' }}
                 role="button"
               />
-            </Link>
-
+            </div>
+            {isMentor && (
+              <Popover
+                title={`Status: ${
+                  toggleStatus ? 'Accepting' : 'Not Accepting'
+                }`}
+                content={<MentorPopover />}
+                placement="bottom"
+              >
+                <section className="mentorStatus">
+                  <Switch
+                    checked={toggleStatus}
+                    onChange={handleToggleChange}
+                    id="mentorSwitch"
+                  />
+                  <span className="toggleText">New Mentees</span>
+                </section>
+              </Popover>
+            )}
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
                 <Link
@@ -121,9 +186,11 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
             {!isAuthenticated && (
               <div className="header_buttons">
                 <LoginButton />
-                <SignupButton />
+                <ApplyButton />
+                <LogoutButton />
               </div>
             )}
+            {/* temporary logout button until private route is finished and when we can logout from dashboard */}
           </div>
         </Header>
       </Layout>

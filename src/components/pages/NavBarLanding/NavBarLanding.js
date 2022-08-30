@@ -29,7 +29,7 @@ function NavBarLanding() {
             <NavBtnLink to={`/login`} key="login">
               Login
             </NavBtnLink>
-            <NavBtnLink to={`/apply`} key="signup">
+            <NavBtnLink to={`/apply`} key="apply">
               Apply
             </NavBtnLink>
           </NavBtn>

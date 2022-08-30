@@ -8,6 +8,11 @@
   flex-direction: column;
 }
 
+.memos-column-container label {
+  background: #0000;
+  margin: 0px;
+}
+
 .memos-input-rows {
   display: flex;
   justify-content: space-between;
@@ -28,6 +33,10 @@
   padding: 1em 0.5em;
 }
 
+.ant-radio-checked .ant-radio-inner::after {
+  left: 11px;
+  top: 11px;
+}
 
 .ant-radio-checked .ant-radio-inner{
   border-color: #1990FF !important ;
@@ -36,4 +45,105 @@
 
 .ant-radio:hover .ant-radio-inner {
   border-color: #1990FF !important ;
+}
+
+                      /* MEMOS FORM */
+/* IPHONE SE */
+@media screen and (min-width: 320px) and (max-width: 375px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      bottom: 30px;
+      width: 300px;
+      margin: 10%;
+  }
+}
+/* IPHONE XR */
+@media screen and (min-width: 414px) and (max-width: 539px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      bottom: 50px;
+      width: 320px;
+      margin: 20%;
+  }
+}
+/* IPHONE 12 PRO */
+@media screen and (min-width: 390px) and (max-width: 413px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      bottom: 50px;
+      width: 300px;
+      margin: 15%;
+  }
+}
+/* IPAD AIR */
+@media screen and (min-width: 820px) and (max-width: 1023px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      bottom: 20px;
+      left: -25%;
+      width: 500px;
+  }
+}
+/* IPAD MINI */
+@media screen and (min-width: 768px) and (max-width: 819px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      bottom: 20px;
+      left: -25%;
+      width: 500px;
+      margin: 10%;
+  }
+}
+/* Galaxy S8+ */
+@media screen and (min-width: 360px) and (max-width: 365px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      width: 300px;
+      margin: 5%;
+  }
+}
+/* Galaxy S20 Ultra */
+@media screen and (min-width: 412px) and (max-width: 413px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      margin: 20%;
+      bottom: 50px;
+  }
+}
+/* Galaxy Fold */
+@media screen and (min-width: 280px) and (max-width:300px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      position: relative;
+      left: -110%;
+      width: 250px;
+      bottom: 30px;
+  }
+}
+/* Surface Duo */
+@media screen and (min-width: 540px) and (max-width: 550px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      position: relative;
+      left: -25%;
+      width: 350px;
+      bottom: 60px;
+  }
+}
+/* Nest Hub */
+@media screen and (min-width: 1024px) and (max-width: 1025px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      position: relative;
+      width: 400px;
+      margin: 10%;
+      left: -5%;
+      bottom: 120px;
+  }
+}
+/* Nest Hub Max */
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  body > div:nth-child(6) > div > div.ant-modal-wrap > div > div.ant-modal-content {
+      position: relative;
+      width: 400px;
+      margin: 10%;
+      left: -5%;
+      bottom: 60px;
+  }
+}
+/* General Style across memo forms */
+div > div.ant-modal-wrap > div > div.ant-modal-content {
+  margin: 15%;
+  left: -60%;
+  width: 300px
 }
