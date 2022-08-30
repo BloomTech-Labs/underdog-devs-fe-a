@@ -76,7 +76,6 @@ const ApplicationModal = ({
    * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
   const approveApplication = e => {
-    console.log(currentApplication);
     axiosWithAuth()
       .post(`/application/approve/${currentApplication.profile_id}`, {
         profile_id: currentApplication.profile_id,
@@ -114,10 +113,8 @@ const ApplicationModal = ({
       axiosWithAuth()
         .post(`/application`)
         .then(res => {
-          // console.log("res: ", res);
           res.data.users.forEach((applicant, index) => {
             if (applicant['profile_id'] === profileId) {
-              // console.log('applicant: ', applicant);
               applicant.hasOwnProperty('accepting_new_mentees')
                 ? (applicant.role_name = 'mentor')
                 : (applicant.role_name = 'mentee');
