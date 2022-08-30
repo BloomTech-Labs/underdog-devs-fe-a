@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-import './PendingApplication.css';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -109,6 +108,7 @@ const PendingApplications = () => {
       axiosWithAuth()
         .post('/application')
         .then(res => {
+          console.log(res);
           res.data.users.forEach(row => {
             row.hasOwnProperty('accepting_new_mentees')
               ? (row.role_name = 'mentor')

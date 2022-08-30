@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import './ApplicationModal.less';
-import '../../../styles/styles.css';
-import './PendingApplication.css';
 import { Modal, Button, Form, Input } from 'antd';
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';

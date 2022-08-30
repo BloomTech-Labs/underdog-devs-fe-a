@@ -1,5 +1,4 @@
 import { List, Tag } from 'antd';
-import './PendingApplication.css';
 
 const MentorModal = ({ applicant }) => {
   return (
