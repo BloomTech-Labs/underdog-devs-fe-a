@@ -14,6 +14,7 @@ import {
   menteeLinks,
   mentorLinks,
   sharedLinks,
+  devLinks,
 } from './SidebarLinks.utils';
 const { Content, Sider } = Layout;
 
@@ -38,8 +39,21 @@ const Sidebar = ({ children, userProfile }) => {
 
   // This is determining which role is currently in session, implemented further in ternary statements in the return clause
   // const isUserMentee = useMemo(() => role_id === 4, [role_id]);
-  const isUserMentor = useMemo(() => role_id === 3, [role_id]);
+
+  /**
+   * Khaleel Musleh
+   * Changed role_id to strict equality and removed the ELSE statement of mentee as it was crashing whenever we update the role_id or add a new role_id such as Dev role ID
+   *  while creating an IF statement for each role
+   */
+
   const isUserAdmin = useMemo(() => role_id <= 2, [role_id]);
+  const isUserMentor = useMemo(() => role_id === 3, [role_id]);
+  const isUserMentee = useMemo(() => role_id === 4, [role_id]);
+  /**
+   * Khaleel Musleh
+   * Created a Dev role_id which displays all the sidebar links of Admin, Mentor, Mentee
+   */
+  const isUserDev = useMemo(() => role_id === 5, [role_id]);
 
   const linksToDisplay = useMemo(() => {
     // create sidebar link array
@@ -49,18 +63,13 @@ const Sidebar = ({ children, userProfile }) => {
       sidebarLinks = [...sharedLinks, ...adminLinks];
     } else if (isUserMentor) {
       sidebarLinks = [...sharedLinks, ...mentorLinks];
-    } else {
-      // we assume the user is a mentee
-      sharedLinks[0].children.pop();
-      sharedLinks[0].children.push({
-        key: '/meetings',
-        label: 'Meetings',
-      });
+    } else if (isUserDev) {
+      sidebarLinks = [...sharedLinks, ...devLinks];
+    } else if (isUserMentee) {
       sidebarLinks = [...sharedLinks, ...menteeLinks];
     }
-
     return [...sidebarLinks, ...bottomSharedLinks];
-  }, [isUserAdmin, isUserMentor]);
+  }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
