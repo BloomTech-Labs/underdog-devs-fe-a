@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FormInput from '../../FormInput';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import './Reply.css';
 import { Button } from 'antd';
 
@@ -13,6 +13,7 @@ function ReplyInput(props) {
   const { note_id } = props;
   const [formValues, setFormValues] = useState({ comment_text: '' });
   // const [comments, setComments] = useState({ comment_text: '' });
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const { setComments, comments } = props;
   const handleChange = e => {

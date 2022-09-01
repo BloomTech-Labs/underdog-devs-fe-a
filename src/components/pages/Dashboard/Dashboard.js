@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+// import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Statistic, Row, Col, Table } from 'antd';
+import { useAuth0 } from '@auth0/auth0-react';
 // TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
 
 const columns = [
@@ -68,6 +70,9 @@ function onChange(pagination, filters, sorter, extra) {
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
 const Dashboard = props => {
   const [tickets, setTickets] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
+
+  console.log('auth0:', useAuth0());
 
   useEffect(() => {
     const getTickets = () => {
