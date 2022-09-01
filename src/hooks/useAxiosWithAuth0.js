@@ -9,6 +9,7 @@ axiosWithAuth serves the same function as it typically does. useAuth0() gives ac
 This hook below is exported and used throughout the app in place of axiosWithAuth.
 THIS useAxiosWithAuth0 HOOK SIMPLY SERVES TO HELP CONNECT THE AXIOS CALL AND THE AUTHENTICATION.
 */
+
 export default function useAxiosWithAuth0() {
   const { getAccessTokenSilently } = useAuth0();
 
