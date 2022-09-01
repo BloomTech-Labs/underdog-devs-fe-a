@@ -10,6 +10,11 @@
     color: rgb(255, 255, 255, 0.85);
 }
 
+.profileContainer {
+    padding: 5%;
+    padding-top: 0;
+}
+
 .ant-modal-content .ant-modal-header {
     background-color: #003D71;
 }
@@ -71,7 +76,6 @@ div.row2 .modalBtn:visited {
 .ant-modal-close-x {
     color: rgb(255, 255, 255, 0.85);
 }
-
 
 
 
