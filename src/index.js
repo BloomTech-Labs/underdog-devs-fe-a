@@ -95,13 +95,6 @@ function App() {
         />
 
         <PrivateRoute
-          path="/memosform"
-          redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
-          component={MemosForm}
-        />
-
-        <PrivateRoute
           path="/mymemos"
           redirect="/dashboard"
           allowRoles={[1, 2, 3, 4]}
