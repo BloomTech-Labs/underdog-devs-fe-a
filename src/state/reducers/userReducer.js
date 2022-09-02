@@ -13,6 +13,13 @@ const initialState = {
     // role_id: 3,
     // ...etc.
   },
+  ApplicationStatus: {
+    approval_status: '',
+    reject_status: '',
+  },
+  ApplicationProfile: {},
+  // notes: {
+  // },
   lifecycle: {
     // set to true when API call starts, set to false when API call concludes
     isFetching: false,
@@ -21,6 +28,8 @@ const initialState = {
     /* TODO: implement a way to track errors */
     mentorError: '',
     menteeError: '',
+    notesError: '',
+    approvalError: '',
   },
   mentor: {
     successPage: '',
@@ -51,6 +60,47 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userProfile: action.payload, // do not persist previous state.userProfile
+      };
+    case ACTIONS.SET_APPLICATION_PROFILE:
+      return {
+        ...state,
+        ApplicationProfile: action.payload, // do not persist previous state.userProfile
+      };
+    case ACTIONS.SET_APPROVAL_SUCCESS:
+      return {
+        ...state,
+        approval_status: action.payload,
+        errors: {
+          ...state,
+          approvalError: '',
+        },
+      };
+    case ACTIONS.SET_REJECT_SUCCESS:
+      return {
+        ...state,
+        reject_status: action.payload,
+        errors: {
+          ...state,
+          rejectError: '',
+        },
+      };
+    case ACTIONS.NOTES_ADD_SUCCESS:
+      return {
+        ...state,
+        notes: action.payload,
+        errors: {
+          ...state,
+          Response: '',
+        },
+      };
+    case ACTIONS.NOTES_ADD_FAILURE:
+      return {
+        ...state,
+        errors: action.payload,
+        notes: {
+          ...state,
+          Failure: '',
+        },
       };
     case ACTIONS.MENTOR_ADD_SUCCESS:
       return {

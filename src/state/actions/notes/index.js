@@ -7,14 +7,14 @@ export const addNewNote = (application_id, notesValue) => {
   return async dispatch => {
     axiosWithAuth()
       .put(`/application/update-notes/${application_id}`, notesValue)
-      .then(() => {
+      .then(response => {
         dispatch({
           type: NOTES_ADD_SUCCESS,
-          payload: { successPage: '/apply/success' },
+          payload: response,
         });
       })
       .catch(err => {
-        dispatch({ type: NOTES_ADD_FAILURE, payload: { mentorError: err } });
+        dispatch({ type: NOTES_ADD_FAILURE, payload: { notesError: err } });
       });
   };
 };

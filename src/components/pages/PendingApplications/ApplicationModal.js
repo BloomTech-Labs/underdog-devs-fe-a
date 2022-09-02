@@ -3,29 +3,50 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, List, Divider, Form, Input } from 'antd';
+import { connect } from 'react-redux';
+import { getProfileId } from '../../../state/actions/userProfile/getProfileId';
+import { addNewNote } from '../../../state/actions/notes';
+import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
+import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
+
+import { useDispatch } from 'react-redux';
 
 const ApplicationModal = ({
   profileId,
   setProfileId,
   setDisplayModal,
   displayModal,
+  applicationProfile,
 }) => {
-  const notes = { application_notes: '' };
   const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState({});
-  const [notesValue, setNotesValue] = useState(notes);
+  const [notesValue, setNotesValue] = useState('');
   const [hideForm, setHideForm] = useState(true);
 
-  const updateModal = () => {
-    axiosWithAuth()
-      .get(`/application/profileId/${profileId}`)
-      .then(res => {
-        setCurrentApplication(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  const dispatch = useDispatch();
+
+  // console.log(notes)
+
+  // const updateModal = () => {
+  //   axiosWithAuth()
+  //     .get(`/application/profileId/${profileId}`)
+  //     .then(res => {
+  //       setCurrentApplication(res.data);
+  //       console.log(res)
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // updateModal()
+
+  useEffect(() => {
+    const updateModal = () => {
+      dispatch(getProfileId(profileId));
+    };
+    updateModal();
+  }, []);
 
   const handleOk = () => {
     setDisplayModal(false);
@@ -35,7 +56,7 @@ const ApplicationModal = ({
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
-    setNotesValue(notes);
+    setNotesValue(currentApplication.application_notes);
     setHideForm(true);
   };
 
@@ -45,23 +66,15 @@ const ApplicationModal = ({
 
   const handleChange = e => {
     setNotesValue({
-      ...notesValue,
-      [e.target.name]: e.target.value,
+      ...currentApplication,
+      application_notes: e.target.value,
     });
   };
 
   const addNote = e => {
-    axiosWithAuth()
-      .put(
-        `/application/update-notes/${currentApplication.application_id}`,
-        notesValue
-      )
-      .then(res => {
-        updateModal();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dispatch(
+      addNewNote(notesValue.application_id, notesValue.application_notes)
+    );
     e.preventDefault();
     setHideForm(true);
   };
@@ -74,19 +87,15 @@ const ApplicationModal = ({
    * Author: Christwide Oscar
    * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
+
   const approveApplication = e => {
-    console.log(currentApplication);
-    axiosWithAuth()
-      .post(`/application/approve/${currentApplication.profile_id}`, {
-        profile_id: currentApplication.profile_id,
-        low_income: currentApplication.low_income,
-      })
-      .then(res => {
-        setCurrentApplication({ ...res.data, approved: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dispatch(
+      applicationApprove(
+        currentApplication.role_name,
+        currentApplication.application_id,
+        currentApplication.profile_id
+      )
+    );
   };
 
   /**
@@ -95,17 +104,13 @@ const ApplicationModal = ({
    */
 
   const rejectApplication = e => {
-    axiosWithAuth()
-      .post(`/application/reject/${currentApplication.profile_id}`, {
-        profile_id: currentApplication.profile_id,
-        low_income: currentApplication.low_income,
-      })
-      .then(res => {
-        setCurrentApplication({ ...res.data, approved: false });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dispatch(
+      applicationReject(
+        currentApplication.role_name,
+        currentApplication.application_id,
+        currentApplication.profile_id
+      )
+    );
   };
 
   useEffect(() => {
@@ -114,7 +119,8 @@ const ApplicationModal = ({
         .get(`/application/${profileId}`)
         .then(res => {
           setCurrentApplication(res.data[0]);
-          setNotesValue(res.data[0]);
+          console.log(res.data);
+          // setNotesValue(res.data[0]);
         })
         .catch(err => {
           console.log(err);
@@ -122,6 +128,8 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
+
+  console.log(applicationProfile);
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
@@ -297,7 +305,7 @@ const ApplicationModal = ({
             <Form.Item
               id="application_notes"
               type="text"
-              value={notesValue.application_notes}
+              value={notesValue}
               onChange={handleChange}
               className="applicationNotes"
             >
@@ -318,4 +326,16 @@ const ApplicationModal = ({
   );
 };
 
-export default ApplicationModal;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: localStorage.getItem('token'),
+    applicationProfile: state,
+  };
+};
+
+export default connect(mapStateToProps, {
+  getProfileId,
+  addNewNote,
+  applicationApprove,
+  applicationReject,
+})(ApplicationModal);
