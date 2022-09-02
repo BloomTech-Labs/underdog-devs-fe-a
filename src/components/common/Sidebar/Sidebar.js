@@ -60,13 +60,13 @@ const Sidebar = ({ children, userProfile }) => {
     let sidebarLinks = [];
     // check roles
     if (isUserAdmin) {
-      sidebarLinks = [...sharedLinks, ...adminLinks];
+      sidebarLinks = [...adminLinks];
     } else if (isUserMentor) {
-      sidebarLinks = [...sharedLinks, ...mentorLinks];
+      sidebarLinks = [...mentorLinks];
     } else if (isUserDev) {
-      sidebarLinks = [...sharedLinks, ...devLinks];
+      sidebarLinks = [...menteeLinks];
     } else if (isUserMentee) {
-      sidebarLinks = [...sharedLinks, ...menteeLinks];
+      sidebarLinks = [...menteeLinks];
     }
     return [...sidebarLinks, ...bottomSharedLinks];
   }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);

@@ -56,14 +56,14 @@ export const menteeLinks = [
   //        key: '/meetings',
   //       label: 'Meetings',
   // },
-  {
-    key: '/resources',
-    label: 'Access Resources',
-  },
-  {
-    key: 'addMentorReview',
-    label: 'Add Mentor Review',
-  },
+  // {
+  //   key: '/resources',
+  //   label: 'Access Resources',
+  // },
+  // {
+  //   key: 'addMentorReview',
+  //   label: 'Add Mentor Review',
+  // },
 ];
 
 export const mentorLinks = [
@@ -71,11 +71,11 @@ export const mentorLinks = [
   //   key: '/mentees',
   //   label: 'My Mentees',
   // },
-  {
-    key: '/resources',
-    label: 'Manage Resources',
-    icon: <BookOutlined />,
-  },
+  // {
+  //   key: '/resources',
+  //   label: 'Manage Resources',
+  //   icon: <BookOutlined />,
+  // },
 ];
 
 export const adminLinks = [
