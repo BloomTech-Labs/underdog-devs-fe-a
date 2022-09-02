@@ -1,76 +1,81 @@
 .modalStyle .ant-btn-primary /*For Edit Profile Button*/{
-    background-color: #003D71;
+  background-color: #003D71;
 }
 
 .modalStyle .ant-modal-header /*For Edit Profile Button*/{
-    background-color:#003D71;
+  background-color:#003D71;
 }
 
 .modalStyle .ant-modal-title /*For Edit Profile Button*/{
-    color: rgb(255, 255, 255, 0.85);
+  color: rgb(255, 255, 255, 0.85);
 }
 
 .ant-modal-content .ant-modal-header {
-    background-color: #003D71;
+  background-color: #003D71;
 }
 
 .modalStyle p{
-    margin:0%;
+  margin:0%;
 }
 .modalStyle ul{
-    margin:0%;
-    padding-left: 0%;
+  margin:0%;
+  padding-left: 0%;
 }
 .modalStyle li{
-    margin-left: 5%;
+  margin-left: 5%;
 }
 .cEQGvI /*Navbar background color*/ {
-    background-color:#003D71;
+  background-color:#003D71;
 }
 
 a.sc-dkPtRN /*Navlinks  color*/{
-    color: #fff;
+  color: #fff;
 }
 
 a.sc-dkPtRN:hover /*Login/Apply buttons color*/ {
-    color: black;
+  color: black;
 }
 
 a.sc-gKclnd.cxVpss /*Login/Apply Button background color*/{
-    background-color: #003d71
+  background-color: #003d71
 }
 
 div.ant-card-head {
-    color: #4285F3;
+  color: #4285F3;
 }
 .notesField{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 div.row2 .modalBtn {
-    min-width: 45%;
+  min-width: 45%;
 }
 
 div.row2 .modalBtn:hover {
-    color: #165996;
+  color: #165996;
 }
 
 div.row2 .modalBtn:visited {
-    color: black;
+  color: black;
 }
 /* memos submit button */
 .memos-button-rows .ant-btn-primary {
-    background-color: #003d71;
+  background-color: #003d71;
 }
 
 .ant-modal-title {
-    color: rgb(255, 255, 255, 0.85) !important;
+  color: rgb(255, 255, 255, 0.85) !important;
 }
 
 .ant-modal-close-x {
-    color: rgb(255, 255, 255, 0.85);
+  color: rgb(255, 255, 255, 0.85);
 }
+
+
+
+
+
 
 
 
