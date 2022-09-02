@@ -84,34 +84,6 @@ const ApplicationModal = ({
     return mentor;
   };
 
-   const openNotificationWithIcon = (type, status, err) => {
-    if (type === 'success') {
-      if (status === 'approve') {
-        notification[type]({
-          message: 'User has been approved successfully',
-        });
-      } else {
-        notification[type]({
-          message: 'User has been rejected successfully',
-        });
-      }
-    }
-
-    if (type === 'error') {
-      if (status === 'approve') {
-        notification[type]({
-          message: 'User could not be approved at this time',
-          description: `Error: ${err}`,
-        });
-      } else {
-        notification[type]({
-          message: 'User could not be rejected at this time',
-          description: `Error: ${err}`,
-        });
-      }
-    }
- };
-
   /**
    * Author: Khaleel Musleh
    * @param {approveApplication}
@@ -146,7 +118,7 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [applicationProfile, profileId]);
-  
+
   return (
     <>
       {currentApplication?.profile_id === undefined ? (
