@@ -61,10 +61,6 @@ const columns = [
   },
 ];
 
-function onChange(pagination, filters, sorter, extra) {
-  // console.log('params', pagination, filters, sorter, extra);
-}
-
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
 const TicketsDashboard = props => {
   const [tickets, setTickets] = useState([]);
@@ -87,14 +83,12 @@ const TicketsDashboard = props => {
   if (tickets !== []) {
     escaTickets = tickets.filter(x => x.ticket_status === 'approved');
   }
-  // console.log('escaTickets', escaTickets);
   // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {
       key: t.ticket_id,
       ticketID: t.ticket_id,
       message: t.ticket_subject,
-      // dateSubmitted: t.created_at.substring(0, 10),
     };
     data.push(ticketDetails);
   });
@@ -118,7 +112,7 @@ const TicketsDashboard = props => {
         </Row>
       </div>
       <div className="dashboard-table-container">
-        <Table dataSource={data} columns={columns} onChange={onChange} />
+        <Table dataSource={data} columns={columns} />
       </div>
     </div>
   );

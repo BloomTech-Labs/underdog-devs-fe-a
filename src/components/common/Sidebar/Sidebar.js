@@ -9,6 +9,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import useTheme from '../../../hooks/useTheme';
 import '../styles/Sidebar.css';
 import {
+  superAdminLinks,
   adminLinks,
   bottomSharedLinks,
   menteeLinks,
@@ -20,14 +21,10 @@ const { Content, Sider } = Layout;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
-  // const [modal, setModal] = useState(false);
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
-  // const openModal = () => setModal(true);
-
-  // const cancelOpen = () => setModal(false);
 
   const handleMenuClick = menu => {
     if (menu.key === 'darkmode') {
@@ -45,8 +42,8 @@ const Sidebar = ({ children, userProfile }) => {
    * Changed role_id to strict equality and removed the ELSE statement of mentee as it was crashing whenever we update the role_id or add a new role_id such as Dev role ID
    *  while creating an IF statement for each role
    */
-
-  const isUserAdmin = useMemo(() => role_id <= 2, [role_id]);
+  const isUserSuperAdmin = useMemo(() => role_id === 1, [role_id]);
+  const isUserAdmin = useMemo(() => role_id === 2, [role_id]);
   const isUserMentor = useMemo(() => role_id === 3, [role_id]);
   const isUserMentee = useMemo(() => role_id === 4, [role_id]);
   /**
@@ -59,14 +56,17 @@ const Sidebar = ({ children, userProfile }) => {
     // create sidebar link array
     let sidebarLinks = [];
     // check roles
-    if (isUserAdmin) {
+
+    if (isUserSuperAdmin) {
+      sidebarLinks = [...superAdminLinks];
+    } else if (isUserAdmin) {
       sidebarLinks = [...adminLinks];
     } else if (isUserMentor) {
       sidebarLinks = [...mentorLinks];
-    } else if (isUserDev) {
-      sidebarLinks = [...menteeLinks];
     } else if (isUserMentee) {
       sidebarLinks = [...menteeLinks];
+    } else if (isUserDev) {
+      sidebarLinks = [...devLinks];
     }
     return [...sidebarLinks, ...bottomSharedLinks];
   }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);
