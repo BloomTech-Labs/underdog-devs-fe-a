@@ -2,7 +2,6 @@ export { SET_PROFILE_ID } from './auth/setProfileId';
 export { SET_IS_AUTHENTICATED } from './auth/setIsAuthenticated';
 export { SET_USER_PROFILE } from './userProfile/setUserProfile';
 export { SET_APPLICATION_PROFILE } from './userProfile/setApplicationProfile';
-export { NOTES_ADD_SUCCESS, NOTES_ADD_FAILURE } from './notes/index';
 export {
   SET_APPROVAL_SUCCESS,
   SET_APPROVAL_FAILURE,

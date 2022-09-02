@@ -5,7 +5,7 @@ import './PendingApplication.css';
 import { Modal, Button, List, Divider, Form, Input } from 'antd';
 import { connect } from 'react-redux';
 import { getProfileId } from '../../../state/actions/userProfile/getProfileId';
-import { addNewNote } from '../../../state/actions/notes';
+// import { addNewNote } from '../../../state/actions/notes';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
 import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 
@@ -20,7 +20,6 @@ const ApplicationModal = ({
 }) => {
   const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState({});
-  const [notesValue, setNotesValue] = useState('');
   const [hideForm, setHideForm] = useState(true);
 
   const dispatch = useDispatch();
@@ -33,27 +32,11 @@ const ApplicationModal = ({
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
-    setNotesValue(currentApplication.application_notes);
     setHideForm(true);
   };
 
   const displayForm = () => {
     setHideForm(false);
-  };
-
-  const handleChange = e => {
-    setNotesValue({
-      ...currentApplication,
-      application_notes: e.target.value,
-    });
-  };
-
-  const addNote = e => {
-    dispatch(
-      addNewNote(notesValue.application_id, notesValue.application_notes)
-    );
-    e.preventDefault();
-    setHideForm(true);
   };
 
   /**
@@ -89,18 +72,21 @@ const ApplicationModal = ({
       )
     );
   };
-
+  // /*eslint array-callback-return: ["error", { allowImplicit: true }]*/
   useEffect(() => {
     const getCurrentApp = () => {
       dispatch(getProfileId(profileId));
-      applicationProfile.map(current_id => {
-        if (current_id.profile_id == profileId)
-          setCurrentApplication(current_id);
+      Object.entries(applicationProfile).map(current_id => {
+        if (current_id[1]?.profile_id == profileId)
+          setCurrentApplication(current_id[1]);
       });
     };
     getCurrentApp();
   }, [profileId]);
 
+  // console.log(Object.keys(applicationProfile[0]))
+
+  // console.log([...applicationProfile])
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
@@ -202,7 +188,7 @@ const ApplicationModal = ({
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
               <List.Item>
-                <b>Notes:</b> {currentApplication.application_notes}
+                <b>Notes:</b> {'currentApplication.application_notes'}
                 <Button
                   onClick={displayForm}
                   hidden={!hideForm}
@@ -258,7 +244,7 @@ const ApplicationModal = ({
                 <b>Application Status:</b> {currentApplication.validateStatus}
               </List.Item>
               <List.Item>
-                <b>Notes:</b> {currentApplication.application_notes}
+                <b>Notes:</b> {'currentApplication.application_notes'}
               </List.Item>
               <Button
                 onClick={displayForm}
@@ -276,13 +262,12 @@ const ApplicationModal = ({
             <Form.Item
               id="application_notes"
               type="text"
-              value={notesValue}
-              onChange={handleChange}
+              value={'notesValue'}
               className="applicationNotes"
             >
               <TextArea autosize="true" placeholder="Edit notes here..." />
               <Button
-                onClick={addNote}
+                onClick={'addNote'}
                 type="dashed"
                 size="small"
                 style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
@@ -304,9 +289,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  getProfileId,
-  addNewNote,
-  applicationApprove,
-  applicationReject,
-})(ApplicationModal);
+export default connect(mapStateToProps)(ApplicationModal);

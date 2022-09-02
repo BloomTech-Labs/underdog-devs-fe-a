@@ -18,8 +18,7 @@ const initialState = {
     reject_status: '',
   },
   ApplicationProfile: {},
-  // notes: {
-  // },
+
   lifecycle: {
     // set to true when API call starts, set to false when API call concludes
     isFetching: false,
@@ -28,7 +27,6 @@ const initialState = {
     /* TODO: implement a way to track errors */
     mentorError: '',
     menteeError: '',
-    notesError: '',
     approvalError: '',
   },
   mentor: {
@@ -82,24 +80,6 @@ const userReducer = (state = initialState, action) => {
         errors: {
           ...state,
           rejectError: '',
-        },
-      };
-    case ACTIONS.NOTES_ADD_SUCCESS:
-      return {
-        ...state,
-        notes: action.payload,
-        errors: {
-          ...state,
-          Response: '',
-        },
-      };
-    case ACTIONS.NOTES_ADD_FAILURE:
-      return {
-        ...state,
-        errors: action.payload,
-        notes: {
-          ...state,
-          Failure: '',
         },
       };
     case ACTIONS.MENTOR_ADD_SUCCESS:
