@@ -38,8 +38,20 @@ Start the server
 ```
 ***
 
-*When using Auth0 for authentication, the app will need to run locally on port 3000.*
+*This app will need to run locally on port 3000.*
 ***
+## Axios with Auth0
+This project uses auth0 to authenticate users Auth0 [Documentation](https://auth0.com/docs/). When a user attempts to login or to access a 
+protected routed they will be directed to auth0's third party sign on. After successful login they will be redirected to the dashboard or to 
+the protected endpoint they were attempting to reach. 
+For a hands-on understanding of the mechanics here is a link to build your own app secured by auth0: [Quickstart](https://auth0.com/docs/quickstart/spa/react/01-login).
+Auth0 stores the token privately so that it can't be accessed in the dev console or by another developer. So the `axiosWithAuth` process 
+requires that we utilize one of auth0's methods `getAccessTokenSilently` to get the token directly from auth0.
+React does not allow us to use the useAuth0 hook (or its method: `getAccessTokenSilently`) in the `axiosWithAuth` helper. Here are the related 
+React docs that address this issue [hooks rules](https://reactjs.org/docs/hooks-rules.html) so we have built a `useAxiosWithAuth0()` hook to connect 
+`axiosWithAuth` to `getAccessTokenSilently`. This requires one extra step in `axiosWithAuth`'s implementation within components: We import the hook 
+and destructure `axiosWithAuth` from the hook. This is a good article that provided us a template for building this hook: 
+[link to article](https://blog.openreplay.com/integrating-axios-with-react-hooks.)
 
 ## Contributing
 
