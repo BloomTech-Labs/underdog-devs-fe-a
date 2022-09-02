@@ -103,10 +103,6 @@ const MenteeModal = ({ applicant }) => {
           <p className="list-item-column">Other information:</p>
           <p className="list-item-column">{applicant.other_info}</p>
         </List.Item>
-        <List.Item>
-          <p className="list-item-column">Notes:</p>
-          <p className="list-item-column">{applicant.application_notes}</p>
-        </List.Item>
       </List>
     </>
   );
