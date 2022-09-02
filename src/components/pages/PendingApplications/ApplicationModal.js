@@ -25,29 +25,6 @@ const ApplicationModal = ({
 
   const dispatch = useDispatch();
 
-  // console.log(notes)
-
-  // const updateModal = () => {
-  //   axiosWithAuth()
-  //     .get(`/application/profileId/${profileId}`)
-  //     .then(res => {
-  //       setCurrentApplication(res.data);
-  //       console.log(res)
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
-  // updateModal()
-
-  useEffect(() => {
-    const updateModal = () => {
-      dispatch(getProfileId(profileId));
-    };
-    updateModal();
-  }, []);
-
   const handleOk = () => {
     setDisplayModal(false);
     setDisplayModal(true);
@@ -115,21 +92,15 @@ const ApplicationModal = ({
 
   useEffect(() => {
     const getCurrentApp = () => {
-      axiosWithAuth()
-        .get(`/application/${profileId}`)
-        .then(res => {
-          setCurrentApplication(res.data[0]);
-          console.log(res.data);
-          // setNotesValue(res.data[0]);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      dispatch(getProfileId(profileId));
+      applicationProfile.map(current_id => {
+        if (current_id.profile_id == profileId)
+          setCurrentApplication(current_id);
+      });
     };
     getCurrentApp();
   }, [profileId]);
 
-  console.log(applicationProfile);
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
@@ -137,7 +108,7 @@ const ApplicationModal = ({
 
   return (
     <>
-      {currentApplication.role_name === undefined ? (
+      {currentApplication?.role_name === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}
@@ -329,7 +300,7 @@ const ApplicationModal = ({
 const mapStateToProps = state => {
   return {
     isAuthenticated: localStorage.getItem('token'),
-    applicationProfile: state,
+    applicationProfile: state.user.ApplicationProfile,
   };
 };
 

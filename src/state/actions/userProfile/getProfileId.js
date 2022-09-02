@@ -8,7 +8,7 @@ import { setFetchEnd } from '../lifecycle/setFetchEnd';
 export const getProfileId = profile_Id => dispatch => {
   dispatch(setFetchStart());
   axiosWithAuth()
-    .get(`${API_URL}application/profileId/${profile_Id}`)
+    .get(`${API_URL}application/${profile_Id}`)
     .then(res => {
       if (res.data) {
         dispatch(setApplicationProfile(res.data));
