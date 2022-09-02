@@ -74,18 +74,18 @@ const Dashboard = props => {
 
   console.log('auth0:', useAuth0());
 
-  useEffect(() => {
-    const getTickets = () => {
-      axiosWithAuth()
-        .get('/resource-tickets')
-        .then(res => {
-          if (res.data.message === null) {
-            setTickets(res.data);
-          }
-        });
-    };
-    getTickets();
-  }, []);
+  // useEffect(() => {
+  //   const getTickets = () => {
+  //     axiosWithAuth()
+  //       .get('/resource-tickets')
+  //       .then(res => {
+  //         if (res.data.message === null) {
+  //           setTickets(res.data);
+  //         }
+  //       });
+  //   };
+  //   getTickets();
+  // }, []);
 
   const data = [];
   let escaTickets = [];

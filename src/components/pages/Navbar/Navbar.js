@@ -1,6 +1,7 @@
 import { Avatar } from 'antd';
 import React, { useState, useEffect } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+// import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -23,6 +24,7 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout } = useAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);

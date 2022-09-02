@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import VAMC from './VAMC';
 
 const ViewAllMeetings = () => {
   const [meetingData, setMeetingData] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const getDate = num => {
     let d = '';
