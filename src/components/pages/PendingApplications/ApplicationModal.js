@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import './ApplicationModal.less';
-import { Modal, Button, List, Divider, Form, Input } from 'antd';
+import axiosWithAuth from '../../../utils/axiosWithAuth';
+import './ApplicationModal.less';
+import { Modal, Button, notification } from 'antd';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
 import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 import MenteeModal from './MenteeModal';
@@ -20,10 +21,9 @@ const ApplicationModal = ({
   setDisplayModal,
   displayModal,
   applicationProfile,
+  getPendingApps,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
-  const [hideForm, setHideForm] = useState(true);
-
   const dispatch = useDispatch();
 
   const handleOk = () => {
@@ -34,11 +34,34 @@ const ApplicationModal = ({
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
-    setHideForm(true);
   };
 
-  const displayForm = () => {
-    setHideForm(false);
+  const openNotificationWithIcon = (type, status, err) => {
+    if (type === 'success') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User has been approved successfully',
+        });
+      } else {
+        notification[type]({
+          message: 'User has been rejected successfully',
+        });
+      }
+    }
+
+    if (type === 'error') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User could not be approved at this time',
+          description: `Error: ${err}`,
+        });
+      } else {
+        notification[type]({
+          message: 'User could not be rejected at this time',
+          description: `Error: ${err}`,
+        });
+      }
+    }
   };
 
   /**
@@ -48,7 +71,7 @@ const ApplicationModal = ({
    * and validate_status yet if it doesnt exist then its a Mentee and we only pass in validate_status.
    */
 
-  const pendingAppHelper = status => {
+   const pendingAppHelper = status => {
     const mentor =
       currentApplication.accepting_new_mentees === undefined
         ? {
@@ -61,13 +84,41 @@ const ApplicationModal = ({
     return mentor;
   };
 
+   const openNotificationWithIcon = (type, status, err) => {
+    if (type === 'success') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User has been approved successfully',
+        });
+      } else {
+        notification[type]({
+          message: 'User has been rejected successfully',
+        });
+      }
+    }
+
+    if (type === 'error') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User could not be approved at this time',
+          description: `Error: ${err}`,
+        });
+      } else {
+        notification[type]({
+          message: 'User could not be rejected at this time',
+          description: `Error: ${err}`,
+        });
+      }
+    }
+ };
+
   /**
    * Author: Khaleel Musleh
    * @param {approveApplication}
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const approveApplication = () => {
+   const approveApplication = () => {
     dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
       .then(res => console.log(res))
       .catch(err => console.error(err));
@@ -95,7 +146,7 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [applicationProfile, profileId]);
-
+  
   return (
     <>
       {currentApplication?.profile_id === undefined ? (
@@ -121,9 +172,6 @@ const ApplicationModal = ({
               : 'modalStyleMentor'
           }
           footer={[
-            <Button key="edit-notes" onClick={displayForm} hidden={!hideForm}>
-              Edit Notes
-            </Button>,
             <Button key="submitA" type="primary" onClick={approveApplication}>
               Approve
             </Button>,
