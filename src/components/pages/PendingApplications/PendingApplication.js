@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-// import './PendingApplication.css';
 import { getApplication } from '../../../state/actions/userProfile/getApplication';
 import { connect, useDispatch } from 'react-redux';
 // import { batch } from 'react-redux';
@@ -45,19 +44,12 @@ const columns = [
     ],
     onFilter: (value, record) => record.role.props.children === value,
   },
-
-  // Date data from DS needs to be updated
   {
-    title: 'Date Submitted',
-
+    title: 'Date Updated',
     dataIndex: 'date',
     key: 'date',
-    defaultSortOrder: 'descend',
-    // sorter: (a, b, sortOrder) => {
-    //   console.log("a: ", a);
-    //   console.log("b: ", b);
-    //   console.log("sortOrder: ",  sortOrder)
-    // }
+    sorter: (a, b) => a.date.localeCompare(b.date),
+    sortDirections: ['descend', 'ascend'],
   },
   {
     title: 'Status',
@@ -103,58 +95,62 @@ const PendingApplications = ({ applicationProfile }) => {
     setModalIsVisible(true);
   };
 
-  /**
-   * Author: Khaleel Musleh
-   * @Variable {dispatch} Variable
-   * @returns dispatch API calls
-   * Changed Axios api call to a dispatch state slice call, Now there is no need to do an API call, dispatch for getApplication sends a post request and response gotten is
-   * applications from the backend.
-   */
+  const getPendingApps = () => {
+        dispatch(getApplication());
+        setApplications(
+          Object.values(applicationProfile).map(row => ({
+            key: row.profile_id,
+            role_name: (row.hasOwnProperty('accepting_new_mentees') ? 'mentor' : 'mentee'),
+            name: row.first_name + ' ' + row.last_name,
+            role: (
+              <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
+                {row.role_name}
+              </Tag>
+            ),
+            date: (row.updated_at ? row.updated_at : row.created_at).slice(
+              0,
+              10
+            ),
+            status: (
+              <Tag
+                color={
+                  row.validate_status === 'approved'
+                    ? 'green'
+                    : row.validate_status === 'pending'
+                    ? 'orange'
+                    : 'red'
+                }
+              >
+                {row.validate_status}
+              </Tag>
+            ),
+            button: (
+              <Button
+                style={{
+                  backgroundImage:
+                    'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
+                  borderRadius: '.5rem',
+                  boxSizing: 'border-box',
+                  color: '#FFFFFF',
+                  display: 'flex',
+                  fontSize: '16px',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  touchAction: 'manipulation',
+                }}
+                type="primary"
+                id={row.profile_id}
+                onClick={() => showModal(row.profile_id)}
+              >
+                Review Application
+              </Button>
+            ),
+          }))
+        );
+  };
 
   useEffect(() => {
-    dispatch(getApplication());
-    setApplications(
-      Object.values(applicationProfile).map(row => ({
-        key: row.profile_id,
-        name: row.first_name + ' ' + row.last_name,
-        role: (
-          <Tag
-            style={{ height: '20px', width: '20px' }}
-            color={row.accepting_new_mentees === undefined ? 'orange' : 'blue'}
-          >
-            {row.role_name}
-          </Tag>
-        ),
-        date:
-          Date(row.created_at.slice).slice(0, 3) +
-          '. ' +
-          Date(row.created_at.slice).slice(4, 9) +
-          ', ' +
-          Date(row.created_at.slice).slice(10, 16),
-        button: (
-          <Button
-            style={{
-              backgroundImage:
-                'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
-              borderRadius: '.5rem',
-              boxSizing: 'border-box',
-              color: '#FFFFFF',
-              display: 'flex',
-              fontSize: '16px',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              touchAction: 'manipulation',
-            }}
-            type="primary"
-            id={row.profile_id}
-            onClick={() => showModal(row.profile_id)}
-          >
-            Review Application
-          </Button>
-        ),
-      }))
-    );
-
+    getPendingApps();
     /**
      * @Array {applicationProfile.length >= 0} Array
      * @returns useEffect(() => {})
@@ -172,11 +168,13 @@ const PendingApplications = ({ applicationProfile }) => {
         profileId={profileId}
         setProfileId={setProfileId}
         applicationProfile={applicationProfile}
+        getPendingApps={getPendingApps}
       />
       <Table columns={columns} dataSource={applications} />;
     </>
   );
 };
+
 
 /**
  * @param {mapStateToProps}
