@@ -49,6 +49,7 @@ const PendingApplications = ({ applicationProfile }) => {
   const [applications, setApplications] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [profileId, setProfileId] = useState('');
+  const [currentApplication, setCurrentApplication] = useState();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -98,7 +99,7 @@ const PendingApplications = ({ applicationProfile }) => {
         ),
       }))
     );
-  }, [profileId]);
+  }, [applicationProfile.length > 1]);
 
   return (
     <>
