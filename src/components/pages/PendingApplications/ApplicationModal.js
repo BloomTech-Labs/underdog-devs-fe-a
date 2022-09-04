@@ -3,9 +3,6 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, List, Divider, Form, Input } from 'antd';
-import { connect } from 'react-redux';
-import { getProfileId } from '../../../state/actions/userProfile/getProfileId';
-// import { addNewNote } from '../../../state/actions/notes';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
 import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 
@@ -19,7 +16,7 @@ const ApplicationModal = ({
   applicationProfile,
 }) => {
   const { TextArea } = Input;
-  const [currentApplication, setCurrentApplication] = useState({});
+  const [currentApplication, setCurrentApplication] = useState();
   const [hideForm, setHideForm] = useState(true);
 
   const dispatch = useDispatch();
@@ -48,14 +45,23 @@ const ApplicationModal = ({
    * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
    */
 
-  const approveApplication = e => {
-    dispatch(
-      applicationApprove(
-        currentApplication.role_name,
-        currentApplication.application_id,
-        currentApplication.profile_id
-      )
-    );
+  const pendingAppHelper = status => {
+    const mentor =
+      currentApplication.accepting_new_mentees === undefined
+        ? {
+            validate_status: status,
+          }
+        : {
+            validate_status: status,
+            current_company: currentApplication.current_company,
+          };
+    return mentor;
+  };
+
+  const approveApplication = () => {
+    dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   };
 
   /**
@@ -63,30 +69,23 @@ const ApplicationModal = ({
    * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
    */
 
-  const rejectApplication = e => {
-    dispatch(
-      applicationReject(
-        currentApplication.role_name,
-        currentApplication.application_id,
-        currentApplication.profile_id
-      )
-    );
+  const rejectApplication = () => {
+    dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   };
+
   // /*eslint array-callback-return: ["error", { allowImplicit: true }]*/
   useEffect(() => {
     const getCurrentApp = () => {
-      dispatch(getProfileId(profileId));
-      Object.entries(applicationProfile).map(current_id => {
-        if (current_id[1]?.profile_id == profileId)
-          setCurrentApplication(current_id[1]);
+      Object.values(applicationProfile).map(current_id => {
+        if (current_id?.profile_id == profileId)
+          setCurrentApplication(current_id);
       });
     };
     getCurrentApp();
   }, [profileId]);
 
-  // console.log(Object.keys(applicationProfile[0]))
-
-  // console.log([...applicationProfile])
   /*
   *Author: Melody McClure
   The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
@@ -94,7 +93,7 @@ const ApplicationModal = ({
 
   return (
     <>
-      {currentApplication?.role_name === undefined ? (
+      {currentApplication?.profile_id === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}
@@ -128,7 +127,10 @@ const ApplicationModal = ({
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
+                <b>Role:</b>{' '}
+                {currentApplication.accepting_new_mentees === undefined
+                  ? 'Mentee'
+                  : 'Mentor'}
               </List.Item>
               <List.Item>
                 <b>Email:</b> {currentApplication.email}
@@ -185,7 +187,7 @@ const ApplicationModal = ({
                 {currentApplication.created_at.slice(0, 10)}
               </List.Item>
               <List.Item>
-                <b>Application Status:</b> {currentApplication.validateStatus}
+                <b>Application Status:</b> {currentApplication.other_info}
               </List.Item>
               <List.Item>
                 <b>Notes:</b> {'currentApplication.application_notes'}
@@ -241,7 +243,7 @@ const ApplicationModal = ({
                 {currentApplication.created_at.slice(0, 10)}
               </List.Item>
               <List.Item>
-                <b>Application Status:</b> {currentApplication.validateStatus}
+                <b>Application Status:</b> {currentApplication.validate_status}
               </List.Item>
               <List.Item>
                 <b>Notes:</b> {'currentApplication.application_notes'}
@@ -282,11 +284,14 @@ const ApplicationModal = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: localStorage.getItem('token'),
-    applicationProfile: state.user.ApplicationProfile,
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     isAuthenticated: localStorage.getItem('token'),
+//     testing: state,
+//     applicationProfile: state.user.ApplicationProfile,
+//     approvalSuccess: state.user?.approvalSuccess?.data?.status
+//   };
+// };
 
-export default connect(mapStateToProps)(ApplicationModal);
+// export default connect(mapStateToProps) (ApplicationModal);
+export default ApplicationModal;

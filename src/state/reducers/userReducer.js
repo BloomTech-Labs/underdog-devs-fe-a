@@ -14,9 +14,10 @@ const initialState = {
     // ...etc.
   },
   ApplicationStatus: {
-    approval_status: '',
-    reject_status: '',
+    approvalSuccess: '',
+    rejectSuccess: '',
   },
+  approvalSuccess: {},
   ApplicationProfile: {},
 
   lifecycle: {
@@ -28,6 +29,7 @@ const initialState = {
     mentorError: '',
     menteeError: '',
     approvalError: '',
+    rejectError: '',
   },
   mentor: {
     successPage: '',
@@ -67,8 +69,17 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_APPROVAL_SUCCESS:
       return {
         ...state,
-        approval_status: action.payload,
+        approvalSuccess: action.payload,
         errors: {
+          ...state,
+          approvalError: '',
+        },
+      };
+    case ACTIONS.SET_APPROVAL_FAILURE:
+      return {
+        ...state,
+        errors: action.payload,
+        mentor: {
           ...state,
           approvalError: '',
         },
@@ -76,8 +87,17 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_REJECT_SUCCESS:
       return {
         ...state,
-        reject_status: action.payload,
+        rejectSuccess: action.payload,
         errors: {
+          ...state,
+          rejectError: '',
+        },
+      };
+    case ACTIONS.SET_REJECT_FAILURE:
+      return {
+        ...state,
+        errors: action.payload,
+        mentor: {
           ...state,
           rejectError: '',
         },

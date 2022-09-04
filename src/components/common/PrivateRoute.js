@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Sidebar from './Sidebar/Sidebar';
 
-const PrivateRoute = ({ component, path, ...args }) => (
+const PrivateRoute = ({ component: Component, path, ...args }) => (
   <Sidebar>
     <Route
       path={path}
@@ -11,8 +11,9 @@ const PrivateRoute = ({ component, path, ...args }) => (
       // component={withAuthenticationRequired(component({ ...args }), {
       //   onRedirecting: () => <div>loading </div>,
       // })}
-      component={() => component({ ...args })}
+      // component={() => component({ ...args })}
     />
+    <Component {...args} />
   </Sidebar>
 );
 

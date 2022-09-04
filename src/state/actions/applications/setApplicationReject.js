@@ -4,24 +4,24 @@ import axiosWithAuth from '../../../utils/axiosWithAuth';
 export const SET_REJECT_SUCCESS = 'SET_REJECT_SUCCESS';
 export const SET_REJECT_FAILURE = 'SET_REJECT_FAILURE';
 
-export const applicationReject = (role_id, application_id, profile_id) => {
+export const applicationReject = (profile_id, status) => {
   return async dispatch => {
-    axiosWithAuth()
-      .put(
-        `${API_URL}application/update-role/${role_id}/${application_id}/${profile_id}`,
-        {
-          // application_id,
-          // profile_id
-        }
-      )
-      .then(response => {
+    try {
+      const api = await axiosWithAuth().post(
+        `${API_URL}application/update-validate_status/${profile_id}`,
+        status
+      );
+      console.log(status);
+      dispatch({ type: SET_REJECT_SUCCESS, payload: api });
+      return api;
+    } catch (err) {
+      throw new Error(
+        err,
         dispatch({
-          type: SET_REJECT_SUCCESS,
-          payload: response,
-        });
-      })
-      .catch(err => {
-        dispatch({ type: SET_REJECT_FAILURE, payload: { approveError: err } });
-      });
+          type: SET_REJECT_FAILURE,
+          payload: { rejectError: err },
+        })
+      );
+    }
   };
 };
