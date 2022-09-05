@@ -7,6 +7,12 @@ import { applicationReject } from '../../../state/actions/applications/setApplic
 
 import { useDispatch } from 'react-redux';
 
+/**
+ * @param {applicationProfile}
+ * @returns pending applications
+ * Passed applicationProfile state from pendingApplication.js and rendered the applications in applicationModal.
+ */
+
 const ApplicationModal = ({
   profileId,
   setProfileId,
@@ -14,7 +20,6 @@ const ApplicationModal = ({
   displayModal,
   applicationProfile,
 }) => {
-  const { TextArea } = Input;
   const [currentApplication, setCurrentApplication] = useState();
   const [hideForm, setHideForm] = useState(true);
 
@@ -36,12 +41,10 @@ const ApplicationModal = ({
   };
 
   /**
-   * Author: Khaleel Musleh
-   * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
-   */
-  /**
-   * Author: Christwide Oscar
-   * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
+   * @param {pendingAppHelper} Function
+   * @returns Mentor or Mentee parameter for approveApplication or rejectApplication
+   * If current.application.accepting_new_mentees exists then the account is a Mentor which means we have to pass in an Object in the request body with current_company
+   * and validate_status yet if it doesnt exist then its a Mentee and we only pass in validate_status.
    */
 
   const pendingAppHelper = status => {
@@ -57,6 +60,12 @@ const ApplicationModal = ({
     return mentor;
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {approveApplication}
+   * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
+   */
+
   const approveApplication = () => {
     dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
       .then(res => console.log(res))
@@ -65,7 +74,8 @@ const ApplicationModal = ({
 
   /**
    * Author: Khaleel Musleh
-   * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
+   * @param {rejectApplication}
+   * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
    */
 
   const rejectApplication = () => {
@@ -84,11 +94,6 @@ const ApplicationModal = ({
     };
     getCurrentApp();
   }, [profileId]);
-
-  /*
-  *Author: Melody McClure
-  The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
-  */
 
   return (
     <>
@@ -249,24 +254,6 @@ const ApplicationModal = ({
               </List.Item>
             </List>
           )}
-          <Form className="notesField" hidden={hideForm}>
-            <Form.Item
-              id="application_notes"
-              type="text"
-              value={'notesValue'}
-              className="applicationNotes"
-            >
-              <TextArea autosize="true" placeholder="Edit notes here..." />
-              <Button
-                onClick={'addNote'}
-                type="dashed"
-                size="small"
-                style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
-              >
-                Save
-              </Button>
-            </Form.Item>
-          </Form>
         </Modal>
       )}
     </>

@@ -11,6 +11,9 @@ const PrivateRoute = ({ component: Component, path, ...args }) => (
       // component={withAuthenticationRequired(component({ ...args }), {
       //   onRedirecting: () => <div>loading </div>,
       // })}
+
+      // Could not pass props as this argument returns "component is not a function" when connecting state to other components using {connect}
+
       // component={() => component({ ...args })}
     />
     <Component {...args} />

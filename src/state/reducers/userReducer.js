@@ -27,6 +27,7 @@ const initialState = {
   },
   errors: {
     /* TODO: implement a way to track errors */
+    /** Need to implement a success state and error state. */
     mentorError: '',
     menteeError: '',
     approvalError: '',
@@ -65,12 +66,12 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_CURRENTUSER_PROFILE:
       return {
         ...state,
-        currentUser: action.payload, // do not persist previous state.userProfile
+        currentUser: action.payload, // do not persist previous state.currentUser
       };
     case ACTIONS.SET_APPLICATION_PROFILE:
       return {
         ...state,
-        ApplicationProfile: action.payload, // do not persist previous state.userProfile
+        ApplicationProfile: action.payload, // do not persist previous state.ApplicationProfile
       };
     case ACTIONS.SET_APPROVAL_SUCCESS:
       return {

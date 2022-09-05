@@ -65,12 +65,24 @@ const UserManagement = () => {
       role_id: 2,
     };
 
+    /**
+     * Author: Khaleel Musleh
+     * @param {updateToAdmin}
+     * updateToAdmin dispatches a request to updateProfile in state/actions/userProfile which then returns a response of either a success or error status
+     */
+
     dispatch(updateProfile(record.key, requestBody))
       .then(res => {
         setUpdatedProfile(res);
       })
       .catch(err => console.error(err));
   }
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {getAccounts}
+   * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
+   */
 
   const getAccounts = () => {
     dispatch(getProfile())

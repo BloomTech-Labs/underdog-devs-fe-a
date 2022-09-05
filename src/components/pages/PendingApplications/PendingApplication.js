@@ -55,6 +55,14 @@ const PendingApplications = ({ applicationProfile }) => {
     setDisplayModal(true);
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @Variable {dispatch} Variable
+   * @returns dispatch API calls
+   * Changed Axios api call to a dispatch state slice call, Now there is no need to do an API call, dispatch for getApplication sends a post request and response gotten is
+   * applications from the backend.
+   */
+
   useEffect(() => {
     dispatch(getApplication());
     setApplications(
@@ -98,6 +106,13 @@ const PendingApplications = ({ applicationProfile }) => {
         ),
       }))
     );
+
+    /**
+     * @Array {applicationProfile.length >= 0} Array
+     * @returns useEffect(() => {})
+     * Due to the dependency array not working on any state or variable due to the rendering being faster than data fetching which is passed through state
+     * I had to make a dependency array that renders once data length is 0 or higher.
+     */
   }, [applicationProfile.length >= 0]);
 
   return (
@@ -114,6 +129,13 @@ const PendingApplications = ({ applicationProfile }) => {
     </>
   );
 };
+
+/**
+ * @param {mapStateToProps}
+ * @returns applicationProfile State
+ * Connected state to pendingApplication and passed the state of applicationProfile to applicationModal.js to simplify the data process of fetching and passing rather than making
+ * multiple API calls in every componend.
+ */
 
 const mapStateToProps = state => {
   return {

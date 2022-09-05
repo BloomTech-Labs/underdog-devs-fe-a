@@ -1,5 +1,5 @@
 import { Avatar } from 'antd';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -14,7 +14,7 @@ import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getCurrentUser } from '../../../state/actions/userProfile/getCurrentUser';
-import { acceptMentee } from '../../../state/actions/mentor/postNewMentees';
+import { acceptMentee } from '../../../state/actions/mentor/acceptMenteeStatus';
 import { mentorInfo } from '../../../state/actions/mentor/postMentorInfo';
 import { useDispatch } from 'react-redux';
 
@@ -41,6 +41,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
     logout({ returnTo: window.location.origin });
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(getCurrentUser)}
+   * dispatch(getCurrentUser) dispatches a request to getCurrentUser in state/actions/userProfile which then returns a response of either a success or error status
+   */
+
   useEffect(() => {
     dispatch(getCurrentUser());
     setUser(currentUser);
@@ -50,6 +56,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
 
   const profile_id = user.profile_id;
   const isMentor = user.role_id === 3;
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(mentorInfo)}
+   * dispatch(mentorInfo) dispatches a request to postMentorInfo with profile_id parameter in state/actions/mentor which then returns a response of either a success or error status
+   */
 
   // Determines the initial state of the Mentor toggle switch
   useEffect(() => {
@@ -83,8 +95,13 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
       openModal();
       return;
     }
-    // push(menu.key);
   };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(acceptMentee)}
+   * dispatch(acceptMentee) dispatches a request to postNewMentees in state/actions/mentor which then returns a response of either a success or error status
+   */
 
   const handleToggleChange = checked => {
     if (!checked) {
@@ -202,6 +219,12 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
     </>
   );
 };
+
+/**
+ * Author: Khaleel Musleh
+ * @param {mapStateToProps}
+ * Added userProfile and currentUser to state for fetching current user data and user which is currently being viewed or altered and renders it in the Navbar.js component.
+ */
 
 const mapStateToProps = state => {
   return {
