@@ -11,18 +11,12 @@ export const applicationApprove = async (profile_id, status) => {
         `${API_URL}application/update-validate_status/${profile_id}`,
         status
       );
-
-      console.log(status);
-      dispatch({ type: SET_APPROVAL_SUCCESS, payload: api });
-      return api;
+      return dispatch({ type: SET_APPROVAL_SUCCESS, payload: api });
     } catch (err) {
-      throw new Error(
-        err,
-        dispatch({
-          type: SET_APPROVAL_FAILURE,
-          payload: { approveError: err },
-        })
-      );
+      return dispatch({
+        type: SET_APPROVAL_FAILURE,
+        payload: { approveError: err },
+      });
     }
   };
 };

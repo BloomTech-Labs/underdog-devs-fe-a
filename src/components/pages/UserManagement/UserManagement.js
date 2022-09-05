@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import { updateProfile } from '../../../state/actions/userProfile/updateProfile';
+import { useDispatch } from 'react-redux';
 
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
@@ -7,6 +9,8 @@ import MemosTable from '../../common/MemosTable';
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
+
+  const dispatch = useDispatch();
 
   const columns = [
     {
@@ -60,18 +64,19 @@ const UserManagement = () => {
     const requestBody = {
       role_id: 2,
     };
-    axiosWithAuth()
-      .put(`/profile/${record.key}`, requestBody)
-      .then(res => setUpdatedProfile(res))
+
+    dispatch(updateProfile(record.key, requestBody))
+      .then(res => {
+        setUpdatedProfile(res);
+      })
       .catch(err => console.error(err));
   }
 
   const getAccounts = () => {
-    axiosWithAuth()
-      .get('/profile')
+    dispatch(getProfile())
       .then(res => {
         setAccounts(
-          res.data.map(row => ({
+          res.payload.map(row => ({
             key: row.profile_id,
             name: row.first_name + ' ' + row.last_name,
             role:
@@ -89,9 +94,7 @@ const UserManagement = () => {
           }))
         );
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {

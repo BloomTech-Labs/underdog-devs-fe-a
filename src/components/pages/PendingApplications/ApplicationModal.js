@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 import '../../../styles/styles.css';
 import './PendingApplication.css';
 import { Modal, Button, List, Divider, Form, Input } from 'antd';
@@ -127,7 +126,7 @@ const ApplicationModal = ({
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>
-                <b>Role:</b>{' '}
+                <b>Role:</b>
                 {currentApplication.accepting_new_mentees === undefined
                   ? 'Mentee'
                   : 'Mentor'}
@@ -206,7 +205,10 @@ const ApplicationModal = ({
           ) : (
             <List size="small" bordered>
               <List.Item>
-                <b>Role:</b> {currentApplication.role_name}
+                <b>Role:</b>{' '}
+                {currentApplication.accepting_new_mentees === undefined
+                  ? 'Mentee'
+                  : 'Mentor'}
               </List.Item>
               <List.Item>
                 <b>Email:</b> {currentApplication.email}
@@ -216,7 +218,7 @@ const ApplicationModal = ({
                 {currentApplication.state} {currentApplication.country}
               </List.Item>
               <List.Item>
-                <b>Current Employer:</b> {currentApplication.current_comp}
+                <b>Current Employer:</b> {currentApplication.current_company}
               </List.Item>
               <List.Item>
                 <b>Tech Stack:</b> {currentApplication.tech_stack}
@@ -245,19 +247,6 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.validate_status}
               </List.Item>
-              <List.Item>
-                <b>Notes:</b> {'currentApplication.application_notes'}
-              </List.Item>
-              <Button
-                onClick={displayForm}
-                hidden={!hideForm}
-                block
-                size="small"
-                type="dashed"
-                style={{ background: 'white', borderColor: '#1890ff' }}
-              >
-                Edit Notes
-              </Button>
             </List>
           )}
           <Form className="notesField" hidden={hideForm}>
@@ -284,14 +273,4 @@ const ApplicationModal = ({
   );
 };
 
-// const mapStateToProps = state => {
-//   return {
-//     isAuthenticated: localStorage.getItem('token'),
-//     testing: state,
-//     applicationProfile: state.user.ApplicationProfile,
-//     approvalSuccess: state.user?.approvalSuccess?.data?.status
-//   };
-// };
-
-// export default connect(mapStateToProps) (ApplicationModal);
 export default ApplicationModal;

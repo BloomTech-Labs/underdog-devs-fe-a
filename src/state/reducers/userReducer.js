@@ -13,6 +13,7 @@ const initialState = {
     // role_id: 3,
     // ...etc.
   },
+  currentUser: {},
   ApplicationStatus: {
     approvalSuccess: '',
     rejectSuccess: '',
@@ -60,6 +61,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userProfile: action.payload, // do not persist previous state.userProfile
+      };
+    case ACTIONS.SET_CURRENTUSER_PROFILE:
+      return {
+        ...state,
+        currentUser: action.payload, // do not persist previous state.userProfile
       };
     case ACTIONS.SET_APPLICATION_PROFILE:
       return {

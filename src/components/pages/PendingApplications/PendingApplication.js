@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
@@ -49,7 +49,6 @@ const PendingApplications = ({ applicationProfile }) => {
   const [applications, setApplications] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [profileId, setProfileId] = useState('');
-  const [currentApplication, setCurrentApplication] = useState();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -99,7 +98,7 @@ const PendingApplications = ({ applicationProfile }) => {
         ),
       }))
     );
-  }, [applicationProfile.length > 1]);
+  }, [applicationProfile.length >= 0]);
 
   return (
     <>
