@@ -4,12 +4,6 @@ const MenteeModal = ({ applicant }) => {
   return (
     <>
       <div className="profile-intro">
-        <div className="image-container">
-          <img
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            alt="I can do this if I work hard enough and practice my coding skills"
-          />
-        </div>
         <div className="profile-intro-description">
           <h2>
             {applicant.first_name} {applicant.last_name}

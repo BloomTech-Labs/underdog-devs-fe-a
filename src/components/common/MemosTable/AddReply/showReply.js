@@ -24,19 +24,12 @@ function ShowReply(props) {
     const ticketDetails = {
       actions: [<span key="comment-list-reply-to-0">Reply to</span>],
       author: 'Han Solo',
-      avatar: 'https://joeschmoe.io/api/v1/random',
       content: t.comment_text,
       datetime: (
         <Tooltip
-          title={moment()
-            .subtract(2, 'days')
-            .format('YYYY-MM-DD HH:mm:ss')}
+          title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}
         >
-          <span>
-            {moment()
-              .subtract(2, 'days')
-              .fromNow()}
-          </span>
+          <span>{moment().subtract(2, 'days').fromNow()}</span>
         </Tooltip>
       ),
     };
@@ -54,7 +47,6 @@ function ShowReply(props) {
           <Comment
             actions={item.actions}
             author={item.author}
-            avatar={item.avatar}
             content={item.content}
             datetime={item.datetime}
           />
