@@ -1,4 +1,3 @@
-import { Avatar } from 'antd';
 import React, { useState, useEffect } from 'react';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
@@ -159,14 +158,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
                 </Link>
                 <Dropdown overlay={accountMenu} placement="bottom" arrow>
                   <div className="userInfo-and-profilePic">
-                    <div className="profilePic">
-                      <Avatar
-                        size={50}
-                        icon={<UserOutlined />}
-                        src={profilePic}
-                        alt="Account settings"
-                      />
-                    </div>
                     <div className="userInfo">
                       <div
                         className="username"

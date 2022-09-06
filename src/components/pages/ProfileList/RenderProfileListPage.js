@@ -9,7 +9,6 @@ const RenderProfileListPage = props => (
     </p>
     {props.data.map(item => (
       <figure key={item.id}>
-        <img src={item.avatarUrl} alt={item.name} />
         <figcaption>
           <h3>{item.name}</h3>
         </figcaption>
@@ -29,7 +28,6 @@ RenderProfileListPage.propTypes = {
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       name: PropTypes.string,
       email: PropTypes.string,
-      avatar: PropTypes.string,
     })
   ).isRequired,
 };
