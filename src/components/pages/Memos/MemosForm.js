@@ -12,7 +12,6 @@ import {
 } from '@ant-design/icons';
 
 import './Memos.css';
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 
 const initialValues = {

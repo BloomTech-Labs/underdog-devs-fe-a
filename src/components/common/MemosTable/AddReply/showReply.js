@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import { Comment, Tooltip, List } from 'antd';
 import moment from 'moment';
 
 function ShowReply(props) {
   const { note_id } = props;
-  // const [comments, setComments] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const { setComments, comments } = props;
   useEffect(() => {
@@ -28,15 +28,9 @@ function ShowReply(props) {
       content: t.comment_text,
       datetime: (
         <Tooltip
-          title={moment()
-            .subtract(2, 'days')
-            .format('YYYY-MM-DD HH:mm:ss')}
+          title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}
         >
-          <span>
-            {moment()
-              .subtract(2, 'days')
-              .fromNow()}
-          </span>
+          <span>{moment().subtract(2, 'days').fromNow()}</span>
         </Tooltip>
       ),
     };

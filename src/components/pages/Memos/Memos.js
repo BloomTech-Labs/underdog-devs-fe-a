@@ -7,7 +7,6 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import MemosForm from './MemosForm';
 import MemosTable from '../../common/MemosTable';
 // import { SearchOutlined } from '@ant-design/icons';
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 // const columns = [
 //   {

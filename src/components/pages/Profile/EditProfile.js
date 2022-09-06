@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Modal, TreeSelect, message } from 'antd';
 import '../../../styles/styles.css';
 import { connect } from 'react-redux';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { setUserProfile } from '../../../state/actions/userProfile/setUserProfile';
 
 function EditProfile({ userInfo, setUserProfile }) {
   const [form] = Form.useForm();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const [ModalOpen, setModalOpen] = useState(false);
 

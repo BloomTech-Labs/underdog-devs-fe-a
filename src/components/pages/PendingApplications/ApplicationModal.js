@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import './ApplicationModal.less';
 import { Modal, Button, Form, Input } from 'antd';
 import MenteeModal from './MenteeModal';
@@ -16,6 +16,7 @@ const ApplicationModal = ({
   const [currentApplication, setCurrentApplication] = useState({});
   const [notesValue, setNotesValue] = useState(notes);
   const [hideForm, setHideForm] = useState(true);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const updateModal = () => {
     axiosWithAuth()

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Card, Table, Grid } from 'antd';
 import '../../common/styles/Resources.css';
 import { SearchOutlined } from '@ant-design/icons';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import useForms from '../../../hooks/useForms';
 
 const { TextArea } = Input;
@@ -189,6 +189,7 @@ export const RenderResourceManagement = () => {
   const { formValues, handleChange, clearForm } = useForms(
     initialResourceFormValues
   );
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   useEffect(() => {
     axiosWithAuth()

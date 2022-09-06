@@ -12,13 +12,14 @@ import {
   GithubOutlined,
 } from '@ant-design/icons';
 
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 
 const { Title } = Typography;
 const { Meta } = Card;
 
 const RenderProfileContainer = props => {
   const [userData, setUserData] = useState({});
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   useEffect(() => {
     axiosWithAuth()

@@ -1,6 +1,5 @@
 import { Avatar } from 'antd';
 import React, { useState, useEffect } from 'react';
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
 import './Navbar.css';

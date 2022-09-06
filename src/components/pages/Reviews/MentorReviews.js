@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import axiosWithAuth from '../../../utils/axiosWithAuth';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Table } from 'antd';
 
