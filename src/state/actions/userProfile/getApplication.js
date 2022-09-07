@@ -11,9 +11,10 @@ export const getApplication = () => {
     dispatch(setFetchStart());
     try {
       const api = await axiosWithAuth().post(`${API_URL}application/`);
-      return dispatch(setApplicationProfile(api.data.users));
+      dispatch(setApplicationProfile(api.data.users));
+      return api;
     } catch (err) {
-      return dispatch(setFetchError(err));
+      dispatch(setFetchError(err));
     } finally {
       dispatch(setFetchEnd());
     }

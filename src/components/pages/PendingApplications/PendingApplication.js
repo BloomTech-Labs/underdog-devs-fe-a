@@ -4,6 +4,7 @@ import { Table, Button, Tag } from 'antd';
 import './PendingApplication.css';
 import { getApplication } from '../../../state/actions/userProfile/getApplication';
 import { connect, useDispatch } from 'react-redux';
+import { batch } from 'react-redux';
 
 const columns = [
   {
@@ -139,7 +140,7 @@ const PendingApplications = ({ applicationProfile }) => {
 
 const mapStateToProps = state => {
   return {
-    applicationProfile: state.user.ApplicationProfile,
+    applicationProfile: state.user.applicationProfile,
   };
 };
 

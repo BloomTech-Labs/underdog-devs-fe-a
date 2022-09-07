@@ -10,7 +10,8 @@ export const getProfile = (profile_id = '') => {
     try {
       dispatch(setFetchStart());
       const api = await axiosWithAuth().get(`${API_URL}profile/${profile_id}`);
-      return dispatch(setUserProfile(api.data));
+      dispatch(setUserProfile(api.data));
+      return api;
     } catch (err) {
       throw new Error(err, dispatch(setFetchError(err)));
     } finally {

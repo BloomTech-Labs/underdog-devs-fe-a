@@ -13,9 +13,10 @@ export const getCurrentUser = () => {
       const api = await axiosWithAuth().get(
         `${API_URL}profile/current_user_profile/`
       );
-      return dispatch(setCurrentUser(api.data));
+      dispatch(setCurrentUser(api.data));
+      return api;
     } catch (err) {
-      throw new Error(setFetchError(err));
+      throw new Error(err, setFetchError(err));
     } finally {
       dispatch(setFetchEnd());
     }

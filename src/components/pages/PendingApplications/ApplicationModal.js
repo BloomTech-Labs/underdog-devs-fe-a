@@ -193,19 +193,6 @@ const ApplicationModal = ({
               <List.Item>
                 <b>Application Status:</b> {currentApplication.other_info}
               </List.Item>
-              <List.Item>
-                <b>Notes:</b> {'currentApplication.application_notes'}
-                <Button
-                  onClick={displayForm}
-                  hidden={!hideForm}
-                  block
-                  size="small"
-                  type="dashed"
-                  style={{ background: 'white', borderColor: '#1890ff' }}
-                >
-                  Edit Notes
-                </Button>
-              </List.Item>
             </List>
           ) : (
             <List size="small" bordered>

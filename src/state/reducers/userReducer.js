@@ -1,43 +1,40 @@
 import * as ACTIONS from '../actions/index';
 
 const initialState = {
-  auth: {
-    //Previously utilized Okta to enable authenticateUser to set these slices of state.
-    isAuthenticated: false,
-    profile_id: null,
-  },
   userProfile: {
-    // when user hits dashboard, make API call to [GET] /profile/:id
-    // first_name: 'Test',
-    // last_name: 'Test',
-    // role_id: 3,
-    // ...etc.
+    /**
+     * Author: Khaleel Musleh
+     * Fetches a user by profile ID when API is called. /profile/:id
+     */
   },
-  currentUser: {},
-  ApplicationStatus: {
-    approvalSuccess: '',
-    rejectSuccess: '',
+  currentUser: {
+    /**
+     * Author: Khaleel Musleh
+     * Displays current user logged in.
+     */
   },
-  approvalSuccess: {},
-  ApplicationProfile: {},
+  applicationProfile: {
+    /**
+     * Author: Khaleel Musleh
+     * Gets all the pending applications to localhost:3000/applications.
+     */
+  },
 
   lifecycle: {
     // set to true when API call starts, set to false when API call concludes
     isFetching: false,
   },
-  errors: {
-    /* TODO: implement a way to track errors */
-    /** Need to implement a success state and error state. */
-    mentorError: '',
-    menteeError: '',
-    approvalError: '',
-    rejectError: '',
+  success: {
+    /**
+     * Author: Khaleel Musleh
+     * Tracks all Successes dispatched as a result of a success response from the server.
+     */
   },
-  mentor: {
-    successPage: '',
-  },
-  mentee: {
-    successPage: '',
+  error: {
+    /**
+     * Author: Khaleel Musleh
+     * Tracks all Errors dispatched as a result of an error response from the server.
+     */
   },
 };
 
@@ -46,17 +43,13 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_FETCH_START:
       return { ...state, lifecycle: { ...state.lifecycle, isFetching: true } };
     case ACTIONS.SET_FETCH_ERROR:
-      return { ...state, errors: [action.payload, state.errors] };
+      return { ...state, error: [action.payload, state.error] };
     case ACTIONS.SET_FETCH_END:
       return { ...state, lifecycle: { ...state.lifecycle, isFetching: false } };
     case ACTIONS.SET_PROFILE_ID:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          isAuthenticated: true,
-          profile_id: action.payload,
-        },
+        profile_id: action.payload,
       };
     case ACTIONS.SET_USER_PROFILE:
       return {
@@ -71,61 +64,27 @@ const userReducer = (state = initialState, action) => {
     case ACTIONS.SET_APPLICATION_PROFILE:
       return {
         ...state,
-        ApplicationProfile: action.payload, // do not persist previous state.ApplicationProfile
+        applicationProfile: action.payload, // do not persist previous state.ApplicationProfile
       };
     case ACTIONS.SET_APPROVAL_SUCCESS:
       return {
         ...state,
-        approvalSuccess: action.payload,
-        errors: {
-          ...state,
-          approvalError: '',
-        },
-      };
-    case ACTIONS.SET_APPROVAL_FAILURE:
-      return {
-        ...state,
-        errors: action.payload,
-        mentor: {
-          ...state,
-          approvalError: '',
-        },
+        success: action.payload,
       };
     case ACTIONS.SET_REJECT_SUCCESS:
       return {
         ...state,
-        rejectSuccess: action.payload,
-        errors: {
-          ...state,
-          rejectError: '',
-        },
-      };
-    case ACTIONS.SET_REJECT_FAILURE:
-      return {
-        ...state,
-        errors: action.payload,
-        mentor: {
-          ...state,
-          rejectError: '',
-        },
+        success: action.payload,
       };
     case ACTIONS.MENTOR_ADD_SUCCESS:
       return {
         ...state,
-        mentor: action.payload,
-        errors: {
-          ...state,
-          mentorError: '',
-        },
+        success: action.payload,
       };
-    case ACTIONS.MENTOR_ADD_FAILURE:
+    case ACTIONS.MENTEE_ADD_SUCCESS:
       return {
         ...state,
-        errors: action.payload,
-        mentor: {
-          ...state,
-          successPage: '',
-        },
+        success: action.payload,
       };
     default:
       return state;

@@ -20,7 +20,13 @@ import { useDispatch } from 'react-redux';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
+const Navbar = ({
+  isAuthenticated,
+  userProfile,
+  getProfile,
+  currentUser,
+  State,
+}) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
@@ -28,6 +34,8 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
   const { logout } = useAuth0();
 
   const dispatch = useDispatch();
+
+  console.log(State);
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -50,7 +58,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     dispatch(getCurrentUser());
     setUser(currentUser);
-    getProfile(currentUser.profile_id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.values(currentUser).length]);
 
@@ -228,9 +235,9 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: localStorage.getItem('token'),
     userProfile: state.user.userProfile,
     currentUser: state.user.currentUser,
+    State: state,
   };
 };
 
