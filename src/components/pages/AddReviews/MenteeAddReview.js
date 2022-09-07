@@ -18,11 +18,7 @@ const MenteeAddReview = () => {
   };
 
   const handleSubmit = e => {
-    e.preventDefault()
-      // axiosWithAuth()
-      .post(`/reviews`, formValues)
-      .then(res => {})
-      .catch(err => console.log({ err }));
+    e.preventDefault();
   };
 
   return (
