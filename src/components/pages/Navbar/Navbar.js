@@ -15,14 +15,19 @@ import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 
+import { API_URL } from '../../../config';
+import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
+import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
+import { setFetchError } from '../../../state/actions/errors/setFetchError';
+
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
+const Navbar = ({ userProfile, getProfile }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
-  const { logout } = useAuth0();
+  const { logout, isAuthenticated } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
@@ -37,12 +42,29 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
     logout({ returnTo: window.location.origin });
   };
   useEffect(() => {
-    axiosWithAuth()
-      .get(`/profile/current_user_profile/`)
-      .then(user => {
+    (async () => {
+      if (isAuthenticated) {
+        const user = await axiosWithAuth().get(
+          `/profile/current_user_profile/`
+        );
+
         setUser(user.data);
-        getProfile(user.data.profile_id);
-      });
+
+        // The following code was taken from the userProfile redux action file
+        setFetchStart();
+        axiosWithAuth()
+          .get(`${API_URL}profile/${user.data.profile_id}`)
+          .then(res => {
+            if (res.data) {
+              getProfile(res.data);
+            }
+          })
+          .catch(err => {
+            setFetchError(err);
+          })
+          .finally(() => setFetchEnd());
+      }
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
@@ -210,7 +232,6 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: localStorage.getItem('token'),
     userProfile: state.user.userProfile,
   };
 };
