@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Table, Tag, Button } from 'antd';
 import MatchingModal from './MatchingModal';
 
@@ -7,6 +7,7 @@ const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
   const [modal, setModal] = useState({ show: false, data: null });
   const [selectedMentorKeys, setSelectedMentorKeys] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   useEffect(() => {
     // assignments in this sense means assigned mentees
