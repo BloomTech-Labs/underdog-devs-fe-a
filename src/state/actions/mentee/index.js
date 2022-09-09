@@ -1,11 +1,11 @@
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import axios from 'axios';
 
 export const MENTEE_ADD_SUCCESS = 'MENTEE_ADD_SUCCESS';
 export const MENTEE_ADD_FAILURE = 'MENTEE_ADD_FAILURE';
 
 export const postNewMenteeAccount = newAccount => {
   return async dispatch => {
-    axiosWithAuth()
+    axios()
       .post(`application/new/mentee`, newAccount)
       .then(() => {
         dispatch({
