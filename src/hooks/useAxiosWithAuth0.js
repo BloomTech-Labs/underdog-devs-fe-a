@@ -24,12 +24,12 @@ export default function useAxiosWithAuth0() {
   useEffect(() => {
     (async () => {
       const token = await getAccessTokenSilently();
-      console.log('token:', token);
       axiosWithAuth(token);
     })();
   }, [getAccessTokenSilently]);
 
   return {
+    // Exported with the same name to reduce the amount of refactoring needed
     axiosWithAuth,
   };
 }
