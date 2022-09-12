@@ -7,7 +7,6 @@ import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import ApplyButton from './NavbarFeatures/ApplyButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
@@ -20,13 +19,7 @@ import { useDispatch } from 'react-redux';
 
 const { Header } = Layout;
 
-const Navbar = ({
-  isAuthenticated,
-  userProfile,
-  getProfile,
-  currentUser,
-  State,
-}) => {
+const Navbar = ({ isAuthenticated, userProfile, currentUser }) => {
   const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
@@ -34,8 +27,6 @@ const Navbar = ({
   const { logout } = useAuth0();
 
   const dispatch = useDispatch();
-
-  console.log(State);
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -237,8 +228,7 @@ const mapStateToProps = state => {
   return {
     userProfile: state.user.userProfile,
     currentUser: state.user.currentUser,
-    State: state,
   };
 };
 
-export default connect(mapStateToProps, { getProfile })(Navbar);
+export default connect(mapStateToProps)(Navbar);
