@@ -90,10 +90,16 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-   const approveApplication = () => {
+   const approveApplication = (status) => {
     dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        setDisplayModal(false);
+        openNotificationWithIcon('success', status);
+        getPendingApps();
+      })
+      .catch(err => {
+        openNotificationWithIcon('error', status, err.message);
+      });
   };
 
   /**
@@ -102,13 +108,18 @@ const ApplicationModal = ({
    * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const rejectApplication = () => {
+  const rejectApplication = (status) => {
     dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        setDisplayModal(false);
+        openNotificationWithIcon('success', status);
+        getPendingApps();
+      })
+      .catch(err => {
+        openNotificationWithIcon('error', status, err.message
+      });
   };
 
-  // /*eslint array-callback-return: ["error", { allowImplicit: true }]*/
   useEffect(() => {
     const getCurrentApp = () => {
       Object.values(applicationProfile).map(current_id => {
@@ -144,10 +155,18 @@ const ApplicationModal = ({
               : 'modalStyleMentor'
           }
           footer={[
-            <Button key="submitA" type="primary" onClick={approveApplication}>
+            <Button
+              key="submitA"
+              type="primary"
+              onClick={() => approveApplication('approve')}
+            >
               Approve
             </Button>,
-            <Button key="submitR" onClick={rejectApplication} danger>
+            <Button
+              key="submitR"
+              onClick={() => rejectApplication('reject')}
+              danger
+            >
               Reject
             </Button>,
           ]}
