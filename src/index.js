@@ -34,6 +34,7 @@ import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
 import ScheduleMeeting from './components/common/ScheduleMeeting';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
+import TicketDashboard from './components/pages/TicketsDashboard/TicketsDashboard';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -87,122 +88,135 @@ function App() {
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
 
+        {/**
+         * Khaleel Musleh
+         * Added the role_id of Dev which is 5, re-routed the previous dashboard that shows Ticket dashboard (renamed it to TicketsDashboard) to its own route and set the future dashboard
+         * Component to the main path / until further instructions.
+         */}
+
+        <PrivateRoute
+          path="/dashboard"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 3, 4, 5]}
+          component={TicketDashboard}
+        />
+
         <PrivateRoute
           path="/memos"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={Memos}
         />
 
         <PrivateRoute
           path="/memosform"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={MemosForm}
         />
 
         <PrivateRoute
           path="/mymemos"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={MyMemos}
         />
 
         <PrivateRoute
           path="/profile"
           redirect="/login"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={Profile}
         />
 
         <PrivateRoute
           path="/users"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 5]}
           component={UserManagement}
         />
 
         <PrivateRoute
           path="/mentees"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3]}
+          allowRoles={[1, 2, 3, 5]}
           component={() => <div>"My Mentees" Component goes here</div>}
         />
 
         <PrivateRoute
           path="/resources"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={ManageResources}
         />
 
         <PrivateRoute
           path="/attendance"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 5]}
           component={Attendance}
         />
 
         <PrivateRoute
           path="/support"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={SupportRequests}
         />
 
         <PrivateRoute
           path="/meetings/schedule"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={ScheduleMeeting}
         />
 
         <PrivateRoute
           path="/meetings"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={ViewAllMeetings}
         />
 
         <PrivateRoute
           path="/calendar"
           redirect="/dashboard"
-          allowRoles={[1, 2, 3, 4]}
+          allowRoles={[1, 2, 3, 4, 5]}
           component={Calendar}
         />
 
         <PrivateRoute
           path="/matching"
           redirect="/dashboard"
-          allowRoles={[1]}
+          allowRoles={[1, 5]}
           component={MentorMenteeMatching}
         />
 
         <PrivateRoute
           path="/applications"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 5]}
           component={PendingApplications}
         />
 
         <PrivateRoute
           path="/reviews"
           redirect="/dashboard"
-          allowRoles={[1]}
+          allowRoles={[1, 5]}
           component={Reviews}
         />
 
         <PrivateRoute
           path="/addMentorReview"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 5]}
           component={MentorAddReview}
         />
 
         <PrivateRoute
           path="/addMenteeReview"
           redirect="/dashboard"
-          allowRoles={[1, 2]}
+          allowRoles={[1, 2, 5]}
           component={MenteeAddReview}
         />
 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import '../../../styles/styles.css';
-import './PendingApplication.css';
+// import './ApplicationModal.less';
 import { Modal, Button, List, Divider, Form, Input } from 'antd';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
 import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
+import MenteeModal from './MenteeModal';
+import MentorModal from './MentorModal';
 
 import { useDispatch } from 'react-redux';
 
@@ -93,7 +94,7 @@ const ApplicationModal = ({
       });
     };
     getCurrentApp();
-  }, [profileId]);
+  }, [applicationProfile, profileId]);
 
   return (
     <>
@@ -114,10 +115,14 @@ const ApplicationModal = ({
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
-          className="modalStyle"
+          className={
+            currentApplication.role_name === 'mentee'
+              ? 'modalStyleMentee'
+              : 'modalStyleMentor'
+          }
           footer={[
-            <Button key="back" onClick={handleCancel}>
-              Return to Previous
+            <Button key="edit-notes" onClick={displayForm} hidden={!hideForm}>
+              Edit Notes
             </Button>,
             <Button key="submitA" type="primary" onClick={approveApplication}>
               Approve
@@ -127,7 +132,6 @@ const ApplicationModal = ({
             </Button>,
           ]}
         >
-          <Divider orientation="center">{`${currentApplication.first_name} ${currentApplication.last_name}`}</Divider>
           {currentApplication.role_name === 'mentee' ? (
             <List size="small" bordered>
               <List.Item>

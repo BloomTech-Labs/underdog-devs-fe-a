@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-import './PendingApplication.css';
+// import './PendingApplication.css';
 import { getApplication } from '../../../state/actions/userProfile/getApplication';
 import { connect, useDispatch } from 'react-redux';
-import { batch } from 'react-redux';
+// import { batch } from 'react-redux';
+
+// Filter by status
+const statusFilter = (value, record) => {
+  if (Array.isArray(value)) {
+    return (
+      record.status.props.children === value[0] ||
+      record.status.props.children === value[1] ||
+      record.status.props.children === value[2]
+    );
+  } else {
+    return record.status.props.children === value;
+  }
+};
 
 const columns = [
+  // Names sorting by alphabetical order
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    defaultSortOrder: 'descend',
-    sorter: (a, b) => a.name - b.name,
+    sorter: (a, b) => a.name.localeCompare(b.name),
+    sortDirections: ['descend', 'ascend'],
   },
   {
+    // Add in functionality for filter button for roles
     title: 'Role',
     dataIndex: 'role',
     key: 'role',
@@ -28,14 +43,46 @@ const columns = [
         value: 'mentee',
       },
     ],
-    onFilter: (value, record) => record.role.includes(value),
+    onFilter: (value, record) => record.role.props.children === value,
   },
+
+  // Date data from DS needs to be updated
   {
-    title: 'Date',
+    title: 'Date Submitted',
+
     dataIndex: 'date',
     key: 'date',
     defaultSortOrder: 'descend',
-    sorter: (a, b) => a.date - b.date,
+    // sorter: (a, b, sortOrder) => {
+    //   console.log("a: ", a);
+    //   console.log("b: ", b);
+    //   console.log("sortOrder: ",  sortOrder)
+    // }
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    filters: [
+      {
+        text: 'pending',
+        value: 'pending',
+      },
+      {
+        text: 'approved',
+        value: 'approved',
+      },
+      {
+        text: 'rejected',
+        value: 'rejected',
+      },
+      {
+        text: 'show all',
+        value: ['pending', 'approved', 'rejected'],
+      },
+    ],
+    defaultFilteredValue: ['pending'],
+    onFilter: (value, record) => statusFilter(value, record),
   },
   {
     title: 'Application',
@@ -48,12 +95,12 @@ const PendingApplications = ({ applicationProfile }) => {
   const dispatch = useDispatch();
 
   const [applications, setApplications] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
 
   const showModal = profile_id => {
     setProfileId(profile_id);
-    setDisplayModal(true);
+    setModalIsVisible(true);
   };
 
   /**
@@ -114,19 +161,19 @@ const PendingApplications = ({ applicationProfile }) => {
      * Due to the dependency array not working on any state or variable due to the rendering being faster than data fetching which is passed through state
      * I had to make a dependency array that renders once data length is 0 or higher.
      */
-  }, [applicationProfile.length >= 0]);
+  }, [applicationProfile, dispatch]);
 
   return (
     <>
-      <h2>Pending Applications</h2>
+      <h2>Applications</h2>
       <ApplicationModal
-        displayModal={displayModal}
-        setDisplayModal={setDisplayModal}
+        displayModal={modalIsVisible}
+        setDisplayModal={setModalIsVisible}
         profileId={profileId}
         setProfileId={setProfileId}
         applicationProfile={applicationProfile}
       />
-      <Table columns={columns} dataSource={applications} />
+      <Table columns={columns} dataSource={applications} />;
     </>
   );
 };

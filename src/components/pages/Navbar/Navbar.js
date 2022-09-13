@@ -168,15 +168,6 @@ const Navbar = ({
             )}
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
-                <Link
-                  key="memosLinkNav"
-                  to="/memos"
-                  style={{ color: '#FFF' }}
-                  className="memos"
-                >
-                  <FormOutlined className="memo-icon" />
-                  Memos
-                </Link>
                 <Dropdown overlay={accountMenu} placement="bottom" arrow>
                   <div className="userInfo-and-profilePic">
                     <div className="profilePic">
