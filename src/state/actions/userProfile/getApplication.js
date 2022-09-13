@@ -10,8 +10,13 @@ export const getApplication = () => {
   return async dispatch => {
     dispatch(setFetchStart());
     try {
-      const api = await axiosWithAuth().post(`${API_URL}application/`);
-      dispatch(setApplicationProfile(api.data.users));
+      const api = await axiosWithAuth().post(`/application`);
+      api.data.forEach(row => {
+        row.hasOwnProperty('accepting_new_mentees')
+          ? (row.role_name = 'mentor')
+          : (row.role_name = 'mentee');
+      });
+      dispatch(setApplicationProfile(api.data));
       return api;
     } catch (err) {
       dispatch(setFetchError(err));
