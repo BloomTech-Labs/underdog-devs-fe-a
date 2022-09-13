@@ -50,16 +50,18 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
-const Mentor = ({ dispatch, error, successPage }) => {
+const Mentor = ({ dispatch, error }) => {
   const { formValues, handleChange, handleTechStack } =
     useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
-    dispatch(postNewMentorAccount(formValues));
-    push('/apply/success');
+    dispatch(postNewMentorAccount(formValues))
+      .then(res => {
+        push('/apply/success');
+      })
+      .catch(err => console.error(err));
   };
-  console.log(formValues);
 
   const [form] = Form.useForm();
   const optionsArray = [
@@ -518,8 +520,7 @@ const Mentor = ({ dispatch, error, successPage }) => {
 
 const mapStateToProps = state => {
   return {
-    error: state.user.errors.mentorError,
-    successPage: state.user.mentor.successPage,
+    error: state.user.error,
   };
 };
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import { updateProfile } from '../../../state/actions/userProfile/updateProfile';
+import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
 
@@ -8,6 +10,8 @@ const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
   const { axiosWithAuth } = useAxiosWithAuth0();
+
+  const dispatch = useDispatch();
 
   const columns = [
     {
@@ -61,15 +65,28 @@ const UserManagement = () => {
     const requestBody = {
       role_id: 2,
     };
-    axiosWithAuth()
-      .put(`/profile/${record.key}`, requestBody)
-      .then(res => setUpdatedProfile(res))
+
+    /**
+     * Author: Khaleel Musleh
+     * @param {updateToAdmin}
+     * updateToAdmin dispatches a request to updateProfile in state/actions/userProfile which then returns a response of either a success or error status
+     */
+
+    dispatch(updateProfile(record.key, requestBody))
+      .then(res => {
+        setUpdatedProfile(res);
+      })
       .catch(err => console.error(err));
   }
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {getAccounts}
+   * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
+   */
+
   const getAccounts = () => {
-    axiosWithAuth()
-      .get('/profile')
+    dispatch(getProfile())
       .then(res => {
         setAccounts(
           res.data.map(row => ({
@@ -90,9 +107,7 @@ const UserManagement = () => {
           }))
         );
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {

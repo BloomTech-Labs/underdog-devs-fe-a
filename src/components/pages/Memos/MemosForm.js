@@ -11,8 +11,8 @@ import {
   BulbFilled,
 } from '@ant-design/icons';
 
-import './Memos.css';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
+import './Memo.less';
 
 const initialValues = {
   created_by: '',
@@ -122,6 +122,7 @@ const MemosForm = props => {
   return (
     displayModal && (
       <Modal
+        className="memoModal"
         title="Create a new memo"
         visible={displayModal}
         onOk={() => setDisplayModal(false)}

@@ -48,13 +48,16 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
-const Mentee = ({ dispatch, error, successPage }) => {
+const Mentee = ({ dispatch, error }) => {
   const { formValues, handleChange } = useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
-    dispatch(postNewMenteeAccount(formValues));
-    push('/apply/success');
+    dispatch(postNewMenteeAccount(formValues))
+      .then(res => {
+        push('/apply/success');
+      })
+      .catch(err => console.error(err));
   };
 
   return (
@@ -490,8 +493,7 @@ const Mentee = ({ dispatch, error, successPage }) => {
 
 const mapStateToProps = state => {
   return {
-    error: state.user.errors.menteeError,
-    successPage: state.user.mentee.successPage,
+    error: state.user.error,
   };
 };
 

@@ -1,4 +1,3 @@
-import { Avatar } from 'antd';
 import React, { useState, useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
@@ -8,12 +7,15 @@ import { UserOutlined, FormOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { Link, useHistory } from 'react-router-dom';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import LoginButton from './NavbarFeatures/LoginButton';
 import ApplyButton from './NavbarFeatures/ApplyButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
+import { getCurrentUser } from '../../../state/actions/userProfile/getCurrentUser';
+import { acceptMentee } from '../../../state/actions/mentor/acceptMenteeStatus';
+import { mentorInfo } from '../../../state/actions/mentor/postMentorInfo';
+import { useDispatch } from 'react-redux';
 
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
@@ -22,13 +24,14 @@ import { setFetchError } from '../../../state/actions/errors/setFetchError';
 
 const { Header } = Layout;
 
-const Navbar = ({ userProfile, getProfile }) => {
-  const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
+const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
+
+  const dispatch = useDispatch();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -41,6 +44,13 @@ const Navbar = ({ userProfile, getProfile }) => {
     localStorage.removeItem('AuthToken');
     logout({ returnTo: window.location.origin });
   };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(getCurrentUser)}
+   * dispatch(getCurrentUser) dispatches a request to getCurrentUser in state/actions/userProfile which then returns a response of either a success or error status
+   */
+
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
@@ -65,18 +75,24 @@ const Navbar = ({ userProfile, getProfile }) => {
           .finally(() => setFetchEnd());
       }
     })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [Object.values(currentUser).length]);
 
   const profile_id = user.profile_id;
   const isMentor = user.role_id === 3;
 
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(mentorInfo)}
+   * dispatch(mentorInfo) dispatches a request to postMentorInfo with profile_id parameter in state/actions/mentor which then returns a response of either a success or error status
+   */
+
   // Determines the initial state of the Mentor toggle switch
   useEffect(() => {
-    axiosWithAuth()
-      .post(`/profile/mentor-information`, { profile_id })
+    dispatch(mentorInfo(profile_id))
       .then(res => {
-        const availability = res.data[0].availability;
+        const availability = res.payload.data[0]?.availability;
         setToggleStatus(availability);
       })
       .catch(err => console.log(err));
@@ -104,15 +120,17 @@ const Navbar = ({ userProfile, getProfile }) => {
       openModal();
       return;
     }
-    // push(menu.key);
   };
+
+  /**
+   * Author: Khaleel Musleh
+   * @param {dispatch(acceptMentee)}
+   * dispatch(acceptMentee) dispatches a request to postNewMentees in state/actions/mentor which then returns a response of either a success or error status
+   */
 
   const handleToggleChange = checked => {
     if (!checked) {
-      axiosWithAuth()
-        .post(`/profile/availability/${profile_id}`, {
-          accepting_new_mentees: false,
-        })
+      dispatch(acceptMentee(profile_id, { accepting_new_mentees: false }))
         .then(res => {
           setToggleStatus(false);
         })
@@ -120,10 +138,7 @@ const Navbar = ({ userProfile, getProfile }) => {
     }
 
     if (checked) {
-      axiosWithAuth()
-        .post(`/profile/availability/${profile_id}`, {
-          accepting_new_mentees: true,
-        })
+      dispatch(acceptMentee(profile_id, { accepting_new_mentees: true }))
         .then(res => {
           setToggleStatus(true);
         })
@@ -171,25 +186,8 @@ const Navbar = ({ userProfile, getProfile }) => {
             )}
             {Object.keys(user).length && (
               <div className="userInfo-and-profilePic">
-                <Link
-                  key="memosLinkNav"
-                  to="/memos"
-                  style={{ color: '#FFF' }}
-                  className="memos"
-                >
-                  <FormOutlined className="memo-icon" />
-                  Memos
-                </Link>
                 <Dropdown overlay={accountMenu} placement="bottom" arrow>
                   <div className="userInfo-and-profilePic">
-                    <div className="profilePic">
-                      <Avatar
-                        size={50}
-                        icon={<UserOutlined />}
-                        src={profilePic}
-                        alt="Account settings"
-                      />
-                    </div>
                     <div className="userInfo">
                       <div
                         className="username"
@@ -230,10 +228,17 @@ const Navbar = ({ userProfile, getProfile }) => {
   );
 };
 
+/**
+ * Author: Khaleel Musleh
+ * @param {mapStateToProps}
+ * Added userProfile and currentUser to state for fetching current user data and user which is currently being viewed or altered and renders it in the Navbar.js component.
+ */
+
 const mapStateToProps = state => {
   return {
     userProfile: state.user.userProfile,
+    currentUser: state.user.currentUser,
   };
 };
 
-export default connect(mapStateToProps, { getProfile })(Navbar);
+export default connect(mapStateToProps)(Navbar);

@@ -9,24 +9,22 @@ import { useHistory, useLocation } from 'react-router-dom';
 import useTheme from '../../../hooks/useTheme';
 import '../styles/Sidebar.css';
 import {
+  superAdminLinks,
   adminLinks,
   bottomSharedLinks,
   menteeLinks,
   mentorLinks,
   sharedLinks,
+  devLinks,
 } from './SidebarLinks.utils';
 const { Content, Sider } = Layout;
 
 const Sidebar = ({ children, userProfile }) => {
   const { role_id } = userProfile;
-  // const [modal, setModal] = useState(false);
   const { push } = useHistory();
   const { pathname } = useLocation();
 
   const [theme, toggleTheme] = useTheme();
-  // const openModal = () => setModal(true);
-
-  // const cancelOpen = () => setModal(false);
 
   const handleMenuClick = menu => {
     if (menu.key === 'darkmode') {
@@ -38,29 +36,40 @@ const Sidebar = ({ children, userProfile }) => {
 
   // This is determining which role is currently in session, implemented further in ternary statements in the return clause
   // const isUserMentee = useMemo(() => role_id === 4, [role_id]);
+
+  /**
+   * Khaleel Musleh
+   * Changed role_id to strict equality and removed the ELSE statement of mentee as it was crashing whenever we update the role_id or add a new role_id such as Dev role ID
+   *  while creating an IF statement for each role
+   */
+  const isUserSuperAdmin = useMemo(() => role_id === 1, [role_id]);
+  const isUserAdmin = useMemo(() => role_id === 2, [role_id]);
   const isUserMentor = useMemo(() => role_id === 3, [role_id]);
-  const isUserAdmin = useMemo(() => role_id <= 2, [role_id]);
+  const isUserMentee = useMemo(() => role_id === 4, [role_id]);
+  /**
+   * Khaleel Musleh
+   * Created a Dev role_id which displays all the sidebar links of Admin, Mentor, Mentee
+   */
+  const isUserDev = useMemo(() => role_id === 5, [role_id]);
 
   const linksToDisplay = useMemo(() => {
     // create sidebar link array
     let sidebarLinks = [];
     // check roles
-    if (isUserAdmin) {
-      sidebarLinks = [...sharedLinks, ...adminLinks];
-    } else if (isUserMentor) {
-      sidebarLinks = [...sharedLinks, ...mentorLinks];
-    } else {
-      // we assume the user is a mentee
-      sharedLinks[0].children.pop();
-      sharedLinks[0].children.push({
-        key: '/meetings',
-        label: 'Meetings',
-      });
-      sidebarLinks = [...sharedLinks, ...menteeLinks];
-    }
 
+    if (isUserSuperAdmin) {
+      sidebarLinks = [...superAdminLinks];
+    } else if (isUserAdmin) {
+      sidebarLinks = [...adminLinks];
+    } else if (isUserMentor) {
+      sidebarLinks = [...mentorLinks];
+    } else if (isUserMentee) {
+      sidebarLinks = [...menteeLinks];
+    } else if (isUserDev) {
+      sidebarLinks = [...devLinks];
+    }
     return [...sidebarLinks, ...bottomSharedLinks];
-  }, [isUserAdmin, isUserMentor]);
+  }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

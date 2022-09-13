@@ -1,22 +1,19 @@
-import axios from 'axios';
-import { API_URL } from '../../../config';
-
+import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { setFetchError } from '../errors/setFetchError';
 import { setFetchEnd } from '../lifecycle/setFetchEnd';
 import { setFetchStart } from '../lifecycle/setFetchStart';
 
-export const MENTEE_ADD_SUCCESS = 'MENTEE_ADD_SUCCESS';
+export const SET_MENTORINFO_SUCCESS = 'SE_MENTORINFO_SUCCESS';
 
-export const postNewMenteeAccount = newAccount => {
+export const mentorInfo = profileId => {
   return async dispatch => {
-
     try {
       dispatch(setFetchStart());
-      const api = await axios().post(
-        `${API_URL}application/new/mentee`,
-        newAccount
-      );
-      dispatch({ type: MENTEE_ADD_SUCCESS, payload: api });
+      const api = axiosWithAuth().post(`/profile/mentor-information`, {
+        profileId,
+      });
+
+      dispatch({ type: SET_MENTORINFO_SUCCESS, payload: api });
       return api;
     } catch (err) {
       throw new Error(err, dispatch(setFetchError(err)));
