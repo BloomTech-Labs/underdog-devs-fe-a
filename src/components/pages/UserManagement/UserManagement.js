@@ -88,7 +88,7 @@ const UserManagement = () => {
     dispatch(getProfile())
       .then(res => {
         setAccounts(
-          res.payload.map(row => ({
+          res.data.map(row => ({
             key: row.profile_id,
             name: row.first_name + ' ' + row.last_name,
             role:
