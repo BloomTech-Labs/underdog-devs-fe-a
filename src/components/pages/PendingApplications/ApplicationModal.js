@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
-import './ApplicationModal.less';
-import { Modal, Button, Form, Input } from 'antd';
+// import './ApplicationModal.less';
+import { Modal, Button, List, Divider, Form, Input } from 'antd';
+import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
+import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
+
+import { useDispatch } from 'react-redux';
+
+/**
+ * @param {applicationProfile}
+ * @returns pending applications
+ * Passed applicationProfile state from pendingApplication.js and rendered the applications in applicationModal.
+ */
 
 const ApplicationModal = ({
   profileId,
   setProfileId,
   setDisplayModal,
   displayModal,
+  applicationProfile,
 }) => {
-  const notes = { application_notes: '' };
-  const { TextArea } = Input;
-  const [currentApplication, setCurrentApplication] = useState({});
-  const [notesValue, setNotesValue] = useState(notes);
+  const [currentApplication, setCurrentApplication] = useState();
   const [hideForm, setHideForm] = useState(true);
 
-  const updateModal = () => {
-    axiosWithAuth()
-      .post(`/application/profileId/${profileId}`)
-      .then(res => {
-        setCurrentApplication(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  const dispatch = useDispatch();
 
   const handleOk = () => {
     setDisplayModal(false);
@@ -36,7 +34,6 @@ const ApplicationModal = ({
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
-    setNotesValue(notes);
     setHideForm(true);
   };
 
@@ -44,100 +41,64 @@ const ApplicationModal = ({
     setHideForm(false);
   };
 
-  const handleChange = e => {
-    setNotesValue({
-      ...notesValue,
-      [e.target.name]: e.target.value,
-    });
-  };
+  /**
+   * @param {pendingAppHelper} Function
+   * @returns Mentor or Mentee parameter for approveApplication or rejectApplication
+   * If current.application.accepting_new_mentees exists then the account is a Mentor which means we have to pass in an Object in the request body with current_company
+   * and validate_status yet if it doesnt exist then its a Mentee and we only pass in validate_status.
+   */
 
-  const addNote = e => {
-    axiosWithAuth()
-      .put(
-        `/application/update-notes/${currentApplication.application_id}`,
-        notesValue
-      )
-      .then(res => {
-        updateModal();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    e.preventDefault();
-    setHideForm(true);
+  const pendingAppHelper = status => {
+    const mentor =
+      currentApplication.accepting_new_mentees === undefined
+        ? {
+            validate_status: status,
+          }
+        : {
+            validate_status: status,
+            current_company: currentApplication.current_company,
+          };
+    return mentor;
   };
 
   /**
    * Author: Khaleel Musleh
-   * @param {approveApplication} e is for approving an application of a mentor_intake or mentee_intake Boolean from false to approved:true making a PUT call to the backend database server.
+   * @param {approveApplication}
+   * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
-  /**
-   * Author: Christwide Oscar
-   * @param {onConfirm} e was not created for the application approve and reject buttons. I changed the functions for the onConfirm to onClick and everything seem to work correctly from the console side.
-   */
-  const approveApplication = e => {
-    axiosWithAuth()
-      .post(`/application/approve/${currentApplication.profile_id}`, {
-        profile_id: currentApplication.profile_id,
-        low_income: currentApplication.low_income,
-      })
-      .then(res => {
-        setCurrentApplication({ ...res.data, approved: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+
+  const approveApplication = () => {
+    dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   };
 
   /**
    * Author: Khaleel Musleh
-   * @param {rejectApplication} e is for rejecting an application of a mentor_intake or mentee_intake validateStatus from pending to rejected and making sure the approved Boolean is always at false, making a PUT call to the backend database server.
+   * @param {rejectApplication}
+   * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const rejectApplication = e => {
-    axiosWithAuth()
-      .post(`/application/reject/${currentApplication.profile_id}`, {
-        profile_id: currentApplication.profile_id,
-        low_income: currentApplication.low_income,
-      })
-      .then(res => {
-        setCurrentApplication({ ...res.data, approved: false });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  const rejectApplication = () => {
+    dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
   };
 
+  // /*eslint array-callback-return: ["error", { allowImplicit: true }]*/
   useEffect(() => {
     const getCurrentApp = () => {
-      axiosWithAuth()
-        .post(`/application`)
-        .then(res => {
-          res.data.users.forEach((applicant, index) => {
-            if (applicant['profile_id'] === profileId) {
-              applicant.hasOwnProperty('accepting_new_mentees')
-                ? (applicant.role_name = 'mentor')
-                : (applicant.role_name = 'mentee');
-              setCurrentApplication(applicant);
-              setNotesValue(applicant);
-            }
-          });
-        })
-        .catch(err => {
-          console.log(err); // A better way to handle errors for FE is a WIP
-        });
+      Object.values(applicationProfile).map(current_id => {
+        if (current_id?.profile_id == profileId)
+          setCurrentApplication(current_id);
+      });
     };
     getCurrentApp();
-  }, [profileId]);
-
-  /*
-  *Author: Melody McClure
-  The suggestion was made by Elijah Hopkins that creating error handlers as a slice of state rather than leaving the console logs to handle errors would be a good decision. However this seems like it would be a seperate ticket so we are going to open that as a new issue to be worked on.
-  */
+  }, [applicationProfile, profileId]);
 
   return (
     <>
-      {currentApplication.role_name === undefined ? (
+      {currentApplication?.profile_id === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}
@@ -172,28 +133,118 @@ const ApplicationModal = ({
           ]}
         >
           {currentApplication.role_name === 'mentee' ? (
-            <MenteeModal applicant={currentApplication} />
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b>
+                {currentApplication.accepting_new_mentees === undefined
+                  ? 'Mentee'
+                  : 'Mentor'}
+              </List.Item>
+              <List.Item>
+                <b>Email:</b> {currentApplication.email}
+              </List.Item>
+              <List.Item>
+                <b>Location:</b> {currentApplication.city},{' '}
+                {currentApplication.state} {currentApplication.country}
+              </List.Item>
+              <List.Item>
+                <b>Membership Criteria:</b>
+                <ul>
+                  {currentApplication.formerly_incarcerated === true ? (
+                    <li>Formerly Incarcerated</li>
+                  ) : null}
+                  {currentApplication.low_income === true ? (
+                    <li>Low Income</li>
+                  ) : null}
+                  {currentApplication.underrepresented_group === true ? (
+                    <li>Belongs to underrepresented group</li>
+                  ) : null}
+                </ul>
+              </List.Item>
+              <List.Item>
+                {' '}
+                <b>Convictions:</b>{' '}
+                {`${
+                  currentApplication.formerly_incarcerated === true
+                    ? currentApplication.convictions
+                    : 'none'
+                }`}
+              </List.Item>
+              <List.Item>
+                <b>Applicant needs help with:</b>{' '}
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </List.Item>
+              <List.Item>
+                <b>Subject most interested in:</b> {currentApplication.subject}
+              </List.Item>
+              <List.Item>
+                <b>Other information:</b> {currentApplication.other_info}
+              </List.Item>
+              <List.Item>
+                <b>Submission Date:</b>{' '}
+                {currentApplication.created_at.slice(0, 10)}
+              </List.Item>
+              <List.Item>
+                <b>Application Status:</b> {currentApplication.other_info}
+              </List.Item>
+            </List>
           ) : (
-            <MentorModal applicant={currentApplication} />
+            <List size="small" bordered>
+              <List.Item>
+                <b>Role:</b>{' '}
+                {currentApplication.accepting_new_mentees === undefined
+                  ? 'Mentee'
+                  : 'Mentor'}
+              </List.Item>
+              <List.Item>
+                <b>Email:</b> {currentApplication.email}
+              </List.Item>
+              <List.Item>
+                <b>Location:</b> {currentApplication.city},{' '}
+                {currentApplication.state} {currentApplication.country}
+              </List.Item>
+              <List.Item>
+                <b>Current Employer:</b> {currentApplication.current_company}
+              </List.Item>
+              <List.Item>
+                <b>Tech Stack:</b> {currentApplication.tech_stack}
+              </List.Item>
+              <List.Item>
+                <b>Applicant wants to focus on:</b>{' '}
+                <ul>
+                  {currentApplication.industry_knowledge === true ? (
+                    <li>Industry Knowledge</li>
+                  ) : null}
+                  {currentApplication.pair_programming === true ? (
+                    <li>Pair Programming</li>
+                  ) : null}
+                  {currentApplication.job_help === true ? (
+                    <li>Job Help</li>
+                  ) : null}
+                </ul>
+              </List.Item>
+              <List.Item>
+                <b>Other information:</b> {currentApplication.other_info}
+              </List.Item>
+              <List.Item>
+                <b>Submission Date:</b>{' '}
+                {currentApplication.created_at.slice(0, 10)}
+              </List.Item>
+              <List.Item>
+                <b>Application Status:</b> {currentApplication.validate_status}
+              </List.Item>
+            </List>
           )}
-          <Form className="notesField" hidden={hideForm}>
-            <Form.Item
-              id="application_notes"
-              type="text"
-              value={notesValue.application_notes}
-              onChange={handleChange}
-              className="applicationNotes"
-            >
-              <TextArea autosize="true" placeholder="Edit notes here..." />
-              <Button
-                onClick={addNote}
-                size="small"
-                style={{ background: '#f0f0f0', borderColor: '#1890ff' }}
-              >
-                Save
-              </Button>
-            </Form.Item>
-          </Form>
         </Modal>
       )}
     </>

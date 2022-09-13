@@ -28,4 +28,3 @@ Please delete options that are not relevant.
 - [ ] Size of pull request kept to a minimum
 - [ ] Pull request description clearly describes changes made & motivations for said changes
 
-

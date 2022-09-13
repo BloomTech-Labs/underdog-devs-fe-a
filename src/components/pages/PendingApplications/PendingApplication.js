@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
+// import './PendingApplication.css';
+import { getApplication } from '../../../state/actions/userProfile/getApplication';
+import { connect, useDispatch } from 'react-redux';
+// import { batch } from 'react-redux';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -88,12 +91,9 @@ const columns = [
   },
 ];
 
-// Displays shape of table data if needed, add to Table component
-// const onChange = (pagination, filters, sorter, extra) => {
-//   console.log('params', pagination, filters, sorter, extra);
-// };
+const PendingApplications = ({ applicationProfile }) => {
+  const dispatch = useDispatch();
 
-const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
@@ -103,70 +103,66 @@ const PendingApplications = () => {
     setModalIsVisible(true);
   };
 
+  /**
+   * Author: Khaleel Musleh
+   * @Variable {dispatch} Variable
+   * @returns dispatch API calls
+   * Changed Axios api call to a dispatch state slice call, Now there is no need to do an API call, dispatch for getApplication sends a post request and response gotten is
+   * applications from the backend.
+   */
+
   useEffect(() => {
-    const getPendingApps = () => {
-      axiosWithAuth()
-        .post('/application')
-        .then(res => {
-          res.data.users.forEach(row => {
-            row.hasOwnProperty('accepting_new_mentees')
-              ? (row.role_name = 'mentor')
-              : (row.role_name = 'mentee');
-          });
-          setApplications(
-            res.data.users.map(row => ({
-              key: row.profile_id,
-              name: row.first_name + ' ' + row.last_name,
-              role: (
-                <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-                  {row.role_name}
-                </Tag>
-              ),
-              // hard-coded "Date Submitted" field values because DS field for date does not exist.
-              date: Date(row.updated_at).slice(0, 15),
-              status: (
-                <Tag
-                  color={
-                    row.validate_status === 'approved'
-                      ? 'green'
-                      : row.validate_status === 'pending'
-                      ? 'orange'
-                      : 'red'
-                  }
-                >
-                  {row.validate_status}
-                </Tag>
-              ),
-              button: (
-                <Button
-                  style={{
-                    backgroundImage:
-                      'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
-                    borderRadius: '.5rem',
-                    boxSizing: 'border-box',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    fontSize: '16px',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    touchAction: 'manipulation',
-                  }}
-                  type="primary"
-                  id={row.profile_id}
-                  onClick={() => showModal(row.profile_id)}
-                >
-                  Review Application
-                </Button>
-              ),
-            }))
-          );
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    };
-    getPendingApps();
-  }, []);
+    dispatch(getApplication());
+    setApplications(
+      Object.values(applicationProfile).map(row => ({
+        key: row.profile_id,
+        name: row.first_name + ' ' + row.last_name,
+        role: (
+          <Tag
+            style={{ height: '20px', width: '20px' }}
+            color={row.accepting_new_mentees === undefined ? 'orange' : 'blue'}
+          >
+            {row.role_name}
+          </Tag>
+        ),
+        date:
+          Date(row.created_at.slice).slice(0, 3) +
+          '. ' +
+          Date(row.created_at.slice).slice(4, 9) +
+          ', ' +
+          Date(row.created_at.slice).slice(10, 16),
+        button: (
+          <Button
+            style={{
+              backgroundImage:
+                'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
+              borderRadius: '.5rem',
+              boxSizing: 'border-box',
+              color: '#FFFFFF',
+              display: 'flex',
+              fontSize: '16px',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              touchAction: 'manipulation',
+            }}
+            type="primary"
+            id={row.profile_id}
+            onClick={() => showModal(row.profile_id)}
+          >
+            Review Application
+          </Button>
+        ),
+      }))
+    );
+
+    /**
+     * @Array {applicationProfile.length >= 0} Array
+     * @returns useEffect(() => {})
+     * Due to the dependency array not working on any state or variable due to the rendering being faster than data fetching which is passed through state
+     * I had to make a dependency array that renders once data length is 0 or higher.
+     */
+  }, [applicationProfile, dispatch]);
+
   return (
     <>
       <h2>Applications</h2>
@@ -175,10 +171,24 @@ const PendingApplications = () => {
         setDisplayModal={setModalIsVisible}
         profileId={profileId}
         setProfileId={setProfileId}
+        applicationProfile={applicationProfile}
       />
       <Table columns={columns} dataSource={applications} />;
     </>
   );
 };
 
-export default PendingApplications;
+/**
+ * @param {mapStateToProps}
+ * @returns applicationProfile State
+ * Connected state to pendingApplication and passed the state of applicationProfile to applicationModal.js to simplify the data process of fetching and passing rather than making
+ * multiple API calls in every componend.
+ */
+
+const mapStateToProps = state => {
+  return {
+    applicationProfile: state.user.applicationProfile,
+  };
+};
+
+export default connect(mapStateToProps)(PendingApplications);
