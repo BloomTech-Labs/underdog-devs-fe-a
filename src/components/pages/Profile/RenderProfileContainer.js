@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import EditProfile from '../Profile/EditProfile';
 
-import './ProfileSettings.css';
-// import '../Dashboard/Admin/index.css';
+import '../../../styles/styles.css';
 import { Row, Col, Typography, Card } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import {
@@ -32,9 +31,9 @@ const RenderProfileContainer = props => {
   }, []);
 
   return (
-    <div className="profilecontainer">
-      <Row>
-        <Col span={17} md={6} xs={24} sm={24} xl={6} style={{ padding: '2%' }}>
+    <div>
+      <Row className="profileContainer">
+        <Col span={2} xl={8} md={8} xs={24} sm={24} lg={8}>
           <Card
             cover={
               <img
@@ -60,7 +59,7 @@ const RenderProfileContainer = props => {
             <Meta title="Socials" description={<EditOutlined />} />
           </Card>
         </Col>
-        <Col span={17} xl={18} md={18} xs={24} sm={24} lg={16}>
+        <Col span={2} xl={16} md={16} xs={24} sm={24} lg={16}>
           <Title level={1}>{userData.name}</Title>
           <Card
             headStyle={{ color: 'rgb(255, 255, 255, 0.85)' }}
