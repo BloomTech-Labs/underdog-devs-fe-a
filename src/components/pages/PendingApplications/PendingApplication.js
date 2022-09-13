@@ -96,57 +96,53 @@ const PendingApplications = ({ applicationProfile }) => {
   };
 
   const getPendingApps = () => {
-        dispatch(getApplication());
-        setApplications(
-          Object.values(applicationProfile).map(row => ({
-            key: row.profile_id,
-            role_name: (row.hasOwnProperty('accepting_new_mentees') ? 'mentor' : 'mentee'),
-            name: row.first_name + ' ' + row.last_name,
-            role: (
-              <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-                {row.role_name}
-              </Tag>
-            ),
-            date: (row.updated_at ? row.updated_at : row.created_at).slice(
-              0,
-              10
-            ),
-            status: (
-              <Tag
-                color={
-                  row.validate_status === 'approved'
-                    ? 'green'
-                    : row.validate_status === 'pending'
-                    ? 'orange'
-                    : 'red'
-                }
-              >
-                {row.validate_status}
-              </Tag>
-            ),
-            button: (
-              <Button
-                style={{
-                  backgroundImage:
-                    'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
-                  borderRadius: '.5rem',
-                  boxSizing: 'border-box',
-                  color: '#FFFFFF',
-                  display: 'flex',
-                  fontSize: '16px',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  touchAction: 'manipulation',
-                }}
-                type="primary"
-                id={row.profile_id}
-                onClick={() => showModal(row.profile_id)}
-              >
-                Review Application
-              </Button>
-            ),
-          }))
-        );
+    dispatch(getApplication());
+    setApplications(
+      Object.values(applicationProfile).map(row => ({
+        key: row.profile_id,
+        name: row.first_name + ' ' + row.last_name,
+        role: (
+          <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
+            {row.role_name}
+          </Tag>
+        ),
+        date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
+        status: (
+          <Tag
+            color={
+              row.validate_status === 'approved'
+                ? 'green'
+                : row.validate_status === 'pending'
+                ? 'orange'
+                : 'red'
+            }
+          >
+            {row.validate_status}
+          </Tag>
+        ),
+        button: (
+          <Button
+            style={{
+              backgroundImage:
+                'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
+              borderRadius: '.5rem',
+              boxSizing: 'border-box',
+              color: '#FFFFFF',
+              display: 'flex',
+              fontSize: '16px',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              touchAction: 'manipulation',
+            }}
+            type="primary"
+            id={row.profile_id}
+            onClick={() => showModal(row.profile_id)}
+          >
+            Review Application
+          </Button>
+        ),
+      }))
+    );
   };
 
   useEffect(() => {
@@ -174,7 +170,6 @@ const PendingApplications = ({ applicationProfile }) => {
     </>
   );
 };
-
 
 /**
  * @param {mapStateToProps}
