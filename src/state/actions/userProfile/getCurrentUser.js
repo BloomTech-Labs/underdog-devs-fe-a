@@ -1,24 +1,22 @@
 import { API_URL } from '../../../config';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-
+import { setFetchStart } from '../lifecycle/setFetchStart';
 import { setFetchError } from '../errors/setFetchError';
 import { setFetchEnd } from '../lifecycle/setFetchEnd';
-import { setFetchStart } from '../lifecycle/setFetchStart';
 
-export const MENTOR_ADD_SUCCESS = 'MENTOR_ADD_SUCCESS';
+import { setCurrentUser } from './setCurrentUser';
 
-export const postNewMentorAccount = newAccount => {
+export const getCurrentUser = () => {
   return async dispatch => {
     try {
       dispatch(setFetchStart());
-      const api = await axiosWithAuth().post(
-        `${API_URL}application/new/mentor`,
-        newAccount
+      const api = await axiosWithAuth().get(
+        `${API_URL}profile/current_user_profile/`
       );
-      dispatch({ type: MENTOR_ADD_SUCCESS, payload: api });
+      dispatch(setCurrentUser(api.data));
       return api;
     } catch (err) {
-      throw new Error(err, dispatch(setFetchError(err)));
+      throw new Error(err, setFetchError(err));
     } finally {
       dispatch(setFetchEnd());
     }
