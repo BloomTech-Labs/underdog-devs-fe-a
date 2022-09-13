@@ -3,7 +3,6 @@ import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Statistic, Row, Col, Table } from 'antd';
 // TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
 
-
 /**
  * Khaleel Musleh
  * Created Dashboard Compoenent and set it to display the user role, this component is for future use in displaying dashboard based on user role, each dashboard will be set differently
@@ -12,7 +11,7 @@ import { Statistic, Row, Col, Table } from 'antd';
 
 const Dashboard = () => {
   const [role, setRole] = useState([]);
-
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const getAccounts = () => {
     axiosWithAuth()

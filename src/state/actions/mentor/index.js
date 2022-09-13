@@ -6,6 +6,7 @@ import { setFetchEnd } from '../lifecycle/setFetchEnd';
 import { setFetchStart } from '../lifecycle/setFetchStart';
 
 export const MENTOR_ADD_SUCCESS = 'MENTOR_ADD_SUCCESS';
+export const MENTOR_ADD_FAILURE = 'MENTOR_ADD_FAILURE';
 
 export const postNewMentorAccount = newAccount => {
   return async dispatch => {

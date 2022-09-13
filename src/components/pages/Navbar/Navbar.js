@@ -24,7 +24,7 @@ import { setFetchError } from '../../../state/actions/errors/setFetchError';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
+const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
