@@ -1,4 +1,3 @@
-import { Avatar } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './Navbar.css';
@@ -19,8 +18,7 @@ import { useDispatch } from 'react-redux';
 
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile, currentUser }) => {
-  const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
+const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
@@ -161,14 +159,6 @@ const Navbar = ({ isAuthenticated, userProfile, currentUser }) => {
               <div className="userInfo-and-profilePic">
                 <Dropdown overlay={accountMenu} placement="bottom" arrow>
                   <div className="userInfo-and-profilePic">
-                    <div className="profilePic">
-                      <Avatar
-                        size={50}
-                        icon={<UserOutlined />}
-                        src={profilePic}
-                        alt="Account settings"
-                      />
-                    </div>
                     <div className="userInfo">
                       <div
                         className="username"

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Button,
-  Avatar,
   Card,
   Comment,
   Table,
@@ -210,12 +209,6 @@ const MemosTable = ({ userProfile, accounts }) => {
                     profile_id === record.mentor_id
                       ? record.mentor_id
                       : record.mentee_id
-                  }
-                  avatar={
-                    <Avatar
-                      src="https://joeschmoe.io/api/v1/random"
-                      alt={record.createdBy} //currently no backend column for this
-                    />
                   }
                   content={
                     // populating edit text box with previous value
