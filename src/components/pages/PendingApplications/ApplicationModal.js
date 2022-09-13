@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 import './ApplicationModal.less';
 import { Modal, Button, notification } from 'antd';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
@@ -71,7 +70,7 @@ const ApplicationModal = ({
    * and validate_status yet if it doesnt exist then its a Mentee and we only pass in validate_status.
    */
 
-   const pendingAppHelper = status => {
+  const pendingAppHelper = status => {
     const mentor =
       currentApplication.accepting_new_mentees === undefined
         ? {
@@ -90,7 +89,7 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-   const approveApplication = (status) => {
+  const approveApplication = status => {
     dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
       .then(res => {
         setDisplayModal(false);
@@ -108,7 +107,7 @@ const ApplicationModal = ({
    * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const rejectApplication = (status) => {
+  const rejectApplication = status => {
     dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
       .then(res => {
         setDisplayModal(false);
@@ -116,7 +115,7 @@ const ApplicationModal = ({
         getPendingApps();
       })
       .catch(err => {
-        openNotificationWithIcon('error', status, err.message
+        openNotificationWithIcon('error', status, err.message);
       });
   };
 
@@ -172,117 +171,9 @@ const ApplicationModal = ({
           ]}
         >
           {currentApplication.role_name === 'mentee' ? (
-            <List size="small" bordered>
-              <List.Item>
-                <b>Role:</b>
-                {currentApplication.accepting_new_mentees === undefined
-                  ? 'Mentee'
-                  : 'Mentor'}
-              </List.Item>
-              <List.Item>
-                <b>Email:</b> {currentApplication.email}
-              </List.Item>
-              <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
-              </List.Item>
-              <List.Item>
-                <b>Membership Criteria:</b>
-                <ul>
-                  {currentApplication.formerly_incarcerated === true ? (
-                    <li>Formerly Incarcerated</li>
-                  ) : null}
-                  {currentApplication.low_income === true ? (
-                    <li>Low Income</li>
-                  ) : null}
-                  {currentApplication.underrepresented_group === true ? (
-                    <li>Belongs to underrepresented group</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                {' '}
-                <b>Convictions:</b>{' '}
-                {`${
-                  currentApplication.formerly_incarcerated === true
-                    ? currentApplication.convictions
-                    : 'none'
-                }`}
-              </List.Item>
-              <List.Item>
-                <b>Applicant needs help with:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <b>Subject most interested in:</b> {currentApplication.subject}
-              </List.Item>
-              <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
-              </List.Item>
-              <List.Item>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
-              <List.Item>
-                <b>Application Status:</b> {currentApplication.other_info}
-              </List.Item>
-            </List>
+            <MenteeModal applicant={currentApplication} />
           ) : (
-            <List size="small" bordered>
-              <List.Item>
-                <b>Role:</b>{' '}
-                {currentApplication.accepting_new_mentees === undefined
-                  ? 'Mentee'
-                  : 'Mentor'}
-              </List.Item>
-              <List.Item>
-                <b>Email:</b> {currentApplication.email}
-              </List.Item>
-              <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
-              </List.Item>
-              <List.Item>
-                <b>Current Employer:</b> {currentApplication.current_company}
-              </List.Item>
-              <List.Item>
-                <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </List.Item>
-              <List.Item>
-                <b>Applicant wants to focus on:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
-              </List.Item>
-              <List.Item>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
-              <List.Item>
-                <b>Application Status:</b> {currentApplication.validate_status}
-              </List.Item>
-            </List>
+            <MentorModal applicant={currentApplication} />
           )}
         </Modal>
       )}
