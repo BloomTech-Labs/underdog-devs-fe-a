@@ -17,7 +17,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 const { Header } = Layout;
 
 const Navbar = ({ isAuthenticated, userProfile, getProfile }) => {
-  const [profilePic] = useState('https://joeschmoe.io/api/v1/random');
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
