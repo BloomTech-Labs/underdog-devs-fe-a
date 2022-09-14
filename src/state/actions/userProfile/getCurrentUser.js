@@ -16,7 +16,7 @@ export const getCurrentUser = () => {
       dispatch(setCurrentUser(api.data));
       return api;
     } catch (err) {
-      throw new Error(err, setFetchError(err));
+      // throw new Error(err, setFetchError(err));
     } finally {
       dispatch(setFetchEnd());
     }
