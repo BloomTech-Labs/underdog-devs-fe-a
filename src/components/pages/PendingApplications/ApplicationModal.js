@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import './ApplicationModal.less';
-import { Modal, Button, List, Divider, Form, Input } from 'antd';
+import './ApplicationModal.less';
+import { Modal, Button, notification } from 'antd';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
 import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 import MenteeModal from './MenteeModal';
@@ -20,10 +20,9 @@ const ApplicationModal = ({
   setDisplayModal,
   displayModal,
   applicationProfile,
+  getPendingApps,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
-  const [hideForm, setHideForm] = useState(true);
-
   const dispatch = useDispatch();
 
   const handleOk = () => {
@@ -34,11 +33,34 @@ const ApplicationModal = ({
   const handleCancel = () => {
     setDisplayModal(false);
     setProfileId('');
-    setHideForm(true);
   };
 
-  const displayForm = () => {
-    setHideForm(false);
+  const openNotificationWithIcon = (type, status, err) => {
+    if (type === 'success') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User has been approved successfully',
+        });
+      } else {
+        notification[type]({
+          message: 'User has been rejected successfully',
+        });
+      }
+    }
+
+    if (type === 'error') {
+      if (status === 'approve') {
+        notification[type]({
+          message: 'User could not be approved at this time',
+          description: `Error: ${err}`,
+        });
+      } else {
+        notification[type]({
+          message: 'User could not be rejected at this time',
+          description: `Error: ${err}`,
+        });
+      }
+    }
   };
 
   /**
@@ -67,10 +89,16 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const approveApplication = () => {
+  const approveApplication = status => {
     dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        setDisplayModal(false);
+        openNotificationWithIcon('success', status);
+        getPendingApps();
+      })
+      .catch(err => {
+        openNotificationWithIcon('error', status, err.message);
+      });
   };
 
   /**
@@ -79,13 +107,18 @@ const ApplicationModal = ({
    * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const rejectApplication = () => {
+  const rejectApplication = status => {
     dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+        setDisplayModal(false);
+        openNotificationWithIcon('success', status);
+        getPendingApps();
+      })
+      .catch(err => {
+        openNotificationWithIcon('error', status, err.message);
+      });
   };
 
-  // /*eslint array-callback-return: ["error", { allowImplicit: true }]*/
   useEffect(() => {
     const getCurrentApp = () => {
       Object.values(applicationProfile).map(current_id => {
@@ -121,129 +154,26 @@ const ApplicationModal = ({
               : 'modalStyleMentor'
           }
           footer={[
-            <Button key="edit-notes" onClick={displayForm} hidden={!hideForm}>
-              Edit Notes
-            </Button>,
-            <Button key="submitA" type="primary" onClick={approveApplication}>
+            <Button
+              key="submitA"
+              type="primary"
+              onClick={() => approveApplication('approve')}
+            >
               Approve
             </Button>,
-            <Button key="submitR" onClick={rejectApplication} danger>
+            <Button
+              key="submitR"
+              onClick={() => rejectApplication('reject')}
+              danger
+            >
               Reject
             </Button>,
           ]}
         >
           {currentApplication.role_name === 'mentee' ? (
-            <List size="small" bordered>
-              <List.Item>
-                <b>Role:</b>
-                {currentApplication.accepting_new_mentees === undefined
-                  ? 'Mentee'
-                  : 'Mentor'}
-              </List.Item>
-              <List.Item>
-                <b>Email:</b> {currentApplication.email}
-              </List.Item>
-              <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
-              </List.Item>
-              <List.Item>
-                <b>Membership Criteria:</b>
-                <ul>
-                  {currentApplication.formerly_incarcerated === true ? (
-                    <li>Formerly Incarcerated</li>
-                  ) : null}
-                  {currentApplication.low_income === true ? (
-                    <li>Low Income</li>
-                  ) : null}
-                  {currentApplication.underrepresented_group === true ? (
-                    <li>Belongs to underrepresented group</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                {' '}
-                <b>Convictions:</b>{' '}
-                {`${
-                  currentApplication.formerly_incarcerated === true
-                    ? currentApplication.convictions
-                    : 'none'
-                }`}
-              </List.Item>
-              <List.Item>
-                <b>Applicant needs help with:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <b>Subject most interested in:</b> {currentApplication.subject}
-              </List.Item>
-              <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
-              </List.Item>
-              <List.Item>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
-              <List.Item>
-                <b>Application Status:</b> {currentApplication.other_info}
-              </List.Item>
-            </List>
+            <MenteeModal applicant={currentApplication} />
           ) : (
-            <List size="small" bordered>
-              <List.Item>
-                <b>Role:</b>{' '}
-                {currentApplication.accepting_new_mentees === undefined
-                  ? 'Mentee'
-                  : 'Mentor'}
-              </List.Item>
-              <List.Item>
-                <b>Email:</b> {currentApplication.email}
-              </List.Item>
-              <List.Item>
-                <b>Location:</b> {currentApplication.city},{' '}
-                {currentApplication.state} {currentApplication.country}
-              </List.Item>
-              <List.Item>
-                <b>Current Employer:</b> {currentApplication.current_company}
-              </List.Item>
-              <List.Item>
-                <b>Tech Stack:</b> {currentApplication.tech_stack}
-              </List.Item>
-              <List.Item>
-                <b>Applicant wants to focus on:</b>{' '}
-                <ul>
-                  {currentApplication.industry_knowledge === true ? (
-                    <li>Industry Knowledge</li>
-                  ) : null}
-                  {currentApplication.pair_programming === true ? (
-                    <li>Pair Programming</li>
-                  ) : null}
-                  {currentApplication.job_help === true ? (
-                    <li>Job Help</li>
-                  ) : null}
-                </ul>
-              </List.Item>
-              <List.Item>
-                <b>Other information:</b> {currentApplication.other_info}
-              </List.Item>
-              <List.Item>
-                <b>Submission Date:</b>{' '}
-                {currentApplication.created_at.slice(0, 10)}
-              </List.Item>
-              <List.Item>
-                <b>Application Status:</b> {currentApplication.validate_status}
-              </List.Item>
-            </List>
+            <MentorModal applicant={currentApplication} />
           )}
         </Modal>
       )}

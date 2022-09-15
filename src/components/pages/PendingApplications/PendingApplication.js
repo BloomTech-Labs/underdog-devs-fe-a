@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-// import './PendingApplication.css';
 import { getApplication } from '../../../state/actions/userProfile/getApplication';
 import { connect, useDispatch } from 'react-redux';
 // import { batch } from 'react-redux';
@@ -45,19 +44,12 @@ const columns = [
     ],
     onFilter: (value, record) => record.role.props.children === value,
   },
-
-  // Date data from DS needs to be updated
   {
-    title: 'Date Submitted',
-
+    title: 'Date Updated',
     dataIndex: 'date',
     key: 'date',
-    defaultSortOrder: 'descend',
-    // sorter: (a, b, sortOrder) => {
-    //   console.log("a: ", a);
-    //   console.log("b: ", b);
-    //   console.log("sortOrder: ",  sortOrder)
-    // }
+    sorter: (a, b) => a.date.localeCompare(b.date),
+    sortDirections: ['descend', 'ascend'],
   },
   {
     title: 'Status',
@@ -103,34 +95,31 @@ const PendingApplications = ({ applicationProfile }) => {
     setModalIsVisible(true);
   };
 
-  /**
-   * Author: Khaleel Musleh
-   * @Variable {dispatch} Variable
-   * @returns dispatch API calls
-   * Changed Axios api call to a dispatch state slice call, Now there is no need to do an API call, dispatch for getApplication sends a post request and response gotten is
-   * applications from the backend.
-   */
-
-  useEffect(() => {
+  const getPendingApps = () => {
     dispatch(getApplication());
     setApplications(
       Object.values(applicationProfile).map(row => ({
         key: row.profile_id,
         name: row.first_name + ' ' + row.last_name,
         role: (
-          <Tag
-            style={{ height: '20px', width: '20px' }}
-            color={row.accepting_new_mentees === undefined ? 'orange' : 'blue'}
-          >
+          <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
             {row.role_name}
           </Tag>
         ),
-        date:
-          Date(row.created_at.slice).slice(0, 3) +
-          '. ' +
-          Date(row.created_at.slice).slice(4, 9) +
-          ', ' +
-          Date(row.created_at.slice).slice(10, 16),
+        date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
+        status: (
+          <Tag
+            color={
+              row.validate_status === 'approved'
+                ? 'green'
+                : row.validate_status === 'pending'
+                ? 'orange'
+                : 'red'
+            }
+          >
+            {row.validate_status}
+          </Tag>
+        ),
         button: (
           <Button
             style={{
@@ -154,7 +143,10 @@ const PendingApplications = ({ applicationProfile }) => {
         ),
       }))
     );
+  };
 
+  useEffect(() => {
+    getPendingApps();
     /**
      * @Array {applicationProfile.length >= 0} Array
      * @returns useEffect(() => {})
@@ -172,6 +164,7 @@ const PendingApplications = ({ applicationProfile }) => {
         profileId={profileId}
         setProfileId={setProfileId}
         applicationProfile={applicationProfile}
+        getPendingApps={getPendingApps}
       />
       <Table columns={columns} dataSource={applications} />;
     </>

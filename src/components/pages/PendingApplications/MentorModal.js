@@ -90,10 +90,6 @@ const MentorModal = ({ applicant }) => {
             {applicant.other_info || <p>None</p>}
           </p>
         </List.Item>
-        <List.Item>
-          <p className="list-item-column">Notes:</p>
-          <p className="list-item-column">{applicant.application_notes}</p>
-        </List.Item>
       </List>
     </>
   );
