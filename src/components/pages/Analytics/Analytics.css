@@ -1,9 +1,9 @@
-h1 {
+.analyticsHeader h1 {
     font-size: 2rem;
     padding-left: 10px;
 }
 
-p {
+.techStackGraphInfo {
     width: 70%;
 }
 

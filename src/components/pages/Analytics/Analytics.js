@@ -1,15 +1,15 @@
 import React from 'react';
-import Graph from './Graph';
+import TechStackGraph from './TechStackGraph';
 import './Analytics.css';
 
 const Analytics = () => {
   return (
     <div>
-      <div>
+      <div className="analyticsHeader">
         <h1>Analytics</h1>
       </div>
       <div className="analytics">
-        <Graph />
+        <TechStackGraph />
       </div>
     </div>
   );

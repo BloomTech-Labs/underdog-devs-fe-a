@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import embed from 'vega-embed';
 
-export default function Graph() {
+export default function TechStackGraph() {
   let url =
     'http://underdog-devs-ds-a-dev.us-east-1.elasticbeanstalk.com/graph/tech-stack-by-role';
 
@@ -15,7 +15,7 @@ export default function Graph() {
   return (
     <>
       <div id="vis"></div>
-      <p>
+      <p className="techStackGraphInfo">
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
