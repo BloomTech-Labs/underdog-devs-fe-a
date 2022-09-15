@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import './ApplicationModal.less';
 import { Modal, Button, notification } from 'antd';
 import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
@@ -23,6 +24,9 @@ const ApplicationModal = ({
   getPendingApps,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
+
+  const { axiosWithAuth } = useAxiosWithAuth0();
+
   const dispatch = useDispatch();
 
   const handleOk = () => {

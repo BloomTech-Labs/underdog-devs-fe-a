@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
@@ -16,13 +17,19 @@ import { acceptMentee } from '../../../state/actions/mentor/acceptMenteeStatus';
 import { mentorInfo } from '../../../state/actions/mentor/postMentorInfo';
 import { useDispatch } from 'react-redux';
 
+import { API_URL } from '../../../config';
+import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
+import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
+import { setFetchError } from '../../../state/actions/errors/setFetchError';
+
 const { Header } = Layout;
 
-const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
+const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [user, setUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
-  const { logout } = useAuth0();
+  const { logout, isAuthenticated } = useAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -45,8 +52,30 @@ const Navbar = ({ isAuthenticated, userProfile, getProfile, currentUser }) => {
    */
 
   useEffect(() => {
-    dispatch(getCurrentUser());
-    setUser(currentUser);
+    (async () => {
+      if (isAuthenticated) {
+        const user = await axiosWithAuth().get(
+          `/profile/current_user_profile/`
+        );
+
+        setUser(user.data);
+
+        // The following code was taken from the userProfile redux action file
+        setFetchStart();
+        axiosWithAuth()
+          .get(`${API_URL}profile/${user.data.profile_id}`)
+          .then(res => {
+            if (res.data) {
+              getProfile(res.data);
+            }
+          })
+          .catch(err => {
+            setFetchError(err);
+          })
+          .finally(() => setFetchEnd());
+      }
+    })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.values(currentUser).length]);
 

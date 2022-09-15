@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { updateProfile } from '../../../state/actions/userProfile/updateProfile';
 import { useDispatch } from 'react-redux';
-
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 

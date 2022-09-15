@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
 import { getApplication } from '../../../state/actions/userProfile/getApplication';
@@ -89,6 +90,7 @@ const PendingApplications = ({ applicationProfile }) => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const showModal = profile_id => {
     setProfileId(profile_id);

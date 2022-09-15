@@ -11,7 +11,6 @@ import {
   Input,
 } from 'antd';
 import { columns } from './MemoUtils';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
@@ -20,6 +19,7 @@ import '../styles/Memos.css';
 import ShowReply from './AddReply/showReply';
 
 import createBrowserHistory from 'history/createBrowserHistory';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 const history = createBrowserHistory({
   forceRefresh: true,
 });
@@ -46,6 +46,7 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
 );
 
 const MemosTable = ({ userProfile, accounts }) => {
+  const { axiosWithAuth } = useAxiosWithAuth0();
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states

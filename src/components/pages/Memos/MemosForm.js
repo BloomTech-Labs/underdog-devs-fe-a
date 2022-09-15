@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Modal, Menu, Space, Radio, Dropdown, Button, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import {
   DownOutlined,
@@ -12,8 +11,8 @@ import {
   BulbFilled,
 } from '@ant-design/icons';
 
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import './Memo.less';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
 
 const initialValues = {
   created_by: '',
@@ -28,13 +27,15 @@ const initialValues = {
   mentee_id: '',
 };
 
-const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
+const MemosForm = props => {
+  const { displayModal, setDisplayModal } = props;
   const { TextArea } = Input;
   const { push } = useHistory();
   const [count, setCount] = useState(0);
   const [toggle, setToggle] = useState(1);
   const [subjectType, setSubjectType] = useState(0);
   const [formValues, setFormValues] = useState(initialValues);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const postNewMemo = newMemo => {
     axiosWithAuth()
@@ -182,8 +183,4 @@ const MemosForm = ({ displayModal, setDisplayModal, userProfile }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return { userProfile: state.user.userProfile };
-};
-
-export default connect(mapStateToProps)(MemosForm);
+export default MemosForm;

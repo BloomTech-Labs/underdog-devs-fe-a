@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Table } from 'antd';
 
 const columns = [{ title: 'Mentor', dataIndex: 'name', key: 'name' }];
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   useEffect(() => {
     const getReviews = () => {
