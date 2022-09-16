@@ -3,13 +3,12 @@ import axios from 'axios';
 import embed from 'vega-embed';
 
 export default function TechStackGraph() {
-  let url =
-    'http://underdog-devs-ds-a-dev.us-east-1.elasticbeanstalk.com/graph/tech-stack-by-role';
+  let url = `${process.env.REACT_APP_DS_API_URL}/graph/tech-stack-by-role`;
 
   axios
     .get(url)
     .then(res => {
-      const result = embed('#vis', url);
+      embed('#vis', url);
     })
     .catch(err => console.error(err));
   return (

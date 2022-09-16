@@ -4,14 +4,14 @@ import './Analytics.css';
 
 const Analytics = () => {
   return (
-    <div>
+    <>
       <div className="analyticsHeader">
         <h1>Analytics</h1>
       </div>
       <div className="analytics">
         <TechStackGraph />
       </div>
-    </div>
+    </>
   );
 };
 
