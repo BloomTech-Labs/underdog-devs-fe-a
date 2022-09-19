@@ -1,16 +1,15 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import embed from 'vega-embed';
-
-export default function TechStackGraph() {
+export default async function TechStackGraph() {
   let url = `${process.env.REACT_APP_DS_API_URL}/graph/tech-stack-by-role`;
-
-  axios
-    .get(url)
-    .then(res => {
-      embed('#vis', url);
-    })
-    .catch(err => console.error(err));
+  // embed is an asynchronous api call, resolves in a promise
+  // for more information visit https://github.com/vega/vega-embed
+  useEffect(() => {
+    const getTechStackData = async () => {
+      await embed('#vis', url);
+    };
+    getTechStackData();
+  }, [url]);
   return (
     <>
       <div id="vis"></div>
