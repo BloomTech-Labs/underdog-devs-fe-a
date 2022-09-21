@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import embed from 'vega-embed';
-export default async function TechStackGraph() {
-  let url = `${process.env.REACT_APP_DS_API_URL}/graph/tech-stack-by-role`;
+export default function TechStackGraph() {
+  // let url = `${process.env.REACT_APP_DS_API_URL}/graph/tech-stack-by-role`;
+  let url =
+    'http://underdog-devs-ds-a-dev.us-east-1.elasticbeanstalk.com/graph/tech-stack-by-role';
   // embed is an asynchronous api call, resolves in a promise
   // for more information visit https://github.com/vega/vega-embed
   useEffect(() => {
