@@ -13,9 +13,7 @@ import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getCurrentUser } from '../../../state/actions/userProfile/getCurrentUser';
-import { mentorInfo } from '../../../state/actions/mentor/postMentorInfo';
 import { useDispatch } from 'react-redux';
-
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
@@ -81,21 +79,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const profile_id = user.profile_id;
   const isMentor = user.role_id === 3;
 
-  /**
-   * Author: Khaleel Musleh
-   * @param {dispatch(mentorInfo)}
-   * dispatch(mentorInfo) dispatches a request to postMentorInfo with profile_id parameter in state/actions/mentor which then returns a response of either a success or error status
-   */
-
-  // Determines the initial state of the Mentor toggle switch
   useEffect(() => {
-    dispatch(mentorInfo(profile_id))
-      .then(res => {
-        const availability = res.payload.data[0]?.availability;
-        setToggleStatus(availability);
-      })
-      .catch(err => console.log(err));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // We're leaving this useEffect here in case its needed later. User data that was previously loaded here will be developed in index.
   }, []);
 
   if (!user) {
