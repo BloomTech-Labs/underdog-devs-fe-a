@@ -12,7 +12,6 @@ import ApplyButton from './NavbarFeatures/ApplyButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
-import { getCurrentUser } from '../../../state/actions/userProfile/getCurrentUser';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
@@ -41,12 +40,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     localStorage.removeItem('AuthToken');
     logout({ returnTo: window.location.origin });
   };
-
-  /**
-   * Author: Khaleel Musleh
-   * @param {dispatch(getCurrentUser)}
-   * dispatch(getCurrentUser) dispatches a request to getCurrentUser in state/actions/userProfile which then returns a response of either a success or error status
-   */
 
   useEffect(() => {
     (async () => {
