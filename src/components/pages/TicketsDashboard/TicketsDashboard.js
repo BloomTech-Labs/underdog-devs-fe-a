@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosWithAuth from '../../../utils/axiosWithAuth';
+import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Statistic, Row, Col, Table } from 'antd';
 // TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
 
@@ -64,6 +64,7 @@ const columns = [
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
 const TicketsDashboard = props => {
   const [tickets, setTickets] = useState([]);
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   useEffect(() => {
     const getTickets = () => {
