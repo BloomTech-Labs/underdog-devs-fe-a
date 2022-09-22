@@ -13,7 +13,6 @@ import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { getCurrentUser } from '../../../state/actions/userProfile/getCurrentUser';
-import { acceptMentee } from '../../../state/actions/mentor/acceptMenteeStatus';
 import { mentorInfo } from '../../../state/actions/mentor/postMentorInfo';
 import { useDispatch } from 'react-redux';
 
@@ -122,28 +121,15 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     }
   };
 
-  /**
-   * Author: Khaleel Musleh
-   * @param {dispatch(acceptMentee)}
-   * dispatch(acceptMentee) dispatches a request to postNewMentees in state/actions/mentor which then returns a response of either a success or error status
-   */
-
   const handleToggleChange = checked => {
-    if (!checked) {
-      dispatch(acceptMentee(profile_id, { accepting_new_mentees: false }))
-        .then(res => {
-          setToggleStatus(false);
-        })
-        .catch(err => console.log(err));
-    }
-
-    if (checked) {
-      dispatch(acceptMentee(profile_id, { accepting_new_mentees: true }))
-        .then(res => {
-          setToggleStatus(true);
-        })
-        .catch(err => console.log(err));
-    }
+    axiosWithAuth()
+      .post(`${API_URL}profile/availability/${profile_id}`, {
+        accepting_new_mentees: checked,
+      })
+      .then(res => {
+        setToggleStatus(checked);
+      })
+      .catch(err => console.log(err));
   };
 
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
