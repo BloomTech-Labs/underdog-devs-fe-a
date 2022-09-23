@@ -66,16 +66,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         applicationProfile: action.payload, // do not persist previous state.ApplicationProfile
       };
-    case ACTIONS.SET_APPROVAL_SUCCESS:
-      return {
-        ...state,
-        success: action.payload,
-      };
-    case ACTIONS.SET_REJECT_SUCCESS:
-      return {
-        ...state,
-        success: action.payload,
-      };
     case ACTIONS.MENTOR_ADD_SUCCESS:
       return {
         ...state,
