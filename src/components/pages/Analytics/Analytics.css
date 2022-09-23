@@ -1,0 +1,15 @@
+.analyticsHeader h1 {
+    font-size: 2rem;
+    padding-left: 10px;
+}
+
+.techStackGraphInfo {
+    width: 70%;
+}
+
+.analytics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}

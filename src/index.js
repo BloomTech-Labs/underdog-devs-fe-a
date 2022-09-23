@@ -35,6 +35,7 @@ import PendingApplications from './components/pages/PendingApplications/PendingA
 import ScheduleMeeting from './components/common/ScheduleMeeting';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 import TicketDashboard from './components/pages/TicketsDashboard/TicketsDashboard';
+import Analytics from './components/pages/Analytics/Analytics';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -218,6 +219,13 @@ function App() {
           redirect="/dashboard"
           allowRoles={[1, 2, 5]}
           component={MenteeAddReview}
+        />
+
+        <PrivateRoute
+          path="/analytics"
+          redirect="/dashboard"
+          allowRoles={[1, 2, 5]}
+          component={Analytics}
         />
 
         <Route component={NotFoundPage} />
