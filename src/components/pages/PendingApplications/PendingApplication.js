@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-import { getApplication } from '../../../state/actions/userProfile/getApplication';
-import { connect, useDispatch } from 'react-redux';
-// import { batch } from 'react-redux';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -84,9 +81,7 @@ const columns = [
   },
 ];
 
-const PendingApplications = ({ applicationProfile }) => {
-  const dispatch = useDispatch();
-
+const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
@@ -97,65 +92,69 @@ const PendingApplications = ({ applicationProfile }) => {
     setModalIsVisible(true);
   };
 
-  const getPendingApps = () => {
-    dispatch(getApplication());
-    setApplications(
-      Object.values(applicationProfile).map(row => ({
-        key: row.profile_id,
-        name: row.first_name + ' ' + row.last_name,
-        role: (
-          <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-            {row.role_name}
-          </Tag>
-        ),
-        date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
-        status: (
-          <Tag
-            color={
-              row.validate_status === 'approved'
-                ? 'green'
-                : row.validate_status === 'pending'
-                ? 'orange'
-                : 'red'
-            }
-          >
-            {row.validate_status}
-          </Tag>
-        ),
-        button: (
-          <Button
-            style={{
-              backgroundImage:
-                'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
-              borderRadius: '.5rem',
-              boxSizing: 'border-box',
-              color: '#FFFFFF',
-              display: 'flex',
-              fontSize: '16px',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              touchAction: 'manipulation',
-            }}
-            type="primary"
-            id={row.profile_id}
-            onClick={() => showModal(row.profile_id)}
-          >
-            Review Application
-          </Button>
-        ),
-      }))
-    );
+  const getPendingApps = async () => {
+    try {
+      const api = await axiosWithAuth().post(`/application`);
+      api.data.forEach(row => {
+        row.hasOwnProperty('accepting_new_mentees')
+          ? (row.role_name = 'mentor')
+          : (row.role_name = 'mentee');
+      });
+      setApplications(
+        Object.values(api.data).map(row => ({
+          key: row.profile_id,
+          name: row.first_name + ' ' + row.last_name,
+          role: (
+            <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
+              {row.role_name}
+            </Tag>
+          ),
+          date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
+          status: (
+            <Tag
+              color={
+                row.validate_status === 'approved'
+                  ? 'green'
+                  : row.validate_status === 'pending'
+                  ? 'orange'
+                  : 'red'
+              }
+            >
+              {row.validate_status}
+            </Tag>
+          ),
+          button: (
+            <Button
+              style={{
+                backgroundImage:
+                  'linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%)',
+                borderRadius: '.5rem',
+                boxSizing: 'border-box',
+                color: '#FFFFFF',
+                display: 'flex',
+                fontSize: '16px',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                touchAction: 'manipulation',
+              }}
+              type="primary"
+              id={row.profile_id}
+              onClick={() => showModal(row.profile_id)}
+            >
+              Review Application
+            </Button>
+          ),
+        }))
+      );
+    } catch (err) {
+      // needs proper error handling
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     getPendingApps();
-    /**
-     * @Array {applicationProfile.length >= 0} Array
-     * @returns useEffect(() => {})
-     * Due to the dependency array not working on any state or variable due to the rendering being faster than data fetching which is passed through state
-     * I had to make a dependency array that renders once data length is 0 or higher.
-     */
-  }, [applicationProfile, dispatch]);
+  }, []);
 
   return (
     <>
@@ -165,7 +164,7 @@ const PendingApplications = ({ applicationProfile }) => {
         setDisplayModal={setModalIsVisible}
         profileId={profileId}
         setProfileId={setProfileId}
-        applicationProfile={applicationProfile}
+        applicationProfile={applications}
         getPendingApps={getPendingApps}
       />
       <Table columns={columns} dataSource={applications} />;
@@ -173,17 +172,4 @@ const PendingApplications = ({ applicationProfile }) => {
   );
 };
 
-/**
- * @param {mapStateToProps}
- * @returns applicationProfile State
- * Connected state to pendingApplication and passed the state of applicationProfile to applicationModal.js to simplify the data process of fetching and passing rather than making
- * multiple API calls in every componend.
- */
-
-const mapStateToProps = state => {
-  return {
-    applicationProfile: state.user.applicationProfile,
-  };
-};
-
-export default connect(mapStateToProps)(PendingApplications);
+export default PendingApplications;
