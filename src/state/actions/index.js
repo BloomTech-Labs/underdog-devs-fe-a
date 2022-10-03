@@ -3,8 +3,6 @@ export { SET_IS_AUTHENTICATED } from './auth/setIsAuthenticated';
 export { SET_USER_PROFILE } from './userProfile/setUserProfile';
 export { SET_APPLICATION_PROFILE } from './userProfile/setApplicationProfile';
 export { SET_CURRENTUSER_PROFILE } from './userProfile/setCurrentUser';
-export { SET_APPROVAL_SUCCESS } from './applications/setApplicationApprove';
-export { SET_REJECT_SUCCESS } from './applications/setApplicationReject';
 export { SET_FETCH_START } from './lifecycle/setFetchStart';
 export { SET_FETCH_END } from './lifecycle/setFetchEnd';
 export { SET_FETCH_ERROR } from './errors/setFetchError';

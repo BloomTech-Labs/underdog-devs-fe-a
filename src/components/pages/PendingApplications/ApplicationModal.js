@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import './ApplicationModal.less';
 import { Modal, Button, notification } from 'antd';
-import { applicationApprove } from '../../../state/actions/applications/setApplicationApprove';
-import { applicationReject } from '../../../state/actions/applications/setApplicationReject';
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
+import { API_URL } from '../../../config';
 
 import { useDispatch } from 'react-redux';
 
@@ -93,26 +92,9 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const approveApplication = status => {
-    dispatch(applicationApprove(profileId, pendingAppHelper('approved')))
-      .then(res => {
-        setDisplayModal(false);
-        openNotificationWithIcon('success', status);
-        getPendingApps();
-      })
-      .catch(err => {
-        openNotificationWithIcon('error', status, err.message);
-      });
-  };
-
-  /**
-   * Author: Khaleel Musleh
-   * @param {rejectApplication}
-   * Reject application dispatches a request to setApplicationReject in state/actions/applications which then returns a response of either a success or error status
-   */
-
-  const rejectApplication = status => {
-    dispatch(applicationReject(profileId, pendingAppHelper('rejected')))
+  const handleApplication = status => {
+    axiosWithAuth()
+      .post(`${API_URL}application/update-validate_status/${profileId}`, status)
       .then(res => {
         setDisplayModal(false);
         openNotificationWithIcon('success', status);
@@ -161,13 +143,13 @@ const ApplicationModal = ({
             <Button
               key="submitA"
               type="primary"
-              onClick={() => approveApplication('approve')}
+              onClick={() => handleApplication('approve')}
             >
               Approve
             </Button>,
             <Button
               key="submitR"
-              onClick={() => rejectApplication('reject')}
+              onClick={() => handleApplication('reject')}
               danger
             >
               Reject

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
-import { updateProfile } from '../../../state/actions/userProfile/updateProfile';
 import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
+import { API_URL } from '../../../config';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
@@ -66,13 +66,8 @@ const UserManagement = () => {
       role_id: 2,
     };
 
-    /**
-     * Author: Khaleel Musleh
-     * @param {updateToAdmin}
-     * updateToAdmin dispatches a request to updateProfile in state/actions/userProfile which then returns a response of either a success or error status
-     */
-
-    dispatch(updateProfile(record.key, requestBody))
+    axiosWithAuth()
+      .put(`${API_URL}profile/${record.key}`, requestBody)
       .then(res => {
         setUpdatedProfile(res);
       })
