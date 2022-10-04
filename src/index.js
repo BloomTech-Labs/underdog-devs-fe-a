@@ -1,14 +1,13 @@
+// ########################### NPM Imports ########################### //
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  BrowserRouter as Router,
-  Route,
-  useHistory,
-  Switch,
-} from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import 'antd/dist/antd.less';
-
+import promiseMiddleware from 'redux-promise';
+import thunk from 'redux-thunk';
+// ########################### PAGES AND COMPONENTS ########################### //
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
 import Apply from './components/pages/RoleApply/Apply';
@@ -21,7 +20,6 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
-import Calendar from './components/common/Calendar';
 import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
 import Memos from './components/pages/Memos/Memos';
@@ -30,19 +28,15 @@ import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import PendingApplications from './components/pages/PendingApplications/PendingApplication';
-import ScheduleMeeting from './components/common/ScheduleMeeting';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 import TicketDashboard from './components/pages/TicketsDashboard/TicketsDashboard';
 import Analytics from './components/pages/Analytics/Analytics';
 import AppSuccess from './components/pages/RoleApply/Applications/AppSuccess';
-
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './state/reducers';
+import ScheduleMeeting from './components/common/ScheduleMeeting';
+import Calendar from './components/common/Calendar';
 import PrivateRoute from './components/common/PrivateRoute';
-
-import promiseMiddleware from 'redux-promise';
-import thunk from 'redux-thunk';
+// ########################### CONFIG AND SET UP ########################### //
+import rootReducer from './state/reducers';
 import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
 
 const store = createStore(
