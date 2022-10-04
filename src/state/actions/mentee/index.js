@@ -9,7 +9,6 @@ export const MENTEE_ADD_SUCCESS = 'MENTEE_ADD_SUCCESS';
 
 export const postNewMenteeAccount = newAccount => {
   return async dispatch => {
-
     try {
       dispatch(setFetchStart());
       const api = await axios().post(

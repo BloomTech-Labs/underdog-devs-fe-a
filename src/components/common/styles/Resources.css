@@ -33,42 +33,40 @@
   font-size: 16px;
 }
 
-          /* RESOURCE FORM */
+/* RESOURCE FORM */
 
 /* resource/add mentor review form headers */
-.ant-card .ant-card-head { 
-    background: #003d71;
+.ant-card .ant-card-head {
+  background: #003d71;
 }
 /* resource header options */
 .ant-tabs-tab-btn {
-    color: rgb(255, 255, 255, 0.85) !important;
-}  
+  color: rgb(255, 255, 255, 0.85) !important;
+}
 /* resource header bar */
 .ant-tabs-ink-bar-animated {
-    background: rgb(255, 255, 255, 0.85) !important;
-    position: relative;
-    top: 45px;
+  background: rgb(255, 255, 255, 0.85) !important;
+  position: relative;
+  top: 45px;
 }
 /* resource form titles */
 .ant-form-horizontal .ant-form-item label {
-    display: flex;
-    background: #0000;
+  display: flex;
+  background: #0000;
 }
 /* review and resource submit button */
 .ant-form-item-control-input-content button {
-    background: #003d71;
-    color: rgb(255, 255, 255, 0.85);
-    border: 1px solid #1990FF;
+  background: #003d71;
+  color: rgb(255, 255, 255, 0.85);
+  border: 1px solid #1990ff;
 }
 /* review and resource submit button on hover */
 .ant-form-item-control-input-content button:hover {
-    background: #1990FF;
-    color: rgb(255, 255, 255, 0.85);
+  background: #1990ff;
+  color: rgb(255, 255, 255, 0.85);
 }
 
 /* add mentor review form */
 .ant-col.ant-col-8.ant-form-item-label > label {
-    background: #0000;
+  background: #0000;
 }
-
-

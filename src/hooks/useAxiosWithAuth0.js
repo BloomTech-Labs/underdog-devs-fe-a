@@ -13,13 +13,14 @@ THIS useAxiosWithAuth0 HOOK SIMPLY SERVES TO HELP CONNECT THE AXIOS CALL AND THE
 export default function useAxiosWithAuth0() {
   const { getAccessTokenSilently } = useAuth0();
 
-  const axiosWithAuth = token =>
-    axios.create({
+  const axiosWithAuth = token => {
+    return axios.create({
       baseURL: process.env.REACT_APP_API_URI,
       headers: {
         authorization: `Bearer ${token}`,
       },
     });
+  };
 
   useEffect(() => {
     (async () => {
