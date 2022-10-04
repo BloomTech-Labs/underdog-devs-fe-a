@@ -160,10 +160,9 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 <div className="header_buttons">
                   <LoginButton />
                   <ApplyButton />
-                  <LogoutButton />
                 </div>
               )}
-              {/* temporary logout button until private route is finished and when we can logout from dashboard */}
+              <LogoutButton />
             </div>
           </Header>
         </Layout>

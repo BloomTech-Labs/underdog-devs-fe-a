@@ -14,6 +14,7 @@ export default function useAxiosWithAuth0() {
   const { getAccessTokenSilently } = useAuth0();
 
   const axiosWithAuth = token => {
+    console.log({ token });
     return axios.create({
       baseURL: process.env.REACT_APP_API_URI,
       headers: {
