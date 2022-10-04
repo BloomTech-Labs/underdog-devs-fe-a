@@ -27,8 +27,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const { logout, isAuthenticated } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
 
-  const dispatch = useDispatch();
-
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
 
@@ -72,14 +70,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const profile_id = user.profile_id;
   const isMentor = user.role_id === 3;
 
-  useEffect(() => {
-    // We're leaving this useEffect here in case its needed later. User data that was previously loaded here will be developed in index.
-  }, []);
-
-  if (!user) {
-    return <NavBarLanding />;
-  }
-
   const menuItems = [
     {
       key: '/profile',
@@ -116,80 +106,79 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     isAuthenticated ? history.push('/') : document.location.reload();
   };
 
-  return (
-    <>
-      <Layout className="layout">
-        <Header className="menuBar">
-          <div className="logoDiv">
-            <div onClick={reloadLogo}>
-              <img
-                src={logo}
-                alt="underdog devs logo"
-                height="68"
-                style={{ marginLeft: '1vw' }}
-                role="button"
-              />
-            </div>
-            {isMentor && (
-              <Popover
-                title={`Status: ${
-                  toggleStatus ? 'Accepting' : 'Not Accepting'
-                }`}
-                content={<MentorPopover />}
-                placement="bottom"
-              >
-                <section className="mentorStatus">
-                  <Switch
-                    checked={toggleStatus}
-                    onChange={handleToggleChange}
-                    id="mentorSwitch"
-                  />
-                  <span className="toggleText">New Mentees</span>
-                </section>
-              </Popover>
-            )}
-            {Object.keys(user).length && (
-              <div className="userInfo-and-profilePic">
-                <Dropdown overlay={accountMenu} placement="bottom" arrow>
-                  <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div
-                        className="username"
-                        // eslint-disable-next-line jsx-a11y/aria-role
-                        role="text"
-                        aria-label="Account settings"
-                      >
-                        <div className="username">
-                          Welcome {userProfile.first_name}
+  if (!user) {
+    return <NavBarLanding />;
+  } else {
+    return (
+      <>
+        <Layout className="layout">
+          <Header className="menuBar">
+            <div className="logoDiv">
+              <div onClick={reloadLogo}>
+                <img
+                  src={logo}
+                  alt="underdog devs logo"
+                  height="68"
+                  style={{ marginLeft: '1vw' }}
+                  role="button"
+                />
+              </div>
+              {isMentor && (
+                <Popover
+                  title={`Status: ${
+                    toggleStatus ? 'Accepting' : 'Not Accepting'
+                  }`}
+                  content={<MentorPopover />}
+                  placement="bottom"
+                >
+                  <section className="mentorStatus">
+                    <Switch
+                      checked={toggleStatus}
+                      onChange={handleToggleChange}
+                      id="mentorSwitch"
+                    />
+                    <span className="toggleText">New Mentees</span>
+                  </section>
+                </Popover>
+              )}
+              {Object.keys(user).length && (
+                <div className="userInfo-and-profilePic">
+                  <Dropdown overlay={accountMenu} placement="bottom" arrow>
+                    <div className="userInfo-and-profilePic">
+                      <div className="userInfo">
+                        <div className="username" aria-label="Account settings">
+                          <div className="username">
+                            Welcome {userProfile.first_name}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Dropdown>
-              </div>
-            )}
-            {!isAuthenticated && (
-              <div className="header_buttons">
-                <LoginButton />
-                <ApplyButton />
-                <LogoutButton />
-              </div>
-            )}
-            {/* temporary logout button until private route is finished and when we can logout from dashboard */}
-          </div>
-        </Header>
-      </Layout>
-      <Modal
-        visible={modal}
-        onCancel={cancelOpen}
-        onOk={handleLogout}
-        title="Confirm Log Out"
-        role="logout"
-      >
-        Are you sure you want to log out now?
-      </Modal>
-    </>
-  );
+                  </Dropdown>
+                </div>
+              )}
+              {!isAuthenticated && (
+                <div className="header_buttons">
+                  <LoginButton />
+                  <ApplyButton />
+                  <LogoutButton />
+                </div>
+              )}
+              {/* temporary logout button until private route is finished and when we can logout from dashboard */}
+            </div>
+          </Header>
+        </Layout>
+        <Modal
+          visible={modal}
+          onCancel={cancelOpen}
+          onOk={handleLogout}
+          title="Confirm Log Out"
+          role="logout"
+        >
+          Are you sure you want to log out now?
+        </Modal>
+      </>
+    );
+  }
 };
 
 /**
