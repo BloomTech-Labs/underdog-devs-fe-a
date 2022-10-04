@@ -108,7 +108,6 @@ function App() {
           allowRoles={[1, 2, 3, 5]}
           component={() => <div>"My Mentees" Component goes here</div>}
         />
-
         <PrivateRoute
           path="/resources"
           allowRoles={[1, 2, 3, 4, 5]}
@@ -134,7 +133,6 @@ function App() {
           allowRoles={[1, 2, 3, 4, 5]}
           component={ViewAllMeetings}
         />
-
         <PrivateRoute
           path="/calendar"
           allowRoles={[1, 2, 3, 4, 5]}
