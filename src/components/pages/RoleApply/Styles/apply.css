@@ -15,7 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: .5%;
+  margin-top: 0.5%;
   padding: 3vh;
 }
 
@@ -48,13 +48,12 @@
   align-items: center;
 }
 
-
 .ant-btn.ant-btn-primary.ant-btn-block.button {
-    background-color: #003d71;
+  background-color: #003d71;
 }
 
 @media only screen and (min-width: 1440px) {
-  .card1, 
+  .card1,
   .card2 {
     max-width: 100%;
   }
@@ -69,7 +68,7 @@
 }
 
 @media only screen and (min-width: 1024px) {
-  .card1, 
+  .card1,
   .card2 {
     max-width: 100%;
   }

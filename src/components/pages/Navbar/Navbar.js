@@ -3,16 +3,15 @@ import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
 import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
-import { UserOutlined, FormOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
 import NavBarLanding from '../NavBarLanding/NavBarLanding';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import LoginButton from './NavbarFeatures/LoginButton';
 import ApplyButton from './NavbarFeatures/ApplyButton';
 import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useDispatch } from 'react-redux';
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
@@ -26,8 +25,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
-
-  const dispatch = useDispatch();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -72,14 +69,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const profile_id = user.profile_id;
   const isMentor = user.role_id === 3;
 
-  useEffect(() => {
-    // We're leaving this useEffect here in case its needed later. User data that was previously loaded here will be developed in index.
-  }, []);
-
-  if (!user) {
-    return <NavBarLanding />;
-  }
-
   const menuItems = [
     {
       key: '/profile',
@@ -116,80 +105,78 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     isAuthenticated ? history.push('/') : document.location.reload();
   };
 
-  return (
-    <>
-      <Layout className="layout">
-        <Header className="menuBar">
-          <div className="logoDiv">
-            <div onClick={reloadLogo}>
-              <img
-                src={logo}
-                alt="underdog devs logo"
-                height="68"
-                style={{ marginLeft: '1vw' }}
-                role="button"
-              />
-            </div>
-            {isMentor && (
-              <Popover
-                title={`Status: ${
-                  toggleStatus ? 'Accepting' : 'Not Accepting'
-                }`}
-                content={<MentorPopover />}
-                placement="bottom"
-              >
-                <section className="mentorStatus">
-                  <Switch
-                    checked={toggleStatus}
-                    onChange={handleToggleChange}
-                    id="mentorSwitch"
-                  />
-                  <span className="toggleText">New Mentees</span>
-                </section>
-              </Popover>
-            )}
-            {Object.keys(user).length && (
-              <div className="userInfo-and-profilePic">
-                <Dropdown overlay={accountMenu} placement="bottom" arrow>
-                  <div className="userInfo-and-profilePic">
-                    <div className="userInfo">
-                      <div
-                        className="username"
-                        // eslint-disable-next-line jsx-a11y/aria-role
-                        role="text"
-                        aria-label="Account settings"
-                      >
-                        <div className="username">
-                          Welcome {userProfile.first_name}
+  if (!user) {
+    return <NavBarLanding />;
+  } else {
+    return (
+      <>
+        <Layout className="layout">
+          <Header className="menuBar">
+            <div className="logoDiv">
+              <div onClick={reloadLogo}>
+                <img
+                  src={logo}
+                  alt="underdog devs logo"
+                  height="68"
+                  style={{ marginLeft: '1vw' }}
+                  role="button"
+                />
+              </div>
+              {isMentor && (
+                <Popover
+                  title={`Status: ${
+                    toggleStatus ? 'Accepting' : 'Not Accepting'
+                  }`}
+                  content={<MentorPopover />}
+                  placement="bottom"
+                >
+                  <section className="mentorStatus">
+                    <Switch
+                      checked={toggleStatus}
+                      onChange={handleToggleChange}
+                      id="mentorSwitch"
+                    />
+                    <span className="toggleText">New Mentees</span>
+                  </section>
+                </Popover>
+              )}
+              {Object.keys(user).length && (
+                <div className="userInfo-and-profilePic">
+                  <Dropdown overlay={accountMenu} placement="bottom" arrow>
+                    <div className="userInfo-and-profilePic">
+                      <div className="userInfo">
+                        <div className="username" aria-label="Account settings">
+                          <div className="username">
+                            Welcome {userProfile.first_name}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Dropdown>
-              </div>
-            )}
-            {!isAuthenticated && (
-              <div className="header_buttons">
-                <LoginButton />
-                <ApplyButton />
-                <LogoutButton />
-              </div>
-            )}
-            {/* temporary logout button until private route is finished and when we can logout from dashboard */}
-          </div>
-        </Header>
-      </Layout>
-      <Modal
-        visible={modal}
-        onCancel={cancelOpen}
-        onOk={handleLogout}
-        title="Confirm Log Out"
-        role="logout"
-      >
-        Are you sure you want to log out now?
-      </Modal>
-    </>
-  );
+                  </Dropdown>
+                </div>
+              )}
+              {!isAuthenticated && (
+                <div className="header_buttons">
+                  <LoginButton />
+                  <ApplyButton />
+                </div>
+              )}
+              <LogoutButton />
+            </div>
+          </Header>
+        </Layout>
+        <Modal
+          visible={modal}
+          onCancel={cancelOpen}
+          onOk={handleLogout}
+          title="Confirm Log Out"
+          role="logout"
+        >
+          Are you sure you want to log out now?
+        </Modal>
+      </>
+    );
+  }
 };
 
 /**

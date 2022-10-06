@@ -59,6 +59,7 @@ const MemosTable = ({ userProfile, accounts }) => {
   // Get profile_id of logged in user
   const { profile_id } = userProfile;
   const location = useLocation();
+
   // Dummy data for table
   useEffect(() => {
     axiosWithAuth()

@@ -1,71 +1,68 @@
-
 .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
 }
 .popup-inner {
-    position: relative;
-    padding: 32px;
-    width: 100%;
-    max-width: 640px;
-    background-color: rgb(61, 61, 68);
-    color: rgb(54, 50, 50);
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 640px;
+  background-color: rgb(61, 61, 68);
+  color: rgb(54, 50, 50);
 }
 .popup-inner .close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background-color: rgba(43, 114, 190, 0.509);
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: rgba(43, 114, 190, 0.509);
 }
 
 .popup-inner h1 {
-    color: white;
-    display: flex;
-    justify-content: center;
-    font-size: 1.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
 }
 
-.close-btn h1{
-    color: white;
+.close-btn h1 {
+  color: white;
 }
 
 .submit {
-    margin-top: 2%;
-    margin-left: 46%;
-    background-color: rgba(43, 114, 190, 0.509);
-    padding: 1%;
-    border: 0;
-    
+  margin-top: 2%;
+  margin-left: 46%;
+  background-color: rgba(43, 114, 190, 0.509);
+  padding: 1%;
+  border: 0;
 }
 .submit:hover {
-    transform: translateY(3px);
-    transition-duration: .2s, 1s;
-  }
-
-
-.popup input, .popup label {
-    width: 60%;
-    background-color: rgb(245, 245, 245);
-    margin-left: 11%;
+  transform: translateY(3px);
+  transition-duration: 0.2s, 1s;
 }
 
+.popup input,
+.popup label {
+  width: 60%;
+  background-color: rgb(245, 245, 245);
+  margin-left: 11%;
+}
 
 @media only screen and (max-width: 990px) {
-    .popup-inner {
-        width: 55%;
-        transition:all 1s ease;
-    }
-
-    .close-btn h1{
-        overflow: hidden;
-    }
+  .popup-inner {
+    width: 55%;
+    transition: all 1s ease;
   }
+
+  .close-btn h1 {
+    overflow: hidden;
+  }
+}
