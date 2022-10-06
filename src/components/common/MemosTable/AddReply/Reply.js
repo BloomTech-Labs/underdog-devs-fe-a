@@ -4,7 +4,7 @@ import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import './Reply.css';
 import { Button } from 'antd';
 
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 const history = createBrowserHistory({
   forceRefresh: true,
 });
