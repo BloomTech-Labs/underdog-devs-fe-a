@@ -14,6 +14,7 @@ import Apply from './components/pages/RoleApply/Apply';
 import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
+import MyMentees from './components/pages/MyMentees/MyMentees';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -106,7 +107,7 @@ function App() {
         <PrivateRoute
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
-          component={() => <div>"My Mentees" Component goes here</div>}
+          component={MyMentees}
         />
         <PrivateRoute
           path="/resources"
