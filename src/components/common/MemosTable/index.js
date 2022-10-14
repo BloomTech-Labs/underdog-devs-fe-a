@@ -15,11 +15,10 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
-
 import ShowReply from './AddReply/showReply';
-
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
+
 const history = createBrowserHistory({
   forceRefresh: true,
 });
