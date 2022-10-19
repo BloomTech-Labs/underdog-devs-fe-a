@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import embed from 'vega-embed';
 export default function TechStackGraph() {
@@ -6,12 +7,15 @@ export default function TechStackGraph() {
     'http://underdog-devs-ds-a-dev.us-east-1.elasticbeanstalk.com/graph/tech-stack-by-role';
   // embed is an asynchronous api call, resolves in a promise
   // for more information visit https://github.com/vega/vega-embed
+
   useEffect(() => {
-    const getTechStackData = async () => {
-      await embed('#vis', url);
-    };
-    getTechStackData();
-  }, [url]);
+    axios.get(`${url}`).then(function (res) {
+      const graphImage = res.data.graph;
+      var graphDescription = res.data.description;
+      embed('#vis', graphImage);
+    });
+  });
+
   return (
     <>
       <div id="vis"></div>
