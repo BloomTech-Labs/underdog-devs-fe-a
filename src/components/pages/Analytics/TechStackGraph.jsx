@@ -1,5 +1,5 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import embed from 'vega-embed';
 //vega-embed allows us to take a graph object, and display it on the ui.
 // for more information visit https://github.com/vega/vega-embed
