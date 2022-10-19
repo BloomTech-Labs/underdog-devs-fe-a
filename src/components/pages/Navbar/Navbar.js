@@ -117,8 +117,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 <img
                   src={logo}
                   alt="underdog devs logo"
-                  height="68"
-                  style={{ marginLeft: '1vw' }}
+                  height="50"
+                  style={{ marginLeft: '1em' }}
                   role="button"
                 />
               </div>
