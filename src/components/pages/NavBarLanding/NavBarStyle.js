@@ -70,7 +70,7 @@ export const NavBtnLink = styled.button`
   display: flex;
   align-items: center;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 3px;
   background: #256ce1;
   padding: 1em 2em;
   margin-top: 1em;
