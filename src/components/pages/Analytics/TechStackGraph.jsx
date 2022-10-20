@@ -14,7 +14,7 @@ export default function TechStackGraph() {
     axios.get(`${url}`).then(function (res) {
       setGraphData(res.data);
     });
-  }, url);
+  }, []);
   embed('#vis', graphData.graph);
 
   return (
