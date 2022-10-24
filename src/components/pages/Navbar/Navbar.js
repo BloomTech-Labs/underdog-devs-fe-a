@@ -16,6 +16,7 @@ import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
+import NewNav from './NewNav';
 
 const { Header } = Layout;
 
@@ -155,13 +156,14 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </Dropdown>
                 </div>
               )}
-              {!isAuthenticated && (
+              {/* {!isAuthenticated && (
                 <div className="header_buttons">
                   <LoginButton />
                   <ApplyButton />
                 </div>
               )}
-              <LogoutButton />
+              <LogoutButton /> */}
+              <NewNav />
             </div>
           </Header>
         </Layout>
