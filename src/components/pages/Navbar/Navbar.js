@@ -12,7 +12,7 @@ import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
-import NewNav from './NewNav';
+import NewNav from './NavbarItems';
 
 const { Header } = Layout;
 
