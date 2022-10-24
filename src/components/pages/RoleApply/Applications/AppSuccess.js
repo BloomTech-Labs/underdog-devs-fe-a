@@ -1,6 +1,5 @@
 import React from 'react';
-import { Col, Row, Typography } from 'antd';
-import { NavItems, NavBtn, NavBtnLink } from '../../NavBarLanding/NavBarStyle';
+import { Col, Row, Typography, Button } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -23,11 +22,7 @@ export default function AppSuccess() {
             we'll email you if your application has been approved.
           </Typography>
         </Col>
-        <NavItems>
-          <NavBtn>
-            <NavBtnLink onClick={handleHomeClick}>Home</NavBtnLink>
-          </NavBtn>
-        </NavItems>
+        <Button onClick={handleHomeClick}>Home</Button>
       </Row>
     </>
   );
