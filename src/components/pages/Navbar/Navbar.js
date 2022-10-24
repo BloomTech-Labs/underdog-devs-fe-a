@@ -5,7 +5,6 @@ import './Navbar.css';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
-import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { useHistory } from 'react-router-dom';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -104,7 +103,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   };
 
   if (!user) {
-    return <NavBarLanding />;
+    return <NewNav />;
   } else {
     return (
       <>
@@ -153,13 +152,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </Dropdown>
                 </div>
               )}
-              {/* {!isAuthenticated && (
-                <div className="header_buttons">
-                  <LoginButton />
-                  <ApplyButton />
-                </div>
-              )}
-              <LogoutButton /> */}
               <NewNav />
             </div>
           </Header>
