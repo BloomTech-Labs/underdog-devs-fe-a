@@ -1,10 +1,9 @@
-// import { Menu, Button } from 'antd';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 import './Navbar.less';
 import { Menu, Button } from 'antd';
 
-const NewNav = () => {
+const NavbarItems = () => {
   const { loginWithRedirect } = useAuth0();
   const { logout, isAuthenticated } = useAuth0();
   const { push } = useHistory();
@@ -39,4 +38,4 @@ const NewNav = () => {
   );
 };
 
-export default NewNav;
+export default NavbarItems;

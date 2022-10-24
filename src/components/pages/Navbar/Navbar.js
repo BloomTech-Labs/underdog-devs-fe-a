@@ -12,7 +12,7 @@ import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
-import NewNav from './NavbarItems';
+import NavbarItems from './NavbarItems';
 
 const { Header } = Layout;
 
@@ -103,7 +103,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   };
 
   if (!user) {
-    return <NewNav />;
+    return <NavbarItems />;
   } else {
     return (
       <>
@@ -152,7 +152,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </Dropdown>
                 </div>
               )}
-              <NewNav />
+              <NavbarItems />
             </div>
           </Header>
         </Layout>
