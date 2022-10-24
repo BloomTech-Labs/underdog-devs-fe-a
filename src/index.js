@@ -15,6 +15,7 @@ import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
 import MyMentees from './components/pages/MyMentees/MyMentees';
+import MyMentors from './components/pages/MyMentors/MyMentors';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
@@ -44,6 +45,7 @@ const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promiseMiddleware)
 );
+console.log(store.getState());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -62,7 +64,6 @@ function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
-
   return (
     <>
       <Navbar />
@@ -108,6 +109,11 @@ function App() {
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
           component={MyMentees}
+        />
+        <PrivateRoute
+          path="/mentors"
+          allowRoles={[1, 2, 3, 5]}
+          component={MyMentors}
         />
         <PrivateRoute
           path="/resources"
