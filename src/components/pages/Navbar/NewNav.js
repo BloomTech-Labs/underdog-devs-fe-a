@@ -1,7 +1,8 @@
-import { Menu, Button } from 'antd';
+// import { Menu, Button } from 'antd';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
-import logo from '../Navbar/ud_logo2.png';
+import './Navbar.less';
+import { Menu, Button } from 'antd';
 
 const NewNav = () => {
   const { loginWithRedirect } = useAuth0();
