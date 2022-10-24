@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
-import './Navbar.css';
+import './Navbar.less';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
