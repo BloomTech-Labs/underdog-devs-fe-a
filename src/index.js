@@ -66,8 +66,7 @@ function App() {
     <>
       <Navbar />
       <Switch>
-        <PrivateRoute path="/" exact component={Dashboard} />
-        <Route path="/landing" component={Landing} />
+        <Route path="/" exact component={Landing} />
         <Route path="/apply" exact component={Apply} />
         <Route path="/apply/mentee" component={Mentee} />
         <Route path="/apply/mentor" component={Mentor} />
