@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
-import './Navbar.css';
+import './Navbar.less';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
-import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { useHistory } from 'react-router-dom';
-import LoginButton from './NavbarFeatures/LoginButton';
-import ApplyButton from './NavbarFeatures/ApplyButton';
-import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
+import NavbarItems from './NavbarItems';
 
 const { Header } = Layout;
 
@@ -106,7 +103,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   };
 
   if (!user) {
-    return <NavBarLanding />;
+    return <NavbarItems />;
   } else {
     return (
       <>
@@ -117,8 +114,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 <img
                   src={logo}
                   alt="underdog devs logo"
-                  height="68"
-                  style={{ marginLeft: '1vw' }}
+                  height="50"
+                  style={{ marginLeft: '1em' }}
                   role="button"
                 />
               </div>
@@ -155,13 +152,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </Dropdown>
                 </div>
               )}
-              {!isAuthenticated && (
-                <div className="header_buttons">
-                  <LoginButton />
-                  <ApplyButton />
-                </div>
-              )}
-              <LogoutButton />
+              <NavbarItems />
             </div>
           </Header>
         </Layout>
