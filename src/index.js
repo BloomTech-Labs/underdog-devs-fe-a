@@ -14,7 +14,7 @@ import Apply from './components/pages/RoleApply/Apply';
 import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
-import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
+import MeetingDash from './components/pages/Meetings/MeetingDash';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { Profile } from './components/pages/Profile';
@@ -130,7 +130,7 @@ function App() {
         <PrivateRoute
           path="/meetings"
           allowRoles={[1, 2, 3, 4, 5]}
-          component={ViewAllMeetings}
+          component={MeetingDash}
         />
         <PrivateRoute
           path="/calendar"
