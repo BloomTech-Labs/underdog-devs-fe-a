@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { Table } from 'antd';
+import { List } from 'antd';
 import { connect } from 'react-redux';
 import userReducer from '../../../state/reducers/userReducer';
 import { setProfileId } from '../../../state/actions/auth/setProfileId';
 
 const MyMentees = props => {
-  const columns = [
-    {
-      title: 'First Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
-    },
-    {
-      title: 'last Name',
-      dataIndex: 'last_name',
-      key: 'last_name',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-  ];
-
   const { axiosWithAuth } = useAxiosWithAuth0();
   const { role, profile_id } = props;
   const [data, setData] = useState([]);
+
+  const dummyData = [
+    {
+      first_name: 'blah',
+      last_name: 'boo',
+      email: 'blahblah@blah.com',
+    },
+    {
+      first_name: 'blah',
+      last_name: 'boo',
+      email: 'blahblah@blah.com',
+    },
+  ];
 
   useEffect(() => {
     axiosWithAuth()
@@ -42,9 +37,18 @@ const MyMentees = props => {
     <>
       <div>
         <h2>My Mentees</h2>
-        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
-          <Table columns={columns} dataSource={data} key={data.profile_id} />
-        </div>
+        <List
+          itemLayout="horizontal"
+          dataSource={dummyData}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                title={`${item.first_name} ${item.last_name}`}
+                description={item.email}
+              />
+            </List.Item>
+          )}
+        />
       </div>
     </>
   );
