@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { List, Card } from 'antd';
+import { List } from 'antd';
 import { connect } from 'react-redux';
 import userReducer from '../../../state/reducers/userReducer';
 import { setProfileId } from '../../../state/actions/auth/setProfileId';
-import { title } from 'vega-lite/build/src/channeldef';
 
 const MyMentors = props => {
-  const columns = [
+  const dummyData = [
     {
-      title: 'First Name',
+      last_name: 'Bobby',
+      first_name: 'James',
+      email: 'james@email.com',
     },
     {
-      title: 'last Name',
-    },
-    {
-      title: 'Email',
-    },
-    {
-      title: 'Profile',
+      last_name: 'Weber',
+      first_name: 'Roxanne',
+      email: 'roxanne@email.com',
     },
   ];
 
@@ -36,26 +33,24 @@ const MyMentors = props => {
         console.error(err);
       });
   }, []);
+
   return (
     <>
       <div>
-        <h2>My Mentor(s)</h2>
+        <h2>My Mentors</h2>
         <div>
           <List
-            grid={{
-              gutter: 10,
-              column: 4,
-            }}
-            dataSource={columns}
+            itemLayout="horizontal"
+            dataSource={dummyData}
             renderItem={item => (
               <List.Item>
-                <Card title={item.title}>{data.profile_id}</Card>
+                <List.Item.Meta
+                  title={`${item.first_name} ${item.last_name}`}
+                  description={item.email}
+                />
               </List.Item>
             )}
           />
-
-          {/*           
-          <Table columns={columns} dataSource={data} key={data.profile_id} /> */}
         </div>
       </div>
     </>
@@ -64,6 +59,10 @@ const MyMentors = props => {
 
 const mapStateToProps = state => {
   return {
+    LastName: 'Last',
+    FirstName: 'First',
+    email: 'email@email.com',
+    Profile: 'http://',
     profile_id: '5b36a8d6-dd73-4c11-9c42-d4c086015db2',
     role: 'mentee',
   };
