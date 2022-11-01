@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import ViewAllMeetings from './ViewAllMeetings/ViewAllMeetings';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Link } from 'react-router-dom';
+import CreateModal from './CrudModals/CreateModal';
+import DeleteModal from './CrudModals/DeleteModal';
+import UpdateModal from './CrudModals/UpdateModal';
 
 const AdminMeetingDash = () => {
   const [meetings, setMeetings] = useState([
@@ -25,6 +28,9 @@ const AdminMeetingDash = () => {
   ]);
   const { axiosWithAuth } = useAxiosWithAuth0();
   const [loading, setLoading] = useState(true);
+  const { isModalOpen, setIsModalOpen } = useState(false);
+  const { confirmLoading, setConfirmLoading } = useState(false);
+  const { modalText, setModalText } = useState('Content of the modal');
 
   useEffect(() => {
     setLoading(true);
@@ -111,6 +117,9 @@ const AdminMeetingDash = () => {
 
       <div>
         <h1>Meetings Dashboard</h1>
+        <CreateModal />
+        <DeleteModal />
+        <UpdateModal />
       </div>
       {loading ? (
         <h3>Loading......</h3>
