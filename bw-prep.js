@@ -58,7 +58,7 @@ const YAML = require('yaml');
   // remove scaffold .git 😈
   fs.rmdirSync('./.git', { recursive: true });
   // copy the .env.sample file to .env
-  fs.copyFile('./.env.sample', './.env', (err) => {
+  fs.copyFile('./.env.sample', './.env', err => {
     if (err) throw err;
     console.log('.env.sample was copied to .env');
   });
@@ -83,12 +83,7 @@ function uninstall(packages) {
   exec(`npm uninstall ${packageNames}`, (error, stdout, stderr) => {
     console.log(stderr);
     if (error !== null) {
-      console.log(
-        kleur
-          .bold()
-          .yellow()
-          .bgRed(`exec error: ${error}`)
-      );
+      console.log(kleur.bold().yellow().bgRed(`exec error: ${error}`));
     }
     // why not run git init for them?
     console.log(
