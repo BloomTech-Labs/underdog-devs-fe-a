@@ -23,10 +23,25 @@ export default function useAxiosWithAuth0() {
   };
 
   useEffect(() => {
-    (async () => {
-      const token = await getAccessTokenSilently();
-      axiosWithAuth(token);
-    })();
+    const locations = [
+      '/',
+      '/apply',
+      '/apply/mentee',
+      '/apply/mentor',
+      '/apply/success',
+    ];
+
+    /********************************** */
+
+    !locations.some(item => {
+      return item !== document.location.pathname;
+    }) &&
+      (async () => {
+        console.log(document.location);
+        const token = await getAccessTokenSilently();
+        axiosWithAuth(token);
+      })();
+    /********************************** */
   }, [getAccessTokenSilently]);
 
   return {

@@ -56,7 +56,9 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
           .catch(err => {
             setFetchError(err);
           })
-          .finally(() => setFetchEnd());
+          .finally(() => {
+            setFetchEnd();
+          });
       }
     })();
 
@@ -99,7 +101,12 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
   const reloadLogo = () => {
-    isAuthenticated ? history.push('/') : document.location.reload();
+    //*******************/
+    history.push('/');
+    document.location.reload();
+    //*******************/
+
+    //isAuthenticated ? history.push('/') : document.location.reload();
   };
 
   if (!user) {
@@ -137,6 +144,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </section>
                 </Popover>
               )}
+
               {Object.keys(user).length && (
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={accountMenu} placement="bottom" arrow>
