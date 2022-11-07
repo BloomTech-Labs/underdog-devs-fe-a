@@ -1,7 +1,6 @@
 import { List, Tag } from 'antd';
 
 const MentorModal = ({ applicant }) => {
-  console.log('mentor modal:', applicant);
   return (
     <>
       <div className="profile-intro">

@@ -103,7 +103,6 @@ const MenteeModal = ({ applicant }) => {
           <p className="list-item-column">Other information:</p>
           <p className="list-item-column">{applicant.other_info}</p>
         </List.Item>
-
         {applicant.date && (
           <List.Item>
             <div className="list-item-column">

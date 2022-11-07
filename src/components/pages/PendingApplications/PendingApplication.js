@@ -21,9 +21,9 @@ const columns = [
   // Names sorting by alphabetical order
   {
     title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name),
+    dataIndex: 'full_name',
+    key: 'full_name',
+    sorter: (a, b) => a.full_name.localeCompare(b.full_name),
     sortDirections: ['descend', 'ascend'],
   },
   {
@@ -86,7 +86,6 @@ const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
-  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -94,8 +93,8 @@ const PendingApplications = () => {
   };
 
   const convertDate = previousDate => {
-    const date = new Date(previousDate);
-    const newConvertedDate = date.toLocaleString();
+    const timestamp = new Date(previousDate);
+    const newConvertedDate = timestamp.toLocaleString();
     if (newConvertedDate === 'Invalid Date') {
       return '';
     }
@@ -104,7 +103,6 @@ const PendingApplications = () => {
 
   const getPendingApps = async () => {
     try {
-      // const api = await axiosWithAuth().post(`/application`);
       const api = await axios.get('/local.json');
       api.data.result.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
@@ -113,6 +111,7 @@ const PendingApplications = () => {
       });
       setApplications(
         Object.values(api.data.result).map(row => ({
+          key: row.profile_id,
           first_name: row.first_name,
           last_name: row.last_name,
           tech_stack: row.tech_stack,
@@ -127,8 +126,7 @@ const PendingApplications = () => {
           job_help: row.job_help,
           industry_knowledge: row.industry_knowledge,
           other_info: row.other_info,
-          key: row.profile_id,
-          name: row.first_name + ' ' + row.last_name,
+          full_name: row.first_name + ' ' + row.last_name,
           role: (
             <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
               {row.role_name}
