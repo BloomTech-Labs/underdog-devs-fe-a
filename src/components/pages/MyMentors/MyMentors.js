@@ -2,25 +2,15 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { List } from 'antd';
 import { connect } from 'react-redux';
-import userReducer from '../../../state/reducers/userReducer';
-import { setProfileId } from '../../../state/actions/auth/setProfileId';
 
 const MyMentors = props => {
-  const dummyData = [
-    {
-      last_name: 'Bobby',
-      first_name: 'James',
-      email: 'james@email.com',
-    },
-    {
-      last_name: 'Weber',
-      first_name: 'Roxanne',
-      email: 'roxanne@email.com',
-    },
-  ];
-
   const { axiosWithAuth } = useAxiosWithAuth0();
+
+  // role and profile_id are not currently in global state
   const { role, profile_id } = props;
+
+  // this is dummy data to act as global state for profile_ID and role
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -28,6 +18,8 @@ const MyMentors = props => {
       .get(`/assignments/${role}/${profile_id}`)
       .then(res => {
         setData(res.data);
+        console.log(res.data);
+        console.log(res.data.profile_id);
       })
       .catch(err => {
         console.error(err);
@@ -41,11 +33,12 @@ const MyMentors = props => {
         <div>
           <List
             itemLayout="horizontal"
-            dataSource={dummyData}
+            dataSource={data}
             renderItem={item => (
               <List.Item>
                 <List.Item.Meta
-                  title={`${item.first_name} ${item.last_name}`}
+                  title={`${item.first_name}
+                  ${item.last_name}`}
                   description={item.email}
                 />
               </List.Item>
@@ -59,11 +52,7 @@ const MyMentors = props => {
 
 const mapStateToProps = state => {
   return {
-    LastName: 'Last',
-    FirstName: 'First',
-    email: 'email@email.com',
-    Profile: 'http://',
-    profile_id: '5b36a8d6-dd73-4c11-9c42-d4c086015db2',
+    profile_id: 'ac985dd8-9164-4825-833b-aef12264db8f',
     role: 'mentee',
   };
 };
