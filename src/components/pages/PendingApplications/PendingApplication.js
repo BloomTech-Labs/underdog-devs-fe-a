@@ -104,6 +104,20 @@ const PendingApplications = () => {
       });
       setApplications(
         Object.values(api.data.result).map(row => ({
+          first_name: row.first_name,
+          last_name: row.last_name,
+          tech_stack: row.tech_stack,
+          role_name: row.role_name,
+          email: row.email,
+          state: row.state,
+          country: row.country,
+          current_position: row.current_position,
+          current_company: row.current_company,
+          industry_knowledge: row.industry_knowledge,
+          pair_programming: row.pair_programming,
+          job_help: row.job_help,
+          industry_knowledge: row.industry_knowledge,
+          other_info: row.other_info,
           key: row.profile_id,
           name: row.first_name + ' ' + row.last_name,
           role: (

@@ -1,6 +1,7 @@
 import { List, Tag } from 'antd';
 
 const MentorModal = ({ applicant }) => {
+  console.log('mentor modal:', applicant);
   return (
     <>
       <div className="profile-intro">
@@ -90,6 +91,16 @@ const MentorModal = ({ applicant }) => {
             {applicant.other_info || <p>None</p>}
           </p>
         </List.Item>
+        {applicant.date && (
+          <List.Item>
+            <div className="list-item-column">
+              <p>Updated Date:</p>
+            </div>
+            <div className="list-item-column">
+              <p>{applicant.date}</p>
+            </div>
+          </List.Item>
+        )}
       </List>
     </>
   );
