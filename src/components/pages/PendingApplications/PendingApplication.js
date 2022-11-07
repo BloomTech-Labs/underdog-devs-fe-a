@@ -190,7 +190,7 @@ const PendingApplications = () => {
         applicationProfile={applications}
         getPendingApps={getPendingApps}
       />
-      <Table columns={columns} dataSource={applications} />;
+      <Table columns={columns} dataSource={applications} />
     </>
   );
 };
