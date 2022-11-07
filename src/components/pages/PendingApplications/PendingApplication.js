@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
+import axios from 'axios';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -94,14 +95,15 @@ const PendingApplications = () => {
 
   const getPendingApps = async () => {
     try {
-      const api = await axiosWithAuth().post(`/application`);
-      api.data.forEach(row => {
+      // const api = await axiosWithAuth().post(`/application`);
+      const api = await axios.get('/local.json');
+      api.data.result.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
           ? (row.role_name = 'mentor')
           : (row.role_name = 'mentee');
       });
       setApplications(
-        Object.values(api.data).map(row => ({
+        Object.values(api.data.result).map(row => ({
           key: row.profile_id,
           name: row.first_name + ' ' + row.last_name,
           role: (
