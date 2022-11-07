@@ -93,6 +93,15 @@ const PendingApplications = () => {
     setModalIsVisible(true);
   };
 
+  const convertDate = previousDate => {
+    const date = new Date(previousDate);
+    const newConvertedDate = date.toLocaleString();
+    if (newConvertedDate === 'Invalid Date') {
+      return '';
+    }
+    return newConvertedDate;
+  };
+
   const getPendingApps = async () => {
     try {
       // const api = await axiosWithAuth().post(`/application`);
@@ -125,7 +134,7 @@ const PendingApplications = () => {
               {row.role_name}
             </Tag>
           ),
-          date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
+          date: convertDate(row.updated_at),
           status: (
             <Tag
               color={
