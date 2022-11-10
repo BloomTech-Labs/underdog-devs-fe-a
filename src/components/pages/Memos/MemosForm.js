@@ -35,10 +35,10 @@ const MemosForm = props => {
   const [toggle, setToggle] = useState(1);
   const [subjectType, setSubjectType] = useState(0);
   const [formValues, setFormValues] = useState(initialValues);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const postNewMemo = newMemo => {
-    axiosWithAuth()
+    axiosWithAuth
       .post('/notes', newMemo)
       .then(res => {
         push('/mymemos');

@@ -6,11 +6,11 @@ const columns = [{ title: 'Mentor', dataIndex: 'name', key: 'name' }];
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   useEffect(() => {
     const getReviews = () => {
-      axiosWithAuth()
+      axiosWithAuth
         .get('/reviews')
         .then(res => {
           setReviews(
