@@ -9,6 +9,9 @@ const axios_instance = axios.create({
 const useAxiosWithAuth0 = () => {
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
+  // The implementaion of the axios interceptors used below can be found on axios docs on the
+  // following link: https://axios-http.com/docs/interceptors
+
   useEffect(() => {
     if (isAuthenticated) {
       axios_instance.interceptors.request.use(
