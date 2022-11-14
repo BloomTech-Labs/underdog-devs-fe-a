@@ -21,7 +21,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated } = useAuth0();
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -38,15 +38,13 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const user = await axiosWithAuth().get(
-          `/profile/current_user_profile/`
-        );
+        const user = await axiosWithAuth.get(`/profile/current_user_profile/`);
 
         setUser(user.data);
 
         // The following code was taken from the userProfile redux action file
         setFetchStart();
-        axiosWithAuth()
+        axiosWithAuth
           .get(`${API_URL}profile/${user.data.profile_id}`)
           .then(res => {
             if (res.data) {
@@ -88,7 +86,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   };
 
   const handleToggleChange = checked => {
-    axiosWithAuth()
+    axiosWithAuth
       .post(`${API_URL}profile/availability/${profile_id}`, {
         accepting_new_mentees: checked,
       })

@@ -4,7 +4,7 @@ import VAMC from './VAMC';
 
 const ViewAllMeetings = () => {
   const [meetingData, setMeetingData] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const getDate = num => {
     let d = '';
@@ -31,7 +31,7 @@ const ViewAllMeetings = () => {
   };
 
   useEffect(() => {
-    axiosWithAuth()
+    axiosWithAuth
       .get('/meetings')
       .then(response => {
         setMeetingData(switchProp(response.data));

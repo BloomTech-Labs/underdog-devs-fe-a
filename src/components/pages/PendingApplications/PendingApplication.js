@@ -86,6 +86,7 @@ const PendingApplications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -103,8 +104,8 @@ const PendingApplications = () => {
 
   const getPendingApps = async () => {
     try {
-      const api = await axios.get('/local.json');
-      api.data.result.forEach(row => {
+      const api = await axiosWithAuth.post(`/application`);
+      api.data.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
           ? (row.role_name = 'mentor')
           : (row.role_name = 'mentee');
