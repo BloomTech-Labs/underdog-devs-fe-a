@@ -108,8 +108,9 @@ const ApplicationModal = ({
   useEffect(() => {
     const getCurrentApp = () => {
       Object.values(applicationProfile).map(current_id => {
-        if (current_id?.profile_id == profileId)
+        if (current_id?.key == profileId) {
           setCurrentApplication(current_id);
+        }
       });
     };
     getCurrentApp();
@@ -117,7 +118,7 @@ const ApplicationModal = ({
 
   return (
     <>
-      {currentApplication?.profile_id === undefined ? (
+      {currentApplication?.key === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}

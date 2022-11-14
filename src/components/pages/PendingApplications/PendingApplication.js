@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
+import axios from 'axios';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -20,9 +21,9 @@ const columns = [
   // Names sorting by alphabetical order
   {
     title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a, b) => a.name.localeCompare(b.name),
+    dataIndex: 'full_name',
+    key: 'full_name',
+    sorter: (a, b) => a.full_name.localeCompare(b.full_name),
     sortDirections: ['descend', 'ascend'],
   },
   {
@@ -92,6 +93,15 @@ const PendingApplications = () => {
     setModalIsVisible(true);
   };
 
+  const convertDate = previousDate => {
+    const timestamp = new Date(previousDate);
+    const newConvertedDate = timestamp.toLocaleString();
+    if (newConvertedDate === 'Invalid Date') {
+      return '';
+    }
+    return newConvertedDate;
+  };
+
   const getPendingApps = async () => {
     try {
       const api = await axiosWithAuth.post(`/application`);
@@ -101,15 +111,29 @@ const PendingApplications = () => {
           : (row.role_name = 'mentee');
       });
       setApplications(
-        Object.values(api.data).map(row => ({
+        Object.values(api.data.result).map(row => ({
           key: row.profile_id,
-          name: row.first_name + ' ' + row.last_name,
+          first_name: row.first_name,
+          last_name: row.last_name,
+          tech_stack: row.tech_stack,
+          role_name: row.role_name,
+          email: row.email,
+          state: row.state,
+          country: row.country,
+          current_position: row.current_position,
+          current_company: row.current_company,
+          industry_knowledge: row.industry_knowledge,
+          pair_programming: row.pair_programming,
+          job_help: row.job_help,
+          industry_knowledge: row.industry_knowledge,
+          other_info: row.other_info,
+          full_name: row.first_name + ' ' + row.last_name,
           role: (
             <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
               {row.role_name}
             </Tag>
           ),
-          date: (row.updated_at ? row.updated_at : row.created_at).slice(0, 10),
+          date: convertDate(row.updated_at),
           status: (
             <Tag
               color={
@@ -167,7 +191,7 @@ const PendingApplications = () => {
         applicationProfile={applications}
         getPendingApps={getPendingApps}
       />
-      <Table columns={columns} dataSource={applications} />;
+      <Table columns={columns} dataSource={applications} />
     </>
   );
 };
