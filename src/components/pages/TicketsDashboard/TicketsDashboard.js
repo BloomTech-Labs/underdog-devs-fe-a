@@ -69,12 +69,13 @@ const TicketsDashboard = props => {
   useEffect(() => {
     const getTickets = () => {
       axiosWithAuth.get('/resource-tickets').then(res => {
-        if (res.data.message === null) {
+        if (res.data.length > 0) {
           setTickets(res.data);
         }
       });
     };
     getTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const data = [];
@@ -82,7 +83,7 @@ const TicketsDashboard = props => {
   if (tickets !== []) {
     escaTickets = tickets.filter(x => x.ticket_status === 'approved');
   }
-  // eslint-next-line array-callback-return
+  // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {
       key: t.ticket_id,
