@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
+import axios from 'axios';
 
 const CreateModal = props => {
   const { visible, onCreate, onCancel } = props;
@@ -14,7 +15,6 @@ const CreateModal = props => {
     admin_meeting_notes: '',
     mentor_meeting_notes: '',
     mentee_meeting_notes: '',
-    meeting_missed_by_mentee: '',
   });
   //create a form and sync values to state
   const handleChange = e => {
@@ -23,11 +23,9 @@ const CreateModal = props => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    const meeting = createFormObject();
-    console.log(meeting);
-  };
-  const createFormObject = () => {
+    const randomMeetingId = Math.floor(Math.random() * 100000000000000000);
     const meeting = {
+      meeting_id: randomMeetingId,
       meeting_topic: formData.meeting_topic,
       meeting_start_time: formData.meeting_start_time,
       meeting_end_time: formData.meeting_end_time,
@@ -38,7 +36,8 @@ const CreateModal = props => {
       mentee_meeting_notes: formData.mentee_meeting_notes,
       meeting_missed_by_mentee: formData.meeting_missed_by_mentee,
     };
-    return meeting;
+    console.log(meeting);
+    axios.post('http://localhost:8080/meetings/', meeting);
   };
 
   const showModal = () => {
@@ -50,6 +49,7 @@ const CreateModal = props => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -62,7 +62,11 @@ const CreateModal = props => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <form onSubmit={() => handleSubmit()}>
+        <form
+          onSubmit={() => {
+            handleSubmit();
+          }}
+        >
           <label>
             Meeting Topic:
             <input
@@ -152,7 +156,11 @@ const CreateModal = props => {
               onChange={handleChange}
             />
           </label>
+          <br />
         </form>
+        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
       </Modal>
     </>
   );
