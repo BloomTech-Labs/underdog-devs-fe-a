@@ -16,7 +16,7 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 //Images acquired from unsplash.com
 
 const LandingPage = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
     <>
       <div className="landInfo1">
@@ -30,9 +30,11 @@ const LandingPage = () => {
           <div className="content-container">
             <div className="button-container-signin">
               <h3>Already have an account?</h3>
-              <Button type="primary" onClick={() => loginWithRedirect()}>
-                Log In
-              </Button>
+              {!isAuthenticated /** IF the user is logged in, Hide the button */ ? (
+                <Button type="primary" onClick={() => loginWithRedirect()}>
+                  Log In
+                </Button>
+              ) : null}
             </div>
 
             <h3>Ready to Join Underdog Devs?</h3>
