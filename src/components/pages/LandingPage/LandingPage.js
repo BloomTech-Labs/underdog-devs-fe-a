@@ -28,14 +28,14 @@ const LandingPage = () => {
             disadvantaged background.
           </p>
           <div className="content-container">
-            <div className="button-container-signin">
-              <h3>Already have an account?</h3>
-              {!isAuthenticated /** IF the user is logged in, Hide the button */ ? (
+            {!isAuthenticated /** IF the user is logged in, Hide the button */ ? (
+              <div className="button-container-signin">
+                <h3>Already have an account?</h3>
                 <Button type="primary" onClick={() => loginWithRedirect()}>
                   Log In
                 </Button>
-              ) : null}
-            </div>
+              </div>
+            ) : null}
 
             <h3>Ready to Join Underdog Devs?</h3>
 
