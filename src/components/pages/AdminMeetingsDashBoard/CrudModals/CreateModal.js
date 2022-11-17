@@ -22,7 +22,33 @@ const CreateModal = props => {
     mentor_meeting_notes: '',
     mentee_meeting_notes: '',
   });
+  console.log('props.data', props.data);
 
+  const mentorsArray = props.data[0];
+  const menteesArray = props.data[1];
+  const processedMentorsArray = mentorsArray.map(mentor => {
+    const entry = {
+      value: mentor.profile_id,
+      label: mentor.profile_id,
+      name: 'mentor_id',
+    };
+    console.log('entry', entry);
+    return entry;
+  });
+
+  console.log('processedMentorsArray', processedMentorsArray);
+
+  const processedMenteesArray = menteesArray.map(mentee => {
+    const entry = {
+      value: mentee.profile_id,
+      label: mentee.profile_id,
+      name: 'mentor_id',
+    };
+    console.log('entry', entry);
+    return entry;
+  });
+
+  console.log('processedMenteesArray', processedMenteesArray);
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
@@ -66,18 +92,21 @@ const CreateModal = props => {
       return entry;
     });
   };
+  //   const menteesMapped = () => {
+  //     allMentees.map(mentee => {
+  //       let entry = {
+  //         value: mentee.mentee_id,
+  //         label: mentee.mentee_id,
+  //         name: "mentee_id"
+  //       };
+  //       return entry;
+  //     });
+  //     console.log(menteesMapped)
+  //   };
+  //       console.log(entry);
+  //       return entry;
+  // });
 
-  const menteesMapped = () => {
-    allMentees.map(mentee => {
-      let entry = {
-        value: mentee.mentee_id,
-        label: mentee.mentee_id,
-        name: mentee.mentee_id,
-      };
-      console.log(entry);
-      return entry;
-    });
-  };
   useEffect(() => {
     console.log(allMentors);
     console.log(allMentees);
@@ -143,12 +172,12 @@ const CreateModal = props => {
         onChange={handleChange}
       >
         <DynamicDropdown
-          options={mentors}
+          options={processedMentorsArray}
           placeholder="Select a Mentor"
           onChange={handleAntChange}
         />
         <DynamicDropdown
-          options={mentees}
+          options={processedMenteesArray}
           placeholder="Select a Mentee"
           onChange={handleAntChange}
         />

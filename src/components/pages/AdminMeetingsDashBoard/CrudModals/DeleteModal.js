@@ -2,24 +2,37 @@ import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
 import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
+import DynamicDropdown from '../DynamicDropdown';
 
 import axios from 'axios';
 
 const DeleteModal = props => {
-  const { visible, onCreate, onCancel, setMeetings, meetings } = props;
+  const { data, setData, meetings } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState(''); //Where the current error input is held.
   const [form, setForm] = useState({ INPUT: '' }); //Where the current form data is held.
   const { axiosWithAuth } = useAxiosWithAuth0();
+  const { setMeetings } = props;
 
   const showModal = () => {
     setIsModalOpen(true);
   };
+  const processedMeetingsArray = meetings.map(meeting => {
+    const entry = {
+      value: meeting.meeting_id,
+      label: meeting.meeting_id,
+      name: 'meeting_id',
+    };
+    console.log('entry', entry);
+    return entry;
+  });
 
   const handleOk = evt => {
+    evt.preventDefault();
+    console.log('form', form);
     //Make an axios call to delete data:
     //FORM DATA is located in the 'form' slice of state.
-    axiosWithAuth()
+    axios
       .delete(`${process.env.REACT_APP_API_URI}meetings/${form.INPUT}`)
       .then(res => {
         console.log(res);
@@ -36,17 +49,24 @@ const DeleteModal = props => {
         console.log(err);
         setError(err);
       });
+    setForm({
+      ...form,
+      INPUT: '',
+    });
   };
 
   const handleCancel = () => {
     //Reset the form
     setForm({
-      ...form,
       INPUT: '',
     });
 
     //Close the modal.
     setIsModalOpen(false);
+  };
+  const handleAntChange = (value, option) => {
+    console.log(option, value);
+    setForm({ INPUT: value, [option.name]: value });
   };
 
   return (
@@ -62,21 +82,12 @@ const DeleteModal = props => {
       >
         <p>Insert the ID you would like to delete: </p>
         <form>
-          <label>
-            ID:
-            <input
-              type="text"
-              name="INPUT"
-              style={{ color: 'black' }}
-              value={form.INPUT}
-              onChange={evt => {
-                setForm({
-                  ...form,
-                  INPUT: evt.target.value,
-                });
-              }}
-            />
-          </label>
+          Meeting ID:
+          <DynamicDropdown
+            options={processedMeetingsArray}
+            placeholder="Select a Meeting"
+            onChange={handleAntChange}
+          />
         </form>
 
         <p className="error" style={{ color: 'red' }}>

@@ -6,6 +6,7 @@ const DynamicDropdown = ({ options, placeholder, onChange }) => {
     <Select
       showSearch
       options={options}
+      name="Menotr-Id"
       onChange={onChange}
       placeholder={placeholder}
       optionFilterProp="children"
