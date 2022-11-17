@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
+import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import axios from 'axios';
 
+import DynamicDropdown from '../DynamicDropdown';
+
 const CreateModal = props => {
-  const { visible, onCreate, onCancel } = props;
+  const { axiosWithAuth } = useAxiosWithAuth0();
+  const { data } = props;
+  const [allMentors, allMentees] = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     meeting_topic: '',
     meeting_start_time: '',
@@ -17,9 +23,6 @@ const CreateModal = props => {
     mentee_meeting_notes: '',
   });
 
-  const allMentors = axios.get('localhost:8080/profile/role/mentor');
-  const allMentees = axios.get('localhost:8080/profile/role/mentee');
-  //create a form and sync values to state
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
@@ -39,7 +42,7 @@ const CreateModal = props => {
       mentee_meeting_notes: formData.mentee_meeting_notes,
     };
     console.log(meeting);
-    axios.post('http://localhost:8080/meetings/', meeting);
+    axios.post(`${process.env.REACT_APP_API_URI}meetings/`, meeting);
   };
 
   const showModal = () => {
@@ -51,7 +54,81 @@ const CreateModal = props => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(allMentees, allMentors);
+  const mentorsMapped = () => {
+    allMentors.map(mentor => {
+      console.log(mentor.user_id);
+      const entry = {
+        value: mentor.mentor_id,
+        label: mentor.mentor_id,
+        name: mentor.mentor_id,
+      };
+      console.log(entry);
+      return entry;
+    });
+  };
+
+  const menteesMapped = () => {
+    allMentees.map(mentee => {
+      let entry = {
+        value: mentee.mentee_id,
+        label: mentee.mentee_id,
+        name: mentee.mentee_id,
+      };
+      console.log(entry);
+      return entry;
+    });
+  };
+  useEffect(() => {
+    console.log(allMentors);
+    console.log(allMentees);
+    mentorsMapped();
+  }, [allMentors, allMentees]);
+  const mentors = [
+    {
+      value: 'mark',
+      label: 'Mark',
+      name: 'mentor_id',
+    },
+    {
+      value: 'joe',
+      label: 'Joe',
+      name: 'mentor_id',
+    },
+    {
+      value: 'jane',
+      label: 'Jane',
+      name: 'mentor_id',
+    },
+  ];
+
+  const mentees = [
+    {
+      value: 'jack',
+      label: 'Jack',
+      name: 'mentee_id',
+    },
+    {
+      value: 'lucy',
+      label: 'Lucy',
+      name: 'mentee_id',
+    },
+    {
+      value: 'kami',
+      label: 'Kami',
+      name: 'mentee_id',
+    },
+    {
+      value: 'Yiminghe',
+      label: 'Yiminghe',
+      name: 'mentee_id',
+    },
+  ];
+
+  const handleAntChange = (value, option) => {
+    console.log(option, value);
+    setFormData({ ...formData, [option.name]: value });
+  };
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -63,7 +140,19 @@ const CreateModal = props => {
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        onChange={handleChange}
       >
+        <DynamicDropdown
+          options={mentors}
+          placeholder="Select a Mentor"
+          onChange={handleAntChange}
+        />
+        <DynamicDropdown
+          options={mentees}
+          placeholder="Select a Mentee"
+          onChange={handleAntChange}
+        />
+
         <form
           onSubmit={() => {
             handleSubmit();
@@ -108,16 +197,7 @@ const CreateModal = props => {
               onChange={handleChange}
             />
           </label>
-          <br />
-          <label>
-            Mentee ID:
-            <input
-              type="text"
-              name="mentee_id"
-              value={formData.mentee_id}
-              onChange={handleChange}
-            />
-          </label>
+
           <br />
           <label>
             Admin Meeting Notes:
@@ -158,85 +238,3 @@ const CreateModal = props => {
   );
 };
 export default CreateModal;
-
-//     const handleChange = e => {
-//         setFormData({
-//             ...formData,
-//             [e.target.name]: e.target.value
-//         });
-//     };
-
-//     const showModal = () => {
-//       setIsModalOpen(true);
-//     };
-
-//     const handleOk = () => {
-//       setIsModalOpen(false);
-//     };
-
-//     const handleCancel = () => {
-//       setIsModalOpen(false);
-//     };
-
-//     return (
-//       <>
-//         <Button type="primary" onClick={showModal}>
-//           Create Meeting
-//         </Button>
-//         <Modal title="New Meeting" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-//          <p>Fill in the form below to create a new meeting!</p>
-
-//          {/* <form>
-//               <label>
-//               meeting_topic (optional str max 255 chars):
-//                 <input type="text" name="meeting_topic" placeholder='Meeting Topic... Optional'/>
-//                 </label>
-//                 <br />
-//                 <label>
-//                 meeting_start_time (optional datetime iso8601):
-//              <input type="date" name="meeting_start_date" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 meeting_end_time (optional datetime iso8601):
-//                 <input type="text" name="meeting_end_time" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 mentor_id (req str suggested 882eb36a-d154-480d-89d4-a1cad1aa7330):
-//                 <input type="text" name="mentor_id" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 mentee_id (req str suggested 50ef4f37-b8bd-4c93-a9a3-625e38c2c5cb):
-//                 <input type="text" name="mentee_id" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 admin_meeting_notes (optional str max 2000 chars):
-//                 <input type="text" name="admin_meeting_notes" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 meeting_missed_by_mentee (optional missed || attended):
-//                 <input type="checkbox" name="meeting_missed_by_mentee" value = "" />
-
-//                 </label>
-//                 <br />
-//                 <label>
-//                 mentor_meeting_notes (optional str max 2000 chars):
-//                 <input type="text" name="mentor_meeting_notes" />
-//                 </label>
-//                 <br />
-//                 <label>
-//                 mentee_meeting_notes (optional str max 2000 chars):
-//                 <input type="text" name="mentee_meeting_notes" />
-//                 </label>
-//                 <br />
-
-//          </form> */}
-//         </Modal>
-//       </>
-//     );
-// };
-// export default CreateModal;

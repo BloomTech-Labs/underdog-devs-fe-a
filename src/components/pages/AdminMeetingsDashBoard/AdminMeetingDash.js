@@ -7,32 +7,14 @@ import DeleteModal from './CrudModals/DeleteModal';
 import UpdateModal from './CrudModals/UpdateModal';
 
 const AdminMeetingDash = () => {
-  const [meetings, setMeetings] = useState([
-    {
-      meeting_id: '',
-      meeting_topic: '',
-      created_at: '',
-      updated_at: '',
-      meeting_start_time: '',
-      meeting_end_time: '',
-      mentor_id: '',
-      mentee_id: '',
-      admin_meeting_notes: '',
-      mentor_meeting_notes: '',
-      mentee_meeting_notes: '',
-      meeting_missed_by_mentee: '',
-      user_id: '',
-      profile_id: '',
-      role: '',
-    },
-  ]);
+  const [meetings, setMeetings] = useState([]);
   const { axiosWithAuth } = useAxiosWithAuth0();
   const [loading, setLoading] = useState(true);
-  const { isModalOpen, setIsModalOpen } = useState(false);
-  const { confirmLoading, setConfirmLoading } = useState(false);
-  const { modalText, setModalText } = useState('Content of the modal');
-  const { allMentors, setAllMentors } = useState([]);
-  const { allMentees, setAllMentees } = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState('Content of the modal');
+  const [allMentors, setAllMentors] = useState([]);
+  const [allMentees, setAllMentees] = useState([]);
 
   //create a function called createNewMeeting that will post a new meeting to the database and then update the state of meetings
   const createNewMeeting = meeting => {
@@ -42,17 +24,6 @@ const AdminMeetingDash = () => {
         setMeetings([...meetings, response.data]);
       })
       .catch(err => console.error(err));
-  };
-  // get all meetings
-  const getAllMeetings = () => {
-    axiosWithAuth()
-      .get('/meetings')
-      .then(response => {
-        setMeetings(response.data);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch(err => console.error(err.message));
   };
 
   //create a function called deleteMeeting that will delete the meeting from the database and then update the state of meetings
@@ -98,15 +69,6 @@ const AdminMeetingDash = () => {
       .catch(err => console.error(err));
   };
 
-  const getAllMentors = () => {
-    axiosWithAuth()
-      .get('/profile/role/mentor')
-      .then(response => {
-        setAllMentors(response.data);
-      })
-      .catch(err => console.error(err));
-  };
-
   // const getAllMentees = () => {
   //   axiosWithAuth()
   //     .get('/profile/role/mentee')
@@ -117,30 +79,41 @@ const AdminMeetingDash = () => {
   // };
 
   useEffect(() => {
-    async function getAllMentors() {
-      try {
-        const response = await axiosWithAuth().get('/profile/role/mentor');
-        setAllMentors(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
+    const getAllMentors = () => {
+      axiosWithAuth()
+        .get('/profile/role/mentor')
+        .then(response => {
+          setAllMentors(response.data);
+          console.log('allMentors state', allMentors);
+        })
+        .catch(err => console.error(err));
+    };
 
-    async function getAllMentees() {
-      try {
-        const response = await axiosWithAuth().get('/profile/role/mentee');
-        setAllMentees(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    setLoading(true);
-    getAllMeetings();
+    const getAllMentees = () => {
+      axiosWithAuth()
+        .get('/profile/role/mentee')
+        .then(response => {
+          const allMenteesToSet = response.data;
+          console.log(allMenteesToSet);
+          setAllMentees(allMenteesToSet);
+          console.log('allMentees state', allMentees);
+        })
+        .catch(err => console.error(err));
+    };
+
+    const getAllMeetings = () => {
+      axiosWithAuth()
+        .get('/meetings')
+        .then(response => {
+          setMeetings(response.data);
+          setLoading(false);
+        })
+        .catch(err => console.error(err));
+    };
+
     getAllMentors();
-    console.log('endUseEffect');
-    console.log(meetings);
-    console.log(allMentees);
-    console.log(allMentors);
+    getAllMentees();
+    getAllMeetings();
   }, []);
 
   return (
@@ -155,18 +128,22 @@ const AdminMeetingDash = () => {
         <Link to="/mentee/meetings">Mentee Mettings Dashboard...</Link>
       </p>
       <div>
-        <ViewAllMeetings
-          meetings={meetings}
-          createNewMeeting={createNewMeeting}
-          updateMeeting={updateMeeting}
-          deleteMeeting={deleteMeeting}
-        />
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <ViewAllMeetings
+            meetings={meetings}
+            createNewMeeting={createNewMeeting}
+            updateMeeting={updateMeeting}
+            deleteMeeting={deleteMeeting}
+          />
+        )}
       </div>
 
       <div>
         <h1>Meetings Dashboard</h1>
-        <CreateModal />
-        <DeleteModal />
+        <CreateModal data={[allMentors, allMentees]} />
+        <DeleteModal setMeetings={setMeetings} meetings={meetings} />
         <UpdateModal />
       </div>
       {loading ? (
