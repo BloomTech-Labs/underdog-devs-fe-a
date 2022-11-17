@@ -16,6 +16,9 @@ const CreateModal = props => {
     mentor_meeting_notes: '',
     mentee_meeting_notes: '',
   });
+
+  const allMentors = axios.get('localhost:8080/profile/role/mentor');
+  const allMentees = axios.get('localhost:8080/profile/role/mentee');
   //create a form and sync values to state
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,7 +37,6 @@ const CreateModal = props => {
       admin_meeting_notes: formData.admin_meeting_notes,
       mentor_meeting_notes: formData.mentor_meeting_notes,
       mentee_meeting_notes: formData.mentee_meeting_notes,
-      meeting_missed_by_mentee: formData.meeting_missed_by_mentee,
     };
     console.log(meeting);
     axios.post('http://localhost:8080/meetings/', meeting);
@@ -49,7 +51,7 @@ const CreateModal = props => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  console.log(allMentees, allMentors);
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -143,16 +145,6 @@ const CreateModal = props => {
               type="text"
               name="mentee_meeting_notes"
               value={formData.mentee_meeting_notes}
-              onChange={handleChange}
-            />
-          </label>
-          <br />
-          <label>
-            Meeting Missed By Mentee:
-            <input
-              type="text"
-              name="meeting_missed_by_mentee"
-              value={formData.meeting_missed_by_mentee}
               onChange={handleChange}
             />
           </label>

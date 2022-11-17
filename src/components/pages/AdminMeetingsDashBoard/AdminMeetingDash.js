@@ -31,18 +31,8 @@ const AdminMeetingDash = () => {
   const { isModalOpen, setIsModalOpen } = useState(false);
   const { confirmLoading, setConfirmLoading } = useState(false);
   const { modalText, setModalText } = useState('Content of the modal');
-
-  useEffect(() => {
-    setLoading(true);
-    axiosWithAuth()
-      .get('/meetings')
-      .then(response => {
-        setMeetings(response.data);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch(err => console.error(err.message));
-  }, loading);
+  const { allMentors, setAllMentors } = useState([]);
+  const { allMentees, setAllMentees } = useState([]);
 
   //create a function called createNewMeeting that will post a new meeting to the database and then update the state of meetings
   const createNewMeeting = meeting => {
@@ -52,6 +42,43 @@ const AdminMeetingDash = () => {
         setMeetings([...meetings, response.data]);
       })
       .catch(err => console.error(err));
+  };
+  // get all meetings
+  const getAllMeetings = () => {
+    axiosWithAuth()
+      .get('/meetings')
+      .then(response => {
+        setMeetings(response.data);
+        console.log(response.data);
+        setLoading(false);
+      })
+      .catch(err => console.error(err.message));
+  };
+
+  //create a function called deleteMeeting that will delete the meeting from the database and then update the state of meetings
+  const deleteMeeting = meeting => {
+    axiosWithAuth()
+      .delete(`/meetings/${meeting.id}`)
+      .then(response => {
+        setMeetings(meetings.filter(item => item.id !== meeting.id));
+      })
+      .catch(err => console.error(err));
+  };
+
+  const generateMeetingJSX = () => {
+    if (meetings.length === 0) {
+      return <h1>No Meetings</h1>;
+    } else {
+      return meetings.map(meeting => (
+        <li key={meeting.meeting_id}>
+          <p>
+            <h3>Meeting ID: {meeting.meeting_id}</h3>
+            {meeting.mentor_id} has a meeting on {meeting.meeting_start_time}{' '}
+            with {meeting.mentee_id} for the topic of {meeting.meeting_topic}.{' '}
+          </p>
+        </li>
+      ));
+    }
   };
 
   //create a function called updateMeeting that will update the meeting in the database and then update the state of meetings
@@ -70,30 +97,51 @@ const AdminMeetingDash = () => {
       })
       .catch(err => console.error(err));
   };
-  //create a function called deleteMeeting that will delete the meeting from the database and then update the state of meetings
-  const deleteMeeting = meeting => {
+
+  const getAllMentors = () => {
     axiosWithAuth()
-      .delete(`/meetings/${meeting.id}`)
+      .get('/profile/role/mentor')
       .then(response => {
-        setMeetings(meetings.filter(item => item.id !== meeting.id));
+        setAllMentors(response.data);
       })
       .catch(err => console.error(err));
   };
 
-  const generateMeetingJSX = () => {
-    if (meetings.length === 0) {
-      return <h1>No Meetings</h1>;
-    } else {
-      return meetings.map(meeting => (
-        <li key={meeting.meeting_id}>
-          <p>
-            {meeting.mentor_id} has a meeting on {meeting.meeting_start_time}{' '}
-            with {meeting.mentee_id} for the topic of {meeting.meeting_topic}.{' '}
-          </p>
-        </li>
-      ));
+  // const getAllMentees = () => {
+  //   axiosWithAuth()
+  //     .get('/profile/role/mentee')
+  //     .then(response => {
+  //       setAllMentees(response.data);
+  //     })
+  //     .catch(err => console.error(err));
+  // };
+
+  useEffect(() => {
+    async function getAllMentors() {
+      try {
+        const response = await axiosWithAuth().get('/profile/role/mentor');
+        setAllMentors(response.data);
+      } catch (err) {
+        console.error(err);
+      }
     }
-  };
+
+    async function getAllMentees() {
+      try {
+        const response = await axiosWithAuth().get('/profile/role/mentee');
+        setAllMentees(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    setLoading(true);
+    getAllMeetings();
+    getAllMentors();
+    console.log('endUseEffect');
+    console.log(meetings);
+    console.log(allMentees);
+    console.log(allMentors);
+  }, []);
 
   return (
     <div>
