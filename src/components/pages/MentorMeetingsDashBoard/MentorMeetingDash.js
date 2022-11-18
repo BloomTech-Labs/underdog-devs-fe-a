@@ -3,7 +3,6 @@ import ViewAllMeetings from './ViewAllMeetings/ViewAllMeetings';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Link } from 'react-router-dom';
 import CreateModal from './CrudModals/CreateModal';
-import DeleteModal from './CrudModals/DeleteModal';
 import UpdateModal from './CrudModals/UpdateModal';
 
 const MentorMeetingDash = () => {
@@ -137,10 +136,6 @@ const MentorMeetingDash = () => {
           setMeetings={setMeetings}
           meetings={meetings}
         />
-        <br />
-        <br />
-        Delete a Meeting:
-        <DeleteModal setMeetings={setMeetings} meetings={meetings} />
         <br />
         <br />
         Update a Meeting:
