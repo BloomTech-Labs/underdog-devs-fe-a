@@ -9,9 +9,6 @@ import UpdateModal from './CrudModals/UpdateModal';
 const AdminMeetingDash = () => {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
   const [allMentors, setAllMentors] = useState([]);
   const [allMentees, setAllMentees] = useState([]);
   const { axiosWithAuth } = useAxiosWithAuth0();
@@ -21,7 +18,6 @@ const AdminMeetingDash = () => {
     axiosWithAuth()
       .post('/meetings', meeting)
       .then(response => {
-        console.log('create new meeting', response.data);
         setMeetings([...meetings, response.data]);
       })
       .catch(err => console.error(err));
@@ -84,9 +80,7 @@ const AdminMeetingDash = () => {
       axiosWithAuth()
         .get('/profile/role/mentor')
         .then(response => {
-          console.log('all mentors', response.data);
           setAllMentors(response.data);
-          console.log('allMentors state', allMentors);
         })
         .catch(err => console.error(err));
     };
@@ -95,11 +89,9 @@ const AdminMeetingDash = () => {
       axiosWithAuth()
         .get('/profile/role/mentee')
         .then(response => {
-          console.log('all mentees', response.data);
           const allMenteesToSet = response.data;
-          console.log(allMenteesToSet);
+
           setAllMentees(allMenteesToSet);
-          console.log('allMentees state', allMentees);
         })
         .catch(err => console.error(err));
     };

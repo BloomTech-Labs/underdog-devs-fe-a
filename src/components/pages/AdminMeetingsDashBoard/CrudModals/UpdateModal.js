@@ -20,11 +20,9 @@ const CreateModal = props => {
       label: mentor.profile_id,
       name: 'mentor_id',
     };
-    console.log('entry', entry);
+
     return entry;
   });
-
-  console.log('processedMentorsArray', processedMentorsArray);
 
   const processedMenteesArray = menteesArray.map(mentee => {
     const entry = {
@@ -32,11 +30,9 @@ const CreateModal = props => {
       label: mentee.profile_id,
       name: 'mentee_id',
     };
-    console.log('entry', entry);
+
     return entry;
   });
-
-  console.log('processedMenteesArray', processedMenteesArray);
 
   const processedMeetingsArray = meetingsArray.map(meeting => {
     const entry = {
@@ -44,11 +40,9 @@ const CreateModal = props => {
       label: meeting.meeting_id,
       name: 'meeting_id',
     };
-    console.log('entry', entry);
+
     return entry;
   });
-
-  console.log('processedMeetingsArray', processedMeetingsArray);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -69,14 +63,13 @@ const CreateModal = props => {
 
   //Each time the form changes:
   const onChange = evt => {
-    // console.log(evt.target.id, evt.target.value); //For testing.
+    // (evt.target.id, evt.target.value); //For testing.
 
     //Update the form accordingly:
     setFormData({
       ...formData,
       [evt.target.id]: evt.target.value,
     });
-    console.log(formData);
   };
   //Handle the form submission with axioswithAuth
   const handleOk = e => {
@@ -84,7 +77,6 @@ const CreateModal = props => {
     axiosWithAuth()
       .put(`/meetings/${formData.meeting_id}`, formData)
       .then(res => {
-        console.log('res', res);
         meetings.map(meeting => {
           if (meeting.meeting_id === formData.meeting_id) {
             meeting.meeting_topic = formData.meeting_topic;
@@ -94,11 +86,10 @@ const CreateModal = props => {
             meeting.mentee_id = formData.mentee_id;
           }
         });
-        console.log('meetings', meetings);
+
         setIsModalOpen(false);
       })
       .catch(err => {
-        console.log('err', err);
         setError(err);
       });
   };
@@ -106,14 +97,14 @@ const CreateModal = props => {
   //Handle the form submission.
   // const handleOk = evt => {
   //   evt.preventDefault();
-  //   console.log('formData', formData);
+  //   ('formData', formData);
   //   //**NOTE**: It is recommended that form validation be used BEFORE submitting.
   //   //For now this can be used for testing.
 
   //   axios //POST THE FORM DATA TO WHEREVER NEEDED.
   //     .put('http://localhost:8080/meetings/75279382836532200', { ...formData })
   //     .then(res => {
-  //       console.log(res); //testing.
+  //       (res); //testing.
 
   //       //----
   //       //DO SOMETHING...?
@@ -134,7 +125,7 @@ const CreateModal = props => {
   //     .catch(err => {
   //       //If the axios call FAILS
   //       setError(err.message); //set an error for the user to see.
-  //       console.log(err.message); //also console the error as well for the smarter kids.
+  //       (err.message); //also console the error as well for the smarter kids.
 
   //       setTimeout(() => {
   //         setError(''); //clear the error after some time.
@@ -147,7 +138,6 @@ const CreateModal = props => {
   };
 
   const handleAntChange = (value, option) => {
-    console.log(option, value);
     setFormData({ ...formData, [option.name]: value });
   };
 
@@ -157,10 +147,11 @@ const CreateModal = props => {
         Update Meeting
       </Button>
       <Modal
-        title="Basic Modal"
+        title="Update Existing Meeting"
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="Update Existing Meeting"
       >
         {/** --ERROR INPUT-- **/}
         <p

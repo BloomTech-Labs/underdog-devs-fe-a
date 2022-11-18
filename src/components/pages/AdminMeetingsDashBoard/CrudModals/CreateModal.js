@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
-import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import axios from 'axios';
 
 import DynamicDropdown from '../DynamicDropdown';
 
 const CreateModal = props => {
-  const { axiosWithAuth } = useAxiosWithAuth0();
   const { data } = props;
   const [allMentors, allMentees] = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +20,6 @@ const CreateModal = props => {
     mentor_meeting_notes: '',
     mentee_meeting_notes: '',
   });
-  console.log('props.data', props.data);
 
   const mentorsArray = props.data[0];
   const menteesArray = props.data[1];
@@ -32,28 +29,24 @@ const CreateModal = props => {
       label: mentor.profile_id,
       name: 'mentor_id',
     };
-    console.log('entry', entry);
+
     return entry;
   });
-
-  console.log('processedMentorsArray', processedMentorsArray);
 
   const processedMenteesArray = menteesArray.map(mentee => {
     const entry = {
       value: mentee.profile_id,
       label: mentee.profile_id,
-      name: 'mentor_id',
+      name: 'mentee_id',
     };
-    console.log('entry', entry);
+
     return entry;
   });
 
-  console.log('processedMenteesArray', processedMenteesArray);
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
-  const handleSubmit = e => {
+  const handleOk = e => {
     e.preventDefault();
     const randomMeetingId = Math.floor(Math.random() * 100000000000000000);
     const meeting = {
@@ -67,28 +60,27 @@ const CreateModal = props => {
       mentor_meeting_notes: formData.mentor_meeting_notes,
       mentee_meeting_notes: formData.mentee_meeting_notes,
     };
-    console.log(meeting);
     axios.post(`${process.env.REACT_APP_API_URI}meetings/`, meeting);
+    setIsModalOpen(false);
   };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+  // const handleOk = () => {
+  //   setIsModalOpen(false);
+  // };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
   const mentorsMapped = () => {
     allMentors.map(mentor => {
-      console.log(mentor.user_id);
       const entry = {
         value: mentor.mentor_id,
         label: mentor.mentor_id,
         name: mentor.mentor_id,
       };
-      console.log(entry);
+
       return entry;
     });
   };
@@ -101,63 +93,28 @@ const CreateModal = props => {
   //       };
   //       return entry;
   //     });
-  //     console.log(menteesMapped)
+  //     (menteesMapped)
   //   };
-  //       console.log(entry);
+  //       (entry);
   //       return entry;
   // });
 
   useEffect(() => {
-    console.log(allMentors);
-    console.log(allMentees);
     mentorsMapped();
   }, [allMentors, allMentees]);
-  const mentors = [
-    {
-      value: 'mark',
-      label: 'Mark',
-      name: 'mentor_id',
-    },
-    {
-      value: 'joe',
-      label: 'Joe',
-      name: 'mentor_id',
-    },
-    {
-      value: 'jane',
-      label: 'Jane',
-      name: 'mentor_id',
-    },
-  ];
-
-  const mentees = [
-    {
-      value: 'jack',
-      label: 'Jack',
-      name: 'mentee_id',
-    },
-    {
-      value: 'lucy',
-      label: 'Lucy',
-      name: 'mentee_id',
-    },
-    {
-      value: 'kami',
-      label: 'Kami',
-      name: 'mentee_id',
-    },
-    {
-      value: 'Yiminghe',
-      label: 'Yiminghe',
-      name: 'mentee_id',
-    },
-  ];
 
   const handleAntChange = (value, option) => {
-    console.log(option, value);
     setFormData({ ...formData, [option.name]: value });
   };
+  const onChange = evt => {
+    // (evt.target.id, evt.target.value); //For testing.
 
+    //Update the form accordingly:
+    setFormData({
+      ...formData,
+      [evt.target.id]: evt.target.value,
+    });
+  };
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -165,28 +122,33 @@ const CreateModal = props => {
       </Button>
       <br />
       <Modal
-        title="Basic Modal"
+        title="Create New Meeting"
         visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         onChange={handleChange}
+        okText="Create new Meeting"
       >
-        <DynamicDropdown
-          options={processedMentorsArray}
-          placeholder="Select a Mentor"
-          onChange={handleAntChange}
-        />
-        <DynamicDropdown
-          options={processedMenteesArray}
-          placeholder="Select a Mentee"
-          onChange={handleAntChange}
-        />
+        <form>
+          <label style={{ marginLeft: '20px' }}>
+            Mentor:
+            <DynamicDropdown
+              options={processedMentorsArray}
+              placeholder="Select a Mentor"
+              onChange={handleAntChange}
+            />
+          </label>
+          <br />
+          <label style={{ marginLeft: '20px' }}>
+            Mentee:
+            <DynamicDropdown
+              options={processedMenteesArray}
+              placeholder="Select a Mentee"
+              onChange={handleAntChange}
+            />
+          </label>
+          <br />
 
-        <form
-          onSubmit={() => {
-            handleSubmit();
-          }}
-        >
           <label>
             Meeting Topic:
             <input
@@ -200,34 +162,36 @@ const CreateModal = props => {
           <label>
             Meeting Start Time:
             <input
-              type="text"
-              name="meeting_start_time"
-              value={formData.meeting_start_time}
-              onChange={handleChange}
+              style={{
+                color: 'black',
+                width: '110px',
+                marginLeft: '10px',
+                marginBottom: '5px',
+              }}
+              type="datetime-local"
+              name="Start-Time"
+              id="meeting_start_time"
+              onChange={onChange}
             />
           </label>
           <br />
-          <label>
-            Meeting End Time:
+          <label style={{ marginLeft: '20px' }}>
+            End Time:
             <input
-              type="text"
-              name="meeting_end_time"
-              value={formData.meeting_end_time}
-              onChange={handleChange}
+              style={{
+                color: 'black',
+                width: '110px',
+                marginLeft: '10px',
+                marginBottom: '5px',
+              }}
+              type="datetime-local"
+              name="End-Time"
+              id="meeting_end_time"
+              onChange={onChange}
             />
           </label>
           <br />
-          <label>
-            Mentor ID:
-            <input
-              type="text"
-              name="mentor_id"
-              value={formData.mentor_id}
-              onChange={handleChange}
-            />
-          </label>
 
-          <br />
           <label>
             Admin Meeting Notes:
             <input
@@ -259,9 +223,6 @@ const CreateModal = props => {
           </label>
           <br />
         </form>
-        <Button type="primary" htmlType="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
       </Modal>
     </>
   );

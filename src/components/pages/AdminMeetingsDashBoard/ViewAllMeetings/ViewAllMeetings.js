@@ -29,7 +29,7 @@ const ViewAllMeetings = () => {
   //       arr[i].date = arr[i].meeting_start_date;
   //       delete arr[i].meeting_start_date;
   //       arr[i].type = 'success';
-  //       console.log(arr[i]); // <--- this is the object that is being passed to the calendar
+  //       (arr[i]); // <--- this is the object that is being passed to the calendar
   //     }
   //     return arr;
   //   };
@@ -38,7 +38,7 @@ const ViewAllMeetings = () => {
   //     axiosWithAuth()
   //       .get('/meetings')
   //       .then(response => {
-  //         // console.log(response.data);
+  //         // (response.data);
   //         setMeetingData(switchProp(response.data));
   //       })
   //       .catch(err => console.error(err));

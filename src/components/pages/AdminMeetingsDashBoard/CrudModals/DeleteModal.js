@@ -23,19 +23,17 @@ const DeleteModal = props => {
       label: meeting.meeting_id,
       name: 'meeting_id',
     };
-    console.log('entry', entry);
     return entry;
   });
 
   const handleOk = evt => {
     evt.preventDefault();
-    console.log('form', form);
+
     //Make an axios call to delete data:
     //FORM DATA is located in the 'form' slice of state.
     axios
       .delete(`${process.env.REACT_APP_API_URI}meetings/${form.INPUT}`)
       .then(res => {
-        console.log(res);
         setMeetings(
           meetings.filter(meeting => meeting.meeting_id !== form.INPUT)
         );
@@ -46,7 +44,6 @@ const DeleteModal = props => {
         });
       })
       .catch(err => {
-        console.log(err);
         setError(err);
       });
     setForm({
@@ -65,7 +62,6 @@ const DeleteModal = props => {
     setIsModalOpen(false);
   };
   const handleAntChange = (value, option) => {
-    console.log(option, value);
     setForm({ INPUT: value, [option.name]: value });
   };
 
