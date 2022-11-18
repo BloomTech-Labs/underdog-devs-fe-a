@@ -13,7 +13,6 @@ const AdminMeetingDash = () => {
   const [allMentees, setAllMentees] = useState([]);
   const { axiosWithAuth } = useAxiosWithAuth0();
 
-  //create a function called createNewMeeting that will post a new meeting to the database and then update the state of meetings
   const createNewMeeting = meeting => {
     axiosWithAuth()
       .post('/meetings', meeting)
@@ -23,7 +22,6 @@ const AdminMeetingDash = () => {
       .catch(err => console.error(err));
   };
 
-  //create a function called deleteMeeting that will delete the meeting from the database and then update the state of meetings
   const deleteMeeting = meeting => {
     axiosWithAuth()
       .delete(`/meetings/${meeting.id}`)
@@ -39,8 +37,8 @@ const AdminMeetingDash = () => {
     } else {
       return meetings.map(meeting => (
         <li key={meeting.meeting_id}>
+          <h3>Meeting ID: {meeting.meeting_id}</h3>
           <p>
-            <h3>Meeting ID: {meeting.meeting_id}</h3>
             {meeting.mentor_id} has a meeting on {meeting.meeting_start_time}{' '}
             with {meeting.mentee_id} for the topic of {meeting.meeting_topic}.{' '}
           </p>
@@ -49,7 +47,6 @@ const AdminMeetingDash = () => {
     }
   };
 
-  //create a function called updateMeeting that will update the meeting in the database and then update the state of meetings
   const updateMeeting = meeting => {
     axiosWithAuth()
       .put(`/meetings/${meeting.id}`, meeting)
@@ -65,15 +62,6 @@ const AdminMeetingDash = () => {
       })
       .catch(err => console.error(err));
   };
-
-  // const getAllMentees = () => {
-  //   axiosWithAuth()
-  //     .get('/profile/role/mentee')
-  //     .then(response => {
-  //       setAllMentees(response.data);
-  //     })
-  //     .catch(err => console.error(err));
-  // };
 
   useEffect(() => {
     const getAllMentors = () => {
@@ -109,6 +97,7 @@ const AdminMeetingDash = () => {
     getAllMentors();
     getAllMentees();
     getAllMeetings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

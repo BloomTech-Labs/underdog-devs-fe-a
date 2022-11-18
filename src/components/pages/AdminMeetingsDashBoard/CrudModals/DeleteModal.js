@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
-import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import DynamicDropdown from '../DynamicDropdown';
 
 import axios from 'axios';
 
 const DeleteModal = props => {
-  const { data, setData, meetings } = props;
+  const { meetings } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState(''); //Where the current error input is held.
-  const [form, setForm] = useState({ INPUT: '' }); //Where the current form data is held.
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({ INPUT: '' });
   const { setMeetings } = props;
 
   const showModal = () => {
@@ -29,8 +27,6 @@ const DeleteModal = props => {
   const handleOk = evt => {
     evt.preventDefault();
 
-    //Make an axios call to delete data:
-    //FORM DATA is located in the 'form' slice of state.
     axios
       .delete(`${process.env.REACT_APP_API_URI}meetings/${form.INPUT}`)
       .then(res => {
@@ -53,12 +49,10 @@ const DeleteModal = props => {
   };
 
   const handleCancel = () => {
-    //Reset the form
     setForm({
       INPUT: '',
     });
 
-    //Close the modal.
     setIsModalOpen(false);
   };
   const handleAntChange = (value, option) => {
@@ -89,11 +83,6 @@ const DeleteModal = props => {
         <p className="error" style={{ color: 'red' }}>
           {error}
         </p>
-        {/** 
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-  */}
       </Modal>
     </>
   );

@@ -67,9 +67,7 @@ const CreateModal = props => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -84,32 +82,16 @@ const CreateModal = props => {
       return entry;
     });
   };
-  //   const menteesMapped = () => {
-  //     allMentees.map(mentee => {
-  //       let entry = {
-  //         value: mentee.mentee_id,
-  //         label: mentee.mentee_id,
-  //         name: "mentee_id"
-  //       };
-  //       return entry;
-  //     });
-  //     (menteesMapped)
-  //   };
-  //       (entry);
-  //       return entry;
-  // });
 
   useEffect(() => {
     mentorsMapped();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMentors, allMentees]);
 
   const handleAntChange = (value, option) => {
     setFormData({ ...formData, [option.name]: value });
   };
   const onChange = evt => {
-    // (evt.target.id, evt.target.value); //For testing.
-
-    //Update the form accordingly:
     setFormData({
       ...formData,
       [evt.target.id]: evt.target.value,
