@@ -126,9 +126,17 @@ const AdminMeetingDash = () => {
 
       <div>
         <h1>Meetings Dashboard</h1>
-        <CreateModal data={[allMentors, allMentees]} />
+        <CreateModal
+          data={[allMentors, allMentees]}
+          setMeetings={setMeetings}
+          meetings={meetings}
+        />
         <DeleteModal setMeetings={setMeetings} meetings={meetings} />
-        <UpdateModal data={[allMentors, allMentees, meetings]} />
+        <UpdateModal
+          data={[allMentors, allMentees, meetings]}
+          setMeetings={setMeetings}
+          meetings={meetings}
+        />
       </div>
       {loading ? (
         <h3>Loading......</h3>

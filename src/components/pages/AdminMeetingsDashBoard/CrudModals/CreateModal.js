@@ -6,7 +6,7 @@ import axios from 'axios';
 import DynamicDropdown from '../DynamicDropdown';
 
 const CreateModal = props => {
-  const { data } = props;
+  const { data, setMeetings, meetings } = props;
   const [allMentors, allMentees] = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -61,6 +61,8 @@ const CreateModal = props => {
       mentee_meeting_notes: formData.mentee_meeting_notes,
     };
     axios.post(`${process.env.REACT_APP_API_URI}meetings/`, meeting);
+    setMeetings([...meetings, meeting]);
+
     setIsModalOpen(false);
   };
 
