@@ -104,7 +104,6 @@ const CreateModal = props => {
       <Button type="primary" onClick={showModal}>
         Create Meeting
       </Button>
-      <br />
       <Modal
         title="Create New Meeting"
         visible={isModalOpen}
@@ -205,7 +204,6 @@ const CreateModal = props => {
               onChange={handleChange}
             />
           </label>
-          <br />
         </form>
       </Modal>
     </>

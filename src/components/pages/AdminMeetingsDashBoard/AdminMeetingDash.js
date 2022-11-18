@@ -123,15 +123,21 @@ const AdminMeetingDash = () => {
           />
         )}
       </div>
-
       <div>
         <h1>Meetings Dashboard</h1>
+        Create New Meeting:
         <CreateModal
           data={[allMentors, allMentees]}
           setMeetings={setMeetings}
           meetings={meetings}
         />
+        <br />
+        <br />
+        Delete a Meeting:
         <DeleteModal setMeetings={setMeetings} meetings={meetings} />
+        <br />
+        <br />
+        Update a Meeting:
         <UpdateModal
           data={[allMentors, allMentees, meetings]}
           setMeetings={setMeetings}
