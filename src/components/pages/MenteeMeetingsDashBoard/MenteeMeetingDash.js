@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ViewAllMeetings from './ViewAllMeetings/ViewAllMeetings';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Link } from 'react-router-dom';
-import CreateModal from './CrudModals/CreateModal';
-import DeleteModal from './CrudModals/DeleteModal';
 import UpdateModal from './CrudModals/UpdateModal';
 
 const MentorMeetingDash = () => {
@@ -128,18 +126,6 @@ const MentorMeetingDash = () => {
       </div>
       <div>
         <h1>Meetings Dashboard</h1>
-        Create New Meeting:
-        <CreateModal
-          data={[allMentors, allMentees]}
-          setMeetings={setMeetings}
-          meetings={meetings}
-        />
-        <br />
-        <br />
-        Delete a Meeting:
-        <DeleteModal setMeetings={setMeetings} meetings={meetings} />
-        <br />
-        <br />
         Update a Meeting:
         <UpdateModal
           data={[allMentors, allMentees, meetings]}
