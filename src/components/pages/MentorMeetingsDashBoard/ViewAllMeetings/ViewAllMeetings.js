@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
+import React, { useState } from 'react';
 import VAMC from './VAMC';
 
 const ViewAllMeetings = () => {
