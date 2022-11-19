@@ -5,16 +5,14 @@ import moment from 'moment';
 
 function ShowReply(props) {
   const { note_id } = props;
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const { setComments, comments } = props;
   useEffect(() => {
     const getComments = () => {
-      axiosWithAuth()
-        .get(`/notes/${note_id}/comments`)
-        .then(res => {
-          setComments(res.data);
-        });
+      axiosWithAuth.get(`/notes/${note_id}/comments`).then(res => {
+        setComments(res.data);
+      });
     };
     getComments();
   }, [note_id]);

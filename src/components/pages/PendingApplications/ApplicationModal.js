@@ -24,7 +24,7 @@ const ApplicationModal = ({
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
 
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -93,7 +93,7 @@ const ApplicationModal = ({
    */
 
   const handleApplication = status => {
-    axiosWithAuth()
+    axiosWithAuth
       .post(`${API_URL}application/update-validate_status/${profileId}`, status)
       .then(res => {
         setDisplayModal(false);
@@ -108,8 +108,9 @@ const ApplicationModal = ({
   useEffect(() => {
     const getCurrentApp = () => {
       Object.values(applicationProfile).map(current_id => {
-        if (current_id?.profile_id == profileId)
+        if (current_id?.key == profileId) {
           setCurrentApplication(current_id);
+        }
       });
     };
     getCurrentApp();
@@ -117,7 +118,7 @@ const ApplicationModal = ({
 
   return (
     <>
-      {currentApplication?.profile_id === undefined ? (
+      {currentApplication?.key === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}

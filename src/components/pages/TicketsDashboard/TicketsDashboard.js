@@ -64,19 +64,18 @@ const columns = [
 // TODO: make Ant Design Statistics pull ticket totals from ticket tables
 const TicketsDashboard = props => {
   const [tickets, setTickets] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   useEffect(() => {
     const getTickets = () => {
-      axiosWithAuth()
-        .get('/resource-tickets')
-        .then(res => {
-          if (res.data.message === null) {
-            setTickets(res.data);
-          }
-        });
+      axiosWithAuth.get('/resource-tickets').then(res => {
+        if (res.data.length > 0) {
+          setTickets(res.data);
+        }
+      });
     };
     getTickets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const data = [];
@@ -84,7 +83,7 @@ const TicketsDashboard = props => {
   if (tickets !== []) {
     escaTickets = tickets.filter(x => x.ticket_status === 'approved');
   }
-  // eslint-next-line array-callback-return
+  // eslint-disable-next-line array-callback-return
   tickets.map(t => {
     const ticketDetails = {
       key: t.ticket_id,
