@@ -9,10 +9,10 @@ const MentorMeetingDash = () => {
   const [loading, setLoading] = useState(true);
   const [allMentors, setAllMentors] = useState([]);
   const [allMentees, setAllMentees] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const createNewMeeting = meeting => {
-    axiosWithAuth()
+    axiosWithAuth
       .post('/meetings', meeting)
       .then(response => {
         setMeetings([...meetings, response.data]);
@@ -21,7 +21,7 @@ const MentorMeetingDash = () => {
   };
 
   const deleteMeeting = meeting => {
-    axiosWithAuth()
+    axiosWithAuth
       .delete(`/meetings/${meeting.id}`)
       .then(response => {
         setMeetings(meetings.filter(item => item.id !== meeting.id));
@@ -46,7 +46,7 @@ const MentorMeetingDash = () => {
   };
 
   const updateMeeting = meeting => {
-    axiosWithAuth()
+    axiosWithAuth
       .put(`/meetings/${meeting.id}`, meeting)
       .then(response => {
         setMeetings(
@@ -63,7 +63,7 @@ const MentorMeetingDash = () => {
 
   useEffect(() => {
     const getAllMentors = () => {
-      axiosWithAuth()
+      axiosWithAuth
         .get('/profile/role/mentor')
         .then(response => {
           setAllMentors(response.data);
@@ -72,7 +72,7 @@ const MentorMeetingDash = () => {
     };
 
     const getAllMentees = () => {
-      axiosWithAuth()
+      axiosWithAuth
         .get('/profile/role/mentee')
         .then(response => {
           const allMenteesToSet = response.data;
@@ -83,7 +83,7 @@ const MentorMeetingDash = () => {
     };
 
     const getAllMeetings = () => {
-      axiosWithAuth()
+      axiosWithAuth
         .get('/meetings')
         .then(response => {
           setMeetings(response.data);

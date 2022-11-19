@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
-import axios from 'axios';
+import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 
 import DynamicDropdown from '../DynamicDropdown';
 
 const CreateModal = props => {
+  const axiosWithAuth = useAxiosWithAuth0();
   const { data, setMeetings, meetings } = props;
   const [allMentors, allMentees] = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,8 +61,10 @@ const CreateModal = props => {
       mentor_meeting_notes: formData.mentor_meeting_notes,
       mentee_meeting_notes: formData.mentee_meeting_notes,
     };
-    axios.post(`${process.env.REACT_APP_API_URI}meetings/`, meeting);
-    setMeetings([...meetings, meeting]);
+    axiosWithAuth
+      .post(`${process.env.REACT_APP_API_URI}meetings/`, meeting)
+      .then(setMeetings([...meetings, meeting]))
+      .catch(err => console.error(err));
 
     setIsModalOpen(false);
   };

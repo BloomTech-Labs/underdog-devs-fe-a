@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Button, Modal } from 'antd';
 import DynamicDropdown from '../DynamicDropdown';
-
-import axios from 'axios';
-
+import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 const DeleteModal = props => {
+  const axiosWithAuth = useAxiosWithAuth0();
   const { meetings } = props;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState('');
@@ -27,7 +26,7 @@ const DeleteModal = props => {
   const handleOk = evt => {
     evt.preventDefault();
 
-    axios
+    axiosWithAuth
       .delete(`${process.env.REACT_APP_API_URI}meetings/${form.INPUT}`)
       .then(res => {
         setMeetings(

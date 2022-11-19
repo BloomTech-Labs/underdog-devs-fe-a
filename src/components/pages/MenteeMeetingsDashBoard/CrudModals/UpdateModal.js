@@ -5,11 +5,12 @@ import DynamicDropdown from '../DynamicDropdown';
 import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 
 const CreateModal = props => {
+  const axiosWithAuth = useAxiosWithAuth0();
+
   const { data, setMeetings, meetings } = props;
   const mentorsArray = data[0];
   const menteesArray = data[1];
   const meetingsArray = data[2];
-  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const processedMentorsArray = mentorsArray.map(mentor => {
     const entry = {
@@ -65,8 +66,11 @@ const CreateModal = props => {
   };
   const handleOk = e => {
     e.preventDefault();
-    axiosWithAuth()
-      .put(`/meetings/${formData.meeting_id}`, formData)
+    axiosWithAuth
+      .put(
+        `${process.env.REACT_APP_API_URI}meetings/${formData.meeting_id}`,
+        formData
+      )
       .then(res => {
         const updatedMeetings = meetings.map(meeting => {
           if (meeting.meeting_id === formData.meeting_id) {
