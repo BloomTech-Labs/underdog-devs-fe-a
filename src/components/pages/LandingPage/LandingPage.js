@@ -16,7 +16,7 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 //Images acquired from unsplash.com
 
 const LandingPage = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
     <>
       <div className="landInfo1">
@@ -27,28 +27,34 @@ const LandingPage = () => {
             are either formerly incarcerated or from an economically
             disadvantaged background.
           </p>
-          <div className="content-container">
-            <div className="button-container-signin">
-              <h3>Already have an account?</h3>
-              <Button type="primary" onClick={() => loginWithRedirect()}>
-                Log In
-              </Button>
-            </div>
-
-            <h3>Ready to Join Underdog Devs?</h3>
-
-            <div className="button-container-apply">
-              <div className="button-container">
-                <a href="/apply/mentor">
-                  <Button className="mentor-button">Apply as a Mentor</Button>
-                </a>
+          {!isAuthenticated /** IF the user is logged in, Hide the button */ ? (
+            /* Login items: */
+            <div className="content-container">
+              <div className="button-container-signin">
+                <h3>Already have an account?</h3>
+                <Button type="primary" onClick={() => loginWithRedirect()}>
+                  Log In
+                </Button>
               </div>
 
-              <a href="/apply/mentee">
-                <Button className="mentee-button">Apply as a Mentee</Button>
-              </a>
-            </div>
+              <h3>Ready to Join Underdog Devs?</h3>
 
+              <div className="button-container-apply">
+                <div className="button-container">
+                  <a href="/apply/mentor">
+                    <Button className="mentor-button">Apply as a Mentor</Button>
+                  </a>
+                </div>
+
+                <a href="/apply/mentee">
+                  <Button className="mentee-button">Apply as a Mentee</Button>
+                </a>
+              </div>
+            </div>
+          ) : null}
+          {/*----*/}
+          {/* Info button */}
+          <div className="Info-anchor">
             <a href="/apply">More Information About Us</a>
           </div>
         </div>

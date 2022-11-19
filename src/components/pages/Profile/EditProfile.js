@@ -7,7 +7,7 @@ import { setUserProfile } from '../../../state/actions/userProfile/setUserProfil
 
 function EditProfile({ userInfo, setUserProfile }) {
   const [form] = Form.useForm();
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const [ModalOpen, setModalOpen] = useState(false);
 
@@ -17,7 +17,7 @@ function EditProfile({ userInfo, setUserProfile }) {
 
   const onCreate = values => {
     setModalOpen(false);
-    axiosWithAuth()
+    axiosWithAuth
       .put('/profile', values)
       .then(res => {
         form.setFieldsValue(values);
