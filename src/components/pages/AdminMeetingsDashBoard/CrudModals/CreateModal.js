@@ -76,6 +76,7 @@ const CreateModal = props => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const mentorsMapped = () => {
     allMentors.map(mentor => {
       const entry = {
@@ -83,25 +84,25 @@ const CreateModal = props => {
         label: mentor.mentor_id,
         name: mentor.mentor_id,
       };
-
       return entry;
     });
   };
 
   useEffect(() => {
     mentorsMapped();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMentors, allMentees]);
 
   const handleAntChange = (value, option) => {
     setFormData({ ...formData, [option.name]: value });
   };
+
   const onChange = evt => {
     setFormData({
       ...formData,
       [evt.target.id]: evt.target.value,
     });
   };
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
