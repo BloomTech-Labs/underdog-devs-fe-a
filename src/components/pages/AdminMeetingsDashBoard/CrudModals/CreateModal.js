@@ -77,7 +77,7 @@ const CreateModal = props => {
     setIsModalOpen(false);
   };
 
-  const mentorsMapped = () => {
+  useEffect(() => {
     allMentors.map(mentor => {
       const entry = {
         value: mentor.mentor_id,
@@ -86,10 +86,6 @@ const CreateModal = props => {
       };
       return entry;
     });
-  };
-
-  useEffect(() => {
-    mentorsMapped();
   }, [allMentors, allMentees]);
 
   const handleAntChange = (value, option) => {

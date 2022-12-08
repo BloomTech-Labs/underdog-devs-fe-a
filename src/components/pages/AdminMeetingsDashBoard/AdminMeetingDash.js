@@ -97,7 +97,7 @@ const AdminMeetingDash = () => {
     getAllMentors();
     getAllMentees();
     getAllMeetings();
-  }, []);
+  }, [axiosWithAuth]);
 
   return (
     <div>
