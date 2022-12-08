@@ -14,6 +14,7 @@ const DeleteModal = props => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const processedMeetingsArray = meetings.map(meeting => {
     const entry = {
       value: meeting.meeting_id,
@@ -51,7 +52,6 @@ const DeleteModal = props => {
     setForm({
       INPUT: '',
     });
-
     setIsModalOpen(false);
   };
   const handleAntChange = (value, option) => {
