@@ -97,7 +97,6 @@ const AdminMeetingDash = () => {
     getAllMentors();
     getAllMentees();
     getAllMeetings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
