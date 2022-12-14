@@ -10,20 +10,9 @@ export const MENTOR_ADD_FAILURE = 'MENTOR_ADD_FAILURE';
 
 export const postNewMentorAccount = newAccount => {
   return async dispatch => {
-    axios()
-      .post(`application/new/mentor`, newAccount)
-      .then(() => {
-        dispatch({
-          type: MENTOR_ADD_SUCCESS,
-          payload: { successPage: '/apply/success' },
-        });
-      })
-      .catch(err => {
-        dispatch({ type: MENTOR_ADD_FAILURE, payload: { mentorError: err } });
-      });
     try {
       dispatch(setFetchStart());
-      const api = await axios().post(
+      const api = await axios.post(
         `${API_URL}application/new/mentor`,
         newAccount
       );

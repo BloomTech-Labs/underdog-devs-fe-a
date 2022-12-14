@@ -11,7 +11,7 @@ export const postNewMenteeAccount = newAccount => {
   return async dispatch => {
     try {
       dispatch(setFetchStart());
-      const api = await axios().post(
+      const api = await axios.post(
         `${API_URL}application/new/mentee`,
         newAccount
       );

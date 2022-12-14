@@ -55,9 +55,30 @@ const Mentor = ({ dispatch, error }) => {
     useForms(initialFormValues);
   const { push } = useHistory();
 
+  const newMentor = {
+    "city": formValues["city"],
+    "commitment": formValues["commitment"],
+    "country": formValues["country"],
+    "current_company": formValues["current_company"],
+    "current_position": formValues["current_position"],
+    "email": formValues["email"],
+    "first_name": formValues["first_name"],
+    "industry_knowledge": formValues["industry_knowledge"],
+    "job_help": formValues["job_help"],
+    "last_name": formValues["last_name"],
+    "other_info": formValues["other_info"],
+    "pair_programming": formValues["pair_programming"],
+    "referred_by": formValues["referred_by"],
+    "state": formValues["state"],
+    "tech_stack": formValues["tech_stack"],
+    "validate_status": formValues["validate_status"]
+  };
+
   const formSubmit = () => {
-    dispatch(postNewMentorAccount(formValues))
+    
+    dispatch(postNewMentorAccount(newMentor))
       .then(res => {
+        console.log(newMentor)
         push('/apply/success');
       })
       .catch(err => console.error(err));
