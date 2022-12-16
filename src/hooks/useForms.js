@@ -24,7 +24,6 @@ export default function useForms(initialValues) {
     };
   }
   
-
   const handleChange = (e, type, targetName) => {
     let name;
     let value;

@@ -60,8 +60,6 @@ const Mentor = ({ dispatch, error }) => {
     // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload    
     dispatch(postNewMentorAccount(newMentor(formValues)))
       .then(res => {
-        console.log(formValues)
-        console.log(error)
         push('/apply/success');
       })
       .catch(err => console.error(err));
