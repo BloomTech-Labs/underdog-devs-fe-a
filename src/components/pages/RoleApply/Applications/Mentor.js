@@ -505,7 +505,7 @@ const Mentor = ({ dispatch, error }) => {
             }}
             align="middle"
           >
-            {error ? (
+            {Object.keys(error).length !== 0 ? (
               <p className="error">
                 We're sorry! Something went wrong. Please re-apply and try again
                 later.
