@@ -50,20 +50,21 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
+
 const Mentor = ({ dispatch, error }) => {
-  const { formValues, handleChange, handleTechStack } =
+  const { formValues, newMentor, handleChange, handleTechStack } =
     useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
-    dispatch(postNewMentorAccount(formValues))
+    // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload    
+    dispatch(postNewMentorAccount(newMentor(formValues)))
       .then(res => {
         push('/apply/success');
       })
       .catch(err => console.error(err));
   };
 
-  const [form] = Form.useForm();
   const optionsArray = [
     { name: 'friend_or_family', value: 'Friend/Family' },
     { name: 'coworker', value: 'Co-Worker' },
@@ -116,7 +117,6 @@ const Mentor = ({ dispatch, error }) => {
       <div className="container">
         <Form
           labelWrap
-          form={form}
           onFinish={formSubmit}
           layout="vertical"
           labelCol={{ span: 20 }}
