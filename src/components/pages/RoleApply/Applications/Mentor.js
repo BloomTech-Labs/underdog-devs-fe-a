@@ -28,6 +28,9 @@ import './Styles/mentorApplication.css';
 import './Styles/test.css';
 
 import { states, countries } from '../../../common/constants';
+
+import { useAuth0 } from '@auth0/auth0-react';
+
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -50,14 +53,13 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
-
 const Mentor = ({ dispatch, error }) => {
   const { formValues, newMentor, handleChange, handleTechStack } =
     useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
-    // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload    
+    // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload
     dispatch(postNewMentorAccount(newMentor(formValues)))
       .then(res => {
         push('/apply/success');
@@ -97,11 +99,13 @@ const Mentor = ({ dispatch, error }) => {
     { name: false, value: 'No' },
   ];
 
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
     <>
       <Row>
         <Breadcrumb>
-          <Breadcrumb.Item href="/login">
+          {/* SJRUK - href pointed to /login and now just points to home == / */}
+          <Breadcrumb.Item onClick={() => loginWithRedirect()}>
             <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/apply">

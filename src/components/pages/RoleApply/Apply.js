@@ -3,15 +3,17 @@ import './Styles/apply.css';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Apply = () => {
   const { Meta } = Card;
-
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   return (
     <div>
       <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
-          <Breadcrumb.Item href="/login">
+          {/* SJRUK - href pointed to /login and now just points to home == / */}
+          <Breadcrumb.Item onClick={() => loginWithRedirect()}>
             <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item>
