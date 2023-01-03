@@ -12,7 +12,6 @@ const Apply = () => {
     <div>
       <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
-          {/* SJRUK - href pointed to /login and now just points to home == / */}
           <Breadcrumb.Item onClick={() => loginWithRedirect()}>
             <LoginOutlined />
           </Breadcrumb.Item>

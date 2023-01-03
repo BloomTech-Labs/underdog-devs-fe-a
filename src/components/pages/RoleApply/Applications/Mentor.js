@@ -104,7 +104,6 @@ const Mentor = ({ dispatch, error }) => {
     <>
       <Row>
         <Breadcrumb>
-          {/* SJRUK - href pointed to /login and now just points to home == / */}
           <Breadcrumb.Item onClick={() => loginWithRedirect()}>
             <LoginOutlined />
           </Breadcrumb.Item>
