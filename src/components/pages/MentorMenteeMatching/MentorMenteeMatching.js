@@ -9,9 +9,31 @@ const MentorMenteeMatching = () => {
   const [selectedMentorKeys, setSelectedMentorKeys] = useState([]);
   const axiosWithAuth = useAxiosWithAuth0();
 
+  const dummyData = [
+    {
+      name: 'felix sanchez',
+      contact: 'lady@gaga.com',
+      Stack: ['python', 'javascript'],
+      Status: 'unmatched',
+    },
+    {
+      name: 'drew shurik',
+      contact: 'gaga@lady.com',
+      Stack: ['javascript', 'react'],
+      Status: 'unmatched',
+    },
+    {
+      name: 'jason decker',
+      contact: 'mexican@food.com',
+      Stack: ['html', 'javascript'],
+      Status: 'unmatched',
+    },
+  ];
+
   useEffect(() => {
     // assignments in this sense means assigned mentees
-    axiosWithAuth.get('/assignments').then(res => {
+    axiosWithAuth.get('http://localhost:8080/assignments').then(res => {
+      console.log(res.data);
       setAssignments(conformData(res.data));
     });
   }, []);
@@ -97,7 +119,7 @@ const MentorMenteeMatching = () => {
   return (
     <>
       <h2>Matching</h2>
-      <Table columns={columns} dataSource={assignments} />
+      <Table columns={columns} dataSource={dummyData} />
       <MatchingModal
         handleCancel={handleCancel}
         handleSave={handleSave}
