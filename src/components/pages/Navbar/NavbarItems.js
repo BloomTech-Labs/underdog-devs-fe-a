@@ -18,7 +18,7 @@ const NavbarItems = () => {
       {!isAuthenticated && (
         <Button
           type="primary"
-          onClick={() => loginWithRedirect()}
+          onClick={() => loginWithRedirect({ redirectUri: '/dashboard' })}
           style={{ marginLeft: 'auto' }}
         >
           Login

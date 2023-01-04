@@ -32,7 +32,12 @@ const LandingPage = () => {
             <div className="content-container">
               <div className="button-container-signin">
                 <h3>Already have an account?</h3>
-                <Button type="primary" onClick={() => loginWithRedirect()}>
+                <Button
+                  type="primary"
+                  onClick={() =>
+                    loginWithRedirect({ redirectUri: '/dashboard' })
+                  }
+                >
                   Log In
                 </Button>
               </div>
