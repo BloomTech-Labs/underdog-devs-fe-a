@@ -12,10 +12,11 @@ THIS useAxiosWithAuth0 HOOK SIMPLY SERVES TO HELP CONNECT THE AXIOS CALL AND THE
 
 export default function useAxiosWithAuth0() {
   const { getAccessTokenSilently } = useAuth0();
+  const { AUTH0_AUDIENCE, REACT_APP_API_URI } = process.env;
 
   const axiosWithAuth = token => {
     return axios.create({
-      baseURL: process.env.REACT_APP_API_URI,
+      baseURL: REACT_APP_API_URI,
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -24,10 +25,12 @@ export default function useAxiosWithAuth0() {
 
   useEffect(() => {
     (async () => {
-      const token = await getAccessTokenSilently();
+      const token = await getAccessTokenSilently({
+        audience: AUTH0_AUDIENCE,
+      });
       axiosWithAuth(token);
     })();
-  }, [getAccessTokenSilently]);
+  }, []);
 
   return {
     // Exported with the same name to reduce the amount of refactoring needed

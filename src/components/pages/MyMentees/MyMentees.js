@@ -2,25 +2,14 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { List } from 'antd';
 import { connect } from 'react-redux';
-import userReducer from '../../../state/reducers/userReducer';
-import { setProfileId } from '../../../state/actions/auth/setProfileId';
 
 const MyMentees = props => {
   const { axiosWithAuth } = useAxiosWithAuth0();
   const { role, profile_id } = props;
   const [data, setData] = useState([]);
-
   const dummyData = [
-    {
-      first_name: 'blah',
-      last_name: 'boo',
-      email: 'blahblah@blah.com',
-    },
-    {
-      first_name: 'blah',
-      last_name: 'boo',
-      email: 'blahblah@blah.com',
-    },
+    { first_name: 'Drew', last_name: 'Shurik', email: 'ashurik522@gmail.com' },
+    { first_name: 'Jess', last_name: 'Williams', email: 'jw@gmail.com' },
   ];
 
   useEffect(() => {
@@ -54,10 +43,15 @@ const MyMentees = props => {
   );
 };
 
+/*
+The current implementation of redux, will need to be updated once global state is introduced. 
+Ticket BL-1042 addresses this requirement
+*/
 const mapStateToProps = state => {
   return {
-    profile_id: '5b36a8d6-dd73-4c11-9c42-d4c086015db2',
-    role: 'mentee',
+    //temporary data from DSAPI, changes with every reseeding
+    profile_id: '601d51ed-6016-4fa9-ae49-fe50b082e8c3',
+    role: 'mentor',
   };
 };
 
