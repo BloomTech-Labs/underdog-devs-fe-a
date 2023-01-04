@@ -35,7 +35,9 @@ const LandingPage = () => {
                 <Button
                   type="primary"
                   onClick={() =>
-                    loginWithRedirect({ redirectUri: '/dashboard' })
+                    loginWithRedirect({
+                      redirectUri: 'http://localhost:3000/dashboard',
+                    })
                   }
                 >
                   Log In
