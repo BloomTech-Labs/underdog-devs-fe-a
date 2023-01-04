@@ -7,10 +7,6 @@ const MyMentors = props => {
   const { axiosWithAuth } = useAxiosWithAuth0();
   const { role, profile_id } = props;
   const [data, setData] = useState([]);
-  const dummyData = [
-    { first_name: 'Drew', last_name: 'Shurik', email: 'ashurik522@gmail.com' },
-    { first_name: 'Jess', last_name: 'Williams', email: 'jw@gmail.com' },
-  ];
 
   useEffect(() => {
     axiosWithAuth()
@@ -30,7 +26,7 @@ const MyMentors = props => {
         <div>
           <List
             itemLayout="horizontal"
-            dataSource={dummyData}
+            dataSource={data}
             renderItem={item => (
               <List.Item>
                 <List.Item.Meta
@@ -52,9 +48,8 @@ Ticket BL-1042 addresses this requirement
 */
 
 const mapStateToProps = state => {
-  //temporary data from DSAPI, changes with every reseeding
   return {
-    profile_id: 'ac985dd8-9164-4825-833b-aef12264db8f',
+    profile_id: '802b2c6d-f222-4651-a4df-41af3d321e70',
     role: 'mentee',
   };
 };
