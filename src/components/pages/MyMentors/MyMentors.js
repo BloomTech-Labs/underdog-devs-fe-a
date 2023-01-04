@@ -5,21 +5,18 @@ import { connect } from 'react-redux';
 
 const MyMentors = props => {
   const { axiosWithAuth } = useAxiosWithAuth0();
-
-  // role and profile_id are not currently in global state
   const { role, profile_id } = props;
-
-  // this is dummy data to act as global state for profile_ID and role
-
   const [data, setData] = useState([]);
+  const dummyData = [
+    { first_name: 'Drew', last_name: 'Shurik', email: 'ashurik522@gmail.com' },
+    { first_name: 'Jess', last_name: 'Williams', email: 'jw@gmail.com' },
+  ];
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/assignments/${role}/${profile_id}`)
       .then(res => {
         setData(res.data);
-        console.log(res.data);
-        console.log(res.data.profile_id);
       })
       .catch(err => {
         console.error(err);
@@ -33,7 +30,7 @@ const MyMentors = props => {
         <div>
           <List
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={dummyData}
             renderItem={item => (
               <List.Item>
                 <List.Item.Meta
@@ -49,8 +46,13 @@ const MyMentors = props => {
     </>
   );
 };
+/*
+The current implementation of redux, will need to be updated once global state is introduced. 
+Ticket BL-1042 addresses this requirement
+*/
 
 const mapStateToProps = state => {
+  //temporary data from DSAPI, changes with every reseeding
   return {
     profile_id: 'ac985dd8-9164-4825-833b-aef12264db8f',
     role: 'mentee',
