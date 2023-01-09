@@ -62,7 +62,8 @@ const Mentee = ({ dispatch, error }) => {
       .catch(err => console.error(err));
   };
 
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <>
       <Row style={{ padding: '3vh' }}>

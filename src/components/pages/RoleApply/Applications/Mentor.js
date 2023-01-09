@@ -99,7 +99,8 @@ const Mentor = ({ dispatch, error }) => {
     { name: false, value: 'No' },
   ];
 
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <>
       <Row>
