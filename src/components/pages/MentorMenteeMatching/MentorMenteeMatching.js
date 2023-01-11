@@ -7,15 +7,13 @@ const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
   const [modal, setModal] = useState({ show: false, data: null });
   const [selectedMentorKeys, setSelectedMentorKeys] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   useEffect(() => {
     // assignments in this sense means assigned mentees
-    axiosWithAuth()
-      .get('/assignments')
-      .then(res => {
-        setAssignments(conformData(res.data));
-      });
+    axiosWithAuth.get('/assignments').then(res => {
+      setAssignments(conformData(res.data));
+    });
   }, []);
 
   const resetModal = () => {

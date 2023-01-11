@@ -15,7 +15,11 @@ import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMentors from './components/pages/MyMentors/MyMentors';
 import MyMemos from './components/pages/Memos/MyMemos';
+import MyMentees from './components/pages/MyMentees/MyMentees';
 import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
+import AdminMeetingDash from './components/pages/AdminMeetingsDashBoard/AdminMeetingDash';
+import MentorMeetingDash from './components/pages/MentorMeetingsDashBoard/MentorMeetingDash';
+import MenteeMeetingDash from './components/pages/MenteeMeetingsDashBoard/MenteeMeetingDash';
 import Navbar from './components/pages/Navbar/Navbar';
 import { ManageResources } from './components/pages/ManageResources/ManageResources';
 import { Profile } from './components/pages/Profile';
@@ -62,7 +66,6 @@ function App() {
   // The reason to declare App this way is so that we can use any helper functions we'd need for business logic, in our case auth.
   // React Router has a nifty useHistory hook we can use at this level to ensure we have security around our routes.
   // May need to change lines 78-84, 87 in correspondence with Auth0's authorization
-
   return (
     <>
       <Navbar />
@@ -137,9 +140,19 @@ function App() {
           component={ScheduleMeeting}
         />
         <PrivateRoute
-          path="/meetings"
+          path="/admin/meetings"
           allowRoles={[1, 2, 3, 4, 5]}
-          component={ViewAllMeetings}
+          component={AdminMeetingDash}
+        />
+        <PrivateRoute
+          path="/mentee/meetings"
+          allowRoles={[1, 2, 3, 4, 5]}
+          component={MenteeMeetingDash}
+        />
+        <PrivateRoute
+          path="/mentor/meetings"
+          allowRoles={[1, 2, 3, 4, 5]}
+          component={MentorMeetingDash}
         />
         <PrivateRoute
           path="/calendar"

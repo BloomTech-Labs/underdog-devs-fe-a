@@ -18,10 +18,10 @@ const { Meta } = Card;
 
 const RenderProfileContainer = props => {
   const [userData, setUserData] = useState({});
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   useEffect(() => {
-    axiosWithAuth()
+    axiosWithAuth
       .get(`/profile/current_user_profile`)
       .then(resp => {
         setUserData(resp.data);
