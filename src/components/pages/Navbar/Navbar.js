@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { connect } from 'react-redux';
-import './Navbar.css';
+import './Navbar.less';
 import logo from '../Navbar/ud_logo2.png';
 import { UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, Menu, Modal, Popover, Switch } from 'antd';
-import NavBarLanding from '../NavBarLanding/NavBarLanding';
 import { useHistory } from 'react-router-dom';
-import LoginButton from './NavbarFeatures/LoginButton';
-import ApplyButton from './NavbarFeatures/ApplyButton';
-import LogoutButton from './NavbarFeatures/LogoutButton';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { API_URL } from '../../../config';
 import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
+import NavbarItems from './NavbarItems';
 
 const { Header } = Layout;
 
@@ -24,7 +21,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated } = useAuth0();
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -41,15 +38,13 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const user = await axiosWithAuth().get(
-          `/profile/current_user_profile/`
-        );
+        const user = await axiosWithAuth.get(`/profile/current_user_profile/`);
 
         setUser(user.data);
 
         // The following code was taken from the userProfile redux action file
         setFetchStart();
-        axiosWithAuth()
+        axiosWithAuth
           .get(`${API_URL}profile/${user.data.profile_id}`)
           .then(res => {
             if (res.data) {
@@ -59,7 +54,9 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
           .catch(err => {
             setFetchError(err);
           })
-          .finally(() => setFetchEnd());
+          .finally(() => {
+            setFetchEnd();
+          });
       }
     })();
 
@@ -89,7 +86,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   };
 
   const handleToggleChange = checked => {
-    axiosWithAuth()
+    axiosWithAuth
       .post(`${API_URL}profile/availability/${profile_id}`, {
         accepting_new_mentees: checked,
       })
@@ -102,11 +99,16 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
   const reloadLogo = () => {
-    isAuthenticated ? history.push('/') : document.location.reload();
+    //*******************/
+    history.push('/');
+    document.location.reload();
+    //*******************/
+
+    //isAuthenticated ? history.push('/') : document.location.reload();
   };
 
   if (!user) {
-    return <NavBarLanding />;
+    return <NavbarItems />;
   } else {
     return (
       <>
@@ -117,8 +119,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 <img
                   src={logo}
                   alt="underdog devs logo"
-                  height="68"
-                  style={{ marginLeft: '1vw' }}
+                  height="50"
+                  style={{ marginLeft: '1em' }}
                   role="button"
                 />
               </div>
@@ -140,6 +142,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </section>
                 </Popover>
               )}
+
               {Object.keys(user).length && (
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={accountMenu} placement="bottom" arrow>
@@ -155,13 +158,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   </Dropdown>
                 </div>
               )}
-              {!isAuthenticated && (
-                <div className="header_buttons">
-                  <LoginButton />
-                  <ApplyButton />
-                </div>
-              )}
-              <LogoutButton />
+              <NavbarItems />
             </div>
           </Header>
         </Layout>

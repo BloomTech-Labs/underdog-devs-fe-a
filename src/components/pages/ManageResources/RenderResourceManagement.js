@@ -189,10 +189,10 @@ export const RenderResourceManagement = () => {
   const { formValues, handleChange, clearForm } = useForms(
     initialResourceFormValues
   );
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   useEffect(() => {
-    axiosWithAuth()
+    axiosWithAuth
       .get('/resources')
       .then(res => {
         setResources(res.data);

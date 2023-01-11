@@ -10,7 +10,7 @@ export const MENTOR_ADD_FAILURE = 'MENTOR_ADD_FAILURE';
 
 export const postNewMentorAccount = newAccount => {
   return async dispatch => {
-    axios()
+    axios
       .post(`application/new/mentor`, newAccount)
       .then(() => {
         dispatch({
@@ -23,7 +23,7 @@ export const postNewMentorAccount = newAccount => {
       });
     try {
       dispatch(setFetchStart());
-      const api = await axios().post(
+      const api = await axios.post(
         `${API_URL}application/new/mentor`,
         newAccount
       );

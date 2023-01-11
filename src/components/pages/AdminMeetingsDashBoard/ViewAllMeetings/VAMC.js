@@ -23,8 +23,7 @@ function VAMC(props) {
 
   function getListData(value, events) {
     let listData = [];
-    let dateValue = value.format('MM/DD/YYYY'); // you can parse value in every format you want
-
+    let dateValue = value.format('MM/DD/YYYY');
     events.map(e => {
       if (e.date === dateValue) {
         listData.push(e);

@@ -4,16 +4,11 @@ import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import './Reply.css';
 import { Button } from 'antd';
 
-import createBrowserHistory from 'history/createBrowserHistory';
-const history = createBrowserHistory({
-  forceRefresh: true,
-});
-
 function ReplyInput(props) {
   const { note_id } = props;
   const [formValues, setFormValues] = useState({ comment_text: '' });
   // const [comments, setComments] = useState({ comment_text: '' });
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const { setComments, comments } = props;
   const handleChange = e => {
@@ -24,7 +19,7 @@ function ReplyInput(props) {
   };
 
   const handleSumbitButton = () => {
-    axiosWithAuth()
+    axiosWithAuth
       .post(`/notes/${note_id}/comments`, formValues)
       .then(res => {
         props.setTrigger(false);

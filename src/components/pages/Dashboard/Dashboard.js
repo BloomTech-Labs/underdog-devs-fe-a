@@ -11,10 +11,10 @@ import { Statistic, Row, Col, Table } from 'antd';
 
 const Dashboard = () => {
   const [role, setRole] = useState([]);
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
 
   const getAccounts = () => {
-    axiosWithAuth()
+    axiosWithAuth
       .get('/profile/current_user_profile/')
       .then(res => {
         setRole(

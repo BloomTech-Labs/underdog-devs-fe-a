@@ -15,11 +15,10 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import ReplyInput from './AddReply/Reply';
 import '../styles/Memos.css';
-
 import ShowReply from './AddReply/showReply';
-
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
+
 const history = createBrowserHistory({
   forceRefresh: true,
 });
@@ -46,7 +45,7 @@ const Editor = ({ onChange, onSubmit, submitting, onCancel, value }) => (
 );
 
 const MemosTable = ({ userProfile, accounts }) => {
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const axiosWithAuth = useAxiosWithAuth0();
   const [data, setData] = useState([]);
   let result;
   // edit users own comment states
@@ -62,7 +61,7 @@ const MemosTable = ({ userProfile, accounts }) => {
 
   // Dummy data for table
   useEffect(() => {
-    axiosWithAuth()
+    axiosWithAuth
       .get(
         location.pathname === '/memos' || '/mymemos'
           ? '/notes'
@@ -103,7 +102,7 @@ const MemosTable = ({ userProfile, accounts }) => {
   };
   // dummy api update call, needs actual api endpoint to update
   const handleSaveButton = () => {
-    axiosWithAuth()
+    axiosWithAuth
       .put(`/notes/${editMemo.note_id}`, { content: editMemo.content })
       .then(res => {
         // currently the edit component reorders the seed data when updating a memo
@@ -115,7 +114,7 @@ const MemosTable = ({ userProfile, accounts }) => {
       });
   };
   const handleDeleteButton = note_id => {
-    axiosWithAuth()
+    axiosWithAuth
       .delete(`/notes/${note_id}`)
       .then(res => {
         history.push('/memos');
