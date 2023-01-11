@@ -26,6 +26,8 @@ import {
 import { states, countries, tech_stack } from '../../../common/constants';
 import './Styles/menteeApplication.css';
 
+import { useAuth0 } from '@auth0/auth0-react';
+
 const { Title } = Typography;
 const { Option } = Select;
 
@@ -60,11 +62,13 @@ const Mentee = ({ dispatch, error }) => {
       .catch(err => console.error(err));
   };
 
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <>
       <Row style={{ padding: '3vh' }}>
         <Breadcrumb>
-          <Breadcrumb.Item href="/login">
+          <Breadcrumb.Item onClick={() => loginWithRedirect()}>
             <LoginOutlined />
           </Breadcrumb.Item>
           <Breadcrumb.Item href="/apply">
