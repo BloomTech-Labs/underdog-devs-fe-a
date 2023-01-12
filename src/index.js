@@ -16,7 +16,7 @@ import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMentors from './components/pages/MyMentors/MyMentors';
 import MyMemos from './components/pages/Memos/MyMemos';
 import MyMentees from './components/pages/MyMentees/MyMentees';
-import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
+//import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
 import AdminMeetingDash from './components/pages/AdminMeetingsDashBoard/AdminMeetingDash';
 import MentorMeetingDash from './components/pages/MentorMeetingsDashBoard/MentorMeetingDash';
 import MenteeMeetingDash from './components/pages/MenteeMeetingsDashBoard/MenteeMeetingDash';
@@ -107,11 +107,11 @@ function App() {
           allowRoles={[1, 2, 5]}
           component={UserManagement}
         />
-        {/* <PrivateRoute
+        <PrivateRoute
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
-          component={() => <div>"My Mentees" Component goes here</div>}
-        /> */}
+          component={MyMentees}
+        />
 
         <PrivateRoute
           path="/mentors"

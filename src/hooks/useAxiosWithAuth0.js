@@ -2,31 +2,34 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 
+/* 
+  THE CURRENT IMPLEMENTATION USING AUDIENCES IS CURRENTLY RETURNING ERRORS AT THE HOME PAGE
+*/
+
 const axios_instance = axios.create({
   baseURL: process.env.REACT_APP_API_URI,
 });
 
-export default function useAxiosWithAuth0() {
-  const { getAccessTokenSilently } = useAuth0();
-  const { AUTH0_AUDIENCE, REACT_APP_API_URI } = process.env;
+const useAxiosWithAuth0 = () => {
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
-  const axiosWithAuth = token => {
-    return axios.create({
-      baseURL: REACT_APP_API_URI,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-  };
+  // The implementaion of the axios interceptors used below can be found on axios docs on the
+  // following link: https://axios-http.com/docs/interceptors
 
   useEffect(() => {
-    (async () => {
-      const token = await getAccessTokenSilently({
-        audience: AUTH0_AUDIENCE,
-      });
-      axiosWithAuth(token);
-    })();
-  }, []);
+    if (isAuthenticated) {
+      axios_instance.interceptors.request.use(
+        async config => ({
+          ...config,
+          headers: {
+            ...config.headers,
+            Authorization: `Bearer ${await getAccessTokenSilently()}`,
+          },
+        }),
+        error => Promise.reject(error)
+      );
+    }
+  }, [getAccessTokenSilently, isAuthenticated]);
 
   return axios_instance;
 };
