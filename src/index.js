@@ -16,7 +16,7 @@ import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMentors from './components/pages/MyMentors/MyMentors';
 import MyMemos from './components/pages/Memos/MyMemos';
 import MyMentees from './components/pages/MyMentees/MyMentees';
-import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings';
+//import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings'; this component has been changed and now exists in 3 places
 import AdminMeetingDash from './components/pages/AdminMeetingsDashBoard/AdminMeetingDash';
 import MentorMeetingDash from './components/pages/MentorMeetingsDashBoard/MentorMeetingDash';
 import MenteeMeetingDash from './components/pages/MenteeMeetingsDashBoard/MenteeMeetingDash';
@@ -73,6 +73,7 @@ function App() {
         <Route path="/" exact component={Landing} />
         <Route path="/apply" exact component={Apply} />
         <Route path="/apply/mentee" component={Mentee} />
+        {/* why are these a different color? */}
         <Route path="/apply/mentor" component={Mentor} />
         <Route path="/apply/success" component={AppSuccess} />
 
@@ -107,12 +108,12 @@ function App() {
           allowRoles={[1, 2, 5]}
           component={UserManagement}
         />
-        {/* <PrivateRoute
+        <PrivateRoute
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
-          component={() => <div>"My Mentees" Component goes here</div>}
-        /> */}
-
+          component={MyMentees}
+        />
+        {/* why are these a different color? */}
         <PrivateRoute
           path="/mentors"
           allowRoles={[1, 2, 3, 4, 5]}
