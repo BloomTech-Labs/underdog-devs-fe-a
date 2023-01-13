@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { List } from 'antd';
 import { connect } from 'react-redux';
+import dummyData from '../MyMentees/data.json';
 
 const MyMentors = props => {
   const { axiosWithAuth } = useAxiosWithAuth0();
@@ -26,7 +27,7 @@ const MyMentors = props => {
         <div>
           <List
             itemLayout="horizontal"
-            dataSource={data}
+            dataSource={dummyData}
             renderItem={item => (
               <List.Item>
                 <List.Item.Meta
