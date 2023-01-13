@@ -32,7 +32,7 @@ import MemosForm from './components/pages/Memos/MemosForm';
 import Attendance from './components/pages/Attendance/attendance';
 import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
-import PendingApplications from './components/pages/PendingApplications/PendingApplication';
+import Applications from './components/pages/Applications/Application';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
 import TicketDashboard from './components/pages/TicketsDashboard/TicketsDashboard';
 import Analytics from './components/pages/Analytics/Analytics';
@@ -58,7 +58,7 @@ root.render(
           <App />
         </Auth0ProviderWithHistory>
       </Provider>
-    </React.StrictMode>
+    </React.StrictMode>    
   </Router>
 );
 
@@ -78,7 +78,7 @@ function App() {
         <Route path="/apply/success" component={AppSuccess} />
 
         <PrivateRoute
-          path="/dashboard"
+          path="/dashboard" 
           allowRoles={[1, 2, 3, 4, 5]}
           component={TicketDashboard}
         />
@@ -168,7 +168,7 @@ function App() {
         <PrivateRoute
           path="/applications"
           allowRoles={[1, 2, 5]}
-          component={PendingApplications}
+          component={Applications}
         />
         <PrivateRoute path="/reviews" allowRoles={[1, 5]} component={Reviews} />
         <PrivateRoute

@@ -20,7 +20,7 @@ const ApplicationModal = ({
   setDisplayModal,
   displayModal,
   applicationProfile,
-  getPendingApps,
+  getApps,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
 
@@ -98,7 +98,7 @@ const ApplicationModal = ({
       .then(res => {
         setDisplayModal(false);
         openNotificationWithIcon('success', status);
-        getPendingApps();
+        getApps();
       })
       .catch(err => {
         openNotificationWithIcon('error', status, err.message);

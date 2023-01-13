@@ -1,6 +1,6 @@
 import React from 'react';
 import CalendarFeature from '../Calendar';
-import PendingApplications from '../../pages/PendingApplications/PendingApplication';
+import Applications from '../../pages/Applications/Application';
 import MentorMenteeMatching from '../../pages/MentorMenteeMatching/MentorMenteeMatching';
 import UserManagement from '../../pages/UserManagement/UserManagement';
 import Attendance from '../../pages/Attendance/attendance';
@@ -44,7 +44,7 @@ const AdminComponents = {
   1: <CalendarFeature />,
   2: <ScheduleMeeting />,
   3: <ManageResources />,
-  4: <PendingApplications />,
+  4: <Applications />,
   5: <MentorMenteeMatching />,
   6: <UserManagement />,
   7: <div>"View Support Requests" Component goes here</div>,

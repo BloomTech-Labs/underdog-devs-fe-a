@@ -82,11 +82,11 @@ const columns = [
   },
 ];
 
-const PendingApplications = () => {
+const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
-  const axiosWithAuth = useAxiosWithAuth0();
+  const {axiosWithAuth} = useAxiosWithAuth0();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -102,9 +102,11 @@ const PendingApplications = () => {
     return newConvertedDate;
   };
 
-  const getPendingApps = async () => {
+  const getApps = async () => {
     try {
-      const api = await axiosWithAuth.post(`/application`);
+      const api = await 
+        axiosWithAuth()
+        .post(`/application`);
       api.data.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
           ? (row.role_name = 'mentor')
@@ -177,7 +179,7 @@ const PendingApplications = () => {
   };
 
   useEffect(() => {
-    getPendingApps();
+    getApps();
   }, []);
 
   return (
@@ -189,11 +191,11 @@ const PendingApplications = () => {
         profileId={profileId}
         setProfileId={setProfileId}
         applicationProfile={applications}
-        getPendingApps={getPendingApps}
+        getApps={getApps}
       />
       <Table columns={columns} dataSource={applications} />
     </>
   );
 };
 
-export default PendingApplications;
+export default Applications;

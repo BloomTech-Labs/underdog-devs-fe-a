@@ -9,7 +9,7 @@ import { API_URL } from '../../../config';
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
-  const axiosWithAuth = useAxiosWithAuth0();
+  const {axiosWithAuth} = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -66,7 +66,7 @@ const UserManagement = () => {
       role_id: 2,
     };
 
-    axiosWithAuth
+    axiosWithAuth()
       .put(`${API_URL}profile/${record.key}`, requestBody)
       .then(res => {
         setUpdatedProfile(res);
