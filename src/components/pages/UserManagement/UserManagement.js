@@ -9,7 +9,7 @@ import { API_URL } from '../../../config';
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
-  const {axiosWithAuth} = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -82,6 +82,7 @@ const UserManagement = () => {
 
   const getAccounts = () => {
     dispatch(getProfile())
+      // console.log(dispatch(getProfile())) returning undefined
       .then(res => {
         setAccounts(
           res.data.map(row => ({
