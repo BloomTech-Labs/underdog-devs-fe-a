@@ -16,7 +16,8 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 //Images acquired from unsplash.com
 
 const LandingPage = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+  console.log(user);
   return (
     <>
       <div className="landInfo1">

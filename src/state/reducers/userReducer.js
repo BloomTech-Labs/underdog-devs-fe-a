@@ -36,7 +36,38 @@ const initialState = {
      * Tracks all Errors dispatched as a result of an error response from the server.
      */
   },
+  role_id: {},
 };
+
+// const roleReducer = (state = initialState, action) => {
+//   switch(action.role_id) {
+//     case 1: // SuperAdmin
+//       return {
+//         ...state,
+//         role_id: 1
+//       };
+//     case 2: // Admin
+//       return {
+//       ...state,
+//       role_id: 2
+//     };
+//     case 3: // mentors
+//       return {
+//       ...state,
+//       role_id: 3
+//     };
+//     case 4: // mentees
+//       return {
+//         ...state,
+//         role_id: 4
+//       };
+//     default: //no role or dev
+//       return {
+//       ...state,
+//       role_id: 5
+//     };
+//   }
+// }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -50,6 +81,11 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         profile_id: action.payload,
+      };
+    case ACTIONS.SET_ROLE_ID:
+      return {
+        ...state,
+        role_id: action.payload,
       };
     case ACTIONS.SET_USER_PROFILE:
       return {

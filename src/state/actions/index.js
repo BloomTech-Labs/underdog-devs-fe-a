@@ -8,6 +8,7 @@ export { SET_FETCH_END } from './lifecycle/setFetchEnd';
 export { SET_FETCH_ERROR } from './errors/setFetchError';
 export { MENTOR_ADD_SUCCESS } from './mentor';
 export { MENTEE_ADD_SUCCESS } from './mentee';
+export { SET_ROLE_ID } from './auth/setRoleId';
 
 // CALENDAR ACTIONS----------------------
 export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';

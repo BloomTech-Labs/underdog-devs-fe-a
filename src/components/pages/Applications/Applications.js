@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag } from 'antd';
-import axios from 'axios';
+// import axios from 'axios';
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -86,7 +86,7 @@ const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
-  const {axiosWithAuth} = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const showModal = profile_id => {
     setProfileId(profile_id);
@@ -104,9 +104,7 @@ const Applications = () => {
 
   const getApps = async () => {
     try {
-      const api = await 
-        axiosWithAuth()
-        .post(`/application`);
+      const api = await axiosWithAuth().post(`/application`);
       api.data.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
           ? (row.role_name = 'mentor')
@@ -127,7 +125,6 @@ const Applications = () => {
           industry_knowledge: row.industry_knowledge,
           pair_programming: row.pair_programming,
           job_help: row.job_help,
-          industry_knowledge: row.industry_knowledge,
           other_info: row.other_info,
           full_name: row.first_name + ' ' + row.last_name,
           role: (
