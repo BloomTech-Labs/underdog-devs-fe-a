@@ -10,6 +10,7 @@ import { Button } from 'antd';
 import { useAuth0 } from '@auth0/auth0-react';
 import './LandingPage.less';
 import mentorHelpingMentee from './resources/mentorhelpingmentee.jpg';
+import Dashboard from '../Dashboard/Dashboard';
 import FooterLanding from '../FooterLanding/FooterLanding';
 
 //Another Pull request is going to need figure out the best way to implement the current application wide header.
@@ -17,7 +18,6 @@ import FooterLanding from '../FooterLanding/FooterLanding';
 
 const LandingPage = () => {
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  console.log(user);
   return (
     <>
       <div className="landInfo1">
@@ -52,7 +52,9 @@ const LandingPage = () => {
                 </a>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <Dashboard />
+          )}
           {/*----*/}
           {/* Info button */}
           <div className="Info-anchor">
