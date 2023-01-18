@@ -52,9 +52,7 @@ const LandingPage = () => {
                 </a>
               </div>
             </div>
-          ) : (
-            <Dashboard />
-          )}
+          ) : null}
           {/*----*/}
           {/* Info button */}
           <div className="Info-anchor">
