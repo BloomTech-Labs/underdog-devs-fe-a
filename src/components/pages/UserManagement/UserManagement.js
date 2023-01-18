@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
 import { API_URL } from '../../../config';
+import dummyData from '../MyMentees/data.json';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
@@ -116,7 +117,7 @@ const UserManagement = () => {
 
       <Table
         columns={columns}
-        dataSource={accounts}
+        dataSource={dummyData}
         expandable={{
           expandedRowRender: record => <MemosTable accounts={record} />,
         }}

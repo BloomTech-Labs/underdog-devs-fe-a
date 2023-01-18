@@ -13,7 +13,7 @@ const MentorMenteeMatching = () => {
   useEffect(() => {
     // assignments in this sense means assigned mentees
     axiosWithAuth()
-      .get('/assignments')
+      .get('/profiles')
       .then(res => {
         setAssignments(conformData(res.data));
       });

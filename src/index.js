@@ -80,7 +80,7 @@ function App() {
         <PrivateRoute
           path="/dashboard"
           allowRoles={[1, 2, 3, 4, 5]}
-          component={TicketDashboard}
+          component={Dashboard}
         />
         <PrivateRoute
           path="/memos"
