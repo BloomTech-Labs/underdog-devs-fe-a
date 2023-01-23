@@ -5,11 +5,12 @@ import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
 import { API_URL } from '../../../config';
+import dummyData from '../MyMentees/data.json';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
-  const axiosWithAuth = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -66,7 +67,7 @@ const UserManagement = () => {
       role_id: 2,
     };
 
-    axiosWithAuth
+    axiosWithAuth()
       .put(`${API_URL}profile/${record.key}`, requestBody)
       .then(res => {
         setUpdatedProfile(res);
@@ -82,6 +83,7 @@ const UserManagement = () => {
 
   const getAccounts = () => {
     dispatch(getProfile())
+      // console.log(dispatch(getProfile())) returning undefined
       .then(res => {
         setAccounts(
           res.data.map(row => ({
@@ -115,7 +117,7 @@ const UserManagement = () => {
 
       <Table
         columns={columns}
-        dataSource={accounts}
+        dataSource={dummyData}
         expandable={{
           expandedRowRender: record => <MemosTable accounts={record} />,
         }}

@@ -1,46 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { Statistic, Row, Col, Table } from 'antd';
-// TODO: update page styling and functionality, see wireframes/NewDesignProposition/AdminWireframes/Dashboard
+import { useAuth0 } from '@auth0/auth0-react';
+import { connect } from 'react-redux';
+import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import Applications from '../Applications/Applications';
+import MyMentees from '../../pages/MyMentees/MyMentees';
+import MyMentors from '../../pages/MyMentors/MyMentors';
+import LandingPage from '../LandingPage/LandingPage';
 
-/**
- * Khaleel Musleh
- * Created Dashboard Compoenent and set it to display the user role, this component is for future use in displaying dashboard based on user role, each dashboard will be set differently
- * based on user role.
- */
+const Dashboard = props => {
+  const { user } = useAuth0();
 
-const Dashboard = () => {
-  const [role, setRole] = useState([]);
-  const axiosWithAuth = useAxiosWithAuth0();
-
-  const getAccounts = () => {
-    axiosWithAuth
-      .get('/profile/current_user_profile/')
-      .then(res => {
-        setRole(
-          res.data.role_id === 1
-            ? 'Super Admin'
-            : res.data.role_id === 2
-            ? 'Admin'
-            : res.data.role_id === 3
-            ? 'Mentor'
-            : res.data.role_id === 4
-            ? 'Mentee'
-            : res.data.role_id === 5
-            ? 'Developer'
-            : 'pending'
-        );
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  };
-
-  useEffect(() => {
-    getAccounts();
-  }, []);
-
-  return <div>{`Landing page for ${role}`}</div>;
+  if (user.email.includes('002')) {
+    return <Applications />;
+  } else if (user.email.includes('003')) {
+    return <MyMentees />;
+  } else if (user.email.includes('004')) {
+    return <MyMentors />;
+  } else {
+    return <LandingPage />;
+  }
 };
 
-export default Dashboard;
+const mapStateToProps = state => {
+  return { user: state.userReducer };
+};
+
+export default connect(mapStateToProps, { getProfile })(Dashboard);

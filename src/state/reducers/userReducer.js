@@ -51,6 +51,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         profile_id: action.payload,
       };
+    case ACTIONS.SET_ROLE_ID:
+      return {
+        ...state,
+        role_id: action.payload,
+      };
     case ACTIONS.SET_USER_PROFILE:
       return {
         ...state,
