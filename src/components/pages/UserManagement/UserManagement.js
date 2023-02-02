@@ -98,7 +98,6 @@ const UserManagement = () => {
 
   const getAccounts = () => {
     dispatch(getProfile())
-      // console.log(dispatch(getProfile())) returning undefined
       .then(res => {
         setAccounts(
           res.data.map(row => ({
