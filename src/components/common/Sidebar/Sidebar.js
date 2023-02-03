@@ -4,7 +4,7 @@ All of the commented out code on this page is to remove the 'no-unused-vars' war
 import React, { useMemo } from 'react';
 import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import useTheme from '../../../hooks/useTheme';
 import '../styles/Sidebar.css';
@@ -20,6 +20,8 @@ import {
 const { Content, Sider } = Layout;
 
 const Sidebar = ({ children, userProfile }) => {
+  const user = useSelector(state => state.user);
+  console.log(user, 'user');
   const { role_id } = userProfile;
   const { push } = useHistory();
   const { pathname } = useLocation();
@@ -56,7 +58,13 @@ const Sidebar = ({ children, userProfile }) => {
     // create sidebar link array
     let sidebarLinks = [];
     // check roles
-
+    console.log(
+      isUserSuperAdmin,
+      isUserAdmin,
+      isUserMentor,
+      isUserMentee,
+      isUserDev
+    );
     if (isUserSuperAdmin) {
       sidebarLinks = [...superAdminLinks];
     } else if (isUserAdmin) {
@@ -68,9 +76,8 @@ const Sidebar = ({ children, userProfile }) => {
     } else if (isUserDev) {
       sidebarLinks = [...devLinks];
     }
-    return [...sidebarLinks, ...bottomSharedLinks];
+    return [...adminLinks, ...bottomSharedLinks];
   }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);
-
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>

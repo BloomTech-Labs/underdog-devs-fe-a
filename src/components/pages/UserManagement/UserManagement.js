@@ -6,21 +6,34 @@ import { Table, Button } from 'antd';
 import MemosTable from '../../common/MemosTable';
 import { API_URL } from '../../../config';
 import dummyData from '../MyMentees/data.json';
+import { useAuth0 } from '@auth0/auth0-react';
+import UserModal from './UserModal';
+import { useHistory } from 'react-router-dom';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
   const { axiosWithAuth } = useAxiosWithAuth0();
-
+  const [show, setShow] = useState(false);
+  const [user, setUser] = useState();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'first_name',
+      key: 'first_name',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.name - b.name,
+      render: (value, record) => (
+        <p
+          onClick={() => {
+            setUser(record);
+            setShow(true);
+          }}
+        >{`${record.first_name} ${record.last_name}`}</p>
+      ),
     },
     {
       title: 'Role',
@@ -57,7 +70,9 @@ const UserManagement = () => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Button onClick={() => updateToAdmin(record)}>Update to Admin</Button>
+        <Button onClick={() => history.push('/matching')}>
+          Manage Matches
+        </Button>
       ),
     },
   ];
@@ -83,7 +98,6 @@ const UserManagement = () => {
 
   const getAccounts = () => {
     dispatch(getProfile())
-      // console.log(dispatch(getProfile())) returning undefined
       .then(res => {
         setAccounts(
           res.data.map(row => ({
@@ -110,7 +124,6 @@ const UserManagement = () => {
   useEffect(() => {
     getAccounts();
   }, [updatedProfile]);
-
   return (
     <>
       <h2>Manage Users</h2>
@@ -122,6 +135,7 @@ const UserManagement = () => {
           expandedRowRender: record => <MemosTable accounts={record} />,
         }}
       />
+      <UserModal show={show} handleCancel={() => setShow(false)} user={user} />
     </>
   );
 };
