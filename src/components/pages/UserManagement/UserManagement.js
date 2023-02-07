@@ -81,9 +81,7 @@ const UserManagement = () => {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
-        <Button onClick={() => history.push('/matching')}>
-          Manage Matches
-        </Button>
+        <Button onClick={() => history.push('/matching')}>Edit Matches</Button>
       ),
     },
   ];
