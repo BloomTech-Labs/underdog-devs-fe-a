@@ -67,6 +67,17 @@ const UserManagement = () => {
       onFilter: (value, record) => record.role.includes(value),
     },
     {
+      title: 'Matches',
+      dataIndex: 'matches',
+      defaultSortOrder: 'descend',
+      filters: [
+        {
+          text: 'Not Matched',
+          value: 'Not Matched',
+        },
+      ],
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (text, record) => (
