@@ -36,6 +36,13 @@ const UserManagement = () => {
       ),
     },
     {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'date',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.date - b.date,
+    },
+    {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
@@ -58,13 +65,6 @@ const UserManagement = () => {
         },
       ],
       onFilter: (value, record) => record.role.includes(value),
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'date',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.date - b.date,
     },
     {
       title: 'Action',
@@ -128,13 +128,7 @@ const UserManagement = () => {
     <>
       <h2>Manage Users</h2>
 
-      <Table
-        columns={columns}
-        dataSource={dummyData}
-        expandable={{
-          expandedRowRender: record => <MemosTable accounts={record} />,
-        }}
-      />
+      <Table columns={columns} dataSource={dummyData} />
       <UserModal show={show} handleCancel={() => setShow(false)} user={user} />
     </>
   );
