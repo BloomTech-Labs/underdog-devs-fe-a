@@ -75,6 +75,10 @@ const UserManagement = () => {
           text: 'Not Matched',
           value: 'Not Matched',
         },
+        {
+          render: (text, record, index) =>
+            console.log(`RECORD`, record, `text`, text, `index`, index),
+        },
       ],
     },
     {
@@ -86,18 +90,18 @@ const UserManagement = () => {
     },
   ];
 
-  function updateToAdmin(record) {
-    const requestBody = {
-      role_id: 2,
-    };
+  // function updateToAdmin(record) {
+  //   const requestBody = {
+  //     role_id: 2,
+  //   };
 
-    axiosWithAuth()
-      .put(`${API_URL}profile/${record.key}`, requestBody)
-      .then(res => {
-        setUpdatedProfile(res);
-      })
-      .catch(err => console.error(err));
-  }
+  // axiosWithAuth()
+  //   .put(`${API_URL}profile/${record.key}`, requestBody)
+  //   .then(res => {
+  //     setUpdatedProfile(res);
+  //   })
+  //   .catch(err => console.error(err));
+  // }
 
   /**
    * Author: Khaleel Musleh
@@ -108,6 +112,7 @@ const UserManagement = () => {
   const getAccounts = () => {
     dispatch(getProfile())
       .then(res => {
+        console.log(res.data);
         setAccounts(
           res.data.map(row => ({
             key: row.profile_id,
@@ -132,7 +137,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     getAccounts();
-  }, [updatedProfile]);
+  }, []);
   return (
     <>
       <h2>Manage Users</h2>
