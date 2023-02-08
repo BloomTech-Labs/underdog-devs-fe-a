@@ -21,7 +21,6 @@ const { Content, Sider } = Layout;
 
 const Sidebar = ({ children, userProfile }) => {
   const user = useSelector(state => state.user);
-  console.log(user, 'user');
   const { role_id } = userProfile;
   const { push } = useHistory();
   const { pathname } = useLocation();
@@ -58,13 +57,6 @@ const Sidebar = ({ children, userProfile }) => {
     // create sidebar link array
     let sidebarLinks = [];
     // check roles
-    console.log(
-      isUserSuperAdmin,
-      isUserAdmin,
-      isUserMentor,
-      isUserMentee,
-      isUserDev
-    );
     if (isUserSuperAdmin) {
       sidebarLinks = [...superAdminLinks];
     } else if (isUserAdmin) {
