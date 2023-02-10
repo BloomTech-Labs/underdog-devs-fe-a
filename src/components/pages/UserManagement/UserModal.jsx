@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal } from 'antd';
-
-const UserModal = ({ show, handleCancel, user }) => {
+const UserModal = ({ userShow, handleCancel, user }) => {
   return (
     <Modal
       title={
@@ -22,7 +21,7 @@ const UserModal = ({ show, handleCancel, user }) => {
         </div>
       }
       width={'80vw'}
-      visible={show}
+      visible={userShow}
       onCancel={handleCancel}
       okText={'Save Changes'}
       maskClosable={false}
@@ -59,7 +58,6 @@ const UserModal = ({ show, handleCancel, user }) => {
             ))}
           </p>
         </div>
-
         <div span={24} className="customCol">
           <div className="FieldTitle">Commit?</div>
           <p className="FieldValue">{user?.commitment ? 'Yes' : 'No'}</p>
@@ -73,35 +71,7 @@ const UserModal = ({ show, handleCancel, user }) => {
           <p className="FieldValue">{user?.other_info}</p>
         </div>
       </div>
-      {/* <Row>
-        <div span={3}>
-          <p>{user?.first_name}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.last_name}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.email}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.country}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.state}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.city}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.current_company}</p>
-        </div>
-        <div span={3}>
-          <p>{user?.current_position}</p>
-        </div>
-        
-      </Row> */}
     </Modal>
   );
 };
-
 export default UserModal;
