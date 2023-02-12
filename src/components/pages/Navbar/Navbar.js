@@ -143,7 +143,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 </Popover>
               )}
 
-              {Object.keys(user).length && (
+              {Object.keys(user).length ? (
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={accountMenu} placement="bottom" arrow>
                     <div className="userInfo-and-profilePic">
@@ -157,6 +157,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                     </div>
                   </Dropdown>
                 </div>
+              ) : (
+                ''
               )}
               <NavbarItems />
             </div>

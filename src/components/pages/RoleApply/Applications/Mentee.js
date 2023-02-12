@@ -24,7 +24,8 @@ import {
 } from '@ant-design/icons';
 
 import { states, countries, tech_stack } from '../../../common/constants';
-import './Styles/menteeApplication.css';
+import './Styles/mentorApplication.css';
+import './Styles/test.css';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -66,22 +67,22 @@ const Mentee = ({ dispatch, error }) => {
 
   return (
     <>
-      <Row style={{ padding: '3vh' }}>
-        <Breadcrumb>
-          <Breadcrumb.Item onClick={() => loginWithRedirect()}>
-            <LoginOutlined />
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href="/apply">
-            <IdcardOutlined />
-            <span>Apply</span>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <ReconciliationOutlined />
-            <span>Mentee Application</span>
-          </Breadcrumb.Item>
-        </Breadcrumb>
-      </Row>
-      <div className="container-main">
+      <div className="container-custom">
+        <Row style={{ margin: '20px 0px' }}>
+          <Breadcrumb>
+            <Breadcrumb.Item onClick={() => loginWithRedirect()}>
+              <LoginOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="/apply">
+              <IdcardOutlined />
+              <span>Apply</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <ReconciliationOutlined />
+              <span>Mentee Application</span>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Row>
         <Row className="menteeApplication">
           <Col span={24} className="applicationForm">
             <Form
@@ -89,22 +90,22 @@ const Mentee = ({ dispatch, error }) => {
               onFinish={formSubmit}
               labelWrap
               autoComplete="off"
-              size="medium"
+              size="large"
               requiredMark="required"
               id="main-container"
             >
-              <Title className="menteeTitle" level={3}>
+              <Title className="mentorTitle" level={3}>
                 Mentee Application
               </Title>
               <Col className="main-col-container">
-                <Title level={5} style={{ paddingTop: '2%' }}>
+                <Title level={4} style={{ paddingTop: '2%' }}>
                   Please fill out your user information
                 </Title>
-                <Row className="row-container">
-                  <Col md={15} xs={24} span={18} offset={1}>
+                <Row>
+                  <Col md={12} xs={24}>
                     <Form.Item
                       labelCol={{ span: 10 }}
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="First name"
                       type="text"
                       name="first_name"
@@ -122,12 +123,12 @@ const Mentee = ({ dispatch, error }) => {
                     </Form.Item>
                   </Col>
 
-                  <Col md={20} xs={24} span={18} offset={1}>
+                  <Col md={12} xs={24}>
                     <Form.Item
                       label="Last name"
                       type="text"
                       name="last_name"
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       labelCol={{ span: 8 }}
                       rules={[
                         {
@@ -143,12 +144,12 @@ const Mentee = ({ dispatch, error }) => {
                     </Form.Item>
                   </Col>
 
-                  <Col md={20} xs={24} span={18} offset={1}>
+                  <Col md={12} xs={24}>
                     <Form.Item
                       label="Email"
                       type="email"
                       name="email"
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       labelCol={{ span: 8 }}
                       rules={[
                         {
@@ -168,14 +169,12 @@ const Mentee = ({ dispatch, error }) => {
                     </Form.Item>
                   </Col>
 
-                  <Col md={15} span={18} offset={1}>
+                  <Col md={12} xs={24}>
                     <Form.Item
                       label="Country"
-                      className="form-group"
-                      labelCol={{ span: 10 }}
-                      wrapperCol={{ span: 10 }}
-                      style={{ margin: '0 1rem .5rem 0', gap: '0rem' }}
+                      wrapperCol={{ sm: 24 }}
                       name="country"
+                      style={{ marginTop: '8px', paddingRight: '12px' }}
                       rules={[
                         {
                           required: true,
@@ -199,16 +198,14 @@ const Mentee = ({ dispatch, error }) => {
                   </Col>
                 </Row>
 
-                <Row>
-                  <Col md={15} xs={24} offset={1}>
+                <Row gutter={[4, 4]}>
+                  <Col md={12} xs={24}>
                     <div className="locationUS">
                       <Form.Item
                         label="State"
-                        className="form-group"
+                        wrapperCol={{ sm: 24 }}
+                        style={{ paddingRight: '12px' }}
                         name="state"
-                        labelCol={{ span: 10 }}
-                        wrapperCol={{ span: 10 }}
-                        style={{ margin: '0 1rem .5rem 0', gap: '0rem' }}
                         rules={[
                           {
                             required: true,
@@ -230,13 +227,13 @@ const Mentee = ({ dispatch, error }) => {
                         </Select>
                       </Form.Item>
                     </div>
-
+                  </Col>
+                  <Col md={12} xs={24}>
                     <Form.Item
                       label="City"
                       type="text"
                       name="city"
-                      className="form-group"
-                      labelCol={{ span: 10 }}
+                      wrapperCol={{ sm: 24 }}
                       rules={[
                         {
                           required: true,
@@ -252,11 +249,11 @@ const Mentee = ({ dispatch, error }) => {
                   </Col>
                 </Row>
 
-                <Row className="row-container">
+                <Row>
                   <Divider />
-                  <Col sm={10} md={20}>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="Which criteria represents you for membership? 
                     (Select all that apply)"
                       tooltip={{
@@ -306,9 +303,9 @@ const Mentee = ({ dispatch, error }) => {
                     </Form.Item>
                   </Col>
 
-                  <Col md={20}>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="Please list your convictions if comfortable"
                       tooltip={{
                         title:
@@ -330,10 +327,10 @@ const Mentee = ({ dispatch, error }) => {
 
                 <Divider />
 
-                <Row className="row-container">
-                  <Col md={20}>
+                <Row>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="What subject do you want to get mentored in?"
                       tooltip={{
                         title: 'Select the title that best reflects your goals',
@@ -363,9 +360,9 @@ const Mentee = ({ dispatch, error }) => {
                     </Form.Item>
                   </Col>
 
-                  <Col sm={10} md={20}>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="What are you hoping to gain from the community?"
                       tooltip={{
                         title: 'Select all that apply',
@@ -406,9 +403,9 @@ const Mentee = ({ dispatch, error }) => {
                       </Checkbox.Group>
                     </Form.Item>
                   </Col>
-                  <Col md={20}>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="How did you hear about Underdog Devs?"
                       tooltip={{
                         title: 'Select where you heard about Underdog Devs',
@@ -444,9 +441,9 @@ const Mentee = ({ dispatch, error }) => {
                       </Select>
                     </Form.Item>
                   </Col>
-                  <Col md={20}>
+                  <Col md={12} xs={24}>
                     <Form.Item
-                      className="form-group"
+                      wrapperCol={{ sm: 24 }}
                       label="Anything else you want us to know?"
                       labelCol={{ flex: 1 }}
                       tooltip={{
@@ -468,7 +465,7 @@ const Mentee = ({ dispatch, error }) => {
                 </Row>
               </Col>
               <Col style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button htmlType="submit" id="menteeSubmitButton" size="large">
+                <Button htmlType="submit" id="mentorSubmitButton" size="large">
                   Submit
                 </Button>
               </Col>
