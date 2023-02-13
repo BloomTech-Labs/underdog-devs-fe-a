@@ -252,6 +252,6 @@ div.row2 .modalBtn:visited {
 @media (min-width: 1400px) {
   .container-custom {
       width: 1140px;
-      max-width: 100%;
+      max-width: 99%;
   }
 }
