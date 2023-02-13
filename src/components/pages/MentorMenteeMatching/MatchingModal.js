@@ -55,13 +55,20 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
               <p className="FieldValue">{user?.other_info}</p>
             </div>
           </div>
-          <div>
-            <h4>Matches</h4>
-            <h4>Suggested Matches</h4>
+          <div className="MatchSuggestMatch">
+            <div className="Matches">
+              <h4>Matches</h4>
+              <p>Match One</p>
+              <p>Match Two</p>
+              <p>Match Three</p>
+            </div>
+            <div>
+              <h4>Suggested Matches</h4>
+            </div>
           </div>
         </div>
         <br />
-        <div className="UserTable">
+        <div className="UserTable MentorTable">
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
             <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
