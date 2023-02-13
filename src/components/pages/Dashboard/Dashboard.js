@@ -8,7 +8,7 @@ import LandingPage from '../LandingPage/LandingPage';
 
 const Dashboard = props => {
   const { user } = useAuth0();
-  if (user.email.includes('002')) {
+  if (user.email.includes('001') || user.email.includes('002')) {
     return <Applications />;
   } else if (user.email.includes('003')) {
     return <MyMentees />;
