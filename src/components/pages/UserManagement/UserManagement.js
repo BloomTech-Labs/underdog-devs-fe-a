@@ -10,6 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 import { useHistory } from 'react-router-dom';
+
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
