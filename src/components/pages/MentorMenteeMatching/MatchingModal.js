@@ -34,10 +34,9 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
             <div span={24} className="customCol">
               <div className="FieldTitle">Name</div>
               <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
-              <Tag color={'blue'}>{}</Tag>
             </div>
             <div span={24} className="customCol">
-              <div className="FieldTitle">City/State/Country</div>
+              <div className="FieldTitle">City/ State/ Country</div>
               <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
             </div>
             <div span={24} className="customCol">
@@ -64,6 +63,12 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
             </div>
             <div>
               <h4>Suggested Matches</h4>
+              <p>Name One</p>
+              <p>Name Two</p>
+              <p>Name Three</p>
+              <p>Name Four</p>
+              <p>Name Five</p>
+              <p>Name Six</p>
             </div>
           </div>
         </div>
@@ -72,18 +77,17 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
             <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
-            <Tag color={'blue'}>{}</Tag>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Email</div>
             <p className="FieldValue">{`${user?.email}`}</p>
           </div>
           <div span={24} className="customCol">
-            <div className="FieldTitle">City/State/Country</div>
+            <div className="FieldTitle">City/ State/ Country</div>
             <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
           </div>
           <div span={24} className="customCol">
-            <div className="FieldTitle">Current Company/Position</div>
+            <div className="FieldTitle">Current Company/ Position</div>
             <p className="FieldValue">{user?.current_company}</p>
           </div>
           <div span={24} className="customCol">
