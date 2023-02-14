@@ -1,5 +1,8 @@
 import React from 'react';
-import { Modal, Tag, Button } from 'antd';
+import { Modal, Tag, Button, Divider } from 'antd';
+import UserModal from '../UserManagement/UserModal';
+import dummyData from '../MyMentees/data.json';
+
 const MatchingModal = ({ matchShow, handleCancel, user }) => {
   return (
     <Modal
@@ -25,7 +28,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
       onCancel={handleCancel}
       okText={'Save Changes'}
       maskClosable={false}
-      footer={null}
+      footer={true}
       className="UserModal"
     >
       <div className="MatchingModal">
@@ -57,23 +60,60 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           <div className="MatchSuggestMatch">
             <div className="Matches">
               <h4>Matches</h4>
-              <p>Match One</p>
-              <p>Match Two</p>
-              <p>Match Three</p>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="matchLine">
+                <p>Match One</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="matchLine">
+                <p>Match Two</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="matchLine">
+                <p>Match Three</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
             </div>
-            <div>
+            <div className="Suggestions">
               <h4>Suggested Matches</h4>
-              <p>Name One</p>
-              <p>Name Two</p>
-              <p>Name Three</p>
-              <p>Name Four</p>
-              <p>Name Five</p>
-              <p>Name Six</p>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="suggestLine">
+                <p>Name One</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="suggestLine">
+                <p>Name Two</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="suggestLine">
+                <p>Name Three</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="suggestLine">
+                <p>Name Four</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
+              <div className="suggestLine">
+                <p>Name Five</p>
+                <p style={{ color: 'blue' }}>View</p>
+              </div>
+              <Divider style={{ margin: '8px 0' }} />
             </div>
           </div>
         </div>
         <br />
         <div className="UserTable MentorTable">
+          <div className="addMentorContainer">
+            <Button className="ant-btn-primary">Add as a Match</Button>
+          </div>
+          <br></br>
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
             <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
@@ -110,6 +150,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           </div>
         </div>
       </div>
+      <div className="header-api"> </div>
     </Modal>
   );
 };
