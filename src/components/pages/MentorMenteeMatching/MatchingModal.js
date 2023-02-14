@@ -28,7 +28,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
       onCancel={handleCancel}
       okText={'Save Changes'}
       maskClosable={false}
-      footer={true}
+      footer={null}
       className="UserModal"
     >
       <div className="MatchingModal">
@@ -36,7 +36,16 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           <div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Name</div>
-              <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
+              <p className="FieldValue">
+                {`${user?.first_name} ${user?.last_name}`}
+                <div className="userTag">
+                  <Tag color="blue">
+                    {user?.role === 'mentee' || user?.role === 'Mentee'
+                      ? 'Mentee'
+                      : 'Mentor'}
+                  </Tag>
+                </div>
+              </p>
             </div>
             <div span={24} className="customCol">
               <div className="FieldTitle">City/ State/ Country</div>
@@ -116,8 +125,18 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           <br></br>
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
-            <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
+            <p className="FieldValue">
+              {`${user?.first_name} ${user?.last_name}`}
+              <div className="userTag">
+                <Tag color="blue">
+                  {user?.role === 'mentee' || user?.role === 'Mentee'
+                    ? 'Mentee'
+                    : 'Mentor'}
+                </Tag>
+              </div>
+            </p>
           </div>
+
           <div span={24} className="customCol">
             <div className="FieldTitle">Email</div>
             <p className="FieldValue">{`${user?.email}`}</p>
