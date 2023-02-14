@@ -29,6 +29,7 @@ const UserManagement = () => {
       sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
+          className="nameLink"
           onClick={() => {
             setUser(record);
             setUserShow(true);
