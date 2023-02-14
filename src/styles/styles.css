@@ -84,6 +84,9 @@ div.row2 .modalBtn:visited {
   display: flex;
   align-items: normal;
 }
+.nameLink:hover {
+  color: #2c90ff;
+}
 .MatchingModal {
   width: 100%;
   display: flex;
