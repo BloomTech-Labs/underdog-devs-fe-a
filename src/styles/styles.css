@@ -102,6 +102,9 @@ div.row2 .modalBtn:visited {
   background-color: #eeeeee54;
   border: 1px solid #f2f4f5;
 }
+.FieldValue .userTag {
+  margin-left: 20px;
+}
 .addMentorContainer {
 }
 .addMentorContainer .ant-btn-primary {
