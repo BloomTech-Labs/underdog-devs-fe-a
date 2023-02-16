@@ -74,6 +74,7 @@ div.row2 .modalBtn:visited {
 .UserModal .UserTable {
   flex-direction: column;
   padding: 20px;
+  width: 100%;
 }
 .UserModal {
   width: 80%;
@@ -85,7 +86,8 @@ div.row2 .modalBtn:visited {
   align-items: normal;
 }
 .nameLink:hover {
-  color: #2c90ff;
+  cursor: pointer;
+  color: black;
 }
 .MatchingModal {
   width: 100%;
@@ -107,6 +109,11 @@ div.row2 .modalBtn:visited {
 }
 .FieldValue .userTag {
   margin-left: 20px;
+}
+.FieldValue span {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 }
 .addMentorContainer {
 }
