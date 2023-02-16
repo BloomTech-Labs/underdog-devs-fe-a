@@ -54,8 +54,9 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error }) => {
-  const { formValues, newMentor, handleChange, handleTechStack } =
-    useForms(initialFormValues);
+  const { formValues, newMentor, handleChange, handleTechStack } = useForms(
+    initialFormValues
+  );
   const { push } = useHistory();
 
   const formSubmit = () => {
@@ -103,22 +104,22 @@ const Mentor = ({ dispatch, error }) => {
 
   return (
     <>
-      <Row>
-        <Breadcrumb>
-          <Breadcrumb.Item onClick={() => loginWithRedirect()}>
-            <LoginOutlined />
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href="/apply">
-            <IdcardOutlined />
-            <span>Apply</span>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <ReconciliationOutlined />
-            <span>Mentor Application</span>
-          </Breadcrumb.Item>
-        </Breadcrumb>
-      </Row>
-      <div className="container">
+      <div className="container-custom">
+        <Row style={{ margin: '20px 0px' }}>
+          <Breadcrumb>
+            <Breadcrumb.Item onClick={() => loginWithRedirect()}>
+              <LoginOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="/apply">
+              <IdcardOutlined />
+              <span>Apply</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <ReconciliationOutlined />
+              <span>Mentor Application</span>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Row>
         <Form
           labelWrap
           onFinish={formSubmit}
@@ -137,13 +138,14 @@ const Mentor = ({ dispatch, error }) => {
             <Title level={4}>Fill out your user information</Title>
 
             {/*Personal info*/}
-            <Row>
+            <Row gutter={[4, 4]}>
               {/*First name*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="First name"
                   type="text"
                   name="first_name"
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -157,11 +159,12 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
               {/*Last name*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Last name"
                   type="text"
                   name="last_name"
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -175,11 +178,12 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
               {/*Email*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Email"
                   type="email"
                   name="email"
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -193,10 +197,11 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
               {/*Country*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Country"
                   name="country"
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -219,11 +224,12 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
               {/*State & State*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <div className="locationUS">
                   <Form.Item
                     label="State"
                     name="state"
+                    wrapperCol={{ sm: 24 }}
                     rules={[
                       {
                         required: true,
@@ -245,11 +251,13 @@ const Mentor = ({ dispatch, error }) => {
                     </Select>
                   </Form.Item>
                 </div>
-
+              </Col>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="City"
                   type="text"
                   name="city"
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -267,15 +275,16 @@ const Mentor = ({ dispatch, error }) => {
             <Divider />
 
             {/*Work*/}
-            <Row className="row-container">
+            <Row gutter={[4, 4]}>
               {/*Company*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Current company"
                   type="text"
                   name="current_company"
                   value={formValues.current_company}
                   onChange={handleChange}
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -287,13 +296,14 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
               {/*Position*/}
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Current position"
                   type="text"
                   name="current_position"
                   value={formValues.current_position}
                   onChange={handleChange}
+                  wrapperCol={{ sm: 24 }}
                   rules={[
                     {
                       required: true,
@@ -308,10 +318,12 @@ const Mentor = ({ dispatch, error }) => {
 
             {/*CheckBoxes*/}
             <Row>
-              <Col className="mentorshipArea" md={20} xs={24}>
+              <Col className="mentorshipArea" md={12} xs={24}>
                 <Form.Item
                   size="medium"
                   className="form-group"
+                  wrapperCol={{ sm: 24 }}
+                  style={{ marginBottom: '0px' }}
                   label="What areas are you wanting to provide mentorship in?"
                   tooltip={{
                     title: 'What development role have you trained for?',
@@ -324,32 +336,33 @@ const Mentor = ({ dispatch, error }) => {
                       message: 'Tech stack is required.',
                     },
                   ]}
+                ></Form.Item>
+                <Checkbox.Group
+                  style={{
+                    display: 'flex',
+                    flexFlow: 'column',
+                    width: 'auto',
+                    gap: '.5rem',
+                    paddingLeft: '1rem',
+                  }}
                 >
-                  <Checkbox.Group
-                    style={{
-                      display: 'flex',
-                      flexFlow: 'column',
-                      width: 'auto',
-                      gap: '.5rem',
-                      paddingLeft: '1rem',
-                    }}
-                  >
-                    {mentorshipArray.map(checkbox => (
-                      <Checkbox
-                        value={checkbox.value}
-                        onChange={e => handleTechStack(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        {checkbox.value}
-                      </Checkbox>
-                    ))}
-                  </Checkbox.Group>
-                </Form.Item>
+                  {mentorshipArray.map(checkbox => (
+                    <Checkbox
+                      value={checkbox.value}
+                      onChange={e => handleTechStack(e, 'checkbox')}
+                      style={{ margin: '.2rem', width: '100%' }}
+                    >
+                      {checkbox.value}
+                    </Checkbox>
+                  ))}
+                </Checkbox.Group>
               </Col>
 
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   className="mentorContribution"
+                  wrapperCol={{ sm: 24 }}
+                  style={{ marginBottom: '0px' }}
                   label="How else can you contribute in the progression of our
                 mentees?"
                   tooltip={{
@@ -363,30 +376,29 @@ const Mentor = ({ dispatch, error }) => {
                       message: 'Possible contribution is required.',
                     },
                   ]}
+                ></Form.Item>
+                <Checkbox.Group
+                  style={{
+                    display: 'flex',
+                    flexFlow: 'column',
+                    width: 'auto',
+                    gap: '.5rem',
+                    paddingLeft: '1rem',
+                  }}
                 >
-                  <Checkbox.Group
-                    style={{
-                      display: 'flex',
-                      flexFlow: 'column',
-                      width: 'auto',
-                      gap: '.5rem',
-                      paddingLeft: '1rem',
-                    }}
-                  >
-                    {contributionArray.map(area => (
-                      <Checkbox
-                        value={area.name}
-                        onChange={e => handleChange(e, 'checkbox')}
-                        style={{ margin: '.2rem', width: '100%' }}
-                      >
-                        {area.value}
-                      </Checkbox>
-                    ))}
-                  </Checkbox.Group>
-                </Form.Item>
+                  {contributionArray.map(area => (
+                    <Checkbox
+                      value={area.name}
+                      onChange={e => handleChange(e, 'checkbox')}
+                      style={{ margin: '.2rem', width: '100%' }}
+                    >
+                      {area.value}
+                    </Checkbox>
+                  ))}
+                </Checkbox.Group>
               </Col>
               <Divider />
-              <Col md={20} xs={24}>
+              <Col md={24} xs={24}>
                 <div className="em">
                   <em>
                     Mentor commitments range from general mentoring and
@@ -400,6 +412,7 @@ const Mentor = ({ dispatch, error }) => {
                 <Form.Item
                   style={{ paddingTop: '2rem' }}
                   label=" Are you able to commit to one or more of these?"
+                  wrapperCol={{ sm: 24 }}
                   tooltip={{
                     title: 'Choose one',
                     icon: <InfoCircleOutlined />,
@@ -437,9 +450,10 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
 
-              <Col md={20} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="How did you hear about Underdog Devs?"
+                  wrapperCol={{ sm: 24 }}
                   tooltip={{
                     title: 'Please choose one',
                     icon: <InfoCircleOutlined />,
@@ -471,29 +485,37 @@ const Mentor = ({ dispatch, error }) => {
                 </Form.Item>
               </Col>
 
-              <Col md={20}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   label="Anything else you want us to know?"
+                  wrapperCol={{ sm: 24 }}
                   tooltip={{
                     title:
                       'Include any relevant info that you think may be helpful',
                     icon: <InfoCircleOutlined />,
                   }}
-                ></Form.Item>
-                <Input.TextArea
-                  type="text"
-                  name="other_info"
-                  value={formValues.other_info}
-                  onChange={handleChange}
-                  placeholder="Your answer"
-                />
+                >
+                  {' '}
+                  <Input.TextArea
+                    type="text"
+                    name="other_info"
+                    value={formValues.other_info}
+                    onChange={handleChange}
+                    placeholder="Your answer"
+                  />
+                </Form.Item>
               </Col>
             </Row>
           </Col>
 
           <Divider />
           {/*button*/}
-          <Col>
+          <Col
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Button htmlType="submit" id="mentorSubmitButton" size="large">
               {' '}
               Submit{' '}

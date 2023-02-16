@@ -53,7 +53,6 @@ export const mentorLinks = [];
 
 export const adminLinks = [
   { key: '/applications', label: 'Applications', icon: <ContainerOutlined /> },
-  { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
   { key: '/users', label: 'Users', icon: <ContactsOutlined /> },
 ];
 
