@@ -36,7 +36,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           <div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Name</div>
-              <p className="FieldValue">
+              <p className="FieldValue nameLink">
                 {`${user?.first_name} ${user?.last_name}`}
                 <div className="userTag">
                   <Tag color="blue">
@@ -56,7 +56,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
               <p className="FieldValue">
                 {user?.tech_stack?.map(stack => (
                   <>
-                    <span>{stack}</span> <br />
+                    <span>{stack}</span>
                   </>
                 ))}
               </p>
