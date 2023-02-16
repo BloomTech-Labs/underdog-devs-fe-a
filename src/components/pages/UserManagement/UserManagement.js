@@ -30,6 +30,7 @@ const UserManagement = () => {
       render: (value, record) => (
         <p
           className="nameLink"
+          style={{ color: '#2c90ff' }}
           onClick={() => {
             setUser(record);
             setUserShow(true);
@@ -114,33 +115,26 @@ const UserManagement = () => {
     dispatch(getProfile())
       .then(res => {
         setAccounts(
-          res.data.map(row => ({
+          res.map(row => ({
             key: row.profile_id,
-            name: row.first_name + ' ' + row.last_name,
-            role:
-              row.role_id === 1
-                ? 'superAdmin'
-                : row.role_id === 2
-                ? 'admin'
-                : row.role_id === 3
-                ? 'mentor'
-                : row.role_id === 4
-                ? 'mentee'
-                : 'pending',
             email: row.email,
-            notes: 'this is a memo',
+            role: 'Something Important',
+            matches: 'Maybe',
+            ...row,
           }))
         );
       })
       .catch(err => console.error(err));
   };
+
   useEffect(() => {
     getAccounts();
-  }, [updatedProfile]);
+  }, []);
+
   return (
     <>
       <h2>Manage Users</h2>
-      <Table columns={columns} dataSource={dummyData} />
+      <Table columns={columns} dataSource={accounts} />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}
