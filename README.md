@@ -5,7 +5,7 @@ By using a mentor / mentee format, the individual will be paired with a mentor t
 
 ## DEPLOYED PROJECT
 
-[UnderdogDevs](https://a.underdogdevs.dev/login)
+[UnderdogDevs](http://underdog-devs-fe-a.vercel.app/)
 
 ## Installation
 
