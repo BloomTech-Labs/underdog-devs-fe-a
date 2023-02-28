@@ -170,7 +170,6 @@ div.row2 .modalBtn:visited {
   display: flex;
   justify-content: space-between;
 }
-<<<<<<< HEAD
 .MatchSuggestMatch {
   margin: 0;
   width: 100%;
@@ -200,8 +199,6 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
-=======
->>>>>>> 619ff9c (fixing merge conflicts)
 @media screen and (max-width: 620px) {
   .UserTable {
     border: 1px solid black;
