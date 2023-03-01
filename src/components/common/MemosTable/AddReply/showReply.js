@@ -10,9 +10,11 @@ function ShowReply(props) {
   const { setComments, comments } = props;
   useEffect(() => {
     const getComments = () => {
-      axiosWithAuth.get(`/notes/${note_id}/comments`).then(res => {
-        setComments(res.data);
-      });
+      axiosWithAuth()
+        .get(`/notes/${note_id}/comments`)
+        .then(res => {
+          setComments(res.data);
+        });
     };
     getComments();
   }, [note_id]);
@@ -25,9 +27,15 @@ function ShowReply(props) {
       content: t.comment_text,
       datetime: (
         <Tooltip
-          title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}
+          title={moment()
+            .subtract(2, 'days')
+            .format('YYYY-MM-DD HH:mm:ss')}
         >
-          <span>{moment().subtract(2, 'days').fromNow()}</span>
+          <span>
+            {moment()
+              .subtract(2, 'days')
+              .fromNow()}
+          </span>
         </Tooltip>
       ),
     };

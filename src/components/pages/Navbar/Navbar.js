@@ -38,7 +38,9 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const user = await axiosWithAuth.get(`/profile/current_user_profile/`);
+        const user = await axiosWithAuth().get(
+          `/profile/current_user_profile/`
+        );
 
         setUser(user.data);
 

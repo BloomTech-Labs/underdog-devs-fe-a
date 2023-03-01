@@ -111,7 +111,7 @@ const Applications = () => {
           : (row.role_name = 'mentee');
       });
       setApplications(
-        Object.values(api.data.result).map(row => ({
+        Object.values(api.data).map(row => ({
           key: row.profile_id,
           first_name: row.first_name,
           last_name: row.last_name,
