@@ -74,21 +74,17 @@ div.row2 .modalBtn:visited {
 .UserModal .UserTable {
   flex-direction: column;
   padding: 20px;
-<<<<<<< HEAD
   width: 100%;
 }
 .UserModal {
   width: 80%;
   height: auto;
-=======
->>>>>>> 619ff9c (fixing merge conflicts)
 }
 .UserModal .UserTable .customCol {
   width: 100%;
   display: flex;
   align-items: normal;
 }
-<<<<<<< HEAD
 .nameLink:hover {
   cursor: pointer;
   color: black;
@@ -123,18 +119,6 @@ div.row2 .modalBtn:visited {
 }
 .addMentorContainer .ant-btn-primary {
   background-color: #1e6eb1;
-=======
-.MatchingModal {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.FieldTitle {
-  width: 30%;
-  padding: 20px 20px;
-  background-color: #eeeeee54;
-  border: 1px solid #e7e6e6;
->>>>>>> 619ff9c (fixing merge conflicts)
 }
 .FieldValue {
   border: 1px solid #f2f4f5;
