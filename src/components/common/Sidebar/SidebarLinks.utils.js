@@ -32,13 +32,8 @@ export const sharedLinks = [
 export const bottomSharedLinks = [
   {
     key: '/support',
-    label: 'Support',
+    label: 'Insights',
     icon: <QuestionCircleOutlined />,
-  },
-  {
-    key: 'darkmode',
-    label: 'Darkmode',
-    icon: <BulbOutlined />,
   },
 ];
 

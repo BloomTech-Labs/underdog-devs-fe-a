@@ -21,7 +21,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated } = useAuth0();
-  const axiosWithAuth = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
   const cancelOpen = () => setModal(false);
@@ -38,7 +38,9 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const user = await axiosWithAuth.get(`/profile/current_user_profile/`);
+        const user = await axiosWithAuth().get(
+          `/profile/current_user_profile/`
+        );
 
         setUser(user.data);
 

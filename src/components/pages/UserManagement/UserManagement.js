@@ -8,17 +8,18 @@ import { API_URL } from '../../../config';
 import dummyData from '../MyMentees/data.json';
 import { useAuth0 } from '@auth0/auth0-react';
 import UserModal from './UserModal';
+import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 import { useHistory } from 'react-router-dom';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
   const { axiosWithAuth } = useAxiosWithAuth0();
-  const [show, setShow] = useState(false);
+  const [userShow, setUserShow] = useState(false);
+  const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
   const dispatch = useDispatch();
   const history = useHistory();
-
   const columns = [
     {
       title: 'Name',
@@ -28,12 +29,21 @@ const UserManagement = () => {
       sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
+          className="nameLink"
+          style={{ color: '#2c90ff' }}
           onClick={() => {
             setUser(record);
-            setShow(true);
+            setUserShow(true);
           }}
         >{`${record.first_name} ${record.last_name}`}</p>
       ),
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'date',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.date - b.date,
     },
     {
       title: 'Role',
@@ -60,28 +70,35 @@ const UserManagement = () => {
       onFilter: (value, record) => record.role.includes(value),
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'date',
+      title: 'Matches',
+      dataIndex: 'matches',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.date - b.date,
+      filters: [
+        {
+          text: 'Not Matched',
+          value: 'Not Matched',
+        },
+      ],
     },
     {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
-        <Button onClick={() => history.push('/matching')}>
-          Manage Matches
+      render: (value, record) => (
+        <Button
+          onClick={() => {
+            setUser(record);
+            setMatchShow(true);
+          }}
+        >
+          Edit Matches
         </Button>
       ),
     },
   ];
-
   function updateToAdmin(record) {
     const requestBody = {
       role_id: 2,
     };
-
     axiosWithAuth()
       .put(`${API_URL}profile/${record.key}`, requestBody)
       .then(res => {
@@ -89,32 +106,21 @@ const UserManagement = () => {
       })
       .catch(err => console.error(err));
   }
-
   /**
    * Author: Khaleel Musleh
    * @param {getAccounts}
    * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
    */
-
   const getAccounts = () => {
     dispatch(getProfile())
       .then(res => {
         setAccounts(
-          res.data.map(row => ({
+          res.map(row => ({
             key: row.profile_id,
-            name: row.first_name + ' ' + row.last_name,
-            role:
-              row.role_id === 1
-                ? 'superAdmin'
-                : row.role_id === 2
-                ? 'admin'
-                : row.role_id === 3
-                ? 'mentor'
-                : row.role_id === 4
-                ? 'mentee'
-                : 'pending',
             email: row.email,
-            notes: 'this is a memo',
+            role: 'Something Important',
+            matches: 'Maybe',
+            ...row,
           }))
         );
       })
@@ -123,21 +129,23 @@ const UserManagement = () => {
 
   useEffect(() => {
     getAccounts();
-  }, [updatedProfile]);
+  }, []);
+
   return (
     <>
       <h2>Manage Users</h2>
-
-      <Table
-        columns={columns}
-        dataSource={dummyData}
-        expandable={{
-          expandedRowRender: record => <MemosTable accounts={record} />,
-        }}
+      <Table columns={columns} dataSource={accounts} />
+      <UserModal
+        userShow={userShow}
+        handleCancel={() => setUserShow(false)}
+        user={user}
       />
-      <UserModal show={show} handleCancel={() => setShow(false)} user={user} />
+      <MatchingModal
+        matchShow={matchShow}
+        handleCancel={() => setMatchShow(false)}
+        user={user}
+      />
     </>
   );
 };
-
 export default UserManagement;
