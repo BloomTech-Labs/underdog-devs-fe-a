@@ -114,6 +114,7 @@ const UserManagement = () => {
   const getAccounts = () => {
     dispatch(getProfile())
       .then(res => {
+        console.log(`PROFILES`, res);
         setAccounts(
           res.map(row => ({
             key: row.profile_id,
