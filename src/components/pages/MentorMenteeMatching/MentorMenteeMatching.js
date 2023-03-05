@@ -100,7 +100,7 @@ const MentorMenteeMatching = () => {
   return (
     <>
       <h2>Matching</h2>
-      <Table columns={columns} dataSource={dummyData} />
+      <Table columns={columns} dataSource={assignments} />
       <MatchingModal
         handleCancel={handleCancel}
         handleSave={handleSave}
