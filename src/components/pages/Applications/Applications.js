@@ -104,7 +104,7 @@ const Applications = () => {
 
   const getApps = async () => {
     try {
-      const api = await axiosWithAuth().post(`/application`);
+      const api = await axiosWithAuth().get(`/application`);
       api.data.forEach(row => {
         row.hasOwnProperty('accepting_new_mentees')
           ? (row.role_name = 'mentor')
