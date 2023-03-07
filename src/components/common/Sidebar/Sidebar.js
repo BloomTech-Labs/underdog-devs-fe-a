@@ -4,7 +4,7 @@ All of the commented out code on this page is to remove the 'no-unused-vars' war
 import React, { useMemo } from 'react';
 import { Layout, Menu } from 'antd';
 import 'antd/dist/antd.css';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import useTheme from '../../../hooks/useTheme';
 import '../styles/Sidebar.css';
@@ -14,17 +14,18 @@ import {
   bottomSharedLinks,
   menteeLinks,
   mentorLinks,
-  sharedLinks,
+  // sharedLinks,
   devLinks,
 } from './SidebarLinks.utils';
 const { Content, Sider } = Layout;
 
 const Sidebar = ({ children, userProfile }) => {
-  const user = useSelector(state => state.user);
+  // const user = useSelector(state => state.user);
   const { role_id } = userProfile;
   const { push } = useHistory();
   const { pathname } = useLocation();
 
+  // eslint-disable-next-line no-unused-vars
   const [theme, toggleTheme] = useTheme();
 
   const handleMenuClick = menu => {
@@ -66,10 +67,11 @@ const Sidebar = ({ children, userProfile }) => {
     } else if (isUserMentee) {
       sidebarLinks = [...menteeLinks];
     } else if (isUserDev) {
+      // eslint-disable-next-line no-unused-vars
       sidebarLinks = [...devLinks];
     }
     return [...adminLinks, ...bottomSharedLinks];
-  }, [isUserAdmin, isUserMentor, isUserDev, isUserMentee]);
+  }, [isUserSuperAdmin, isUserAdmin, isUserMentor, isUserMentee, isUserDev]);
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider id="sidebar" trigger={null} breakpoint="lg" collapsible={true}>

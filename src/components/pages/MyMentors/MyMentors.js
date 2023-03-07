@@ -7,6 +7,7 @@ import dummyData from '../MyMentees/data.json';
 const MyMentors = props => {
   const { axiosWithAuth } = useAxiosWithAuth0();
   const { role, profile_id } = props;
+  // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const MyMentors = props => {
       .catch(err => {
         console.error(err);
       });
-  }, []);
+  });
 
   return (
     <>

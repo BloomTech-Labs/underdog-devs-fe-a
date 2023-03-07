@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import { Comment, Tooltip, List } from 'antd';
 import moment from 'moment';
@@ -17,7 +17,7 @@ function ShowReply(props) {
         });
     };
     getComments();
-  }, [note_id]);
+  }, [axiosWithAuth, note_id, setComments]);
   const data = [];
   // eslint-disable-next-line array-callback-return
   comments.map(t => {
@@ -27,15 +27,9 @@ function ShowReply(props) {
       content: t.comment_text,
       datetime: (
         <Tooltip
-          title={moment()
-            .subtract(2, 'days')
-            .format('YYYY-MM-DD HH:mm:ss')}
+          title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}
         >
-          <span>
-            {moment()
-              .subtract(2, 'days')
-              .fromNow()}
-          </span>
+          <span>{moment().subtract(2, 'days').fromNow()}</span>
         </Tooltip>
       ),
     };

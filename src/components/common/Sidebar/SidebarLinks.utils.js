@@ -1,6 +1,5 @@
 import {
   BookOutlined,
-  BulbOutlined,
   CalendarOutlined,
   CarryOutOutlined,
   ContactsOutlined,

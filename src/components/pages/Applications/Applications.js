@@ -177,7 +177,7 @@ const Applications = () => {
 
   useEffect(() => {
     getApps();
-  }, []);
+  });
 
   return (
     <>

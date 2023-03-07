@@ -29,7 +29,7 @@ const RenderProfileContainer = props => {
       .catch(err => {
         console.log(err.response);
       });
-  }, []);
+  });
 
   return (
     <div>
