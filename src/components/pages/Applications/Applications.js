@@ -27,30 +27,6 @@ const columns = [
     sortDirections: ['descend', 'ascend'],
   },
   {
-    // Add in functionality for filter button for roles
-    title: 'Role',
-    dataIndex: 'role',
-    key: 'role',
-    filters: [
-      {
-        text: 'mentor',
-        value: 'mentor',
-      },
-      {
-        text: 'mentee',
-        value: 'mentee',
-      },
-    ],
-    onFilter: (value, record) => record.role.props.children === value,
-  },
-  {
-    title: 'Date Updated',
-    dataIndex: 'date',
-    key: 'date',
-    sorter: (a, b) => a.date.localeCompare(b.date),
-    sortDirections: ['descend', 'ascend'],
-  },
-  {
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
@@ -74,6 +50,30 @@ const columns = [
     ],
     defaultFilteredValue: ['pending'],
     onFilter: (value, record) => statusFilter(value, record),
+  },
+  {
+    // Add in functionality for filter button for roles
+    title: 'Role',
+    dataIndex: 'role',
+    key: 'role',
+    filters: [
+      {
+        text: 'mentor',
+        value: 'mentor',
+      },
+      {
+        text: 'mentee',
+        value: 'mentee',
+      },
+    ],
+    onFilter: (value, record) => record.role.props.children === value,
+  },
+  {
+    title: 'Date Submitted',
+    dataIndex: 'date',
+    key: 'date',
+    sorter: (a, b) => a.date.localeCompare(b.date),
+    sortDirections: ['descend', 'ascend'],
   },
   {
     title: 'Application',
@@ -111,7 +111,7 @@ const Applications = () => {
           : (row.role_name = 'mentee');
       });
       setApplications(
-        Object.values(api.data.result).map(row => ({
+        Object.values(api.data).map(row => ({
           key: row.profile_id,
           first_name: row.first_name,
           last_name: row.last_name,
@@ -127,12 +127,6 @@ const Applications = () => {
           job_help: row.job_help,
           other_info: row.other_info,
           full_name: row.first_name + ' ' + row.last_name,
-          role: (
-            <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-              {row.role_name}
-            </Tag>
-          ),
-          date: convertDate(row.updated_at),
           status: (
             <Tag
               color={
@@ -146,6 +140,12 @@ const Applications = () => {
               {row.validate_status}
             </Tag>
           ),
+          role: (
+            <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
+              {row.role_name}
+            </Tag>
+          ),
+          date: convertDate(row.created_at),
           button: (
             <Button
               style={{
@@ -169,6 +169,7 @@ const Applications = () => {
           ),
         }))
       );
+      console.log(api.data);
     } catch (err) {
       // needs proper error handling
       console.error(err);
