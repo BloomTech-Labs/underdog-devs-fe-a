@@ -3,6 +3,7 @@ import { Modal } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
+  // eslint-disable-next-line no-unused-vars
   const [matchShow, setMatchShow] = useState(false);
   return (
     <>

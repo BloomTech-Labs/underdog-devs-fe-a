@@ -113,9 +113,7 @@ div.row2 .modalBtn:visited {
 .FieldValue span {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-}
-.addMentorContainer {
+  justify-content: flex-start;
 }
 .addMentorContainer .ant-btn-primary {
   background-color: #1e6eb1;

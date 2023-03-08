@@ -3,23 +3,22 @@ import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
-import MemosTable from '../../common/MemosTable';
+// import MemosTable from '../../common/MemosTable';
 import { API_URL } from '../../../config';
-import dummyData from '../MyMentees/data.json';
-import { useAuth0 } from '@auth0/auth0-react';
+// import dummyData from '../MyMentees/data.json';
+// import { useAuth0 } from '@auth0/auth0-react';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
-import { useHistory } from 'react-router-dom';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [updatedProfile, setUpdatedProfile] = useState();
   const { axiosWithAuth } = useAxiosWithAuth0();
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
   const dispatch = useDispatch();
-  const history = useHistory();
   const columns = [
     {
       title: 'Name',
@@ -95,6 +94,7 @@ const UserManagement = () => {
       ),
     },
   ];
+  // eslint-disable-next-line no-unused-vars
   function updateToAdmin(record) {
     const requestBody = {
       role_id: 2,
@@ -129,7 +129,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     getAccounts();
-  }, []);
+  });
 
   return (
     <>

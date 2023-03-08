@@ -17,7 +17,7 @@ const MentorMenteeMatching = () => {
       .then(res => {
         setAssignments(conformData(res.data));
       });
-  }, []);
+  });
 
   const resetModal = () => {
     setSelectedMentorKeys([]);

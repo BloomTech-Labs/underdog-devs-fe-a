@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Tag, Button, Divider } from 'antd';
-import UserModal from '../UserManagement/UserModal';
-import dummyData from '../MyMentees/data.json';
+// import UserModal from '../UserManagement/UserModal';
+// import dummyData from '../MyMentees/data.json';
 
 const MatchingModal = ({ matchShow, handleCancel, user }) => {
   return (

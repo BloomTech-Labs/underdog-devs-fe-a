@@ -26,7 +26,7 @@ const Reviews = () => {
         });
     };
     getReviews();
-  }, []);
+  });
 
   return (
     <>
