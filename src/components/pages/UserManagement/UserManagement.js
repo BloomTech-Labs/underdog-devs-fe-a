@@ -112,7 +112,6 @@ const UserManagement = () => {
     if (displayRole === 'mentee') {
       dispatch(getProfile('mentee'))
         .then(res => {
-          console.log(`RES`, res);
           setAccounts(
             res.map((row, idx) => ({
               key: idx,
