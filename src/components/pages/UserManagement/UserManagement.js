@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { useDispatch } from 'react-redux';
-import { Table, Button } from 'antd';
+import { Table, Button, Tag } from 'antd';
 import { API_URL } from '../../../config';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
@@ -110,37 +110,40 @@ const UserManagement = () => {
   });
 
   const getAccounts = () => {
-    // if (displayRole === 'mentee') {
-    //   dispatch(getProfile('mentee'))
-    //     .then(res => {
-    //       console.log(`RES`, res);
-    //       setAccounts(
-    //         res.map(row => ({
-    //           key: row.mentee.profile_id,
-    //           email: row.mentee.email,
-    //           role: 'mentee',
-    //           matches: row.mentor.length,
-    //           ...row.mentee,
-    //         }))
-    //       );
-    //     })
-    //     .catch(err => console.error(err));
-    // } else {
-    dispatch(getProfile('mentor'))
-      .then(res => {
-        console.log(`RES`, res);
-        setAccounts(
-          res.map(row => ({
-            name: `${row.mentor.first_name} ${row.mentor.last_name}`,
-            email: row.mentor.email,
-            role: 'mentor',
-            matches: row.mentees.length,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-    console.log(`Accounts`, accounts);
-    // }
+    if (displayRole === 'mentee') {
+      dispatch(getProfile('mentee'))
+        .then(res => {
+          console.log(`RES`, res);
+          setAccounts(
+            res.map((row, idx) => ({
+              key: idx,
+              email: row.mentee.email,
+              role: 'mentee',
+              matches: row.mentor.length || (
+                <Tag color={'red'}>Not Matched</Tag>
+              ),
+              ...row.mentee,
+            }))
+          );
+        })
+        .catch(err => console.error(err));
+    } else {
+      dispatch(getProfile('mentor'))
+        .then(res => {
+          setAccounts(
+            res.map((row, idx) => ({
+              key: idx,
+              name: `${row.mentor.first_name} ${row.mentor.last_name}`,
+              email: row.mentor.email,
+              role: 'mentor',
+              matches: row.mentees.length || (
+                <Tag color={'red'}>Not Matched</Tag>
+              ),
+            }))
+          );
+        })
+        .catch(err => console.error(err));
+    }
   };
   return (
     <>
