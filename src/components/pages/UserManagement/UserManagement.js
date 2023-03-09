@@ -20,8 +20,8 @@ const UserManagement = () => {
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
+      dataIndex: 'name',
+      key: 'name',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
@@ -32,7 +32,7 @@ const UserManagement = () => {
             setUser(record);
             setUserShow(true);
           }}
-        >{`${record.mentor.first_name} ${record.mentor.last_name}`}</p>
+        >{`${record.name}`}</p>
       ),
     },
     {
@@ -137,26 +137,26 @@ const UserManagement = () => {
             matches: row.mentees.length,
           }))
         );
-        console.log(`Accounts`, accounts);
       })
       .catch(err => console.error(err));
+    console.log(`Accounts`, accounts);
     // }
-    return (
-      <>
-        <h2>Manage Users</h2>
-        <Table columns={columns} dataSource={accounts} />
-        <UserModal
-          userShow={userShow}
-          handleCancel={() => setUserShow(false)}
-          user={user}
-        />
-        <MatchingModal
-          matchShow={matchShow}
-          handleCancel={() => setMatchShow(false)}
-          user={user}
-        />
-      </>
-    );
   };
+  return (
+    <>
+      <h2>Manage Users</h2>
+      <Table columns={columns} dataSource={accounts} />
+      <UserModal
+        userShow={userShow}
+        handleCancel={() => setUserShow(false)}
+        user={user}
+      />
+      <MatchingModal
+        matchShow={matchShow}
+        handleCancel={() => setMatchShow(false)}
+        user={user}
+      />
+    </>
+  );
 };
 export default UserManagement;
