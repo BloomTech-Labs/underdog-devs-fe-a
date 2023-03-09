@@ -3,23 +3,20 @@ import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { useDispatch } from 'react-redux';
 import { Table, Button } from 'antd';
-import MemosTable from '../../common/MemosTable';
 import { API_URL } from '../../../config';
-import dummyData from '../MyMentees/data.json';
-import { useAuth0 } from '@auth0/auth0-react';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
-import { useHistory } from 'react-router-dom';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   const [updatedProfile, setUpdatedProfile] = useState();
-  const { axiosWithAuth } = useAxiosWithAuth0();
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
+  const [displayRole, setDisplayRole] = useState('mentor');
+  const { axiosWithAuth } = useAxiosWithAuth0();
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const columns = [
     {
       title: 'Name',
@@ -35,7 +32,7 @@ const UserManagement = () => {
             setUser(record);
             setUserShow(true);
           }}
-        >{`${record.first_name} ${record.last_name}`}</p>
+        >{`${record.mentor.first_name} ${record.mentor.last_name}`}</p>
       ),
     },
     {
@@ -106,47 +103,59 @@ const UserManagement = () => {
       })
       .catch(err => console.error(err));
   }
-  /**
-   * Author: Khaleel Musleh
-   * @param {getAccounts}
-   * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
-   */
-  const getAccounts = () => {
-    dispatch(getProfile())
-      .then(res => {
-        console.log(`PROFILES`, res);
-        setAccounts(
-          res.map(row => ({
-            key: row.profile_id,
-            email: row.email,
-            role: 'Something Important',
-            matches: 'Maybe',
-            ...row,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
 
   useEffect(() => {
     getAccounts();
   }, []);
 
-  return (
-    <>
-      <h2>Manage Users</h2>
-      <Table columns={columns} dataSource={accounts} />
-      <UserModal
-        userShow={userShow}
-        handleCancel={() => setUserShow(false)}
-        user={user}
-      />
-      <MatchingModal
-        matchShow={matchShow}
-        handleCancel={() => setMatchShow(false)}
-        user={user}
-      />
-    </>
-  );
+  const getAccounts = () => {
+    // if (displayRole === 'mentee') {
+    //   dispatch(getProfile('mentee'))
+    //     .then(res => {
+    //       console.log(`RES`, res);
+    //       setAccounts(
+    //         res.map(row => ({
+    //           key: row.mentee.profile_id,
+    //           email: row.mentee.email,
+    //           role: 'mentee',
+    //           matches: row.mentor.length,
+    //           ...row.mentee,
+    //         }))
+    //       );
+    //     })
+    //     .catch(err => console.error(err));
+    // } else {
+    dispatch(getProfile('mentor'))
+      .then(res => {
+        console.log(`RES`, res);
+        setAccounts(
+          res.map(row => ({
+            name: `${row.mentor.first_name} ${row.mentor.last_name}`,
+            email: row.mentor.email,
+            role: 'mentor',
+            matches: row.mentees.length,
+          }))
+        );
+        console.log(`Accounts`, accounts);
+      })
+      .catch(err => console.error(err));
+    // }
+    return (
+      <>
+        <h2>Manage Users</h2>
+        <Table columns={columns} dataSource={accounts} />
+        <UserModal
+          userShow={userShow}
+          handleCancel={() => setUserShow(false)}
+          user={user}
+        />
+        <MatchingModal
+          matchShow={matchShow}
+          handleCancel={() => setMatchShow(false)}
+          user={user}
+        />
+      </>
+    );
+  };
 };
 export default UserManagement;
