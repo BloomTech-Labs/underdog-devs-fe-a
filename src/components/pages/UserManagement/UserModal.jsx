@@ -34,7 +34,12 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         className="UserModal"
       >
         <div style={{ padding: '0px 20px' }}>
-          <span>{`Mentor / 3 Matches     `} </span>
+          <span>
+            {`Mentor / ${user.matches} ${
+              user.matches === 1 ? 'Match' : 'Matches'
+            } `}
+            {''}
+          </span>
           <button onClick={() => <MatchingModal />}>Edit Matches</button>{' '}
         </div>
         <div className="UserTable">
@@ -43,7 +48,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
             <p
               className="FieldValue"
               // onClick={() => userShow(user)}
-            >{`${user?.first_name} ${user?.last_name}`}</p>
+            >{`${user?.name}`}</p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Email</div>
