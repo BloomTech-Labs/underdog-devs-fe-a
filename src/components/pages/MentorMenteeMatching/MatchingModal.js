@@ -53,13 +53,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
             </div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Mentorship Topics</div>
-              <p className="FieldValue">
-                {user?.tech_stack?.map(stack => (
-                  <>
-                    <span>{stack}</span>
-                  </>
-                ))}
-              </p>
+              <p className="FieldValue">{<span>{user?.tech_stack}</span>}</p>
             </div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Other Topics</div>
@@ -151,13 +145,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Mentorship Topics</div>
-            <p className="FieldValue">
-              {user?.tech_stack?.map(stack => (
-                <>
-                  <span>{stack}</span> <br />
-                </>
-              ))}
-            </p>
+            <p className="FieldValue">{<span>{user?.tech_stack}</span>}</p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Other Topics</div>

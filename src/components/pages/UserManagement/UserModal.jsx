@@ -40,7 +40,10 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         <div className="UserTable">
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
-            <p className="FieldValue">{`${user?.first_name} ${user?.last_name}`}</p>
+            <p
+              className="FieldValue"
+              // onClick={() => userShow(user)}
+            >{`${user?.first_name} ${user?.last_name}`}</p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Email</div>
@@ -56,13 +59,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Mentorship Topics</div>
-            <p className="FieldValue">
-              {user?.tech_stack?.map(stack => (
-                <>
-                  <span>{stack}</span> <br />
-                </>
-              ))}
-            </p>
+            <p className="FieldValue">{<span>{user?.tech_stack}</span>}</p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Commit?</div>

@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { useDispatch } from 'react-redux';
-import { Table, Button } from 'antd';
-// import MemosTable from '../../common/MemosTable';
+import { Table, Button, Tag } from 'antd';
 import { API_URL } from '../../../config';
-// import dummyData from '../MyMentees/data.json';
-// import { useAuth0 } from '@auth0/auth0-react';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
@@ -14,16 +11,18 @@ const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [updatedProfile, setUpdatedProfile] = useState();
-  const { axiosWithAuth } = useAxiosWithAuth0();
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
+  const [displayRole, setDisplayRole] = useState('mentor');
+  const { axiosWithAuth } = useAxiosWithAuth0();
   const dispatch = useDispatch();
+
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
+      dataIndex: 'name',
+      key: 'name',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
@@ -34,7 +33,7 @@ const UserManagement = () => {
             setUser(record);
             setUserShow(true);
           }}
-        >{`${record.first_name} ${record.last_name}`}</p>
+        >{`${record.name}`}</p>
       ),
     },
     {
@@ -106,31 +105,46 @@ const UserManagement = () => {
       })
       .catch(err => console.error(err));
   }
-  /**
-   * Author: Khaleel Musleh
-   * @param {getAccounts}
-   * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
-   */
-  const getAccounts = () => {
-    dispatch(getProfile())
-      .then(res => {
-        setAccounts(
-          res.map(row => ({
-            key: row.profile_id,
-            email: row.email,
-            role: 'Something Important',
-            matches: 'Maybe',
-            ...row,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
 
   useEffect(() => {
     getAccounts();
   });
 
+  const getAccounts = () => {
+    if (displayRole === 'mentee') {
+      dispatch(getProfile('mentee'))
+        .then(res => {
+          setAccounts(
+            res.map((row, idx) => ({
+              key: idx,
+              email: row.mentee.email,
+              role: 'mentee',
+              matches: row.mentor.length || (
+                <Tag color={'red'}>Not Matched</Tag>
+              ),
+              ...row.mentee,
+            }))
+          );
+        })
+        .catch(err => console.error(err));
+    } else {
+      dispatch(getProfile('mentor'))
+        .then(res => {
+          setAccounts(
+            res.map((row, idx) => ({
+              key: idx,
+              name: `${row.mentor.first_name} ${row.mentor.last_name}`,
+              email: row.mentor.email,
+              role: 'mentor',
+              matches: row.mentees.length || (
+                <Tag color={'red'}>Not Matched</Tag>
+              ),
+            }))
+          );
+        })
+        .catch(err => console.error(err));
+    }
+  };
   return (
     <>
       <h2>Manage Users</h2>

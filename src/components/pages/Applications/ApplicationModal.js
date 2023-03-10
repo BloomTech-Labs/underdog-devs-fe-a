@@ -24,7 +24,7 @@ const ApplicationModal = ({
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
 
-  const axiosWithAuth = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   // const dispatch = useDispatch();
 
@@ -93,7 +93,7 @@ const ApplicationModal = ({
    */
 
   const handleApplication = status => {
-    axiosWithAuth
+    axiosWithAuth()
       .post(`${API_URL}application/update-validate_status/${profileId}`, status)
       .then(res => {
         setDisplayModal(false);
