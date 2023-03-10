@@ -138,6 +138,7 @@ const UserManagement = () => {
               matches: row.mentees.length || (
                 <Tag color={'red'}>Not Matched</Tag>
               ),
+              ...row.mentor,
             }))
           );
         })
