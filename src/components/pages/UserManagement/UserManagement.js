@@ -9,6 +9,7 @@ import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [updatedProfile, setUpdatedProfile] = useState();
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
@@ -92,6 +93,7 @@ const UserManagement = () => {
       ),
     },
   ];
+  // eslint-disable-next-line no-unused-vars
   function updateToAdmin(record) {
     const requestBody = {
       role_id: 2,
@@ -106,7 +108,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     getAccounts();
-  }, []);
+  });
 
   const getAccounts = () => {
     if (displayRole === 'mentee') {

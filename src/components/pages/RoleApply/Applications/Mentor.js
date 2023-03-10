@@ -54,9 +54,8 @@ const initialFormValues = {
 };
 
 const Mentor = ({ dispatch, error }) => {
-  const { formValues, newMentor, handleChange, handleTechStack } = useForms(
-    initialFormValues
-  );
+  const { formValues, newMentor, handleChange, handleTechStack } =
+    useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
@@ -318,7 +317,7 @@ const Mentor = ({ dispatch, error }) => {
 
             {/*CheckBoxes*/}
             <Row>
-              <Col className="mentorshipArea" md={12} xs={24}>
+              <Col md={12} xs={24}>
                 <Form.Item
                   size="medium"
                   className="form-group"
@@ -336,26 +335,27 @@ const Mentor = ({ dispatch, error }) => {
                       message: 'Tech stack is required.',
                     },
                   ]}
-                ></Form.Item>
-                <Checkbox.Group
-                  style={{
-                    display: 'flex',
-                    flexFlow: 'column',
-                    width: 'auto',
-                    gap: '.5rem',
-                    paddingLeft: '1rem',
-                  }}
                 >
-                  {mentorshipArray.map(checkbox => (
-                    <Checkbox
-                      value={checkbox.value}
-                      onChange={e => handleTechStack(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      {checkbox.value}
-                    </Checkbox>
-                  ))}
-                </Checkbox.Group>
+                  <Checkbox.Group
+                    style={{
+                      display: 'flex',
+                      flexFlow: 'column',
+                      width: 'auto',
+                      gap: '.5rem',
+                      paddingLeft: '1rem',
+                    }}
+                  >
+                    {mentorshipArray.map(checkbox => (
+                      <Checkbox
+                        value={checkbox.value}
+                        onChange={e => handleTechStack(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        {checkbox.value}
+                      </Checkbox>
+                    ))}
+                  </Checkbox.Group>
+                </Form.Item>
               </Col>
 
               <Col md={12} xs={24}>
@@ -376,26 +376,27 @@ const Mentor = ({ dispatch, error }) => {
                       message: 'Possible contribution is required.',
                     },
                   ]}
-                ></Form.Item>
-                <Checkbox.Group
-                  style={{
-                    display: 'flex',
-                    flexFlow: 'column',
-                    width: 'auto',
-                    gap: '.5rem',
-                    paddingLeft: '1rem',
-                  }}
                 >
-                  {contributionArray.map(area => (
-                    <Checkbox
-                      value={area.name}
-                      onChange={e => handleChange(e, 'checkbox')}
-                      style={{ margin: '.2rem', width: '100%' }}
-                    >
-                      {area.value}
-                    </Checkbox>
-                  ))}
-                </Checkbox.Group>
+                  <Checkbox.Group
+                    style={{
+                      display: 'flex',
+                      flexFlow: 'column',
+                      width: 'auto',
+                      gap: '.5rem',
+                      paddingLeft: '1rem',
+                    }}
+                  >
+                    {contributionArray.map(area => (
+                      <Checkbox
+                        value={area.name}
+                        onChange={e => handleChange(e, 'checkbox')}
+                        style={{ margin: '.2rem', width: '100%' }}
+                      >
+                        {area.value}
+                      </Checkbox>
+                    ))}
+                  </Checkbox.Group>
+                </Form.Item>
               </Col>
               <Divider />
               <Col md={24} xs={24}>

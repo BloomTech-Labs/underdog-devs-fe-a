@@ -34,7 +34,6 @@ import MenteeAddReview from './components/pages/AddReviews/MenteeAddReview';
 import MentorAddReview from './components/pages/AddReviews/MentorAddReview';
 import Applications from './components/pages/Applications/Applications';
 import SupportRequests from './components/pages/SupportRequests/SupportRequests';
-import TicketDashboard from './components/pages/TicketsDashboard/TicketsDashboard';
 import Analytics from './components/pages/Analytics/Analytics';
 import AppSuccess from './components/pages/RoleApply/Applications/AppSuccess';
 import ScheduleMeeting from './components/common/ScheduleMeeting';
