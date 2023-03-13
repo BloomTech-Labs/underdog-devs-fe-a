@@ -3,8 +3,8 @@ import './Styles/apply.css';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
-import img1 from '../../../images/pexels-photo-7504837.webp';
-import img2 from '../../../images/pexels-photo-1181337.webp';
+import img1 from '../../../images/pexels-photo-7504837.png';
+import img2 from '../../../images/pexels-photo-1181337 2.png';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
