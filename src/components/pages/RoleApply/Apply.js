@@ -34,7 +34,7 @@ const Apply = () => {
               <img
                 alt="example"
                 className="card-img"
-                src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+                src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=650&w=940"
                 // style={{ height: '100%' }}
               />
             }
@@ -69,7 +69,7 @@ const Apply = () => {
               <img
                 alt="example"
                 className="card-img"
-                src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=650&w=950"
                 // style={{ height: '100%' }}
               />
             }
