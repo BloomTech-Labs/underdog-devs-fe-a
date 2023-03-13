@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
-import { Table, Button, Tag } from 'antd';
+import { Table, Button, Tag, Switch } from 'antd';
 // import axios from 'axios';
+
+const onChange = checked => {
+  console.log(`switch to ${checked}`);
+};
 
 // Filter by status
 const statusFilter = (value, record) => {
@@ -182,6 +186,8 @@ const Applications = () => {
   return (
     <>
       <h2>Applications</h2>
+      <span>Show only pending: </span>
+      <Switch defaultChecked onChange={onChange} />
       <ApplicationModal
         displayModal={modalIsVisible}
         setDisplayModal={setModalIsVisible}
