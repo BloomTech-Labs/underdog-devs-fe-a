@@ -6,7 +6,7 @@ import {
   ContainerOutlined,
   DashboardOutlined,
   FormOutlined,
-  QuestionCircleOutlined,
+  LineChartOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons';
 
@@ -30,9 +30,9 @@ export const sharedLinks = [
 
 export const bottomSharedLinks = [
   {
-    key: '/support',
+    key: '/analytics',
     label: 'Insights',
-    icon: <QuestionCircleOutlined />,
+    icon: <LineChartOutlined />,
   },
 ];
 
