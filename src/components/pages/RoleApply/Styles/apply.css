@@ -32,11 +32,7 @@
 
 .card-img {
   max-height: 70vh;
-  max-width: 90vw;
-}
-
-.card1 .card-img {
-  width: 98.2%;
+  max-width: 100%;
 }
 
 .title {

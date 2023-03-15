@@ -3,8 +3,6 @@ import './Styles/apply.css';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col, Space, Breadcrumb } from 'antd';
 import { LoginOutlined, IdcardOutlined } from '@ant-design/icons';
-import img1 from '../../../images/pexels-photo-7504837.png';
-import img2 from '../../../images/pexels-photo-1181337.png';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -36,7 +34,7 @@ const Apply = () => {
               <img
                 alt="example"
                 className="card-img"
-                src={img1}
+                src="https://images.pexels.com/photos/7504837/pexels-photo-7504837.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
                 // style={{ height: '100%' }}
               />
             }
@@ -71,7 +69,7 @@ const Apply = () => {
               <img
                 alt="example"
                 className="card-img"
-                src={img2}
+                src="https://images.pexels.com/photos/1181337/pexels-photo-1181337.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
                 // style={{ height: '100%' }}
               />
             }
