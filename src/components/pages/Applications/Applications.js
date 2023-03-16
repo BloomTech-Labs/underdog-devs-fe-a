@@ -53,10 +53,96 @@ const Applications = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
   const [isToggled, setIsToggled] = useState(true);
+  const [pendingOnly, setPendingOnly] = useState(true);
   const { axiosWithAuth } = useAxiosWithAuth0();
+
+  // Filter by status
+  const statusFilter = (value, record) => {
+    if (Array.isArray(value)) {
+      return (
+        record.status.props.children === value[0] ||
+        record.status.props.children === value[1] ||
+        record.status.props.children === value[2]
+      );
+    } else {
+      return record.status.props.children === value;
+    }
+  };
+
+  const selectionHandler = () => {
+    if (pendingOnly === false) {
+      return ['pending', 'approved', 'rejected'];
+    } else return ['pending'];
+  };
+
+  const columns = [
+    // Names sorting by alphabetical order
+    {
+      title: 'Name',
+      dataIndex: 'full_name',
+      key: 'full_name',
+      sorter: (a, b) => a.full_name.localeCompare(b.full_name),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      // Add in functionality for filter button for roles
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
+      filters: [
+        {
+          text: 'mentor',
+          value: 'mentor',
+        },
+        {
+          text: 'mentee',
+          value: 'mentee',
+        },
+      ],
+      onFilter: (value, record) => record.role.props.children === value,
+    },
+    {
+      title: 'Date Updated',
+      dataIndex: 'date',
+      key: 'date',
+      sorter: (a, b) => a.date.localeCompare(b.date),
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      filters: [
+        {
+          text: 'pending',
+          value: 'pending',
+        },
+        {
+          text: 'approved',
+          value: 'approved',
+        },
+        {
+          text: 'rejected',
+          value: 'rejected',
+        },
+        {
+          text: 'show all',
+          value: ['pending', 'approved', 'rejected'],
+        },
+      ],
+      filteredValue: selectionHandler(),
+      onFilter: (value, record) => statusFilter(value, record),
+    },
+    {
+      title: 'Application',
+      dataIndex: 'button',
+      key: 'button',
+    },
+  ];
 
   const onToggle = () => {
     setIsToggled(!isToggled);
+    setPendingOnly(!pendingOnly);
   };
 
   const showModal = profile_id => {
