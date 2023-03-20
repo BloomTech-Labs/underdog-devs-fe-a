@@ -102,7 +102,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
 
   const reloadLogo = () => {
     //*******************/
-    history.push('/');
+    history.push('/dashboard');
     document.location.reload();
     //*******************/
 
