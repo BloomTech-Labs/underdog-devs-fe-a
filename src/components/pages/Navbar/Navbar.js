@@ -43,10 +43,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
         );
 
         setUser(user.data);
-
-        // The following code was taken from the userProfile redux action file
         setFetchStart();
-        axiosWithAuth
+        axiosWithAuth()
           .get(`${API_URL}profile/${user.data.profile_id}`)
           .then(res => {
             if (res.data) {
@@ -101,12 +99,8 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
   const reloadLogo = () => {
-    //*******************/
     history.push('/dashboard');
     document.location.reload();
-    //*******************/
-
-    //isAuthenticated ? history.push('/') : document.location.reload();
   };
 
   if (!user) {
