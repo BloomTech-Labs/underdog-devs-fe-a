@@ -1,6 +1,12 @@
-export const SET_ALL_USERS = 'SET_USER_PROFILE';
+export const SET_ALL_USERS = 'SET_ALL_USERS';
 
 export const setAllUsers = list => {
-  console.log(`FROM REDUX`, list);
-  return { type: SET_ALL_USERS, payload: list };
+  let payload = list.map(row => {
+    return {
+      name: `${row.first_name} ${row.last_name}`,
+      numberOfMatches: row.matches.length,
+      ...row,
+    };
+  });
+  return { type: SET_ALL_USERS, payload };
 };
