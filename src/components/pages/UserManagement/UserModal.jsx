@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
+  const [matchShow, setMatchShow] = useState(false);
+  const [newUserShow, setNewUserShow] = useState(userShow);
+
+  console.log(`USERSHOW TEST`, userShow);
   return (
     <>
       <Modal
@@ -38,7 +42,14 @@ const UserModal = ({ userShow, handleCancel, user }) => {
             } `}
             {''}
           </span>
-          <button onClick={() => <MatchingModal />}>Edit Matches</button>{' '}
+          <button
+            onClick={() => {
+              setNewUserShow(false);
+              setMatchShow(true);
+            }}
+          >
+            Edit Matches
+          </button>{' '}
         </div>
         <div className="UserTable">
           <div span={24} className="customCol">
@@ -79,11 +90,13 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         </div>
       </Modal>
 
-      {/* <MatchingModal
-        matchShow={matchShow}
-        handleCancel={setMatchShow(false)}
-        user={user}
-      /> */}
+      {matchShow ? (
+        <MatchingModal
+          matchShow={matchShow}
+          handleCancel={() => setMatchShow(false)}
+          user={user}
+        />
+      ) : null}
     </>
   );
 };
