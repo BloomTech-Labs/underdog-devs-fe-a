@@ -3,7 +3,6 @@ import { Modal } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
-  console.log(`USER`, user);
   return (
     <>
       <Modal
