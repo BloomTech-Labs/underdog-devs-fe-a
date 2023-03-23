@@ -106,7 +106,6 @@ const UserManagement = ({ allUsers }) => {
       ),
     },
   ];
-
   return (
     <>
       <h2>Manage Users</h2>
