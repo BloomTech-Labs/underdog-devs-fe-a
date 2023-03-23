@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 import { Table, Button, Tag } from 'antd';
-import { API_URL } from '../../../config';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = () => {
-  const [accounts, setAccounts] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [updatedProfile, setUpdatedProfile] = useState();
+const UserManagement = ({ allUsers }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
-  const [user, setUser] = useState();
-  const [displayRole, setDisplayRole] = useState('mentor');
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const [user, setUser] = useState('');
   const dispatch = useDispatch();
+
+  const getAccounts = () => {
+    dispatch(getAllUsers());
+  };
+
+  useEffect(() => {
+    getAccounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const columns = [
     {
       title: 'Name',
@@ -68,7 +71,7 @@ const UserManagement = () => {
     },
     {
       title: 'Matches',
-      dataIndex: 'matches',
+      dataIndex: 'numberOfMatches',
       defaultSortOrder: 'descend',
       filters: [
         {
@@ -93,33 +96,10 @@ const UserManagement = () => {
     },
   ];
 
-  const getAccounts = () => {
-    console.log(`GET ACCOUNTS`);
-    dispatch(getAllUsers())
-      .then(res => {
-        console.log(`RES FROM COMPONENT`, res);
-        setAccounts(
-          res.map((row, idx) => ({
-            key: idx,
-            email: row.mentee.email,
-            role: 'mentee',
-            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
-            ...row.mentee,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
-
-  useEffect(() => {
-    getAccounts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <h2>Manage Users</h2>
-      <Table columns={columns} dataSource={accounts} />
+      <Table columns={columns} dataSource={allUsers} />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}
@@ -134,4 +114,8 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+const mapStateToProps = state => {
+  return { allUsers: state.user.allUsers };
+};
+
+export default connect(mapStateToProps)(UserManagement);
