@@ -11,7 +11,7 @@ const UserManagement = ({ allUsers }) => {
   const [user, setUser] = useState('');
   const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
-  console.log(displayRole);
+
   const getAccounts = role => {
     dispatch(getAllUsers(role));
   };
