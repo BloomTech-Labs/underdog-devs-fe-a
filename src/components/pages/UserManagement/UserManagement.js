@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch, connect } from 'react-redux';
-import { Table, Button, Tag } from 'antd';
+import { Table, Button, Tag, Switch } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
@@ -9,16 +9,27 @@ const UserManagement = ({ allUsers }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState('');
+  const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
+  console.log(displayRole);
+  const getAccounts = role => {
+    dispatch(getAllUsers(role));
+  };
 
-  const getAccounts = () => {
-    dispatch(getAllUsers());
+  const handleChange = () => {
+    displayRole === 'Mentors'
+      ? setDisplayRole('Mentees')
+      : setDisplayRole('Mentors');
   };
 
   useEffect(() => {
-    getAccounts();
+    if (displayRole === 'Mentors') {
+      getAccounts('mentor');
+    } else {
+      getAccounts('mentee');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [displayRole]);
 
   const columns = [
     {
@@ -99,6 +110,12 @@ const UserManagement = ({ allUsers }) => {
   return (
     <>
       <h2>Manage Users</h2>
+      <Switch
+        checkedChildren={`${displayRole}`}
+        unCheckedChildren={`${displayRole}`}
+        onChange={() => handleChange()}
+        defaultChecked
+      />
       <Table columns={columns} dataSource={allUsers} />
       <UserModal
         userShow={userShow}
