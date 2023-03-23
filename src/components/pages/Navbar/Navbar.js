@@ -17,10 +17,10 @@ import NavbarItems from './NavbarItems';
 const { Header } = Layout;
 
 const Navbar = ({ userProfile, getProfile, currentUser }) => {
-  const [user, setUser] = useState({});
+  const [appUser, setAppUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
@@ -38,35 +38,54 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
   useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        const user = await axiosWithAuth().get(
-          `/profile/current_user_profile/`
-        );
+        // const user = await axiosWithAuth().get(
+        //   `/profile/current_user_profile/`
+        // );
+        // const currentUser = user;
+        console.log(user);
 
-        setUser(user.data);
+        // setAppUser(currentUser);
 
-        // The following code was taken from the userProfile redux action file
-        setFetchStart();
-        axiosWithAuth
-          .get(`${API_URL}profile/${user.data.profile_id}`)
-          .then(res => {
-            if (res.data) {
-              getProfile(res.data);
-            }
+        axiosWithAuth()
+          .post('/profile/current_user_profile', user)
+          .then(profile => {
+            console.log(
+              `profile/current_user_profile res: ${profile.data.profile_id}`
+            );
+            setAppUser({
+              ...user,
+              role: profile.data.role,
+              user_id: profile.data.user_id,
+            });
           })
           .catch(err => {
-            setFetchError(err);
-          })
-          .finally(() => {
-            setFetchEnd();
+            console.error(err);
           });
+        console.log(appUser);
+
+        // The following code was taken from the userProfile redux action file
+        // setFetchStart();
+        // axiosWithAuth
+        //   .get(`${API_URL}profile/${user.data.profile_id}`)
+        //   .then(res => {
+        //     if (res.data) {
+        //       getProfile(res.data);
+        //     }
+        //   })
+        //   .catch(err => {
+        //     setFetchError(err);
+        //   })
+        //   .finally(() => {
+        //     setFetchEnd();
+        //   });
       }
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.values(currentUser).length]);
 
-  const profile_id = user.profile_id;
-  const isMentor = user.role_id === 3;
+  const profile_id = currentUser.profile_id;
+  const isMentor = currentUser.role_id === 3;
 
   const menuItems = [
     {
@@ -109,7 +128,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     //isAuthenticated ? history.push('/') : document.location.reload();
   };
 
-  if (!user) {
+  if (!currentUser) {
     return <NavbarItems />;
   } else {
     return (
@@ -125,6 +144,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   style={{ marginLeft: '1em' }}
                   role="button"
                 />
+                <p>testp</p>
               </div>
               {isMentor && (
                 <Popover
@@ -145,7 +165,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 </Popover>
               )}
 
-              {Object.keys(user).length ? (
+              {Object.keys(currentUser).length ? (
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={accountMenu} placement="bottom" arrow>
                     <div className="userInfo-and-profilePic">

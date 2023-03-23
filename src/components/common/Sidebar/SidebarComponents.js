@@ -46,13 +46,13 @@ const AdminComponents = {
   3: <ManageResources />,
   4: <Applications />,
   5: <MentorMenteeMatching />,
-  6: <UserManagement />,
-  7: <div>"View Support Requests" Component goes here</div>,
-  8: <div>"View All Meetings" Component goes here</div>,
-  9: <Profile />,
-  10: <div>Do we need Account settings?</div>,
-  11: <Attendance />,
-  12: <Reviews />,
+  // 6: <UserManagement />,
+  6: <div>"View Support Requests" Component goes here</div>,
+  7: <div>"View All Meetings" Component goes here</div>,
+  8: <Profile />,
+  9: <div>Do we need Account settings?</div>,
+  10: <Attendance />,
+  11: <Reviews />,
 };
 
 export { AdminComponents, MentorComponents, MenteeComponents };
