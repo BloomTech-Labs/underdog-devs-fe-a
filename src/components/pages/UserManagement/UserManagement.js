@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import { useDispatch } from 'react-redux';
 import { Table, Button, Tag } from 'antd';
@@ -9,13 +8,9 @@ import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserManagement = () => {
   const [accounts, setAccounts] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [updatedProfile, setUpdatedProfile] = useState();
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
-  const [displayRole, setDisplayRole] = useState('mentor');
-  const { axiosWithAuth } = useAxiosWithAuth0();
   const dispatch = useDispatch();
 
   const columns = [
@@ -93,57 +88,25 @@ const UserManagement = () => {
       ),
     },
   ];
-  // eslint-disable-next-line no-unused-vars
-  function updateToAdmin(record) {
-    const requestBody = {
-      role_id: 2,
-    };
-    axiosWithAuth()
-      .put(`${API_URL}profile/${record.key}`, requestBody)
-      .then(res => {
-        setUpdatedProfile(res);
-      })
-      .catch(err => console.error(err));
-  }
 
   useEffect(() => {
     getAccounts();
   });
 
   const getAccounts = () => {
-    if (displayRole === 'mentee') {
-      dispatch(getProfile('mentee'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              email: row.mentee.email,
-              role: 'mentee',
-              matches: row.mentor.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-              ...row.mentee,
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    } else {
-      dispatch(getProfile('mentor'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              name: `${row.mentor.first_name} ${row.mentor.last_name}`,
-              email: row.mentor.email,
-              role: 'mentor',
-              matches: row.mentees.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    }
+    dispatch(getProfile('mentee'))
+      .then(res => {
+        setAccounts(
+          res.map((row, idx) => ({
+            key: idx,
+            email: row.mentee.email,
+            role: 'mentee',
+            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
+            ...row.mentee,
+          }))
+        );
+      })
+      .catch(err => console.error(err));
   };
   return (
     <>
