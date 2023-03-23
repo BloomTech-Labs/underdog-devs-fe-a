@@ -6,7 +6,6 @@ const UserModal = ({ userShow, handleCancel, user }) => {
   const [matchShow, setMatchShow] = useState(false);
   const [newUserShow, setNewUserShow] = useState(userShow);
 
-  console.log(`USERSHOW TEST`, userShow);
   return (
     <>
       <Modal
