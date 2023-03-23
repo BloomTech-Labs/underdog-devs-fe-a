@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Tag, Button, Divider } from 'antd';
-// import UserModal from '../UserManagement/UserModal';
-// import dummyData from '../MyMentees/data.json';
+import { useDispatch, connect } from 'react-redux';
+import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 
 const MatchingModal = ({ matchShow, handleCancel, user }) => {
+  const [matches, setMatches] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserMatches(user.matches, user.role));
+  }, [user]);
+
   return (
     <Modal
       title={
@@ -32,7 +39,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
       className="UserModal"
     >
       <div className="MatchingModal">
-        <div className="UserTable MenteeTable">
+        <div className="UserTable">
           <div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Name</div>
@@ -112,7 +119,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
           </div>
         </div>
         <br />
-        <div className="UserTable MentorTable">
+        <div className="UserTable">
           <div className="addMentorContainer">
             <Button className="ant-btn-primary">Add as a Match</Button>
           </div>
@@ -161,4 +168,10 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
     </Modal>
   );
 };
-export default MatchingModal;
+
+const mapStateToProps = state => {
+  console.log(`MAP STATE`, state.user.allUserMatches);
+  return { allUserMatches: state };
+};
+
+export default connect(mapStateToProps)(MatchingModal);
