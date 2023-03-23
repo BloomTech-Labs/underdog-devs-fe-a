@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch } from 'react-redux';
 import { Table, Button, Tag } from 'antd';
 import { API_URL } from '../../../config';
@@ -92,59 +92,30 @@ const UserManagement = () => {
       ),
     },
   ];
-  // eslint-disable-next-line no-unused-vars
-  function updateToAdmin(record) {
-    const requestBody = {
-      role_id: 2,
-    };
-    axiosWithAuth()
-      .put(`${API_URL}profile/${record.key}`, requestBody)
+
+  const getAccounts = () => {
+    console.log(`GET ACCOUNTS`);
+    dispatch(getAllUsers())
       .then(res => {
-        setUpdatedProfile(res);
+        console.log(`RES FROM COMPONENT`, res);
+        setAccounts(
+          res.map((row, idx) => ({
+            key: idx,
+            email: row.mentee.email,
+            role: 'mentee',
+            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
+            ...row.mentee,
+          }))
+        );
       })
       .catch(err => console.error(err));
-  }
+  };
 
   useEffect(() => {
     getAccounts();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const getAccounts = () => {
-    if (displayRole === 'mentee') {
-      dispatch(getProfile('mentee'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              email: row.mentee.email,
-              role: 'mentee',
-              matches: row.mentor.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-              ...row.mentee,
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    } else {
-      dispatch(getProfile('mentor'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              name: `${row.mentor.first_name} ${row.mentor.last_name}`,
-              email: row.mentor.email,
-              role: 'mentor',
-              matches: row.mentees.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-              ...row.mentor,
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    }
-  };
   return (
     <>
       <h2>Manage Users</h2>
@@ -162,4 +133,5 @@ const UserManagement = () => {
     </>
   );
 };
+
 export default UserManagement;

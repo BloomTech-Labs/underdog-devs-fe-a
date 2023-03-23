@@ -81,6 +81,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: action.payload,
       };
+    case ACTIONS.SET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: action.payload,
+      };
     default:
       return state;
   }
