@@ -86,6 +86,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         allUsers: action.payload,
       };
+    case ACTIONS.SET_USER_MATCHES:
+      return {
+        ...state,
+        allUserMatches: action.payload,
+      };
     default:
       return state;
   }
