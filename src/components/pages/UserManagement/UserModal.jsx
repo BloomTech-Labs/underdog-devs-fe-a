@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [matchShow, setMatchShow] = useState(false);
+  console.log(`USER`, user);
   return (
     <>
       <Modal
@@ -35,8 +34,8 @@ const UserModal = ({ userShow, handleCancel, user }) => {
       >
         <div style={{ padding: '0px 20px' }}>
           <span>
-            {`Mentor / ${user.matches} ${
-              user.matches === 1 ? 'Match' : 'Matches'
+            {`Mentor / ${user.numberOfMatches} ${
+              user.numberOfMatches === 1 ? 'Match' : 'Matches'
             } `}
             {''}
           </span>
