@@ -9,12 +9,12 @@ export const getUserMatches = (arrOfProfileIDs, role) => async dispatch => {
   while (n < arrOfProfileIDs.length) {
     const res = await axios({
       method: 'post',
-      url: `${API_URL}users/read/${role}`,
+      url: `${API_URL}matches/read/${role}`,
       data: {
         profile_id: arrOfProfileIDs[n],
       },
     });
-    results.push(res.data);
+    results.push(res.data[0]);
     n++;
   }
   dispatch(setUserMatches(results));

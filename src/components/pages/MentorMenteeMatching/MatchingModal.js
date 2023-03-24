@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Tag, Button, Divider } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 
-const MatchingModal = ({ matchShow, handleCancel, user }) => {
-  const [matches, setMatches] = useState([]);
+const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserMatches(user.matches, user.role));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -67,6 +67,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
               <p className="FieldValue">{user?.other_info}</p>
             </div>
           </div>
+
           <div className="MatchSuggestMatch">
             <div className="Matches">
               <h4>Matches</h4>
@@ -87,6 +88,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
               </div>
               <Divider style={{ margin: '8px 0' }} />
             </div>
+
             <div className="Suggestions">
               <h4>Suggested Matches</h4>
               <Divider style={{ margin: '8px 0' }} />
