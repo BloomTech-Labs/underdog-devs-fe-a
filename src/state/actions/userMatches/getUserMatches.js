@@ -14,7 +14,6 @@ export const getUserMatches = (arrOfProfileIDs, role) => async dispatch => {
         profile_id: arrOfProfileIDs[n],
       },
     });
-    console.log(res.data, n);
     results.push(res.data);
     n++;
   }

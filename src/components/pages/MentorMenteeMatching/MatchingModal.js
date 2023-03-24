@@ -170,8 +170,7 @@ const MatchingModal = ({ matchShow, handleCancel, user }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(`MAP STATE`, state.user.allUserMatches);
-  return { allUserMatches: state };
+  return { allUserMatches: state.user.allUserMatches };
 };
 
 export default connect(mapStateToProps)(MatchingModal);
