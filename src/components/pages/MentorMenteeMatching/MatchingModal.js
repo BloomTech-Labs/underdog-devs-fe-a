@@ -3,10 +3,6 @@ import { Modal, Tag, Button, Divider } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 
-const inital = {
-  name: 'Branden Jones',
-};
-
 const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
   const [currentMatch, setCurrentMatch] = useState(allUserMatches[0]);
   const dispatch = useDispatch();
