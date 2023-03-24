@@ -13,10 +13,10 @@ import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
 import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
 import { setFetchError } from '../../../state/actions/errors/setFetchError';
 import NavbarItems from './NavbarItems';
-
+import { setCurrentUser } from '../../../state/actions/userProfile/setCurrentUser';
 const { Header } = Layout;
 
-const Navbar = ({ userProfile, getProfile, currentUser }) => {
+const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
   const [appUser, setAppUser] = useState({});
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
@@ -49,19 +49,19 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
         axiosWithAuth()
           .post('/profile/current_user_profile', user)
           .then(profile => {
-            console.log(
-              `profile/current_user_profile res: ${profile.data.profile_id}`
+            console.log({ ...user, ...profile.data });
+            dispatch(
+              setCurrentUser({
+                ...user,
+                role: profile.data.role,
+                user_id: profile.data.user_id,
+              })
             );
-            setAppUser({
-              ...user,
-              role: profile.data.role,
-              user_id: profile.data.user_id,
-            });
           })
           .catch(err => {
             console.error(err);
           });
-        console.log(appUser);
+        console.log(currentUser);
 
         // The following code was taken from the userProfile redux action file
         // setFetchStart();
@@ -82,7 +82,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Object.values(currentUser).length]);
+  }, [Object.values(currentUser).length, isAuthenticated]);
 
   const profile_id = currentUser.profile_id;
   const isMentor = currentUser.role_id === 3;
@@ -144,7 +144,6 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                   style={{ marginLeft: '1em' }}
                   role="button"
                 />
-                <p>testp</p>
               </div>
               {isMentor && (
                 <Popover
