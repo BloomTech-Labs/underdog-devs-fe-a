@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch } from 'react-redux';
 import { Table, Button, Tag } from 'antd';
