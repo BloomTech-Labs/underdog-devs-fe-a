@@ -24,7 +24,7 @@ const ApplicationModal = ({
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
 
-  const axiosWithAuth = useAxiosWithAuth0();
+  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ const ApplicationModal = ({
 
   const openNotificationWithIcon = (type, status, err) => {
     if (type === 'success') {
-      if (status === 'approve') {
+      if (status === 'approved') {
         notification[type]({
           message: 'User has been approved successfully',
         });
@@ -52,7 +52,7 @@ const ApplicationModal = ({
     }
 
     if (type === 'error') {
-      if (status === 'approve') {
+      if (status === 'approved') {
         notification[type]({
           message: 'User could not be approved at this time',
           description: `Error: ${err}`,
@@ -93,7 +93,7 @@ const ApplicationModal = ({
    */
 
   const handleApplication = status => {
-    axiosWithAuth
+    axiosWithAuth()
       .post(`${API_URL}application/update-validate_status/${profileId}`, status)
       .then(res => {
         setDisplayModal(false);
