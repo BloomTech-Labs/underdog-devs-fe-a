@@ -6,22 +6,22 @@ import {
   ContainerOutlined,
   DashboardOutlined,
   FormOutlined,
-  QuestionCircleOutlined,
+  LineChartOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons';
 
 export const sharedLinks = [
   {
-    key: 'sub1', // the initial submenu
+    key: 'sub1',
     label: 'Schedule',
     icon: <CalendarOutlined />,
     children: [
       {
-        key: '/calendar', // for all Users
+        key: '/calendar',
         label: 'Calendar',
       },
       {
-        key: '/meetings/schedule', // Mentors or Admins
+        key: '/meetings/schedule',
         label: 'Schedule Meeting',
       },
     ],
@@ -30,16 +30,11 @@ export const sharedLinks = [
 
 export const bottomSharedLinks = [
   {
-    key: '/support',
+    key: '/analytics',
     label: 'Insights',
-    icon: <QuestionCircleOutlined />,
+    icon: <LineChartOutlined />,
   },
 ];
-
-/**
- * Khaleel Musleh
- * Removed all the links which are non-functional, they are all available in the devLinks below
- */
 
 export const menteeLinks = [];
 

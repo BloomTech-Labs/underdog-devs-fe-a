@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch } from 'react-redux';
 import { Table, Button, Tag } from 'antd';
-import { API_URL } from '../../../config';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
@@ -12,7 +11,6 @@ const UserManagement = () => {
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState();
   const dispatch = useDispatch();
-
   const columns = [
     {
       title: 'Name',
@@ -89,13 +87,11 @@ const UserManagement = () => {
     },
   ];
 
-  useEffect(() => {
-    getAccounts();
-  });
-
   const getAccounts = () => {
-    dispatch(getProfile('mentee'))
+    console.log(`GET ACCOUNTS`);
+    dispatch(getAllUsers())
       .then(res => {
+        console.log(`RES FROM COMPONENT`, res);
         setAccounts(
           res.map((row, idx) => ({
             key: idx,
@@ -108,6 +104,12 @@ const UserManagement = () => {
       })
       .catch(err => console.error(err));
   };
+
+  useEffect(() => {
+    getAccounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <h2>Manage Users</h2>
@@ -125,4 +127,5 @@ const UserManagement = () => {
     </>
   );
 };
+
 export default UserManagement;
