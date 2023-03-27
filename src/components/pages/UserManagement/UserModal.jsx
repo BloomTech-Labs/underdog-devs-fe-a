@@ -56,7 +56,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
             <p
               className="FieldValue"
               // onClick={() => userShow(user)}
-            >{`${user?.name}`}</p>
+            >{`${user?.first_name} ${user?.last_name}`}</p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Email</div>
