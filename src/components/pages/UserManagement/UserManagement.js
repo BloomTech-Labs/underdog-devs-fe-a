@@ -5,17 +5,15 @@ import { Table, Button, Switch } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = ({ allUsers }) => {
+const UserManagement = ({ allMentors, allMentees }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState('');
   const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
 
-  const getAccounts = () => {
-    displayRole === 'Mentor'
-      ? dispatch(getAllUsers('mentor'))
-      : dispatch(getAllUsers('mentee'));
+  const getAccounts = role => {
+    dispatch(getAllUsers(role));
   };
 
   const handleChange = () => {
@@ -25,7 +23,6 @@ const UserManagement = ({ allUsers }) => {
   };
 
   useEffect(() => {
-    getAccounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayRole]);
 
@@ -106,7 +103,9 @@ const UserManagement = ({ allUsers }) => {
   ];
 
   useEffect(() => {
-    getAccounts();
+    getAccounts('mentor');
+    getAccounts('mentee');
+    console.log(`THIS SHOULD ONLY HAPPEN ONCE!!!!!!`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -119,7 +118,10 @@ const UserManagement = ({ allUsers }) => {
         onChange={() => handleChange()}
         defaultChecked
       />
-      <Table columns={columns} dataSource={allUsers} />
+      <Table
+        columns={columns}
+        dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+      />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}
@@ -135,7 +137,10 @@ const UserManagement = ({ allUsers }) => {
 };
 
 const mapStateToProps = state => {
-  return { allUsers: state.user.allUsers };
+  return {
+    allMentors: state.user.allMentors,
+    allMentees: state.user.allMentees,
+  };
 };
 
 export default connect(mapStateToProps)(UserManagement);

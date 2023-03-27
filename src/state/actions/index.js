@@ -9,7 +9,7 @@ export { SET_FETCH_ERROR } from './errors/setFetchError';
 export { MENTOR_ADD_SUCCESS } from './mentor';
 export { MENTEE_ADD_SUCCESS } from './mentee';
 export { SET_ROLE_ID } from './auth/setRoleId';
-export { SET_ALL_USERS } from './allUsers/setAllUsers';
+export { SET_ALL_MENTORS, SET_ALL_MENTEES } from './allUsers/setAllUsers';
 export { SET_USER_MATCHES } from './userMatches/setUserMatches';
 
 // CALENDAR ACTIONS----------------------

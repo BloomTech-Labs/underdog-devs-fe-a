@@ -81,10 +81,15 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: action.payload,
       };
-    case ACTIONS.SET_ALL_USERS:
+    case ACTIONS.SET_ALL_MENTORS:
       return {
         ...state,
-        allUsers: action.payload,
+        allMentors: action.payload,
+      };
+    case ACTIONS.SET_ALL_MENTEES:
+      return {
+        ...state,
+        allMentees: action.payload,
       };
     case ACTIONS.SET_USER_MATCHES:
       return {
