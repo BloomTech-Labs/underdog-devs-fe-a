@@ -12,8 +12,10 @@ const UserManagement = ({ allUsers }) => {
   const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
 
-  const getAccounts = role => {
-    dispatch(getAllUsers(role));
+  const getAccounts = () => {
+    displayRole === 'Mentor'
+      ? dispatch(getAllUsers('mentor'))
+      : dispatch(getAllUsers('mentee'));
   };
 
   const handleChange = () => {
@@ -23,11 +25,7 @@ const UserManagement = ({ allUsers }) => {
   };
 
   useEffect(() => {
-    if (displayRole === 'Mentors') {
-      getAccounts('mentor');
-    } else {
-      getAccounts('mentee');
-    }
+    getAccounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayRole]);
 
