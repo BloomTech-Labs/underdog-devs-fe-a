@@ -16,8 +16,6 @@ const UserManagement = ({ allUsers }) => {
     dispatch(getAllUsers(role));
   };
 
-  console.log(`ALL USERS`, allUsers);
-
   const handleChange = () => {
     displayRole === 'Mentors'
       ? setDisplayRole('Mentees')
@@ -108,24 +106,6 @@ const UserManagement = ({ allUsers }) => {
       ),
     },
   ];
-
-  const getAccounts = () => {
-    console.log(`GET ACCOUNTS`);
-    dispatch(getAllUsers())
-      .then(res => {
-        console.log(`RES FROM COMPONENT`, res);
-        setAccounts(
-          res.map((row, idx) => ({
-            key: idx,
-            email: row.mentee.email,
-            role: 'mentee',
-            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
-            ...row.mentee,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
 
   useEffect(() => {
     getAccounts();

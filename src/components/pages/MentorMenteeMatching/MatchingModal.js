@@ -6,10 +6,8 @@ import { getUserMatches } from '../../../state/actions/userMatches/getUserMatche
 const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
   const [currentMatch, setCurrentMatch] = useState('');
   const dispatch = useDispatch();
-  console.log(`ALL USER MATCHES`, allUserMatches);
 
   useEffect(() => {
-    console.log(`USER`, user);
     if (user) {
       dispatch(getUserMatches(user.matches, user.role));
       // eslint-disable-next-line no-unused-expressions
