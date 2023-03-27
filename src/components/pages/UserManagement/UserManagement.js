@@ -106,6 +106,30 @@ const UserManagement = ({ allUsers }) => {
       ),
     },
   ];
+
+  const getAccounts = () => {
+    console.log(`GET ACCOUNTS`);
+    dispatch(getAllUsers())
+      .then(res => {
+        console.log(`RES FROM COMPONENT`, res);
+        setAccounts(
+          res.map((row, idx) => ({
+            key: idx,
+            email: row.mentee.email,
+            role: 'mentee',
+            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
+            ...row.mentee,
+          }))
+        );
+      })
+      .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    getAccounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <h2>Manage Users</h2>
