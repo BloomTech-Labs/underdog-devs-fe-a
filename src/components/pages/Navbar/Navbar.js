@@ -37,14 +37,9 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
 
   useEffect(() => {
     (async () => {
+      // TODO: Check that we don't ALREADY have user in redux
       if (isAuthenticated) {
-        // const user = await axiosWithAuth().get(
-        //   `/profile/current_user_profile/`
-        // );
-        // const currentUser = user;
         console.log(user);
-
-        // setAppUser(currentUser);
 
         axiosWithAuth()
           .post('/profile/current_user_profile', user)
@@ -53,8 +48,7 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
             dispatch(
               setCurrentUser({
                 ...user,
-                role: profile.data.role,
-                user_id: profile.data.user_id,
+                ...profile.data,
               })
             );
           })
@@ -62,22 +56,6 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
             console.error(err);
           });
         console.log(currentUser);
-
-        // The following code was taken from the userProfile redux action file
-        // setFetchStart();
-        // axiosWithAuth
-        //   .get(`${API_URL}profile/${user.data.profile_id}`)
-        //   .then(res => {
-        //     if (res.data) {
-        //       getProfile(res.data);
-        //     }
-        //   })
-        //   .catch(err => {
-        //     setFetchError(err);
-        //   })
-        //   .finally(() => {
-        //     setFetchEnd();
-        //   });
       }
     })();
 
@@ -171,7 +149,8 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
                       <div className="userInfo">
                         <div className="username" aria-label="Account settings">
                           <div className="username">
-                            Welcome {userProfile.first_name}
+                            Welcome {currentUser.first_name} (
+                            {currentUser.email})
                           </div>
                         </div>
                       </div>
