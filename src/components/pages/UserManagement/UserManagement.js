@@ -105,7 +105,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
   useEffect(() => {
     getAccounts('mentor');
     getAccounts('mentee');
-    console.log(`THIS SHOULD ONLY HAPPEN ONCE!!!!!!`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

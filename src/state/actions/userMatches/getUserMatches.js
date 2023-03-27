@@ -19,6 +19,5 @@ export const getUserMatches = (arrOfProfileIDs, role) => async dispatch => {
       n++;
     }
   }
-  dispatch(setUserMatches(results));
-  return results;
+  return dispatch(setUserMatches(results));
 };

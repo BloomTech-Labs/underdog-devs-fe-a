@@ -9,9 +9,11 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUserMatches(user.matches, user.role));
-      // eslint-disable-next-line no-unused-expressions
-      allUserMatches ? setCurrentMatch(allUserMatches[0]) : null;
+      dispatch(getUserMatches(user.matches, user.role.toLowerCase()))
+        .then(() => {
+          setCurrentMatch(allUserMatches[0]);
+        })
+        .catch(err => console.error(err));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -83,16 +85,12 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
                         <Divider style={{ margin: '8px 0' }} />
                         <div className="matchLine" key={idx}>
                           <p>{`${row.first_name} ${row.last_name}`}</p>
-                          <p
+                          <span
                             style={{ color: 'blue' }}
-                            onClick={() =>
-                              allUserMatches
-                                ? setCurrentMatch(allUserMatches[row])
-                                : null
-                            }
+                            onClick={() => setCurrentMatch(allUserMatches[row])}
                           >
                             View
-                          </p>
+                          </span>
                         </div>
                       </>
                     );
