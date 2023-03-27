@@ -4,14 +4,17 @@ import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 
 const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
-  const [currentMatch, setCurrentMatch] = useState(allUserMatches[0]);
+  const [currentMatch, setCurrentMatch] = useState('');
   const dispatch = useDispatch();
-  console.log(`CURRENT MATCH`, currentMatch);
+  console.log(`ALL USER MATCHES`, allUserMatches);
 
   useEffect(() => {
-    dispatch(getUserMatches(user.matches, user.role));
-    setCurrentMatch(allUserMatches[0]);
-
+    console.log(`USER`, user);
+    if (user) {
+      dispatch(getUserMatches(user.matches, user.role));
+      // eslint-disable-next-line no-unused-expressions
+      allUserMatches ? setCurrentMatch(allUserMatches[0]) : null;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -76,11 +79,11 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
             <div className="Matches">
               <h4>Matches</h4>
               {allUserMatches
-                ? allUserMatches.map(row => {
+                ? allUserMatches.map((row, idx) => {
                     return (
                       <>
                         <Divider style={{ margin: '8px 0' }} />
-                        <div className="matchLine">
+                        <div className="matchLine" key={idx}>
                           <p>{`${row.first_name} ${row.last_name}`}</p>
                           <p
                             style={{ color: 'blue' }}

@@ -16,6 +16,8 @@ const UserManagement = ({ allUsers }) => {
     dispatch(getAllUsers(role));
   };
 
+  console.log(`ALL USERS`, allUsers);
+
   const handleChange = () => {
     displayRole === 'Mentors'
       ? setDisplayRole('Mentees')

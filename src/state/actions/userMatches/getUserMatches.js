@@ -6,16 +6,18 @@ export const getUserMatches = (arrOfProfileIDs, role) => async dispatch => {
   role === 'mentor' ? (role = 'mentee') : (role = 'mentor');
   const results = [];
   let n = 0;
-  while (n < arrOfProfileIDs.length) {
-    const res = await axios({
-      method: 'post',
-      url: `${API_URL}matches/read/${role}`,
-      data: {
-        profile_id: arrOfProfileIDs[n],
-      },
-    });
-    results.push(res.data[0]);
-    n++;
+  if (arrOfProfileIDs.length > 0) {
+    while (n < arrOfProfileIDs.length) {
+      const res = await axios({
+        method: 'post',
+        url: `${API_URL}matches/read/${role}`,
+        data: {
+          profile_id: arrOfProfileIDs[n],
+        },
+      });
+      results.push(res.data[0]);
+      n++;
+    }
   }
   dispatch(setUserMatches(results));
   return results;
