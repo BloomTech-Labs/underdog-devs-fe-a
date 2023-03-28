@@ -9,14 +9,20 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUserMatches(user.matches, user.role.toLowerCase()))
-        .then(() => {
-          setCurrentMatch(allUserMatches[0]);
-        })
-        .catch(err => console.error(err));
+      dispatch(getUserMatches(user.matches, user.role.toLowerCase()));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    if (!currentMatch && allUserMatches) {
+      setCurrentMatch(allUserMatches[0]);
+    }
+    if (currentMatch && currentMatch !== allUserMatches[0]) {
+      setCurrentMatch(allUserMatches[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allUserMatches]);
 
   return (
     <Modal
@@ -50,7 +56,7 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
           <div>
             <div span={24} className="customCol">
               <div className="FieldTitle">Name</div>
-              <p className="FieldValue nameLink">
+              <p className="FieldValue">
                 {`${user?.first_name} ${user?.last_name}`}
                 <div className="userTag">
                   <Tag color="blue">
@@ -85,12 +91,12 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
                         <Divider style={{ margin: '8px 0' }} />
                         <div className="matchLine" key={idx}>
                           <p>{`${row.first_name} ${row.last_name}`}</p>
-                          <span
-                            style={{ color: 'blue' }}
-                            onClick={() => setCurrentMatch(allUserMatches[row])}
+                          <p
+                            onClick={() => setCurrentMatch(row)}
+                            className="viewLink"
                           >
                             View
-                          </span>
+                          </p>
                         </div>
                       </>
                     );
@@ -100,31 +106,17 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
 
             <div className="Suggestions">
               <h4>Suggested Matches</h4>
-              <Divider style={{ margin: '8px 0' }} />
-              <div className="suggestLine">
-                <p>Name One</p>
-                <p style={{ color: 'blue' }}>View</p>
-              </div>
-              <Divider style={{ margin: '8px 0' }} />
-              <div className="suggestLine">
-                <p>Name Two</p>
-                <p style={{ color: 'blue' }}>View</p>
-              </div>
-              <Divider style={{ margin: '8px 0' }} />
-              <div className="suggestLine">
-                <p>Name Three</p>
-                <p style={{ color: 'blue' }}>View</p>
-              </div>
-              <Divider style={{ margin: '8px 0' }} />
-              <div className="suggestLine">
-                <p>Name Four</p>
-                <p style={{ color: 'blue' }}>View</p>
-              </div>
-              <Divider style={{ margin: '8px 0' }} />
-              <div className="suggestLine">
-                <p>Name Five</p>
-                <p style={{ color: 'blue' }}>View</p>
-              </div>
+              {['One', 'Two', 'Three'].map(row => {
+                return (
+                  <>
+                    <Divider style={{ margin: '8px 0' }} />
+                    <div className="suggestLine">
+                      <p>{`Name ${row}`}</p>
+                      <p className="viewLink">View</p>
+                    </div>
+                  </>
+                );
+              })}
               <Divider style={{ margin: '8px 0' }} />
             </div>
           </div>
