@@ -85,15 +85,19 @@ div.row2 .modalBtn:visited {
   display: flex;
   align-items: normal;
 }
-.nameLink {
-  color: '#2c90ff';
-}
 .viewLink {
-  color: blue;
+  color: #257ddc;
+}
+.viewLink:hover {
+  cursor: pointer;
+  color: #d6d6d6;
+}
+.nameLink {
+  color: #d6d6d6;
 }
 .nameLink:hover {
   cursor: pointer;
-  color: lime;
+  color: #257ddc;
 }
 .MatchingModal {
   width: 100%;
