@@ -36,7 +36,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
       render: (value, record) => (
         <p
           className="nameLink"
-          style={{ color: '#2c90ff' }}
           onClick={() => {
             setUser(record);
             setUserShow(true);
