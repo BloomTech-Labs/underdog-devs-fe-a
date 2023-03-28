@@ -85,9 +85,15 @@ div.row2 .modalBtn:visited {
   display: flex;
   align-items: normal;
 }
+.nameLink {
+  color: '#2c90ff';
+}
+.viewLink {
+  color: blue;
+}
 .nameLink:hover {
   cursor: pointer;
-  color: black;
+  color: lime;
 }
 .MatchingModal {
   width: 100%;
@@ -169,6 +175,8 @@ div.row2 .modalBtn:visited {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.viewButton {
 }
 @media screen and (max-width: 620px) {
   .UserTable {
