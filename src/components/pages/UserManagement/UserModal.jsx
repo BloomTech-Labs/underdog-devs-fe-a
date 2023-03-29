@@ -3,8 +3,9 @@ import { Modal } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
-  // eslint-disable-next-line no-unused-vars
   const [matchShow, setMatchShow] = useState(false);
+  const [newUserShow, setNewUserShow] = useState(userShow);
+
   return (
     <>
       <Modal
@@ -34,8 +35,20 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         className="UserModal"
       >
         <div style={{ padding: '0px 20px' }}>
-          <span>{`Mentor / 3 Matches     `} </span>
-          <button onClick={() => <MatchingModal />}>Edit Matches</button>{' '}
+          <span>
+            {`Mentor / ${user.numberOfMatches} ${
+              user.numberOfMatches === 1 ? 'Match' : 'Matches'
+            } `}
+            {''}
+          </span>
+          <button
+            onClick={() => {
+              setNewUserShow(false);
+              setMatchShow(true);
+            }}
+          >
+            Edit Matches
+          </button>{' '}
         </div>
         <div className="UserTable">
           <div span={24} className="customCol">
@@ -76,11 +89,13 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         </div>
       </Modal>
 
-      {/* <MatchingModal
-        matchShow={matchShow}
-        handleCancel={setMatchShow(false)}
-        user={user}
-      /> */}
+      {matchShow ? (
+        <MatchingModal
+          matchShow={matchShow}
+          handleCancel={() => setMatchShow(false)}
+          user={user}
+        />
+      ) : null}
     </>
   );
 };

@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
-import { useDispatch } from 'react-redux';
-import { Table, Button, Tag } from 'antd';
-import { API_URL } from '../../../config';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
+import { useDispatch, connect } from 'react-redux';
+import { Table, Button, Switch } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = () => {
-  const [accounts, setAccounts] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [updatedProfile, setUpdatedProfile] = useState();
+const UserManagement = ({ allMentors, allMentees }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
-  const [user, setUser] = useState();
-  const [displayRole, setDisplayRole] = useState('mentor');
-  const { axiosWithAuth } = useAxiosWithAuth0();
+  const [user, setUser] = useState('');
+  const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
+
+  const getAccounts = role => {
+    dispatch(getAllUsers(role));
+  };
+
+  const handleChange = () => {
+    displayRole === 'Mentors'
+      ? setDisplayRole('Mentees')
+      : setDisplayRole('Mentors');
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayRole]);
 
   const columns = [
     {
@@ -28,7 +36,6 @@ const UserManagement = () => {
       render: (value, record) => (
         <p
           className="nameLink"
-          style={{ color: '#2c90ff' }}
           onClick={() => {
             setUser(record);
             setUserShow(true);
@@ -69,7 +76,7 @@ const UserManagement = () => {
     },
     {
       title: 'Matches',
-      dataIndex: 'matches',
+      dataIndex: 'numberOfMatches',
       defaultSortOrder: 'descend',
       filters: [
         {
@@ -93,62 +100,26 @@ const UserManagement = () => {
       ),
     },
   ];
-  // eslint-disable-next-line no-unused-vars
-  function updateToAdmin(record) {
-    const requestBody = {
-      role_id: 2,
-    };
-    axiosWithAuth()
-      .put(`${API_URL}profile/${record.key}`, requestBody)
-      .then(res => {
-        setUpdatedProfile(res);
-      })
-      .catch(err => console.error(err));
-  }
 
   useEffect(() => {
-    getAccounts();
-  });
+    getAccounts('mentor');
+    getAccounts('mentee');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const getAccounts = () => {
-    if (displayRole === 'mentee') {
-      dispatch(getProfile('mentee'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              email: row.mentee.email,
-              role: 'mentee',
-              matches: row.mentor.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-              ...row.mentee,
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    } else {
-      dispatch(getProfile('mentor'))
-        .then(res => {
-          setAccounts(
-            res.map((row, idx) => ({
-              key: idx,
-              name: `${row.mentor.first_name} ${row.mentor.last_name}`,
-              email: row.mentor.email,
-              role: 'mentor',
-              matches: row.mentees.length || (
-                <Tag color={'red'}>Not Matched</Tag>
-              ),
-            }))
-          );
-        })
-        .catch(err => console.error(err));
-    }
-  };
   return (
     <>
       <h2>Manage Users</h2>
-      <Table columns={columns} dataSource={accounts} />
+      <Switch
+        checkedChildren={`${displayRole}`}
+        unCheckedChildren={`${displayRole}`}
+        onChange={() => handleChange()}
+        defaultChecked
+      />
+      <Table
+        columns={columns}
+        dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+      />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}
@@ -162,4 +133,12 @@ const UserManagement = () => {
     </>
   );
 };
-export default UserManagement;
+
+const mapStateToProps = state => {
+  return {
+    allMentors: state.user.allMentors,
+    allMentees: state.user.allMentees,
+  };
+};
+
+export default connect(mapStateToProps)(UserManagement);

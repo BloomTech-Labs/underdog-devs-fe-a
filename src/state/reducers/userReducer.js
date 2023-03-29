@@ -76,6 +76,21 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: action.payload,
       };
+    case ACTIONS.SET_ALL_MENTORS:
+      return {
+        ...state,
+        allMentors: action.payload,
+      };
+    case ACTIONS.SET_ALL_MENTEES:
+      return {
+        ...state,
+        allMentees: action.payload,
+      };
+    case ACTIONS.SET_USER_MATCHES:
+      return {
+        ...state,
+        allUserMatches: action.payload,
+      };
     default:
       return state;
   }

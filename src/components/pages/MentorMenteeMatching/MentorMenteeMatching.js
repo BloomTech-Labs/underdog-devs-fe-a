@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Table, Tag, Button } from 'antd';
 import MatchingModal from './MatchingModal';
-import dummyData from '../MyMentees/data.json';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
