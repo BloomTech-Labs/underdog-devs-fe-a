@@ -85,9 +85,19 @@ div.row2 .modalBtn:visited {
   display: flex;
   align-items: normal;
 }
+.viewLink {
+  color: #257ddc;
+}
+.viewLink:hover {
+  cursor: pointer;
+  color: #d6d6d6;
+}
+.nameLink {
+  color: #d6d6d6;
+}
 .nameLink:hover {
   cursor: pointer;
-  color: black;
+  color: #257ddc;
 }
 .MatchingModal {
   width: 100%;
@@ -129,18 +139,7 @@ div.row2 .modalBtn:visited {
   padding: 20px 20px !important;
   margin-bottom: 0px !important;
 }
-.MenteeTable {
-  padding: inherit 0;
-}
-.MentorTable {
-  background-color: #f2f4f5;
-}
-.MentorTable .FieldTitle {
-  background-color: #fafafa;
-}
-.MentorTable .FieldValue {
-  background-color: #ffffff;
-}
+
 .FieldValue p {
   display: center;
 }
@@ -181,6 +180,8 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
+.viewButton {
+}
 @media screen and (max-width: 620px) {
   .UserTable {
     border: 1px solid black;
@@ -202,54 +203,54 @@ div.row2 .modalBtn:visited {
 }
 @media (min-width: 476px) {
   .container-custom {
-      padding-right: 15px;
-      padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 @media (min-width: 768px) {
   .container-custom {
-      padding-right: 15px;
-      padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 @media (min-width: 992px) {
   .container-custom {
-      padding-right: 15px;
-      padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 @media (min-width: 1200px) {
   .container-custom {
-      padding-right: 15px;
-      padding-left: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 @media (min-width: 476px) {
   .container-custom {
-      width: 100%;
+    width: 100%;
   }
 }
 @media (min-width: 768px) {
   .container-custom {
-      width: 100%;
-      max-width: 100%;
+    width: 100%;
+    max-width: 100%;
   }
 }
 @media (min-width: 992px) {
   .container-custom {
-      width: 100%;
-      max-width: 100%;
+    width: 100%;
+    max-width: 100%;
   }
 }
 @media (min-width: 1200px) {
   .container-custom {
-      width: 1140px;
-      max-width: 100%;
+    width: 1140px;
+    max-width: 100%;
   }
 }
 @media (min-width: 1400px) {
   .container-custom {
-      width: 1140px;
-      max-width: 99%;
+    width: 1140px;
+    max-width: 99%;
   }
 }

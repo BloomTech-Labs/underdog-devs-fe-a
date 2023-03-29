@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
-import { useDispatch } from 'react-redux';
-import { Table, Button, Tag } from 'antd';
+import { useDispatch, connect } from 'react-redux';
+import { Table, Button, Switch } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = () => {
-  const [accounts, setAccounts] = useState([]);
+const UserManagement = ({ allMentors, allMentees }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
+  const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
+
+  const getAccounts = role => {
+    dispatch(getAllUsers(role));
+  };
+
+  const handleChange = () => {
+    displayRole === 'Mentors'
+      ? setDisplayRole('Mentees')
+      : setDisplayRole('Mentors');
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayRole]);
+
   const columns = [
     {
       title: 'Name',
@@ -21,7 +36,6 @@ const UserManagement = () => {
       render: (value, record) => (
         <p
           className="nameLink"
-          style={{ color: '#2c90ff' }}
           onClick={() => {
             setUser(record);
             setUserShow(true);
@@ -62,7 +76,7 @@ const UserManagement = () => {
     },
     {
       title: 'Matches',
-      dataIndex: 'matches',
+      dataIndex: 'numberOfMatches',
       defaultSortOrder: 'descend',
       filters: [
         {
@@ -87,33 +101,25 @@ const UserManagement = () => {
     },
   ];
 
-  const getAccounts = () => {
-    console.log(`GET ACCOUNTS`);
-    dispatch(getAllUsers())
-      .then(res => {
-        console.log(`RES FROM COMPONENT`, res);
-        setAccounts(
-          res.map((row, idx) => ({
-            key: idx,
-            email: row.mentee.email,
-            role: 'mentee',
-            matches: row.mentor.length || <Tag color={'red'}>Not Matched</Tag>,
-            ...row.mentee,
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
-
   useEffect(() => {
-    getAccounts();
+    getAccounts('mentor');
+    getAccounts('mentee');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <h2>Manage Users</h2>
-      <Table columns={columns} dataSource={accounts} />
+      <Switch
+        checkedChildren={`${displayRole}`}
+        unCheckedChildren={`${displayRole}`}
+        onChange={() => handleChange()}
+        defaultChecked
+      />
+      <Table
+        columns={columns}
+        dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+      />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}
@@ -128,4 +134,11 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+const mapStateToProps = state => {
+  return {
+    allMentors: state.user.allMentors,
+    allMentees: state.user.allMentees,
+  };
+};
+
+export default connect(mapStateToProps)(UserManagement);
