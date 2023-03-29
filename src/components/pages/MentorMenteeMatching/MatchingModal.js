@@ -2,27 +2,37 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Tag, Button, Divider } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
+import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
 
-const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
+const MatchingModal = ({
+  matchShow,
+  handleCancel,
+  user,
+  userMatches,
+  suggestedMatches,
+}) => {
   const [currentMatch, setCurrentMatch] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
       dispatch(getUserMatches(user.matches, user.role.toLowerCase()));
+      if (user.validate_status === 'approved' && user.is_active) {
+        dispatch(getSuggestedMatches(user.profile_id, user.role.toLowerCase()));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
-    if (!currentMatch && allUserMatches) {
-      setCurrentMatch(allUserMatches[0]);
+    if (!currentMatch && userMatches) {
+      setCurrentMatch(userMatches[0]);
     }
-    if (currentMatch && currentMatch !== allUserMatches[0]) {
-      setCurrentMatch(allUserMatches[0]);
+    if (currentMatch && currentMatch !== userMatches[0]) {
+      setCurrentMatch(userMatches[0]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allUserMatches]);
+  }, [userMatches]);
 
   return (
     <Modal
@@ -84,8 +94,8 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
           <div className="MatchSuggestMatch">
             <div className="Matches">
               <h4>Matches</h4>
-              {allUserMatches
-                ? allUserMatches.map((row, idx) => {
+              {userMatches
+                ? userMatches.map((row, idx) => {
                     return (
                       <>
                         <Divider style={{ margin: '8px 0' }} />
@@ -106,18 +116,26 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
 
             <div className="Suggestions">
               <h4>Suggested Matches</h4>
-              {['One', 'Two', 'Three'].map(row => {
-                return (
-                  <>
-                    <Divider style={{ margin: '8px 0' }} />
-                    <div className="suggestLine">
-                      <p>{`Name ${row}`}</p>
-                      <p className="viewLink">View</p>
-                    </div>
-                  </>
-                );
-              })}
-              <Divider style={{ margin: '8px 0' }} />
+              {suggestedMatches && suggestedMatches.length > 0 ? (
+                suggestedMatches.map(row => {
+                  return (
+                    <>
+                      <Divider style={{ margin: '8px 0' }} />
+                      <div className="suggestLine">
+                        <p>{`${row.first_name} ${row.last_name}`}</p>
+                        <p
+                          className="viewLink"
+                          onClick={() => setCurrentMatch(row)}
+                        >
+                          View
+                        </p>
+                      </div>
+                    </>
+                  );
+                })
+              ) : (
+                <Tag color="orange">No Suggested Matches</Tag>
+              )}
             </div>
           </div>
         </div>
@@ -133,9 +151,7 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
               {`${currentMatch.first_name} ${currentMatch.last_name}`}
               <div className="userTag">
                 <Tag color="blue">
-                  {user?.role === 'mentee' || user?.role === 'Mentee'
-                    ? 'Mentee'
-                    : 'Mentor'}
+                  {user?.role.toLowerCase() === 'mentee' ? 'Mentor' : 'Mentee'}
                 </Tag>
               </div>
             </p>
@@ -175,7 +191,10 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
 };
 
 const mapStateToProps = state => {
-  return { allUserMatches: state.user.allUserMatches };
+  return {
+    userMatches: state.user.allUserMatches,
+    suggestedMatches: state.user.userSuggestedMatches,
+  };
 };
 
 export default connect(mapStateToProps)(MatchingModal);
