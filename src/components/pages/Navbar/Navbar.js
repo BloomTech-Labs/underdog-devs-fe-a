@@ -39,12 +39,12 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
     (async () => {
       // TODO: Check that we don't ALREADY have user in redux
       if (isAuthenticated) {
-        console.log(user);
+        // console.log(user);
 
         axiosWithAuth()
           .post('/profile/current_user_profile', user)
           .then(profile => {
-            console.log({ ...user, ...profile.data });
+            // console.log({ ...user, ...profile.data });
             dispatch(
               setCurrentUser({
                 ...user,
@@ -55,7 +55,7 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
           .catch(err => {
             console.error(err);
           });
-        console.log(currentUser);
+        // console.log(currentUser);
       }
     })();
 
