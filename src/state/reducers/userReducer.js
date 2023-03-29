@@ -96,6 +96,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         allUserMatches: action.payload,
       };
+    case ACTIONS.SET_SUGGESTED_MATCHES:
+      return {
+        ...state,
+        userSuggestedMatches: action.payload,
+      };
     default:
       return state;
   }
