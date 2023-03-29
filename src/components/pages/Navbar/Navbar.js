@@ -9,15 +9,14 @@ import { useHistory } from 'react-router-dom';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { API_URL } from '../../../config';
-import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
-import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
-import { setFetchError } from '../../../state/actions/errors/setFetchError';
+// import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
+// import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
+// import { setFetchError } from '../../../state/actions/errors/setFetchError';
 import NavbarItems from './NavbarItems';
 import { setCurrentUser } from '../../../state/actions/userProfile/setCurrentUser';
 const { Header } = Layout;
 
-const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
-  const [appUser, setAppUser] = useState({});
+const Navbar = ({ currentUser, dispatch }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
   const { logout, isAuthenticated, user } = useAuth0();
@@ -39,12 +38,9 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
     (async () => {
       // TODO: Check that we don't ALREADY have user in redux
       if (isAuthenticated) {
-        // console.log(user);
-
         axiosWithAuth()
           .post('/profile/current_user_profile', user)
           .then(profile => {
-            // console.log({ ...user, ...profile.data });
             dispatch(
               setCurrentUser({
                 ...user,
@@ -55,14 +51,12 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
           .catch(err => {
             console.error(err);
           });
-        // console.log(currentUser);
       }
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Object.values(currentUser).length, isAuthenticated]);
+  }, [currentUser, isAuthenticated]);
 
-  const profile_id = currentUser.profile_id;
   const isMentor = currentUser.role_id === 3;
 
   const menuItems = [
@@ -86,7 +80,7 @@ const Navbar = ({ userProfile, getProfile, currentUser, dispatch }) => {
 
   const handleToggleChange = checked => {
     axiosWithAuth
-      .post(`${API_URL}profile/availability/${profile_id}`, {
+      .post(`${API_URL}profile/availability/${currentUser.profile_id}`, {
         accepting_new_mentees: checked,
       })
       .then(res => {

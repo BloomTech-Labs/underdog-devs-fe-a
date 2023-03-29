@@ -7,12 +7,7 @@ const initialState = {
      * Fetches a user by profile ID when API is called. /profile/:id
      */
   },
-  currentUser: {
-    /**
-     * Author: Khaleel Musleh
-     * Displays current user logged in.
-     */
-  },
+  currentUser: {},
   applicationProfile: {
     /**
      * Author: Khaleel Musleh
