@@ -41,13 +41,26 @@ export const bottomSharedLinks = [
  * Removed all the links which are non-functional, they are all available in the devLinks below
  */
 
-export const menteeLinks = [];
+export const menteeLinks = [
+  { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/profile', label: 'Profile' },
+  { key: '/addMenteeReview', label: 'Add Mentee Review' },
+];
 
-export const mentorLinks = [];
+export const mentorLinks = [
+  { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/mentees', label: 'My Mentees' },
+  { key: '/profile', label: 'Profile' },
+  { key: '/addMentorReview', label: 'Add Mentor Review' },
+];
 
 export const adminLinks = [
   { key: '/applications', label: 'Applications', icon: <ContainerOutlined /> },
   { key: '/users', label: 'Users', icon: <ContactsOutlined /> },
+  { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
+  { key: '/attendance', label: 'Attendance', icon: <FormOutlined /> },
+  { key: '/resources', label: 'Resources', icon: <BookOutlined /> },
+  { key: '/reviews', label: 'Reviews' },
 ];
 
 export const superAdminLinks = [
