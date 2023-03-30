@@ -12,6 +12,7 @@ const MatchingModal = ({
   suggestedMatches,
 }) => {
   const [currentMatch, setCurrentMatch] = useState(null);
+  const [isMatched, setIsMatched] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -96,7 +97,10 @@ const MatchingModal = ({
                             <div className="matchLine" key={idx}>
                               <p>{`${row.first_name} ${row.last_name}`}</p>
                               <p
-                                onClick={() => setCurrentMatch(row)}
+                                onClick={() => {
+                                  setCurrentMatch(row);
+                                  setIsMatched(true);
+                                }}
                                 className="viewLink"
                               >
                                 View
@@ -119,7 +123,10 @@ const MatchingModal = ({
                             <p>{`${row.first_name} ${row.last_name}`}</p>
                             <p
                               className="viewLink"
-                              onClick={() => setCurrentMatch(row)}
+                              onClick={() => {
+                                setCurrentMatch(row);
+                                setIsMatched(false);
+                              }}
                             >
                               View
                             </p>
@@ -137,7 +144,11 @@ const MatchingModal = ({
             {currentMatch ? (
               <div className="UserTable">
                 <div className="addMentorContainer">
-                  <Button className="ant-btn-primary">Add as a Match</Button>
+                  {!isMatched ? (
+                    <Button className="ant-btn-primary">Add as a Match</Button>
+                  ) : (
+                    <Button className="ant-btn-secondary">Remove Match</Button>
+                  )}
                 </div>
                 <br></br>
                 <div span={24} className="customCol">
