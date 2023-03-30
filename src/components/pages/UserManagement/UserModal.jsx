@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
@@ -41,14 +41,14 @@ const UserModal = ({ userShow, handleCancel, user }) => {
             } `}
             {''}
           </span>
-          <button
+          <Button
             onClick={() => {
               setNewUserShow(false);
               setMatchShow(true);
             }}
           >
             Edit Matches
-          </button>{' '}
+          </Button>{' '}
         </div>
         <div className="UserTable">
           <div span={24} className="customCol">
