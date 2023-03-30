@@ -26,10 +26,6 @@ const MatchingModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMatch]);
-
   return (
     <div>
       {user ? (
@@ -47,8 +43,8 @@ const MatchingModal = ({
                   fontWeight: 'bolder',
                 }}
                 onClick={() => {
-                  handleCancel();
                   setCurrentMatch(null);
+                  handleCancel();
                 }}
               >
                 X
