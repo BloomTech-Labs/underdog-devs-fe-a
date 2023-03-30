@@ -85,13 +85,6 @@ div.row2 .modalBtn:visited {
   display: flex;
   align-items: normal;
 }
-.viewLink {
-  color: #257ddc;
-}
-.viewLink:hover {
-  cursor: pointer;
-  color: #d6d6d6;
-}
 .nameLink {
   color: #d6d6d6;
 }
@@ -127,6 +120,10 @@ div.row2 .modalBtn:visited {
 }
 .addMentorContainer .ant-btn-primary {
   background-color: #1e6eb1;
+}
+.addMentorContainer .ant-btn-secondary {
+  background-color: #ffffff;
+  color: black;
 }
 .FieldValue {
   border: 1px solid #f2f4f5;
@@ -180,8 +177,7 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
-.viewButton {
-}
+
 @media screen and (max-width: 620px) {
   .UserTable {
     border: 1px solid black;

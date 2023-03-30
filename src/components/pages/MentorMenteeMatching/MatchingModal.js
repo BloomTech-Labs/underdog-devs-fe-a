@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Tag, Button, Divider } from 'antd';
+import { Modal, Tag, Button, Divider, TextButton } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 
 const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
   const [currentMatch, setCurrentMatch] = useState('');
+  const [modalClass, setModalClass] = useState('ant-btn-primary');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,6 +14,19 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  const addOrRemoveMatch = prof => {
+    if (prof.matches.length > 1) {
+      prof.matches.forEach(el => {
+        console.log(`MATCH CHECK`, el);
+        console.log(user.profile_id);
+      });
+    } else {
+      if (prof.profile_id === user.profile_id) {
+        setModalClass('ant-btn-secondary');
+      }
+    }
+  };
 
   useEffect(() => {
     if (!currentMatch && allUserMatches) {
@@ -91,12 +105,12 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
                         <Divider style={{ margin: '8px 0' }} />
                         <div className="matchLine" key={idx}>
                           <p>{`${row.first_name} ${row.last_name}`}</p>
-                          <p
+                          <Button
+                            type="link"
                             onClick={() => setCurrentMatch(row)}
-                            className="viewLink"
                           >
                             View
-                          </p>
+                          </Button>
                         </div>
                       </>
                     );
@@ -112,7 +126,7 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
                     <Divider style={{ margin: '8px 0' }} />
                     <div className="suggestLine">
                       <p>{`Name ${row}`}</p>
-                      <p className="viewLink">View</p>
+                      <Button type="link">View</Button>
                     </div>
                   </>
                 );
@@ -124,7 +138,12 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
         <br />
         <div className="UserTable">
           <div className="addMentorContainer">
-            <Button className="ant-btn-primary">Add as a Match</Button>
+            <Button
+              className="ant-btn-primary"
+              onClick={() => addOrRemoveMatch(currentMatch)}
+            >
+              Add as a Match
+            </Button>
           </div>
           <br></br>
           <div span={24} className="customCol">
