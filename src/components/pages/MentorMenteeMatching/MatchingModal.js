@@ -22,8 +22,13 @@ const MatchingModal = ({
         dispatch(getSuggestedMatches(user.profile_id, user.role.toLowerCase()));
       }
     }
+    setCurrentMatch(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMatch]);
 
   return (
     <div>
@@ -32,7 +37,8 @@ const MatchingModal = ({
           title={
             <div className="header-api">
               <p style={{ marginBottom: '0px' }}>Matching</p>
-              <p
+              <Button
+                type="link"
                 className="cross"
                 style={{
                   marginBottom: '0px',
@@ -40,10 +46,13 @@ const MatchingModal = ({
                   cursor: 'pointer',
                   fontWeight: 'bolder',
                 }}
-                onClick={handleCancel}
+                onClick={() => {
+                  handleCancel();
+                  setCurrentMatch(null);
+                }}
               >
                 X
-              </p>
+              </Button>
             </div>
           }
           width={'80vw'}
