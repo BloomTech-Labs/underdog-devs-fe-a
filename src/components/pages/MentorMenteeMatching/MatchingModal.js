@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Tag, Button, Divider } from 'antd';
+import { Modal, Tag, Button, Divider, Descriptions } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
@@ -11,7 +11,7 @@ const MatchingModal = ({
   userMatches,
   suggestedMatches,
 }) => {
-  const [currentMatch, setCurrentMatch] = useState('');
+  const [currentMatch, setCurrentMatch] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,16 +23,6 @@ const MatchingModal = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  useEffect(() => {
-    if (!currentMatch && userMatches) {
-      setCurrentMatch(userMatches[0]);
-    }
-    if (currentMatch && currentMatch !== userMatches[0]) {
-      setCurrentMatch(userMatches[0]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userMatches]);
 
   return (
     <div>
@@ -144,52 +134,67 @@ const MatchingModal = ({
               </div>
             </div>
             <br />
-            <div className="UserTable">
-              <div className="addMentorContainer">
-                <Button className="ant-btn-primary">Add as a Match</Button>
-              </div>
-              <br></br>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Name</div>
-                <p className="FieldValue">
-                  {`${currentMatch.first_name} ${currentMatch.last_name}`}
-                  <div className="userTag">
-                    <Tag color="blue">
-                      {user?.role.toLowerCase() === 'mentee'
-                        ? 'Mentor'
-                        : 'Mentee'}
-                    </Tag>
-                  </div>
-                </p>
-              </div>
+            {currentMatch ? (
+              <div className="UserTable">
+                <div className="addMentorContainer">
+                  <Button className="ant-btn-primary">Add as a Match</Button>
+                </div>
+                <br></br>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Name</div>
+                  <p className="FieldValue">
+                    {`${currentMatch.first_name} ${currentMatch.last_name}`}
+                    <div className="userTag">
+                      <Tag color="blue">
+                        {user?.role.toLowerCase() === 'mentee'
+                          ? 'Mentor'
+                          : 'Mentee'}
+                      </Tag>
+                    </div>
+                  </p>
+                </div>
 
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Email</div>
-                <p className="FieldValue">{`${currentMatch.email}`}</p>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Email</div>
+                  <p className="FieldValue">{`${currentMatch.email}`}</p>
+                </div>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">City/ State/ Country</div>
+                  <p className="FieldValue">{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
+                </div>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Current Company/ Position</div>
+                  <p className="FieldValue">{currentMatch.current_company}</p>
+                </div>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Mentorship Topics</div>
+                  <p className="FieldValue">
+                    {<span>{currentMatch.tech_stack}</span>}
+                  </p>
+                </div>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Other Topics</div>
+                  <p className="FieldValue">{currentMatch.other_info}</p>
+                </div>
+                <div span={24} className="customCol">
+                  <div className="FieldTitle">Anything Else?</div>
+                  <p className="FieldValue">{currentMatch.other_info}</p>
+                </div>
               </div>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">City/ State/ Country</div>
-                <p className="FieldValue">{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
+            ) : (
+              <div className="descriptionContainer">
+                <Descriptions
+                  className="noCurrentMatch"
+                  column={1}
+                  layout="vertical"
+                  bordered
+                >
+                  <Descriptions.Item label="">
+                    Select a match or suggested match to view details.
+                  </Descriptions.Item>
+                </Descriptions>
               </div>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Current Company/ Position</div>
-                <p className="FieldValue">{currentMatch.current_company}</p>
-              </div>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Mentorship Topics</div>
-                <p className="FieldValue">
-                  {<span>{currentMatch.tech_stack}</span>}
-                </p>
-              </div>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Other Topics</div>
-                <p className="FieldValue">{currentMatch.other_info}</p>
-              </div>
-              <div span={24} className="customCol">
-                <div className="FieldTitle">Anything Else?</div>
-                <p className="FieldValue">{currentMatch.other_info}</p>
-              </div>
-            </div>
+            )}
           </div>
           <div className="header-api"> </div>
         </Modal>
