@@ -7,7 +7,7 @@ export const getSuggestedMatches = (profile_id, role) => async dispatch => {
   let n = 0;
   const arrOfProfIDs = await axios({
     method: 'post',
-    url: `${API_URL}suggest/${role}/${profile_id}`,
+    url: `${API_URL}matches/${role}/${profile_id}`,
     data: {
       profile_id: `${profile_id}`,
     },
