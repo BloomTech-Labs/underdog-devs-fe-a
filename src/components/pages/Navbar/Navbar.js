@@ -9,18 +9,17 @@ import { useHistory } from 'react-router-dom';
 import MentorPopover from './NavbarFeatures/MentorPopover';
 import { useAuth0 } from '@auth0/auth0-react';
 import { API_URL } from '../../../config';
-import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
-import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
-import { setFetchError } from '../../../state/actions/errors/setFetchError';
+// import { setFetchStart } from '../../../state/actions/lifecycle/setFetchStart';
+// import { setFetchEnd } from '../../../state/actions/lifecycle/setFetchEnd';
+// import { setFetchError } from '../../../state/actions/errors/setFetchError';
 import NavbarItems from './NavbarItems';
-
+import { setCurrentUser } from '../../../state/actions/userProfile/setCurrentUser';
 const { Header } = Layout;
 
-const Navbar = ({ userProfile, getProfile, currentUser }) => {
-  const [user, setUser] = useState({});
+const Navbar = ({ currentUser, dispatch }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
-  const { logout, isAuthenticated } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
@@ -37,34 +36,28 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
 
   useEffect(() => {
     (async () => {
+      // TODO: Check that we don't ALREADY have user in redux
       if (isAuthenticated) {
-        const user = await axiosWithAuth().get(
-          `/profile/current_user_profile/`
-        );
-
-        setUser(user.data);
-        setFetchStart();
         axiosWithAuth()
-          .get(`${API_URL}profile/${user.data.profile_id}`)
-          .then(res => {
-            if (res.data) {
-              getProfile(res.data);
-            }
+          .post('/profile/current_user_profile', user)
+          .then(profile => {
+            dispatch(
+              setCurrentUser({
+                ...user,
+                ...profile.data,
+              })
+            );
           })
           .catch(err => {
-            setFetchError(err);
-          })
-          .finally(() => {
-            setFetchEnd();
+            console.error(err);
           });
       }
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Object.values(currentUser).length]);
+  }, [currentUser, isAuthenticated]);
 
-  const profile_id = user.profile_id;
-  const isMentor = user.role_id === 3;
+  const isMentor = currentUser.role_id === 3;
 
   const menuItems = [
     {
@@ -87,7 +80,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
 
   const handleToggleChange = checked => {
     axiosWithAuth
-      .post(`${API_URL}profile/availability/${profile_id}`, {
+      .post(`${API_URL}profile/availability/${currentUser.profile_id}`, {
         accepting_new_mentees: checked,
       })
       .then(res => {
@@ -103,7 +96,7 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
     document.location.reload();
   };
 
-  if (!user) {
+  if (!currentUser) {
     return <NavbarItems />;
   } else {
     return (
@@ -139,14 +132,15 @@ const Navbar = ({ userProfile, getProfile, currentUser }) => {
                 </Popover>
               )}
 
-              {Object.keys(user).length ? (
+              {Object.keys(currentUser).length ? (
                 <div className="userInfo-and-profilePic">
                   <Dropdown overlay={accountMenu} placement="bottom" arrow>
                     <div className="userInfo-and-profilePic">
                       <div className="userInfo">
                         <div className="username" aria-label="Account settings">
                           <div className="username">
-                            Welcome {userProfile.first_name}
+                            Welcome {currentUser.first_name} (
+                            {currentUser.email})
                           </div>
                         </div>
                       </div>
