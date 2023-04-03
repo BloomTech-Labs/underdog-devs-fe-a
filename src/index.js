@@ -102,11 +102,11 @@ function App() {
           allowRoles={[1, 2, 3, 4, 5]}
           component={Profile}
         />
-        {/* <PrivateRoute
+        <PrivateRoute
           path="/users"
           allowRoles={[1, 2, 5]}
           component={UserManagement}
-        /> */}
+        />
         <PrivateRoute
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
