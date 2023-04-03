@@ -5,7 +5,7 @@ export const setAllUsers = (list, role) => {
   let payload = list.map(row => {
     return {
       name: `${row.first_name} ${row.last_name}`,
-      numberOfMatches: row.matches.length,
+      numberOfMatches: row.matches ? row.matches.length : 0,
       role: role === 'mentor' ? 'Mentor' : 'Mentee',
       ...row,
     };

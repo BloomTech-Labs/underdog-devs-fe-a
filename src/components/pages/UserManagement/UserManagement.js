@@ -12,10 +12,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
   const [displayRole, setDisplayRole] = useState('Mentors');
   const dispatch = useDispatch();
 
-  const getAccounts = role => {
-    dispatch(getAllUsers(role));
-  };
-
   const handleChange = () => {
     displayRole === 'Mentors'
       ? setDisplayRole('Mentees')
@@ -77,7 +73,7 @@ const UserManagement = ({ allMentors, allMentees }) => {
     {
       title: 'Matches',
       dataIndex: 'numberOfMatches',
-      defaultSortOrder: 'descend',
+      // defaultSortOrder: 'descend',
       filters: [
         {
           text: 'Not Matched',
@@ -102,8 +98,8 @@ const UserManagement = ({ allMentors, allMentees }) => {
   ];
 
   useEffect(() => {
-    getAccounts('mentor');
-    getAccounts('mentee');
+    dispatch(getAllUsers('mentor'));
+    dispatch(getAllUsers('mentee'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
