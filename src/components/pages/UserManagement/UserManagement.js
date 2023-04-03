@@ -54,25 +54,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      filters: [
-        {
-          text: 'superAdmin',
-          value: 'superAdmin',
-        },
-        {
-          text: 'admin',
-          value: 'admin',
-        },
-        {
-          text: 'mentor',
-          value: 'mentor',
-        },
-        {
-          text: 'mentee',
-          value: 'mentee',
-        },
-      ],
-      onFilter: (value, record) => record.role.includes(value),
     },
     {
       title: 'Matches',
