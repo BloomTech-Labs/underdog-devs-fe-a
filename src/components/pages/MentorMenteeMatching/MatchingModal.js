@@ -3,6 +3,8 @@ import { Modal, Tag, Button, Divider, Descriptions } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
+import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 
 const MatchingModal = ({
   matchShow,
@@ -25,6 +27,30 @@ const MatchingModal = ({
     setCurrentMatch(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  console.log(`USER `, user, `CURRENT`, currentMatch);
+  const matchChangeHandler = () => {
+    let newUserArray = [...user.matches];
+    let newOtherArray = [...currentMatch.matches];
+    const matchRole =
+      user.role.toLowerCase() === 'mentor' ? 'mentee' : 'mentor';
+    if (!isMatched) {
+      newUserArray.push(currentMatch.profile_id);
+      newOtherArray.push(user.profile_id);
+    } else {
+      newUserArray = newUserArray.filter(el => {
+        return el !== currentMatch.profile_id;
+      });
+      console.log(`NEW USER ARR`, newUserArray);
+      newOtherArray = newOtherArray.filter(el => {
+        return el !== user.profile_id;
+      });
+      console.log(`OTHER ARR`, newOtherArray);
+    }
+    dispatch(updateUserMatches(user, newUserArray, user.role));
+    dispatch(updateUserMatches(currentMatch, newOtherArray, matchRole));
+    setCurrentMatch(null);
+  };
 
   return (
     <div>
@@ -150,9 +176,19 @@ const MatchingModal = ({
               <div className="UserTable">
                 <div className="addMentorContainer">
                   {!isMatched ? (
-                    <Button className="ant-btn-primary">Add as a Match</Button>
+                    <Button
+                      className="ant-btn-primary"
+                      onClick={() => matchChangeHandler()}
+                    >
+                      Add as a Match
+                    </Button>
                   ) : (
-                    <Button className="ant-btn-secondary">Remove Match</Button>
+                    <Button
+                      className="ant-btn-secondary"
+                      onClick={() => matchChangeHandler()}
+                    >
+                      Remove Match
+                    </Button>
                   )}
                 </div>
                 <br></br>
