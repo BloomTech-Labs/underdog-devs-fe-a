@@ -4,7 +4,6 @@ import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
 import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
-import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 
 const MatchingModal = ({
   matchShow,
@@ -28,7 +27,6 @@ const MatchingModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  console.log(`USER `, user, `CURRENT`, currentMatch);
   const matchChangeHandler = () => {
     let newUserArray = [...user.matches];
     let newOtherArray = [...currentMatch.matches];
@@ -41,14 +39,13 @@ const MatchingModal = ({
       newUserArray = newUserArray.filter(el => {
         return el !== currentMatch.profile_id;
       });
-      console.log(`NEW USER ARR`, newUserArray);
       newOtherArray = newOtherArray.filter(el => {
         return el !== user.profile_id;
       });
-      console.log(`OTHER ARR`, newOtherArray);
     }
     dispatch(updateUserMatches(user, newUserArray, user.role));
     dispatch(updateUserMatches(currentMatch, newOtherArray, matchRole));
+    dispatch(getUserMatches(newUserArray, user.role.toLowerCase()));
     setCurrentMatch(null);
   };
 
