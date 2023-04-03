@@ -41,19 +41,19 @@ const Sidebar = ({ children, currentUser }) => {
     if (role) {
       switch (role) {
         case 'admin':
-          setLinks([...sharedLinks, ...adminLinks, ...bottomSharedLinks]);
+          setLinks([/*...sharedLinks,*/ ...adminLinks]);
           break;
 
         case 'mentor':
-          setLinks([...sharedLinks, ...mentorLinks, ...bottomSharedLinks]);
+          setLinks([/*...sharedLinks,*/ ...mentorLinks]);
           break;
 
         case 'mentee':
-          setLinks([...sharedLinks, ...menteeLinks]);
+          setLinks([/*...sharedLinks,*/ ...menteeLinks]);
           break;
 
         case 'dev':
-          setLinks([...sharedLinks, ...devLinks]);
+          setLinks([/*...sharedLinks,*/ ...devLinks]);
           break;
 
         default:

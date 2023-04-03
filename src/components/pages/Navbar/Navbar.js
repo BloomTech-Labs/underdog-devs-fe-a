@@ -35,27 +35,24 @@ const Navbar = ({ currentUser, dispatch }) => {
   };
 
   useEffect(() => {
-    (async () => {
-      // TODO: Check that we don't ALREADY have user in redux
-      if (isAuthenticated) {
-        axiosWithAuth()
-          .post('/profile/current_user_profile', user)
-          .then(profile => {
-            dispatch(
-              setCurrentUser({
-                ...user,
-                ...profile.data,
-              })
-            );
-          })
-          .catch(err => {
-            console.error(err);
-          });
-      }
-    })();
-
+    // TODO: Check that we don't ALREADY have user in redux
+    if (isAuthenticated) {
+      axiosWithAuth()
+        .post('/profile/current_user_profile', user)
+        .then(profile => {
+          dispatch(
+            setCurrentUser({
+              ...user,
+              ...profile.data,
+            })
+          );
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser, isAuthenticated]);
+  }, [isAuthenticated]);
 
   const isMentor = currentUser.role_id === 3;
 

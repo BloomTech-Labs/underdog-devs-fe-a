@@ -42,25 +42,31 @@ export const bottomSharedLinks = [
  */
 
 export const menteeLinks = [
-  { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
-  { key: '/profile', label: 'Profile' },
-  { key: '/addMenteeReview', label: 'Add Mentee Review' },
+  // { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/mentors', label: 'My Matches' },
+  // { key: '/profile', label: 'Profile' },
+  // { key: '/addMenteeReview', label: 'Add Mentee Review' },
 ];
 
 export const mentorLinks = [
-  { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
-  { key: '/mentees', label: 'My Mentees' },
-  { key: '/profile', label: 'Profile' },
-  { key: '/addMentorReview', label: 'Add Mentor Review' },
+  // { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/mentees', label: 'My Matches' },
+  // { key: '/profile', label: 'Profile' },
+  // { key: '/addMentorReview', label: 'Add Mentor Review' },
 ];
 
 export const adminLinks = [
   { key: '/applications', label: 'Applications', icon: <ContainerOutlined /> },
-  { key: '/users', label: 'Users', icon: <ContactsOutlined /> },
-  { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
-  { key: '/attendance', label: 'Attendance', icon: <FormOutlined /> },
-  { key: '/resources', label: 'Resources', icon: <BookOutlined /> },
-  { key: '/reviews', label: 'Reviews' },
+  { key: '/users', label: 'User Management', icon: <ContactsOutlined /> },
+  {
+    key: '/analytics',
+    label: 'Insights',
+    icon: <LineChartOutlined />,
+  },
+  // { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
+  // { key: '/attendance', label: 'Attendance', icon: <FormOutlined /> },
+  // { key: '/resources', label: 'Resources', icon: <BookOutlined /> },
+  // { key: '/reviews', label: 'Reviews' },
 ];
 
 export const superAdminLinks = [

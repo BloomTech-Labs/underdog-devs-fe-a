@@ -218,7 +218,9 @@ const Applications = () => {
   };
 
   useEffect(() => {
-    getApps();
+    if (applications.length === 0) {
+      getApps();
+    }
   });
 
   return (
