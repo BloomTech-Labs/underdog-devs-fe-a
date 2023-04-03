@@ -104,7 +104,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
           },
         ]}
         defaultActiveKey="1"
-        size="large"
         onChange={() => handleChange()}
       />
       <Table
