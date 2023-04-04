@@ -28,7 +28,7 @@ const UserManagement = ({ allMentors, allMentees }) => {
       dataIndex: 'name',
       key: 'name',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.name - b.name,
+      // sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
           className="nameLink"
@@ -61,11 +61,11 @@ const UserManagement = ({ allMentors, allMentees }) => {
         },
         {
           text: 'mentor',
-          value: 'mentor',
+          value: 'Mentor',
         },
         {
           text: 'mentee',
-          value: 'mentee',
+          value: 'Mentee',
         },
       ],
       onFilter: (value, record) => record.role.includes(value),
@@ -73,11 +73,10 @@ const UserManagement = ({ allMentors, allMentees }) => {
     {
       title: 'Matches',
       dataIndex: 'numberOfMatches',
-      // defaultSortOrder: 'descend',
       filters: [
         {
           text: 'Not Matched',
-          value: 'Not Matched',
+          value: 0,
         },
       ],
     },
