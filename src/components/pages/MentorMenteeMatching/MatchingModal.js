@@ -48,7 +48,7 @@ const MatchingModal = ({
     dispatch(getUserMatches(newUserArray, user.role.toLowerCase()));
     setCurrentMatch(null);
   };
-
+  console.log(typeof user.tech_stack);
   return (
     <div>
       {user ? (
@@ -107,9 +107,13 @@ const MatchingModal = ({
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Mentorship Topics</div>
                   <p className="FieldValue">
-                    {user?.tech_stack.map((stack, idx) => {
-                      return <span key={idx}>{`\xa0 ${stack} \xa0`}</span>;
-                    })}
+                    {typeof user?.tech_stack === typeof '' ? (
+                      <span>{user?.tech_stack}</span>
+                    ) : (
+                      user?.tech_stack.map((stack, idx) => {
+                        return <span key={idx}>{`\xa0 ${stack} \xa0`}</span>;
+                      })
+                    )}
                   </p>
                 </div>
                 <div span={24} className="customCol">
@@ -186,12 +190,17 @@ const MatchingModal = ({
                       Add as a Match
                     </Button>
                   ) : (
-                    <Button
-                      className="ant-btn-secondary"
-                      onClick={() => matchChangeHandler()}
-                    >
-                      Remove Match
-                    </Button>
+                    <div className="updated">
+                      {currentMatch.updated_at ? (
+                        <span>Updated: {currentMatch.updated_at}</span>
+                      ) : null}
+                      <Button
+                        className="ant-btn-secondary"
+                        onClick={() => matchChangeHandler()}
+                      >
+                        Remove Match
+                      </Button>
+                    </div>
                   )}
                 </div>
                 <br></br>
@@ -214,11 +223,13 @@ const MatchingModal = ({
                   <p className="FieldValue">{`${currentMatch.email}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">City \xa0 State \xa0 Country</div>
+                  <div className="FieldTitle">
+                    City &nbsp; State &nbsp; Country
+                  </div>
                   <p className="FieldValue">{`${currentMatch.city} \xa0 ${currentMatch.state} \xa0 ${currentMatch.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Current Company/ Position</div>
+                  <div className="FieldTitle">Current Company / Position</div>
                   <p className="FieldValue">{currentMatch.current_company}</p>
                 </div>
                 <div span={24} className="customCol">

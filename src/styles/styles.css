@@ -196,6 +196,11 @@ div.row2 .modalBtn:visited {
   text-align: center;
   font-size: 18px;
 }
+.updated {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 @media screen and (max-width: 620px) {
   .UserTable {
     border: 1px solid black;
