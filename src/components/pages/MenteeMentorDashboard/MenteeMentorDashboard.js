@@ -9,7 +9,7 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
   const [userShow, setUserShow] = useState(false);
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
-  console.log(currentUser);
+
   useEffect(() => {
     if (currentUser) {
       dispatch(getUserMatches(currentUser.matches, currentUser.role));

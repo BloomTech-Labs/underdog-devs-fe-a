@@ -1,7 +1,6 @@
 import { Modal } from 'antd';
 
 const MentorModal = ({ userShow, handleCancel, user }) => {
-  console.log(user);
   return (
     <>
       <Modal
