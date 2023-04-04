@@ -2,8 +2,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { connect } from 'react-redux';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import Applications from '../Applications/Applications';
-import MyMentees from '../../pages/MyMentees/MyMentees';
-import MyMentors from '../../pages/MyMentors/MyMentors';
+import MyMentees from '../Mentee-MentorDashboard/MentorDashboard/Mentee-MentorDashboard';
+import MyMentors from '../Mentee-MentorDashboard/MyMentors';
 import LandingPage from '../LandingPage/LandingPage';
 
 const Dashboard = props => {
