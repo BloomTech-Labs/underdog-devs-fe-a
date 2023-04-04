@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Tag, Button, Divider, Descriptions } from 'antd';
 import { useDispatch, connect } from 'react-redux';
-import { getUserMatches } from '../../userMatches/getUserMatches';
-import { getSuggestedMatches } from '../../userMatches/getSuggestedMatches';
-import { updateUserMatches } from '../../userMatches/updateUserMatches';
+import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
+import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
+import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
 
 const MatchingModal = ({
   matchShow,
@@ -108,13 +108,12 @@ const MatchingModal = ({
                   <div className="FieldTitle">Mentorship Topics</div>
                   <p className="FieldValue">
                     {typeof user?.tech_stack === typeof '' ? (
-                      <span>{user?.tech_stack}</span>
+                      <p>&nbsp; {user?.tech_stack} &nbsp;</p>
                     ) : (
                       user?.tech_stack.map((stack, idx) => {
-                        return <span key={idx}>{`${stack}`}</span>;
+                        return <p key={idx}> &nbsp; {`${stack}`} &nbsp;</p>;
                       })
                     )}
-                    ;
                   </p>
                 </div>
                 <div span={24} className="customCol">

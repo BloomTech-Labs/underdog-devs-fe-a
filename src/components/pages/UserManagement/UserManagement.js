@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllUsers } from '../../allUsers/getAllUsers';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch, connect } from 'react-redux';
 import { Table, Button, Switch } from 'antd';
 import UserModal from './UserModal';
