@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Tag, Button, Divider, Descriptions } from 'antd';
 import { useDispatch, connect } from 'react-redux';
-import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
-import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
-import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
+import { getUserMatches } from '../../userMatches/getUserMatches';
+import { getSuggestedMatches } from '../../userMatches/getSuggestedMatches';
+import { updateUserMatches } from '../../userMatches/updateUserMatches';
 
 const MatchingModal = ({
   matchShow,
@@ -102,7 +102,7 @@ const MatchingModal = ({
                   <div className="FieldTitle">
                     City &nbsp; State &#160; Country
                   </div>
-                  <p className="FieldValue">{`${user?.city} \xa0 ${user?.state} \xa0 ${user?.country}`}</p>
+                  <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Mentorship Topics</div>
@@ -111,9 +111,10 @@ const MatchingModal = ({
                       <span>{user?.tech_stack}</span>
                     ) : (
                       user?.tech_stack.map((stack, idx) => {
-                        return <span key={idx}>{`\xa0 ${stack} \xa0`}</span>;
+                        return <span key={idx}>{`${stack}`}</span>;
                       })
                     )}
+                    ;
                   </p>
                 </div>
                 <div span={24} className="customCol">
