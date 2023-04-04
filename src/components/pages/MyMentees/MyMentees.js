@@ -9,11 +9,11 @@ const MyMentees = ({ currentUser, userMatches }) => {
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
 
-  console.log(currentUser);
   useEffect(() => {
     dispatch(getUserMatches(currentUser.matches, currentUser.role));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <div>
