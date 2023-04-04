@@ -8,11 +8,12 @@ import LandingPage from '../LandingPage/LandingPage';
 
 const Dashboard = props => {
   const { user } = useAuth0();
-  if (user.email.includes('001') || user.email.includes('002')) {
+  const { currentUser } = props;
+  if (currentUser.role === 'admin') {
     return <Applications />;
-  } else if (user.email.includes('003')) {
+  } else if (currentUser.role === 'mentor') {
     return <MyMentees />;
-  } else if (user.email.includes('004')) {
+  } else if (currentUser.role === 'mentee') {
     return <MyMentors />;
   } else {
     return <LandingPage />;
@@ -20,7 +21,7 @@ const Dashboard = props => {
 };
 
 const mapStateToProps = state => {
-  return { user: state.userReducer };
+  return { currentUser: state.user.currentUser };
 };
 
 export default connect(mapStateToProps, { getProfile })(Dashboard);

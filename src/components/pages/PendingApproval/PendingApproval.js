@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import '../../common/styles/Sidebar.css';
-import { Layout, Menu, Switch as Toggle } from 'antd';
+import { Layout, Menu } from 'antd';
 import { BulbOutlined } from '@ant-design/icons';
 import useTheme from '../../../hooks/useTheme';
 

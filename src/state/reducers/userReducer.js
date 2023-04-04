@@ -7,12 +7,7 @@ const initialState = {
      * Fetches a user by profile ID when API is called. /profile/:id
      */
   },
-  currentUser: {
-    /**
-     * Author: Khaleel Musleh
-     * Displays current user logged in.
-     */
-  },
+  currentUser: {},
   applicationProfile: {
     /**
      * Author: Khaleel Musleh
@@ -80,6 +75,21 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         success: action.payload,
+      };
+    case ACTIONS.SET_ALL_MENTORS:
+      return {
+        ...state,
+        allMentors: action.payload,
+      };
+    case ACTIONS.SET_ALL_MENTEES:
+      return {
+        ...state,
+        allMentees: action.payload,
+      };
+    case ACTIONS.SET_USER_MATCHES:
+      return {
+        ...state,
+        allUserMatches: action.payload,
       };
     default:
       return state;

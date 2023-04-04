@@ -6,22 +6,22 @@ import {
   ContainerOutlined,
   DashboardOutlined,
   FormOutlined,
-  QuestionCircleOutlined,
+  LineChartOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons';
 
 export const sharedLinks = [
   {
-    key: 'sub1', // the initial submenu
+    key: 'sub1',
     label: 'Schedule',
     icon: <CalendarOutlined />,
     children: [
       {
-        key: '/calendar', // for all Users
+        key: '/calendar',
         label: 'Calendar',
       },
       {
-        key: '/meetings/schedule', // Mentors or Admins
+        key: '/meetings/schedule',
         label: 'Schedule Meeting',
       },
     ],
@@ -30,24 +30,38 @@ export const sharedLinks = [
 
 export const bottomSharedLinks = [
   {
-    key: '/support',
+    key: '/analytics',
     label: 'Insights',
-    icon: <QuestionCircleOutlined />,
+    icon: <LineChartOutlined />,
   },
 ];
 
-/**
- * Khaleel Musleh
- * Removed all the links which are non-functional, they are all available in the devLinks below
- */
+export const menteeLinks = [
+  // { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/mentors', label: 'My Matches' },
+  // { key: '/profile', label: 'Profile' },
+  // { key: '/addMenteeReview', label: 'Add Mentee Review' },
+];
 
-export const menteeLinks = [];
-
-export const mentorLinks = [];
+export const mentorLinks = [
+  // { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
+  { key: '/mentees', label: 'My Matches' },
+  // { key: '/profile', label: 'Profile' },
+  // { key: '/addMentorReview', label: 'Add Mentor Review' },
+];
 
 export const adminLinks = [
   { key: '/applications', label: 'Applications', icon: <ContainerOutlined /> },
-  { key: '/users', label: 'Users', icon: <ContactsOutlined /> },
+  { key: '/users', label: 'User Management', icon: <ContactsOutlined /> },
+  {
+    key: '/analytics',
+    label: 'Insights',
+    icon: <LineChartOutlined />,
+  },
+  // { key: '/matching', label: 'Matching', icon: <UsergroupAddOutlined /> },
+  // { key: '/attendance', label: 'Attendance', icon: <FormOutlined /> },
+  // { key: '/resources', label: 'Resources', icon: <BookOutlined /> },
+  // { key: '/reviews', label: 'Reviews' },
 ];
 
 export const superAdminLinks = [
