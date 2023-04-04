@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { List } from 'antd';
 import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
-import UserModal from '../UserManagement/UserModal';
+import MenteeModal from './MenteeModal';
+import MentorModal from './MentorModal';
 
-const MyMentees = ({ currentUser, userMatches }) => {
+const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
   const [userShow, setUserShow] = useState(false);
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
-
+  console.log(currentUser);
   useEffect(() => {
-    dispatch(getUserMatches(currentUser.matches, currentUser.role));
+    if (currentUser) {
+      dispatch(getUserMatches(currentUser.matches, currentUser.role));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -34,11 +37,19 @@ const MyMentees = ({ currentUser, userMatches }) => {
             </List.Item>
           )}
         />
-        <UserModal
-          userShow={userShow}
-          handleCancel={() => setUserShow(false)}
-          user={user}
-        />
+        {currentUser.role === 'mentor' ? (
+          <MenteeModal
+            userShow={userShow}
+            handleCancel={() => setUserShow(false)}
+            user={user}
+          />
+        ) : (
+          <MentorModal
+            userShow={userShow}
+            handleCancel={() => setUserShow(false)}
+            user={user}
+          />
+        )}
       </div>
     </>
   );
@@ -55,4 +66,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(MyMentees);
+export default connect(mapStateToProps)(MenteeMentorDashboard);

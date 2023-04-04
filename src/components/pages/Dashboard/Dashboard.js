@@ -2,8 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { connect } from 'react-redux';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import Applications from '../Applications/Applications';
-import MyMentees from '../Mentee-MentorDashboard/MentorDashboard/Mentee-MentorDashboard';
-import MyMentors from '../Mentee-MentorDashboard/MyMentors';
+import MenteeMentorDashboard from '../MenteeMentorDashboard/MenteeMentorDashboard';
 import LandingPage from '../LandingPage/LandingPage';
 
 const Dashboard = props => {
@@ -11,10 +10,8 @@ const Dashboard = props => {
   const { currentUser } = props;
   if (currentUser.role === 'admin') {
     return <Applications />;
-  } else if (currentUser.role === 'mentor') {
-    return <MyMentees />;
-  } else if (currentUser.role === 'mentee') {
-    return <MyMentors />;
+  } else if (currentUser.role === 'mentor' || currentUser.role === 'mentee') {
+    return <MenteeMentorDashboard />;
   } else {
     return <LandingPage />;
   }
