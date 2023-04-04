@@ -48,7 +48,7 @@ const MatchingModal = ({
     dispatch(getUserMatches(newUserArray, user.role.toLowerCase()));
     setCurrentMatch(null);
   };
-  console.log(currentMatch);
+
   return (
     <div>
       {user ? (
