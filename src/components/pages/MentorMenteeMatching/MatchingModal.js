@@ -48,7 +48,7 @@ const MatchingModal = ({
     dispatch(getUserMatches(newUserArray, user.role.toLowerCase()));
     setCurrentMatch(null);
   };
-
+  console.log(currentMatch);
   return (
     <div>
       {user ? (
@@ -99,13 +99,17 @@ const MatchingModal = ({
                   </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">City/ State/ Country</div>
-                  <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
+                  <div className="FieldTitle">
+                    City &nbsp; State &#160; Country
+                  </div>
+                  <p className="FieldValue">{`${user?.city} \xa0 ${user?.state} \xa0 ${user?.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Mentorship Topics</div>
                   <p className="FieldValue">
-                    {<span>{user?.tech_stack}</span>}
+                    {user?.tech_stack.map((stack, idx) => {
+                      return <span key={idx}>{`\xa0 ${stack} \xa0`}</span>;
+                    })}
                   </p>
                 </div>
                 <div span={24} className="customCol">
@@ -117,37 +121,39 @@ const MatchingModal = ({
               <div className="MatchSuggestMatch">
                 <div className="Matches">
                   <h4>Matches</h4>
-                  {userMatches
-                    ? userMatches.map((row, idx) => {
-                        return (
-                          <>
-                            <Divider style={{ margin: '8px 0' }} />
-                            <div className="matchLine" key={idx}>
-                              <p>{`${row.first_name} ${row.last_name}`}</p>
-                              <p
-                                onClick={() => {
-                                  setCurrentMatch(row);
-                                  setIsMatched(true);
-                                }}
-                                className="viewLink"
-                              >
-                                View
-                              </p>
-                            </div>
-                          </>
-                        );
-                      })
-                    : null}
+                  {userMatches ? (
+                    userMatches.map((row, idx) => {
+                      return (
+                        <>
+                          <Divider style={{ margin: '8px 0' }} />
+                          <div className="matchLine" key={idx}>
+                            <p>{`${row.first_name} ${row.last_name}`}</p>
+                            <p
+                              onClick={() => {
+                                setCurrentMatch(row);
+                                setIsMatched(true);
+                              }}
+                              className="viewLink"
+                            >
+                              View
+                            </p>
+                          </div>
+                        </>
+                      );
+                    })
+                  ) : (
+                    <Tag color="orange">No Matches</Tag>
+                  )}
                 </div>
 
                 <div className="Suggestions">
                   <h4>Suggested Matches</h4>
                   {suggestedMatches && suggestedMatches.length > 0 ? (
-                    suggestedMatches.map(row => {
+                    suggestedMatches.map((row, idx) => {
                       return (
                         <>
                           <Divider style={{ margin: '8px 0' }} />
-                          <div className="suggestLine">
+                          <div className="suggestLine" key={idx}>
                             <p>{`${row.first_name} ${row.last_name}`}</p>
                             <p
                               className="viewLink"
@@ -208,8 +214,8 @@ const MatchingModal = ({
                   <p className="FieldValue">{`${currentMatch.email}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">City/ State/ Country</div>
-                  <p className="FieldValue">{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
+                  <div className="FieldTitle">City \xa0 State \xa0 Country</div>
+                  <p className="FieldValue">{`${currentMatch.city} \xa0 ${currentMatch.state} \xa0 ${currentMatch.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Current Company/ Position</div>
@@ -217,9 +223,7 @@ const MatchingModal = ({
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Mentorship Topics</div>
-                  <p className="FieldValue">
-                    {<span>{currentMatch.tech_stack}</span>}
-                  </p>
+                  <p className="FieldValue">{currentMatch.tech_stack}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Other Topics</div>
