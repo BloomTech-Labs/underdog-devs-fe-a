@@ -15,7 +15,7 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
       dispatch(getUserMatches(currentUser.matches, currentUser.role));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
