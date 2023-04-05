@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch, connect } from 'react-redux';
-import { Table, Button, Switch } from 'antd';
+import { Table, Button, Tabs } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
@@ -54,25 +54,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      filters: [
-        {
-          text: 'superAdmin',
-          value: 'superAdmin',
-        },
-        {
-          text: 'admin',
-          value: 'admin',
-        },
-        {
-          text: 'mentor',
-          value: 'mentor',
-        },
-        {
-          text: 'mentee',
-          value: 'mentee',
-        },
-      ],
-      onFilter: (value, record) => record.role.includes(value),
     },
     {
       title: 'Matches',
@@ -110,11 +91,21 @@ const UserManagement = ({ allMentors, allMentees }) => {
   return (
     <>
       <h2>Manage Users</h2>
-      <Switch
-        checkedChildren={`${displayRole}`}
-        unCheckedChildren={`${displayRole}`}
+      <Tabs
+        type="card"
+        items={[
+          {
+            key: '1',
+            label: 'Mentees',
+          },
+          {
+            key: '2',
+            label: 'Mentors',
+          },
+        ]}
+        defaultActiveKey="1"
+        size="large"
         onChange={() => handleChange()}
-        defaultChecked
       />
       <Table
         columns={columns}
