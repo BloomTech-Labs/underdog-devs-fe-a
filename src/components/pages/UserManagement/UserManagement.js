@@ -9,7 +9,7 @@ const UserManagement = ({ allMentors, allMentees }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState('');
-  const [displayRole, setDisplayRole] = useState('Mentors');
+  const [displayRole, setDisplayRole] = useState('Mentees');
   const dispatch = useDispatch();
 
   const getAccounts = role => {
