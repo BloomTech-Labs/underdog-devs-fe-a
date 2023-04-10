@@ -16,7 +16,6 @@ const MatchingModal = ({
   const [currentMatch, setCurrentMatch] = useState(null);
   const [isMatched, setIsMatched] = useState(false);
   const [matchChangeHappened, SetMatchChangedHappened] = useState(false);
-  const [needFreshPage, setNeedsFreshPage] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
