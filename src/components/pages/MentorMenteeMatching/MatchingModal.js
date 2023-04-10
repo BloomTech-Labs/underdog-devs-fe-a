@@ -4,6 +4,7 @@ import { useDispatch, connect } from 'react-redux';
 import { getUserMatches } from '../../../state/actions/userMatches/getUserMatches';
 import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
 import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 
 const MatchingModal = ({
   matchShow,
@@ -14,6 +15,8 @@ const MatchingModal = ({
 }) => {
   const [currentMatch, setCurrentMatch] = useState(null);
   const [isMatched, setIsMatched] = useState(false);
+  const [matchChangeHappened, SetMatchChangedHappened] = useState(false);
+  const [needFreshPage, setNeedsFreshPage] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +30,16 @@ const MatchingModal = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  useEffect(() => {
+    if (matchChangeHappened) {
+      dispatch(getAllUsers('mentor'));
+      dispatch(getAllUsers('mentee'));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMatch]);
+
   const matchChangeHandler = () => {
+    SetMatchChangedHappened(true);
     let newUserArray = [...user.matches];
     let newOtherArray = [...currentMatch.matches];
     const matchRole =
@@ -48,7 +60,7 @@ const MatchingModal = ({
     dispatch(getUserMatches(newUserArray, user.role.toLowerCase()));
     setCurrentMatch(null);
   };
-  console.log(typeof user.tech_stack);
+
   return (
     <div>
       {user ? (
@@ -185,7 +197,9 @@ const MatchingModal = ({
                   {!isMatched ? (
                     <Button
                       className="ant-btn-primary"
-                      onClick={() => matchChangeHandler()}
+                      onClick={() => {
+                        matchChangeHandler();
+                      }}
                     >
                       Add as a Match
                     </Button>
@@ -196,7 +210,9 @@ const MatchingModal = ({
                       ) : null}
                       <Button
                         className="ant-btn-secondary"
-                        onClick={() => matchChangeHandler()}
+                        onClick={() => {
+                          matchChangeHandler();
+                        }}
                       >
                         Remove Match
                       </Button>
@@ -226,7 +242,7 @@ const MatchingModal = ({
                   <div className="FieldTitle">
                     City &nbsp; State &nbsp; Country
                   </div>
-                  <p className="FieldValue">{`${currentMatch.city} \xa0 ${currentMatch.state} \xa0 ${currentMatch.country}`}</p>
+                  <p className="FieldValue">{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div className="FieldTitle">Current Company / Position</div>
