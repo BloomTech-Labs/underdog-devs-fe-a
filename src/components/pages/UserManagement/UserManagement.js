@@ -1,63 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
-import { getProfile } from '../../../state/actions/userProfile/getProfile';
-import { useDispatch } from 'react-redux';
-import { Table, Button } from 'antd';
-import MemosTable from '../../common/MemosTable';
-import { API_URL } from '../../../config';
-import dummyData from '../MyMentees/data.json';
-import { useAuth0 } from '@auth0/auth0-react';
+import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
+import { useDispatch, connect } from 'react-redux';
+import { Table, Button, Tabs } from 'antd';
 import UserModal from './UserModal';
-import { useHistory } from 'react-router-dom';
+import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = () => {
-  const [accounts, setAccounts] = useState([]);
-  const [updatedProfile, setUpdatedProfile] = useState();
-  const { axiosWithAuth } = useAxiosWithAuth0();
-  const [show, setShow] = useState(false);
-  const [user, setUser] = useState();
+const UserManagement = ({ allMentors, allMentees }) => {
+  const [userShow, setUserShow] = useState(false);
+  const [matchShow, setMatchShow] = useState(false);
+  const [user, setUser] = useState('');
+  const [displayRole, setDisplayRole] = useState('Mentees');
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const getAccounts = role => {
+    dispatch(getAllUsers(role));
+  };
+
+  const handleChange = () => {
+    displayRole === 'Mentors'
+      ? setDisplayRole('Mentees')
+      : setDisplayRole('Mentors');
+  };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [displayRole]);
 
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
+      dataIndex: 'name',
+      key: 'name',
       defaultSortOrder: 'descend',
       sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
+          className="nameLink"
           onClick={() => {
             setUser(record);
-            setShow(true);
+            setUserShow(true);
           }}
-        >{`${record.first_name} ${record.last_name}`}</p>
+        >{`${record.name}`}</p>
       ),
-    },
-    {
-      title: 'Role',
-      dataIndex: 'role',
-      key: 'role',
-      filters: [
-        {
-          text: 'superAdmin',
-          value: 'superAdmin',
-        },
-        {
-          text: 'admin',
-          value: 'admin',
-        },
-        {
-          text: 'mentor',
-          value: 'mentor',
-        },
-        {
-          text: 'mentee',
-          value: 'mentee',
-        },
-      ],
-      onFilter: (value, record) => record.role.includes(value),
     },
     {
       title: 'Email',
@@ -67,77 +51,85 @@ const UserManagement = () => {
       sorter: (a, b) => a.date - b.date,
     },
     {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
+    },
+    {
+      title: 'Matches',
+      dataIndex: 'numberOfMatches',
+      defaultSortOrder: 'descend',
+      filters: [
+        {
+          text: 'Not Matched',
+          value: 'Not Matched',
+        },
+      ],
+    },
+    {
       title: 'Action',
       key: 'action',
-      render: (text, record) => (
-        <Button onClick={() => history.push('/matching')}>
-          Manage Matches
+      render: (value, record) => (
+        <Button
+          onClick={() => {
+            setUser(record);
+            setMatchShow(true);
+          }}
+        >
+          Edit Matches
         </Button>
       ),
     },
   ];
 
-  function updateToAdmin(record) {
-    const requestBody = {
-      role_id: 2,
-    };
-
-    axiosWithAuth()
-      .put(`${API_URL}profile/${record.key}`, requestBody)
-      .then(res => {
-        setUpdatedProfile(res);
-      })
-      .catch(err => console.error(err));
-  }
-
-  /**
-   * Author: Khaleel Musleh
-   * @param {getAccounts}
-   * getAccounts dispatches a request to getProfile in state/actions/userProfile which then returns a response of either a success or error status
-   */
-
-  const getAccounts = () => {
-    dispatch(getProfile())
-      .then(res => {
-        setAccounts(
-          res.data.map(row => ({
-            key: row.profile_id,
-            name: row.first_name + ' ' + row.last_name,
-            role:
-              row.role_id === 1
-                ? 'superAdmin'
-                : row.role_id === 2
-                ? 'admin'
-                : row.role_id === 3
-                ? 'mentor'
-                : row.role_id === 4
-                ? 'mentee'
-                : 'pending',
-            email: row.email,
-            notes: 'this is a memo',
-          }))
-        );
-      })
-      .catch(err => console.error(err));
-  };
-
   useEffect(() => {
-    getAccounts();
-  }, [updatedProfile]);
+    getAccounts('mentor');
+    getAccounts('mentee');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <h2>Manage Users</h2>
-
+      <Tabs
+        type="card"
+        items={[
+          {
+            key: '1',
+            label: 'Mentees',
+          },
+          {
+            key: '2',
+            label: 'Mentors',
+          },
+        ]}
+        defaultActiveKey="1"
+        size="large"
+        onChange={() => handleChange()}
+      />
       <Table
         columns={columns}
-        dataSource={dummyData}
-        expandable={{
-          expandedRowRender: record => <MemosTable accounts={record} />,
-        }}
+        dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
       />
-      <UserModal show={show} handleCancel={() => setShow(false)} user={user} />
+      <UserModal
+        userShow={userShow}
+        handleCancel={() => setUserShow(false)}
+        user={user}
+      />
+      <MatchingModal
+        matchShow={matchShow}
+        handleCancel={() => setMatchShow(false)}
+        user={user}
+      />
     </>
   );
 };
 
-export default UserManagement;
+const mapStateToProps = state => {
+  return {
+    allMentors: state.user.allMentors,
+    allMentees: state.user.allMentees,
+  };
+};
+
+export default connect(mapStateToProps)(UserManagement);

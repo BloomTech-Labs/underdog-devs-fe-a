@@ -31,9 +31,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
-    "vega": "^5.22.1",
-    "vega-embed": "^6.21.0",
-    "vega-lite": "^5.6.0",
+    "vega-embed": "^6.21.3",
     "yup": "^0.32.11"
   },
   "scripts": {
@@ -68,18 +66,11 @@
       "<rootDir>/node_modules/"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",

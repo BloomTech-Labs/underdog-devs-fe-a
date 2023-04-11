@@ -8,7 +8,6 @@ import {
   UserSwitchOutlined,
   HourglassOutlined,
   TeamOutlined,
-  BulbFilled,
 } from '@ant-design/icons';
 
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';

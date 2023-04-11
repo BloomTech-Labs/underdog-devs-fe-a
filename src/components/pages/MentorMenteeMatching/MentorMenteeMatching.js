@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import { Table, Tag, Button } from 'antd';
 import MatchingModal from './MatchingModal';
-import dummyData from '../MyMentees/data.json';
 
 const MentorMenteeMatching = () => {
   const [assignments, setAssignments] = useState([]);
@@ -13,11 +12,11 @@ const MentorMenteeMatching = () => {
   useEffect(() => {
     // assignments in this sense means assigned mentees
     axiosWithAuth()
-      .get('/profiles')
+      .get('/assignments/mentor/f299125d-15a7-4721-a3b1-498733fa5e02')
       .then(res => {
         setAssignments(conformData(res.data));
       });
-  }, []);
+  });
 
   const resetModal = () => {
     setSelectedMentorKeys([]);
@@ -100,7 +99,7 @@ const MentorMenteeMatching = () => {
   return (
     <>
       <h2>Matching</h2>
-      <Table columns={columns} dataSource={dummyData} />
+      <Table columns={columns} dataSource={assignments} />
       <MatchingModal
         handleCancel={handleCancel}
         handleSave={handleSave}

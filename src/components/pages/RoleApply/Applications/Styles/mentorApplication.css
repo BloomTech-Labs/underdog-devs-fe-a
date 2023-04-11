@@ -3,7 +3,11 @@
   justify-content: center;
   letter-spacing: 1px;
 }
-
+#mentorSubmitButton {
+  background-color: #003d71;
+  color: #fff;
+  margin-bottom: 2vh;
+}
 .mentorTitle {
   background-color: #003d71;
   color: #ffffff !important;
@@ -35,6 +39,7 @@
 }
 .form-group {
   display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 @media only screen and (max-width: 600px) {

@@ -6,7 +6,7 @@ import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
 import { API_URL } from '../../../config';
 
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 /**
  * @param {applicationProfile}
@@ -26,7 +26,7 @@ const ApplicationModal = ({
 
   const { axiosWithAuth } = useAxiosWithAuth0();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleOk = () => {
     setDisplayModal(false);
@@ -73,18 +73,18 @@ const ApplicationModal = ({
    * and validate_status yet if it doesnt exist then its a Mentee and we only pass in validate_status.
    */
 
-  const pendingAppHelper = status => {
-    const mentor =
-      currentApplication.accepting_new_mentees === undefined
-        ? {
-            validate_status: status,
-          }
-        : {
-            validate_status: status,
-            current_company: currentApplication.current_company,
-          };
-    return mentor;
-  };
+  // const pendingAppHelper = status => {
+  //   const mentor =
+  //     currentApplication.accepting_new_mentees === undefined
+  //       ? {
+  //           validate_status: status,
+  //         }
+  //       : {
+  //           validate_status: status,
+  //           current_company: currentApplication.current_company,
+  //         };
+  //   return mentor;
+  // };
 
   /**
    * Author: Khaleel Musleh
@@ -107,8 +107,9 @@ const ApplicationModal = ({
 
   useEffect(() => {
     const getCurrentApp = () => {
+      // eslint-disable-next-line array-callback-return
       Object.values(applicationProfile).map(current_id => {
-        if (current_id?.key == profileId) {
+        if (current_id?.key === profileId) {
           setCurrentApplication(current_id);
         }
       });

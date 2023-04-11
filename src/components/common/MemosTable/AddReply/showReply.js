@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useAxiosWithAuth0 from '../../../../hooks/useAxiosWithAuth0';
 import { Comment, Tooltip, List } from 'antd';
 import moment from 'moment';
@@ -10,12 +10,14 @@ function ShowReply(props) {
   const { setComments, comments } = props;
   useEffect(() => {
     const getComments = () => {
-      axiosWithAuth.get(`/notes/${note_id}/comments`).then(res => {
-        setComments(res.data);
-      });
+      axiosWithAuth()
+        .get(`/notes/${note_id}/comments`)
+        .then(res => {
+          setComments(res.data);
+        });
     };
     getComments();
-  }, [note_id]);
+  }, [axiosWithAuth, note_id, setComments]);
   const data = [];
   // eslint-disable-next-line array-callback-return
   comments.map(t => {

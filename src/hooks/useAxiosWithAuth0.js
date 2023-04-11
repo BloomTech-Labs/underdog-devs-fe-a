@@ -33,6 +33,7 @@ export default function useAxiosWithAuth0() {
         axiosWithAuth(token);
       })();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   return {
