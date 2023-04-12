@@ -19,13 +19,15 @@ const NavbarItems = () => {
     setDarkMode(darkMode === 'dark' ? 'light' : 'dark');
     setTheme(darkMode);
   };
+  console.log(darkMode);
 
   /* NOTE: useEffect in place to test pulling user info from Auth0. Leaving 
      this here as an example so we can use this moving forward when pulling user
      data from the DS API. */
   useEffect(() => {
+    setTheme(darkMode);
     isAuthenticated ? console.log(user) : console.log('Not authenticated.');
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, darkMode]);
 
   return (
     <Menu theme="dark" mode="vertical">
@@ -46,14 +48,15 @@ const NavbarItems = () => {
 
       {isAuthenticated && (
         <>
+          <div className="darkModeLabel">Dark Mode</div>
           {/* <Space> */}
           <Switch
             checkedChildren={`ON`}
             unCheckedChildren={`OFF`}
+            defaultChecked={true}
             onClick={() => {
               darkModeHandler();
             }}
-            // onChange={() => handleChange()}
           />
           {/* <br /> */}
           <Button type="primary" onClick={logoutAuth}>
