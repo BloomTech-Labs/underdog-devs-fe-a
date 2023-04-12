@@ -1,16 +1,23 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 import './Navbar.less';
-import { Menu, Button } from 'antd';
-import { useEffect } from 'react';
+import { Menu, Button, Switch, Space } from 'antd';
+import { useEffect, useState } from 'react';
+import { setTheme } from '../../common/DarkModeToggle';
 
 const NavbarItems = () => {
+  const [darkMode, setDarkMode] = useState('dark');
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const { push } = useHistory();
 
   const logoutAuth = () => {
     localStorage.removeItem('AuthToken');
     logout({ returnTo: window.location.origin });
+  };
+
+  const darkModeHandler = () => {
+    setDarkMode(darkMode === 'dark' ? 'light' : 'dark');
+    setTheme(darkMode);
   };
 
   /* NOTE: useEffect in place to test pulling user info from Auth0. Leaving 
@@ -36,10 +43,24 @@ const NavbarItems = () => {
           Apply
         </Button>
       )}
+
       {isAuthenticated && (
-        <Button type="primary" onClick={logoutAuth}>
-          Logout
-        </Button>
+        <>
+          {/* <Space> */}
+          <Switch
+            checkedChildren={`ON`}
+            unCheckedChildren={`OFF`}
+            onClick={() => {
+              darkModeHandler();
+            }}
+            // onChange={() => handleChange()}
+          />
+          {/* <br /> */}
+          <Button type="primary" onClick={logoutAuth}>
+            Logout
+          </Button>
+          {/* </Space> */}
+        </>
       )}
     </Menu>
   );
