@@ -130,7 +130,7 @@ const MatchingModal = ({ matchShow, handleCancel, user, allUserMatches }) => {
           <div span={24} className="customCol">
             <div className="FieldTitle">Name</div>
             <p className="FieldValue">
-              {`${currentMatch.first_name} ${currentMatch.last_name}`}
+              {`${currentMatch?.first_name} ${currentMatch?.last_name}`}
               <div className="userTag">
                 <Tag color="blue">
                   {user?.role === 'mentee' || user?.role === 'Mentee'
