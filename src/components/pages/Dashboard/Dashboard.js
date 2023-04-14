@@ -16,22 +16,22 @@ const Dashboard = props => {
    ** exists, current user is new and needs to fill out form, so we
    ** push them there.
    */
-  const newUser =
-    user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/newUser`];
-  const newUserRole =
-    user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/role`];
+  // const newUser =
+  //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/newUser`];
+  // const newUserRole =
+  //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/role`];
   console.log(currentUser);
-  console.log(newUser);
-  console.log(newUserRole);
+  // console.log(newUser);
+  // console.log(newUserRole);
   if (currentUser.role === 'admin') {
     return <Applications />;
-  } else if (currentUser.role === 'mentor') {
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
     return <MyMentees />;
-  } else if (currentUser.role === 'mentee') {
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
     return <MyMentors />;
-  } else if (newUser && newUserRole === 'mentor') {
+  } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
     return <Mentor />;
-  } else if (newUser && newUserRole === 'mentee') {
+  } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
     return <Mentee />;
   } else {
     return <LandingPage />;

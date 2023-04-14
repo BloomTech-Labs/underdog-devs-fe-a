@@ -44,6 +44,7 @@ const Navbar = ({ currentUser, dispatch }) => {
       axiosWithAuth()
         .post('/profile/current_user_profile', user)
         .then(profile => {
+          console.log(profile);
           dispatch(
             setCurrentUser({
               ...user,
