@@ -29,6 +29,7 @@ export default function useAxiosWithAuth0() {
       (async () => {
         const token = await getAccessTokenSilently({
           audience: AUTH0_AUDIENCE,
+          scope: 'openid profile email user_metadata',
         });
         axiosWithAuth(token);
       })();
