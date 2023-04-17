@@ -51,11 +51,12 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
-const Mentee = ({ dispatch, error }) => {
+const Mentee = ({ dispatch, error, currentUser }) => {
   const { formValues, handleChange } = useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
+    formValues.profile_id = currentUser.sub;
     dispatch(postNewMenteeAccount(formValues))
       .then(res => {
         push('/apply/success');
@@ -495,6 +496,7 @@ const Mentee = ({ dispatch, error }) => {
 const mapStateToProps = state => {
   return {
     error: state.user.error,
+    currentUser: state.user.currentUser,
   };
 };
 

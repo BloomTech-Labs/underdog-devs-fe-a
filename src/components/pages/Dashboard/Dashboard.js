@@ -7,6 +7,7 @@ import MyMentors from '../../pages/MyMentors/MyMentors';
 import LandingPage from '../LandingPage/LandingPage';
 import Mentee from '../RoleApply/Applications/Mentee';
 import Mentor from '../RoleApply/Applications/Mentor';
+import LoadingComponent from '../../common/LoadingComponent';
 
 const Dashboard = props => {
   const { user } = useAuth0();
@@ -34,7 +35,7 @@ const Dashboard = props => {
   } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
     return <Mentee />;
   } else {
-    return <LandingPage />;
+    return <LoadingComponent />;
   }
 };
 

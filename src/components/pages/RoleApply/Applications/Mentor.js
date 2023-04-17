@@ -53,14 +53,19 @@ const initialFormValues = {
   validate_status: 'pending',
 };
 
-const Mentor = ({ dispatch, error }) => {
+const Mentor = ({ dispatch, error, currentUser }) => {
   const { formValues, newMentor, handleChange, handleTechStack } =
     useForms(initialFormValues);
   const { push } = useHistory();
 
   const formSubmit = () => {
     // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload
-    dispatch(postNewMentorAccount(newMentor(formValues)))
+    // formValues.profile_id = currentUser.sub;
+    dispatch(
+      postNewMentorAccount(
+        newMentor({ ...formValues, profile_id: currentUser.sub })
+      )
+    )
       .then(res => {
         push('/apply/success');
       })
@@ -548,6 +553,7 @@ const Mentor = ({ dispatch, error }) => {
 const mapStateToProps = state => {
   return {
     error: state.user.error,
+    currentUser: state.user.currentUser,
   };
 };
 
