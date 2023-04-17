@@ -23,18 +23,20 @@ const Dashboard = props => {
   console.log(currentUser);
   // console.log(newUser);
   // console.log(newUserRole);
-  if (currentUser.role === 'admin') {
-    return <Applications />;
-  } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
-    return <MenteeMentorDashboard />;
-  } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
-    return <MenteeMentorDashboard />;
-  } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
-    return <Mentor />;
-  } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
-    return <Mentee />;
-  } else {
-    return <LoadingComponent />;
+  if (currentUser.validate_status === 'approved') {
+    if (currentUser.role === 'admin') {
+      return <Applications />;
+    } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
+      return <MenteeMentorDashboard />;
+    } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
+      return <MenteeMentorDashboard />;
+    } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
+      return <Mentor />;
+    } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
+      return <Mentee />;
+    } else {
+      return <LoadingComponent />;
+    }
   }
 };
 
