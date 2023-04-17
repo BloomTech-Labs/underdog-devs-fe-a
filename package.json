@@ -4,6 +4,9 @@
   "private": false,
   "license": "MIT",
   "repository": "github:Lambda-School-Labs/labs-spa-starter",
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-form": "^1.52.13",
