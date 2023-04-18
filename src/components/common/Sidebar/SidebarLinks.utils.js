@@ -36,11 +36,6 @@ export const bottomSharedLinks = [
   },
 ];
 
-/**
- * Khaleel Musleh
- * Removed all the links which are non-functional, they are all available in the devLinks below
- */
-
 export const menteeLinks = [
   // { key: '/meetings', label: 'Meetings', icon: <CarryOutOutlined /> },
   { key: '/mentors', label: 'My Matches' },

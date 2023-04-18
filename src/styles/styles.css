@@ -94,10 +94,12 @@ div.row2 .modalBtn:visited {
 }
 .nameLink {
   color: #d6d6d6;
+  text-decoration: underline;
 }
 .nameLink:hover {
   cursor: pointer;
   color: #257ddc;
+  text-decoration: none;
 }
 .MatchingModal {
   width: 100%;
