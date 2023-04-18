@@ -24,7 +24,6 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
-import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
 import Memos from './components/pages/Memos/Memos';
 import MemosForm from './components/pages/Memos/MemosForm';
@@ -112,7 +111,6 @@ function App() {
           allowRoles={[1, 2, 3, 5]}
           component={MenteeMentorDashboard}
         />
-        {/* why are these a different color? */}
         <PrivateRoute
           path="/mentors"
           allowRoles={[1, 2, 3, 4, 5]}
@@ -158,11 +156,6 @@ function App() {
           path="/calendar"
           allowRoles={[1, 2, 3, 4, 5]}
           component={Calendar}
-        />
-        <PrivateRoute
-          path="/matching"
-          allowRoles={[1, 5]}
-          component={MentorMenteeMatching}
         />
         <PrivateRoute
           path="/applications"
