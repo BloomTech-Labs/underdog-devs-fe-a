@@ -25,7 +25,9 @@ const Dashboard = props => {
   // console.log(newUserRole);
   if (currentUser.role === 'admin') {
     return <Applications />;
-  } else if (!currentUser.tempProfile && (currentUser.role === 'mentor' || currentUser.role === 'mentee')) {
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
+    return <MenteeMentorDashboard />;
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
     return <MenteeMentorDashboard />;
   } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
     return <Mentor />;
