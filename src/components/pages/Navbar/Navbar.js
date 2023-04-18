@@ -19,7 +19,7 @@ const { Header } = Layout;
 const Navbar = ({ currentUser, dispatch }) => {
   const [modal, setModal] = useState(false);
   const [toggleStatus, setToggleStatus] = useState(false);
-  const { logout, isAuthenticated, user } = useAuth0();
+  const { logout, isAuthenticated, user, getIdTokenClaims } = useAuth0();
   const { axiosWithAuth } = useAxiosWithAuth0();
 
   const openModal = () => setModal(true);
@@ -36,10 +36,15 @@ const Navbar = ({ currentUser, dispatch }) => {
 
   useEffect(() => {
     // TODO: Check that we don't ALREADY have user in redux
+    // getIdTokenClaims().then(token => {
+    //   console.log(token);
+    // })
     if (isAuthenticated) {
+      console.log(user);
       axiosWithAuth()
         .post('/profile/current_user_profile', user)
         .then(profile => {
+          console.log(profile);
           dispatch(
             setCurrentUser({
               ...user,
@@ -48,6 +53,15 @@ const Navbar = ({ currentUser, dispatch }) => {
           );
         })
         .catch(err => {
+          console.log(err);
+          if (err.status === 404) {
+            dispatch(
+              setCurrentUser({
+                ...user,
+                ...err.data,
+              })
+            );
+          }
           console.error(err);
         });
     }
