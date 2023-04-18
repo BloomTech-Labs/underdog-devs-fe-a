@@ -11,12 +11,22 @@
   padding: 5%;
   padding-top: 0;
 }
+.ant-menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.darkModeLabel {
+  margin-right: -5px;
+  text-transform: uppercase;
+}
 .ant-modal-content .ant-modal-header {
   background-color: #003d71;
 }
 .modalStyle p {
   margin: 0%;
 }
+
 .modalStyle ul {
   margin: 0%;
   padding-left: 0%;
