@@ -13,6 +13,11 @@ const columns = [
     sortDirections: ['descend', 'ascend'],
   },
   {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+  {
     // Add in functionality for filter button for roles
     title: 'Role',
     dataIndex: 'role',
@@ -30,16 +35,11 @@ const columns = [
     onFilter: (value, record) => record.role.props.children === value,
   },
   {
-    title: 'Date Updated',
+    title: 'Date Submitted',
     dataIndex: 'date',
     key: 'date',
     sorter: (a, b) => a.date.localeCompare(b.date),
     sortDirections: ['descend', 'ascend'],
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
   },
   {
     title: 'Application',
@@ -81,6 +81,7 @@ const Applications = () => {
           ? (row.role_name = 'mentor')
           : (row.role_name = 'mentee');
       });
+      
       if (isToggled === true) {
         setApplications(
           Object.values(api.data)
@@ -211,6 +212,7 @@ const Applications = () => {
             )
         );
       }
+      
     } catch (err) {
       // needs proper error handling
       console.error(err);

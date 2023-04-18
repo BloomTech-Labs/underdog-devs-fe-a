@@ -192,7 +192,26 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
-.viewButton {
+.ant-descriptions-item-label {
+  display: none;
+}
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.noCurrentMatch span {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 18px;
+}
+.updated {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 @media screen and (max-width: 620px) {
   .UserTable {
