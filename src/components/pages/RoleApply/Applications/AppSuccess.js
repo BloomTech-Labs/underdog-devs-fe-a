@@ -7,7 +7,7 @@ const { Title } = Typography;
 export default function AppSuccess() {
   let history = useHistory();
   const handleHomeClick = () => {
-    history.push('/landing');
+    history.push('/');
   };
 
   return (

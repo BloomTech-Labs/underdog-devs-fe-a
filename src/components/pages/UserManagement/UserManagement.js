@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
 import { useDispatch, connect } from 'react-redux';
-import { Table, Button, Switch } from 'antd';
+import { Table, Button, Tabs } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
@@ -9,12 +9,8 @@ const UserManagement = ({ allMentors, allMentees }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState('');
-  const [displayRole, setDisplayRole] = useState('Mentors');
+  const [displayRole, setDisplayRole] = useState('Mentees');
   const dispatch = useDispatch();
-
-  const getAccounts = role => {
-    dispatch(getAllUsers(role));
-  };
 
   const handleChange = () => {
     displayRole === 'Mentors'
@@ -32,7 +28,7 @@ const UserManagement = ({ allMentors, allMentees }) => {
       dataIndex: 'name',
       key: 'name',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.name - b.name,
+      // sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
           className="nameLink"
@@ -65,11 +61,11 @@ const UserManagement = ({ allMentors, allMentees }) => {
         },
         {
           text: 'mentor',
-          value: 'mentor',
+          value: 'Mentor',
         },
         {
           text: 'mentee',
-          value: 'mentee',
+          value: 'Mentee',
         },
       ],
       onFilter: (value, record) => record.role.includes(value),
@@ -77,11 +73,10 @@ const UserManagement = ({ allMentors, allMentees }) => {
     {
       title: 'Matches',
       dataIndex: 'numberOfMatches',
-      defaultSortOrder: 'descend',
       filters: [
         {
           text: 'Not Matched',
-          value: 'Not Matched',
+          value: 0,
         },
       ],
     },
@@ -102,19 +97,29 @@ const UserManagement = ({ allMentors, allMentees }) => {
   ];
 
   useEffect(() => {
-    getAccounts('mentor');
-    getAccounts('mentee');
+    dispatch(getAllUsers('mentor'));
+    dispatch(getAllUsers('mentee'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <h2>Manage Users</h2>
-      <Switch
-        checkedChildren={`${displayRole}`}
-        unCheckedChildren={`${displayRole}`}
+      <Tabs
+        type="card"
+        items={[
+          {
+            key: '1',
+            label: 'Mentees',
+          },
+          {
+            key: '2',
+            label: 'Mentors',
+          },
+        ]}
+        defaultActiveKey="1"
+        size="large"
         onChange={() => handleChange()}
-        defaultChecked
       />
       <Table
         columns={columns}

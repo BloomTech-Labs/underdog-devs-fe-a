@@ -11,12 +11,22 @@
   padding: 5%;
   padding-top: 0;
 }
+.ant-menu {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.darkModeLabel {
+  margin-right: -5px;
+  text-transform: uppercase;
+}
 .ant-modal-content .ant-modal-header {
   background-color: #003d71;
 }
 .modalStyle p {
   margin: 0%;
 }
+
 .modalStyle ul {
   margin: 0%;
   padding-left: 0%;
@@ -94,10 +104,12 @@ div.row2 .modalBtn:visited {
 }
 .nameLink {
   color: #d6d6d6;
+  text-decoration: underline;
 }
 .nameLink:hover {
   cursor: pointer;
   color: #257ddc;
+  text-decoration: none;
 }
 .MatchingModal {
   width: 100%;
@@ -180,7 +192,26 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
-.viewButton {
+.ant-descriptions-item-label {
+  display: none;
+}
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.noCurrentMatch span {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 18px;
+}
+.updated {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 @media screen and (max-width: 620px) {
   .UserTable {

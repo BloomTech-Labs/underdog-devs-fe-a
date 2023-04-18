@@ -13,9 +13,8 @@ import { Landing } from './components/pages/LandingPage';
 import Apply from './components/pages/RoleApply/Apply';
 import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
-import MyMentors from './components/pages/MyMentors/MyMentors';
 import MyMemos from './components/pages/Memos/MyMemos';
-import MyMentees from './components/pages/MyMentees/MyMentees';
+import MenteeMentorDashboard from './components/pages/MenteeMentorDashboard/MenteeMentorDashboard';
 //import ViewAllMeetings from './components/pages/ViewAllMeetings/ViewAllMeetings'; this component has been changed and now exists in 3 places
 import AdminMeetingDash from './components/pages/AdminMeetingsDashBoard/AdminMeetingDash';
 import MentorMeetingDash from './components/pages/MentorMeetingsDashBoard/MentorMeetingDash';
@@ -25,7 +24,6 @@ import { ManageResources } from './components/pages/ManageResources/ManageResour
 import { Profile } from './components/pages/Profile';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import UserManagement from './components/pages/UserManagement/UserManagement';
-import MentorMenteeMatching from './components/pages/MentorMenteeMatching/MentorMenteeMatching';
 import Reviews from './components/pages/Reviews/MentorReviews';
 import Memos from './components/pages/Memos/Memos';
 import MemosForm from './components/pages/Memos/MemosForm';
@@ -107,16 +105,16 @@ function App() {
           allowRoles={[1, 2, 5]}
           component={UserManagement}
         />
+
         <PrivateRoute
           path="/mentees"
           allowRoles={[1, 2, 3, 5]}
-          component={MyMentees}
+          component={MenteeMentorDashboard}
         />
-        {/* why are these a different color? */}
         <PrivateRoute
           path="/mentors"
           allowRoles={[1, 2, 3, 4, 5]}
-          component={MyMentors}
+          component={MenteeMentorDashboard}
         />
 
         <PrivateRoute
@@ -158,11 +156,6 @@ function App() {
           path="/calendar"
           allowRoles={[1, 2, 3, 4, 5]}
           component={Calendar}
-        />
-        <PrivateRoute
-          path="/matching"
-          allowRoles={[1, 5]}
-          component={MentorMenteeMatching}
         />
         <PrivateRoute
           path="/applications"
