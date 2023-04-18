@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
@@ -41,14 +41,14 @@ const UserModal = ({ userShow, handleCancel, user }) => {
             } `}
             {''}
           </span>
-          <button
+          <Button
             onClick={() => {
               setNewUserShow(false);
               setMatchShow(true);
             }}
           >
             Edit Matches
-          </button>{' '}
+          </Button>{' '}
         </div>
         <div className="UserTable">
           <div span={24} className="customCol">
@@ -72,7 +72,17 @@ const UserModal = ({ userShow, handleCancel, user }) => {
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Mentorship Topics</div>
-            <p className="FieldValue">{<span>{user?.tech_stack}</span>}</p>
+            <p className="FieldValue">
+              {user?.tech_stack ? (
+                typeof user.tech_stack === typeof '' ? (
+                  <p>&nbsp; {user?.tech_stack} &nbsp;</p>
+                ) : (
+                  user?.tech_stack.map((stack, idx) => {
+                    return <p key={idx}> &nbsp; {`${stack}`} &nbsp;</p>;
+                  })
+                )
+              ) : null}
+            </p>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Commit?</div>

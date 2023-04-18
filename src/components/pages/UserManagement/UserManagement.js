@@ -12,10 +12,6 @@ const UserManagement = ({ allMentors, allMentees }) => {
   const [displayRole, setDisplayRole] = useState('Mentees');
   const dispatch = useDispatch();
 
-  const getAccounts = role => {
-    dispatch(getAllUsers(role));
-  };
-
   const handleChange = () => {
     displayRole === 'Mentors'
       ? setDisplayRole('Mentees')
@@ -32,7 +28,7 @@ const UserManagement = ({ allMentors, allMentees }) => {
       dataIndex: 'name',
       key: 'name',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.name - b.name,
+      // sorter: (a, b) => a.name - b.name,
       render: (value, record) => (
         <p
           className="nameLink"
@@ -54,15 +50,33 @@ const UserManagement = ({ allMentors, allMentees }) => {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
+      filters: [
+        {
+          text: 'superAdmin',
+          value: 'superAdmin',
+        },
+        {
+          text: 'admin',
+          value: 'admin',
+        },
+        {
+          text: 'mentor',
+          value: 'Mentor',
+        },
+        {
+          text: 'mentee',
+          value: 'Mentee',
+        },
+      ],
+      onFilter: (value, record) => record.role.includes(value),
     },
     {
       title: 'Matches',
       dataIndex: 'numberOfMatches',
-      defaultSortOrder: 'descend',
       filters: [
         {
           text: 'Not Matched',
-          value: 'Not Matched',
+          value: 0,
         },
       ],
     },
@@ -83,8 +97,8 @@ const UserManagement = ({ allMentors, allMentees }) => {
   ];
 
   useEffect(() => {
-    getAccounts('mentor');
-    getAccounts('mentee');
+    dispatch(getAllUsers('mentor'));
+    dispatch(getAllUsers('mentee'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
