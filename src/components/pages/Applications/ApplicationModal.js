@@ -92,12 +92,18 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const handleApplication = status => {
+  const handleApplication = (role, status) => {
+    const payload = {
+      role: role,
+      status: status,
+    };
     axiosWithAuth()
-      .post(`${API_URL}application/update-validate_status/${profileId}`, status)
+      .put(`${API_URL}application/update-validate_status/${profileId}`, payload)
       .then(res => {
+        console.log('WORKING');
         setDisplayModal(false);
         openNotificationWithIcon('success', status);
+        console.log('SUCCESS');
         getApps();
       })
       .catch(err => {
@@ -145,13 +151,17 @@ const ApplicationModal = ({
             <Button
               key="submitA"
               type="primary"
-              onClick={() => handleApplication('approve')}
+              onClick={() =>
+                handleApplication(`${currentApplication.role_name}`, 'approved')
+              }
             >
               Approve
             </Button>,
             <Button
               key="submitR"
-              onClick={() => handleApplication('reject')}
+              onClick={() =>
+                handleApplication(`${currentApplication.role}`, 'reject')
+              }
               danger
             >
               Reject
