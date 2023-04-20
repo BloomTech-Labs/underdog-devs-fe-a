@@ -11,10 +11,10 @@ import '../styles/Sidebar.css';
 import {
   // superAdminLinks,
   adminLinks,
-  bottomSharedLinks,
+  // bottomSharedLinks,
   menteeLinks,
   mentorLinks,
-  sharedLinks,
+  // sharedLinks,
   devLinks,
 } from './SidebarLinks.utils';
 const { Content, Sider } = Layout;
