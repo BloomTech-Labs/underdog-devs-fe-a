@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { getProfile } from '../../../state/actions/userProfile/getProfile';
 import Applications from '../Applications/Applications';
 import MenteeMentorDashboard from '../MenteeMentorDashboard/MenteeMentorDashboard';
-import LandingPage from '../LandingPage/LandingPage';
 import Mentee from '../RoleApply/Applications/Mentee';
 import Mentor from '../RoleApply/Applications/Mentor';
+import AppPending from '../RoleApply/Applications/AppPending';
 import LoadingComponent from '../../common/LoadingComponent';
 
 const Dashboard = props => {
@@ -20,23 +20,22 @@ const Dashboard = props => {
   //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/newUser`];
   // const newUserRole =
   //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/role`];
-  console.log(currentUser);
   // console.log(newUser);
   // console.log(newUserRole);
-  if (currentUser.validate_status === 'approved') {
-    if (currentUser.role === 'admin') {
-      return <Applications />;
-    } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
-      return <MenteeMentorDashboard />;
-    } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
-      return <MenteeMentorDashboard />;
-    } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
-      return <Mentor />;
-    } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
-      return <Mentee />;
-    } else {
-      return <LoadingComponent />;
-    }
+  if (currentUser.role === 'admin') {
+    return <Applications />;
+  } else if (currentUser.validate_status === 'pending') {
+    return <AppPending />;
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
+    return <MenteeMentorDashboard />;
+  } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
+    return <MenteeMentorDashboard />;
+  } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
+    return <Mentor />;
+  } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
+    return <Mentee />;
+  } else {
+    return <LoadingComponent />;
   }
 };
 
