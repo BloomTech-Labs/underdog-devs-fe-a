@@ -21,6 +21,7 @@ const ApplicationModal = ({
   displayModal,
   applicationProfile,
   getApps,
+  columns,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
 
@@ -100,11 +101,26 @@ const ApplicationModal = ({
     axiosWithAuth()
       .put(`${API_URL}application/update-validate_status/${profileId}`, payload)
       .then(res => {
-        console.log('WORKING');
+        console.log(currentApplication);
+        // Update state based on previous state
+        setCurrentApplication(prevState => {
+          return { ...prevState, children: payload.status };
+        });
+
+        // Update state based on payload.status
+        if (payload.status === 'approved') {
+          setCurrentApplication(prevState => {
+            return { ...prevState, color: 'green' };
+          });
+        } else {
+          setCurrentApplication(prevState => {
+            return { ...prevState, color: 'red' };
+          });
+        }
         setDisplayModal(false);
-        openNotificationWithIcon('success', status);
-        console.log('SUCCESS');
         getApps();
+        console.log(currentApplication.status);
+        openNotificationWithIcon('success', status);
       })
       .catch(err => {
         openNotificationWithIcon('error', status, err.message);
@@ -160,7 +176,7 @@ const ApplicationModal = ({
             <Button
               key="submitR"
               onClick={() =>
-                handleApplication(`${currentApplication.role}`, 'reject')
+                handleApplication(`${currentApplication.role_name}`, 'reject')
               }
               danger
             >
