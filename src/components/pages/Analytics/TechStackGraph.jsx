@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { API_URL } from '../../../config';
 import axios from 'axios';
 import embed from 'vega-embed';
+import { connect } from 'react-redux';
 
 //vega-embed allows us to take a graph object, and display it on the ui.
 // for more information visit https://github.com/vega/vega-embed
-export default function TechStackGraph() {
+function TechStackGraph({ themeRedux }) {
   const [graphData, setGraphData] = useState({ graph: {}, description: '' });
 
   useEffect(() => {
     axios
-      .get(`${API_URL}analytics/graph/tech`)
+      .post(`${API_URL}analytics/graph/tech`, { theme: themeRedux })
       .then(res => {
         setGraphData(res.data);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [themeRedux]);
 
   embed('#vis', graphData.graph);
 
@@ -26,3 +27,9 @@ export default function TechStackGraph() {
     </>
   );
 }
+
+const mapStateToProps = state => {
+  return { themeRedux: state.theme.theme };
+};
+
+export default connect(mapStateToProps)(TechStackGraph);
