@@ -38,6 +38,10 @@ const Sidebar = ({ children, currentUser }) => {
   };
 
   useEffect(() => {
+    let approved = false;
+    if (currentUser.validate_status === 'approved') {
+      approved = true;
+    }
     if (role) {
       switch (role) {
         case 'admin':
@@ -45,11 +49,15 @@ const Sidebar = ({ children, currentUser }) => {
           break;
 
         case 'mentor':
-          setLinks([/*...sharedLinks,*/ ...mentorLinks]);
+          approved
+            ? setLinks([/*...sharedLinks,*/ ...mentorLinks])
+            : setLinks(null);
           break;
 
         case 'mentee':
-          setLinks([/*...sharedLinks,*/ ...menteeLinks]);
+          approved
+            ? setLinks([/*...sharedLinks,*/ ...menteeLinks])
+            : setLinks(null);
           break;
 
         case 'dev':
