@@ -12,6 +12,7 @@ export { SET_ROLE_ID } from './auth/setRoleId';
 export { SET_ALL_MENTORS, SET_ALL_MENTEES } from './allUsers/setAllUsers';
 export { SET_USER_MATCHES } from './userMatches/setUserMatches';
 export { SET_SUGGESTED_MATCHES } from './userMatches/setSuggestedMatches';
+export { SET_THEME } from './theme';
 
 // CALENDAR ACTIONS----------------------
 export const MENTOR_EVENT_STUB = 'MENTOR_EVENT_STUB';
