@@ -4,10 +4,13 @@ import { API_URL } from '../../../config';
 import { setFetchError } from '../errors/setFetchError';
 import { setFetchEnd } from '../lifecycle/setFetchEnd';
 import { setFetchStart } from '../lifecycle/setFetchStart';
+//?Not sure if I need these imports?
 
 import { openNotificationWithIcon } from './applicationModal';
 
-export const HANDLE_APPLICATION_SUCCESS = 'HANDLE_APPLICATION_SUCCESS';
+export const HANDLE_APPLICATION_APPROVE = 'HANDLE_APPLICATION_APPROVE';
+
+export const HANDLE_APPLICATION_REJECT = 'HANDLE_APPLICATION_REJECT';
 
 export const handleApplication = (setDisplayModal, profileId, role, status) => {
   const payload = {
@@ -23,7 +26,11 @@ export const handleApplication = (setDisplayModal, profileId, role, status) => {
       );
       dispatch(setDisplayModal(false));
       dispatch(openNotificationWithIcon('success', status));
-      dispatch({ type: HANDLE_APPLICATION_SUCCESS, payload: payload.status });
+      if (payload.status === 'approved') {
+        dispatch({ type: HANDLE_APPLICATION_APPROVE, payload: payload.status });
+      } else {
+        dispatch({ type: HANDLE_APPLICATION_REJECT, payload: payload.status });
+      }
       return api;
     } catch (err) {
       throw new Error(
