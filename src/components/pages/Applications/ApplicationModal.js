@@ -1,45 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import './ApplicationModal.less';
-import { Modal, Button, notification } from 'antd';
+import { Modal, Button } from 'antd';
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
-import { API_URL } from '../../../config';
-
-// import { useDispatch } from 'react-redux';
 
 /**
  * @param {applicationProfile}
  * @returns pending applications
  * Passed applicationProfile state from pendingApplication.js and rendered the applications in applicationModal.
  */
-export const openNotificationWithIcon = (type, status, err) => {
-  if (type === 'success') {
-    if (status === 'approved') {
-      notification[type]({
-        message: 'User has been approved successfully',
-      });
-    } else {
-      notification[type]({
-        message: 'User has been rejected successfully',
-      });
-    }
-  }
-
-  if (type === 'error') {
-    if (status === 'approved') {
-      notification[type]({
-        message: 'User could not be approved at this time',
-        description: `Error: ${err}`,
-      });
-    } else {
-      notification[type]({
-        message: 'User could not be rejected at this time',
-        description: `Error: ${err}`,
-      });
-    }
-  }
-};
 
 const ApplicationModal = ({
   profileId,
@@ -50,8 +20,6 @@ const ApplicationModal = ({
   getApps,
 }) => {
   const [currentApplication, setCurrentApplication] = useState();
-
-  const { axiosWithAuth } = useAxiosWithAuth0();
 
   const handleOk = () => {
     setDisplayModal(false);
@@ -89,39 +57,39 @@ const ApplicationModal = ({
    * Approve application dispatches a request to setApplicationApprove in state/actions/applications which then returns a response of either a success or error status
    */
 
-  const handleApplication = (role, status) => {
-    const payload = {
-      role: role,
-      status: status,
-    };
-    axiosWithAuth()
-      .put(`${API_URL}application/update-validate_status/${profileId}`, payload)
-      .then(res => {
-        console.log(currentApplication);
-        // Update state based on previous state
-        setCurrentApplication(prevState => {
-          return { ...prevState, children: payload.status };
-        });
+  // const handleApplication = (role, status) => {
+  //   const payload = {
+  //     role: role,
+  //     status: status,
+  //   };
+  //   axiosWithAuth()
+  //     .put(`${API_URL}application/update-validate_status/${profileId}`, payload)
+  //     .then(res => {
+  //       console.log(currentApplication);
+  //       // Update state based on previous state
+  //       setCurrentApplication(prevState => {
+  //         return { ...prevState, children: payload.status };
+  //       });
 
-        // Update state based on payload.status
-        if (payload.status === 'approved') {
-          setCurrentApplication(prevState => {
-            return { ...prevState, color: 'green' };
-          });
-        } else {
-          setCurrentApplication(prevState => {
-            return { ...prevState, color: 'red' };
-          });
-        }
-        setDisplayModal(false);
-        getApps();
-        console.log(currentApplication.status);
-        openNotificationWithIcon('success', status);
-      })
-      .catch(err => {
-        openNotificationWithIcon('error', status, err.message);
-      });
-  };
+  //       // Update state based on payload.status
+  //       if (payload.status === 'approved') {
+  //         setCurrentApplication(prevState => {
+  //           return { ...prevState, color: 'green' };
+  //         });
+  //       } else {
+  //         setCurrentApplication(prevState => {
+  //           return { ...prevState, color: 'red' };
+  //         });
+  //       }
+  //       setDisplayModal(false);
+  //       getApps();
+  //       console.log(currentApplication.status);
+  //       openNotificationWithIcon('success', status);
+  //     })
+  //     .catch(err => {
+  //       openNotificationWithIcon('error', status, err.message);
+  //     });
+  // };
 
   useEffect(() => {
     const getCurrentApp = () => {
@@ -163,17 +131,17 @@ const ApplicationModal = ({
             <Button
               key="submitA"
               type="primary"
-              onClick={() =>
-                handleApplication(`${currentApplication.role_name}`, 'approved')
-              }
+              // onClick={() =>
+              //   handleApplication(`${currentApplication.role_name}`, 'approved')
+              // }
             >
               Approve
             </Button>,
             <Button
               key="submitR"
-              onClick={() =>
-                handleApplication(`${currentApplication.role_name}`, 'reject')
-              }
+              // onClick={() =>
+              //   handleApplication(`${currentApplication.role_name}`, 'reject')
+              // }
               danger
             >
               Reject

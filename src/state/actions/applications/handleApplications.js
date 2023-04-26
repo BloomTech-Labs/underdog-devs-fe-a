@@ -5,7 +5,7 @@ import { setFetchError } from '../errors/setFetchError';
 import { setFetchEnd } from '../lifecycle/setFetchEnd';
 import { setFetchStart } from '../lifecycle/setFetchStart';
 
-import { openNotificationWithIcon } from '../../../components/pages/Applications/ApplicationModal';
+import { openNotificationWithIcon } from './applicationModal';
 
 export const HANDLE_APPLICATION_SUCCESS = 'HANDLE_APPLICATION_SUCCESS';
 
