@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './ApplicationModal.less';
 import { Modal, Button } from 'antd';
 import MenteeModal from './MenteeModal';
-import MentorModal from './';
+import MentorModal from './MentorModal';
 import { setCurrentApplication } from '../../../state/actions/applications/setCurrentApplication';
 
 import { handleApplication } from '../../../state/actions/applications/handleApplications';
@@ -37,7 +37,7 @@ const ApplicationModal = ({
       });
     };
     getCurrentApp();
-  }, [applicationProfile, profileId]);
+  }, [applicationProfile, profileId, currentApplication]);
 
   return (
     <>
@@ -99,7 +99,7 @@ const ApplicationModal = ({
 
 const mapStateToProps = state => {
   return {
-    currentApplication: state.user.currentApplication,
+    currentApplication: state.appReducer.currentApplication,
   };
 };
 

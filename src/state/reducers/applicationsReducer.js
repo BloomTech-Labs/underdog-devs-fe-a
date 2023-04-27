@@ -12,7 +12,7 @@ const initialState = {
   },
 };
 
-export const applicationsReducer = (state = initialState, action) => {
+const applicationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case HANDLE_APPLICATION_APPROVE:
       return {
@@ -45,3 +45,5 @@ export const applicationsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default applicationsReducer;

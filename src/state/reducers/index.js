@@ -9,7 +9,7 @@ import applicationsReducer from './applicationsReducer';
 const rootReducer = combineReducers({
   user: userReducer,
   calendarReducer,
-  applicationsReducer,
+  appReducer: applicationsReducer,
 });
 
 export default rootReducer;
