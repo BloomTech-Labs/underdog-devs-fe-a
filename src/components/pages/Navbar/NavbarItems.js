@@ -54,12 +54,7 @@ const NavbarItems = () => {
           onClick={() => loginWithRedirect()}
           style={{ marginLeft: 'auto' }}
         >
-          Login
-        </Button>
-      )}
-      {!isAuthenticated && (
-        <Button type="primary" onClick={() => push('/apply')}>
-          Apply
+          Login / Apply
         </Button>
       )}
 
