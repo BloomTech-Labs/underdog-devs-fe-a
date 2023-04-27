@@ -1,14 +1,17 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
 import './Navbar.less';
 import { Menu, Button, Switch } from 'antd';
 import { useEffect, useState } from 'react';
 import { setTheme } from '../../common/DarkModeToggle';
+import { setThemeRedux } from '../../../state/actions/theme/index';
 
 const NavbarItems = () => {
   const [darkMode, setDarkMode] = useState('dark');
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const { push } = useHistory();
+  const dispatch = useDispatch();
 
   const logoutAuth = () => {
     localStorage.removeItem('AuthToken');
@@ -25,6 +28,8 @@ const NavbarItems = () => {
      data from the DS API. */
   useEffect(() => {
     setTheme(darkMode);
+    dispatch(setThemeRedux(darkMode));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [darkMode]);
 
   return (
@@ -69,4 +74,8 @@ const NavbarItems = () => {
   );
 };
 
-export default NavbarItems;
+const mapStateToProps = state => {
+  return { themeRedux: state.theme.theme };
+};
+
+export default connect(mapStateToProps)(NavbarItems);

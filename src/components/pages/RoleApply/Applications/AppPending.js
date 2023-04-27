@@ -15,7 +15,7 @@ function AppPending(props) {
 
   return (
     <>
-      <Row align="center" gutter={[16, 16]} style={{ marginTop: '5vh' }}>
+      <Row align="center" gutter={[16, 16]} style={{ marginTop: '35vh' }}>
         <Col span={24} align="middle">
           <Title level={2}>Pending Application</Title>
         </Col>

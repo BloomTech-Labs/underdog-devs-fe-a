@@ -6,33 +6,27 @@ import MenteeMentorDashboard from '../MenteeMentorDashboard/MenteeMentorDashboar
 import Mentee from '../RoleApply/Applications/Mentee';
 import Mentor from '../RoleApply/Applications/Mentor';
 import AppPending from '../RoleApply/Applications/AppPending';
+import AppRejected from '../RoleApply/Applications/AppRejected';
 import LoadingComponent from '../../common/LoadingComponent';
 
-const Dashboard = props => {
+const Dashboard = ({ currentUser }) => {
   const { user } = useAuth0();
-  const { currentUser } = props;
-  /*
-   ** Following 2 lines check for user_metadata from Auth0 - if this data
-   ** exists, current user is new and needs to fill out form, so we
-   ** push them there.
-   */
-  // const newUser =
-  //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/newUser`];
-  // const newUserRole =
-  //   user[`${process.env.REACT_APP_AUTH0_IDTOKEN_IDENTIFIER}/role`];
-  // console.log(newUser);
-  // console.log(newUserRole);
-  if (currentUser.role === 'admin') {
+
+  const { role, tempProfile, validate_status, is_active } = currentUser;
+
+  if (role === 'admin') {
     return <Applications />;
-  } else if (currentUser.validate_status === 'pending') {
+  } else if (validate_status === 'pending') {
     return <AppPending />;
-  } else if (!currentUser.tempProfile && currentUser.role === 'mentor') {
+  } else if (validate_status === 'rejected' || is_active === false) {
+    return <AppRejected />;
+  } else if (!tempProfile && role === 'mentor') {
     return <MenteeMentorDashboard />;
-  } else if (!currentUser.tempProfile && currentUser.role === 'mentee') {
+  } else if (!tempProfile && role === 'mentee') {
     return <MenteeMentorDashboard />;
-  } else if (currentUser.tempProfile && currentUser.role === 'mentor') {
+  } else if (tempProfile && role === 'mentor') {
     return <Mentor />;
-  } else if (currentUser.tempProfile && currentUser.role === 'mentee') {
+  } else if (tempProfile && role === 'mentee') {
     return <Mentee />;
   } else {
     return <LoadingComponent />;
