@@ -41,7 +41,8 @@ const LandingPage = () => {
           {/*----*/}
           {/* Info button */}
           <div className="Info-anchor">
-            <a href="https://www.underdogdevs.org/">
+            {/* eslint-disable-next-line react/jsx-no-target-blank*/}
+            <a href="https://www.underdogdevs.org/" target="_blank">
               More Information About Us
             </a>
           </div>
