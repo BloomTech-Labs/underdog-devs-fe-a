@@ -12,7 +12,7 @@ export const FooterStyle = styled.div`
   .footer__col2,
   .footer__col3,
   .footer__col4 {
-    flex: 1;
+    flex: 15;
   }
   .copyright {
     text-align: left;
