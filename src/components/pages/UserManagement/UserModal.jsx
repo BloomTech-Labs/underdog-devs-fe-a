@@ -13,7 +13,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         title={
           <div className="header-api">
             <p style={{ marginBottom: '0px' }}>User Detail</p>{' '}
-            <p
+            <Button
               className="cross"
               style={{
                 marginBottom: '0px',
@@ -24,7 +24,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
               onClick={handleCancel}
             >
               <CloseOutlined />
-            </p>
+            </Button>
           </div>
         }
         width={'80vw'}

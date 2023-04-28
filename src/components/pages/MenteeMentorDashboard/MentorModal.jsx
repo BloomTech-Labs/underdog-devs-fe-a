@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
 const MentorModal = ({ userShow, handleCancel, user }) => {
@@ -10,7 +10,7 @@ const MentorModal = ({ userShow, handleCancel, user }) => {
           title={
             <div className="header-api">
               <p style={{ marginBottom: '0px' }}>Mentor Details</p>{' '}
-              <p
+              <Button
                 className="cross"
                 style={{
                   marginBottom: '0px',
@@ -21,7 +21,7 @@ const MentorModal = ({ userShow, handleCancel, user }) => {
                 onClick={handleCancel}
               >
                 <CloseOutlined />
-              </p>
+              </Button>
             </div>
           }
           width={'80vw'}
