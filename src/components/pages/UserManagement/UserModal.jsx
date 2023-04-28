@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
+import { CloseOutlined } from '@ant-design/icons';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
   const [matchShow, setMatchShow] = useState(false);
@@ -22,7 +23,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
               }}
               onClick={handleCancel}
             >
-              X
+              <CloseOutlined />
             </p>
           </div>
         }

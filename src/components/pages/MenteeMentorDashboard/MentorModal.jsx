@@ -1,4 +1,5 @@
 import { Modal } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
 const MentorModal = ({ userShow, handleCancel, user }) => {
   console.log(`USER`, user);
@@ -19,7 +20,7 @@ const MentorModal = ({ userShow, handleCancel, user }) => {
                 }}
                 onClick={handleCancel}
               >
-                X
+                <CloseOutlined />
               </p>
             </div>
           }

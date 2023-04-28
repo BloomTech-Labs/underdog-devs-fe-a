@@ -5,6 +5,7 @@ import { getUserMatches } from '../../../state/actions/userMatches/getUserMatche
 import { getSuggestedMatches } from '../../../state/actions/userMatches/getSuggestedMatches';
 import { updateUserMatches } from '../../../state/actions/userMatches/updateUserMatches';
 import { getAllUsers } from '../../../state/actions/allUsers/getAllUsers';
+import { CloseOutlined } from '@ant-design/icons';
 
 const MatchingModal = ({
   matchShow,
@@ -81,7 +82,7 @@ const MatchingModal = ({
                   handleCancel();
                 }}
               >
-                X
+                <CloseOutlined />
               </Button>
             </div>
           }

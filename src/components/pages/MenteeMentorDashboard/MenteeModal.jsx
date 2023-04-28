@@ -1,4 +1,5 @@
 import { Modal } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
 const MenteeUserModal = ({ userShow, handleCancel, user }) => {
   return (
@@ -17,7 +18,7 @@ const MenteeUserModal = ({ userShow, handleCancel, user }) => {
               }}
               onClick={handleCancel}
             >
-              X
+              <CloseOutlined />
             </p>
           </div>
         }
