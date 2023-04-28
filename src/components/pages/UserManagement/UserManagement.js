@@ -5,7 +5,7 @@ import { Table, Button, Tabs } from 'antd';
 import UserModal from './UserModal';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
 
-const UserManagement = ({ allMentors, allMentees }) => {
+const UserManagement = ({ allMentors, allMentees, themeRedux }) => {
   const [userShow, setUserShow] = useState(false);
   const [matchShow, setMatchShow] = useState(false);
   const [user, setUser] = useState('');
@@ -118,22 +118,41 @@ const UserManagement = ({ allMentors, allMentees }) => {
   return (
     <>
       <h2>Manage Users</h2>
-      <Tabs
-        type="card"
-        items={[
-          {
-            key: '1',
-            label: 'Mentees',
-          },
-          {
-            key: '2',
-            label: 'Mentors',
-          },
-        ]}
-        defaultActiveKey="1"
-        size="large"
-        onChange={() => handleChange()}
-      />
+      {themeRedux === 'dark' ? (
+        <Tabs
+          type="card"
+          items={[
+            {
+              key: '1',
+              label: 'Mentees',
+            },
+            {
+              key: '2',
+              label: 'Mentors',
+            },
+          ]}
+          defaultActiveKey="1"
+          size="large"
+          onChange={() => handleChange()}
+        />
+      ) : (
+        <Tabs
+          type="card"
+          items={[
+            {
+              key: '1',
+              label: <span style={{ color: 'black' }}>Mentees</span>,
+            },
+            {
+              key: '2',
+              label: <span style={{ color: 'black' }}>Mentors</span>,
+            },
+          ]}
+          defaultActiveKey="1"
+          size="large"
+          onChange={() => handleChange()}
+        />
+      )}
       <Table
         columns={columns}
         dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
@@ -156,6 +175,7 @@ const mapStateToProps = state => {
   return {
     allMentors: state.user.allMentors,
     allMentees: state.user.allMentees,
+    themeRedux: state.theme.theme,
   };
 };
 
