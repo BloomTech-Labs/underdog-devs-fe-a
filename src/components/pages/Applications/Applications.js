@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag, Switch } from 'antd';
@@ -73,7 +73,7 @@ const Applications = () => {
     return newConvertedDate;
   };
 
-  const getApps = async () => {
+  const getApps = useCallback(async () => {
     try {
       const api = await axiosWithAuth().get(`/application`);
       api.data.forEach(row => {
@@ -81,7 +81,7 @@ const Applications = () => {
           ? (row.role_name = 'mentor')
           : (row.role_name = 'mentee');
       });
-      
+
       if (isToggled === true) {
         setApplications(
           Object.values(api.data)
@@ -212,18 +212,17 @@ const Applications = () => {
             )
         );
       }
-      
     } catch (err) {
       // needs proper error handling
       console.error(err);
     }
-  };
+  });
 
   useEffect(() => {
     if (applications.length === 0) {
       getApps();
     }
-  });
+  }, [applications.validate_status, applications.length, getApps]);
 
   return (
     <>

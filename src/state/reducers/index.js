@@ -4,11 +4,13 @@ import { combineReducers } from 'redux';
 
 import userReducer from './userReducer';
 import calendarReducer from './calendarReducer';
+import applicationsReducer from './applicationsReducer';
 import themeReducer from './themeReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
   calendarReducer,
+  appReducer: applicationsReducer,
   theme: themeReducer,
 });
 
