@@ -36,26 +36,15 @@ const LandingPage = () => {
                   Log In
                 </Button>
               </div>
-
-              <h3>Ready to Join Underdog Devs?</h3>
-
-              <div className="button-container-apply">
-                <div className="button-container">
-                  <a href="/apply/mentor">
-                    <Button className="mentor-button">Apply as a Mentor</Button>
-                  </a>
-                </div>
-
-                <a href="/apply/mentee">
-                  <Button className="mentee-button">Apply as a Mentee</Button>
-                </a>
-              </div>
             </div>
           ) : null}
           {/*----*/}
           {/* Info button */}
           <div className="Info-anchor">
-            <a href="/apply">More Information About Us</a>
+            {/* eslint-disable-next-line react/jsx-no-target-blank*/}
+            <a href="https://www.underdogdevs.org/" target="_blank">
+              More Information About Us
+            </a>
           </div>
         </div>
         <div className="right1">

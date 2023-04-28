@@ -10,7 +10,6 @@ import thunk from 'redux-thunk';
 // ########################### PAGES AND COMPONENTS ########################### //
 import { NotFoundPage } from './components/pages/NotFound';
 import { Landing } from './components/pages/LandingPage';
-import Apply from './components/pages/RoleApply/Apply';
 import Mentee from './components/pages/RoleApply/Applications/Mentee';
 import Mentor from './components/pages/RoleApply/Applications/Mentor';
 import MyMemos from './components/pages/Memos/MyMemos';
@@ -68,7 +67,6 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Landing} />
-        <Route path="/apply" exact component={Apply} />
         <Route path="/apply/mentee" component={Mentee} />
         {/* why are these a different color? */}
         <Route path="/apply/mentor" component={Mentor} />

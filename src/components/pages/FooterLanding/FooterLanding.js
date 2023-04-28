@@ -23,30 +23,6 @@ export default function FooterLanding() {
             </div>
             <div className="footer__col2">
               <FooterCol
-                heading="Mentees"
-                links={[
-                  {
-                    title: 'Become a Mentee',
-                    path: '/',
-                    type: 'Link',
-                  },
-                ]}
-              />
-            </div>
-            <div className="footer__col3">
-              <FooterCol
-                heading="Mentors"
-                links={[
-                  {
-                    title: 'Become a Mentor',
-                    path: '/',
-                    type: 'Link',
-                  },
-                ]}
-              />
-            </div>
-            <div className="footer__col4">
-              <FooterCol
                 heading="Company"
                 links={[
                   {
