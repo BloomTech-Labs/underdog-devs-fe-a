@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import MatchingModal from '../MentorMenteeMatching/MatchingModal';
+import { CloseOutlined } from '@ant-design/icons';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
   const [matchShow, setMatchShow] = useState(false);
@@ -12,7 +13,7 @@ const UserModal = ({ userShow, handleCancel, user }) => {
         title={
           <div className="header-api">
             <p style={{ marginBottom: '0px' }}>User Detail</p>{' '}
-            <p
+            <Button
               className="cross"
               style={{
                 marginBottom: '0px',
@@ -22,8 +23,8 @@ const UserModal = ({ userShow, handleCancel, user }) => {
               }}
               onClick={handleCancel}
             >
-              X
-            </p>
+              <CloseOutlined />
+            </Button>
           </div>
         }
         width={'80vw'}
