@@ -222,7 +222,7 @@ const Applications = () => {
   useEffect(() => {
     getApps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isToggled]);
+  }, [isToggled, currentApplication?.validate_status]);
 
   return (
     <>
