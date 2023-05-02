@@ -39,6 +39,17 @@ const ApplicationModal = ({
     getCurrentApp();
   }, [applicationProfile, profileId, currentApplication]);
 
+  const statusHandler = status => {
+    dispatch(
+      handleApplication(
+        setDisplayModal,
+        `${currentApplication.key}`,
+        `${currentApplication.role_name}`,
+        status
+      )
+    );
+  };
+
   return (
     <>
       {currentApplication?.key === undefined ? (
@@ -67,19 +78,13 @@ const ApplicationModal = ({
             <Button
               key="submitA"
               type="primary"
-              onClick={() =>
-                handleApplication(`${currentApplication.role_name}`, 'approved')
-              }
+              onClick={() => statusHandler('approved')}
             >
               Approve
             </Button>,
             <Button
               key="submitR"
-              onClick={() =>
-                dispatch(
-                  handleApplication(`${currentApplication.role_name}`, 'reject')
-                )
-              }
+              onClick={() => statusHandler('rejected')}
               danger
             >
               Reject

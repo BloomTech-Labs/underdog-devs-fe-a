@@ -13,33 +13,28 @@ export const HANDLE_APPLICATION_APPROVE = 'HANDLE_APPLICATION_APPROVE';
 export const HANDLE_APPLICATION_REJECT = 'HANDLE_APPLICATION_REJECT';
 
 export const handleApplication = (setDisplayModal, profileId, role, status) => {
-  const payload = {
-    role: role,
-    status: status,
-  };
   return async dispatch => {
-    try {
-      dispatch(setFetchStart());
-      const api = await axios.put(
-        `${API_URL}application/update-validate_status/${profileId}`,
-        payload
-      );
-      dispatch(setDisplayModal(false));
-      dispatch(openNotificationWithIcon('success', status));
-      if (payload.status === 'approved') {
-        dispatch({ type: HANDLE_APPLICATION_APPROVE, payload: payload.status });
-      } else {
-        dispatch({ type: HANDLE_APPLICATION_REJECT, payload: payload.status });
-      }
-      return api;
-    } catch (err) {
-      throw new Error(
-        err,
-        dispatch(setFetchError(err)),
-        dispatch(openNotificationWithIcon('error', status, err.message))
-      );
-    } finally {
-      dispatch(setFetchEnd());
-    }
+    dispatch(setFetchStart());
+    axios
+      .put(`${API_URL}application/update-validate_status/${profileId}`, {
+        role: role,
+        status: status,
+      })
+      .then(() => {
+        setDisplayModal(false);
+        openNotificationWithIcon('success', status);
+        if (status === 'approved') {
+          return { type: HANDLE_APPLICATION_APPROVE, payload: status };
+        } else if (status === 'rejected') {
+          return { type: HANDLE_APPLICATION_REJECT, payload: status };
+        }
+        dispatch(setFetchEnd());
+      })
+      .catch(err => {
+        console.error(err);
+        dispatch(setFetchError(err));
+        openNotificationWithIcon('error', status, err.message);
+        dispatch(setFetchEnd());
+      });
   };
 };
