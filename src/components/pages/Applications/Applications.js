@@ -24,12 +24,12 @@ const columns = [
     key: 'role',
     filters: [
       {
-        text: 'mentor',
-        value: 'mentor',
+        text: 'Mentor',
+        value: 'Mentor',
       },
       {
-        text: 'mentee',
-        value: 'mentee',
+        text: 'Mentee',
+        value: 'Mentee',
       },
     ],
     onFilter: (value, record) => record.role.props.children === value,
@@ -50,16 +50,22 @@ const columns = [
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
+  const [currentApplication, setCurrentApplication] = useState({});
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [profileId, setProfileId] = useState('');
   const [isToggled, setIsToggled] = useState(true);
   const { axiosWithAuth } = useAxiosWithAuth0();
 
+  const uppercaseRole = role => {
+    return role.charAt(0).toUpperCase() + role.slice(1);
+  };
+
   const onToggle = () => {
     setIsToggled(!isToggled);
   };
 
-  const showModal = profile_id => {
+  const showModal = (application, profile_id) => {
+    setCurrentApplication(application);
     setProfileId(profile_id);
     setModalIsVisible(true);
   };
@@ -101,11 +107,7 @@ const Applications = () => {
               job_help: row.job_help,
               other_info: row.other_info,
               full_name: row.first_name + ' ' + row.last_name,
-              role: (
-                <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-                  {row.role_name}
-                </Tag>
-              ),
+              role: <p>{uppercaseRole(row.role_name)}</p>,
               date: convertDate(row.updated_at),
               status: (
                 <Tag
@@ -120,6 +122,7 @@ const Applications = () => {
                   {row.validate_status}
                 </Tag>
               ),
+              validate_status: row.validate_status,
               button: (
                 <Button
                   style={{
@@ -136,7 +139,7 @@ const Applications = () => {
                   }}
                   type="primary"
                   id={row.profile_id}
-                  onClick={() => showModal(row.profile_id)}
+                  onClick={() => showModal(row, row.profile_id)}
                 >
                   Review Application
                 </Button>
@@ -160,14 +163,11 @@ const Applications = () => {
               current_company: row.current_company,
               industry_knowledge: row.industry_knowledge,
               pair_programming: row.pair_programming,
+              profile_id: row.profile_id,
               job_help: row.job_help,
               other_info: row.other_info,
               full_name: row.first_name + ' ' + row.last_name,
-              role: (
-                <Tag color={row.role_name === 'mentor' ? 'blue' : 'purple'}>
-                  {row.role_name}
-                </Tag>
-              ),
+              role: <p>{uppercaseRole(row.role_name)}</p>,
               date: convertDate(row.updated_at),
               status: (
                 <Tag
@@ -182,6 +182,7 @@ const Applications = () => {
                   {row.validate_status}
                 </Tag>
               ),
+              validate_status: row.validate_status,
               button: (
                 <Button
                   style={{
@@ -198,7 +199,7 @@ const Applications = () => {
                   }}
                   type="primary"
                   id={row.profile_id}
-                  onClick={() => showModal(row.profile_id)}
+                  onClick={() => showModal(row)}
                 >
                   Review Application
                 </Button>
@@ -219,10 +220,9 @@ const Applications = () => {
   });
 
   useEffect(() => {
-    if (applications.length === 0) {
-      getApps();
-    }
-  }, [applications.validate_status, applications.length, getApps]);
+    getApps();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isToggled]);
 
   return (
     <>
@@ -234,7 +234,7 @@ const Applications = () => {
         setDisplayModal={setModalIsVisible}
         profileId={profileId}
         setProfileId={setProfileId}
-        applicationProfile={applications}
+        applicationProfile={currentApplication}
         getApps={getApps}
       />
       <Table columns={columns} dataSource={applications} />

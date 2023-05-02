@@ -28,22 +28,15 @@ const ApplicationModal = ({
   };
 
   useEffect(() => {
-    const getCurrentApp = () => {
-      // eslint-disable-next-line array-callback-return
-      Object.values(applicationProfile).map(current_id => {
-        if (current_id?.key === profileId) {
-          dispatch(setCurrentApplication(current_id));
-        }
-      });
-    };
-    getCurrentApp();
+    dispatch(setCurrentApplication(applicationProfile));
   }, [applicationProfile, profileId, currentApplication]);
 
   const statusHandler = status => {
+    applicationProfile.validate_status = status;
     dispatch(
       handleApplication(
         setDisplayModal,
-        `${currentApplication.key}`,
+        `${currentApplication.profile_id}`,
         `${currentApplication.role_name}`,
         status
       )
@@ -52,7 +45,7 @@ const ApplicationModal = ({
 
   return (
     <>
-      {currentApplication?.key === undefined ? (
+      {currentApplication?.profile_id === undefined ? (
         <Modal
           visible={displayModal}
           onOk={handleOk}

@@ -18,7 +18,7 @@ export const handleApplication = (setDisplayModal, profileId, role, status) => {
     axios
       .put(`${API_URL}application/update-validate_status/${profileId}`, {
         role: role,
-        status: status,
+        validate_status: status,
       })
       .then(() => {
         setDisplayModal(false);

@@ -1,6 +1,9 @@
 import { List, Tag } from 'antd';
 
 const MenteeModal = ({ applicant }) => {
+  const uppercaseStatus = status => {
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  };
   return (
     <>
       <div className="profile-intro">
@@ -113,6 +116,14 @@ const MenteeModal = ({ applicant }) => {
             </div>
           </List.Item>
         )}
+        <List.Item>
+          <div className="list-item-column">
+            <p>Current Status:</p>
+          </div>
+          <div className="list-item-column">
+            <p>{uppercaseStatus(applicant.validate_status)}</p>
+          </div>
+        </List.Item>
       </List>
     </>
   );
