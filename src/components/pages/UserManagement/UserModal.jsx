@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
-import MatchingModal from '../MentorMenteeMatching/MatchingModal';
+import MatchingModal from './UserManagement';
 import { CloseOutlined } from '@ant-design/icons';
 
 const UserModal = ({ userShow, handleCancel, user }) => {
