@@ -119,7 +119,6 @@ div.row2 .modalBtn:visited {
 .FieldTitle {
   width: 40%;
   padding: 20px 20px;
-  background-color: #eeeeee54;
   border: 1px solid #f2f4f5;
 }
 .FieldValue .userTag {
@@ -130,7 +129,7 @@ div.row2 .modalBtn:visited {
   flex-direction: column;
   justify-content: flex-start;
 }
-.addMentorContainer .ant-btn-primary {
+.ant-btn-primary {
   background-color: #1e6eb1;
 }
 .FieldValue {
@@ -165,7 +164,7 @@ div.row2 .modalBtn:visited {
   align-items: flex-start;
 }
 .Matches {
-  width: 45%;
+  width: 50%;
   height: auto;
   padding: 1rem;
   margin: 0 0 0;
@@ -176,7 +175,7 @@ div.row2 .modalBtn:visited {
   justify-content: space-between;
 }
 .Suggestions {
-  width: 55%;
+  width: 50%;
   height: auto;
   padding: 1rem;
 }
@@ -206,6 +205,19 @@ div.row2 .modalBtn:visited {
   flex-direction: row;
   justify-content: space-between;
 }
+.UserModal .matchingUserTable {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-between;
+  width: 50%;
+}
+.UserModal .matchingUserTable .customCol {
+  width: 100%;
+  display: flex;
+  align-items: normal;
+  background-color: grey;
+}
 @media screen and (max-width: 620px) {
   .UserTable {
     border: 1px solid black;
@@ -215,6 +227,16 @@ div.row2 .modalBtn:visited {
     flex-direction: column;
   }
   .UserTable .FieldTitle {
+    width: 100%;
+  }
+  .matchingUserTable {
+    border: 1px solid black;
+    padding: 0px !important;
+  }
+  .matchingUserTable .customCol {
+    flex-direction: column;
+  }
+  .matchingUserTable .FieldTitle {
     width: 100%;
   }
 }

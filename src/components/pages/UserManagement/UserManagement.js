@@ -177,12 +177,18 @@ const UserManagement = ({ allMentors, allMentees, themeRedux }) => {
         matchShow={matchShow}
         handleCancel={() => setMatchShow(false)}
         user={user}
+        themeRedux={themeRedux}
       />
     </>
   );
 };
 
-export const MatchingModal = ({ matchShow, handleCancel, user }) => {
+export const MatchingModal = ({
+  matchShow,
+  handleCancel,
+  user,
+  themeRedux,
+}) => {
   const [currentMatch, setCurrentMatch] = useState(null);
   const [isMatched, setIsMatched] = useState(false);
   const [matchChangeHappened, SetMatchChangedHappened] = useState(false);
@@ -340,10 +346,19 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
           className="UserModal"
         >
           <div className="MatchingModal">
-            <div className="UserTable">
+            <div className="matchingUserTable">
               <div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Name</div>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Name
+                  </div>
                   <p className="FieldValue">
                     {`${user?.first_name} ${user?.last_name}`}
                     <div className="userTag">
@@ -356,13 +371,29 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
                   </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
                     City &nbsp; State &#160; Country
                   </div>
                   <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Mentorship Topics</div>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Mentorship Topics
+                  </div>
                   <p className="FieldValue">
                     {typeof user?.tech_stack === typeof '' ? (
                       <p>&nbsp; {user?.tech_stack} &nbsp;</p>
@@ -374,7 +405,16 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
                   </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Other Topics</div>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Other Topics
+                  </div>
                   <p className="FieldValue">{user?.other_info}</p>
                 </div>
               </div>
@@ -439,7 +479,14 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
             </div>
             <br />
             {currentMatch ? (
-              <div className="UserTable">
+              <div
+                className="matchingUserTable"
+                style={
+                  themeRedux === 'dark'
+                    ? { backgroundColor: 'grey' }
+                    : { backgroundColor: '#D9D9D9' }
+                }
+              >
                 <div className="addMentorContainer">
                   {!isMatched ? (
                     <Button
@@ -468,8 +515,24 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
                 </div>
                 <br></br>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Name</div>
-                  <p className="FieldValue">
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Name
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
                     {`${currentMatch.first_name} ${currentMatch.last_name}`}
                     <div className="userTag">
                       <Tag color="blue">
@@ -482,30 +545,132 @@ export const MatchingModal = ({ matchShow, handleCancel, user }) => {
                 </div>
 
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Email</div>
-                  <p className="FieldValue">{`${currentMatch.email}`}</p>
-                </div>
-                <div span={24} className="customCol">
-                  <div className="FieldTitle">
-                    City &nbsp; State &nbsp; Country
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Email
                   </div>
-                  <p className="FieldValue">{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >{`${currentMatch.email}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Current Company / Position</div>
-                  <p className="FieldValue">{currentMatch.current_company}</p>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    City / State / Country
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >{`${currentMatch.city} / ${currentMatch.state} / ${currentMatch.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Mentorship Topics</div>
-                  <p className="FieldValue">{currentMatch.tech_stack}</p>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Current Company / Position
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
+                    {currentMatch.current_company}
+                  </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Other Topics</div>
-                  <p className="FieldValue">{currentMatch.other_info}</p>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Mentorship Topics
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
+                    {currentMatch.tech_stack}
+                  </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div className="FieldTitle">Anything Else?</div>
-                  <p className="FieldValue">{currentMatch.other_info}</p>
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Other Topics
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
+                    {currentMatch.other_info}
+                  </p>
+                </div>
+                <div span={24} className="customCol">
+                  <div
+                    className="FieldTitle"
+                    style={
+                      themeRedux === 'light'
+                        ? { backgroundColor: '#FAFAFA' }
+                        : { backgroundColor: '#A6A6A6' }
+                    }
+                  >
+                    Anything Else?
+                  </div>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
+                    {currentMatch.other_info}
+                  </p>
                 </div>
               </div>
             ) : (
