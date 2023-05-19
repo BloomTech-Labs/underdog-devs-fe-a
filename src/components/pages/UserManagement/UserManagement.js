@@ -359,7 +359,14 @@ export const MatchingModal = ({
                   >
                     Name
                   </div>
-                  <p className="FieldValue">
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
                     {`${user?.first_name} ${user?.last_name}`}
                     <div className="userTag">
                       <Tag color="blue">
@@ -381,7 +388,14 @@ export const MatchingModal = ({
                   >
                     City &nbsp; State &#160; Country
                   </div>
-                  <p className="FieldValue">{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >{`${user?.city} / ${user?.state} / ${user?.country}`}</p>
                 </div>
                 <div span={24} className="customCol">
                   <div
@@ -394,7 +408,14 @@ export const MatchingModal = ({
                   >
                     Mentorship Topics
                   </div>
-                  <p className="FieldValue">
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
                     {typeof user?.tech_stack === typeof '' ? (
                       <p>&nbsp; {user?.tech_stack} &nbsp;</p>
                     ) : (
@@ -415,7 +436,16 @@ export const MatchingModal = ({
                   >
                     Other Topics
                   </div>
-                  <p className="FieldValue">{user?.other_info}</p>
+                  <p
+                    className="FieldValue"
+                    style={
+                      themeRedux === 'dark'
+                        ? { backgroundColor: '#303030' }
+                        : { backgroundColor: '#FFFFFF' }
+                    }
+                  >
+                    {user?.other_info}
+                  </p>
                 </div>
               </div>
 
