@@ -14,6 +14,7 @@ export const setAllUsers = (list, role) => {
           <Tag color={'orange'}>No Matches</Tag>
         ),
       role: role === 'mentor' ? 'Mentor' : 'Mentee',
+      matches: row.matches === undefined ? [] : row.matches,
       ...row,
     };
   });
