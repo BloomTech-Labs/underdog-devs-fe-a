@@ -247,6 +247,9 @@ div.row2 .modalBtn:visited {
   padding-right: 15px;
   padding-left: 15px;
 }
+.pendingToggle {
+  margin-bottom: 20px;
+}
 @media (min-width: 476px) {
   .container-custom {
     padding-right: 15px;
