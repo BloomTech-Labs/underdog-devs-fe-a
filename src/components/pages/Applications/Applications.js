@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag, Switch } from 'antd';
+import axios from 'axios';
+import moment from 'moment';
 
 const columns = [
   // Names sorting by alphabetical order
@@ -38,8 +40,9 @@ const columns = [
     title: 'Date Submitted',
     dataIndex: 'date',
     key: 'date',
-    sorter: (a, b) => a.date.localeCompare(b.date),
+    sorter: (a, b) => moment(a.date).unix() - moment(b.date).unix(),
     sortDirections: ['descend', 'ascend'],
+    defaultSortOrder: 'ascend',
   },
   {
     title: 'Application',
@@ -74,7 +77,7 @@ const Applications = () => {
     const timestamp = new Date(previousDate);
     const newConvertedDate = timestamp.toLocaleString();
     if (newConvertedDate === 'Invalid Date') {
-      return '';
+      return new Date().toLocaleString();
     }
     return newConvertedDate;
   };
@@ -227,8 +230,10 @@ const Applications = () => {
   return (
     <>
       <h2>Applications</h2>
-      <span>Show only pending: </span>
-      <Switch checked={isToggled} onChange={onToggle} />
+      <div className="pendingToggle">
+        <span>Show only pending: </span>
+        <Switch checked={isToggled} onChange={onToggle} />
+      </div>
       <ApplicationModal
         displayModal={modalIsVisible}
         setDisplayModal={setModalIsVisible}
