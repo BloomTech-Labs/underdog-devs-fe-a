@@ -20,8 +20,11 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
   return (
     <>
       <div>
-        <h2>My {currentUser.role === 'mentor' ? 'Mentees' : 'Mentors'}</h2>
+        <h2 id="mentors-heading">
+          My {currentUser.role === 'mentor' ? 'Mentees' : 'Mentors'}
+        </h2>
         <List
+          aria-labelledby="mentors-heading"
           itemLayout="horizontal"
           dataSource={userMatches}
           renderItem={item => (
