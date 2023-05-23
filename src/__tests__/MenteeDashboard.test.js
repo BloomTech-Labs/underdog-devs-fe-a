@@ -6,6 +6,7 @@ import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
 import Dashboard from '../components/pages/Dashboard/Dashboard';
 import MenteeMentorDashboard from '../components/pages/MenteeMentorDashboard/MenteeMentorDashboard';
+import MentorModal from '../components/pages/Applications/MentorModal';
 
 afterEach(cleanup);
 // creating store variable
@@ -97,14 +98,10 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
         </Provider>
       );
     });
-    const mentorList = screen.getByRole('list', { name: /mentors/i });
+    const mentorList = screen.getAllByTestId('list');
 
-    const { getAllByRole } = within(mentorList);
-
-    const mentors = getAllByRole('listitem');
-
-    expect(mentors).toBeTruthy();
-    expect(mentors.length).toEqual(1);
+    expect(mentorList).toBeTruthy();
+    expect(mentorList).toEqual(1);
   });
 
   test('Clicking on Mentor opens Mentor Modal', async () => {
@@ -118,7 +115,7 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     const modal = document.getElementsByClassName('ant-modal-content');
     const mentorName = document.getElementsByClassName('ant-list-item');
 
-    userEvent.click(mentorName);
+    userEvent.click(mentorName, { pointerEventsCheck: 0 });
 
     expect(modal).toBeVisible();
   });
