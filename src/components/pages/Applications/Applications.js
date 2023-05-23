@@ -111,7 +111,7 @@ const Applications = () => {
               other_info: row.other_info,
               full_name: row.first_name + ' ' + row.last_name,
               role: <p>{uppercaseRole(row.role_name)}</p>,
-              date: convertDate(row.updated_at),
+              date: convertDate(row.created_at),
               status: (
                 <Tag
                   color={
@@ -171,7 +171,7 @@ const Applications = () => {
               other_info: row.other_info,
               full_name: row.first_name + ' ' + row.last_name,
               role: <p>{uppercaseRole(row.role_name)}</p>,
-              date: convertDate(row.updated_at),
+              date: convertDate(row.created_at),
               status: (
                 <Tag
                   color={
