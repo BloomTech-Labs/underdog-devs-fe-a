@@ -77,7 +77,7 @@ const Applications = () => {
     const timestamp = new Date(previousDate);
     const newConvertedDate = timestamp.toLocaleString();
     if (newConvertedDate === 'Invalid Date') {
-      return new Date().toLocaleString();
+      return '';
     }
     return newConvertedDate;
   };
