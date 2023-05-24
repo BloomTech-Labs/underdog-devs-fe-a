@@ -103,7 +103,7 @@ const Navbar = ({ currentUser, dispatch }) => {
   const accountMenu = <Menu items={menuItems} onClick={handleMenuClick} />;
 
   const reloadLogo = () => {
-    history.push('/dashboard');
+    history.push('/');
     document.location.reload();
   };
 

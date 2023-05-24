@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import './Navbar.less';
 import { Menu, Button, Switch } from 'antd';
@@ -12,6 +12,7 @@ const NavbarItems = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const { push } = useHistory();
   const dispatch = useDispatch();
+  let location = useLocation();
 
   const logoutAuth = () => {
     localStorage.removeItem('AuthToken');
@@ -57,9 +58,20 @@ const NavbarItems = () => {
           Login / Apply
         </Button>
       )}
-
-      {isAuthenticated && (
+      {isAuthenticated && location.pathname !== '/dashboard' ? (
         <>
+          <Button type="primary" onClick={() => push('/dashboard')}>
+            Dashboard
+          </Button>
+          <Button type="primary" onClick={logoutAuth}>
+            Logout
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button type="primary" onClick={() => push('/')}>
+            Home
+          </Button>
           <Button type="primary" onClick={logoutAuth}>
             Logout
           </Button>
