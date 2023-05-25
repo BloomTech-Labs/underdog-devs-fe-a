@@ -4,8 +4,8 @@ const tech_stack = [
     value: 'Android',
   },
   {
-    label: 'Back End',
-    value: 'Back End',
+    label: 'Backend',
+    value: 'Backend',
   },
   {
     label: 'Data Science',
@@ -16,8 +16,8 @@ const tech_stack = [
     value: 'Design UI/UX',
   },
   {
-    label: 'Front End',
-    value: 'Front End',
+    label: 'Frontend',
+    value: 'Frontend',
   },
   {
     label: 'Full Stack',
