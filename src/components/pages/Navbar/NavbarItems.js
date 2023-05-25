@@ -58,24 +58,20 @@ const NavbarItems = () => {
           Login / Apply
         </Button>
       )}
-      {isAuthenticated && location.pathname !== '/dashboard' ? (
-        <>
-          <Button type="primary" onClick={() => push('/dashboard')}>
-            Dashboard
-          </Button>
-          <Button type="primary" onClick={logoutAuth}>
-            Logout
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button type="primary" onClick={() => push('/')}>
-            Home
-          </Button>
-          <Button type="primary" onClick={logoutAuth}>
-            Logout
-          </Button>
-        </>
+      {isAuthenticated && location.pathname !== '/dashboard' && (
+        <Button type="primary" onClick={() => push('/dashboard')}>
+          Dashboard
+        </Button>
+      )}
+      {isAuthenticated && location.pathname === '/dashboard' && (
+        <Button type="primary" onClick={() => push('/')}>
+          Home
+        </Button>
+      )}
+      {isAuthenticated && (
+        <Button type="primary" onClick={logoutAuth}>
+          Logout
+        </Button>
       )}
     </Menu>
   );
