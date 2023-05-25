@@ -421,8 +421,18 @@ export const MatchingModal = ({
                     className="FieldValue"
                     style={
                       themeRedux === 'dark'
-                        ? { backgroundColor: '#303030' }
-                        : { backgroundColor: '#FFFFFF' }
+                        ? {
+                            backgroundColor: '#303030',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                          }
+                        : {
+                            backgroundColor: '#FFFFFF',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                          }
                     }
                   >
                     {typeof user?.tech_stack === typeof '' ? (
