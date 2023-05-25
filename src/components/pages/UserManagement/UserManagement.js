@@ -462,6 +462,7 @@ export const MatchingModal = ({
                             <p
                               onClick={() => {
                                 setCurrentMatch(row);
+                                console.log(row);
                                 setIsMatched(true);
                               }}
                               className="viewLink"
