@@ -197,6 +197,15 @@ export const MatchingModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const convertDate = previousDate => {
+    const timestamp = new Date(previousDate);
+    const newConvertedDate = timestamp.toLocaleString();
+    if (newConvertedDate === 'Invalid Date') {
+      return '';
+    }
+    return newConvertedDate;
+  };
+
   async function getUserMatches(idArr, role) {
     setUserMatches(null);
     if (idArr) {
@@ -531,7 +540,9 @@ export const MatchingModal = ({
                   ) : (
                     <div className="updated">
                       {currentMatch.updated_at ? (
-                        <span>Updated: {currentMatch.updated_at}</span>
+                        <span>
+                          Updated: {convertDate(currentMatch.updated_at)}
+                        </span>
                       ) : null}
                       <Button
                         className="ant-btn-secondary"

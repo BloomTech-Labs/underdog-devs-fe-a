@@ -143,7 +143,6 @@ div.row2 .modalBtn:visited {
   padding: 20px 20px !important;
   margin-bottom: 0px !important;
 }
-
 .FieldValue p {
   display: center;
 }
@@ -209,8 +208,9 @@ div.row2 .modalBtn:visited {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 50%;
+  height: 50%;
 }
 .UserModal .matchingUserTable .customCol {
   width: 100%;
