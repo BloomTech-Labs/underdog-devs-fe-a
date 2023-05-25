@@ -648,16 +648,34 @@ export const MatchingModal = ({
                   >
                     Mentorship Topics
                   </div>
-                  <p
+                  <div
                     className="FieldValue"
                     style={
                       themeRedux === 'dark'
-                        ? { backgroundColor: '#303030' }
-                        : { backgroundColor: '#FFFFFF' }
+                        ? {
+                            backgroundColor: '#303030',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                          }
+                        : {
+                            backgroundColor: '#FFFFFF',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                          }
                     }
                   >
-                    {currentMatch.tech_stack}
-                  </p>
+                    {currentMatch?.tech_stack ? (
+                      typeof currentMatch.tech_stack === typeof '' ? (
+                        <p>{currentMatch?.tech_stack}</p>
+                      ) : (
+                        currentMatch?.tech_stack.map((stack, idx) => {
+                          return <p key={idx}>{`${stack}`}</p>;
+                        })
+                      )
+                    ) : null}
+                  </div>
                 </div>
                 <div span={24} className="customCol">
                   <div
