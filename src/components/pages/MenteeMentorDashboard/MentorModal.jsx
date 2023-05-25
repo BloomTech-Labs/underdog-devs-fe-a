@@ -45,14 +45,21 @@ const MentorModal = ({ userShow, handleCancel, user }) => {
 
             <div span={24} className="customCol">
               <div className="FieldTitle">Mentorship Topics</div>
-              <p className="FieldValue">
+              <div
+                className="FieldValue"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                }}
+              >
                 {user?.tech_stack.length > 0 &&
                 typeof user?.tech_stack !== String
                   ? user?.tech_stack.map(el => {
-                      return <span> {el} &nbsp; &nbsp;</span>;
+                      return <p> {el} &nbsp; &nbsp;</p>;
                     })
                   : user?.tech_stack}
-              </p>
+              </div>
             </div>
 
             <div span={24} className="customCol">

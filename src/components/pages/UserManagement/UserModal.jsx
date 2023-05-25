@@ -73,29 +73,28 @@ const UserModal = ({ userShow, handleCancel, user }) => {
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Mentorship Topics</div>
-            <p className="FieldValue">
+            <div
+              className="FieldValue"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+              }}
+            >
               {user?.tech_stack ? (
                 typeof user.tech_stack === typeof '' ? (
-                  <p>&nbsp; {user?.tech_stack} &nbsp;</p>
+                  <p>{user?.tech_stack}</p>
                 ) : (
                   user?.tech_stack.map((stack, idx) => {
-                    return <p key={idx}> &nbsp; {`${stack}`} &nbsp;</p>;
+                    return <p key={idx}>{`${stack}`}</p>;
                   })
                 )
               ) : null}
-            </p>
+            </div>
           </div>
           <div span={24} className="customCol">
             <div className="FieldTitle">Commit?</div>
             <p className="FieldValue">{user?.commitment ? 'Yes' : 'No'}</p>
-          </div>
-          <div span={24} className="customCol">
-            <div className="FieldTitle">Hear about UD?</div>
-            <p className="FieldValue">{user?.referred_by}</p>
-          </div>
-          <div span={24} className="customCol">
-            <div className="FieldTitle">Anything else</div>
-            <p className="FieldValue">{user?.other_info}</p>
           </div>
         </div>
       </Modal>
