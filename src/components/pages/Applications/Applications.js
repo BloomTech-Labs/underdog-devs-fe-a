@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag, Switch } from 'antd';
-import axios from 'axios';
 import moment from 'moment';
 
 const columns = [

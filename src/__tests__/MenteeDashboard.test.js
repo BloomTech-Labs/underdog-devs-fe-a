@@ -1,14 +1,11 @@
-test.skip('we are not currently receiving the appropriate data, this entire test needs to be revisited/refactored or deleted. It was originally for the Mentee Dashboard Test', () => {
-  console.log('Revisit this test');
-});
-
-/* import React from 'react';
+import React from 'react';
 import { render, cleanup, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
-import Dashboard from '../components/pages/Dashboard/Dashboard';
+import MenteeMentorDashboard from '../components/pages/MenteeMentorDashboard/MenteeMentorDashboard';
+// import MentorModal from '../components/pages/MenteeMentorDashboard/MentorModal';
 
 afterEach(cleanup);
 // creating store variable
@@ -19,17 +16,17 @@ jest.mock('../state/actions/index', () => ({
     return {
       type: 'USER_PROFILE',
       payload: {
-        sub: '00u13oned0U8XP8Mb4x7',
-        name: 'Test008 User',
-        email: 'llama008@maildrop.cc',
-        preferred_username: 'llama008@maildrop.cc',
-        role: 4,
+        sub: 'auth0|62e443f59b1f5f6077c26ab9',
+        first_name: 'Jovanni',
+        email: 'bear004@maildrop.cc',
+        preferred_username: 'bear004@maildrop.cc',
+        role: 'mentee',
       },
     };
   }),
 }));
 
-//Fixes error of "Cannot read proprties of  undefined (addListener)"
+//Fixes error of "Cannot read properties of  undefined (addListener)"
 
 window.matchMedia =
   window.matchMedia ||
@@ -51,121 +48,90 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     localStorage.setItem('theme', 'dark');
   });
 
-  test('it renders Mentee Dashboard and checks for dashboard title', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <Dashboard />
-        </Provider>
-      );
-    });
-    const dashboardTitle = await screen.findByText(/Tickets Dashboard/i);
-    expect(dashboardTitle).toBeTruthy();
-    expect(dashboardTitle).toBeInTheDocument();
-    expect(dashboardTitle).toBeVisible();
-  });
-
-  test('it renders the dashboard and its container class', () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <Dashboard />
-        </Provider>
-      );
-    });
-    const dashboardContainer = document.getElementsByClassName(
-      'dashboard-container'
-    );
-    expect(dashboardContainer).toBeTruthy();
-  });
-
-  test('it renders all necessary tickets', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <Dashboard />
-        </Provider>
-      );
-    });
-
-    const escalationTickets = await screen.findByText(/Escalation Tickets/i);
-    const applicationTickets = await screen.findByText(/Application Tickets/i);
-    const resourceTickets = await screen.findByText(/Resource Tickets/i);
-
-    expect(escalationTickets).toBeTruthy();
-    expect(escalationTickets).toBeInTheDocument();
-    expect(escalationTickets).toBeVisible();
-    expect(applicationTickets).toBeTruthy();
-    expect(applicationTickets).toBeInTheDocument();
-    expect(applicationTickets).toBeVisible();
-    expect(resourceTickets).toBeTruthy();
-    expect(resourceTickets).toBeInTheDocument();
-    expect(resourceTickets).toBeVisible();
-  });
-
-  test('the amounts associated with each ticket type are all there and a value', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <Dashboard />
-        </Provider>
-      );
-    });
-
-    const ticketTypeAmounts = document.getElementsByClassName(
-      'ant-statistic-content-value-int'
-    );
-    expect(ticketTypeAmounts).toHaveLength(3);
-    expect(ticketTypeAmounts[0].textContent).not.toBeNaN();
-    expect(ticketTypeAmounts[1].textContent).not.toBeNaN();
-    expect(ticketTypeAmounts[2].textContent).not.toBeNaN();
-  });
-
-  test('all necessary columns within table are rendered', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <Dashboard />
-        </Provider>
-      );
-    });
-
-    const ticketID = await screen.findByText(/Ticket ID/i);
-    const message = await screen.findByText(/Message/i);
-    const dateSubmitted = await screen.findByText(/Date Submitted/i);
-
-    expect(ticketID).toBeTruthy();
-    expect(ticketID).toBeInTheDocument();
-    expect(ticketID).toBeVisible();
-    expect(message).toBeTruthy();
-    expect(message).toBeInTheDocument();
-    expect(message).toBeVisible();
-    expect(dateSubmitted).toBeTruthy();
-    expect(dateSubmitted).toBeInTheDocument();
-    expect(dateSubmitted).toBeVisible();
-  });
-
   test('Asserts that the selected mode is dark', async () => {
     act(() => {
       render(
         <Provider store={store}>
-          <Dashboard />
+          <MenteeMentorDashboard />
         </Provider>
       );
     });
     expect(localStorage.theme).toBe('dark');
   });
 
-  test('Checking that the table renders', () => {
-    render(
-      <Provider store={store}>
-        <Dashboard />
-      </Provider>
+  test('it renders Mentee Dashboard and checks for dashboard title', async () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <MenteeMentorDashboard />
+        </Provider>
+      );
+    });
+
+    const dashboardTitles = screen.queryAllByText(/My Mentors/i, {
+      selector: 'h2',
+    });
+    const dashboardTitle = dashboardTitles.find(
+      title => title.textContent === 'My Mentors'
     );
-    const table = document.getElementsByClassName('ant-table-container');
-    expect(table).toBeTruthy();
+
+    // Assert that dashboardTitles array is not empty
+    expect(dashboardTitles.length).toBeGreaterThan(0);
+
+    // Assert that the dashboardTitle element is not undefined
+    expect(dashboardTitle).toBeDefined();
+
+    // Assert that the dashboard title exists and contains the text "My Mentors"
+    expect(dashboardTitle).toBeTruthy();
+    expect(dashboardTitle).toHaveTextContent(/My Mentors/i);
+
+    expect(dashboardTitle).toBeInTheDocument();
+    expect(dashboardTitle).toBeVisible();
   });
+
+  // test('it renders the appropriate number of mentors', () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MenteeMentorDashboard />
+  //       </Provider>
+  //     );
+  //   });
+  //   const mentorList = screen.getAllByTestId('list');
+
+  //   expect(mentorList).toBeTruthy();
+  //   expect(mentorList).toEqual(1);
+  // });
+
+  // test('Clicking on Mentor opens Mentor Modal', async () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MenteeMentorDashboard />
+  //       </Provider>
+  //     );
+  //   });
+  //   const modal = document.getElementsByClassName('ant-modal-content');
+  //   const mentorName = document.getElementsByClassName('ant-list-item');
+
+  //   userEvent.click(mentorName, { pointerEventsCheck: 0 });
+
+  //   expect(modal).toBeVisible();
+  // });
+
+  // test('Modal opens showing mentor information', async () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MentorModal />
+  //       </Provider>
+  //     );
+  //   });
+  //   const name = document.getElementsByClassName('FieldTitle');
+  //   const mentorName = document.getElementsByClassName('FieldValue');
+
+  //   expect(localStorage.theme).toBe('dark');
+  //   expect(mentorName).toBeVisible();
+  //   expect(mentorName).toEqual(/Maison Ramos/i);
+  // });
 });
-
-
-*/

@@ -19,38 +19,37 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
 
   return (
     <>
-      <div>
-        <h2>My {currentUser.role === 'mentor' ? 'Mentees' : 'Mentors'}</h2>
-        <List
-          itemLayout="horizontal"
-          dataSource={userMatches}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta
-                title={`${item.first_name} ${item.last_name}`}
-                description={item.email}
-                onClick={() => {
-                  setUser(item);
-                  setUserShow(true);
-                }}
-              />
-            </List.Item>
-          )}
-        />
-        {currentUser.role === 'mentor' ? (
-          <MenteeModal
-            userShow={userShow}
-            handleCancel={() => setUserShow(false)}
-            user={user}
-          />
-        ) : (
-          <MentorModal
-            userShow={userShow}
-            handleCancel={() => setUserShow(false)}
-            user={user}
-          />
+      <h2>My {currentUser.role === 'mentor' ? 'Mentees' : 'Mentors'}</h2>
+      <List
+        itemLayout="horizontal"
+        dataSource={userMatches}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              data-testid="list"
+              title={`${item.first_name} ${item.last_name}`}
+              description={item.email}
+              onClick={() => {
+                setUser(item);
+                setUserShow(true);
+              }}
+            />
+          </List.Item>
         )}
-      </div>
+      />
+      {currentUser.role === 'mentor' ? (
+        <MenteeModal
+          userShow={userShow}
+          handleCancel={() => setUserShow(false)}
+          user={user}
+        />
+      ) : (
+        <MentorModal
+          userShow={userShow}
+          handleCancel={() => setUserShow(false)}
+          user={user}
+        />
+      )}
     </>
   );
 };
