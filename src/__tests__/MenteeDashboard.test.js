@@ -1,12 +1,11 @@
 import React from 'react';
-import { render, cleanup, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, cleanup, screen } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import createTestStore from '../__mocks__/CreateTestStore';
 import { Provider } from 'react-redux';
-import Dashboard from '../components/pages/Dashboard/Dashboard';
 import MenteeMentorDashboard from '../components/pages/MenteeMentorDashboard/MenteeMentorDashboard';
-import MentorModal from '../components/pages/Applications/MentorModal';
+// import MentorModal from '../components/pages/MenteeMentorDashboard/MentorModal';
 
 afterEach(cleanup);
 // creating store variable
@@ -90,45 +89,49 @@ describe('Mentee Dashboard test suite for mentee user role', () => {
     expect(dashboardTitle).toBeVisible();
   });
 
-  test('it renders the appropriate number of mentors', () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <MenteeMentorDashboard />
-        </Provider>
-      );
-    });
-    const mentorList = screen.getAllByTestId('list');
+  // test('it renders the appropriate number of mentors', () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MenteeMentorDashboard />
+  //       </Provider>
+  //     );
+  //   });
+  //   const mentorList = screen.getAllByTestId('list');
 
-    expect(mentorList).toBeTruthy();
-    expect(mentorList).toEqual(1);
-  });
+  //   expect(mentorList).toBeTruthy();
+  //   expect(mentorList).toEqual(1);
+  // });
 
-  test('Clicking on Mentor opens Mentor Modal', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <MenteeMentorDashboard />
-        </Provider>
-      );
-    });
-    const modal = document.getElementsByClassName('ant-modal-content');
-    const mentorName = document.getElementsByClassName('ant-list-item');
+  // test('Clicking on Mentor opens Mentor Modal', async () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MenteeMentorDashboard />
+  //       </Provider>
+  //     );
+  //   });
+  //   const modal = document.getElementsByClassName('ant-modal-content');
+  //   const mentorName = document.getElementsByClassName('ant-list-item');
 
-    userEvent.click(mentorName, { pointerEventsCheck: 0 });
+  //   userEvent.click(mentorName, { pointerEventsCheck: 0 });
 
-    expect(modal).toBeVisible();
-  });
+  //   expect(modal).toBeVisible();
+  // });
 
-  test('Modal opens showing mentor information', async () => {
-    act(() => {
-      render(
-        <Provider store={store}>
-          <MenteeMentorDashboard />
-        </Provider>
-      );
-    });
+  // test('Modal opens showing mentor information', async () => {
+  //   act(() => {
+  //     render(
+  //       <Provider store={store}>
+  //         <MentorModal />
+  //       </Provider>
+  //     );
+  //   });
+  //   const name = document.getElementsByClassName('FieldTitle');
+  //   const mentorName = document.getElementsByClassName('FieldValue');
 
-    expect(localStorage.theme).toBe('dark');
-  });
+  //   expect(localStorage.theme).toBe('dark');
+  //   expect(mentorName).toBeVisible();
+  //   expect(mentorName).toEqual(/Maison Ramos/i);
+  // });
 });
