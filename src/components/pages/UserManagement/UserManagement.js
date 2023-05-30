@@ -300,8 +300,9 @@ export const MatchingModal = ({
 
   const matchChangeHandler = () => {
     SetMatchChangedHappened(true);
-    let newUserArray = [...user.matches];
-    let newOtherArray = [...currentMatch.matches];
+    let newUserArray = user.matches?.length > 0 ? [...user.matches] : [];
+    let newOtherArray =
+      currentMatch.matches?.length > 0 ? [...currentMatch.matches] : [];
     const matchRole =
       user.role.toLowerCase() === 'mentor' ? 'mentee' : 'mentor';
     if (!isMatched) {
