@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'antd';
 import MatchingModal from './UserManagement';
 import { CloseOutlined } from '@ant-design/icons';
@@ -37,9 +37,9 @@ const UserModal = ({ userShow, handleCancel, user }) => {
       >
         <div style={{ padding: '0px 20px' }}>
           <span>
-            {`Mentor / ${user.numberOfMatches} ${
-              user.numberOfMatches === 1 ? 'Match' : 'Matches'
-            } `}
+            {`${user.role} / ${
+              user.numberOfMatches > 0 ? user.numberOfMatches : 0
+            } ${user.numberOfMatches === 1 ? 'Match' : 'Matches'} `}
             {''}
           </span>
           <Button

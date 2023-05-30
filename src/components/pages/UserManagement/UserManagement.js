@@ -472,7 +472,7 @@ export const MatchingModal = ({
               <div className="MatchSuggestMatch">
                 <div className="Matches">
                   <h4>Matches</h4>
-                  {userMatches ? (
+                  {userMatches && userMatches?.length > 0 ? (
                     userMatches.map((row, idx) => {
                       return (
                         <>
