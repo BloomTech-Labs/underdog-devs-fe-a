@@ -23,6 +23,8 @@ const UserManagement = ({ allMentors, allMentees, themeRedux }) => {
   const [displayRole, setDisplayRole] = useState('Mentees');
   const dispatch = useDispatch();
 
+  const { TabPane } = Tabs;
+
   const handleChange = () => {
     displayRole === 'Mentors'
       ? setDisplayRole('Mentees')
@@ -131,43 +133,59 @@ const UserManagement = ({ allMentors, allMentees, themeRedux }) => {
       <h2>Manage Users</h2>
       {themeRedux === 'dark' ? (
         <Tabs
+          className="userManagementDark"
           type="card"
-          items={[
-            {
-              key: '1',
-              label: 'Mentees',
-            },
-            {
-              key: '2',
-              label: 'Mentors',
-            },
-          ]}
           defaultActiveKey="1"
           size="large"
           onChange={() => handleChange()}
-        />
+        >
+          <TabPane tab="Mentees" key="1">
+            <Table
+              columns={columns}
+              bordered
+              dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+            />
+          </TabPane>
+          <TabPane tab="Mentors" key="2">
+            <Table
+              columns={columns}
+              bordered
+              dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+            />
+          </TabPane>
+        </Tabs>
       ) : (
         <Tabs
+          className="userManagementLight"
           type="card"
-          items={[
-            {
-              key: '1',
-              label: <span style={{ color: 'black' }}>Mentees</span>,
-            },
-            {
-              key: '2',
-              label: <span style={{ color: 'black' }}>Mentors</span>,
-            },
-          ]}
           defaultActiveKey="1"
           size="large"
+          tabBarStyle={{ color: 'black' }}
           onChange={() => handleChange()}
-        />
+        >
+          <TabPane
+            tab={<span style={{ color: 'black' }}>Mentees</span>}
+            key="1"
+            tabBarStyle={{ color: 'black' }}
+          >
+            <Table
+              columns={columns}
+              bordered
+              dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+            />
+          </TabPane>
+          <TabPane
+            tab={<span style={{ color: 'black' }}>Mentors</span>}
+            key="2"
+          >
+            <Table
+              columns={columns}
+              bordered
+              dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
+            />
+          </TabPane>
+        </Tabs>
       )}
-      <Table
-        columns={columns}
-        dataSource={displayRole === 'Mentors' ? allMentors : allMentees}
-      />
       <UserModal
         userShow={userShow}
         handleCancel={() => setUserShow(false)}

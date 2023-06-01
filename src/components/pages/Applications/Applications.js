@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import useAxiosWithAuth0 from '../../../hooks/useAxiosWithAuth0';
 import ApplicationModal from './ApplicationModal';
 import { Table, Button, Tag, Switch } from 'antd';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 const columns = [
@@ -50,7 +51,7 @@ const columns = [
   },
 ];
 
-const Applications = () => {
+const Applications = ({ themeRedux }) => {
   const [applications, setApplications] = useState([]);
   const [currentApplication, setCurrentApplication] = useState({});
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -228,22 +229,49 @@ const Applications = () => {
 
   return (
     <>
-      <h2>Applications</h2>
-      <div className="pendingToggle">
-        <span>Show only pending: </span>
-        <Switch checked={isToggled} onChange={onToggle} />
-      </div>
-      <ApplicationModal
-        displayModal={modalIsVisible}
-        setDisplayModal={setModalIsVisible}
-        profileId={profileId}
-        setProfileId={setProfileId}
-        applicationProfile={currentApplication}
-        getApps={getApps}
-      />
-      <Table columns={columns} dataSource={applications} />
+      {themeRedux === 'dark' ? (
+        <div className="applicationsDark">
+          <h2>Applications</h2>
+          <div className="pendingToggle">
+            <span>Show only pending: </span>
+            <Switch checked={isToggled} onChange={onToggle} />
+          </div>
+          <ApplicationModal
+            displayModal={modalIsVisible}
+            setDisplayModal={setModalIsVisible}
+            profileId={profileId}
+            setProfileId={setProfileId}
+            applicationProfile={currentApplication}
+            getApps={getApps}
+          />
+          <Table columns={columns} dataSource={applications} bordered />
+        </div>
+      ) : (
+        <div className="applicationsLight">
+          <h2>Applications</h2>
+          <div className="pendingToggle">
+            <span>Show only pending: </span>
+            <Switch checked={isToggled} onChange={onToggle} />
+          </div>
+          <ApplicationModal
+            displayModal={modalIsVisible}
+            setDisplayModal={setModalIsVisible}
+            profileId={profileId}
+            setProfileId={setProfileId}
+            applicationProfile={currentApplication}
+            getApps={getApps}
+          />
+          <Table columns={columns} dataSource={applications} bordered />
+        </div>
+      )}
     </>
   );
 };
 
-export default Applications;
+const mapStateToProps = state => {
+  return {
+    themeRedux: state.theme.theme,
+  };
+};
+
+export default connect(mapStateToProps)(Applications);

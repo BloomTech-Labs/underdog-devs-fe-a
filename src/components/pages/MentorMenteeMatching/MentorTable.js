@@ -69,6 +69,7 @@ const MentorTable = props => {
         columns={columns}
         dataSource={data}
         className="assignMentorTable"
+        bordered
       />
     </div>
   );
