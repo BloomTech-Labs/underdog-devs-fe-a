@@ -250,6 +250,46 @@ div.row2 .modalBtn:visited {
 .pendingToggle {
   margin-bottom: 20px;
 }
+.userManagementLight .ant-table {
+  border: 1px solid darkgrey;
+  border-top: none;
+}
+.applicationsLight .ant-table {
+  border: 1px solid black !important;
+}
+.applicationsDark .ant-table {
+  border: none !important;
+}
+.ant-tabs-nav {
+  margin: 0 !important;
+}
+.ant-tabs-nav-wrap {
+  border-bottom: 1px solid darkgrey;
+}
+.ant-tabs-tab {
+  border: 1px solid darkgrey !important;
+  border-bottom: none !important;
+}
+.ant-table-cell {
+  border-bottom: 1px solid #f0f0f0;
+}
+.userManagementDark .ant-table {
+  border: none !important;
+}
+.userManagementDark .ant-tabs-nav-wrap {
+  border: none !important;
+}
+.userManagementDark .ant-tabs-tab {
+  border: 1px solid #303030 !important;
+}
+.userManagementDark .ant-tab-tabs-active {
+  border-bottom: none !important;
+}
+.userManagementDark .ant-table-cell {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: #303030 !important;
+}
 @media (min-width: 476px) {
   .container-custom {
     padding-right: 15px;
