@@ -54,14 +54,11 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
   );
 };
 
-/*
-The current implementation of redux, will need to be updated once global state is introduced. 
-Ticket BL-1042 addresses this requirement
-*/
 const mapStateToProps = state => {
   return {
     currentUser: state.user.currentUser,
     userMatches: state.user.allUserMatches,
+    themeRedux: state.theme.theme,
   };
 };
 
