@@ -59,6 +59,7 @@ const ApplicationModal = ({
         <Modal
           title="Review Application"
           visible={displayModal}
+          width={600}
           onOk={handleOk}
           onCancel={handleCancel}
           afterClose={handleCancel}
