@@ -5,7 +5,7 @@ import { getUserMatches } from '../../../state/actions/userMatches/getUserMatche
 import MenteeModal from './MenteeModal';
 import MentorModal from './MentorModal';
 
-const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
+const MenteeMentorDashboard = ({ currentUser, userMatches, themeRedux }) => {
   const [userShow, setUserShow] = useState(false);
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
@@ -33,6 +33,11 @@ const MenteeMentorDashboard = ({ currentUser, userMatches }) => {
                 setUser(item);
                 setUserShow(true);
               }}
+              className={
+                themeRedux === 'light'
+                  ? 'mentorMenteeLight'
+                  : 'mentorMenteeDark'
+              }
             />
           </List.Item>
         )}
