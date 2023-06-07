@@ -32,8 +32,8 @@ export default function useForms(initialValues) {
       name = targetName;
       value = e;
     } else if (type === 'checkbox') {
-      name = e.target.value;
-      value = e.target.checked;
+      name = e.target.name;
+      value = e.target.value;
     } else if (type === 'radio') {
       name = e.target.name;
       value = e.target.value;

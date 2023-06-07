@@ -60,7 +60,6 @@ const Mentor = ({ dispatch, error, currentUser }) => {
 
   const formSubmit = () => {
     // newMentor function created within useForms custom hook to remove unkown true:"true" key-value pair from payload
-    // formValues.profile_id = currentUser.sub;
     dispatch(
       postNewMentorAccount(
         newMentor({ ...formValues, profile_id: currentUser.sub })
@@ -414,7 +413,6 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                     Underdog.
                   </em>
                 </div>
-
                 <Form.Item
                   style={{ paddingTop: '2rem' }}
                   label=" Are you able to commit to one or more of these?"
@@ -431,10 +429,7 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                     },
                   ]}
                 >
-                  <Radio.Group
-                    name="commitment"
-                    onChange={e => handleChange(e, 'checkbox')}
-                    value={formValues.commitment}
+                  <span
                     style={{
                       display: 'flex',
                       justifyContent: 'center',
@@ -445,14 +440,18 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                     }}
                   >
                     {commitmentArray.map(object => (
-                      <Radio
-                        style={{ margin: '.2rem', width: '100%' }}
-                        value={object.name}
-                      >
+                      <label>
+                        <input
+                          type="radio"
+                          value={object.name}
+                          name="commitment"
+                          onChange={e => handleChange(e, 'checkbox')}
+                          style={{ marginRight: '10px', marginLeft: '5px' }}
+                        />
                         {object.value}
-                      </Radio>
+                      </label>
                     ))}
-                  </Radio.Group>
+                  </span>
                 </Form.Item>
               </Col>
 
