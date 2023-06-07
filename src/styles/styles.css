@@ -112,10 +112,12 @@ cursor: pointer;
 
 .ant-list-items .ant-list-item .mentorMenteeDark:hover {
   background-color: #1f1f1f;
+  border: solid 2px #ffaf71;
 }
 
 .ant-list-items .ant-list-item .mentorMenteeLight:hover {
-  background-color: #ffaf71;
+  border: solid 2px #ffaf71;
+  background-color: #ffff;
 }
 
 .ant-list-items .ant-list-item:hover h4{
