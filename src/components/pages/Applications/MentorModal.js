@@ -53,7 +53,7 @@ const MentorModal = ({ applicant }) => {
           </div>
           <div className="list-item-column">
             <p>
-              {applicant.state} {applicant.country}
+              {applicant.country} / {applicant.state} / {applicant.city}
             </p>
           </div>
         </List.Item>
