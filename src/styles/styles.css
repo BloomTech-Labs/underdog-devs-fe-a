@@ -104,6 +104,26 @@ div.row2 .modalBtn:visited {
   color: #257ddc;
   text-decoration: none;
 }
+
+/*Mentor/Mentor Dashboard styles*/
+.ant-list-items .ant-list-item:hover {
+cursor: pointer;
+} 
+
+.ant-list-items .ant-list-item .mentorMenteeDark:hover {
+  background-color: #1f1f1f;
+  border: solid 2px #ffaf71;
+}
+
+.ant-list-items .ant-list-item .mentorMenteeLight:hover {
+  border: solid 2px #ffaf71;
+  background-color: #ffff;
+}
+
+.ant-list-items .ant-list-item:hover h4{
+  text-decoration: underline;
+}
+
 .MatchingModal {
   width: 100%;
   display: flex;

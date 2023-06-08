@@ -464,7 +464,7 @@ export const MatchingModal = ({
                   </p>
                 </div>
                 <div span={24} className="customCol">
-                  <div
+                  {/* <div
                     className="FieldTitle"
                     style={
                       themeRedux === 'light'
@@ -473,8 +473,8 @@ export const MatchingModal = ({
                     }
                   >
                     Other Topics
-                  </div>
-                  <p
+                  </div> */}
+                  {/* <p
                     className="FieldValue"
                     style={
                       themeRedux === 'dark'
@@ -483,7 +483,7 @@ export const MatchingModal = ({
                     }
                   >
                     {user?.other_info}
-                  </p>
+                  </p> */}
                 </div>
               </div>
 
@@ -717,7 +717,7 @@ export const MatchingModal = ({
                   </div>
                 </div>
                 <div span={24} className="customCol">
-                  <div
+                  {/* <div
                     className="FieldTitle"
                     style={
                       themeRedux === 'light'
@@ -736,10 +736,10 @@ export const MatchingModal = ({
                     }
                   >
                     {currentMatch.other_info}
-                  </p>
+                  </p> */}
                 </div>
                 <div span={24} className="customCol">
-                  <div
+                  {/* <div
                     className="FieldTitle"
                     style={
                       themeRedux === 'light'
@@ -758,7 +758,7 @@ export const MatchingModal = ({
                     }
                   >
                     {currentMatch.other_info}
-                  </p>
+                  </p> */}
                 </div>
               </div>
             ) : (
