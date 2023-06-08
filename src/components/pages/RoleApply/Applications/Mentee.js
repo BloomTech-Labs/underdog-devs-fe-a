@@ -120,7 +120,10 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       onChange={handleChange}
                       style={{ margin: '.5rem 1rem .5rem 0', gap: '0rem' }}
                     >
-                      <Input placeholder="First name" />
+                      <Input
+                        className="user-app-form-input"
+                        placeholder="First name"
+                      />
                     </Form.Item>
                   </Col>
 
@@ -141,7 +144,10 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       onChange={handleChange}
                       style={{ margin: '.5rem 1rem .5rem 0rem', gap: '0rem' }}
                     >
-                      <Input placeholder="Last name" />
+                      <Input
+                        className="user-app-form-input"
+                        placeholder="Last name"
+                      />
                     </Form.Item>
                   </Col>
 
@@ -166,7 +172,10 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       onChange={handleChange}
                       style={{ margin: '.5rem 1rem .5rem 0rem' }}
                     >
-                      <Input placeholder="Enter a valid email" />
+                      <Input
+                        className="user-app-form-input"
+                        placeholder="Enter a valid email"
+                      />
                     </Form.Item>
                   </Col>
 
@@ -245,7 +254,10 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       onChange={handleChange}
                       style={{ margin: '0 1rem .5rem 0' }}
                     >
-                      <Input placeholder="Your city" />
+                      <Input
+                        className="user-app-form-input"
+                        placeholder="Your city"
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -318,6 +330,7 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       <Input.TextArea
                         type="text"
                         name="convictions"
+                        className="user-app-form-input"
                         value={formValues.convictions}
                         onChange={handleChange}
                         placeholder="Your answer"
@@ -457,6 +470,7 @@ const Mentee = ({ dispatch, error, currentUser }) => {
                       <Input.TextArea
                         type="text"
                         name="other_info"
+                        className="user-app-form-input"
                         value={formValues.other_info}
                         onChange={handleChange}
                         placeholder="Your answer"

@@ -158,7 +158,10 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                   value={formValues.first_name}
                   onChange={handleChange}
                 >
-                  <Input placeholder="First name" />
+                  <Input
+                    className="user-app-form-input"
+                    placeholder="First name"
+                  />
                 </Form.Item>
               </Col>
               {/*Last name*/}
@@ -177,7 +180,10 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                   value={formValues.last_name}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Last name" />
+                  <Input
+                    className="user-app-form-input"
+                    placeholder="Last name"
+                  />
                 </Form.Item>
               </Col>
               {/*Email*/}
@@ -196,7 +202,10 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                   value={formValues.email}
                   onChange={handleChange}
                 >
-                  <Input placeholder="Enter a valid email" />
+                  <Input
+                    className="user-app-form-input"
+                    placeholder="Enter a valid email"
+                  />
                 </Form.Item>
               </Col>
               {/*Country*/}
@@ -270,7 +279,7 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                   value={formValues.city}
                   onChange={handleChange}
                 >
-                  <Input placeholder="City" />
+                  <Input className="user-app-form-input" placeholder="City" />
                 </Form.Item>
               </Col>
             </Row>
@@ -295,7 +304,10 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                     },
                   ]}
                 >
-                  <Input placeholder="Current company" />
+                  <Input
+                    className="user-app-form-input"
+                    placeholder="Current company"
+                  />
                 </Form.Item>
               </Col>
               {/*Position*/}
@@ -314,7 +326,10 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                     },
                   ]}
                 >
-                  <Input placeholder="Current position" />
+                  <Input
+                    className="user-app-form-input"
+                    placeholder="Current position"
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -445,6 +460,7 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                           type="radio"
                           value={object.name}
                           name="commitment"
+                          className="user-app-form-input"
                           onChange={e => handleChange(e, 'checkbox')}
                           style={{ marginRight: '10px', marginLeft: '5px' }}
                         />
@@ -504,6 +520,7 @@ const Mentor = ({ dispatch, error, currentUser }) => {
                   <Input.TextArea
                     type="text"
                     name="other_info"
+                    className="user-app-form-input"
                     value={formValues.other_info}
                     onChange={handleChange}
                     placeholder="Your answer"

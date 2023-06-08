@@ -17,6 +17,9 @@
   border-top-left-radius: 12px;
   padding: 2rem;
 }
+.user-app-form-input.ant-input-status-error {
+  background-color: transparent !important;
+}
 
 .col-container {
   padding: 2rem;
