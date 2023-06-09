@@ -209,9 +209,10 @@ cursor: pointer;
 .descriptionContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
+  margin-top: 85px;
 }
 .noCurrentMatch span {
   display: flex;

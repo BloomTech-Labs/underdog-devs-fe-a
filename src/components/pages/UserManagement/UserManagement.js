@@ -209,7 +209,7 @@ export const MatchingModal = ({
 }) => {
   const [currentMatch, setCurrentMatch] = useState(null);
   const [isMatched, setIsMatched] = useState(false);
-  const [matchChangeHappened, SetMatchChangedHappened] = useState(false);
+  const [matchChangeHappened, SetMatchChangeHappened] = useState(false);
   const [userMatches, setUserMatches] = useState(null);
   const [suggestedMatches, setSuggestedMatches] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -287,12 +287,14 @@ export const MatchingModal = ({
   }
 
   async function updateUserMatches(profile, matchArr, role) {
+    setIsLoading(true);
     role = role.toLowerCase();
     await axios({
       method: 'patch',
       url: `${process.env.REACT_APP_API_URI}matches/update/${role}/${profile.profile_id}`,
       data: matchArr,
     });
+    setIsLoading(false);
     return;
   }
 
@@ -314,10 +316,10 @@ export const MatchingModal = ({
       dispatch(getAllUsers('mentee'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMatch]);
+  }, [currentMatch, matchChangeHappened]);
 
-  const matchChangeHandler = () => {
-    SetMatchChangedHappened(true);
+  const matchChangeHandler = changeType => {
+    SetMatchChangeHappened(true);
     let newUserArray = user.matches?.length > 0 ? [...user.matches] : [];
     let newOtherArray =
       currentMatch.matches?.length > 0 ? [...currentMatch.matches] : [];
@@ -337,7 +339,22 @@ export const MatchingModal = ({
     updateUserMatches(user, newUserArray, user.role);
     updateUserMatches(currentMatch, newOtherArray, matchRole);
     getUserMatches(newUserArray, user.role.toLowerCase());
+
+    changeType === 'add' &&
+      setSuggestedMatches(
+        suggestedMatches.filter(match => {
+          if (match.email !== currentMatch.email) {
+            return match;
+          }
+        })
+      );
+    changeType === 'remove' &&
+      setSuggestedMatches([...suggestedMatches, currentMatch]);
+
     setCurrentMatch(null);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 10000);
   };
 
   return (
@@ -463,28 +480,7 @@ export const MatchingModal = ({
                     )}
                   </p>
                 </div>
-                <div span={24} className="customCol">
-                  {/* <div
-                    className="FieldTitle"
-                    style={
-                      themeRedux === 'light'
-                        ? { backgroundColor: '#FAFAFA' }
-                        : { backgroundColor: '#A6A6A6' }
-                    }
-                  >
-                    Other Topics
-                  </div> */}
-                  {/* <p
-                    className="FieldValue"
-                    style={
-                      themeRedux === 'dark'
-                        ? { backgroundColor: '#303030' }
-                        : { backgroundColor: '#FFFFFF' }
-                    }
-                  >
-                    {user?.other_info}
-                  </p> */}
-                </div>
+                <div span={24} className="customCol"></div>
               </div>
 
               <div className="MatchSuggestMatch">
@@ -494,19 +490,25 @@ export const MatchingModal = ({
                     userMatches.map((row, idx) => {
                       return (
                         <>
-                          <Divider style={{ margin: '8px 0' }} />
-                          <div className="matchLine" key={idx}>
-                            <p>{`${row.first_name} ${row.last_name}`}</p>
-                            <p
-                              onClick={() => {
-                                setCurrentMatch(row);
-                                setIsMatched(true);
-                              }}
-                              className="viewLink"
-                            >
-                              View
-                            </p>
-                          </div>
+                          {row && !isLoading ? (
+                            <>
+                              <Divider style={{ margin: '8px 0' }} />
+                              <div className="matchLine" key={idx}>
+                                <p>{`${row.first_name} ${row.last_name}`}</p>
+                                <p
+                                  onClick={() => {
+                                    setCurrentMatch(row);
+                                    setIsMatched(true);
+                                  }}
+                                  className="viewLink"
+                                >
+                                  View
+                                </p>
+                              </div>
+                            </>
+                          ) : (
+                            <Spin />
+                          )}
                         </>
                       );
                     })
@@ -560,7 +562,8 @@ export const MatchingModal = ({
                     <Button
                       className="ant-btn-primary"
                       onClick={() => {
-                        matchChangeHandler();
+                        setIsLoading(true);
+                        matchChangeHandler('add');
                       }}
                     >
                       Add as a Match
@@ -575,7 +578,8 @@ export const MatchingModal = ({
                       <Button
                         className="ant-btn-secondary"
                         onClick={() => {
-                          matchChangeHandler();
+                          setIsLoading(true);
+                          matchChangeHandler('remove');
                         }}
                       >
                         Remove Match
@@ -716,50 +720,8 @@ export const MatchingModal = ({
                     ) : null}
                   </div>
                 </div>
-                <div span={24} className="customCol">
-                  {/* <div
-                    className="FieldTitle"
-                    style={
-                      themeRedux === 'light'
-                        ? { backgroundColor: '#FAFAFA' }
-                        : { backgroundColor: '#A6A6A6' }
-                    }
-                  >
-                    Other Topics
-                  </div>
-                  <p
-                    className="FieldValue"
-                    style={
-                      themeRedux === 'dark'
-                        ? { backgroundColor: '#303030' }
-                        : { backgroundColor: '#FFFFFF' }
-                    }
-                  >
-                    {currentMatch.other_info}
-                  </p> */}
-                </div>
-                <div span={24} className="customCol">
-                  {/* <div
-                    className="FieldTitle"
-                    style={
-                      themeRedux === 'light'
-                        ? { backgroundColor: '#FAFAFA' }
-                        : { backgroundColor: '#A6A6A6' }
-                    }
-                  >
-                    Anything Else?
-                  </div>
-                  <p
-                    className="FieldValue"
-                    style={
-                      themeRedux === 'dark'
-                        ? { backgroundColor: '#303030' }
-                        : { backgroundColor: '#FFFFFF' }
-                    }
-                  >
-                    {currentMatch.other_info}
-                  </p> */}
-                </div>
+                <div span={24} className="customCol"></div>
+                <div span={24} className="customCol"></div>
               </div>
             ) : (
               <div className="descriptionContainer">
